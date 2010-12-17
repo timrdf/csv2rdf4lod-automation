@@ -111,7 +111,7 @@ if [ $runEnhancement == "yes" ]; then
       echo "E$eID conversion parameters has same number of todo:Literals as generated template. skipping." | tee -a $CSV2RDF4LOD_LOG
       runEnhancement="no"
    fi
-   # TODO: check to see if enhancement parameters match previous enhancement parameters (e2 same as e1)
+   # TODO: check to see if enhancement parameters match previous enhancement parameters (e2 same as e1). 
    rm $TMP_ePARAMS
 fi
 
@@ -257,7 +257,7 @@ fi
 #
 #
 
-sampleN="-sample ${CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS:-"2"}"        # TODO: add eg_only for -eg flag on converter
+sampleN="-sample ${CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS:-"2"}"        # TODO: add eg_only for -eg flag on converter. ok.
 
 if [ $runRaw == "yes" ]; then
    echo "RAW CONVERSION" | tee -a $CSV2RDF4LOD_LOG
