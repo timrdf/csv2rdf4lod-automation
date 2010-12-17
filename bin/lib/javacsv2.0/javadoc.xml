@@ -1,0 +1,22 @@
+<project name="javacsv" default="javadoc" basedir=".">
+	<property name="src" location="src" />
+	<property name="doc" location="doc" />
+	<target name="init">
+		<!-- Create the doc folder -->
+		<mkdir dir="${doc}" />
+	</target>
+	<target name="javadoc" depends="init" description="generate the javadocs">
+		<javadoc
+			destdir="${doc}" 
+			author="true" 
+			version="true"
+			use="true"
+			windowtitle="JavaCSV API"
+			access="public">
+			<packageset dir="${src}" />
+			<doctitle><![CDATA[<h1>JavaCSV</h1>]]></doctitle>
+			<bottom><![CDATA[<i>http://sourceforge.net/projects/javacsv/</i>]]></bottom>
+			<link href="http://java.sun.com/j2se/1.4.1/docs/api/"/>
+		</javadoc>
+	</target>
+</project>

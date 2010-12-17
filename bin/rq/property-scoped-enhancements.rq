@@ -1,0 +1,13 @@
+prefix conversion: <http://purl.org/twc/vocab/conversion/>
+prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>
+
+select distinct ?id ?label
+where {
+   ?dataset conversion:conversion_process ?process;
+            conversion:dataset_identifier ?id .
+   ?process conversion:enhance ?enhancement .
+   ?enhancement conversion:range rdfs:Resource ;
+                conversion:label ?label .
+   optional{ ?enhancement conversion:range_name ?range . }
+   filter(!bound(?range))
+}

@@ -1,0 +1,106 @@
+#!/bin/sh
+
+# changed from double quotes to single quotes to support Sun's OS.
+
+if [ ${1:-"no"} != "CLEAR" ]; then
+   #echo "CLASSPATH                             $CLASSPATH"
+   #echo "PATH                                  $PATH"
+
+   echo "CSV2RDF4LOD_HOME                                         ${CSV2RDF4LOD_HOME:-'!!! -- MUST BE SET -- !!! source csv2rdf4lod/source-me.sh'}"
+
+   echo "CSV2RDF4LOD_BASE_URI                                     ${CSV2RDF4LOD_BASE_URI:-'!!! -- MUST BE SET -- !!! source csv2rdf4lod/source-me.sh'}"
+
+   echo "CSV2RDF4LOD_BASE_URI_OVERRIDE                            ${CSV2RDF4LOD_BASE_URI_OVERRIDE:='(not required, \$CSV2RDF4LOD_BASE_URI will be used.)'}"
+
+   echo "CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS                  ${CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS:='(will default to: 2)'}"
+
+   echo "--"
+   echo "CSV2RDF4LOD_PUBLISH                                      ${CSV2RDF4LOD_PUBLISH:-'(will default to: true)'}"
+   echo "CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED                 ${CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED:-'(will default to: true)'}"
+   echo "CSV2RDF4LOD_PUBLISH_COMPRESS                             ${CSV2RDF4LOD_PUBLISH_COMPRESS:-'(will default to: false)'}"
+
+   echo "CSV2RDF4LOD_PUBLISH_TTL                                  ${CSV2RDF4LOD_PUBLISH_TTL:-'(will default to: true)'}"
+   echo "CSV2RDF4LOD_PUBLISH_TTL_LAYERS                           ${CSV2RDF4LOD_PUBLISH_TTL_LAYERS:-'(will default to: true)'}"
+
+   echo "CSV2RDF4LOD_PUBLISH_NT                                   ${CSV2RDF4LOD_PUBLISH_NT:-'(will default to: false)'}"
+
+   echo "CSV2RDF4LOD_PUBLISH_RDFXML                               ${CSV2RDF4LOD_PUBLISH_RDFXML:-'(will default to: false)'}"
+
+   echo "--"
+   echo "CSV2RDF4LOD_PUBLISH_SUBSET_VOID                          ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:='(will default to: true)'}"
+   echo "CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS                        ${CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS:='(will default to: false)'}"
+   echo "CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES                       ${CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES:='(will default to: false)'}"
+
+   echo "--"
+   echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION                  ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION:-'(will default to: false)'}"
+
+   echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT         ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:-'(will default to: VVV/publish/lod-mat/)'}"
+
+   echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WRITE_FREQUENCY  ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WRITE_FREQUENCY:-'(will default to: 1,000,000)'}"
+
+   echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_REPORT_FREQUENCY ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_REPORT_FREQUENCY:-'(will default to: 1,000)'}"
+
+   echo "CSV2RDF4LOD_CONCURRENCY                                  ${CSV2RDF4LOD_CONCURRENCY:-'(will default to: 1)'}"
+
+   echo "--"
+   echo "CSV2RDF4LOD_PUBLISH_TDB                                  ${CSV2RDF4LOD_PUBLISH_TDB:-'(will default to: false)'}"
+
+   echo "CSV2RDF4LOD_PUBLISH_TDB_DIR                              ${CSV2RDF4LOD_PUBLISH_TDB_DIR:-'(will default to: VVV/publish/tdb/)'}"
+
+   echo "CSV2RDF4LOD_PUBLISH_TDB_INDIV                            ${CSV2RDF4LOD_PUBLISH_TDB_INDIV:-'(will default to: false)'}"
+
+   echo "--"
+   echo "CSV2RDF4LOD_PUBLISH_4STORE                               ${CSV2RDF4LOD_PUBLISH_4STORE:-'(will default to: false)'}"
+   echo "CSV2RDF4LOD_PUBLISH_4STORE_KB                            ${CSV2RDF4LOD_PUBLISH_4STORE_KB:-'(will default to: csv2rdf4lod -- leading to /var/lib/4store/csv2rdf4lod)'}" 
+
+   echo "--"
+   echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO                             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-'(will default to: false)'}"
+
+   if [ ${#CSV2RDF4LOD_HOME} -gt 0 ]; then
+      echo "--"
+      echo "see documentation for variables in:"
+      echo "$CSV2RDF4LOD_HOME/bin/setup.sh"
+   fi
+else
+
+   echo "clearing..."
+   export CSV2RDF4LOD_HOME=""
+   export CSV2RDF4LOD_BASE_URI=""
+
+   export CSV2RDF4LOD_BASE_URI_OVERRIDE=""           
+   export CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS=""
+   # "--"
+
+   export CSV2RDF4LOD_PUBLISH=""
+   export CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED=""
+   export CSV2RDF4LOD_PUBLISH_COMPRESS=""
+   export CSV2RDF4LOD_PUBLISH_TTL=""
+   export CSV2RDF4LOD_PUBLISH_TTL_LAYERS=""
+   export CSV2RDF4LOD_PUBLISH_NT=""
+   export CSV2RDF4LOD_PUBLISH_RDFXML=""
+   # "--"
+   export CSV2RDF4LOD_PUBLISH_SUBSET_VOID=""
+   export CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS=""
+   export CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES=""
+   # "--"
+   export CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION=""
+   export CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT=""
+   export CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WRITE_FREQUENCY=""
+   export CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_REPORT_FREQUENCY=""
+   export CSV2RDF4LOD_CONCURRENCY=""
+   # "--"
+   export CSV2RDF4LOD_PUBLISH_TDB=""
+   export CSV2RDF4LOD_PUBLISH_TDB_DIR=""
+
+   export CSV2RDF4LOD_PUBLISH_TDB_INDIV=""
+
+   # "--"
+   export CSV2RDF4LOD_PUBLISH_4STORE=""
+   export CSV2RDF4LOD_PUBLISH_4STORE_KB=""
+   
+   # "--"
+   export CSV2RDF4LOD_PUBLISH_VIRTUOSO=""
+   
+   echo "...cleared."
+   $0 # Run this script again to show that they were cleared.
+fi

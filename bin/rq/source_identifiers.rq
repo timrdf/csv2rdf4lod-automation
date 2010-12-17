@@ -1,0 +1,8 @@
+prefix conversion: <http://purl.org/twc/vocab/conversion/>
+
+select distinct ?source
+where { 
+  graph ?g {
+    ?g conversion:source_identifier ?source
+  }
+}
