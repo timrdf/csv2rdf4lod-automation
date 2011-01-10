@@ -10,7 +10,7 @@ usage_message="usage: `basename $0` /path/to/source/a.xls /path/to/destination/a
 if [ $# -ne 3 ]; then
    echo $usage_message 
    echo "   engine-name: xls2csv, tab2comma, redelimit, file_rename, escaping_commas_redelimit etc. (URI-friendly)"
-   echo "                duplicate, google_refine"
+   echo "                duplicate, google_refine, serialization_change"
    exit 1
 fi
 
