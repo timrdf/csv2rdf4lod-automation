@@ -1,0 +1,3 @@
+[submodule "bin/lod-materialize"]
+	path = bin/lod-materialize
+	url = ../lod-materialize
