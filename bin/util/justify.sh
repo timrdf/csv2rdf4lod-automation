@@ -58,9 +58,10 @@ logID=`java edu.rpi.tw.string.NameFactory`
 #while [ $# -gt 0 ]; do
    antecedent="$1"
    consequent="$2"
-   engine_name="xls2csv"
-   engine_name="`echo $3 | awk '{print tolower($0)}'`"
-   engine_nameUP="`echo $3 | awk '{print toupper($0)}'`"
+
+   method="`echo $3 | awk '{print tolower($0)}'`"                                                           # e.g., 'serialization_change'
+   method_name="conv:${method}_Method"                                                                      # e.g., 'serialization_change_Method'
+   engine_type="conv:`echo $method | awk '{print toupper(substr($0,0,1)) substr($0,2,length($0))}'`_Engine" # e.g.  'Serialization_change_Engine
 
    if [ ! -e $antecedent ]; then
       echo "$antecedent does not exist; no justifications asserted."
@@ -72,7 +73,6 @@ logID=`java edu.rpi.tw.string.NameFactory`
    fi
    echo
    echo ---------------------------------- justify ---------------------------------------
-   echo "$antecedent -> $consequent"
    if [ `man stat | grep 'BSD General Commands Manual' | wc -l` -gt 0 ]; then
       # mac version
       antecedentModDateTime=`stat -t "%Y-%m-%dT%H:%M:%S%z" $antecedent | awk '{gsub(/"/,"");print $9}' | sed 's/^\(.*\)\(..\)$/\1:\2/'`
@@ -87,8 +87,12 @@ logID=`java edu.rpi.tw.string.NameFactory`
    usageDateTime=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`
    #for file in `unzip -l "$zip" | tail -$tailParam | head -$numFiles | awk -v zip="$zip" -f $CSV2RDF4LOD_HOME/bin/util/punzip.awk`
    #do
-      echo $consequent came from $antecedent
       requestID=`java edu.rpi.tw.string.NameFactory`
+      engine_name="$method$requestID"
+
+      echo "$antecedent (a $engine_type applying $method_name) -> $consequent"
+      echo $consequent came from $antecedent
+      echo "$antecedent -> $consequent"
 
       # Relative paths.
       consequentURI="<`basename $consequent`>"
@@ -132,8 +136,8 @@ logID=`java edu.rpi.tw.string.NameFactory`
       echo "      pmlj:hasIndex 0;"                                                      >> $consequent.pml.ttl
       echo "      pmlj:hasAntecedentList ( $antecedentNodeSet $userNodeSet );"           >> $consequent.pml.ttl
       #echo "      pmlj:hasSourceUsage     $sourceUsage;"                                >> $consequent.pml.ttl
-      echo "      pmlj:hasInferenceEngine <$engine_name$requestID>;"                     >> $consequent.pml.ttl
-      echo "      pmlj:hasInferenceRule   conv:${engine_name}_Method;"                   >> $consequent.pml.ttl
+      echo "      pmlj:hasInferenceEngine <$method$requestID>;"                          >> $consequent.pml.ttl
+      echo "      pmlj:hasInferenceRule   $method_name;"                                 >> $consequent.pml.ttl
       echo "   ];"                                                                       >> $consequent.pml.ttl
       echo "."                                                                           >> $consequent.pml.ttl
       echo                                                                               >> $consequent.pml.ttl
@@ -151,12 +155,12 @@ logID=`java edu.rpi.tw.string.NameFactory`
       echo "   foaf:accountName \"`whoami`\";"                                           >> $consequent.pml.ttl
       echo "."                                                                           >> $consequent.pml.ttl
       echo ""                                                                            >> $consequent.pml.ttl
-      echo "<$engine_name$requestID>"                                                    >> $consequent.pml.ttl
-      echo "   a pmlp:InferenceEngine, conv:${engine_nameUP}Engine;"                     >> $consequent.pml.ttl
-      echo "   dcterms:identifier \"$engine_name$requestID\";"                           >> $consequent.pml.ttl
+      echo "<$engine_name>"                                                              >> $consequent.pml.ttl
+      echo "   a pmlp:InferenceEngine, $engine_type;"                                    >> $consequent.pml.ttl
+      echo "   dcterms:identifier \"$engine_name\";"                                     >> $consequent.pml.ttl
       echo "."                                                                           >> $consequent.pml.ttl
       echo                                                                               >> $consequent.pml.ttl
-      echo "conv:${engine_nameUP}Engine rdfs:subClassOf pmlp:InferenceEngine ."          >> $consequent.pml.ttl
+      echo "$engine_type rdfs:subClassOf pmlp:InferenceEngine ."                         >> $consequent.pml.ttl
    #done
    echo --------------------------------------------------------------------------------
    shift

@@ -18,6 +18,8 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "CSV2RDF4LOD_PUBLISH                                      ${CSV2RDF4LOD_PUBLISH:-"(will default to: true)"}"
    echo "CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED                 ${CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED:-"(will default to: true)"}"
    echo "CSV2RDF4LOD_PUBLISH_COMPRESS                             ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"(will default to: false)"}"
+   echo "CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID                        ${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:="(will not archive conversion metadata into versioned dataset.)"}"
+   echo "CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID                       ${CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID:="(will not archive conversion metadata into versioned dataset.)"}"
 
    echo "CSV2RDF4LOD_PUBLISH_TTL                                  ${CSV2RDF4LOD_PUBLISH_TTL:-"(will default to: true)"}"
    echo "CSV2RDF4LOD_PUBLISH_TTL_LAYERS                           ${CSV2RDF4LOD_PUBLISH_TTL_LAYERS:-"(will default to: true)"}"
@@ -76,6 +78,8 @@ else
    export CSV2RDF4LOD_PUBLISH=""
    export CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED=""
    export CSV2RDF4LOD_PUBLISH_COMPRESS=""
+   export CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID=""
+   export CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID=""
    export CSV2RDF4LOD_PUBLISH_TTL=""
    export CSV2RDF4LOD_PUBLISH_TTL_LAYERS=""
    export CSV2RDF4LOD_PUBLISH_NT=""

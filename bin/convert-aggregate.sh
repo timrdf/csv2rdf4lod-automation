@@ -298,11 +298,20 @@ fi
 #
 if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
    for dumpFile in $filesToCompress ; do
-      echo "$dumpFile.tgz (will delete uncompressed version at end of processing)" | tee -a $CSV2RDF4LOD_LOG
+      echo "$dumpFile.tgz (will delete uncompressed version at end of processing)" | tee -a $CSV2RDF4LOD_LOG # TODO:notar
       dumpFileDir=`dirname $dumpFile`
       dumpFileBase=`basename $dumpFile`
       pushd $dumpFileDir 2>/dev/null
-         tar czf $dumpFileBase.tgz $dumpFileBase
+         tar czf $dumpFileBase.tgz $dumpFileBase  # TODO:notar
+         # TODO:notar Don't use tar if there is only ever one file; use gzip instead.
+         # cat $dumpFileBase gzip > $dumpFileBase.gz
+
+         # WARNING: 
+         # gunzip $dumpFileBase.gz # will remove .gz file
+         # INSTEAD:
+         # gunzip -c $dumpFileBase.gz > $dumpFileBase # Keep .gz and write to original.
+         # FYI: 
+         # bzip has a -k option to keep it around.
       popd
       # NOTE, pre-tarball will be deleted at end of this script.
    done
@@ -442,17 +451,17 @@ for serialization in ttl nt rdf
 do
    echo "dump=$sourceID-$datasetID-$datasetVersion.$serialization"                                                                              >> $lnwwwrootSH
    echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$datasetVersion/conversion/\$dump" >> $lnwwwrootSH
-   echo "if [ -e $publishDir/\$dump.tgz ]; then "                          >> $lnwwwrootSH
-   echo "   if [ -e \$wwwfile.tgz ]; then"                                 >> $lnwwwrootSH
-   echo "      rm -f \$wwwfile.tgz"                                        >> $lnwwwrootSH
+   echo "if [ -e $publishDir/\$dump.tgz ]; then "                          >> $lnwwwrootSH # TODO:notar
+   echo "   if [ -e \$wwwfile.tgz ]; then"                                 >> $lnwwwrootSH # TODO:notar
+   echo "      rm -f \$wwwfile.tgz"                                        >> $lnwwwrootSH # TODO:notar
    echo "   else"                                                          >> $lnwwwrootSH
-   echo "      mkdir -p \`dirname \$wwwfile.tgz\`"                         >> $lnwwwrootSH
+   echo "      mkdir -p \`dirname \$wwwfile.tgz\`"                         >> $lnwwwrootSH # TODO:notar
    echo "   fi"                                                            >> $lnwwwrootSH
-   echo "   echo \"  \$wwwfile.tgz\""                                      >> $lnwwwrootSH
-   echo "   ln $publishDir/\$dump.tgz \$wwwfile.tgz"                       >> $lnwwwrootSH
+   echo "   echo \"  \$wwwfile.tgz\""                                      >> $lnwwwrootSH # TODO:notar
+   echo "   ln $publishDir/\$dump.tgz \$wwwfile.tgz"                       >> $lnwwwrootSH # TODO:notar
    echo ""                                                                 >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then"                                     >> $lnwwwrootSH
-   echo "      echo \"  \$wwwfile\" - removing b/c tgz available"          >> $lnwwwrootSH
+   echo "      echo \"  \$wwwfile\" - removing b/c tgz available"          >> $lnwwwrootSH # TODO:notar
    echo "      rm -f \$wwwfile # clean up to save space"                   >> $lnwwwrootSH
    echo "   fi"                                                            >> $lnwwwrootSH
    echo "elif [ -e $publishDir/\$dump ]; then "                            >> $lnwwwrootSH
@@ -475,17 +484,17 @@ do
    do
       echo "dump=$sourceID-$datasetID-$datasetVersion.$conversionID.$serialization"                                                                >> $lnwwwrootSH
       echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$datasetVersion/conversion/\$dump" >> $lnwwwrootSH
-      echo "if [ -e $publishDir/\$dump.tgz ]; then "                          >> $lnwwwrootSH
-      echo "   if [ -e \$wwwfile.tgz ]; then"                                 >> $lnwwwrootSH
-      echo "      rm -f \$wwwfile.tgz"                                        >> $lnwwwrootSH
+      echo "if [ -e $publishDir/\$dump.tgz ]; then "                          >> $lnwwwrootSH # TODO:notar
+      echo "   if [ -e \$wwwfile.tgz ]; then"                                 >> $lnwwwrootSH # TODO:notar
+      echo "      rm -f \$wwwfile.tgz"                                        >> $lnwwwrootSH # TODO:notar
       echo "   else"                                                          >> $lnwwwrootSH
-      echo "      mkdir -p \`dirname \$wwwfile.tgz\`"                         >> $lnwwwrootSH
+      echo "      mkdir -p \`dirname \$wwwfile.tgz\`"                         >> $lnwwwrootSH # TODO:notar
       echo "   fi"                                                            >> $lnwwwrootSH
-      echo "   echo \"  \$wwwfile.tgz\""                                      >> $lnwwwrootSH
-      echo "   ln $publishDir/\$dump.tgz \$wwwfile.tgz"                       >> $lnwwwrootSH
+      echo "   echo \"  \$wwwfile.tgz\""                                      >> $lnwwwrootSH # TODO:notar
+      echo "   ln $publishDir/\$dump.tgz \$wwwfile.tgz"                       >> $lnwwwrootSH # TODO:notar
       echo ""                                                                 >> $lnwwwrootSH
       echo "   if [ -e \$wwwfile ]; then"                                     >> $lnwwwrootSH
-      echo "      echo \"  \$wwwfile\" - removing b/c tgz available"          >> $lnwwwrootSH
+      echo "      echo \"  \$wwwfile\" - removing b/c tgz available"          >> $lnwwwrootSH # TODO:notar
       echo "      rm -f \$wwwfile # clean up to save space"                   >> $lnwwwrootSH
       echo "   fi"                                                            >> $lnwwwrootSH
       echo "elif [ -e $publishDir/\$dump ]; then "                            >> $lnwwwrootSH
@@ -553,18 +562,18 @@ echo ""                                                                         
 echo "delete=\"\""                                                                      >> $loadtdbSH
 echo "if [ ! -e $allNT ]; then"                                                         >> $loadtdbSH
 echo "  delete=\"$allNT\""                                                              >> $loadtdbSH
-echo "  if [ -e $allNT.tgz ]; then"                                                     >> $loadtdbSH
-echo "    tar xzf $allNT.tgz"                                                           >> $loadtdbSH
+echo "  if [ -e $allNT.tgz ]; then"                                                     >> $loadtdbSH # TODO:notar
+echo "    tar xzf $allNT.tgz"                                                           >> $loadtdbSH # TODO:notar
 echo "  elif [ -e $allTTL ]; then"                                                      >> $loadtdbSH
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""     >> $loadtdbSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                    >> $loadtdbSH
-echo "  elif [ -e $allTTL.tgz ]; then"                                                  >> $loadtdbSH
-echo "    tar xzf $allTTL.tgz"                                                          >> $loadtdbSH
+echo "  elif [ -e $allTTL.tgz ]; then"                                                  >> $loadtdbSH # TODO:notar
+echo "    tar xzf $allTTL.tgz"                                                          >> $loadtdbSH # TODO:notar
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""     >> $loadtdbSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                    >> $loadtdbSH
 echo "    rm $allTTL"                                                                   >> $loadtdbSH
 echo "  else"                                                                           >> $loadtdbSH
-echo "    echo $allNT, $allNT.tgz, $allTTL, or $allTTL.tgz needed to lod-materialize."  >> $loadtdbSH
+echo "    echo $allNT, $allNT.tgz, $allTTL, or $allTTL.tgz needed to lod-materialize."  >> $loadtdbSH # TODO:notar
 echo "    delete=\"\""                                                                  >> $loadtdbSH
 echo "    exit 1"                                                                       >> $loadtdbSH
 echo "  fi"                                                                             >> $loadtdbSH
@@ -690,8 +699,8 @@ echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                        
 echo "if [ -e \$dump ]; then"                                                                   >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload nt \$dump \$graph"                                    >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
-echo "elif [ -e \$dump.tgz ]; then"                                                             >> $vloadSH
-echo "   tar xzfO \$dump.tgz > \$TEMP"                                                          >> $vloadSH
+echo "elif [ -e \$dump.tgz ]; then"                                                             >> $vloadSH # TODO:notar
+echo "   tar xzfO \$dump.tgz > \$TEMP"                                                          >> $vloadSH # TODO:notar
 echo "   sudo /opt/virtuoso/scripts/vload nt \$TEMP \$graph"                                    >> $vloadSH
 echo "   rm \$TEMP"                                                                             >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
@@ -703,8 +712,8 @@ echo "if [ -e \$dump ]; then"                                                   
 echo "   echo sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                              >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                   >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
-echo "elif [ -e \$dump.tgz ]; then"                                                             >> $vloadSH
-echo "   tar xzfO \$dump.tgz > \$TEMP"                                                          >> $vloadSH
+echo "elif [ -e \$dump.tgz ]; then"                                                             >> $vloadSH # TODO:notar
+echo "   tar xzfO \$dump.tgz > \$TEMP"                                                          >> $vloadSH # TODO:notar
 echo "   echo sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                              >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                   >> $vloadSH
 echo "   rm \$TEMP"                                                                             >> $vloadSH
@@ -716,8 +725,8 @@ echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                        
 echo "if [ -e \$dump ]; then"                                                                   >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                                   >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
-echo "elif [ -e \$dump.tgz ]; then"                                                             >> $vloadSH
-echo "   tar xzfO \$dump.tgz > \$TEMP"                                                          >> $vloadSH
+echo "elif [ -e \$dump.tgz ]; then"                                                             >> $vloadSH # TODO:notar
+echo "   tar xzfO \$dump.tgz > \$TEMP"                                                          >> $vloadSH # TODO:notar
 echo "   sudo /opt/virtuoso/scripts/vload rdf \$TEMP \$graph"                                   >> $vloadSH
 echo "   rm \$TEMP"                                                                             >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
@@ -739,7 +748,7 @@ fi
 #
 local_materialization_dir=$publishDir/lod-mat
 
-lodmat='$CSV2RDF4LOD_HOME/bin/lod-materialize/lod-materialize.pl'
+lodmat='$CSV2RDF4LOD_HOME/bin/lod-materialize/${c_lod_mat}lod-materialize.pl'
 prefixDefs=`$CSV2RDF4LOD_HOME/bin/dup/prefixes2flags.sh $allTTL`        
 mappingPatterns='--uripattern="/source/([^/]+)/dataset/(.*)" --filepattern="/source/\\1/file/\\2"'
 mappingPatternsVocab='--uripattern="/source/([^/]+)/vocab/(.*)" --filepattern="/source/\\1/vocab_file/\\2"'
@@ -758,21 +767,29 @@ echo ""                                                                         
 echo "delete=\"\""                                                                                             >> $lodmatSH
 echo "if [ ! -e $allNT ]; then"                                                                                >> $lodmatSH
 echo "  delete=\"$allNT\""                                                                                     >> $lodmatSH
-echo "  if [ -e $allNT.tgz ]; then"                                                                            >> $lodmatSH
-echo "    tar xzf $allNT.tgz"                                                                                  >> $lodmatSH
+echo "  if [ -e $allNT.tgz ]; then"                                                                            >> $lodmatSH # TODO:notar
+echo "    tar xzf $allNT.tgz"                                                                                  >> $lodmatSH # TODO:notar
 echo "  elif [ -e $allTTL ]; then"                                                                             >> $lodmatSH
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""                            >> $lodmatSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                                           >> $lodmatSH
-echo "  elif [ -e $allTTL.tgz ]; then"                                                                         >> $lodmatSH
-echo "    tar xzf $allTTL.tgz"                                                                                 >> $lodmatSH
+echo "  elif [ -e $allTTL.tgz ]; then"                                                                         >> $lodmatSH # TODO:notar
+echo "    tar xzf $allTTL.tgz"                                                                                 >> $lodmatSH # TODO:notar
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""                            >> $lodmatSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                                           >> $lodmatSH
 echo "    rm $allTTL"                                                                                          >> $lodmatSH
 echo "  else"                                                                                                  >> $lodmatSH
-echo "    echo $allNT, $allNT.tgz, $allTTL, or $allTTL.tgz needed to lod-materialize."                         >> $lodmatSH
+echo "    echo $allNT, $allNT.tgz, $allTTL, or $allTTL.tgz needed to lod-materialize."                         >> $lodmatSH # TODO:notar
 echo "    delete=\"\""                                                                                         >> $lodmatSH
 echo "    exit 1"                                                                                              >> $lodmatSH
 echo "  fi"                                                                                                    >> $lodmatSH
+echo "fi"                                                                                                      >> $lodmatSH
+echo ""                                                                                                        >> $lodmatSH
+echo "                # The newer C version of lod-mat is faster."                                             >> $lodmatSH
+echo "c_lod_mat=\"c/\"  # It is in the directory called 'c' within the lod-materialization project."           >> $lodmatSH
+echo "                # The C version silently passes some parameters that the native perl version used."      >> $lodmatSH
+echo "if [ ! -e \$CSV2RDF4LOD_HOME/bin/lod-materialize/c/lod-materialize ]; then"                              >> $lodmatSH
+echo "   c_lod_mat=\"\" # If it is not available, use the older perl version."                                 >> $lodmatSH
+echo "   echo \"WARNING: REALLY SLOW lod-materialization going on. Run make in \$CSV2RDF4LOD_HOME/bin/lod-materialize/c/\"" >> $lodmatSH
 echo "fi"                                                                                                      >> $lodmatSH
 echo ""                                                                                                        >> $lodmatSH
 echo "writeBuffer=\"--buffer-size=\${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WRITE_FREQUENCY:-\"1000000\"}\""  >> $lodmatSH
@@ -808,6 +825,14 @@ echo "   \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allVOID > $allVOIDNT"        
 echo "   delete=\"true\""                                                                                      >> $lodmatvoidSH
 echo "fi"                                                                                                      >> $lodmatvoidSH
 echo ""                                                                                                        >> $lodmatvoidSH
+echo "                # The newer C version of lod-mat is faster."                                             >> $lodmatvoidSH
+echo "c_lod_mat=\"c/\"  # It is in the directory called 'c' within the lod-materialization project."           >> $lodmatvoidSH
+echo "                # The C version silently passes some parameters that the native perl version used."      >> $lodmatvoidSH
+echo "if [ ! -e \$CSV2RDF4LOD_HOME/bin/lod-materialize/c/lod-materialize ]; then"                              >> $lodmatvoidSH
+echo "   c_lod_mat=\"\" # If it is not available, use the older perl version."                                 >> $lodmatvoidSH
+echo "   echo \"WARNING: REALLY SLOW lod-materialization going on. Run make in \$CSV2RDF4LOD_HOME/bin/lod-materialize/c/\"" >> $lodmatvoidSH
+echo "fi"                                                                                                      >> $lodmatvoidSH
+echo ""                                                                                                        >> $lodmatvoidSH
 echo "writeBuffer=\"--buffer-size=\${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WRITE_FREQUENCY:-\"1000000\"}\""  >> $lodmatvoidSH
 echo "humanReport=\"--progress=\${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_REPORT_FREQUENCY:-\"10000\"}\""      >> $lodmatvoidSH
 echo "concurrency=\"--concurrency=\${CSV2RDF4LOD_CONCURRENCY:-\"1\"}\""                                        >> $lodmatvoidSH
@@ -830,6 +855,14 @@ echo "#!/bin/sh"                                                                
 echo "#"                                                                                                       >> $lodmatapacheSH
 echo "# run $destDir/lod-materialize-apache-${sourceID}-${datasetID}-${datasetVersion}.sh"                     >> $lodmatapacheSH
 echo "# from ${sourceID}/$datasetID/version/$datasetVersion/"                                                  >> $lodmatapacheSH
+echo ""                                                                                                        >> $lodmatapacheSH
+echo "                # The newer C version of lod-mat is faster."                                             >> $lodmatapacheSH
+echo "c_lod_mat=\"c/\"  # It is in the directory called 'c' within the lod-materialization project."           >> $lodmatapacheSH
+echo "                # The C version silently passes some parameters that the native perl version used."      >> $lodmatapacheSH
+echo "if [ ! -e \$CSV2RDF4LOD_HOME/bin/lod-materialize/c/lod-materialize ]; then"                              >> $lodmatapacheSH
+echo "   c_lod_mat=\"\" # If it is not available, use the older perl version."                                 >> $lodmatapacheSH
+echo "   echo \"WARNING: REALLY SLOW lod-materialization going on. Run make in \$CSV2RDF4LOD_HOME/bin/lod-materialize/c/\"" >> $lodmatapacheSH
+echo "fi"                                                                                                      >> $lodmatapacheSH
 echo ""                                                                                                        >> $lodmatapacheSH
 echo perl $lodmat -i=ntriples $mappingPatterns      --apache $allNT ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} $MATERIALIZATION_DIR >> $lodmatapacheSH
 echo perl $lodmat -i=ntriples $mappingPatternsVocab --apache $allNT ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} $MATERIALIZATION_DIR >> $lodmatapacheSH
@@ -868,7 +901,7 @@ fi
 if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
    for dumpFile in $filesToCompress ; do
       # NOTE, tarball was created earlier in this script.
-      if [ -e $dumpFile.tgz ]; then
+      if [ -e $dumpFile.tgz ]; then # TODO:notar
          echo "  $dumpFile - removed b/c \$CSV2RDF4LOD_PUBLISH_COMPRESS=\"true\"" | tee -a $CSV2RDF4LOD_LOG
          rm $dumpFile
       fi

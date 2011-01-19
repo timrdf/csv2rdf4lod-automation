@@ -129,6 +129,29 @@ export CSV2RDF4LOD_PUBLISH_COMPRESS="true"
 export CSV2RDF4LOD_PUBLISH_COMPRESS="false"
 
 #
+# Customize: Specify the source_identifier 
+#            (in the csv2rdf4lod conversion's source/dataset/version scheme)
+#
+# This is used when archiving the metadata into a versioned dataset.
+#
+# (done in cr-publish-void-to-endpoint.sh)
+#
+export CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID="twc-rpi-edu"
+export CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID=""
+
+#
+# Customize: Specify the "base" conversion_identifier
+#            (in the csv2rdf4lod conversion's source/dataset/version scheme)
+#            "base" because the automation will append some tokens to create
+#            a variety of datasets.
+#
+# This is used when archiving the metadata into a versioned dataset.
+#
+# (done in cr-publish-void-to-endpoint.sh)
+#
+export CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID="dataset-conversion"
+
+#
 # ------- ------- serialization options ------- -------
 #
 
