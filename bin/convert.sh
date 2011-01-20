@@ -258,18 +258,24 @@ fi
 #
 
 sampleN="-sample ${CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS:-"2"}"        # TODO: add eg_only for -eg flag on converter. ok.
+dumpExtensions="-VoIDDumpExtensions ${CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS}"
+if [ ${#CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS} -eq 0 ]; then
+   dumpExtensions=""
+fi
+
+echo DUMP $dumpExtensions
 
 if [ $runRaw == "yes" ]; then
    echo "RAW CONVERSION" | tee -a $CSV2RDF4LOD_LOG
 
    # Sample ------------------------------
    if [ ${CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS:-"2"} -gt 0 ]; then
-      $csv2rdf $data $sampleN -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI -w $destDir/$datafile.raw.sample.ttl -id csv2rdf4lod_$converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      $csv2rdf $data $sampleN -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.sample.ttl -id csv2rdf4lod_$converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       echo "Finished converting $sampleN examples rows." 2>&1 | tee -a $CSV2RDF4LOD_LOG
    fi
 
    # Full ------------------------------
-   $csv2rdf $data             -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI -w $destDir/$datafile.raw.ttl        -id csv2rdf4lod_$converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+   $csv2rdf $data             -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl        -id csv2rdf4lod_$converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
 
    # parse out meta from full
    $CSV2RDF4LOD_HOME/bin/util/grep-tail.sh $destDir/$datafile.raw.ttl > $destDir/$datafile.raw.void.ttl    # .-todo
@@ -280,7 +286,7 @@ if [ $runEnhancement == "yes" ]; then
 
    # Sample ------------------------------
    if [ ${CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS:-"2"} -gt 0 ]; then
-      $csv2rdf $data $sampleN -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI -w $destDir/$datafile.e$eID.sample.ttl -id csv2rdf4lod_$converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      $csv2rdf $data $sampleN -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.sample.ttl -id csv2rdf4lod_$converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       echo "Finished converting $sampleN examples rows." 2>&1 | tee -a $CSV2RDF4LOD_LOG
    fi
 
@@ -288,7 +294,7 @@ if [ $runEnhancement == "yes" ]; then
    if [ ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'" 2>&1 | tee -a $CSV2RDF4LOD_LOG
    else
-      $csv2rdf $data             -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI -w $destDir/$datafile.e$eID.ttl        -id csv2rdf4lod_$converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      $csv2rdf $data             -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl        -id csv2rdf4lod_$converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       $CSV2RDF4LOD_HOME/bin/util/grep-tail.sh $destDir/$datafile.e$eID.ttl > $destDir/$datafile.e$eID.void.ttl # .-todo
 
       #provenance=`ls source/$extensionlessFilename*.pml.ttl | head -1 2> /dev/null`

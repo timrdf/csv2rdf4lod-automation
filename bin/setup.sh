@@ -83,6 +83,20 @@ export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="false"
 export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="true"
 
 #
+# Customize: Append extension to URL for void:dataDump.
+#
+# Parameter given to csv2rdf4lod converter (e.g., Java implementation)
+#   http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Dec-01/conversion/data-gov-1008-2010-Dec-01.e1
+#   becomes
+#   http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Dec-01/conversion/data-gov-1008-2010-Dec-01.e1.ttl.tgz
+#
+# If empty, nothing will be appended to URL.
+# (used in convert.sh)
+#
+export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS=""
+export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS="ttl.tgz"
+
+#
 # Customize: Invoke the converter for granular (row/column) provenance.
 #
 # This is only done for enhancements; raw does not get provenance.

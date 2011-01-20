@@ -12,6 +12,7 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "--"
    echo "CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS                  ${CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS:="(will default to: 2)"}"
    echo "CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY                  ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:="(will default to: false)"}"
+   echo "CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS                 ${CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS:="(no extension will be used)"}"
    echo "CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR                  ${CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR:="(will default to: false)"}"
 
    echo "--"
@@ -72,6 +73,7 @@ else
    export CSV2RDF4LOD_BASE_URI_OVERRIDE=""           
    export CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS=""
    export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=""
+   export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS=""
    export CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR=""
    # "--"
 
