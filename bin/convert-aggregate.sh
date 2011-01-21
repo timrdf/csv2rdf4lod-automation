@@ -303,7 +303,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
       dumpFileBase=`basename $dumpFile`
       pushd $dumpFileDir 2>/dev/null
          tar czf $dumpFileBase.tgz $dumpFileBase  # TODO:notar
-         # TODO:notar Don't use tar if there is only ever one file; use gzip instead.
+         # Don't use tar if there is only ever one file; use gzip instead.
          # cat $dumpFileBase gzip > $dumpFileBase.gz
 
          # WARNING: 
