@@ -43,6 +43,7 @@ BEGIN {
       print "@prefix time:       <http://www.w3.org/2006/time#> ."
       print "@prefix wgs:        <http://www.w3.org/2003/01/geo/wgs84_pos#> ."
       print "@prefix geonames:   <http://www.geonames.org/ontology#> ."
+      print "@prefix con:        <http://www.w3.org/2000/10/swap/pim/contact#> ."
    }
    print "@prefix void:       <http://rdfs.org/ns/void#> ."
    print "@prefix scovo:      <http://purl.org/NET/scovo#> ."
