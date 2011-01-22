@@ -95,22 +95,3 @@ cr-create-convert-sh.sh
 
 dg-get-mod-date.sh 
 * You will rarely need this to convert csv data. Run with a data.gov datasetID to get the web server modificationd date.
-
-== Known bugs and limitations ==
-The shell scripts assume sh/bash. (naive mistake, I know...)
-Filenames with spaces in the source/ directory cause problems when creating the convert-VVV.sh. The automation breaks down, but can be fixed manually by using cr-create-convert-sh.sh:
-** cr-create-convert-sh.sh -w source/*.csv  
-
-"the last 5 minutes the program has been working (pcurl) without reporting anything."
-** pcurl.sh requests modification dates from the web servers, which tend to take a while to respond.
-
-The converter outputs ttl and rapper cannot parse turtle files >2GB.
-* this will not break batch processing with other datasets; it will just fail to contribute the big dataset's RDF.
-* From data.gov/, "find */version/*/automatic -size +1900M" to find output files that rapper will fail to parse.
-* split_ttl.pl will take a list of files (do all in automatic/ at same time to avoid overwriting) and split them into "chunk-FILENAME-NNN.ttl"
-* "du -sch *.raw.ttl | tail -1" will show file size of all raw ttl
-* "du -sch chunk* | tail -1" will show file size of all chunked versions
-* when everything is split, re-running dg-publish-raw.sh will pick up the chunks and fail silently on the unchunked.
-
-"Can't locate RDF/Trine.pm" when running lod-materialize
-* run the script with perl instead of running the script directly ("purl lod-materialize.pl" instead of "./lod-materialize.pl")
