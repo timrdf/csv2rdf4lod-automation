@@ -1,4 +1,4 @@
-NOTE: This writeup has been replaced by the wiki page: http://data-gov.tw.rpi.edu/wiki/Csv2rdf4lod
+NOTE: This writeup has been replaced by the wiki page: https://github.com/timrdf/csv2rdf4lod-automation/wiki
 
 
 
