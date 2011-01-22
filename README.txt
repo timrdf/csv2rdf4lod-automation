@@ -79,19 +79,4 @@ If you want to grab all of the data.gov data (~80GB) and run raw conversions on 
 change "-P 2" to however many cpu cores you have (or however many parallel executions you want).
 
 If you want only csv data and trust datasets-returning-csv.csv,
-* cat      ../../../doc/lists/datasets-returning-csv.csv | xargs -n 1 -P 2 dg-create-dataset-dir.sh
-
-== Script descriptions ==
-dg-create-dataset-dir.sh
-* Sets up the directory structure, 
-* queries data.gov for formats, 
-* retrieves all but rdf, 
-* unzips files, and 
-* sets up the convert script.
-* Uncommenting one line in bin/dg-create-dataset-dir.sh  will also run the raw conversion. (search for "NOTE" and follow the instructions)
-
-cr-create-convert-sh.sh 
-* You will only need to use this manually if data.gov does not return *.csv files
-
-dg-get-mod-date.sh 
-* You will rarely need this to convert csv data. Run with a data.gov datasetID to get the web server modificationd date.
+* cat      ../../../doc/lists/datasets-returning-csv.csv | xargs -n 1 -P 2 dg-create-dataset-dir.sh 
