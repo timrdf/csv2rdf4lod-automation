@@ -263,8 +263,6 @@ if [ ${#CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS} -eq 0 ]; then
    dumpExtensions=""
 fi
 
-echo DUMP $dumpExtensions
-
 if [ $runRaw == "yes" ]; then
    echo "RAW CONVERSION" | tee -a $CSV2RDF4LOD_LOG
 
