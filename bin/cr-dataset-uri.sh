@@ -19,6 +19,8 @@ a2=""
 end=""
 if [ ${1:-"."} == 'void' ]; then
    prefixDef="@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
+   isabstract="    a conversion:AbstractDataset;"
+   isversioned="    a conversion:VersionedDataset;"
    prefix="conversion:"
    a1="<"
    a2=">"
@@ -48,12 +50,14 @@ echo $prefixDef
 echo
 echo "$a1$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID$a2"
 #   grep -H ":base_uri" manual/*.params.ttl | awk '{print "    base_uri (params)     "$3,"   ",$1}' | sed -e 's/:$//' -e 's/"//g' -e 's/..xsd:anyURI;//'
+echo      $isabstract
 echo "    ${prefix}base_uri              ${q1}$base_uri${q2}"
 echo "    ${prefix}source_identifier     ${q1}$sourceID${q2}"                                        
 echo "    ${prefix}dataset_identifier    ${q1}$datasetID${q2}"                                    
 echo $end
 echo
 echo "$a1$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID$a2"
+echo      $isversioned
 echo "    ${prefix}base_uri              ${q1}$base_uri${q2}"
 echo "    ${prefix}source_identifier     ${q1}$sourceID${q2}"                                        
 echo "    ${prefix}dataset_identifier    ${q1}$datasetID${q2}"                                    

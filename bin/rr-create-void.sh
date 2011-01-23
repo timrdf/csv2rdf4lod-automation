@@ -55,7 +55,7 @@ fi
 cr-dataset-uri.sh void >> $TMP
 
 if [ $write == "-w" ]; then
-   cat $TMP > $file.void.ttl 
+   cat $TMP > $file.void.ttl # TODO: populate-void*.sh only looks in publish/, so it'll miss this...
 else
    cat $TMP
 fi
