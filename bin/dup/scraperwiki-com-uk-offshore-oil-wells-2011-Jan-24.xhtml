@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+    "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+      xmlns:foaf="http://xmlns.com/foaf/0.1/"
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      xmlns:dct="http://purl.org/dc/terms/" 
+      xmlns:conversion="http://purl.org/twc/vocab/conversion/"
+      version="XHTML+RDFa 1.0">
+  <head>
+    <title>Dataset to assimilate</title>
+  </head>
+  <body>
+    <h1>Dataset to assimilate</h1>
+    <p>This is a "hello world" to check that <a href="https://github.com/timrdf/csv2rdf4lod-automation/wiki/A-quick-and-easy-conversion">csv2rdf4lod-automation</a> is correctly configured.</p>
+    <p about="#dataset" typeof="conversion:VersionedDataset">
+      We curate data at the site: 
+      <span property="conversion:base_uri">http://logd.tw.rpi.edu</span>
+
+      An organization identifiable as 
+      <span property="conversion:source_identifier">scraperwiki-com</span>
+
+      provides a dataset known as:
+      <span property="dct:identifier">2009 National Healthcare Quality and Disparities Reports</span>
+      (or)
+      <span property="conversion:dataset_identifier">uk-offshore-oil-wells</span>
+
+      And will be concretized as version:
+      <span property="conversion:version_identifier">2011-Jan-24</span>
+
+      Using the following data files:
+      <a rel="dct:source" href="http://scraperwiki.com/scrapers/export/uk-offshore-oil-wells/">http://scraperwiki.com/scrapers/export/uk-offshore-oil-wells/</a>
+    </p>
+    <!--p>
+      My <span rel="foaf:interest" resource="urn:ISBN:0752820907">favorite
+      book</span> is the inspiring <span about="urn:ISBN:0752820907"><cite
+      property="dc:title">Weaving the Web</cite> by
+      <span property="dc:creator">Tim Berners-Lee</span></span>
+    </p-->
+  </body>
+</html>
+
