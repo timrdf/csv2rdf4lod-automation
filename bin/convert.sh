@@ -29,8 +29,8 @@ fi
 if [ ! -e doc/logs ]; then
    mkdir -p doc/logs
 fi
-if [ ! -e manual ]; then
-   mkdir manual
+if [ ! -e manual ]; then # TODO: manual should be $eParamsDir
+   mkdir manual # TODO: manual should be $eParamsDir
 fi
 if [ ! -e automatic ]; then
    mkdir automatic
@@ -144,14 +144,39 @@ head -${header:-1} $data | tail -1 | awk                     $paramsParams -f $h
 
 # Generate the enhancement parameters only when not present.
 global=""
-if [ -e ../e$eID.params.ttl ]; then 
+if [ -e ../../../e$eID.params.ttl ]; then # There are enhancement parameters that apply to ALL files of ALL versions of ALL datasets.
    global="global."
-   # Link to global params file instead of making a new one (applies to ALL files of ALL versions)
-   if [ ! -e manual/$datafile.e$eID.params.ttl ]; then 
+   if [ ! -e manual/$datafile.e$eID.params.ttl ]; then # No enhancement parameters have been specified for THIS file. # TODO: manual should be $eParamsDir
+      # Link to dataset-INDEPENDENT file-INDEPENDENT global params file (instead of making a new one)
       echo "NOTE: global parameters found; linking manual/$datafile.e$eID.params.ttl to ../$datafile.e$eID.params.ttl -- editing it edits the global parameters." | tee -a $CSV2RDF4LOD_LOG
-      ln ../e$eID.params.ttl manual/$datafile.e$eID.params.ttl
+      ln ../../../e$eID.params.ttl manual/$datafile.e$eID.params.ttl # TODO: manual should be $eParamsDir
+   fi
+   if [ ! -e $eParamsDir/$datafile.global.e$eID.params.ttl -o ../../../e$eID.params.ttl -nt $eParamsDir/$datafile.global.e$eID.params.ttl ]; then
+      # The file-specific copy doesn't exist or is older than the file-INDEPENDENT parameters.
+      echo "constructing $eParamsDir/$datafile.${global}e$eID.params.ttl from dataset-independent file-independent global params ../../../e$eID.params.ttl" | tee -a $CSV2RDF4LOD_LOG
+      chmod +w $eParamsDir/$datafile.global.e$eID.params.ttl 2> /dev/null
+      echo "#"                                                                                        > $eParamsDir/$datafile.global.e$eID.params.ttl
+      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
+      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
+      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
+      echo "# WARNING: do not edit these; they are automatically generated from ../e$eID.params.ttl" >> $eParamsDir/$datafile.global.e$eID.params.ttl
+      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
+      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
+      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
+      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
+      cat ../../../e$eID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/update-e-params-subject-discrim.awk dataset_identifier=$datasetID datasetVersion=$datasetVersion subjectDiscriminator=$subjectDiscriminator >> $eParamsDir/$datafile.global.e$eID.params.ttl 
+      chmod -w $eParamsDir/$datafile.global.e$eID.params.ttl
+      runEnhancement="yes"
+   fi
+elif [ -e ../e$eID.params.ttl ]; then # There are enhancement parameters that apply to ALL files of ALL versions.
+   global="global."
+   if [ ! -e manual/$datafile.e$eID.params.ttl ]; then # No enhancement parameters have been specified for THIS file. # TODO: manual should be $eParamsDir
+      # Link to file-INDEPENDENT global params file (instead of making a new one)
+      echo "NOTE: global parameters found; linking manual/$datafile.e$eID.params.ttl to ../$datafile.e$eID.params.ttl -- editing it edits the global parameters." | tee -a $CSV2RDF4LOD_LOG
+      ln ../e$eID.params.ttl manual/$datafile.e$eID.params.ttl # TODO: manual should be $eParamsDir
    fi
    if [ ! -e $eParamsDir/$datafile.global.e$eID.params.ttl -o ../e$eID.params.ttl -nt $eParamsDir/$datafile.global.e$eID.params.ttl ]; then
+      # The file-specific copy doesn't exist or is older than the file-INDEPENDENT parameters.
       echo "constructing $eParamsDir/$datafile.${global}e$eID.params.ttl from file-independent global params ../e$eID.params.ttl" | tee -a $CSV2RDF4LOD_LOG
       chmod +w $eParamsDir/$datafile.global.e$eID.params.ttl 2> /dev/null
       echo "#"                                                                                        > $eParamsDir/$datafile.global.e$eID.params.ttl
@@ -167,14 +192,15 @@ if [ -e ../e$eID.params.ttl ]; then
       chmod -w $eParamsDir/$datafile.global.e$eID.params.ttl
       runEnhancement="yes"
    fi
-elif [ -e ../$datafile.e$eID.params.ttl ]; then 
+elif [ -e ../$datafile.e$eID.params.ttl ]; then # There are enhancement parameters that apply to ALL versions of THIS file.
    global="global."
-   # Link to global params file instead of making a new one (applies to ALL versions of the specific file)
-   if [ ! -e manual/$datafile.e$eID.params.ttl ]; then
+   if [ ! -e manual/$datafile.e$eID.params.ttl ]; then # TODO: manual should be $eParamsDir
+      # Link to file-SPECIFIC global params file (instead of making a new one)
       echo "NOTE: global parameters found; linking manual/$datafile.e$eID.params.ttl to ../$datafile.e$eID.params.ttl -- editing it edits the global parameters." | tee -a $CSV2RDF4LOD_LOG
-      ln ../$datafile.e$eID.params.ttl manual/$datafile.e$eID.params.ttl
+      ln ../$datafile.e$eID.params.ttl manual/$datafile.e$eID.params.ttl # TODO: manual should be $eParamsDir
    fi
    if [ ! -e $eParamsDir/$datafile.global.e$eID.params.ttl -o ../$datafile.e$eID.params.ttl -nt $eParamsDir/$datafile.global.e$eID.params.ttl ]; then
+      # The file-specific copy doesn't exist or is older than the file-SPECIFIC parameters.
       echo "constructing $eParamsDir/$datafile.global.e$eID.params.ttl from file-dependent global params ../$datafile.e$eID.params.ttl" | tee -a $CSV2RDF4LOD_LOG
       chmod +w $eParamsDir/$datafile.global.e$eID.params.ttl 2> /dev/null
       echo "#"                                                                                                  > $eParamsDir/$datafile.global.e$eID.params.ttl
@@ -190,15 +216,15 @@ elif [ -e ../$datafile.e$eID.params.ttl ]; then
       chmod -w $eParamsDir/$datafile.global.e$eID.params.ttl
       runEnhancement="yes"
    fi
-elif [ ! -e $eParamsDir/$datafile.e$eID.params.ttl ]; then 
-   # Use a local enhancement parameters file.
+elif [ ! -e $eParamsDir/$datafile.e$eID.params.ttl ]; then # No global enhancement parameters present (neither file-independent nor file-specific)
+   # Create local file-specific enhancement parameters file.
    let prevEID=$eID-1
    if [ -e $eParamsDir/$datafile.e$prevEID.params.ttl ]; then 
-      # Use the previous enhancement parameters as a starting point.
+      # Use the PREVIOUS enhancement parameters as a starting point.
       echo "E$eID enhancement parameters missing; creating template from E$prevEID enhancement parameters. Edit $eParamsDir/$datafile.e$eID.params.ttl and rerun to produce E$eID enhancement" | tee -a $CSV2RDF4LOD_LOG
       cat $eParamsDir/$datafile.e$prevEID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/update-e-params.awk eID=$eID > $eParamsDir/$datafile.e$eID.params.ttl
    else
-      # Start fresh.
+      # Start fresh directly from the CSV headers.
       echo "E$eID enhancement parameters missing; creating default template. Edit $eParamsDir/$datafile.e$eID.params.ttl and rerun to produce E$eID enhancement." | tee -a $CSV2RDF4LOD_LOG
 
       # NOTE: command also done above (when checking if e params are different from template provided).
