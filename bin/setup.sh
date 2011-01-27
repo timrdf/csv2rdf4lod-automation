@@ -79,8 +79,8 @@ export CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS="0"
 #
 # (used in convert.sh)
 #
-export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="false"
 export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="true"
+export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="false"
 
 #
 # Customize: Append extension to URL for void:dataDump.
@@ -139,8 +139,8 @@ export CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED="true"
 #
 # (done in convert-aggregate.sh)
 #
-export CSV2RDF4LOD_PUBLISH_COMPRESS="true"
 export CSV2RDF4LOD_PUBLISH_COMPRESS="false"
+export CSV2RDF4LOD_PUBLISH_COMPRESS="true"
 
 #
 # Customize: Specify the source_identifier 
