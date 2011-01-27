@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 OLD_NAMESPACE="http://data-gov.tw.rpi.edu/vocab/conversion/"
 NEW_NAMESPACE="http://purl.org/twc/vocab/conversion/"

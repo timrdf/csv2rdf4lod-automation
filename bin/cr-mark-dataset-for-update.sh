@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # usage:
 #   cr-mark-dataset-for-update.sh 92

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ $# -eq 0 ]; then
    echo "usage: `basename $0` [-h headerRow] -s <source> -d <dataset> -v <version> [-e <enhancement>] <csv> [csv...]"

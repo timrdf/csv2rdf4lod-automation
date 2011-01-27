@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # changed from double quotes to single quotes to support Sun's OS.
 

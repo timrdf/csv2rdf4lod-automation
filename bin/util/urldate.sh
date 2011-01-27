@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ $# -lt 1 ]; then
    echo "usage: `basename $0` [-a] [-field dateField] [-format {'simple','dateTime'}] url [url ...]"

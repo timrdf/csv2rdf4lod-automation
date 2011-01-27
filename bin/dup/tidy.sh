@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # <!DOCTYPE html SYSTEM "/Users/lebot/afrl/information_management/m4rker/model_integration/xutil/xhtml-dtd/xhtml1-transitional.dtd">
 
 usage_message="usage: $0 some.html [another.html ...]"

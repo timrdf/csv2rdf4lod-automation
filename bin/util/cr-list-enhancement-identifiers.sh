@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 back_one=`cd .. 2>/dev/null && pwd`
 ANCHOR_SHOULD_BE_A_VERSION=`basename $back_one` # Use the names from the canonical directory structure

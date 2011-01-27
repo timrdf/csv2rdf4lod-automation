@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 back_zero=`pwd`
 ANCHOR_SHOULD_BE_SOURCE=`basename $back_zero`

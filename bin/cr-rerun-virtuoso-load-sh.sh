@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Usage:
 #    (pwd: source/DDD, e.g. source/data-gov):

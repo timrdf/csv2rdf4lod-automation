@@ -400,7 +400,7 @@ fi
 #
 #
 
-echo '#!/bin/sh'                                                                         > $publishDir/bin/publish.sh
+echo '#!/bin/bash'                                                                         > $publishDir/bin/publish.sh
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh"}' >> $publishDir/bin/publish.sh
 echo "surrogate=\"$surrogate\""                                                         >> $publishDir/bin/publish.sh
 echo "sourceID=\"$sourceID\""                                                           >> $publishDir/bin/publish.sh

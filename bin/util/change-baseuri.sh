@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 OLD_BASEURI="surrogate=\"http://data-gov.tw.rpi.edu\""
 NEW_BASEURI="surrogate=\"http://logd.tw.rpi.edu\""

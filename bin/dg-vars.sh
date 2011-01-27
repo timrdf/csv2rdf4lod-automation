@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ ${1:-"no"} != "CLEAR" ]; then
    #echo "CLASSPATH                             $CLASSPATH"

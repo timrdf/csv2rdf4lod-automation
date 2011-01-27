@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Create a shell script to automate the conversion and publishing of the given csv filenames.
 # Running the created script once will produce the raw conversion; 

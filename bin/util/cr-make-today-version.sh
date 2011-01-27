@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ ${1:-"."} == "--help" ]; then
    echo "usage: `basename $0` [-w]"

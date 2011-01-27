@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"must be set. source csv2rdf4lod/source-me.sh."}
 

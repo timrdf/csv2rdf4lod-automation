@@ -330,7 +330,7 @@ fi
 lnwwwrootSH="$publishDir/bin/ln-to-www-root-${sourceID}-${datasetID}-${datasetVersion}.sh"
 echo $lnwwwrootSH | tee -a $CSV2RDF4LOD_LOG
 
-echo "#/bin/sh"                                               > $lnwwwrootSH
+echo "#!/bin/bash"                                              > $lnwwwrootSH
 echo "#"                                                     >> $lnwwwrootSH
 echo "# run from `pwd | sed 's/^.*source/source/'`/"         >> $lnwwwrootSH
 echo "#"                                                     >> $lnwwwrootSH
@@ -555,7 +555,7 @@ if [ ! -e $josekiConfigFile ]; then
    cat $CSV2RDF4LOD_HOME/bin/dup/joseki-config-ANTERIOR.ttl | awk '{gsub("__TDB__DIRECTORY__",dir);print $0}' dir=`pwd`/$TDB_DIR > $josekiConfigFile
 fi
 loadtdbSH="$publishDir/bin/tdbloader-${sourceID}-${datasetID}-${datasetVersion}.sh"
-echo "#!/bin/sh"                                                              > $loadtdbSH
+echo "#!/bin/bash"                                                              > $loadtdbSH
 echo ""                                                                                 >> $loadtdbSH
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh"}' >> $loadtdbSH
 echo ""                                                                                 >> $loadtdbSH
@@ -609,7 +609,7 @@ fi
 fourstoreSH=$publishDir/bin/4store-${sourceID}-${datasetID}-${datasetVersion}.sh
 fourstoreKB=${CSV2RDF4LOD_PUBLISH_4STORE_KB:-'csv2rdf4lod'}
 fourstoreKBDir=/var/lib/4store/$fourstoreKB
-echo "#!/bin/sh"                                                                         > $fourstoreSH
+echo "#!/bin/bash"                                                                         > $fourstoreSH
 echo "#"                                                                                >> $fourstoreSH
 echo "# run $fourstoreSH"                                                               >> $fourstoreSH
 echo "# from ${sourceID}/$datasetID/version/$datasetVersion/"                           >> $fourstoreSH
@@ -638,7 +638,7 @@ chmod +x                                                                        
 vloadSH=$publishDir/bin/virtuoso-load-${sourceID}-${datasetID}-${datasetVersion}.sh
 vloadvoidSH=$publishDir/bin/virtuoso-load-${sourceID}-${datasetID}-${datasetVersion}-void.sh
 vdeleteSH=$publishDir/bin/virtuoso-delete-${sourceID}-${datasetID}-${datasetVersion}.sh
-echo "#!/bin/sh"                                                                                 > $vloadSH
+echo "#!/bin/bash"                                                                                 > $vloadSH
 echo "#"                                                                                        >> $vloadSH
 echo "# run $vloadSH"                                                                           >> $vloadSH
 echo "# from `pwd | sed 's/^.*source/source/'`/"                                                >> $vloadSH
@@ -757,7 +757,7 @@ CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source
 MATERIALIZATION_DIR=${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:-$local_materialization_dir}
 
 lodmatSH=$publishDir/bin/lod-materialize-${sourceID}-${datasetID}-${datasetVersion}.sh
-echo "#!/bin/sh"                                                                                                > $lodmatSH
+echo "#!/bin/bash"                                                                                                > $lodmatSH
 echo "#"                                                                                                       >> $lodmatSH
 echo "# run $destDir/lod-materialize-${sourceID}-${datasetID}-${datasetVersion}.sh"                            >> $lodmatSH
 echo "# from ${sourceID}/$datasetID/version/$datasetVersion/"                                                  >> $lodmatSH
@@ -810,7 +810,7 @@ echo "fi"                                                                       
 chmod +x                                                                                                          $lodmatSH
 
 lodmatvoidSH=$publishDir/bin/lod-materialize-${sourceID}-${datasetID}-${datasetVersion}-void.sh
-echo "#!/bin/sh"                                                                                                > $lodmatvoidSH
+echo "#!/bin/bash"                                                                                                > $lodmatvoidSH
 echo "#"                                                                                                       >> $lodmatvoidSH
 echo "# run $destDir/lod-materialize-${sourceID}-${datasetID}-${datasetVersion}.sh"                            >> $lodmatvoidSH
 echo "# from ${sourceID}/$datasetID/version/$datasetVersion/"                                                  >> $lodmatvoidSH
@@ -851,7 +851,7 @@ echo "fi"                                                                       
 chmod +x                                                                                                          $lodmatvoidSH
 
 lodmatapacheSH=$publishDir/bin/lod-materialize-apache-${sourceID}-${datasetID}-${datasetVersion}.sh
-echo "#!/bin/sh"                                                                                                > $lodmatapacheSH
+echo "#!/bin/bash"                                                                                                > $lodmatapacheSH
 echo "#"                                                                                                       >> $lodmatapacheSH
 echo "# run $destDir/lod-materialize-apache-${sourceID}-${datasetID}-${datasetVersion}.sh"                     >> $lodmatapacheSH
 echo "# from ${sourceID}/$datasetID/version/$datasetVersion/"                                                  >> $lodmatapacheSH

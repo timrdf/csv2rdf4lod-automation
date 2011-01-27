@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 back_one=`cd .. 2>/dev/null && pwd`
 ANCHOR_SHOULD_BE_SOURCE=`basename $back_one`

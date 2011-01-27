@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # AFRL provides this Software to you on an "AS IS" basis, without warranty
 # of any kind. AFRL HEREBY EXPRESSLY DISCLAIMS ALL WARRANTIES OR CONDITIONS,

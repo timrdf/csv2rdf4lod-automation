@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 OLD_SOURCE_CONVERT='formats/csv/bin/convert-aggregate.sh'
 NEW_SOURCE_CONVERT='CSV2RDF4LOD_HOME/bin/convert-aggregate.sh'

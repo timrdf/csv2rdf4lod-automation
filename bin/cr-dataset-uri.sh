@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # print out some information about the dataset in the current directory.
 

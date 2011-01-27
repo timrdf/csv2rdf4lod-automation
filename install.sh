@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo export CSV2RDF4LOD_HOME=`pwd` > source-me.sh
 echo "`basename $0`:"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # usage:
 #   data.gov-create-dataset-dir.sh 92

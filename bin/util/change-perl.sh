@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 OLD_PERL="^perl "
 NEW_PERL="/usr/bin/perl "

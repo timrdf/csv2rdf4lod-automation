@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Create a shell script to automate the conversion and publishing of the given csv filenames.
 # Running the created script once will produce the raw conversion; 
@@ -63,7 +63,7 @@ CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source
 
 TMP_SH=`date +%s`_$$.sh.tmp
 
-echo "#!/bin/sh"                                                        > $TMP_SH
+echo "#!/bin/bash"                                                        > $TMP_SH
 echo "# $datasetID $versionID ($lastModDate)"                          >> $TMP_SH
 
 echo "#--------------------------------------------------------------" >> $TMP_SH
