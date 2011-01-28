@@ -77,6 +77,8 @@ export CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS="0"
 # 
 # Setting this to 'true' will prevent the full conversion.
 #
+# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Generating-a-sample-conversion-using-only-a-subset-of-data
+#
 # (used in convert.sh)
 #
 export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="true"
