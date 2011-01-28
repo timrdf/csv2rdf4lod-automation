@@ -38,7 +38,7 @@ fi
 
 
 alias rname="java edu.rpi.tw.string.NameFactory"
-logID=`rname`
+logID=`java edu.rpi.tw.string.NameFactory`
 while [ $# -gt 0 ]; do
    echo
    echo ---------------------------------- pcurl ---------------------------------------
@@ -92,7 +92,7 @@ while [ $# -gt 0 ]; do
    #file=${localName}-$documentVersion${extension}
 
    if [ ! -e $file -a ${#documentVersion} -gt 0 ]; then 
-      requestID=`rname`
+      requestID=`java edu.rpi.tw.string.NameFactory`
       usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'`
 
       echo "$url (mod $urlModDateTime)"
