@@ -64,6 +64,10 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "--"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO                             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: false)"}"
 
+   echo "--"
+   echo "CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT                      ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: none)"}"
+   echo "CSV2RDF4LOD_PUBLISH_SPARQL_RESULTS_DIRECTORY             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: none)"}"
+
    if [ ${#CSV2RDF4LOD_HOME} -gt 0 ]; then
       echo "--"
       echo "see documentation for variables in:"
@@ -115,6 +119,10 @@ else
    
    # "--"
    export CSV2RDF4LOD_PUBLISH_VIRTUOSO=""
+
+   # "--"
+   export CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT=""       
+   export CSV2RDF4LOD_PUBLISH_SPARQL_RESULTS_DIRECTORY=""
    
    echo "...cleared."
    $0 # Run this script again to show that they were cleared.

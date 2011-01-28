@@ -433,6 +433,28 @@ export CSV2RDF4LOD_PUBLISH_4STORE_KB=""
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO="true"
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO="false" 
 
+#
+# ------- ------- query caching options ------- -------
+#
+
+#
+# Customize: SPARQL endpoint that should be queried when caching results.
+#            This is the URL of the endpoint that gets populated with conversion results.
+#
+# (done in populate-to-endpoint.sh)
+#
+export CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT="http://logd.tw.rpi.edu/sparql" 
+export CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT="" 
+
+#
+# Customize: Directory where SPARQL query files exist 
+#            and should be cached with cache-queries.sh.
+#
+# (done in populate-to-endpoint.sh)
+#
+export CSV2RDF4LOD_PUBLISH_SPARQL_RESULTS_DIRECTORY="/var/www/html/logd.tw.rpi.edu/query" 
+export CSV2RDF4LOD_PUBLISH_SPARQL_RESULTS_DIRECTORY="" 
+
 
 
 
