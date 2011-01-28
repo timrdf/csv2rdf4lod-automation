@@ -223,7 +223,28 @@ export CSV2RDF4LOD_PUBLISH_SUBSET_VOID="false"
 export CSV2RDF4LOD_PUBLISH_SUBSET_VOID="true"
 
 #
+# Customize: The named graph to place all conversion metadata (void, pml, etc).
+#
+# 'auto' will expand to $CSV2RDF4LOD_BASE_URI/vocab/Dataset (or $CSV2RDF4LOD_BASE_URI_OVERRIDE if set)
+#
+# (done in populate-to-endpoint.sh)
+#
+export CSV2RDF4LOD_PUBLISH_SUBSET_VOID_NAMED_GRAPH="http://logd.tw.rpi.edu/vocab/Dataset"
+export CSV2RDF4LOD_PUBLISH_SUBSET_VOID_NAMED_GRAPH="auto"
+
+#
+# Customize: TODO
+#
+# Datasets whose data is about other Datasets (e.g. data.gov's 92)
+#
+# (done in populate-to-endpoint.sh)
+#
+export CSV2RDF4LOD_PUBLISH_TODO="http://purl.org/twc/vocab/conversion/MetaDataset"
+
+
+#
 # Customize: include subset of conversion: ?s owl:sameAs ?o .
+#
 # This allows dataset interconnectivity analysis without loading
 # the entire dataset.
 #
@@ -231,6 +252,16 @@ export CSV2RDF4LOD_PUBLISH_SUBSET_VOID="true"
 #
 export CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS="false"
 export CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS="true"
+
+#
+# Customize: The named graph to place all owl:sameAs triples.
+#
+# 'auto' will expand to http://purl.org/twc/vocab/conversion/SameAsDataset
+#
+# (done in populate-to-endpoint.sh)
+#
+export CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS_NAMED_GRAPH="http://purl.org/twc/vocab/conversion/SameAsDataset"
+export CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS_NAMED_GRAPH="auto"
 
 #
 # Customize: include subset of conversion: 
@@ -243,6 +274,21 @@ export CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS="true"
 #
 export CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES="true"
 export CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES="false"
+
+#
+# ------- ------- conversion parameters ------- -------
+#
+
+#
+# Customize: The named graph to place all conversion parameters.
+#
+# (instance data from http://purl.org/twc/vocab/conversion vocabulary)
+#
+# (done in populate-to-endpoint.sh)
+#
+export CSV2RDF4LOD_PUBLISH_CONVERSION_PARAMS_NAMED_GRAPH="http://purl.org/twc/vocab/conversion/ConversionProcess"
+export CSV2RDF4LOD_PUBLISH_CONVERSION_PARAMS_NAMED_GRAPH="auto"
+
 
 #
 # ------- ------- lod-mat options ------- -------
