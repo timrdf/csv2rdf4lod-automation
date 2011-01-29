@@ -222,7 +222,7 @@ elif [ ! -e $eParamsDir/$datafile.e$eID.params.ttl ]; then # No global enhanceme
    if [ -e $eParamsDir/$datafile.e$prevEID.params.ttl ]; then 
       # Use the PREVIOUS enhancement parameters as a starting point.
       echo "E$eID enhancement parameters missing; creating template from E$prevEID enhancement parameters. Edit $eParamsDir/$datafile.e$eID.params.ttl and rerun to produce E$eID enhancement" | tee -a $CSV2RDF4LOD_LOG
-      cat $eParamsDir/$datafile.e$prevEID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/update-e-params.awk eID=$eID > $eParamsDir/$datafile.e$eID.params.ttl
+      cat $eParamsDir/$datafile.e$prevEID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/e-params-increment.awk eID=$eID > $eParamsDir/$datafile.e$eID.params.ttl
    else
       # Start fresh directly from the CSV headers.
       echo "E$eID enhancement parameters missing; creating default template. Edit $eParamsDir/$datafile.e$eID.params.ttl and rerun to produce E$eID enhancement." | tee -a $CSV2RDF4LOD_LOG
