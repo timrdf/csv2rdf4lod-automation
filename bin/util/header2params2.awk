@@ -51,7 +51,16 @@ BEGIN {
       print "@prefix ov:         <http://open.vocab.org/terms/> ."
    #}
    print "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
-   printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/params/%s/> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
+
+   # Converter produces URIs for the LayerDatasets:
+   #
+   # <http://logd.tw.rpi.edu/source/nitrd-gov/dataset/fedRDnetIT/version/2011-Jan-27/conversion/raw>
+   # <http://logd.tw.rpi.edu/source/nitrd-gov/dataset/fedRDnetIT/version/2011-Jan-27/conversion/enhancement/1>
+   #
+   # To make the params more connected to the datasets, we're replacing this:
+   #printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/params/%s/> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
+   # with this:
+   printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/conversion/%s> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
 
                                      print
                                      print ":dataset a void:Dataset;"
