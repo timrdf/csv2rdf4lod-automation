@@ -50,6 +50,7 @@ allVOIDNT=$publishDir/$sourceID-$datasetID-$datasetVersion.void.nt
 allPML=$publishDir/$sourceID-$datasetID-$datasetVersion.pml.ttl
 allSAMEAS=$publishDir/$sourceID-$datasetID-$datasetVersion.sameas.nt
 rawSAMPLE=$publishDir/$sourceID-$datasetID-$datasetVersion.raw.sample.ttl
+versionedDatasetURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$surrogate}/source/$sourceID/dataset/$datasetID/version/$datasetVersion"
 rawSampleGraph="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$surrogate}/source/$sourceID/dataset/$datasetID/version/$datasetVersion/conversion/raw/subset/sample"
 
  allNT_L=$sourceID-$datasetID-$datasetVersion.nt # L: Local name (not including directory; for use when pushd'ing to cHuNk)
@@ -242,9 +243,16 @@ if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:-"true"} == "true" ]; then
 else
    echo "$allVOID - skipping; set CSV2RDF4LOD_PUBLISH_SUBSET_VOID=true in source-me.sh to publish Meta." | tee -a $CSV2RDF4LOD_LOG
 fi
+numLogs=`find doc/logs -name 'csv2rdf4lod_log_*' | wc -l`
+echo "# num logs: $numLogs" >> $allVOID
+if [ ${#numLogs} ]; then
+   echo "<$versionedDatasetURI> conversion:num_invocation_logs $numLogs ." >> $allVOID # TODO: how to make sure it is an integer?
+fi
 echo "  (including $allPML)" | tee -a $CSV2RDF4LOD_LOG
 cat $allPML >> $allVOID
-
+if [ $allVOID.DO_NOT_LIST ]; then
+   mv $allVOID $allVOID.DO_NOT_LIST
+fi
 
 #
 # sameas subset
