@@ -19,6 +19,8 @@
 # -v onlyIfCol
 # -v repeatAboveIfEmptyCol
 # -v interpretAsNull
+#
+# -v whoami
 
 BEGIN { 
    showConversionProcess = length(conversionID) + length(subjectDiscriminator) + length(header) + length(dataStart) + length(interpretAsNull) + length(dataEnd);
@@ -36,7 +38,6 @@ BEGIN {
    print "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."
    if(length(conversionID)) {
       print "@prefix dcterms:    <http://purl.org/dc/terms/> ."
-      print "#@prefix dcterms:    <http://purl.org/dc/elements/1.1/> ."
       print "@prefix vann:       <http://purl.org/vocab/vann/> ."
       print "@prefix skos:       <http://www.w3.org/2004/02/skos/core#> ."
       print "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."
@@ -67,7 +68,8 @@ BEGIN {
                                     printf("   conversion:base_uri           \"%s\"^^xsd:anyURI;\n",surrogate);
                                     printf("   conversion:source_identifier  \"%s\";\n",sourceID);
                                     printf("   conversion:dataset_identifier \"%s\";\n",datasetID);
-                                    printf("   conversion:dataset_version    \"%s\";\n",datasetVersion);
+                                    printf("   conversion:version_identifier \"%s\";\n",datasetVersion);
+                                    #printf("   conversion:dataset_version    \"%s\"; # DEPRECATED in favor of version_identifier\n",datasetVersion);
    if(showConversionProcess > 0) {
                                      print "   conversion:conversion_process ["
                                      print "      a conversion:RawConversionProcess;"
