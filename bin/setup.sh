@@ -52,6 +52,27 @@ export CSV2RDF4LOD_BASE_URI_OVERRIDE="http://tw2.tw.rpi.edu"
 export CSV2RDF4LOD_BASE_URI_OVERRIDE=""
 
 #
+# Customize: The URI for the machine that is running the conversions.
+#
+# Used to create URIs for `whoami` user names
+#
+# (used in convert.sh and util/header2params2.awk)
+#
+export CSV2RDF4LOD_CONVERT_MACHINE_URI="http://tw.rpi.edu/web/inside/machine/gemini#"
+export CSV2RDF4LOD_CONVERT_MACHINE_URI=""
+
+#
+# Customize: The URI for the person invoking the conversions.
+#
+# Each person running on the same machine should set this in their own environment.
+#
+# (used in convert.sh and util/header2params2.awk)
+#
+export CSV2RDF4LOD_CONVERT_PERSON_URI="http://tw.rpi.edu/instances/TimLebo"
+export CSV2RDF4LOD_CONVERT_PERSON_URI=""
+
+
+#
 # Customize: Number of rows to include in an example subset.
 #
 # Subset is stored in file(s): automatic/$datafile.raw.sample.ttl

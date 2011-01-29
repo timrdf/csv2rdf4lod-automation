@@ -88,6 +88,7 @@ paramsParams="$paramsParams -v header=$header -v dataStart=$dataStart -v onlyIfC
 paramsParams="$paramsParams -v repeatAboveIfEmptyCol=$repeatAboveIfEmptyCol -v interpretAsNull=$interpretAsNull" # awk "bails out at line 1".
 paramsParams="$paramsParams -v dataEnd=$dataEnd"
 paramsParams="$paramsParams -v subjectDiscriminator=$subjectDiscriminator -v datasetVersion=$datasetVersion"
+paramsParams="$paramsParams -v whoami=`whoami` -v machine_uri=$CSV2RDF4LOD_CONVERT_MACHINE_URI -v person_uri=$CSV2RDF4LOD_CONVERT_PERSON_URI"
 
 #
 #

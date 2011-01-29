@@ -8,6 +8,9 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "CSV2RDF4LOD_HOME                                         ${CSV2RDF4LOD_HOME:-"!!! -- MUST BE SET -- !!! source csv2rdf4lod/source-me.sh"}"
    echo "CSV2RDF4LOD_BASE_URI                                     ${CSV2RDF4LOD_BASE_URI:-"!!! -- MUST BE SET -- !!! source csv2rdf4lod/source-me.sh"}"
    echo "CSV2RDF4LOD_BASE_URI_OVERRIDE                            ${CSV2RDF4LOD_BASE_URI_OVERRIDE:="(not required, \$CSV2RDF4LOD_BASE_URI will be used.)"}"
+   echo "--"
+   echo "CSV2RDF4LOD_CONVERT_MACHINE_URI                          ${CSV2RDF4LOD_CONVERT_MACHINE_URI:="(not required)"}"
+   echo "CSV2RDF4LOD_CONVERT_PERSON_URI                           ${CSV2RDF4LOD_CONVERT_PERSON_URI:="(not required)"}"
 
    echo "--"
    echo "CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS                  ${CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS:="(will default to: 2)"}"
@@ -78,8 +81,11 @@ else
    echo "clearing..."
    export CSV2RDF4LOD_HOME=""
    export CSV2RDF4LOD_BASE_URI=""
-
    export CSV2RDF4LOD_BASE_URI_OVERRIDE=""           
+
+   export CSV2RDF4LOD_CONVERT_MACHINE_URI=""           
+   export CSV2RDF4LOD_CONVERT_PERSON_URI=""           
+
    export CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS=""
    export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=""
    export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS=""
