@@ -3,13 +3,15 @@
 outputTypes="sparql xml"
 
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] [-q a.sparql b.sparql ...]*"
+   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] [-q a.sparql b.sparql ...]* [-od path/to/output/dir]"
    echo "    execute SPARQL queries against an endpoint requesting the given output formats"
-   echo "            -p : the URL parameter name used to request a different output/format."
-   echo "    default -p : output"
-   echo "            -o : the URL parameter value(s) to request."
-   echo "    default -o : $outputTypes"
-   echo "    default -q : *.sparql *.rq"
+   echo "            -p  : the URL parameter name used to request a different output/format."
+   echo "    default -p  : output"
+   echo "            -o  : the URL parameter value(s) to request."
+   echo "    default -o  : $outputTypes"
+   echo "    default -q  : *.sparql *.rq"
+   echo "            -od : output directory"
+   echo "    default -od : results/"
    exit 1
 fi
 
@@ -48,7 +50,7 @@ fi
 queryFiles=""
 if [ $# -gt 0 -a "$1" == "-q" ]; then
    shift
-   while [ $# -gt 0 ]; do
+   while [ $# -gt 0 -a "$1" != "-od" ]; do
       queryFiles="$queryFiles $1"
       shift 
    done
@@ -58,8 +60,13 @@ else
    done
 fi
 
-if [ ! -d results ]; then
-   mkdir results
+results="results"
+if [ ${1:-'.'} == "-od" -a $# -gt 1 ]; then
+   shift
+   results="$1"
+fi
+if [ ! -d $results ]; then
+   mkdir $results
 fi
 
 for sparql in $queryFiles; do
@@ -71,7 +78,7 @@ for sparql in $queryFiles; do
       url=$endpoint"?query="$query"&"$outputVarName"="$escapedOutput 
       #echo $url
 
-      resultsFile=results/$sparql.`echo $output | tr '/+-' '_'`
+      resultsFile=$results/$sparql.`echo $output | tr '/+-' '_'`
       curl "$url" > $resultsFile 2> /dev/null
 
       requestID=`java edu.rpi.tw.string.NameFactory`
@@ -123,7 +130,6 @@ for sparql in $queryFiles; do
       echo "   pmlb:attribute \"query\";"                                                >> $resultsFile.pml.ttl
       echo "   pmlb:value     \"\"\"`cat $sparql`\"\"\";"                                >> $resultsFile.pml.ttl
       echo "."                                                                           >> $resultsFile.pml.ttl
-
    done
    echo ""
 done 
