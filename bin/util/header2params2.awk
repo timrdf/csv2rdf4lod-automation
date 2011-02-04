@@ -40,18 +40,18 @@ BEGIN {
    }
    print "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."
    if(length(conversionID)) {
-      print "@prefix dcterms:    <http://purl.org/dc/terms/> ."
       print "@prefix vann:       <http://purl.org/vocab/vann/> ."
       print "@prefix skos:       <http://www.w3.org/2004/02/skos/core#> ."
-      print "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."
       print "@prefix time:       <http://www.w3.org/2006/time#> ."
       print "@prefix wgs:        <http://www.w3.org/2003/01/geo/wgs84_pos#> ."
       print "@prefix geonames:   <http://www.geonames.org/ontology#> ."
       print "@prefix con:        <http://www.w3.org/2000/10/swap/pim/contact#> ."
    }
+   print "@prefix dcterms:    <http://purl.org/dc/terms/> ."
    print "@prefix void:       <http://rdfs.org/ns/void#> ."
    print "@prefix scovo:      <http://purl.org/NET/scovo#> ."
    print "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."
+   print "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."
    #if(showConversionProcess>0) {
       print "@prefix ov:         <http://open.vocab.org/terms/> ."
    #}
