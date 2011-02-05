@@ -122,8 +122,11 @@ fi
 #
 #
 
-javaprops="-Djava.util.logging.config.file=$CSV2RDF4LOD_HOME/bin/logging/finest.properties"
-javaprops=""
+if [ -e $CSV2RDF4LOD_HOME/bin/logging/$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL.properties ]; then
+   javaprops="-Djava.util.logging.config.file=$CSV2RDF4LOD_HOME/bin/logging/$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL.properties"
+else
+   javaprops=""
+fi
 csv2rdf=${CSV2RDF4LOD_CONVERTER:-"java $javaprops -Xmx3060m edu.rpi.tw.data.csv.CSVtoRDF"}
 
 if [ $runRaw == "yes" ]; then 
