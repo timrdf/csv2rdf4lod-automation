@@ -131,6 +131,16 @@ export CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR="true"
 export CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR="false"
 
 #
+# Customize: Enable debugging within the Java CSVtoRDF
+#
+# (used in convert.sh)
+#
+export CSV2RDF4LOD_CONVERT_DEBUG_LEVEL="fine"
+export CSV2RDF4LOD_CONVERT_DEBUG_LEVEL="finer"
+export CSV2RDF4LOD_CONVERT_DEBUG_LEVEL="finest"
+export CSV2RDF4LOD_CONVERT_DEBUG_LEVEL=""
+
+#
 # ------- ------- publishing options ------- -------
 #
 
