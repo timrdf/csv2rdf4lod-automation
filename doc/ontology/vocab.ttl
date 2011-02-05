@@ -1,0 +1,586 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:	<http://www.w3.org/2002/07/owl#> .
+@prefix foaf:	<http://xmlns.com/foaf/0.1/> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix void:	<http://rdfs.org/ns/void#> .
+@prefix ov:		<http://open.vocab.org/terms/> .
+@prefix conv:	<http://purl.org/twc/vocab/conversion/> .
+@base <http://purl.org/twc/vocab/conversion/> .
+
+<> a owl:Ontology ;
+	rdfs:comment "This ontology used by the csv2rdf4lod project." ;
+	rdfs:seeAlso <http://data-gov.tw.rpi.edu/wiki/Csv2rdf4lod> ;
+	rdfs:seeAlso <http://data-gov.tw.rpi.edu/wiki/URI_design_for_RDF_conversion_of_CSV-based_data> ;
+	.
+
+### Classes
+
+conv:ConversionProcess
+	a rdfs:Class ;
+	rdfs:label "Superclass for different conversion processes." ;
+	.
+
+conv:RawConversionProcess
+	a rdfs:Class ;
+	rdfs:subClassOf conv:ConversionProcess ;
+	rdfs:label "A raw conversion process from CSV to RDF" ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:enhancement_identifier ;
+		owl:maxCardinality "0"^^xsd:nonNegativeInteger ;
+	] ;
+   .
+
+conv:EnhancementProcess
+	a rdfs:Class ;
+	rdfs:subClassOf conv:ConversionProcess ;
+	rdfs:label "An enhancement of an RDF dataset that adds new RDF triples" ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:enhancement_identifier ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:enhance ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	.
+
+conv:DocumentState
+	a rdfs:Class ;
+	rdfs:label "The state of a document at a point in time." ;
+	.
+
+###
+
+conv:Enhancement
+	a rdfs:Class ;
+	rdfs:label "The superclass of all enhancements. When the enhancement is referring to a particular property, the property's local name or originating column number may be used (using conv:property_name and ov:csvCol, respectively)." ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:property_name ;
+		owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty ov:csvCol ;
+		owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	.
+
+conv:LabelRenameEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:Enhancement ;
+	rdfs:label "Label Rename Enhancement" ;
+	rdfs:comment "Renames an existing property in the dataset." ;
+	.
+
+conv:PropertyCommentEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:Enhancement ;
+	rdfs:label "Property comment enhancement" ;
+	rdfs:comment "Uses the object of the conv:comment property and asserts it as the value of rdfs:comment on the property definition. The value of conv:comment typically comes from the original csv header (that was too long), or from an ancillary file accompanying the csv file." ;
+	.
+
+conv:PrimaryKeyEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:Enhancement ;
+	rdfs:label "Primary key enhancement" ;
+	rdfs:comment "Uses the property identified by name with conv:primary_key in generating instance URIs. For example, a conv:primary_key of 'user_id' would result in a URI like </source/SSS/dataset/DDD/version/VVV/user_id/UUU> instead of </source/SSS/dataset/DDD/version/VVV/thing_1>." ;
+	.
+
+conv:InterpretedAsNullEnhancement
+   a rdfs:Class ;
+   rdfs:subClassOf conv:Enhancement ;
+   rdfs:comment "Prevents triples with objects of a certain value. Prevents values specified by rdf:value." ;
+   rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty rdf:value ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	.
+
+conv:PromotionEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:Enhancement ;
+	rdfs:label "Value promotion enhancement" ;
+	rdfs:comment "Superclass of enhancements which promote values from a plain literal to more complex terms (resources or typed literals)." ;
+	.
+
+conv:SubjectTypeEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:Enhancement ;
+	rdfs:label "Subject type enhancement" ;
+	rdfs:comment "Asserts that the subject instance is of a specific type, specified by name with conv:domain_name. Also asserts that the type is a rdfs:Class." ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:domain_name ;
+		owl:cardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	.
+
+conv:DatatypePromotionEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:PromotionEnhancement ;
+	owl:disjointWith conv:ResourcePromotionEnhancement ;
+	rdfs:label "Literal datatype promotion enhancement" ;
+	rdfs:comment "Promotes the raw literal value to a datatyped literal using the datatype specified with the conv:range property." ;
+	.
+
+conv:DateTimePromotionEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:DatatypePromotionEnhancement ;
+	rdfs:label "DateTime promotion enhancement" ;
+	rdfs:comment "Casts raw literal values into W3CDTF values typed as xsd:dateTime based on a strftime pattern specified with the conv:datetime_pattern. If the property values follow different patterns, multiple conv:datetime_pattern values may specified. The first matching pattern (of a nondeterministic ordering) will be applied. An optional conv:datetime_timezone may be specified if no timezone information is present in the datetime pattern." ;
+	owl:equivalentClass [
+		a owl:Restriction ;
+		owl:onProperty conv:range ;
+		owl:hasValue   xsd:dateTime ;
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:datetime_timezone ;
+		owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:datetime_pattern ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	.
+
+conv:DatePromotionEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:DatatypePromotionEnhancement ;
+	rdfs:label "Date promotion enhancement" ;
+	rdfs:comment "Casts raw literal values into W3CDTF values typed as xsd:date based on a strftime pattern specified with the conv:date_pattern. If the property values follow different patterns, multiple conv:date_pattern values may specified." ;
+	rdfs:comment "For each value, all DateTimePromotionEnhancement patterns are attempted before attempting any DatePromotionEnhancement patterns specified for the same property." ;
+	owl:equivalentClass [
+		a owl:Restriction ;
+		owl:onProperty conv:range ;
+		owl:hasValue   xsd:date ;
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:date_pattern ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	.
+
+conv:MultiplierEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:DatatypePromotionEnhancement ;
+	rdfs:label "Multiplier enhancement" ;
+	rdfs:comment "After datatype promotion to an XSD numeric type, multiplies the value by the multiplicand specified with the conv:multiplier property." ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty	   conv:multiplier ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	.
+
+conv:BooleanPromotionEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:DatatypePromotionEnhancement ;
+	rdfs:label "Boolean promotion enhancement" ;
+	rdfs:comment "Casts raw literal values into xsd:boolean datatyped values. The default recognized lexical representations are (case insensitive): 'yes', 'no', 'true', 'false', '0', and '1'. The conv:boolean_true and conv:boolean_false properties may be used to add additional lexical forms." ;
+	owl:equivalentClass [
+		a owl:Restriction ;
+		owl:onProperty conv:range ;
+		owl:hasValue   xsd:boolean ;
+	] ;
+	.
+
+conv:ResourcePromotionEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:PromotionEnhancement ;
+	rdfs:label "Resource promotion enhancement" ;
+	rdfs:comment "Superclass of enhancements which promote values from a plain literal to a resource." ;
+	owl:equivalentClass [
+		a owl:Restriction ;
+		owl:onProperty conv:range ;
+		owl:hasValue   rdfs:Resource ;
+	] ;
+	.
+
+conv:ResourceCastEnhancement
+	a rdfs:Class ; 
+	rdfs:subClassOf conv:ResourcePromotionEnhancement ;
+	rdfs:label "Resource cast enhancement" ;
+	rdfs:comment "Casts raw literal values directly into a URI." ;
+	.
+	
+conv:TemplateResourcePromotionEnhancement 
+	a rdfs:Class ; 
+	rdfs:subClassOf conv:ResourcePromotionEnhancement ;
+	rdfs:label "Template resource promotion enhancement" ;
+	rdfs:comment "Converts raw literal values into URIs by replacing in the template (specified by the conv:template_pattern property) the substring '[value]'." ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty	   conv:template_pattern ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	.
+	
+conv:PropertyScopedResourcePromotionEnhancement 
+	a rdfs:Class ; 
+	rdfs:subClassOf conv:ResourcePromotionEnhancement ;
+	rdfs:label "Property-scoped resource promotion enhancement" ;
+	rdfs:comment "Appends raw literal values to the dataset-property-specific value space URI. For example, the value 'AK' for property 'origin_state' would be promoted to </source/SSS/dataset/DDD/value/origin_state/AK>." ;
+	.
+
+conv:TypedResourcePromotionEnhancement 
+	a rdfs:Class ; 
+	rdfs:subClassOf conv:ResourcePromotionEnhancement ;
+	rdfs:label "Typed resource promotion enhancement" ;
+	rdfs:comment "Constructs a URI from the concatenation of a dataset-specific URI, a type token specified with conv:range_name, and the raw literal value. Additionally asserts an rdf:type for the new resource with the class named with conv:range_name. The type name will be lowercased for use in the URI and have the first letter uppercased for use as the class name. For example, the value 'AK' with conv:range_name 'state' would be promoted to </source/SSS/dataset/DDD/type/state/AK> with an rdf:type of </source/SSS/dataset/DDD/vocab/State>." ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:range_name ;
+		owl:cardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	.
+
+conv:ImplicitBundleEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:Enhancement ;
+	rdfs:label "Implicit bundle enhancement" ;
+	rdfs:comment "Reasserts the property-value pair to belong to a new resource specified by the conv:bundled_by property. An example of this enhancement would be the introduction of a geo:Point instance based on latitude and longitude properties." ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:bundled_by ;
+		owl:cardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:bundled_by ;
+		owl:someValuesFrom conv:ImplicitBundle ;
+	] ;
+	.
+
+conv:ExistingBundleEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:Enhancement ;
+	rdfs:label "Existing bundle enhancement" ;
+	rdfs:comment "Reasserts the property-value pair to belong to the existing resource specified by the conv:bundled_by property." ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:bundled_by ;
+		owl:cardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:bundled_by ;
+		owl:allValuesFrom conv:ResourcePromotionEnhancement ;
+	] ;
+	.
+
+conv:SubPropertyEnhancement 
+	a rdfs:Class ; 
+	rdfs:subClassOf conv:Enhancement ;
+	rdfs:label "Subproperty enhancement" ;
+	rdfs:comment "Asserts that an existing property in the dataset is a subproperty of an external property specified by conv:subproperty_of. This enhancement will materialize the subproperty entailments for all instances." ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty	   conv:property_name ;
+		owl:cardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty	   conv:subproperty_of ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	.
+
+conv:SubClassEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:Enhancement ;
+	rdfs:label "Subclass enhancement" ;
+	rdfs:comment "Asserts that an existing class in the dataset, specified by name with conv:class_name,  is a subclass of an external class specified by conv:subclass_of. This enhancement will materialize the rdf:type entailments for all instances." ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty	   conv:class_name ;
+		owl:cardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty	   conv:subclass_of ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	.
+
+conv:SameAsEnhancement 
+	a rdfs:Class ;
+	rdfs:subClassOf conv:Enhancement ;
+	rdfs:label "Superclass for sameAs enahncements" ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty	   conv:links_via ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	.
+
+conv:SubjectSameAsEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:SameAsEnhancement ;
+	rdfs:label "Subject sameAs enahncements" ;
+	rdfs:comment "Asserts owl:sameAs relationships between instances and external URIs based on the instances' values of a specific property and their interpretation by a mapping specified by conv:linksVia. How this mapping is performed based on this value is unspecified, but may be based on aligning with (e.g. SKOS) labels or the edit distance between the property value and instances in a known ontology." ;
+
+	.
+
+conv:SubjectSameAsEnhancementViaLookup
+	a rdfs:Class ;
+	rdfs:subClassOf conv:SubjectSameAsEnhancement ;
+	rdfs:label "Subject sameAs enahncements via Lookup" ;
+	rdfs:comment "Asserts owl:sameAs relationships based on the values in the mapping of the property specified by conv:subject_of." ;
+  	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty	   conv:subject_of ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+ .
+
+conv:ObjectSameAsEnhancement
+	a rdfs:Class ;
+	rdfs:subClassOf conv:SameAsEnhancement ;
+	rdfs:label "Object sameAs enahncements" ;
+	rdfs:comment "Asserts owl:sameAs relationships between resources and external URIs based on the instances' values of a specific property and their interpretation by a mapping specified by conv:linksVia. How this mapping is performed based on this value is unspecified, but may be based on aligning with (e.g. SKOS) labels or the edit distance between the property value and instances in a known ontology." ;
+
+	.
+
+conv:ObjectSameAsEnhancementViaLookup
+	a rdfs:Class ;
+	rdfs:subClassOf conv:ObjectSameAsEnhancement ;
+	rdfs:label "Object sameAs enahncements via Lookup" ;
+	rdfs:comment "Asserts owl:sameAs relationships based on the values in the mapping of the property specified by conv:subject_of." ;
+  	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty	   conv:subject_of ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+   .
+
+conv:ImplicitBundle
+	a rdfs:Class ;
+	rdfs:label "Implicit Bundle" ;
+	rdfs:comment "Represents the structural template for an implicit bundle enhancement. The conv:property_name specifies the property name by which a bundle is attached to an instance. An optional conv:type_name may be specified for the bundle to indicate the rdf:type of the new resource." ;
+   owl:disjointWith conv:ImplicitBundleEnhancement ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:property_name ;
+		owl:cardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty conv:type_name ;
+		owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+	] ;
+	.
+
+
+
+### Properties
+
+conv:dataset_file 
+	a rdf:Property ;
+	rdfs:domain conv:DocumentState ;
+	rdfs:range foaf:Document ;
+	rdfs:comment "The URL of a dataset document." ;
+	.
+	
+conv:encoding 
+	a rdf:Property ;
+	rdfs:domain conv:DocumentState ;
+	rdfs:comment "The character encoding of a dataset document." ;
+	.
+
+conv:source_data 
+	a rdf:Property ;
+	rdfs:domain conv:ConversionProcess ;
+	rdfs:range conv:DocumentState ;
+	rdfs:comment "The source of data for a conversion process." ;
+	.
+
+conv:dataset_source 
+	a rdf:Property ;
+	rdfs:domain conv:ConversionProcess ;
+	rdfs:range rdfs:Literal ;
+	rdfs:comment "The name of the organization to which the dataset being converted belongs." ;
+	.
+
+conv:dataset_identifier 
+	a rdf:Property ;
+	rdfs:domain conv:ConversionProcess ;
+	rdfs:range rdfs:Literal ;
+	rdfs:comment "The identifier of the dataset being converted. Ideally provided by dataset_source." ;
+	.
+
+conv:base_uri 
+	a rdf:Property ;
+	rdfs:domain conv:ConversionProcess ;
+	rdfs:comment "The base URI used in constructing identifying URIs for instances in the converted dataset." ;
+	.
+
+conv:dataset_version 
+	a rdf:Property ;
+	rdfs:domain conv:ConversionProcess ;
+	rdfs:range rdfs:Literal ;
+	rdfs:label "The version of conversion being performed per dataset." ;
+	rdfs:comment "The dataset_version should only change during a 'raw' conversion when the underlying dataset has changed." ;
+	.
+
+conv:conversion_process 
+	a rdf:Property ;
+	rdfs:domain void:Dataset ;
+	rdfs:range conv:ConversionProcess ;
+	rdfs:comment "A conversion process that led to the creation or modification of an RDF dataset." ;
+	.
+
+conv:enhance
+   a rdf:Property ;
+   rdfs:domain conv:EnhancementProcess ;
+   rdfs:range conv:Enhancement ;
+   .
+
+conv:property_name
+	a rdf:Property ;
+	rdfs:range rdfs:Literal ;
+	rdfs:comment "The property name on which an enhancement takes place." ;
+	rdfs:comment "The local name of a property within this dataset-specific namespace." ;
+	.
+
+conv:label
+	a rdf:Property ;
+	rdfs:domain conv:LabelRenameEnhancement ;
+	rdfs:range rdfs:Literal ;
+	rdfs:comment "A human-friendly label (like rdfs:label) that will be used to create the property local name when creating the property URI. The exact value of conv:label will also be used for the rdfs:label of the property created." ;
+	.
+
+conv:comment
+	a rdf:Property ;
+	rdfs:domain conv:PropertyCommentEnhancement ;
+	rdfs:range rdfs:Literal ;
+	rdfs:comment "A comment (like rdfs:comment) that will be applied to the property created during conversion." ;
+	.
+
+conv:domain_name 
+	a rdf:Property ;
+	rdfs:domain conv:SubjectTypeEnhancement ;
+	rdfs:range rdfs:Literal ;
+	rdfs:comment "The local type that should be asserted for the subjects of raw triples." ;
+	.
+
+conv:range_name 
+	a rdf:Property ;
+	rdfs:range rdfs:Literal ;
+	rdfs:comment "The local name of an internal class." ;
+	.
+
+# Remomved by TL 19 May 2010. ResourceSetEnhancment is now TypedResourcePromotionEnhancement. Does set_pattern need to go somewhere?
+#conv:set_pattern 
+#	a rdf:Property ;
+#	rdfs:domain conv:ResourceSetEnhancement ;
+#	rdfs:label "" ;
+#	.
+
+conv:template_pattern
+	a rdf:Property ;
+	rdfs:domain conv:TemplateResourcePromotionEnhancement ;
+	rdfs:range rdfs:Literal ;
+	rdfs:comment "String representing a templated URI. Placeholders in the template are replaced by values of the row in the specified columns. Columns are cited by local name or column number. For example, http://some.other.org/instances/[value]. http://some.other.org/instances/[state]-[county], http://some.other.org/instances/[#4]-[#6]" ;
+	.
+
+conv:range
+	a rdf:Property ;
+	rdfs:domain conv:PromotionEnhancement ;
+	rdfs:range rdfs:Resource ;
+	rdfs:comment "The rdfs:range of the property after enhancement." ;
+	.
+
+conv:multiplier
+   a rdf:Property ;
+   rdfs:domain conv:MultiplierEnhancement ;
+   rdfs:range rdfs:Literal ;
+   .
+
+conv:boolean_true
+	a rdf:Property ;
+	rdfs:domain conv:BooleanPromotionEnhancement ;
+	rdfs:range rdfs:Literal ;
+	rdfs:comment "A value that should be interpreted as true in addition to the standard lexical forms. For example, 'Y', '+', etc." ;
+	.
+conv:boolean_false
+	a rdf:Property ;
+	rdfs:domain conv:BooleanPromotionEnhancement ;
+	rdfs:range rdfs:Literal ;
+	rdfs:comment "A value that should be interpreted as false in addition to the standard lexical forms. For example, 'N', '-', etc." ;
+	.
+
+conv:type_name
+	a rdf:Property ;
+	rdfs:range rdfs:Literal ;
+	rdfs:comment "The local name of a class within this dataset-specific namespace." ;
+	.
+
+conv:class_name
+   a rdf:Property ;
+   rdfs:range rdfs:Literal ;
+   .
+
+conv:primary_key
+	a rdf:Property ;
+	rdfs:subPropertyOf conv:property_name ;
+	rdfs:domain conv:PrimaryKeyEnhancement ;
+	rdfs:range rdfs:Literal ;
+	rdfs:comment "The property name used during primary key enhancement to identify the primary key values." ;
+	.
+
+conv:subproperty_of
+   a rdf:Property ;
+   rdfs:domain conv:SubPropertyEnhancement ;
+   rdfs:comment "The external property that is a super property of the local property named by :property_name" ;
+   .	
+
+conv:subclass_of
+   a rdf:Property ;
+   rdfs:range rdfs:Class ;
+   .
+
+conv:bundled_by
+   a rdf:Property ;
+#   rdfs:domain conv:BundleEnhancement ;
+#   rdfs:range conv:Bundle ;
+   rdfs:range rdfs:Resource ;
+   .
+
+conv:links_via
+   a rdf:Property ;
+   rdfs:range rdfs:Resource ;
+   .
+
+conv:subject_of
+   a rdf:Property ;
+   rdfs:range rdfs:Resource ;
+   .
+
+conv:date_pattern
+   a rdf:Property ;
+   rdfs:domain conv:DatePromotionEnhancement ;
+   rdfs:range rdfs:Literal ;
+   .
+
+conv:datetime_pattern
+   a rdf:Property ;
+   rdfs:domain conv:DateTimePromotionEnhancement ;
+   rdfs:range rdfs:Literal ;
+   .
+
+conv:datetime_timezone
+   a rdf:Property ;
+   rdfs:domain conv:DateTimePromotionEnhancement ;
+   rdfs:range rdfs:Literal ;
+   .
+
+
