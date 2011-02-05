@@ -46,6 +46,7 @@ BEGIN {
       print "@prefix wgs:        <http://www.w3.org/2003/01/geo/wgs84_pos#> ."
       print "@prefix geonames:   <http://www.geonames.org/ontology#> ."
       print "@prefix con:        <http://www.w3.org/2000/10/swap/pim/contact#> ."
+      print "@prefix muo:        <http://purl.oclc.org/NET/muo/muo#> ."
    }
    print "@prefix dcterms:    <http://purl.org/dc/terms/> ."
    print "@prefix void:       <http://rdfs.org/ns/void#> ."
@@ -72,7 +73,7 @@ BEGIN {
                                     printf("<%s> foaf:holdsAccount <%s%s> .\n",person_uri,machine_uri,whoami);
                                     printf("<%s%s>\n   a foaf:OnlineAccount;\n   foaf:accountName \"%s\";\n   sioc:account_of <%s>;\n.\n",machine_uri,whoami,whoami,person_uri);
    }else if(length(person_uri)&&length(whoami)) {
-                                    printf("<%s> dcterms:identifier <%s>;\n",person_uri,whoami);
+                                    printf("<%s> dcterms:identifier <%s> .\n",person_uri,whoami);
    }
                                      print
                                      print ":dataset a void:Dataset;"
