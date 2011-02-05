@@ -13,7 +13,9 @@ eParamsDir=manual # Enhancement parameter templates are placed in manual/ b/c a 
 extensionlessFilename=`echo $datafile | sed 's/^\([^\.]*\)\..*$/\1/'`
 
 graph=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$surrogate}/source/$sourceID/dataset/$datasetID/version/$datasetVersion
-echo Dataset URI $graph | tee -a $CSV2RDF4LOD_LOG
+echo "--------------------------------------------------------------------------------"
+echo "$datafile"
+#echo Dataset URI $graph | tee -a $CSV2RDF4LOD_LOG
 
 versionDir=`pwd`
 
@@ -109,7 +111,7 @@ if [ $runEnhancement == "yes" ]; then
       # local enhancement parameters are no different from when this script generated them
       # there is no file-version global enhancement parameters
       # there is no version global enhancement parameters
-      echo "E$eID conversion parameters has same number of todo:Literals as generated template. skipping." | tee -a $CSV2RDF4LOD_LOG
+      echo "   E$eID conversion parameters has same number of todo:Literals as generated template. skipping." | tee -a $CSV2RDF4LOD_LOG
       runEnhancement="no"
    fi
    # TODO: check to see if enhancement parameters match previous enhancement parameters (e2 same as e1). 
@@ -423,7 +425,7 @@ echo 'source $CSV2RDF4LOD_HOME/bin/convert-aggregate.sh'                        
 echo "export CSV2RDF4LOD_FORCE_PUBLISH=\"false\""                                       >> $publishDir/bin/publish.sh
 chmod +x                                                                                   $publishDir/bin/publish.sh
 
-echo convert.sh done | tee -a $CSV2RDF4LOD_LOG
+echo "   convert.sh done" | tee -a $CSV2RDF4LOD_LOG
 
 # NOTE: this script (convert.sh) does NOT call convert-aggregate.sh directly.
 #       convert-aggregate.sh is called by convert-DDD.sh /after/ it has called convert.sh (potentially) several times.
