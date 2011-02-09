@@ -363,20 +363,20 @@ for sourceFileProvenance in `ls source/*.pml.ttl`; do
    echo "      mkdir -p \`dirname \$wwwfile\`"                             >> $lnwwwrootSH
    echo "   fi"                                                            >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                          >> $lnwwwrootSH
-   echo "   ln $sourceFile \$wwwfile"                                      >> $lnwwwrootSH
+   echo "   ln \"$sourceFile\" \"\$wwwfile\""                              >> $lnwwwrootSH
    echo "else"                                                             >> $lnwwwrootSH
    echo "   echo \"  $sourceFile omitted.\""                               >> $lnwwwrootSH
    echo "fi"                                                               >> $lnwwwrootSH
    echo ""                                                                 >> $lnwwwrootSH
-   echo "if [ -e $sourceFileProvenance ]; then "                           >> $lnwwwrootSH
-   echo "   wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$sourceFileProvenance" >> $lnwwwrootSH
-   echo "   if [ -e \$wwwfile ]; then "                                    >> $lnwwwrootSH
+   echo "if [ -e \"$sourceFileProvenance\" ]; then"                        >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$sourceFileProvenance\"" >> $lnwwwrootSH
+   echo "   if [ -e \"\$wwwfile\" ]; then "                                >> $lnwwwrootSH
    echo "      rm -f \$wwwfile"                                            >> $lnwwwrootSH
    echo "   else"                                                          >> $lnwwwrootSH
-   echo "      mkdir -p \`dirname \$wwwfile\`"                             >> $lnwwwrootSH
+   echo "      mkdir -p \`dirname \"\$wwwfile\"\`"                         >> $lnwwwrootSH
    echo "   fi"                                                            >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                          >> $lnwwwrootSH
-   echo "   ln $sourceFileProvenance \$wwwfile"                            >> $lnwwwrootSH
+   echo "   ln \"$sourceFileProvenance\" \"\$wwwfile\""                    >> $lnwwwrootSH
    echo "else"                                                             >> $lnwwwrootSH
    echo "   echo \"  $sourceFileProvenance omitted.\""                     >> $lnwwwrootSH
    echo "fi"                                                               >> $lnwwwrootSH
