@@ -388,15 +388,15 @@ echo "# Link all INPUT CSV files from the provenance_file directory structure to
 echo "# (this could be from manual/ or source/"                                                      >> $lnwwwrootSH
 for inputFile in `cat $destDir/_CSV2RDF4LOD_file_list.txt` # Sorry for the semi-hack. convert.sh builds this list b/c it knows what files were converted.
 do
-   echo "if [ -e $inputFile ]; then "                                      >> $lnwwwrootSH
-   echo "   wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$inputFile" >> $lnwwwrootSH
-   echo "   if [ -e \$wwwfile ]; then "                                    >> $lnwwwrootSH
-   echo "      rm -f \$wwwfile"                                            >> $lnwwwrootSH
+   echo "if [ -e \"$inputFile\" ]; then "                                  >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$inputFile\"" >> $lnwwwrootSH
+   echo "   if [ -e \"\$wwwfile\" ]; then "                                >> $lnwwwrootSH
+   echo "      rm -f \"\$wwwfile\""                                        >> $lnwwwrootSH
    echo "   else"                                                          >> $lnwwwrootSH
-   echo "      mkdir -p \`dirname \$wwwfile\`"                             >> $lnwwwrootSH
+   echo "      mkdir -p \`dirname \"\$wwwfile\"\`"                         >> $lnwwwrootSH
    echo "   fi"                                                            >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                          >> $lnwwwrootSH
-   echo "   ln $inputFile \$wwwfile"                                       >> $lnwwwrootSH
+   echo "   ln \"$inputFile\" \"\$wwwfile\""                               >> $lnwwwrootSH
    echo "else"                                                             >> $lnwwwrootSH
    echo "   echo \"  $inputFile omitted.\""                                >> $lnwwwrootSH
    echo "fi"                                                               >> $lnwwwrootSH
