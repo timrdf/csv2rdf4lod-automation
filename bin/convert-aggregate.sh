@@ -314,7 +314,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
          tar czf $dumpFileBase.$zip $dumpFileBase  # TODO:notar
 
          # Don't use tar if there is only ever one file; use gzip instead:
-         cat $dumpFileBase gzip > $dumpFileBase.gz # TODO:notar
+         cat $dumpFileBase | gzip > $dumpFileBase.gz # TODO:notar
 
          # WARNING: 
          # gunzip $dumpFileBase.gz # will remove .gz file
