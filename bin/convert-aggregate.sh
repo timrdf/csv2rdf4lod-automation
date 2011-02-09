@@ -314,7 +314,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
          tar czf $dumpFileBase.$zip $dumpFileBase  # TODO:notar
 
          # Don't use tar if there is only ever one file; use gzip instead:
-         cat $dumpFileBase | gzip > $dumpFileBase.gz # TODO:notar
+         cat $dumpFileBase | gzip > $dumpFileBase.$zip # TODO:notar
 
          # WARNING: 
          # gunzip $dumpFileBase.gz # will remove .gz file
@@ -574,13 +574,13 @@ echo "if [ ! -e $allNT ]; then"                                                 
 echo "  delete=\"$allNT\""                                                              >> $loadtdbSH
 echo "  if [ -e $allNT.$zip ]; then"                                                     >> $loadtdbSH 
 #echo "    tar xzf $allNT.$zip"                                                           >> $loadtdbSH # TODO:notar
-echo "    gunzip -c $allNT.gz > $allNT"                                                 >> $loadtdbSH # TODO:notar
+echo "    gunzip -c $allNT.$zip > $allNT"                                                 >> $loadtdbSH # TODO:notar
 echo "  elif [ -e $allTTL ]; then"                                                      >> $loadtdbSH
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""     >> $loadtdbSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                    >> $loadtdbSH
 echo "  elif [ -e $allTTL.$zip ]; then"                                                  >> $loadtdbSH 
 #echo "    tar xzf $allTTL.$zip"                                                          >> $loadtdbSH # TODO:notar
-echo "    gunzip -c $allTTL.gz > $allTTL"                                               >> $loadtdbSH # TODO:notar
+echo "    gunzip -c $allTTL.$zip > $allTTL"                                               >> $loadtdbSH # TODO:notar
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""     >> $loadtdbSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                    >> $loadtdbSH
 echo "    rm $allTTL"                                                                   >> $loadtdbSH
@@ -713,7 +713,7 @@ echo "   sudo /opt/virtuoso/scripts/vload nt \$dump \$graph"                    
 echo "   exit 1"                                                                                >> $vloadSH
 echo "elif [ -e \$dump.$zip ]; then"                                                             >> $vloadSH 
 #echo "   tar xzfO \$dump.$zip > \$TEMP"                                                          >> $vloadSH # TODO:notar
-echo "    gunzip -c \$dump.gz > \$TEMP"                                                         >> $vloadSH # TODO:notar
+echo "    gunzip -c \$dump.$zip > \$TEMP"                                                         >> $vloadSH # TODO:notar
 echo "   sudo /opt/virtuoso/scripts/vload nt \$TEMP \$graph"                                    >> $vloadSH
 echo "   rm \$TEMP"                                                                             >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
@@ -727,7 +727,7 @@ echo "   sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                   
 echo "   exit 1"                                                                                >> $vloadSH
 echo "elif [ -e \$dump.$zip ]; then"                                                             >> $vloadSH 
 #echo "   tar xzfO \$dump.$zip > \$TEMP"                                                          >> $vloadSH # TODO:notar
-echo "    gunzip -c \$dump.gz > \$TEMP"                                                         >> $vloadSH # TODO:notar
+echo "    gunzip -c \$dump.$zip > \$TEMP"                                                         >> $vloadSH # TODO:notar
 echo "   echo sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                              >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                   >> $vloadSH
 echo "   rm \$TEMP"                                                                             >> $vloadSH
@@ -741,7 +741,7 @@ echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                   
 echo "   exit 1"                                                                                >> $vloadSH
 echo "elif [ -e \$dump.$zip ]; then"                                                             >> $vloadSH 
 #echo "   tar xzfO \$dump.$zip > \$TEMP"                                                          >> $vloadSH # TODO:notar
-echo "    gunzip -c \$dump.gz > \$TEMP"                                                         >> $vloadSH # TODO:notar
+echo "    gunzip -c \$dump.$zip > \$TEMP"                                                         >> $vloadSH # TODO:notar
 echo "   sudo /opt/virtuoso/scripts/vload rdf \$TEMP \$graph"                                   >> $vloadSH
 echo "   rm \$TEMP"                                                                             >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
@@ -784,13 +784,13 @@ echo "if [ ! -e $allNT ]; then"                                                 
 echo "  delete=\"$allNT\""                                                                                     >> $lodmatSH
 echo "  if [ -e $allNT.$zip ]; then"                                                                           >> $lodmatSH 
 #echo "    tar xzf $allNT.$zip"                                                                                  >> $lodmatSH # TODO:notar
-echo "    gunzip -c \$allNT.gz > \$allNT"                                                                      >> $lodmatSH # TODO:notar
+echo "    gunzip -c \$allNT.$zip > \$allNT"                                                                      >> $lodmatSH # TODO:notar
 echo "  elif [ -e $allTTL ]; then"                                                                             >> $lodmatSH
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""                            >> $lodmatSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                                           >> $lodmatSH
 echo "  elif [ -e $allTTL.$zip ]; then"                                                                        >> $lodmatSH 
 #echo "    tar xzf $allTTL.$zip"                                                                                 >> $lodmatSH # TODO:notar
-echo "    gunzip -c \$allTTL.gz > \$allTTL"                                                                    >> $lodmatSH # TODO:notar
+echo "    gunzip -c \$allTTL.$zip > \$allTTL"                                                                    >> $lodmatSH # TODO:notar
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""                            >> $lodmatSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                                           >> $lodmatSH
 echo "    rm $allTTL"                                                                                          >> $lodmatSH
