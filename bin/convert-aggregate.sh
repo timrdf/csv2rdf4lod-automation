@@ -57,6 +57,7 @@ rawSampleGraph="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$surrogate}/source/$sourceID/da
 allSAMEAS_L=$sourceID-$datasetID-$datasetVersion.sameas.nt
 filesToCompress="$allRaw"
 
+zip="tgz"
 
 if [ ! `which rapper` ]; then
    # check if rapper is on path, if not, report error.
@@ -306,11 +307,11 @@ fi
 #
 if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
    for dumpFile in $filesToCompress ; do
-      echo "$dumpFile.tgz (will delete uncompressed version at end of processing)" | tee -a $CSV2RDF4LOD_LOG # TODO:notar
+      echo "$dumpFile.$zip (will delete uncompressed version at end of processing)" | tee -a $CSV2RDF4LOD_LOG
       dumpFileDir=`dirname $dumpFile`
       dumpFileBase=`basename $dumpFile`
       pushd $dumpFileDir 2>/dev/null
-         tar czf $dumpFileBase.tgz $dumpFileBase  # TODO:notar
+         tar czf $dumpFileBase.$zip $dumpFileBase  # TODO:notar
          # Don't use tar if there is only ever one file; use gzip instead.
          # cat $dumpFileBase gzip > $dumpFileBase.gz
 
@@ -459,17 +460,17 @@ for serialization in ttl nt rdf
 do
    echo "dump=$sourceID-$datasetID-$datasetVersion.$serialization"                                                                              >> $lnwwwrootSH
    echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$datasetVersion/conversion/\$dump" >> $lnwwwrootSH
-   echo "if [ -e $publishDir/\$dump.tgz ]; then "                          >> $lnwwwrootSH # TODO:notar
-   echo "   if [ -e \$wwwfile.tgz ]; then"                                 >> $lnwwwrootSH # TODO:notar
-   echo "      rm -f \$wwwfile.tgz"                                        >> $lnwwwrootSH # TODO:notar
+   echo "if [ -e $publishDir/\$dump.$zip ]; then "                          >> $lnwwwrootSH 
+   echo "   if [ -e \$wwwfile.$zip ]; then"                                 >> $lnwwwrootSH 
+   echo "      rm -f \$wwwfile.$zip"                                        >> $lnwwwrootSH 
    echo "   else"                                                          >> $lnwwwrootSH
-   echo "      mkdir -p \`dirname \$wwwfile.tgz\`"                         >> $lnwwwrootSH # TODO:notar
+   echo "      mkdir -p \`dirname \$wwwfile.$zip\`"                         >> $lnwwwrootSH 
    echo "   fi"                                                            >> $lnwwwrootSH
-   echo "   echo \"  \$wwwfile.tgz\""                                      >> $lnwwwrootSH # TODO:notar
-   echo "   ln $publishDir/\$dump.tgz \$wwwfile.tgz"                       >> $lnwwwrootSH # TODO:notar
+   echo "   echo \"  \$wwwfile.$zip\""                                      >> $lnwwwrootSH 
+   echo "   ln $publishDir/\$dump.$zip \$wwwfile.$zip"                       >> $lnwwwrootSH 
    echo ""                                                                 >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then"                                     >> $lnwwwrootSH
-   echo "      echo \"  \$wwwfile\" - removing b/c tgz available"          >> $lnwwwrootSH # TODO:notar
+   echo "      echo \"  \$wwwfile\" - removing b/c $zip available"          >> $lnwwwrootSH 
    echo "      rm -f \$wwwfile # clean up to save space"                   >> $lnwwwrootSH
    echo "   fi"                                                            >> $lnwwwrootSH
    echo "elif [ -e $publishDir/\$dump ]; then "                            >> $lnwwwrootSH
@@ -492,17 +493,17 @@ do
    do
       echo "dump=$sourceID-$datasetID-$datasetVersion.$conversionID.$serialization"                                                                >> $lnwwwrootSH
       echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$datasetVersion/conversion/\$dump" >> $lnwwwrootSH
-      echo "if [ -e $publishDir/\$dump.tgz ]; then "                          >> $lnwwwrootSH # TODO:notar
-      echo "   if [ -e \$wwwfile.tgz ]; then"                                 >> $lnwwwrootSH # TODO:notar
-      echo "      rm -f \$wwwfile.tgz"                                        >> $lnwwwrootSH # TODO:notar
+      echo "if [ -e $publishDir/\$dump.$zip ]; then "                          >> $lnwwwrootSH 
+      echo "   if [ -e \$wwwfile.$zip ]; then"                                 >> $lnwwwrootSH 
+      echo "      rm -f \$wwwfile.$zip"                                        >> $lnwwwrootSH 
       echo "   else"                                                          >> $lnwwwrootSH
-      echo "      mkdir -p \`dirname \$wwwfile.tgz\`"                         >> $lnwwwrootSH # TODO:notar
+      echo "      mkdir -p \`dirname \$wwwfile.$zip\`"                         >> $lnwwwrootSH 
       echo "   fi"                                                            >> $lnwwwrootSH
-      echo "   echo \"  \$wwwfile.tgz\""                                      >> $lnwwwrootSH # TODO:notar
-      echo "   ln $publishDir/\$dump.tgz \$wwwfile.tgz"                       >> $lnwwwrootSH # TODO:notar
+      echo "   echo \"  \$wwwfile.$zip\""                                      >> $lnwwwrootSH 
+      echo "   ln $publishDir/\$dump.$zip \$wwwfile.$zip"                       >> $lnwwwrootSH 
       echo ""                                                                 >> $lnwwwrootSH
       echo "   if [ -e \$wwwfile ]; then"                                     >> $lnwwwrootSH
-      echo "      echo \"  \$wwwfile\" - removing b/c tgz available"          >> $lnwwwrootSH # TODO:notar
+      echo "      echo \"  \$wwwfile\" - removing b/c $zip available"          >> $lnwwwrootSH 
       echo "      rm -f \$wwwfile # clean up to save space"                   >> $lnwwwrootSH
       echo "   fi"                                                            >> $lnwwwrootSH
       echo "elif [ -e $publishDir/\$dump ]; then "                            >> $lnwwwrootSH
@@ -570,18 +571,18 @@ echo ""                                                                         
 echo "delete=\"\""                                                                      >> $loadtdbSH
 echo "if [ ! -e $allNT ]; then"                                                         >> $loadtdbSH
 echo "  delete=\"$allNT\""                                                              >> $loadtdbSH
-echo "  if [ -e $allNT.tgz ]; then"                                                     >> $loadtdbSH # TODO:notar
-echo "    tar xzf $allNT.tgz"                                                           >> $loadtdbSH # TODO:notar
+echo "  if [ -e $allNT.$zip ]; then"                                                     >> $loadtdbSH 
+echo "    tar xzf $allNT.$zip"                                                           >> $loadtdbSH # TODO:notar
 echo "  elif [ -e $allTTL ]; then"                                                      >> $loadtdbSH
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""     >> $loadtdbSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                    >> $loadtdbSH
-echo "  elif [ -e $allTTL.tgz ]; then"                                                  >> $loadtdbSH # TODO:notar
-echo "    tar xzf $allTTL.tgz"                                                          >> $loadtdbSH # TODO:notar
+echo "  elif [ -e $allTTL.$zip ]; then"                                                  >> $loadtdbSH 
+echo "    tar xzf $allTTL.$zip"                                                          >> $loadtdbSH # TODO:notar
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""     >> $loadtdbSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                    >> $loadtdbSH
 echo "    rm $allTTL"                                                                   >> $loadtdbSH
 echo "  else"                                                                           >> $loadtdbSH
-echo "    echo $allNT, $allNT.tgz, $allTTL, or $allTTL.tgz needed to lod-materialize."  >> $loadtdbSH # TODO:notar
+echo "    echo $allNT, $allNT.$zip, $allTTL, or $allTTL.$zip needed to lod-materialize."  >> $loadtdbSH 
 echo "    delete=\"\""                                                                  >> $loadtdbSH
 echo "    exit 1"                                                                       >> $loadtdbSH
 echo "  fi"                                                                             >> $loadtdbSH
@@ -707,8 +708,8 @@ echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                        
 echo "if [ -e \$dump ]; then"                                                                   >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload nt \$dump \$graph"                                    >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
-echo "elif [ -e \$dump.tgz ]; then"                                                             >> $vloadSH # TODO:notar
-echo "   tar xzfO \$dump.tgz > \$TEMP"                                                          >> $vloadSH # TODO:notar
+echo "elif [ -e \$dump.$zip ]; then"                                                             >> $vloadSH 
+echo "   tar xzfO \$dump.$zip > \$TEMP"                                                          >> $vloadSH # TODO:notar
 echo "   sudo /opt/virtuoso/scripts/vload nt \$TEMP \$graph"                                    >> $vloadSH
 echo "   rm \$TEMP"                                                                             >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
@@ -720,8 +721,8 @@ echo "if [ -e \$dump ]; then"                                                   
 echo "   echo sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                              >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                   >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
-echo "elif [ -e \$dump.tgz ]; then"                                                             >> $vloadSH # TODO:notar
-echo "   tar xzfO \$dump.tgz > \$TEMP"                                                          >> $vloadSH # TODO:notar
+echo "elif [ -e \$dump.$zip ]; then"                                                             >> $vloadSH 
+echo "   tar xzfO \$dump.$zip > \$TEMP"                                                          >> $vloadSH # TODO:notar
 echo "   echo sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                              >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                   >> $vloadSH
 echo "   rm \$TEMP"                                                                             >> $vloadSH
@@ -733,14 +734,14 @@ echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                        
 echo "if [ -e \$dump ]; then"                                                                   >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                                   >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
-echo "elif [ -e \$dump.tgz ]; then"                                                             >> $vloadSH # TODO:notar
-echo "   tar xzfO \$dump.tgz > \$TEMP"                                                          >> $vloadSH # TODO:notar
+echo "elif [ -e \$dump.$zip ]; then"                                                             >> $vloadSH 
+echo "   tar xzfO \$dump.$zip > \$TEMP"                                                          >> $vloadSH # TODO:notar
 echo "   sudo /opt/virtuoso/scripts/vload rdf \$TEMP \$graph"                                   >> $vloadSH
 echo "   rm \$TEMP"                                                                             >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
 echo "fi"                                                                                       >> $vloadSH
 chmod +x $vloadSH
-cat $vloadSH | sed 's/vload [^ ]* [^^ ]* /vdelete /' | grep -v "tar xzf" | grep -v "rm " > $vdeleteSH
+cat $vloadSH | sed 's/vload [^ ]* [^^ ]* /vdelete /' | grep -v "tar xzf" | grep -v "rm " > $vdeleteSH # TODO:notar
 chmod +x $vdeleteSH
 if [ ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"."} == "true" ]; then
    $vdeleteSH
@@ -775,18 +776,18 @@ echo ""                                                                         
 echo "delete=\"\""                                                                                             >> $lodmatSH
 echo "if [ ! -e $allNT ]; then"                                                                                >> $lodmatSH
 echo "  delete=\"$allNT\""                                                                                     >> $lodmatSH
-echo "  if [ -e $allNT.tgz ]; then"                                                                            >> $lodmatSH # TODO:notar
-echo "    tar xzf $allNT.tgz"                                                                                  >> $lodmatSH # TODO:notar
+echo "  if [ -e $allNT.$zip ]; then"                                                                            >> $lodmatSH 
+echo "    tar xzf $allNT.$zip"                                                                                  >> $lodmatSH # TODO:notar
 echo "  elif [ -e $allTTL ]; then"                                                                             >> $lodmatSH
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""                            >> $lodmatSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                                           >> $lodmatSH
-echo "  elif [ -e $allTTL.tgz ]; then"                                                                         >> $lodmatSH # TODO:notar
-echo "    tar xzf $allTTL.tgz"                                                                                 >> $lodmatSH # TODO:notar
+echo "  elif [ -e $allTTL.$zip ]; then"                                                                         >> $lodmatSH 
+echo "    tar xzf $allTTL.$zip"                                                                                 >> $lodmatSH # TODO:notar
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""                            >> $lodmatSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                                           >> $lodmatSH
 echo "    rm $allTTL"                                                                                          >> $lodmatSH
 echo "  else"                                                                                                  >> $lodmatSH
-echo "    echo $allNT, $allNT.tgz, $allTTL, or $allTTL.tgz needed to lod-materialize."                         >> $lodmatSH # TODO:notar
+echo "    echo $allNT, $allNT.$zip, $allTTL, or $allTTL.$zip needed to lod-materialize."                         >> $lodmatSH 
 echo "    delete=\"\""                                                                                         >> $lodmatSH
 echo "    exit 1"                                                                                              >> $lodmatSH
 echo "  fi"                                                                                                    >> $lodmatSH
@@ -909,7 +910,7 @@ fi
 if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
    for dumpFile in $filesToCompress ; do
       # NOTE, tarball was created earlier in this script.
-      if [ -e $dumpFile.tgz ]; then # TODO:notar
+      if [ -e $dumpFile.$zip ]; then
          echo "  $dumpFile - removed b/c \$CSV2RDF4LOD_PUBLISH_COMPRESS=\"true\"" | tee -a $CSV2RDF4LOD_LOG
          rm $dumpFile
       fi
