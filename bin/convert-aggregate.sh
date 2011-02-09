@@ -413,15 +413,15 @@ echo "# Link all raw and enhancement PARAMETERS from the provenance_file file di
 echo "#"                                                                                                                 >> $lnwwwrootSH
 for paramFile in `cat $TEMP_file_list`
 do
-   echo "if [ -e $paramFile ]; then "                                      >> $lnwwwrootSH
-   echo "   wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$paramFile" >> $lnwwwrootSH
-   echo "   if [ -e \$wwwfile ]; then "                                    >> $lnwwwrootSH
-   echo "      rm -f \$wwwfile"                                            >> $lnwwwrootSH
+   echo "if [ -e \"$paramFile\" ]; then "                                  >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$paramFile\"" >> $lnwwwrootSH
+   echo "   if [ -e \"\$wwwfile\" ]; then "                                >> $lnwwwrootSH
+   echo "      rm -f \"\$wwwfile\""                                        >> $lnwwwrootSH
    echo "   else"                                                          >> $lnwwwrootSH
-   echo "      mkdir -p \`dirname \$wwwfile\`"                             >> $lnwwwrootSH
+   echo "      mkdir -p \`dirname \"\$wwwfile\"\`"                         >> $lnwwwrootSH
    echo "   fi"                                                            >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                          >> $lnwwwrootSH
-   echo "   ln $paramFile \$wwwfile"                                       >> $lnwwwrootSH
+   echo "   ln \"$paramFile\" \"\$wwwfile\""                               >> $lnwwwrootSH
    echo "else"                                                             >> $lnwwwrootSH
    echo "   echo \"  $paramFile omitted.\""                                >> $lnwwwrootSH
    echo "fi"                                                               >> $lnwwwrootSH
@@ -435,15 +435,15 @@ echo "# Link all PROVENANCE files that describe how the input CSV files were obt
 echo "#"                                                                                >> $lnwwwrootSH
 for pmlFile in `cat $TEMP_file_list`
 do
-   echo "if [ -e $pmlFile ]; then "                                        >> $lnwwwrootSH
-   echo "   wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$pmlFile" >> $lnwwwrootSH
-   echo "   if [ -e \$wwwfile ]; then"                                     >> $lnwwwrootSH
-   echo "      rm -f \$wwwfile"                                            >> $lnwwwrootSH
+   echo "if [ -e \"$pmlFile\" ]; then "                                    >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$pmlFile\"" >> $lnwwwrootSH
+   echo "   if [ -e \"\$wwwfile\" ]; then"                                 >> $lnwwwrootSH
+   echo "      rm -f \"\$wwwfile\""                                        >> $lnwwwrootSH
    echo "   else"                                                          >> $lnwwwrootSH
-   echo "      mkdir -p \`dirname \$wwwfile\`"                             >> $lnwwwrootSH
+   echo "      mkdir -p \`dirname \"\$wwwfile\"\`"                         >> $lnwwwrootSH
    echo "   fi"                                                            >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                          >> $lnwwwrootSH
-   echo "   ln $pmlFile \$wwwfile"                                         >> $lnwwwrootSH
+   echo "   ln \"$pmlFile\" \"\$wwwfile\""                                 >> $lnwwwrootSH
    echo "else"                                                             >> $lnwwwrootSH
    echo "   echo \"  $pmlFile omitted.\""                                  >> $lnwwwrootSH
    echo "fi"                                                               >> $lnwwwrootSH
