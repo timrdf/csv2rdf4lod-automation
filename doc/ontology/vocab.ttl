@@ -12,6 +12,7 @@
 	rdfs:comment "This ontology used by the csv2rdf4lod project." ;
 	rdfs:seeAlso <http://data-gov.tw.rpi.edu/wiki/Csv2rdf4lod> ;
 	rdfs:seeAlso <http://data-gov.tw.rpi.edu/wiki/URI_design_for_RDF_conversion_of_CSV-based_data> ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki> ;
 	.
 
 ### Classes
@@ -463,6 +464,7 @@ conv:comment
 	rdfs:domain conv:PropertyCommentEnhancement ;
 	rdfs:range rdfs:Literal ;
 	rdfs:comment "A comment (like rdfs:comment) that will be applied to the property created during conversion." ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:comment>;
 	.
 
 conv:domain_name 
@@ -503,6 +505,7 @@ conv:multiplier
    a rdf:Property ;
    rdfs:domain conv:MultiplierEnhancement ;
    rdfs:range rdfs:Literal ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:multiplier> ;
    .
 
 conv:boolean_true
