@@ -40,6 +40,7 @@ BEGIN {
    }
    print "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."
    if(length(conversionID)) {
+      print "@prefix owl:        <http://www.w3.org/2002/07/owl#> ."
       print "@prefix vann:       <http://purl.org/vocab/vann/> ."
       print "@prefix skos:       <http://www.w3.org/2004/02/skos/core#> ."
       print "@prefix time:       <http://www.w3.org/2006/time#> ."
@@ -90,7 +91,7 @@ BEGIN {
    if(length(subjectDiscriminator)) printf("      conversion:subject_discriminator  \"%s\";\n",subjectDiscriminator);
                                      print
    if(length(person_uri)&&length(machine_uri)&&length(whoami)) {
-                                    printf("      dcterms:creator <%s%s\>;\n",machine_uri,whoami);
+                                    printf("      dcterms:creator <%s%s>;\n",machine_uri,whoami);
    }else if(length(person_uri)) {
                                     printf("      dcterms:creator \"%s\";\n",person_uri);
    }else if(length(whoami)) {
