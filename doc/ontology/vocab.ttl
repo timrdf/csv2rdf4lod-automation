@@ -1,18 +1,23 @@
-@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl:	<http://www.w3.org/2002/07/owl#> .
-@prefix foaf:	<http://xmlns.com/foaf/0.1/> .
-@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
-@prefix void:	<http://rdfs.org/ns/void#> .
-@prefix ov:		<http://open.vocab.org/terms/> .
-@prefix conv:	<http://purl.org/twc/vocab/conversion/> .
+@prefix rdf:      	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	      <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:	      <http://www.w3.org/2002/07/owl#> .
+@prefix foaf:	      <http://xmlns.com/foaf/0.1/> .
+@prefix xsd:	      <http://www.w3.org/2001/XMLSchema#> .
+@prefix void:	      <http://rdfs.org/ns/void#> .
+@prefix ov:		      <http://open.vocab.org/terms/> .
+@prefix conv:	      <http://purl.org/twc/vocab/conversion/> .
+@prefix conversion:	<http://purl.org/twc/vocab/conversion/> .
 @base <http://purl.org/twc/vocab/conversion/> .
 
 <> a owl:Ontology ;
+     dc:description "Ontology used to describe interpretations of tabular literals to produce RDF.";
 	rdfs:comment "This ontology used by the csv2rdf4lod project." ;
 	rdfs:seeAlso <http://data-gov.tw.rpi.edu/wiki/Csv2rdf4lod> ;
 	rdfs:seeAlso <http://data-gov.tw.rpi.edu/wiki/URI_design_for_RDF_conversion_of_CSV-based_data> ;
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki> ;
+     dc:creator <http://tw.rpi.edu/instances/TimLebo> ;
+     dc:creator <http://kasei.us/about/foaf.xrdf#greg> ;
+     dc:date "2011-02-09" .
 	.
 
 ### Classes
@@ -53,6 +58,33 @@ conv:DocumentState
 	a rdfs:Class ;
 	rdfs:label "The state of a document at a point in time." ;
 	.
+
+### Structural Enhancements
+
+conv:HeaderRow
+   a rdfs:Class ;
+   rdfs:label "HeaderRow";
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:DataEndRow>;
+.
+
+conv:DataStartRow
+   a rdfs:Class ;
+   rdfs:label "DataStartRow";
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:DataStartRow>;
+.
+
+conv:DataEndRow
+   a rdfs:Class ;
+   rdfs:label "DataEndRow";
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:DataEndRow>;
+.
+
+conv:delimits_object
+   a rdf:Property ;
+   rdfs:label "delimits_object";
+   rdfs:comment "A regular expression specifiying how the object literal should be delimited to produce multiple object values.";
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:delimits_object>;
+.
 
 ###
 
@@ -404,7 +436,16 @@ conv:source_data
 	rdfs:comment "The source of data for a conversion process." ;
 	.
 
-conv:dataset_source 
+
+### Dataset naming properties.
+
+conv:base_uri 
+	a rdf:Property ;
+	rdfs:domain conv:ConversionProcess ;
+	rdfs:comment "The base URI used in constructing identifying URIs for instances in the converted dataset." ;
+	.
+
+conv:source_identifier 
 	a rdf:Property ;
 	rdfs:domain conv:ConversionProcess ;
 	rdfs:range rdfs:Literal ;
@@ -415,22 +456,18 @@ conv:dataset_identifier
 	a rdf:Property ;
 	rdfs:domain conv:ConversionProcess ;
 	rdfs:range rdfs:Literal ;
-	rdfs:comment "The identifier of the dataset being converted. Ideally provided by dataset_source." ;
+	rdfs:comment "The identifier of the dataset being converted. Ideally provided by source_identifier." ;
 	.
 
-conv:base_uri 
-	a rdf:Property ;
-	rdfs:domain conv:ConversionProcess ;
-	rdfs:comment "The base URI used in constructing identifying URIs for instances in the converted dataset." ;
-	.
-
-conv:dataset_version 
+conv:version_identifier 
 	a rdf:Property ;
 	rdfs:domain conv:ConversionProcess ;
 	rdfs:range rdfs:Literal ;
 	rdfs:label "The version of conversion being performed per dataset." ;
-	rdfs:comment "The dataset_version should only change during a 'raw' conversion when the underlying dataset has changed." ;
+	rdfs:comment "The version_identifier should only change during a 'raw' conversion when the underlying dataset has changed." ;
 	.
+
+### basic connectivity.
 
 conv:conversion_process 
 	a rdf:Property ;
@@ -445,12 +482,18 @@ conv:enhance
    rdfs:range conv:Enhancement ;
    .
 
+### Referencing properties.
+
 conv:property_name
 	a rdf:Property ;
+	rdfs:domain [ owl:unionOf ( conv:Enhancement :conv:ImplicitBundle ) ];
 	rdfs:range rdfs:Literal ;
 	rdfs:comment "The property name on which an enhancement takes place." ;
 	rdfs:comment "The local name of a property within this dataset-specific namespace." ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:ImplicitBundle>;
 	.
+
+### Describing resulting properties.
 
 conv:label
 	a rdf:Property ;
@@ -467,17 +510,32 @@ conv:comment
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:comment>;
 	.
 
+conv:eg
+	a rdf:Property, owl:AnnotationProperty ;
+   rdfs:domain conv:PropertyEnhancement;
+   rdfs:comment "Example value from a cell in the column for this ColumnEnhancement.";
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:eg>;
+.
+
+conv:domain_template 
+	a rdf:Property ;
+   rdfs:comment "Template to name the subject of the triple produced.";
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:domain_template>;
+.
+
 conv:domain_name 
 	a rdf:Property ;
 	rdfs:domain conv:SubjectTypeEnhancement ;
 	rdfs:range rdfs:Literal ;
 	rdfs:comment "The local type that should be asserted for the subjects of raw triples." ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:domain_name>;
 	.
 
 conv:range_name 
 	a rdf:Property ;
 	rdfs:range rdfs:Literal ;
 	rdfs:comment "The local name of an internal class." ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:range_name>;
 	.
 
 # Remomved by TL 19 May 2010. ResourceSetEnhancment is now TypedResourcePromotionEnhancement. Does set_pattern need to go somewhere?
@@ -523,17 +581,20 @@ conv:boolean_false
 
 conv:type_name
 	a rdf:Property ;
-	rdfs:range rdfs:Literal ;
+	rdfs:domain conv:ImplicitBundle ;
+	rdfs:range  rdfs:Literal ;
 	rdfs:comment "The local name of a class within this dataset-specific namespace." ;
 	.
 
 conv:class_name
    a rdf:Property ;
+   rdfs:domain conv:SubClassEnhancement; 
    rdfs:range rdfs:Literal ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subclass_of>;
    .
 
 conv:primary_key
-	a rdf:Property ;
+	a rdf:Property, owl:DeprecatedClass ;
 	rdfs:subPropertyOf conv:property_name ;
 	rdfs:domain conv:PrimaryKeyEnhancement ;
 	rdfs:range rdfs:Literal ;
@@ -544,11 +605,14 @@ conv:subproperty_of
    a rdf:Property ;
    rdfs:domain conv:SubPropertyEnhancement ;
    rdfs:comment "The external property that is a super property of the local property named by :property_name" ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subproperty_of>;
    .	
 
 conv:subclass_of
    a rdf:Property ;
+   rdfs:domain conv:SubClassEnhancement; 
    rdfs:range rdfs:Class ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subclass_of>;
    .
 
 conv:bundled_by
@@ -556,28 +620,33 @@ conv:bundled_by
 #   rdfs:domain conv:BundleEnhancement ;
 #   rdfs:range conv:Bundle ;
    rdfs:range rdfs:Resource ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:bundled_by>;
    .
 
 conv:links_via
    a rdf:Property ;
    rdfs:range rdfs:Resource ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:links_via>;
    .
 
 conv:subject_of
    a rdf:Property ;
    rdfs:range rdfs:Resource ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subject_of>;
    .
 
 conv:date_pattern
    a rdf:Property ;
    rdfs:domain conv:DatePromotionEnhancement ;
    rdfs:range rdfs:Literal ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:date_pattern>;
    .
 
 conv:datetime_pattern
    a rdf:Property ;
    rdfs:domain conv:DateTimePromotionEnhancement ;
    rdfs:range rdfs:Literal ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:datetime_pattern>;
    .
 
 conv:datetime_timezone
