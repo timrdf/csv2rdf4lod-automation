@@ -355,8 +355,8 @@ echo "# Link all original files from the provenance_file directory structure to 
 echo "# (these are from source/)"                                                                   >> $lnwwwrootSH
 for sourceFileProvenance in `ls source/*.pml.ttl`; do
    sourceFile=`echo $sourceFileProvenance | sed 's/.pml.ttl$//'` 
-   echo "if [ -e $sourceFile ]; then "                                     >> $lnwwwrootSH
-   echo "   wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$sourceFile" >> $lnwwwrootSH
+   echo "if [ -e \"$sourceFile\" ]; then "                                 >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$sourceFile\"" >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then "                                    >> $lnwwwrootSH
    echo "      rm -f \$wwwfile"                                            >> $lnwwwrootSH
    echo "   else"                                                          >> $lnwwwrootSH
