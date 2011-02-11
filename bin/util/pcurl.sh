@@ -5,7 +5,11 @@
 #   pcurl.sh http://www.whitehouse.gov/files/disclosures/visitors/WhiteHouse-WAVES-Key-1209.txt
 #   (produces WhiteHouse-WAVES-Key-1209.txt and WhiteHouse-WAVES-Key-1209.txt.pml.ttl)
 #
-#   pcurl.sh <url> -n is semi-deprecated
+# Three ways to name the local file:
+#   1) basename of original URL given (deprecated)
+#   2) basename of final redirected URL
+#   3) overriding with -n (and optional -e)
+#
 #   pcurl.sh <url> -e can be used to append an extension to a url that does not have one.
 
 usage_message="usage: `basename $0` -I url [-n name] [-e extension]     [url [-n name] [-e extension]] ..." 
@@ -36,7 +40,6 @@ else
    echo "`basename $0`: can not find md5 to md5 this script."
 fi
 
-
 alias rname="java edu.rpi.tw.string.NameFactory"
 logID=`java edu.rpi.tw.string.NameFactory`
 while [ $# -gt 0 ]; do
@@ -44,31 +47,29 @@ while [ $# -gt 0 ]; do
    echo ---------------------------------- pcurl ---------------------------------------
    url="$1"
 
-   #echo url $url
+   echo "PCURL: url                $url"
+   localName=""
    urlBaseName=`basename $url`
-   #echo url basename $urlBaseName
+   echo "PCURL: url basename       $urlBaseName"
    flag=$2
-   #echo flag $flag
    if [ $# -ge 3 -a ${flag:=""} == "-n" ]; then
-      echo -n $3
       localName="$3"
+      echo "PCURL: -n localname       $localName"
       shift 2
    else
       localName=$urlBaseName
+      echo "PCURL: basename localname $localName"
    fi
-   #echo localName $localName
 
    flag=$2
-   #echo flag $flag
    if [ $# -ge 3 -a ${flag:=""} == "-e" ]; then
-      echo -e $3
       extension=".$3"
+      echo "PCURL: -e localname       $localName$extension"
       shift 2
    else
       extension=""
+      echo "PCURL: basename localname $localName"
    fi
-   #echo extension $extension
-
 
    echo getting last mod xsddatetime
    urlINFO=`curl -I $url`
@@ -79,6 +80,7 @@ while [ $# -gt 0 ]; do
    redirectedURL=`filename-v3.pl $url`
    redirectedURLINFO=`curl -I $redirectedURL`
    redirectedModDate=`urldate.sh -field Last-Modified: -format dateTime $redirectedURL`
+   echo "PCURL: http redirect basename `basename $redirectedURL`"
 
    echo getting last mod
    documentVersion=`urldate.sh -field Last-Modified: $url`
@@ -89,7 +91,11 @@ while [ $# -gt 0 ]; do
    fi
 
    file=`basename $redirectedURL`$extension
+   if [ ${#localName} -gt 0 ]; then
+      file=$localName$extension
+   fi
    #file=${localName}-$documentVersion${extension}
+   
 
    if [ ! -e $file -a ${#documentVersion} -gt 0 ]; then 
       requestID=`java edu.rpi.tw.string.NameFactory`
