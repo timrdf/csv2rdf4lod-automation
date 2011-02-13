@@ -251,7 +251,7 @@ if [ ${#numLogs} ]; then
 fi
 echo "  (including $allPML)" | tee -a $CSV2RDF4LOD_LOG
 cat $allPML >> $allVOID
-if [ $allVOID.DO_NOT_LIST ]; then
+if [ -e $allVOID.DO_NOT_LIST ]; then
    mv $allVOID $allVOID.DO_NOT_LIST
 fi
 
