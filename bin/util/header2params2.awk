@@ -97,6 +97,9 @@ BEGIN {
    }else if(length(whoami)) {
                                     printf("      dcterms:creator \"%s\";\n",whoami);
    }
+   if(length(nowXSD)) {
+                                    printf("      dcterms:created \"%s\"^^xsd:dateTime;\n",nowXSD);
+   }
    if(length(header)) {               
    # TODO: include header info even if just raw.
                                     printf("      conversion:enhance [      \n");
