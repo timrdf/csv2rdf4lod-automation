@@ -1,15 +1,5 @@
 #!/bin/bash
 #
-# AFRL provides this Software to you on an "AS IS" basis, without warranty
-# of any kind. AFRL HEREBY EXPRESSLY DISCLAIMS ALL WARRANTIES OR CONDITIONS,
-# EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-# WARRANTIES OR CONDITIONS OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-# PURPOSE. You are solely responsible for determining the appropriateness of
-# using this Software and assume all risks associated with the use of this
-# Software, including but not limited to the risks of program errors, damage to
-# or loss of data, programs or equipment, and unavailability or interruption of
-# operations.
-#
 # usage:
 #
 #   $path_to/in2out.sh file1.in > file1.out
