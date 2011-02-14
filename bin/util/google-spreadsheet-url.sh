@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# need to provide the key that can be seen in the URL pane of the web browser.
 if [ $# -lt 1 ]; then
    echo "usage: `basename $0` spreadsheet-key"
 fi
