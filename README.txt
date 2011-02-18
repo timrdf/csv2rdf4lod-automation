@@ -1,4 +1,37 @@
-NOTE: This writeup has been replaced by the wiki page: https://github.com/timrdf/csv2rdf4lod-automation/wiki
+
+
+
+
+
+
+
+
+
+
+
+NOTE: This writeup has been replaced by the wiki page: 
+      https://github.com/timrdf/csv2rdf4lod-automation/wiki
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
