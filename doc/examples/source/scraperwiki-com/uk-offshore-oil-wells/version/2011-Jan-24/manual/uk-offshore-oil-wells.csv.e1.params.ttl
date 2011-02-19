@@ -39,8 +39,14 @@
       dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
       dcterms:created "2011-02-19T17:20:25-05:00"^^xsd:dateTime;
       conversion:enhance [
+         ov:csvCol         0;
+         conversion:predicate rdfs:seeAlso;
+         conversion:object <https://www.og.decc.gov.uk/pls/wons/wdep0100.qryWell>;
+      ];
+      conversion:enhance [
          ov:csvCol         1;
          ov:csvHeader     "Quadrant_No.";
+         conversion:domain  "Well";
          conversion:label "Quadrant_No.";
          conversion:comment "";
          conversion:range  todo:Literal;
@@ -64,28 +70,35 @@
          ov:csvHeader     "Completion_Date";
          conversion:label "Completion_Date";
          conversion:comment "";
-         conversion:range  todo:Literal;
+         conversion:subproperty_of dcterms:created;
+         conversion:eg           "1989-10-02";
+         conversion:date_pattern "yyyy-mm-dd";
+         conversion:range  xsd:date;
       ];
       conversion:enhance [
          ov:csvCol         5;
          ov:csvHeader     "url";
          conversion:label "url";
          conversion:comment "";
-         conversion:range  todo:Literal;
+         conversion:range  rdfs:Resource;
       ];
       conversion:enhance [
          ov:csvCol         6;
          ov:csvHeader     "Country_Code";
-         conversion:label "Country_Code";
+         conversion:label "Country";
          conversion:comment "";
-         conversion:range  todo:Literal;
+         conversion:links_via <http://www.rpi.edu/~lebot/lod-links/countries/country-iso3166-1.ttl>;
+         conversion:subject_of dcterms:identifier;
+         conversion:range  rdfs:Resource;
+         conversion:range_name "Country";
       ];
       conversion:enhance [
          ov:csvCol         7;
          ov:csvHeader     "lng";
          conversion:label "lng";
          conversion:comment "";
-         conversion:range  todo:Literal;
+         conversion:equivalent_property wgs:long;
+         conversion:range  xsd:decimal;
       ];
       conversion:enhance [
          ov:csvCol         8;
@@ -127,7 +140,8 @@
          ov:csvHeader     "Date_TD_Reached";
          conversion:label "Date_TD_Reached";
          conversion:comment "";
-         conversion:range  todo:Literal;
+         #conversion:date_pattern "yyyy-mm-dd";
+         #conversion:range  xsd:date;
       ];
       conversion:enhance [
          ov:csvCol         14;
@@ -141,7 +155,8 @@
          ov:csvHeader     "lat";
          conversion:label "lat";
          conversion:comment "";
-         conversion:range  todo:Literal;
+         conversion:equivalent_property wgs:long;
+         conversion:range  xsd:decimal;
       ];
       conversion:enhance [
          ov:csvCol         16;
@@ -169,7 +184,9 @@
          ov:csvHeader     "Spud_Date";
          conversion:label "Spud_Date";
          conversion:comment "";
-         conversion:range  todo:Literal;
+         #conversion:eg           "1989-06-06";
+         #conversion:date_pattern "yyyy-mm-dd";
+         #conversion:range  xsd:date;
       ];
       conversion:enhance [
          ov:csvCol         20;
