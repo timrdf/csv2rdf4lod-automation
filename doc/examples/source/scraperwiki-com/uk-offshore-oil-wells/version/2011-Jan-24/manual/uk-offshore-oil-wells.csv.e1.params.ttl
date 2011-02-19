@@ -1,0 +1,231 @@
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix todo:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix vann:       <http://purl.org/vocab/vann/> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
+@prefix time:       <http://www.w3.org/2006/time#> .
+@prefix wgs:        <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames:   <http://www.geonames.org/ontology#> .
+@prefix dbpedia:    <http://dbpedia.org/resource/> .
+@prefix con:        <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix muo:        <http://purl.oclc.org/NET/muo/muo#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
+@prefix void:       <http://rdfs.org/ns/void#> .
+@prefix scovo:      <http://purl.org/NET/scovo#> .
+@prefix sioc:       <http://rdfs.org/sioc/ns#> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix ov:         <http://open.vocab.org/terms/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix :           <http://logd.tw.rpi.edu/source/scraperwiki-com/dataset/uk-offshore-oil-wells/version/2011-Jan-24/conversion/enhancement/1> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> .
+<http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   sioc:account_of <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+:dataset a void:Dataset;
+   conversion:base_uri           "http://logd.tw.rpi.edu"^^xsd:anyURI;
+   conversion:source_identifier  "scraperwiki-com";
+   conversion:dataset_identifier "uk-offshore-oil-wells";
+   conversion:version_identifier "2011-Jan-24";
+   conversion:conversion_process [
+      a conversion:EnhancementConversionProcess;
+      conversion:enhancement_identifier "1";
+
+      dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
+      dcterms:created "2011-02-19T17:20:25-05:00"^^xsd:dateTime;
+      conversion:enhance [
+         ov:csvCol         1;
+         ov:csvHeader     "Quadrant_No.";
+         conversion:label "Quadrant_No.";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         2;
+         ov:csvHeader     "TVDSS_Driller";
+         conversion:label "TVDSS_Driller";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         3;
+         ov:csvHeader     "Platform";
+         conversion:label "Platform";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         4;
+         ov:csvHeader     "Completion_Date";
+         conversion:label "Completion_Date";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         5;
+         ov:csvHeader     "url";
+         conversion:label "url";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         6;
+         ov:csvHeader     "Country_Code";
+         conversion:label "Country_Code";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         7;
+         ov:csvHeader     "lng";
+         conversion:label "lng";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         8;
+         ov:csvHeader     "Completion_Status";
+         conversion:label "Completion_Status";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         9;
+         ov:csvHeader     "Block_Suffix";
+         conversion:label "Block_Suffix";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         10;
+         ov:csvHeader     "Primary_Target";
+         conversion:label "Primary_Target";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         11;
+         ov:csvHeader     "Block_No.";
+         conversion:label "Block_No.";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         12;
+         ov:csvHeader     "Deviated_Well";
+         conversion:label "Deviated_Well";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         13;
+         ov:csvHeader     "Date_TD_Reached";
+         conversion:label "Date_TD_Reached";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         14;
+         ov:csvHeader     "Drilling_Sequence_No.";
+         conversion:label "Drilling_Sequence_No.";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         15;
+         ov:csvHeader     "lat";
+         conversion:label "lat";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         16;
+         ov:csvHeader     "Water_Depth";
+         conversion:label "Water_Depth";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         17;
+         ov:csvHeader     "Original_Intent";
+         conversion:label "Original_Intent";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         18;
+         ov:csvHeader     "Datum_Elevation";
+         conversion:label "Datum_Elevation";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         19;
+         ov:csvHeader     "Spud_Date";
+         conversion:label "Spud_Date";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         20;
+         ov:csvHeader     "Well_Registration_No.";
+         conversion:label "Well_Registration_No.";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         21;
+         ov:csvHeader     "Datum_Type";
+         conversion:label "Datum_Type";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         22;
+         ov:csvHeader     "Ground_Elevation";
+         conversion:label "Ground_Elevation";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         23;
+         ov:csvHeader     "Wellbore_Type";
+         conversion:label "Wellbore_Type";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         24;
+         ov:csvHeader     "Total_MD_Logger";
+         conversion:label "Total_MD_Logger";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         25;
+         ov:csvHeader     "Total_MD_Driller";
+         conversion:label "Total_MD_Driller";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         26;
+         ov:csvHeader     "Onshore/Offshore";
+         conversion:label "Onshore/Offshore";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         27;
+         ov:csvHeader     "Slot_No.";
+         conversion:label "Slot_No.";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+   ];
+.
