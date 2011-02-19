@@ -68,7 +68,7 @@ export CSV2RDF4LOD_CONVERT_MACHINE_URI=""
 #
 # (used in convert.sh and util/header2params2.awk)
 #
-export CSV2RDF4LOD_CONVERT_PERSON_URI="http://tw.rpi.edu/instances/TimLebo"
+export CSV2RDF4LOD_CONVERT_PERSON_URI="http://tw.rpi.edu/instances/notTimLebo"
 export CSV2RDF4LOD_CONVERT_PERSON_URI=""
 
 
@@ -117,7 +117,7 @@ export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="false"
 # (used in convert.sh)
 #
 export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS=""
-export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS="ttl.tgz"
+export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS="ttl.gz"
 
 #
 # Customize: Invoke the converter for granular (row/column) provenance.
