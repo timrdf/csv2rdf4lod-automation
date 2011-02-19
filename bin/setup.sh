@@ -116,7 +116,7 @@ export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="false"
 # If empty, nothing will be appended to URL.
 # (used in convert.sh)
 #
-export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS=""
+export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS="ttl.gz,nt.gz"
 export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS="ttl.gz"
 
 #
