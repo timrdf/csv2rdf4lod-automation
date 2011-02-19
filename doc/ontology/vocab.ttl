@@ -768,6 +768,7 @@ conv:subject_of
 conv:date_pattern
    a rdf:Property ;
    rdfs:domain conv:DatePromotionEnhancement ;
+   rdfs:domain [ owl:onProperty conversion:range; owl:hasValue xsd:date; a owl:Restriction ] ;
    rdfs:range rdfs:Literal ;
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:date_pattern>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
