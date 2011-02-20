@@ -38,54 +38,54 @@
 
       dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
       dcterms:created "2011-02-20T12:22:46-05:00"^^xsd:dateTime;
+
+      conversion:enhance [
+         ov:csvRow 3;
+         a conversion:DataStartRow;
+      ];
+
       conversion:enhance [
          ov:csvCol         1;
          ov:csvHeader     "";
-         conversion:label "";
+         conversion:equivalent_property dcterms:spatial;
+         conversion:label "Region (Unitary Authority)";
          conversion:comment "";
-         conversion:range  todo:Literal;
+         conversion:range  rdfs:Resource;
+         conversion:range_name "Region (Unitary Authority)";
       ];
       conversion:enhance [
-         ov:csvCol         2;
-         ov:csvHeader     "";
-         conversion:label "";
-         conversion:comment "";
-         conversion:range  todo:Literal;
+         ov:csvCol         2, 4, 6;
+         a scovo:Item;
+         conversion:label "Gender";
+         conversion:object "[/sd]typed/gender/Male";
+         conversion:range  xsd:decimal;
       ];
       conversion:enhance [
-         ov:csvCol         3;
-         ov:csvHeader     "2004-6";
-         conversion:label "2004-6";
-         conversion:comment "";
-         conversion:range  todo:Literal;
+         ov:csvCol         3, 5, 7;
+         a scovo:Item;
+         conversion:label "Gender";
+         conversion:object "[/sd]typed/gender/Female";
+         conversion:range  xsd:decimal;
       ];
       conversion:enhance [
-         ov:csvCol         4;
-         ov:csvHeader     "";
-         conversion:label "";
-         conversion:comment "";
-         conversion:range  todo:Literal;
+         ov:csvCol         2, 3, 4, 5, 6, 7;
+         conversion:predicate muo:measuredIn;
+         conversion:object    <http://dbpedia.org/resource/Year>;
       ];
       conversion:enhance [
-         ov:csvCol         5;
-         ov:csvHeader     "2005-7";
-         conversion:label "2005-7";
-         conversion:comment "";
-         conversion:range  todo:Literal;
+         ov:csvCol         2, 3;
+         conversion:predicate dcterms:temporal;
+         conversion:object    "[/sd]typed/time-period/2004-6";
       ];
       conversion:enhance [
-         ov:csvCol         6;
-         ov:csvHeader     "";
-         conversion:label "";
-         conversion:comment "";
-         conversion:range  todo:Literal;
+         ov:csvCol         4, 5;
+         conversion:predicate dcterms:temporal;
+         conversion:object    "[/sd]typed/time-period/2005-7";
       ];
       conversion:enhance [
-         ov:csvCol         7;
-         ov:csvHeader     "2006-8";
-         conversion:label "2006-8";
-         conversion:comment "";
-         conversion:range  todo:Literal;
+         ov:csvCol         6, 7;
+         conversion:predicate dcterms:temporal;
+         conversion:object    "[/sd]typed/time-period/2006-8";
       ];
    ];
 .
