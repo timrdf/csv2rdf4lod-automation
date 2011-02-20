@@ -71,11 +71,17 @@ BEGIN {
    printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/conversion/%s> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
 
                                      print
-   if(length(person_uri)&&length(machine_uri)&&length(whoami)) {
+   if( length(machine_uri) && length(whoami) ) {
+      if(length(person_uri)) {
                                     printf("<%s> foaf:holdsAccount <%s%s> .\n",person_uri,machine_uri,whoami);
-                                    printf("<%s%s>\n   a foaf:OnlineAccount;\n   foaf:accountName \"%s\";\n   sioc:account_of <%s>;\n.\n",machine_uri,whoami,whoami,person_uri);
+      }
+                                    printf("<%s%s>\n   a foaf:OnlineAccount;\n   foaf:accountName \"%s\";\n",machine_uri,whoami,whoami);
+      if(length(person_uri)) {
+                                    printf("   sioc:account_of <%s>;\n",machine_uri);
+      }
+                                    printf(".\n");
    }else if(length(person_uri)&&length(whoami)) {
-                                    printf("<%s> dcterms:identifier <%s> .\n",person_uri,whoami);
+                                    printf("<%s> dcterms:identifier \"%s\" .\n",person_uri,whoami);
    }
                                      print
                                      print ":dataset a void:Dataset;"
@@ -92,10 +98,13 @@ BEGIN {
                                      print
    if(length(person_uri)&&length(machine_uri)&&length(whoami)) {
                                     printf("      dcterms:creator <%s%s>;\n",machine_uri,whoami);
-   }else if(length(person_uri)) {
-                                    printf("      dcterms:creator \"%s\";\n",person_uri);
+   }else if(length(machine_uri) && length(whoami)) {
+                                    printf("      dcterms:creator <%s%s>;\n",machine_uri,whoami); # TODO: same as above.
+   }else if(length(person_uri)  && length(whoami)) {
+                                    printf("      dcterms:creator [ a foaf:OnlineAccount; foaf:accountName \"%s\";\n",whoami);
+                                    printf("                        sioc:account_of <%s> ];\n",person_uri);
    }else if(length(whoami)) {
-                                    printf("      dcterms:creator \"%s\";\n",whoami);
+                                    printf("      dcterms:creator [ a foaf:OnlineAccount; foaf:accountName \"%s\" ];\n",whoami);
    }
    if(length(nowXSD)) {
                                     printf("      dcterms:created \"%s\"^^xsd:dateTime;\n",nowXSD);
