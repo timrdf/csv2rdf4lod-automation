@@ -1,0 +1,51 @@
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sioc:    <http://rdfs.org/sioc/ns#> .
+@prefix pmlp:    <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:    <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix conv:    <http://purl.org/twc/vocab/conversion/> .
+
+<cube.html.manual.tidy.txt.csv>
+   a pmlp:Information;
+   pmlp:hasModificationDateTime "2011-02-20T12:21:38-05:00"^^xsd:dateTime;
+.
+
+<../cube.html.manual.tidy.txt>
+   a pmlp:Information;
+   pmlp:hasModificationDateTime "2011-02-20T12:19:41-05:00"^^xsd:dateTime;
+.
+
+<nodeSet_e80cc844-451b-48a6-9f73-a4f0c8fc564f>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <cube.html.manual.tidy.txt.csv>;
+   pmlj:isConsequentOf [
+      a pmlj:InferenceStep;
+      pmlj:hasIndex 0;
+      pmlj:hasAntecedentList ( <nodeSet_e80cc844-451b-48a6-9f73-a4f0c8fc564f_antecedent> <nodeSet_e80cc844-451b-48a6-9f73-a4f0c8fc564f_user> );
+      pmlj:hasInferenceEngine <manual_csvify_e80cc844-451b-48a6-9f73-a4f0c8fc564f>;
+      pmlj:hasInferenceRule   conv:manual_csvify_Method;
+   ];
+.
+
+<nodeSet_e80cc844-451b-48a6-9f73-a4f0c8fc564f_antecedent>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <cube.html.manual.tidy.txt>;
+.
+
+<nodeSet_e80cc844-451b-48a6-9f73-a4f0c8fc564f_user>
+   a pmlj:NodeSet;
+   pmlp:hasConclusion <user_e80cc844-451b-48a6-9f73-a4f0c8fc564f>;
+.
+
+<user_e80cc844-451b-48a6-9f73-a4f0c8fc564f>
+   foaf:accountName "lebot";
+.
+
+<manual_csvify_e80cc844-451b-48a6-9f73-a4f0c8fc564f>
+   a pmlp:InferenceEngine, conv:Manual_csvify_Engine;
+   dcterms:identifier "manual_csvify_e80cc844-451b-48a6-9f73-a4f0c8fc564f";
+.
+
+conv:Manual_csvify_Engine rdfs:subClassOf pmlp:InferenceEngine .

@@ -1,0 +1,16 @@
+
+,2004-6,2005-7,2006-8,
+,Male,Female,Male,Female,Male,Female,
+Newport,76.7,80.7,77.1,80.9,77.0,81.5,
+Cardiff,78.7,83.3,78.6,83.7,78.7,83.4,
+Monmouthshire,76.6,81.3,76.5,81.5,76.6,81.7,
+Merthyr Tydfil,75.5,79.1,75.5,79.4,74.9,79.6,
+
+rdf,http://www.w3.org/1999/02/22-rdf-syntax-ns#,RDF core,
+rdfs,http://www.w3.org/2000/01/rdf-schema#,RDF Schema,
+skos,http://www.w3.org/2004/02/skos/core#,Simple Knowledge Organization System,
+foaf,http://xmlns.com/foaf/0.1/,Friend Of A Friend,
+void,http://rdfs.org/ns/void#,Vocabulary of Interlinked Datasets,
+scovo,http://purl.org/NET/scovo#,Statistical Core Vocabulary,
+dc,http://purl.org/dc/elements/1.1/,Dublin Core,
+qb,http://purl.org/linked-data/cube#,The Data Cube vocabulary,

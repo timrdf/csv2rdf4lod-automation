@@ -1,0 +1,91 @@
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix todo:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix vann:       <http://purl.org/vocab/vann/> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
+@prefix time:       <http://www.w3.org/2006/time#> .
+@prefix wgs:        <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames:   <http://www.geonames.org/ontology#> .
+@prefix dbpedia:    <http://dbpedia.org/resource/> .
+@prefix con:        <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix muo:        <http://purl.oclc.org/NET/muo/muo#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
+@prefix void:       <http://rdfs.org/ns/void#> .
+@prefix scovo:      <http://purl.org/NET/scovo#> .
+@prefix sioc:       <http://rdfs.org/sioc/ns#> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix ov:         <http://open.vocab.org/terms/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix :           <http://logd.tw.rpi.edu/source/publishing-statistical-data-googlecode-com/dataset/example-statwales-003311/version/2011-Feb-10/conversion/enhancement/1> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> .
+<http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   sioc:account_of <http://tw.rpi.edu/web/inside/machine/lebot_macbook#>;
+.
+
+:dataset a void:Dataset;
+   conversion:base_uri           "http://logd.tw.rpi.edu"^^xsd:anyURI;
+   conversion:source_identifier  "publishing-statistical-data-googlecode-com";
+   conversion:dataset_identifier "example-statwales-003311";
+   conversion:version_identifier "2011-Feb-10";
+   conversion:conversion_process [
+      a conversion:EnhancementConversionProcess;
+      conversion:enhancement_identifier "1";
+
+      dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
+      dcterms:created "2011-02-20T12:22:46-05:00"^^xsd:dateTime;
+      conversion:enhance [
+         ov:csvCol         1;
+         ov:csvHeader     "";
+         conversion:label "";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         2;
+         ov:csvHeader     "";
+         conversion:label "";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         3;
+         ov:csvHeader     "2004-6";
+         conversion:label "2004-6";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         4;
+         ov:csvHeader     "";
+         conversion:label "";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         5;
+         ov:csvHeader     "2005-7";
+         conversion:label "2005-7";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         6;
+         ov:csvHeader     "";
+         conversion:label "";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         7;
+         ov:csvHeader     "2006-8";
+         conversion:label "2006-8";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+   ];
+.

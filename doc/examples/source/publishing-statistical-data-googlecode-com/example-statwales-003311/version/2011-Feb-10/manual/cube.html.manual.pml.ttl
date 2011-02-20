@@ -1,0 +1,51 @@
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sioc:    <http://rdfs.org/sioc/ns#> .
+@prefix pmlp:    <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:    <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix conv:    <http://purl.org/twc/vocab/conversion/> .
+
+<cube.html.manual>
+   a pmlp:Information;
+   pmlp:hasModificationDateTime "2011-02-20T11:58:12-05:00"^^xsd:dateTime;
+.
+
+<../cube.html>
+   a pmlp:Information;
+   pmlp:hasModificationDateTime "2011-02-20T11:57:32-05:00"^^xsd:dateTime;
+.
+
+<nodeSet_47c86032-db84-41cb-bcb2-b33d95fbad93>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <cube.html.manual>;
+   pmlj:isConsequentOf [
+      a pmlj:InferenceStep;
+      pmlj:hasIndex 0;
+      pmlj:hasAntecedentList ( <nodeSet_47c86032-db84-41cb-bcb2-b33d95fbad93_antecedent> <nodeSet_47c86032-db84-41cb-bcb2-b33d95fbad93_user> );
+      pmlj:hasInferenceEngine <duplicate_47c86032-db84-41cb-bcb2-b33d95fbad93>;
+      pmlj:hasInferenceRule   conv:duplicate_Method;
+   ];
+.
+
+<nodeSet_47c86032-db84-41cb-bcb2-b33d95fbad93_antecedent>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <cube.html>;
+.
+
+<nodeSet_47c86032-db84-41cb-bcb2-b33d95fbad93_user>
+   a pmlj:NodeSet;
+   pmlp:hasConclusion <user_47c86032-db84-41cb-bcb2-b33d95fbad93>;
+.
+
+<user_47c86032-db84-41cb-bcb2-b33d95fbad93>
+   foaf:accountName "lebot";
+.
+
+<duplicate_47c86032-db84-41cb-bcb2-b33d95fbad93>
+   a pmlp:InferenceEngine, conv:Duplicate_Engine;
+   dcterms:identifier "duplicate_47c86032-db84-41cb-bcb2-b33d95fbad93";
+.
+
+conv:Duplicate_Engine rdfs:subClassOf pmlp:InferenceEngine .
