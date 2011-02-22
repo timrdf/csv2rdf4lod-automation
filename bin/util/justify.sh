@@ -11,7 +11,7 @@ if [ $# -ne 3 ]; then
    echo $usage_message 
    echo "   engine-name: xls2csv, tab2comma, redelimit, file_rename, escaping_commas_redelimit etc. (URI-friendly)"
    echo "                duplicate, google_refine, serialization_change, parse_field, tabulating_fixed_width"
-   echo "                html_tidy pretty_print"
+   echo "                html_tidy pretty_print xsl_html_scrape manual_csvify"
    exit 1
 fi
 
