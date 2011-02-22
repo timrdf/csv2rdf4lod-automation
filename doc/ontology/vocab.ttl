@@ -543,7 +543,8 @@ conv:SubjectSameAsEnhancementViaLookup
 
 conv:ObjectSameAsEnhancement
 	a rdfs:Class ;
-	rdfs:subClassOf conv:SameAsEnhancement ;
+	rdfs:subClassOf conv:SameAsEnhancement, 
+                   conv:ResourcePromotionEnhancement; # The Object must have been promoted to a URI to assert an owl:sameAs on it.
 	rdfs:label "Object sameAs enahncements" ;
 	rdfs:comment "Asserts owl:sameAs relationships between resources and external URIs based on the instances' values of a specific property and their interpretation by a mapping specified by conv:linksVia. How this mapping is performed based on this value is unspecified, but may be based on aligning with (e.g. SKOS) labels or the edit distance between the property value and instances in a known ontology." ;
 
