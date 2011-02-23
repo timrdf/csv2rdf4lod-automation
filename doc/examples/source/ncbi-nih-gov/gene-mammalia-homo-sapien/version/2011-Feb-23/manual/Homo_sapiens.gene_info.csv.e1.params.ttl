@@ -25,6 +25,13 @@
    sioc:account_of <http://tw.rpi.edu/web/person/JamesMcCusker>;
 .
 
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> . #
+<http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>                                                           #
+   a foaf:OnlineAccount;                                                                                             #
+   foaf:accountName "lebot";                                                                                         #
+   sioc:account_of <http://tw.rpi.edu/instances/TimLebo>;                                                            #
+.
+
 :dataset a void:Dataset;
    conversion:base_uri           "http://logd.tw.rpi.edu"^^xsd:anyURI;
    conversion:source_identifier  "ncbi-nih-gov";
@@ -39,7 +46,7 @@
         conversion:interpretation conversion:null;
       ];
 
-      dcterms:creator <http://tw.rpi.edu/web/inside/machine/gneiss#jim>;# case 1
+      dcterms:creator <http://tw.rpi.edu/web/inside/machine/gneiss#jim>, <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>t;# case 1
       conversion:enhance [      
          ov:csvRow 0;
          a conversion:HeaderRow;
