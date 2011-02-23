@@ -47,7 +47,7 @@
         conversion:interpretation conversion:null;
       ];
 
-      dcterms:creator <http://tw.rpi.edu/web/inside/machine/gneiss#jim, <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>>;# case 1
+      dcterms:creator <http://tw.rpi.edu/web/inside/machine/gneiss#jim, <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;# case 1
       conversion:enhance [
          ov:csvCol         1;
          ov:csvHeader     "tax_id";
