@@ -15,7 +15,8 @@
 @prefix foaf:       <http://xmlns.com/foaf/0.1/> .
 @prefix ov:         <http://open.vocab.org/terms/> .
 @prefix conversion: <http://purl.org/twc/vocab/conversion/> .
-@prefix :           <http://logd.tw.rpi.edu/source/ncbi-nih-gov/dataset/Homo_sapiens.gene_info/version/2011-Feb-23/conversion/enhancement/1> .
+@prefix e1:         <http://logd.tw.rpi.edu/source/ncbi-nih-gov/dataset/gene-mammalia-homo-sapien/vocab/enhancement/1/> .
+@prefix :           <http://logd.tw.rpi.edu/source/ncbi-nih-gov/dataset/gene-mammalia-homo-sapien/version/2011-Feb-23/conversion/enhancement/1> .
 
 <http://tw.rpi.edu/web/person/JamesMcCusker> foaf:holdsAccount <http://tw.rpi.edu/web/inside/machine/gneiss#jim> .
 <http://tw.rpi.edu/web/inside/machine/gneiss#jim>
@@ -60,7 +61,7 @@
          conversion:comment "";
          conversion:domain_name "Gene";
          conversion:range  rdfs:Literal;
-         conversion:subproperty_of dcterms:identifier;
+         conversion:equivalent_property dcterms:identifier;
       ];
       conversion:enhance [
          conversion:class_name "Gene";
@@ -72,8 +73,8 @@
          conversion:label "has default symbol";
          conversion:comment "";
          conversion:range  rdfs:Literal;
-         conversion:subproperty_of rdfs:label;
-         conversion:subproperty_of <http://logd.tw.rpi.edu/source/ncbi.nlm.nih.gov/dataset/Homo_sapiens.gene_info/vocab/enhancement/1/has_symbol>;
+         conversion:equivalent_property rdfs:label;
+         conversion:subproperty_of "[/sd]vocab/enhancement/[e]/has_symbol";
       ];
       conversion:enhance [
          ov:csvCol         4;
@@ -97,7 +98,7 @@
          conversion:comment "";
          conversion:delimits_object "\\|";
          conversion:range  todo:Literal;
-         conversion:subproperty_of dcterms:identifier;
+         conversion:equivalent_property dcterms:identifier;
       ];
       conversion:enhance [
          ov:csvCol         7;
@@ -126,7 +127,7 @@
          conversion:label "has description";
          conversion:comment "";
          conversion:range  todo:Literal;
-         conversion:subproperty_of dcterms:description;
+         conversion:equivalent_property dcterms:description;
       ];
       conversion:enhance [
          ov:csvCol         10;
@@ -141,7 +142,7 @@
          conversion:label "has symbol from nomenclature authority";
          conversion:comment "";
          conversion:range  todo:Literal;
-         conversion:subproperty_of <http://logd.tw.rpi.edu/source/ncbi.nlm.nih.gov/dataset/Homo_sapiens.gene_info/vocab/enhancement/1/has_symbol>;
+         conversion:equivalent_property "[/sd]vocab/enhancement/[e]/has_symbol";
       ];
       conversion:enhance [
          ov:csvCol         12;
@@ -149,7 +150,7 @@
          conversion:label "has name from nomenclature authority";
          conversion:comment "";
          conversion:range  todo:Literal;
-         conversion:subproperty_of <http://logd.tw.rpi.edu/source/ncbi.nlm.nih.gov/dataset/Homo_sapiens.gene_info/vocab/enhancement/1/has_description>;
+         conversion:equivalent_property "[/sd]vocab/enhancement/1/has_description";
       ];
       conversion:enhance [
          ov:csvCol         13;
@@ -183,7 +184,7 @@
          conversion:comment "";
          conversion:range xsd:date;
 	 conversion:date_pattern "yyyyMMdd";
-         conversion:subproperty_of dcterms:modified;
+         conversion:equivalent_property dcterms:modified;
       ];
    ];
 .

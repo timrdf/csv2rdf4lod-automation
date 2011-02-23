@@ -78,7 +78,7 @@
          ov:csvHeader     "Evidence";
          conversion:label "has evidence code";
          conversion:comment "";
-         conversion:range  todo:Literal;
+         conversion:range  rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol         5;

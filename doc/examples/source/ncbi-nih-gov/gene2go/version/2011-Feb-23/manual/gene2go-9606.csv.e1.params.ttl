@@ -14,6 +14,7 @@
 @prefix sioc:       <http://rdfs.org/sioc/ns#> .
 @prefix foaf:       <http://xmlns.com/foaf/0.1/> .
 @prefix ov:         <http://open.vocab.org/terms/> .
+#@prefix go:         <http://purl.org/obo/owl/GO#> .
 @prefix conversion: <http://purl.org/twc/vocab/conversion/> .
 @prefix :           <http://sparql.tw.rpi.edu/ontowiki/source/ncbi-nih-gov/dataset/gene2go/version/2011-Feb-23/conversion/enhancement/1> .
 
@@ -56,7 +57,7 @@
          conversion:comment "";
          conversion:domain_name "Gene";
          conversion:range  rdfs:Literal;
-         conversion:subproperty_of dcterms:identifier;
+         conversion:equivalent_property dcterms:identifier;
       ];
       conversion:enhance [
          ov:csvCol         3;
@@ -66,7 +67,7 @@
          conversion:range_name "GOTerm";
          conversion:range_template "http://purl.org/obo/owl/GO#GO_[.]";
          conversion:range  rdfs:Resource;
-         conversion:subproperty_of skos:broadMatch;
+         conversion:equivalent_property skos:broadMatch;
       ];
       conversion:enhance [
          conversion:class_name "GOTerm";
