@@ -1,2 +1,4 @@
+manual/gene2go-9606.csv
 source/gene2go.gz
-automatic
+source/gene2go
+convert-gene2go.sh

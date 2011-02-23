@@ -20,7 +20,7 @@
 
 <gene2go.gz>
    a pmlp:Information;
-   pmlp:hasReferenceSourceUsage <sourceUsage_fde9752b-3dff-4ae4-ac44-b8093452474c_content>;
+   pmlp:hasReferenceSourceUsage <sourceUsage_31c26d33-e024-401f-aa95-134cd90fe768_content>;
    nfo:hasHash <md5_208df99e7f7e391da06ee5fbbe40f200>;
 .
 
@@ -30,50 +30,50 @@
    nfo:hasHash "208df99e7f7e391da06ee5fbbe40f200";
 .
 
-<nodeSet_fde9752b-3dff-4ae4-ac44-b8093452474c_content>
+<nodeSet_31c26d33-e024-401f-aa95-134cd90fe768_content>
    a pmlj:NodeSet;
    pmlj:hasConclusion <gene2go.gz>;
    pmlj:isConsequentOf [
       a pmlj:InferenceStep;
       pmlj:hasIndex 0;
       pmlj:hasAntecedentList ();
-      pmlj:hasSourceUsage     <sourceUsage_fde9752b-3dff-4ae4-ac44-b8093452474c_content>;
+      pmlj:hasSourceUsage     <sourceUsage_31c26d33-e024-401f-aa95-134cd90fe768_content>;
       pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
       pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;
    ];
 .
 
-<sourceUsage_fde9752b-3dff-4ae4-ac44-b8093452474c_content>
+<sourceUsage_31c26d33-e024-401f-aa95-134cd90fe768_content>
    a pmlp:SourceUsage;
    pmlp:hasSource        <ftp://ftp.ncbi.nih.gov/gene/DATA/gene2go.gz>;
-   pmlp:hasUsageDateTime "2011-02-23T10:38:07-05:00"^^xsd:dateTime;
+   pmlp:hasUsageDateTime "2011-02-23T11:24:04-05:00"^^xsd:dateTime;
 .
  
-<info_fde9752b-3dff-4ae4-ac44-b8093452474c_url_header>
+<info_31c26d33-e024-401f-aa95-134cd90fe768_url_header>
    a pmlp:Information, conv:HTTPHeader;
    pmlp:hasRawString """Last-Modified: Wed, 23 Feb 2011 07:49:05 GMT
 Content-Length: 12359614
 Accept-ranges: bytes""";
-   pmlp:hasReferenceSourceUsage <sourceUsage_fde9752b-3dff-4ae4-ac44-b8093452474c_url_header>;
+   pmlp:hasReferenceSourceUsage <sourceUsage_31c26d33-e024-401f-aa95-134cd90fe768_url_header>;
 .
  
-<nodeSet_fde9752b-3dff-4ae4-ac44-b8093452474c_url_header>
+<nodeSet_31c26d33-e024-401f-aa95-134cd90fe768_url_header>
    a pmlj:NodeSet;
-   pmlj:hasConclusion <info_fde9752b-3dff-4ae4-ac44-b8093452474c_url_header>;
+   pmlj:hasConclusion <info_31c26d33-e024-401f-aa95-134cd90fe768_url_header>;
    pmlj:isConsequentOf [
       a pmlj:InferenceStep;
       pmlj:hasIndex 0;
       pmlj:hasAntecedentList ();
-      pmlj:hasSourceUsage     <sourceUsage_fde9752b-3dff-4ae4-ac44-b8093452474c_url_header>;
+      pmlj:hasSourceUsage     <sourceUsage_31c26d33-e024-401f-aa95-134cd90fe768_url_header>;
       pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
       pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;
    ];
 .
 
-<sourceUsage_fde9752b-3dff-4ae4-ac44-b8093452474c_url_header>
+<sourceUsage_31c26d33-e024-401f-aa95-134cd90fe768_url_header>
    a pmlp:SourceUsage;
    pmlp:hasSource        <ftp://ftp.ncbi.nih.gov/gene/DATA/gene2go.gz>;
-   pmlp:hasUsageDateTime "2011-02-23T10:38:07-05:00"^^xsd:dateTime;
+   pmlp:hasUsageDateTime "2011-02-23T11:24:04-05:00"^^xsd:dateTime;
 .
 
 

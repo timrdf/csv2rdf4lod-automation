@@ -1,3 +1,7 @@
+convert-gene-mammalia-homo-sapien.sh
+doc
 source/Homo_sapiens.gene_info.gz
 automatic
-doc
+publish
+manual/Homo_sapiens.gene_info.csv
+source/Homo_sapiens.gene_info

@@ -1,0 +1,51 @@
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sioc:    <http://rdfs.org/sioc/ns#> .
+@prefix pmlp:    <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:    <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix conv:    <http://purl.org/twc/vocab/conversion/> .
+
+<Homo_sapiens.gene_info.csv>
+   a pmlp:Information;
+   pmlp:hasModificationDateTime "2011-02-23T12:20:12-05:00"^^xsd:dateTime;
+.
+
+<../source/Homo_sapiens.gene_info>
+   a pmlp:Information;
+   pmlp:hasModificationDateTime "2011-02-23T12:20:12-05:00"^^xsd:dateTime;
+.
+
+<nodeSet_4d19849f-e79d-4229-8905-2406e68f9c38>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <Homo_sapiens.gene_info.csv>;
+   pmlj:isConsequentOf [
+      a pmlj:InferenceStep;
+      pmlj:hasIndex 0;
+      pmlj:hasAntecedentList ( <nodeSet_4d19849f-e79d-4229-8905-2406e68f9c38_antecedent> <nodeSet_4d19849f-e79d-4229-8905-2406e68f9c38_user> );
+      pmlj:hasInferenceEngine <tab2comma_4d19849f-e79d-4229-8905-2406e68f9c38>;
+      pmlj:hasInferenceRule   conv:tab2comma_Method;
+   ];
+.
+
+<nodeSet_4d19849f-e79d-4229-8905-2406e68f9c38_antecedent>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <source/Homo_sapiens.gene_info>;
+.
+
+<nodeSet_4d19849f-e79d-4229-8905-2406e68f9c38_user>
+   a pmlj:NodeSet;
+   pmlp:hasConclusion <user_4d19849f-e79d-4229-8905-2406e68f9c38>;
+.
+
+<user_4d19849f-e79d-4229-8905-2406e68f9c38>
+   foaf:accountName "lebot";
+.
+
+<tab2comma_4d19849f-e79d-4229-8905-2406e68f9c38>
+   a pmlp:InferenceEngine, conv:Tab2comma_Engine;
+   dcterms:identifier "tab2comma_4d19849f-e79d-4229-8905-2406e68f9c38";
+.
+
+conv:Tab2comma_Engine rdfs:subClassOf pmlp:InferenceEngine .

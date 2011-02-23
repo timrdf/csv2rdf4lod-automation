@@ -1,0 +1,51 @@
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sioc:    <http://rdfs.org/sioc/ns#> .
+@prefix pmlp:    <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:    <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix conv:    <http://purl.org/twc/vocab/conversion/> .
+
+<gene2go>
+   a pmlp:Information;
+   pmlp:hasModificationDateTime "2011-02-23T11:25:08-05:00"^^xsd:dateTime;
+.
+
+<../gene2go.gz>
+   a pmlp:Information;
+   pmlp:hasModificationDateTime "2011-02-23T11:25:07-05:00"^^xsd:dateTime;
+.
+
+<nodeSet_3ee64006-2bea-41b9-9db5-2c341ca1d2b2>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <gene2go>;
+   pmlj:isConsequentOf [
+      a pmlj:InferenceStep;
+      pmlj:hasIndex 0;
+      pmlj:hasAntecedentList ( <nodeSet_3ee64006-2bea-41b9-9db5-2c341ca1d2b2_antecedent> <nodeSet_3ee64006-2bea-41b9-9db5-2c341ca1d2b2_user> );
+      pmlj:hasInferenceEngine <uncompress_3ee64006-2bea-41b9-9db5-2c341ca1d2b2>;
+      pmlj:hasInferenceRule   conv:uncompress_Method;
+   ];
+.
+
+<nodeSet_3ee64006-2bea-41b9-9db5-2c341ca1d2b2_antecedent>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <gene2go.gz>;
+.
+
+<nodeSet_3ee64006-2bea-41b9-9db5-2c341ca1d2b2_user>
+   a pmlj:NodeSet;
+   pmlp:hasConclusion <user_3ee64006-2bea-41b9-9db5-2c341ca1d2b2>;
+.
+
+<user_3ee64006-2bea-41b9-9db5-2c341ca1d2b2>
+   foaf:accountName "lebot";
+.
+
+<uncompress_3ee64006-2bea-41b9-9db5-2c341ca1d2b2>
+   a pmlp:InferenceEngine, conv:Uncompress_Engine;
+   dcterms:identifier "uncompress_3ee64006-2bea-41b9-9db5-2c341ca1d2b2";
+.
+
+conv:Uncompress_Engine rdfs:subClassOf pmlp:InferenceEngine .
