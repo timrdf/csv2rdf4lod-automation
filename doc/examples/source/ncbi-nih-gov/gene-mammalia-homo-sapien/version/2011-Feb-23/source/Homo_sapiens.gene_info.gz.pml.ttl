@@ -1,0 +1,88 @@
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix pmlp:     <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:     <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix irw:      <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix nfo:      <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix conv:     <http://purl.org/twc/vocab/conversion/> .
+@prefix httphead: <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> .
+@prefix httpget:  <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> .
+
+<ftp://ftp.ncbi.nih.gov/gene/DATA/GENE_INFO/Mammalia/Homo_sapiens.gene_info.gz>
+   a pmlp:Source;
+.
+
+<ftp://ftp.ncbi.nih.gov/gene/DATA/GENE_INFO/Mammalia/Homo_sapiens.gene_info.gz>
+   a pmlp:Source;
+   pmlp:hasModificationDateTime "2011-02-23T08:04:26"^^xsd:dateTime;
+.
+
+<Homo_sapiens.gene_info.gz>
+   a pmlp:Information;
+   pmlp:hasReferenceSourceUsage <sourceUsage_1f09445d-f213-42ba-ad85-6ac1b3fb5fc8_content>;
+   nfo:hasHash <md5_56692ee9b18a28bcb8696d3e08f9cb71>;
+.
+
+<md5_56692ee9b18a28bcb8696d3e08f9cb71>
+   a nfo:FileHash; 
+   nfo:hashAlgorithm "md5";
+   nfo:hasHash "56692ee9b18a28bcb8696d3e08f9cb71";
+.
+
+<nodeSet_1f09445d-f213-42ba-ad85-6ac1b3fb5fc8_content>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <Homo_sapiens.gene_info.gz>;
+   pmlj:isConsequentOf [
+      a pmlj:InferenceStep;
+      pmlj:hasIndex 0;
+      pmlj:hasAntecedentList ();
+      pmlj:hasSourceUsage     <sourceUsage_1f09445d-f213-42ba-ad85-6ac1b3fb5fc8_content>;
+      pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
+      pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;
+   ];
+.
+
+<sourceUsage_1f09445d-f213-42ba-ad85-6ac1b3fb5fc8_content>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <ftp://ftp.ncbi.nih.gov/gene/DATA/GENE_INFO/Mammalia/Homo_sapiens.gene_info.gz>;
+   pmlp:hasUsageDateTime "2011-02-23T10:39:31-05:00"^^xsd:dateTime;
+.
+ 
+<info_1f09445d-f213-42ba-ad85-6ac1b3fb5fc8_url_header>
+   a pmlp:Information, conv:HTTPHeader;
+   pmlp:hasRawString """Last-Modified: Wed, 23 Feb 2011 08:04:26 GMT
+Content-Length: 2402004
+Accept-ranges: bytes""";
+   pmlp:hasReferenceSourceUsage <sourceUsage_1f09445d-f213-42ba-ad85-6ac1b3fb5fc8_url_header>;
+.
+ 
+<nodeSet_1f09445d-f213-42ba-ad85-6ac1b3fb5fc8_url_header>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <info_1f09445d-f213-42ba-ad85-6ac1b3fb5fc8_url_header>;
+   pmlj:isConsequentOf [
+      a pmlj:InferenceStep;
+      pmlj:hasIndex 0;
+      pmlj:hasAntecedentList ();
+      pmlj:hasSourceUsage     <sourceUsage_1f09445d-f213-42ba-ad85-6ac1b3fb5fc8_url_header>;
+      pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
+      pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;
+   ];
+.
+
+<sourceUsage_1f09445d-f213-42ba-ad85-6ac1b3fb5fc8_url_header>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <ftp://ftp.ncbi.nih.gov/gene/DATA/GENE_INFO/Mammalia/Homo_sapiens.gene_info.gz>;
+   pmlp:hasUsageDateTime "2011-02-23T10:39:31-05:00"^^xsd:dateTime;
+.
+
+
+conv:curl_md5_5670dffdc5533a4c57243fc97b19a654
+   a pmlp:InferenceEngine, conv:Curl;
+   dcterms:identifier "md5_5670dffdc5533a4c57243fc97b19a654";
+   dcterms:description """curl 7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8l zlib/1.2.3
+Protocols: tftp ftp telnet dict ldap http file https ftps 
+Features: GSS-Negotiate IPv6 Largefile NTLM SSL libz """;
+.
+
+conv:Curl rdfs:subClassOf pmlp:InferenceEngine .
