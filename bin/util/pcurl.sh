@@ -12,7 +12,7 @@
 #
 #   pcurl.sh <url> -e can be used to append an extension to a url that does not have one.
 
-usage_message="usage: `basename $0` -I url [-n name] [-e extension]     [url [-n name] [-e extension]] ..." 
+usage_message="usage: `basename $0` [-I] url [-n name] [-e extension]     [url [-n name] [-e extension]] ..." 
 
 if [ $# -lt 1 ]; then
    echo $usage_message 
