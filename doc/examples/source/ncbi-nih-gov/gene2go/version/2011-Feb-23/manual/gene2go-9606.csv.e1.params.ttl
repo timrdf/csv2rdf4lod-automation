@@ -15,6 +15,7 @@
 @prefix foaf:       <http://xmlns.com/foaf/0.1/> .
 @prefix ov:         <http://open.vocab.org/terms/> .
 #@prefix go:         <http://purl.org/obo/owl/GO#> .
+@prefix jim:        <http://logd.tw.rpi.edu/vocab/enhancement/1/has_symbol> .
 @prefix conversion: <http://purl.org/twc/vocab/conversion/> .
 @prefix :           <http://sparql.tw.rpi.edu/ontowiki/source/ncbi-nih-gov/dataset/gene2go/version/2011-Feb-23/conversion/enhancement/1> .
 

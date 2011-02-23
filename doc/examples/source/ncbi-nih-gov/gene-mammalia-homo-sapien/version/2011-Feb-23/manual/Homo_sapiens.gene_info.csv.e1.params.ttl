@@ -15,7 +15,7 @@
 @prefix foaf:       <http://xmlns.com/foaf/0.1/> .
 @prefix ov:         <http://open.vocab.org/terms/> .
 @prefix conversion: <http://purl.org/twc/vocab/conversion/> .
-@prefix e1:         <http://logd.tw.rpi.edu/source/ncbi-nih-gov/dataset/gene-mammalia-homo-sapien/vocab/enhancement/1/> .
+@prefix jim:        <http://logd.tw.rpi.edu/vocab/enhancement/1/> .
 @prefix :           <http://logd.tw.rpi.edu/source/ncbi-nih-gov/dataset/gene-mammalia-homo-sapien/version/2011-Feb-23/conversion/enhancement/1> .
 
 <http://tw.rpi.edu/web/person/JamesMcCusker> foaf:holdsAccount <http://tw.rpi.edu/web/inside/machine/gneiss#jim> .
@@ -74,7 +74,7 @@
          conversion:comment "";
          conversion:range  rdfs:Literal;
          conversion:equivalent_property rdfs:label;
-         conversion:subproperty_of "[/sd]vocab/enhancement/[e]/has_symbol";
+         conversion:subproperty_of "[/]vocab/enhancement/[e]/has_symbol";
       ];
       conversion:enhance [
          ov:csvCol         4;
@@ -142,7 +142,7 @@
          conversion:label "has symbol from nomenclature authority";
          conversion:comment "";
          conversion:range  todo:Literal;
-         conversion:equivalent_property "[/sd]vocab/enhancement/[e]/has_symbol";
+         conversion:equivalent_property "[/]vocab/enhancement/[e]/has_symbol";
       ];
       conversion:enhance [
          ov:csvCol         12;
@@ -150,7 +150,7 @@
          conversion:label "has name from nomenclature authority";
          conversion:comment "";
          conversion:range  todo:Literal;
-         conversion:equivalent_property "[/sd]vocab/enhancement/1/has_description";
+         conversion:equivalent_property "[/]vocab/enhancement/1/has_description";
       ];
       conversion:enhance [
          ov:csvCol         13;
