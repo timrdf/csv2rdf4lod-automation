@@ -11,11 +11,17 @@
 #   3) overriding with -n (and optional -e)
 #
 #   pcurl.sh <url> -e can be used to append an extension to a url that does not have one.
+#
+# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-pcurl.sh
 
-usage_message="usage: `basename $0` [-I] url [-n name] [-e extension]     [url [-n name] [-e extension]] ..." 
+usage_message="usage: `basename $0` [-I] url [-n name] [-e extension]     [url [-n name] [-e extension]]*" 
 
 if [ $# -lt 1 ]; then
    echo $usage_message 
+   echo "  -I  : do not download file; just obtain HTTP header information (c.f. curl -I)"
+   echo "  url : the URL to retrieve"
+   echo "  -n  : use 'name' as the local file name."
+   echo "  -e  : use 'extension' as the extension to the local file name."
    exit 1
 fi
 
@@ -119,14 +125,14 @@ while [ $# -gt 0 ]; do
       nodeSet="nodeSet$requestID"
 
       echo
-      echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                         > $file.pml.ttl
-      echo "@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> ."                            >> $file.pml.ttl
-      echo "@prefix dcterms: <http://purl.org/dc/terms/> ."                                 >> $file.pml.ttl
-      echo "@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> ."             >> $file.pml.ttl
-      echo "@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> ."          >> $file.pml.ttl
-      echo "@prefix irw:  <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> ."       >> $file.pml.ttl
-      echo "@prefix nfo: <http://www.semanticdesktop.org/ontologies/nfo/#> ."               >> $file.pml.ttl
-      echo "@prefix conv: <http://purl.org/twc/vocab/conversion/> ."                        >> $file.pml.ttl
+      echo "@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> ."                     > $file.pml.ttl
+      echo "@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> ."                        >> $file.pml.ttl
+      echo "@prefix dcterms:  <http://purl.org/dc/terms/> ."                                >> $file.pml.ttl
+      echo "@prefix pmlp:     <http://inference-web.org/2.0/pml-provenance.owl#> ."         >> $file.pml.ttl
+      echo "@prefix pmlj:     <http://inference-web.org/2.0/pml-justification.owl#> ."      >> $file.pml.ttl
+      echo "@prefix irw:      <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> ."   >> $file.pml.ttl
+      echo "@prefix nfo:      <http://www.semanticdesktop.org/ontologies/nfo/#> ."          >> $file.pml.ttl
+      echo "@prefix conv:     <http://purl.org/twc/vocab/conversion/> ."                    >> $file.pml.ttl
       echo "@prefix httphead: <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> ." >> $file.pml.ttl
       echo "@prefix httpget:  <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> ."  >> $file.pml.ttl
       echo                                                                                  >> $file.pml.ttl
