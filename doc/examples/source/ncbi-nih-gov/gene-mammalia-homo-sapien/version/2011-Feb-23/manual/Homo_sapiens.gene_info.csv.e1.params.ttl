@@ -1,0 +1,189 @@
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix todo:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix vann:       <http://purl.org/vocab/vann/> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
+@prefix time:       <http://www.w3.org/2006/time#> .
+@prefix wgs:        <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames:   <http://www.geonames.org/ontology#> .
+@prefix con:        <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
+@prefix void:       <http://rdfs.org/ns/void#> .
+@prefix scovo:      <http://purl.org/NET/scovo#> .
+@prefix sioc:       <http://rdfs.org/sioc/ns#> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix ov:         <http://open.vocab.org/terms/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix :           <http://logd.tw.rpi.edu/source/ncbi-nih-gov/dataset/Homo_sapiens.gene_info/version/2011-Feb-23/conversion/enhancement/1> .
+
+<http://tw.rpi.edu/web/person/JamesMcCusker> foaf:holdsAccount <http://tw.rpi.edu/web/inside/machine/gneiss#jim> .
+<http://tw.rpi.edu/web/inside/machine/gneiss#jim>
+   a foaf:OnlineAccount;
+   foaf:accountName "jim";
+   sioc:account_of <http://tw.rpi.edu/web/person/JamesMcCusker>;
+.
+
+:dataset a void:Dataset;
+   conversion:base_uri           "http://logd.tw.rpi.edu"^^xsd:anyURI;
+   conversion:source_identifier  "ncbi-nih-gov";
+   conversion:dataset_identifier "gene-mammalia-homo-sapien";
+   conversion:version_identifier "2011-Feb-23";
+   conversion:conversion_process [
+      a conversion:EnhancementConversionProcess;
+      conversion:enhancement_identifier "1";
+
+      conversion:interpret [
+        conversion:symbol "-";
+        conversion:interpretation conversion:null;
+      ];
+
+      dcterms:creator <http://tw.rpi.edu/web/inside/machine/gneiss#jim>;# case 1
+      conversion:enhance [      
+         ov:csvRow 0;
+         a conversion:HeaderRow;
+      ];                        
+      conversion:enhance [
+         ov:csvCol         1;
+         ov:csvHeader     "9606";
+         conversion:label "has species";
+         conversion:range_name "Taxon";
+         conversion:range_template "http://bio2rdf.org/taxon:[.]";
+         conversion:comment "";
+         conversion:range  rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol         2;
+         ov:csvHeader     "1";
+         conversion:domain_template "http://bio2rdf.org/geneid:[.]" ;
+         conversion:label "has entrez gene id";
+         conversion:comment "";
+         conversion:domain_name "Gene";
+         conversion:range  rdfs:Literal;
+         conversion:subproperty_of dcterms:identifier;
+      ];
+      conversion:enhance [
+         conversion:class_name "Gene";
+         conversion:subclass_of <http://purl.obolibrary.org/obo/SO_0000704>;
+      ];
+      conversion:enhance [
+         ov:csvCol         3;
+         ov:csvHeader     "A1BG";
+         conversion:label "has default symbol";
+         conversion:comment "";
+         conversion:range  rdfs:Literal;
+         conversion:subproperty_of rdfs:label;
+         conversion:subproperty_of <http://logd.tw.rpi.edu/source/ncbi.nlm.nih.gov/dataset/Homo_sapiens.gene_info/vocab/enhancement/1/has_symbol>;
+      ];
+      conversion:enhance [
+         ov:csvCol         4;
+         ov:csvHeader     "-";
+         conversion:label "has locus tag";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         5;
+         ov:csvHeader     "A1B|ABG|DKFZp686F0970|GAB|HYST2477";
+         conversion:label "has symbol";
+         conversion:comment "";
+         conversion:delimits_object "\\|";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         6;
+         ov:csvHeader     "HGNC:5|MIM:138670|Ensembl:ENSG00000121410|HPRD:00726";
+         conversion:label "has database id";
+         conversion:comment "";
+         conversion:delimits_object "\\|";
+         conversion:range  todo:Literal;
+         conversion:subproperty_of dcterms:identifier;
+      ];
+      conversion:enhance [
+         ov:csvCol         7;
+         ov:csvHeader     "19";
+         conversion:label "on chromosome";
+         conversion:comment "";
+	 conversion:bundled_by [ov:csvCol 8];
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         8;
+         ov:csvHeader     "19q13.4";
+         conversion:label "has location";
+         conversion:comment "";
+         conversion:range_name "MapLocation";
+         conversion:range_template "http://bio2rdf.org/mapviewer:[.]";
+         conversion:range  rdfs:Resource;
+      ];
+      conversion:enhance [
+         conversion:class_name "MapLocation";
+         conversion:subclass_of <http://purl.obolibrary.org/obo/SO_0000341>;
+      ];
+      conversion:enhance [
+         ov:csvCol         9;
+         ov:csvHeader     "alpha-1-B glycoprotein";
+         conversion:label "has description";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+         conversion:subproperty_of dcterms:description;
+      ];
+      conversion:enhance [
+         ov:csvCol         10;
+         ov:csvHeader     "protein-coding";
+         conversion:label "has gene type";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         11;
+         ov:csvHeader     "A1BG";
+         conversion:label "has symbol from nomenclature authority";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+         conversion:subproperty_of <http://logd.tw.rpi.edu/source/ncbi.nlm.nih.gov/dataset/Homo_sapiens.gene_info/vocab/enhancement/1/has_symbol>;
+      ];
+      conversion:enhance [
+         ov:csvCol         12;
+         ov:csvHeader     "alpha-1-B glycoprotein";
+         conversion:label "has name from nomenclature authority";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+         conversion:subproperty_of <http://logd.tw.rpi.edu/source/ncbi.nlm.nih.gov/dataset/Homo_sapiens.gene_info/vocab/enhancement/1/has_description>;
+      ];
+      conversion:enhance [
+         ov:csvCol         13;
+         ov:csvHeader     "O";
+         conversion:label "has nomenclature status";
+         conversion:comment "";
+	 conversion:interpret [
+   	   conversion:symbol "O";
+           conversion:interpretation "Official";
+     	 ];
+	 conversion:interpret [
+   	   conversion:symbol "I";
+           conversion:interpretation "Interim";
+     	 ];
+
+
+         conversion:range  todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol         14;
+         ov:csvHeader     "alpha-1B-glycoprotein";
+         conversion:label "has other designation";
+         conversion:comment "";
+         conversion:range  todo:Literal;
+         conversion:delimits_object "\\|";
+      ];
+      conversion:enhance [
+         ov:csvCol         15;
+         ov:csvHeader     "20110112";
+         conversion:label "modification date";
+         conversion:comment "";
+         conversion:range xsd:date;
+	 conversion:date_pattern "yyyyMMdd";
+         conversion:subproperty_of dcterms:modified;
+      ];
+   ];
+.
