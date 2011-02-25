@@ -795,5 +795,13 @@ conv:datetime_timezone
 conv:Dataset
    a rdfs:Class;
    rdfs:label "Dataset";
+   rdfs:comment "Asserted by the converter.";
    rdfs:subClassOf void:Dataset;
+.
+
+conv:Curl
+   a rdfs:Class;
+   rdfs:subClassOf pmlp:InferenceEngine;
+   rdfs:label "Curl";
+   rdfs:comment "Asserted by pcurl.sh";
 .
