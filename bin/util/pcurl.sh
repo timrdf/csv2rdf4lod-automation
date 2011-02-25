@@ -163,7 +163,7 @@ while [ $# -gt 0 ]; do
          echo "<md5_$downloadedFileMD5>"                                                   >> $file.pml.ttl
          echo "   a nfo:FileHash; "                                                        >> $file.pml.ttl
          echo "   nfo:hashAlgorithm \"md5\";"                                              >> $file.pml.ttl
-         echo "   nfo:hasHash \"$downloadedFileMD5\";"                                     >> $file.pml.ttl
+         echo "   nfo:hashValue \"$downloadedFileMD5\";"                                   >> $file.pml.ttl
          echo "."                                                                          >> $file.pml.ttl
          echo                                                                              >> $file.pml.ttl
          echo "<${nodeSet}_content>"                                                       >> $file.pml.ttl
