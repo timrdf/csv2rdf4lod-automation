@@ -791,3 +791,9 @@ conv:datetime_timezone
    rdfs:range rdfs:Literal ;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    . 
+
+conv:Dataset
+   a rdfs:Class;
+   rdfs:label "Dataset";
+   rdfs:subClassOf void:Dataset;
+.
