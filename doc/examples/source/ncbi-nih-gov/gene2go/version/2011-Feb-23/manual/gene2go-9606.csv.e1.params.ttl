@@ -23,7 +23,7 @@
 <http://tw.rpi.edu/web/inside/machine/gneiss#jim>
    a foaf:OnlineAccount;
    foaf:accountName "jim";
-   sioc:account_of <http://tw.rpi.edu/web/person/JamesMcCusker>;
+   sioc:account_of <http://tw.rpi.edu/instances/JamesMcCusker>;
 .
 
 <http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> . #
@@ -47,7 +47,10 @@
         conversion:interpretation conversion:null;
       ];
 
-      dcterms:creator <http://tw.rpi.edu/web/inside/machine/gneiss#jim, <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;# case 1
+      dcterms:creator     <http://tw.rpi.edu/web/inside/machine/gneiss#jim>; 
+      dcterms:contributor <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
+      dcterms:modified "2011-02-23"^^xsd:date;
+
       conversion:enhance [
          ov:csvCol         1;
          ov:csvHeader     "tax_id";
