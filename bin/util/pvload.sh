@@ -23,6 +23,11 @@ if [ $1 == "-n" ]; then
    shift 
 fi
 
+assudo="sudo"
+if [ `whoami` == "root" ]; then
+   assudo=""
+fi
+
 curlPath=`which curl`
 curlMD5="md5_`md5.sh $curlPath`"
 
@@ -167,9 +172,9 @@ while [ $# -gt 0 ]; do
 
    if [ ${dryrun-"."} != "true" ]; then
       # TODO: move this hard path to ENV VAR.
-      /opt/virtuoso/scripts/vload nt $TEMP.pml.ttl      $named_graph # How we got the file to load into store.
-      /opt/virtuoso/scripts/vload nt $TEMP.nt           $named_graph # The file (in ntriples syntax).
-      /opt/virtuoso/scripts/vload nt $TEMP.load.pml.ttl $named_graph # The provenance of loading it into the store.
+      $assudo /opt/virtuoso/scripts/vload nt $TEMP.pml.ttl      $named_graph # How we got the file to load into store.
+      $assudo /opt/virtuoso/scripts/vload nt $TEMP.nt           $named_graph # The file (in ntriples syntax).
+      $assudo /opt/virtuoso/scripts/vload nt $TEMP.load.pml.ttl $named_graph # The provenance of loading it into the store.
       rm $TEMP.pml.ttl $TEMP.nt $TEMP.load.pml.ttl
    else
       echo "/opt/virtuoso/scripts/vload nt $TEMP.pml.ttl      $named_graph"
