@@ -8,6 +8,8 @@
 @prefix ov:		      <http://open.vocab.org/terms/> .
 @prefix conv:	      <http://purl.org/twc/vocab/conversion/> .
 @prefix conversion:	<http://purl.org/twc/vocab/conversion/> .
+@prefix pmlp:        <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:        <http://inference-web.org/2.0/pml-justification.owl#> .
 @prefix d2rq:        <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
 @base <http://purl.org/twc/vocab/conversion/> .
 
