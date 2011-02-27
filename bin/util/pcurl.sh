@@ -14,7 +14,7 @@
 #
 # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-pcurl.sh
 
-usage_message="usage: `basename $0` [-I] url [-n name] [-e extension]     [url [-n name] [-e extension]]*" 
+usage_message="usage: `basename $0` [-I] [url [-n name] [-e extension]]     [url [-n name] [-e extension]]*" #todo: [-from a.pml] " 
 
 if [ $# -lt 1 ]; then
    echo $usage_message 
