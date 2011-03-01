@@ -37,6 +37,7 @@ if [ ${1:-'.'} == "-p" ]; then
    outputVarName="$1"
    shift
 fi
+#echo "`basename $0` using results format param: $outputVarName"
 
 if [ ${1:-'.'} == "-o" ]; then
    shift
@@ -46,6 +47,7 @@ if [ ${1:-'.'} == "-o" ]; then
       shift
    done
 fi
+#echo "`basename $0` using results format value: $outputTypes"
 
 queryFiles=""
 if [ $# -gt 0 -a "$1" == "-q" ]; then
@@ -74,7 +76,7 @@ for sparql in $queryFiles; do
    for output in $outputTypes; do
       printf "  $output"
       query=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
-      escapedOutput=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
+      escapedOutput=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }' | sed 's/%0A$//'`
       url=$endpoint"?query="$query"&"$outputVarName"="$escapedOutput 
       #echo $url
 
@@ -101,9 +103,11 @@ for sparql in $queryFiles; do
       echo                                                                               >> $resultsFile.pml.ttl
       echo "<sourceusage$requestID>"                                                     >> $resultsFile.pml.ttl
       echo "   a pmlp:SourceUsage;"                                                      >> $resultsFile.pml.ttl
-      echo "   pmlp:hasSource        <$endpoint>;"                                       >> $resultsFile.pml.ttl
+      echo "   pmlp:hasSource        <$url>;"                                            >> $resultsFile.pml.ttl
       echo "   pmlp:hasUsageDateTime \"$requestDate\"^^xsd:dateTime;"                    >> $resultsFile.pml.ttl
       echo "."                                                                           >> $resultsFile.pml.ttl
+      echo                                                                               >> $resultsFile.pml.ttl
+      echo "<$url> rdfs:seeAlso <$endpoint> ."                                           >> $resultsFile.pml.ttl
       echo                                                                               >> $resultsFile.pml.ttl
       echo "<nodeset$requestID>"                                                         >> $resultsFile.pml.ttl
       echo "   a pmlj:NodeSet;"                                                          >> $resultsFile.pml.ttl
