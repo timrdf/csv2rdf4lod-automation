@@ -8,14 +8,14 @@ if [ ! -d publish/bin ]; then
    mkdir -p publish/bin
 fi
 
-echo $#
 while [ $# -gt 0 ]; do
    rdfFile="$1"
    rdfFileBase=`basename $rdfFile`
 
    echo "$rdfFile.graph"
    if [ ! -e $rdfFile.graph ]; then
-      cr-dataset-uri.sh | grep "^h" | tail -1 > $rdfFile.graph
+      #cr-dataset-uri.sh | grep "^h" | tail -1 > $rdfFile.graph
+      rr-create-void.sh publish/crawl.ttl.void.ttl > $rdfFile.graph
    else 
       echo "   WARNING: publish/$rdfFile.void.ttl existed; not replacing"
    fi
