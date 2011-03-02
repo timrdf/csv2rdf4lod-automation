@@ -17,14 +17,14 @@ while [ $# -gt 0 ]; do
    if [ ! -e $rdfFile.graph ]; then
       cr-dataset-uri.sh | grep "^h" | tail -1 > $rdfFile.graph
    else 
-      echo "WARNING: publish/$rdfFile.void.ttl existed; not replacing"
+      echo "   WARNING: publish/$rdfFile.void.ttl existed; not replacing"
    fi
 
    echo "publish/$rdfFileBase.void.ttl"
    if [ ! -e publish/$rdfFileBase.void.ttl ]; then
       cr-dataset-uri.sh void > publish/$rdfFileBase.void.ttl
    else 
-      echo "WARNING: publish/$rdfFileBase.void.ttl existed; not replacing"
+      echo "   WARNING: publish/$rdfFileBase.void.ttl existed; not replacing"
    fi
 
    echo "publish/bin/virtuoso-load.sh"
