@@ -807,3 +807,9 @@ conv:Curl
    rdfs:label "Curl";
    rdfs:comment "Asserted by pcurl.sh";
 .
+
+conv:HTTPHeader
+   a rdfs:Class;
+   rdfs:subClassOf pmlp:Information;
+   rdfs:comment "Done by pcurl.sh";
+.
