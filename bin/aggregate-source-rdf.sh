@@ -14,15 +14,15 @@ while [ $# -gt 0 ]; do
 
    echo "$rdfFile.graph"
    if [ ! -e $rdfFile.graph ]; then
-      #cr-dataset-uri.sh | grep "^h" | tail -1 > $rdfFile.graph
-      rr-create-void.sh publish/crawl.ttl.void.ttl > $rdfFile.graph
+      cr-dataset-uri.sh | grep "^h" | tail -1 > $rdfFile.graph
    else 
       echo "   WARNING: publish/$rdfFile.void.ttl existed; not replacing"
    fi
 
    echo "publish/$rdfFileBase.void.ttl"
    if [ ! -e publish/$rdfFileBase.void.ttl ]; then
-      cr-dataset-uri.sh void > publish/$rdfFileBase.void.ttl
+      #replaced by rr-create-void.sh: cr-dataset-uri.sh void > publish/$rdfFileBase.void.ttl
+      rr-create-void.sh $rdfFile > publish/crawl.ttl.void.ttl
    else 
       echo "   WARNING: publish/$rdfFileBase.void.ttl existed; not replacing"
    fi
