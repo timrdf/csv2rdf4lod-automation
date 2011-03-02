@@ -8,7 +8,7 @@ if [ ! -d publish/bin ]; then
    mkdir -p publish/bin
 fi
 
-while [ $# -gt 1 ]; do
+while [ $# -ge 1 ]; do
    rdfFile="$1"
 
    echo "source/$rdfFile.graph"
@@ -30,4 +30,5 @@ while [ $# -gt 1 ]; do
 
    echo "publish/bin/virtuoso-load-metadata.sh"
    echo "sudo /opt/virtuoso/scripts/vload ttl publish/crawl.ttl.void.ttl http://logd.tw.rpi.edu/vocab/Dataset" > publish/bin/virtuoso-load-metadata.sh
+   shift
 done
