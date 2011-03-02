@@ -29,8 +29,11 @@ while [ $# -gt 0 ]; do
 
    echo "publish/bin/virtuoso-load.sh"
    echo "sudo /opt/virtuoso/scripts/vload ttl $rdfFile `cat $rdfFile.graph`" > publish/bin/virtuoso-load.sh
+   chmod +x publish/bin/virtuoso-load.sh
 
    echo "publish/bin/virtuoso-load-metadata.sh"
    echo "sudo /opt/virtuoso/scripts/vload ttl publish/$rdfFileBase.void.ttl http://logd.tw.rpi.edu/vocab/Dataset" > publish/bin/virtuoso-load-metadata.sh
+   chmod +x publish/bin/virtuoso-load-metadata.sh
+
    shift
 done
