@@ -11,25 +11,26 @@ fi
 echo $#
 while [ $# -gt 0 ]; do
    rdfFile="$1"
+   rdfFileBase=`basename $rdfFile`
 
-   echo "source/$rdfFile.graph"
-   if [ ! -e source/$rdfFile.graph ]; then
-      cr-dataset-uri.sh | grep "^h" | tail -1 > source/$rdfFile.graph
+   echo "$rdfFile.graph"
+   if [ ! -e $rdfFile.graph ]; then
+      cr-dataset-uri.sh | grep "^h" | tail -1 > $rdfFile.graph
    else 
       echo "WARNING: publish/$rdfFile.void.ttl existed; not replacing"
    fi
 
-   echo "publish/$rdfFile.void.ttl"
-   if [ ! -e publish/$rdfFile.void.ttl ]; then
-      cr-dataset-uri.sh void > publish/$rdfFile.void.ttl
+   echo "publish/$rdfFileBase.void.ttl"
+   if [ ! -e publish/$rdfFileBase.void.ttl ]; then
+      cr-dataset-uri.sh void > publish/$rdfFileBase.void.ttl
    else 
-      echo "WARNING: publish/$rdfFile.void.ttl existed; not replacing"
+      echo "WARNING: publish/$rdfFileBase.void.ttl existed; not replacing"
    fi
 
    echo "publish/bin/virtuoso-load.sh"
-   echo "sudo /opt/virtuoso/scripts/vload ttl source/crawl.ttl `cat source/$rdfFile.graph`" > publish/bin/virtuoso-load.sh
+   echo "sudo /opt/virtuoso/scripts/vload ttl $rdfFile `cat $rdfFile.graph`" > publish/bin/virtuoso-load.sh
 
    echo "publish/bin/virtuoso-load-metadata.sh"
-   echo "sudo /opt/virtuoso/scripts/vload ttl publish/crawl.ttl.void.ttl http://logd.tw.rpi.edu/vocab/Dataset" > publish/bin/virtuoso-load-metadata.sh
+   echo "sudo /opt/virtuoso/scripts/vload ttl publish/$rdfFileBase.void.ttl http://logd.tw.rpi.edu/vocab/Dataset" > publish/bin/virtuoso-load-metadata.sh
    shift
 done
