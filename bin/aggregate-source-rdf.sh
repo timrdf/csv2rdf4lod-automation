@@ -8,7 +8,8 @@ if [ ! -d publish/bin ]; then
    mkdir -p publish/bin
 fi
 
-while [ $# -ge 1 ]; do
+echo $#
+while [ $# -gt 0 ]; do
    rdfFile="$1"
 
    echo "source/$rdfFile.graph"
