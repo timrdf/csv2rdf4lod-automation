@@ -465,6 +465,18 @@ export CSV2RDF4LOD_PUBLISH_VIRTUOSO="true"
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO="false" 
 
 #
+# Customize: Set the path of the local script used to load/delete data from
+#            the Virtuoso SPARQL endpoint.
+#
+# /opt/virtuoso/scripts/vload
+# usage: "vload [rdf|ttl|nt|nq] [data_file] [graph_uri]"
+#
+# (done in convert-aggregate.sh, publish/bin/virtuoso-{load,delete}*.sh)
+#
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH="/opt/virtuoso/scripts/vload"
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH="" 
+
+#
 # ------- ------- query caching options ------- -------
 #
 
