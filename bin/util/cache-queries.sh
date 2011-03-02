@@ -76,12 +76,12 @@ for sparql in $queryFiles; do
    for output in $outputTypes; do
       printf "  $output"
       query=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
-      escapedOutput=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }' | sed 's/%0A$//'`
-      url=$endpoint"?query="$query"&"$outputVarName"="$escapedOutput 
-      #echo $url
+      escapedOutput=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'` # | sed 's/%0A$//'`
+      request=$endpoint"?query="$query"&"$outputVarName"="$escapedOutput 
+      #echo $request
 
       resultsFile=$results/$sparql.`echo $output | tr '/+-' '_'`
-      curl "$url" > $resultsFile 2> /dev/null
+      curl "$request" > $resultsFile 2> /dev/null
 
       requestID=`java edu.rpi.tw.string.NameFactory`
       requestDate=`dateInXSDDateTime.sh`
@@ -95,6 +95,10 @@ for sparql in $queryFiles; do
       echo "@prefix pmlj:    <http://inference-web.org/2.0/pml-justification.owl#> ."    >> $resultsFile.pml.ttl
       echo "@prefix conv:    <http://purl.org/twc/vocab/conversion/> ."                  >> $resultsFile.pml.ttl
       echo                                                                               >> $resultsFile.pml.ttl
+      pushd $results &> /dev/null
+      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$sparql.$output"                       >> `basename $resultsFile.pml.ttl`
+      popd &> /dev/null
+      echo                                                                               >> $resultsFile.pml.ttl
       echo "<$sparql.$output>"                                                           >> $resultsFile.pml.ttl
       echo "   a pmlp:Information;"                                                      >> $resultsFile.pml.ttl
       echo "   pmlp:hasModificationDateTime \"$requestDate\"^^xsd:dateTime;"             >> $resultsFile.pml.ttl
@@ -103,11 +107,19 @@ for sparql in $queryFiles; do
       echo                                                                               >> $resultsFile.pml.ttl
       echo "<sourceusage$requestID>"                                                     >> $resultsFile.pml.ttl
       echo "   a pmlp:SourceUsage;"                                                      >> $resultsFile.pml.ttl
-      echo "   pmlp:hasSource        <$url>;"                                            >> $resultsFile.pml.ttl
+      echo "   pmlp:hasSource        <$request>;"                                        >> $resultsFile.pml.ttl
       echo "   pmlp:hasUsageDateTime \"$requestDate\"^^xsd:dateTime;"                    >> $resultsFile.pml.ttl
       echo "."                                                                           >> $resultsFile.pml.ttl
       echo                                                                               >> $resultsFile.pml.ttl
-      echo "<$url> rdfs:seeAlso <$endpoint> ."                                           >> $resultsFile.pml.ttl
+      echo "<$request>"                                                                  >> $resultsFile.pml.ttl
+      echo "   a pmlj:Query, pmlp:Source;"                                               >> $resultsFile.pml.ttl
+      echo "   pmlj:isFromEngine <$endpoint>;"                                           >> $resultsFile.pml.ttl
+      echo "   pmlj:hasAnswer    <nodeset$requestID>;"                                   >> $resultsFile.pml.ttl
+      echo "."                                                                           >> $resultsFile.pml.ttl
+      echo                                                                               >> $resultsFile.pml.ttl
+      echo "<$endpoint>"                                                                 >> $resultsFile.pml.ttl
+      echo "   a pmlp:InferenceEngine, pmlp:WebService;"                                 >> $resultsFile.pml.ttl
+      echo "."                                                                           >> $resultsFile.pml.ttl
       echo                                                                               >> $resultsFile.pml.ttl
       echo "<nodeset$requestID>"                                                         >> $resultsFile.pml.ttl
       echo "   a pmlj:NodeSet;"                                                          >> $resultsFile.pml.ttl
