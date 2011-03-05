@@ -123,6 +123,7 @@ while [ $# -gt 0 ]; do
       # Relative paths.
       sourceUsage="sourceUsage$requestID"
       nodeSet="nodeSet$requestID"
+      inferenceStep="inferenceStep$requestID"
       wasControlled="wasControlledBy$requestID"
 
       echo
@@ -131,14 +132,14 @@ while [ $# -gt 0 ]; do
       echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                  >> $file.pml.ttl
       echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."           >> $file.pml.ttl
       echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."        >> $file.pml.ttl
+      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                                 >> $file.pml.ttl
+      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                   >> $file.pml.ttl
       echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                           >> $file.pml.ttl
       echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                        >> $file.pml.ttl
       echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                         >> $file.pml.ttl
       echo "@prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> ."     >> $file.pml.ttl
       echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."            >> $file.pml.ttl
       echo "@prefix conv:       <http://purl.org/twc/vocab/conversion/> ."                      >> $file.pml.ttl
-      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                                 >> $file.pml.ttl
-      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                   >> $file.pml.ttl
       echo "@prefix httphead:   <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> ."   >> $file.pml.ttl
       echo "@prefix httpget:    <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> ."    >> $file.pml.ttl
       echo                                                                                      >> $file.pml.ttl
@@ -171,16 +172,17 @@ while [ $# -gt 0 ]; do
          echo "<${nodeSet}_content>"                                                            >> $file.pml.ttl
          echo "   a pmlj:NodeSet;"                                                              >> $file.pml.ttl
          echo "   pmlj:hasConclusion <$file>;"                                                  >> $file.pml.ttl
-         echo "   pmlj:isConsequentOf ["                                                        >> $file.pml.ttl
-         echo "      a pmlj:InferenceStep;"                                                     >> $file.pml.ttl
-         echo "      pmlj:hasIndex 0;"                                                          >> $file.pml.ttl
-         echo "      pmlj:hasAntecedentList ();"                                                >> $file.pml.ttl
-         echo "      pmlj:hasSourceUsage     <${sourceUsage}_content>;"                         >> $file.pml.ttl
-         echo "      pmlj:hasInferenceEngine conv:curl_$curlMD5;"                               >> $file.pml.ttl
-         echo "      pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;"                             >> $file.pml.ttl
-         echo "      oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;">> $file.pml.ttl
-         echo "      hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;">> $file.pml.ttl
-         echo "   ];"                                                                           >> $file.pml.ttl
+         echo "   pmlj:isConsequentOf <${inferenceStep}_content>;"                              >> $file.pml.ttl
+         echo "."                                                                               >> $file.pml.ttl
+         echo "<${inferenceStep}_content>"                                                      >> $file.pml.ttl
+         echo "   a pmlj:InferenceStep;"                                                        >> $file.pml.ttl
+         echo "   pmlj:hasIndex 0;"                                                             >> $file.pml.ttl
+         echo "   pmlj:hasAntecedentList ();"                                                   >> $file.pml.ttl
+         echo "   pmlj:hasSourceUsage     <${sourceUsage}_content>;"                            >> $file.pml.ttl
+         echo "   pmlj:hasInferenceEngine conv:curl_$curlMD5;"                                  >> $file.pml.ttl
+         echo "   pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;"                                >> $file.pml.ttl
+         echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;"  >> $file.pml.ttl
+         echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;"  >> $file.pml.ttl
          echo "."                                                                               >> $file.pml.ttl
          echo                                                                                   >> $file.pml.ttl
          echo "<${sourceUsage}_content>"                                                        >> $file.pml.ttl
@@ -192,7 +194,7 @@ while [ $# -gt 0 ]; do
          echo "<${wasControlled}_content>"                                                      >> $file.pml.ttl
          echo "   a oprov:WasControlledBy;"                                                     >> $file.pml.ttl
          echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;"              >> $file.pml.ttl
-         echo "   oprov:effect <${nodeSet}_content>;"                                           >> $file.pml.ttl
+         echo "   oprov:effect <${inferenceStep}_content>;"                                     >> $file.pml.ttl
          echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                              >> $file.pml.ttl
          echo "."                                                                               >> $file.pml.ttl
       fi
@@ -206,16 +208,17 @@ while [ $# -gt 0 ]; do
       echo "<${nodeSet}_url_header>"                                                            >> $file.pml.ttl
       echo "   a pmlj:NodeSet;"                                                                 >> $file.pml.ttl
       echo "   pmlj:hasConclusion <info${requestID}_url_header>;"                               >> $file.pml.ttl
-      echo "   pmlj:isConsequentOf ["                                                           >> $file.pml.ttl
-      echo "      a pmlj:InferenceStep;"                                                        >> $file.pml.ttl
-      echo "      pmlj:hasIndex 0;"                                                             >> $file.pml.ttl
-      echo "      pmlj:hasAntecedentList ();"                                                   >> $file.pml.ttl
-      echo "      pmlj:hasSourceUsage     <${sourceUsage}_url_header>;"                         >> $file.pml.ttl
-      echo "      pmlj:hasInferenceEngine conv:curl_$curlMD5;"                                  >> $file.pml.ttl
-      echo "      pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;"                              >> $file.pml.ttl
-      echo "      oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;"  >> $file.pml.ttl
-      echo "      hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;"  >> $file.pml.ttl
-      echo "   ];"                                                                              >> $file.pml.ttl
+      echo "   pmlj:isConsequentOf <${inferenceStep}_url_header>;"                              >> $file.pml.ttl
+      echo "."                                                                                  >> $file.pml.ttl
+      echo "<${inferenceStep}_url_header>"                                                      >> $file.pml.ttl
+      echo "   a pmlj:InferenceStep;"                                                           >> $file.pml.ttl
+      echo "   pmlj:hasIndex 0;"                                                                >> $file.pml.ttl
+      echo "   pmlj:hasAntecedentList ();"                                                      >> $file.pml.ttl
+      echo "   pmlj:hasSourceUsage     <${sourceUsage}_url_header>;"                            >> $file.pml.ttl
+      echo "   pmlj:hasInferenceEngine conv:curl_$curlMD5;"                                     >> $file.pml.ttl
+      echo "   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;"                                 >> $file.pml.ttl
+      echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;"     >> $file.pml.ttl
+      echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;"     >> $file.pml.ttl
       echo "."                                                                                  >> $file.pml.ttl
       echo                                                                                      >> $file.pml.ttl
       echo "<${sourceUsage}_url_header>"                                                        >> $file.pml.ttl
@@ -226,7 +229,7 @@ while [ $# -gt 0 ]; do
       echo "<${wasControlled}_url_header>"                                                      >> $file.pml.ttl
       echo "   a oprov:WasControlledBy;"                                                        >> $file.pml.ttl
       echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;"                 >> $file.pml.ttl
-      echo "   oprov:effect <${nodeSet}_content>;"                                              >> $file.pml.ttl
+      echo "   oprov:effect <${nodeSet}_url_header>;"                                           >> $file.pml.ttl
       echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                                 >> $file.pml.ttl
       echo "."                                                                                  >> $file.pml.ttl
       echo                                                                                      >> $file.pml.ttl
@@ -240,16 +243,17 @@ while [ $# -gt 0 ]; do
             echo "<${nodeSet}_redirected_url_header>"                                           >> $file.pml.ttl
             echo "   a pmlj:NodeSet;"                                                           >> $file.pml.ttl
             echo "   pmlj:hasConclusion <info${requestID}_redirected_url_header>;"              >> $file.pml.ttl
-            echo "   pmlj:isConsequentOf ["                                                     >> $file.pml.ttl
-            echo "      a pmlj:InferenceStep;"                                                  >> $file.pml.ttl
-            echo "      pmlj:hasIndex 0;"                                                       >> $file.pml.ttl
-            echo "      pmlj:hasAntecedentList ();"                                             >> $file.pml.ttl
-            echo "      pmlj:hasSourceUsage     <${sourceUsage}_redirected_url_header>;"        >> $file.pml.ttl
-            echo "      pmlj:hasInferenceEngine conv:curl_$curlMD5;"                            >> $file.pml.ttl
-            echo "      pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;"                        >> $file.pml.ttl
-            echo "      oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;">> $file.pml.ttl
-            echo "      hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;">> $file.pml.ttl
-            echo "   ];"                                                                        >> $file.pml.ttl
+            echo "   pmlj:isConsequentOf <${inferenceStep}_redirected_url_header>;"             >> $file.pml.ttl
+            echo "."                                                                            >> $file.pml.ttl
+            echo "<${inferenceStep}_redirected_url_header>"                                     >> $file.pml.ttl
+            echo "   a pmlj:InferenceStep;"                                                     >> $file.pml.ttl
+            echo "   pmlj:hasIndex 0;"                                                          >> $file.pml.ttl
+            echo "   pmlj:hasAntecedentList ();"                                                >> $file.pml.ttl
+            echo "   pmlj:hasSourceUsage     <${sourceUsage}_redirected_url_header>;"           >> $file.pml.ttl
+            echo "   pmlj:hasInferenceEngine conv:curl_$curlMD5;"                               >> $file.pml.ttl
+            echo "   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;"                           >> $file.pml.ttl
+            echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;">> $file.pml.ttl
+            echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;">> $file.pml.ttl
             echo "."                                                                            >> $file.pml.ttl
             echo                                                                                >> $file.pml.ttl
             echo "<${sourceUsage}_redirected_url_header>"                                       >> $file.pml.ttl
@@ -260,7 +264,7 @@ while [ $# -gt 0 ]; do
             echo "<${wasControlled}_redirected_url_header>"                                     >> $file.pml.ttl
             echo "   a oprov:WasControlledBy;"                                                  >> $file.pml.ttl
             echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;"           >> $file.pml.ttl
-            echo "   oprov:effect <${nodeSet}_content>;"                                        >> $file.pml.ttl
+            echo "   oprov:effect <${inferenceStep}_redirected_url_header>;"                    >> $file.pml.ttl
             echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                           >> $file.pml.ttl
             echo "."                                                                            >> $file.pml.ttl
          fi
