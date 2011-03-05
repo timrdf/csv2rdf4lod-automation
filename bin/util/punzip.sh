@@ -98,18 +98,25 @@ while [ $# -gt 0 ]; do
       echo "@prefix pmlp:    <http://inference-web.org/2.0/pml-provenance.owl#> ."       >> $file.pml.ttl
       echo "@prefix pmlj:    <http://inference-web.org/2.0/pml-justification.owl#> ."    >> $file.pml.ttl
       echo "@prefix conv:    <http://purl.org/twc/vocab/conversion/> ."                  >> $file.pml.ttl
+      echo "@prefix foaf:    <http://xmlns.com/foaf/0.1/> ."                             >> $file.pml.ttl
+      echo "@prefix sioc:    <http://rdfs.org/sioc/ns#> ."                               >> $file.pml.ttl
+      echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                    >> $file.pml.ttl
+      echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                 >> $file.pml.ttl
+      echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                  >> $file.pml.ttl
+      echo                                                                               >> $file.pml.ttl
+      $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                         >> $file.pml.ttl
       echo                                                                               >> $file.pml.ttl
       echo $fileURI                                                                      >> $file.pml.ttl
       echo "   a pmlp:Information;"                                                      >> $file.pml.ttl
       echo "   pmlp:hasReferenceSourceUsage $sourceUsage;"                               >> $file.pml.ttl
-      echo "   nfo:hasHash <md5_$extractedFileMD5>;"                                     >> $file.pml.ttl
+      #echo "   nfo:hasHash <md5_$extractedFileMD5>;"                                     >> $file.pml.ttl
       echo "."                                                                           >> $file.pml.ttl
-      echo ""                                                                            >> $file.pml.ttl
-      echo "<md5_$extractedFileMD5>"                                                     >> $file.pml.ttl
-      echo "   a nfo:FileHash; "                                                         >> $file.pml.ttl
-      echo "   nfo:hashAlgorithm \"md5\";"                                               >> $file.pml.ttl
-      echo "   nfo:hasHash \"$extractedFileMD5\";"                                       >> $file.pml.ttl
-      echo "."                                                                           >> $file.pml.ttl
+      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$file"                                 >> $file.pml.ttl
+      #echo "<md5_$extractedFileMD5>"                                                     >> $file.pml.ttl
+      #echo "   a nfo:FileHash; "                                                         >> $file.pml.ttl
+      #echo "   nfo:hashAlgorithm \"md5\";"                                               >> $file.pml.ttl
+      #echo "   nfo:hasHash \"$extractedFileMD5\";"                                       >> $file.pml.ttl
+      #echo "."                                                                           >> $file.pml.ttl
       echo                                                                               >> $file.pml.ttl
       echo "$sourceUsage"                                                                >> $file.pml.ttl
       echo "   a pmlp:SourceUsage;"                                                      >> $file.pml.ttl
@@ -132,6 +139,8 @@ while [ $# -gt 0 ]; do
       echo "      pmlj:hasSourceUsage     $sourceUsage;"                                 >> $file.pml.ttl
       echo "      pmlj:hasInferenceEngine conv:unzip_sh_md5_$punzipMD5;"                 >> $file.pml.ttl
       echo "      pmlj:hasInferenceRule   conv:spaceless_unzip;"                         >> $file.pml.ttl
+      echo "      oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;">> $file.pml.ttl
+      echo "      hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;">> $file.pml.ttl
       echo "   ];"                                                                       >> $file.pml.ttl
       echo "."                                                                           >> $file.pml.ttl
       echo                                                                               >> $file.pml.ttl
