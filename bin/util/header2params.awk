@@ -93,7 +93,7 @@ NR == 1 && length(conversionID) {
       if(length(conversionID)) {
          printf("         conversion:label \"%s\";\n",label)
       }
-      printf("         conversion:range  %s:Literal;\n",RDFS);
+      printf("         conversion:range  %s:Literal;\n",RDFS); # this is either 'rdfs' or 'todo' (raw and e1, respectively)
       if( length(onlyIfCol) && onlyIfCol == i ) {
          print "         a conversion:Only_if_column;"
       }

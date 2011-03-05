@@ -801,6 +801,52 @@ conv:Dataset
    rdfs:subClassOf void:Dataset;
 .
 
+conv:AbstractDataset
+   a rdfs:Class;
+   rdfs:label "Abstract Dataset";
+   rdfs:comment "Dataset with source and dataset identifiers, but not version. Before any version is materialized (captured in time), and the union of all VersionedDatasets.";
+   rdfs:subClassOf conv:Dataset;
+   owl:disjointWith conv:VersionedDataset, conv:LayerDataset;
+.
+
+conv:VersionedDataset
+   a rdfs:Class;
+   rdfs:label "Versioned Dataset";
+   rdfs:comment "A materialized (captured in time) dataset -- something is now on disk. Union of all LayerDatasets created by different conversion parameters.";
+   rdfs:subClassOf conv:Dataset;
+   owl:disjointWith conv:AbstractDataset, conv:LayerDataset;
+.
+
+conv:LayerDataset
+   a rdfs:Class;
+   rdfs:label "Layer Dataset";
+   rdfs:comment "A conversion of a VersionedDataset using a particular set of conversion parameters.";
+   rdfs:subClassOf conv:Dataset;
+   owl:disjointWith conv:AbstractDataset, conv:VersionedDataset;
+.
+
+conv:AuxiliaryDataset
+   a rdfs:Class;
+   rdfs:subClassOf conv:Dataset;
+   owl:disjointWith [ owl:unionOf ( conv:AbstractDataset conv:VersionedDataset conv:LayerDataset ) ];
+.
+
+conv:MetaDataset
+   a rdfs:Class;
+   rdfs:label "Meta Dataset";
+   rdfs:comment "";
+   rdfs:subClassOf conv:AuxiliaryDataset;
+   owl:disjointWith conv:SameAsDataset;
+.
+
+conv:SameAsDataset
+   a rdfs:Class;
+   rdfs:label "SameAs Dataset";
+   rdfs:comment "";
+   rdfs:subClassOf conv:AuxiliaryDataset, void:LinkSet;
+   owl:disjointWith conv:MetaDataset;
+.
+
 conv:Curl
    a rdfs:Class;
    rdfs:subClassOf pmlp:InferenceEngine;
@@ -812,4 +858,10 @@ conv:HTTPHeader
    a rdfs:Class;
    rdfs:subClassOf pmlp:Information;
    rdfs:comment "Done by pcurl.sh";
+.
+
+conv:num_invocation_logs
+   a owl:DatatypeProperty;
+   rdfs:label "Number of invocation logs";
+   rdfs:comment "Number of docs/logs/* captured by convert-aggregate.sh";
 .

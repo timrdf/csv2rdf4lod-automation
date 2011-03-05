@@ -68,23 +68,27 @@ BEGIN {
    # To make the params more connected to the datasets, we're replacing this:
    #printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/params/%s/> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
    # with this:
-   printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/conversion/%s> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
+   # Still not right; moved down to subject:
+   #printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/conversion/%s> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
 
                                      print
+   # NOTE: user account and person implemented in bin/util/user-account.sh, too.
    if( length(machine_uri) && length(whoami) ) {
       if(length(person_uri)) {
-                                    printf("<%s> foaf:holdsAccount <%s%s> .\n",person_uri,machine_uri,whoami);
+                                    printf("<%s> foaf:holdsAccount <%s%s> .\n",person_uri,   machine_uri,whoami);
       }
-                                    printf("<%s%s>\n   a foaf:OnlineAccount;\n   foaf:accountName \"%s\";\n",machine_uri,whoami,whoami);
+                                    printf("<%s%s>\n   a foaf:OnlineAccount;\n   foaf:accountName \"%s\";\n",machine_uri,whoami,   whoami);
+                                    printf("   dcterms:isPartOf <%s>;\n",machine_uri);
       if(length(person_uri)) {
-                                    printf("   sioc:account_of <%s>;\n",machine_uri);
+                                    printf("   sioc:account_of  <%s>;\n",person_uri);
       }
                                     printf(".\n");
    }else if(length(person_uri)&&length(whoami)) {
                                     printf("<%s> dcterms:identifier \"%s\" .\n",person_uri,whoami);
    }
                                      print
-                                     print ":dataset a void:Dataset;"
+                                    printf("<%s/source/%s/dataset/%s/version/%s/conversion/%s>\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
+                                     print "   a conversion:LayerDataset, void:Dataset;"
                                     printf("   conversion:base_uri           \"%s\"^^xsd:anyURI;\n",surrogate);
                                     printf("   conversion:source_identifier  \"%s\";\n",sourceID);
                                     printf("   conversion:dataset_identifier \"%s\";\n",datasetID);
@@ -150,7 +154,7 @@ length(conversionID) {
          printf("         conversion:label \"%s\";\n",label);
          printf("         conversion:comment \"\";\n");
       }
-      printf("         conversion:range  %s:Literal;\n",RDFS);
+      printf("         conversion:range  %s:Literal;\n",RDFS); # this is either 'rdfs' or 'todo' (raw and e1, respectively)
       if( length(onlyIfCol) && onlyIfCol == i ) {
          print "         a conversion:Only_if_column;"
       }
