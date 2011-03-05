@@ -100,7 +100,7 @@ BEGIN {
    if(length(conversionID))         printf("      conversion:enhancement_identifier \"%s\";\n",conversionID);
    if(length(subjectDiscriminator)) printf("      conversion:subject_discriminator  \"%s\";\n",subjectDiscriminator);
                                      print
-   if(length(person_uri)&&length(machine_uri)&&length(whoami)) {
+   if(length(person_uri)&&length(machine_uri)&&length(whoami)) { # NOTE: implemented in bin/util/user-account-cite.sh, too.
                                     printf("      dcterms:creator <%s%s>;\n",machine_uri,whoami);
    }else if(length(machine_uri) && length(whoami)) {
                                     printf("      dcterms:creator <%s%s>;\n",machine_uri,whoami); # TODO: same as above.
@@ -140,12 +140,9 @@ BEGIN {
    }
    } # END if(showConversionProcess > 0)
 }
-#NR == 1 && length(conversionID) {
-length(conversionID) {
-#   for(i=1;i<=NF;i++) {
-#     label=$i;
+
+length(conversionID) { #NR == 1 && length(conversionID) {
       label=$0;
-#     gsub(/"/,"",label);
       (length(label)>0) ? sprintf("\n         ov:csvHeader      \"%s\";",label) : "";
       print "      conversion:enhance ["
       printf("         ov:csvCol         %s;\n",NR)
@@ -164,6 +161,7 @@ length(conversionID) {
       print "      ];"
    #}
 }
+
 END {
    if (showConversionProcess > 0) print "   ];"
    printf(".");
