@@ -31,6 +31,10 @@ while [ $# -gt 0 ]; do
    echo "sudo /opt/virtuoso/scripts/vload ttl $rdfFile `cat $rdfFile.graph`" > publish/bin/virtuoso-load.sh
    chmod +x publish/bin/virtuoso-load.sh
 
+   echo "publish/bin/virtuoso-delete.sh"
+   echo "sudo /opt/virtuoso/scripts/vdelete `cat $rdfFile.graph`" > publish/bin/virtuoso-delete.sh
+   chmod +x publish/bin/virtuoso-delete.sh
+
    echo "publish/bin/virtuoso-load-metadata.sh"
    echo "sudo /opt/virtuoso/scripts/vload ttl publish/$rdfFileBase.void.ttl http://logd.tw.rpi.edu/vocab/Dataset" > publish/bin/virtuoso-load-metadata.sh
    chmod +x publish/bin/virtuoso-load-metadata.sh
