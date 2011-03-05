@@ -119,6 +119,9 @@ logID=`java edu.rpi.tw.string.NameFactory`
       echo "   pmlp:hasModificationDateTime \"$consequentModDateTime\"^^xsd:dateTime;"   >> $consequent.pml.ttl
       #echo "   pmlp:hasReferenceSourceUsage $sourceUsage;"                               >> $consequent.pml.ttl
       echo "."                                                                           >> $consequent.pml.ttl
+      pushd `dirname $consequent` &> /dev/null # in manual/
+      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "`basename $consequent`"                >> `basename $consequent.pml.ttl`
+      popd &> /dev/null
       echo                                                                               >> $consequent.pml.ttl
       #echo "$sourceUsage"                                                                >> $consequent.pml.ttl
       #echo "   a pmlp:SourceUsage;"                                                      >> $consequent.pml.ttl
@@ -130,6 +133,9 @@ logID=`java edu.rpi.tw.string.NameFactory`
       echo "   a pmlp:Information;"                                                      >> $consequent.pml.ttl
       echo "   pmlp:hasModificationDateTime \"$antecedentModDateTime\"^^xsd:dateTime;"   >> $consequent.pml.ttl
       echo "."                                                                           >> $consequent.pml.ttl
+      pushd `dirname $consequent` &> /dev/null # in manual/
+      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "../$antecedent"                        >> `basename $consequent.pml.ttl`
+      popd &> /dev/null
       echo                                                                               >> $consequent.pml.ttl
       echo $nodeSet                                                                      >> $consequent.pml.ttl
       echo "   a pmlj:NodeSet;"                                                          >> $consequent.pml.ttl
