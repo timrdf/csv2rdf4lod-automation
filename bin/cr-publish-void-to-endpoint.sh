@@ -78,7 +78,9 @@ ARCHIVED_void=""
 
 assudo="sudo"
 if [ `whoami` == "root" ]; then
-   assudo=""
+   if [ ${dryRun:-"."} != "true" ]; then
+      assudo="" # Only needed when not doing a dry run.
+   fi
 fi
 
 echo "Finding all VoIDs. Will populate into $namedGraph" >&2
