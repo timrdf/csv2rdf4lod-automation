@@ -66,7 +66,8 @@ BEGIN {
    # <http://logd.tw.rpi.edu/source/nitrd-gov/dataset/fedRDnetIT/version/2011-Jan-27/conversion/enhancement/1>
    #
    # To make the params more connected to the datasets, we're replacing this:
-   #printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/params/%s/> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
+   #### NOTE: brought this back for a place for implicit bundles to be named, HOWEVER, the dataset is NOT being named within this:
+   printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/params/%s/> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
    # with this:
    # Still not right; moved down to subject:
    #printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/conversion/%s> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
