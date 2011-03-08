@@ -1,0 +1,110 @@
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix todo:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix vann:       <http://purl.org/vocab/vann/> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
+@prefix time:       <http://www.w3.org/2006/time#> .
+@prefix wgs:        <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames:   <http://www.geonames.org/ontology#> .
+@prefix dbpedia:    <http://dbpedia.org/resource/> .
+@prefix con:        <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix muo:        <http://purl.oclc.org/NET/muo/muo#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
+@prefix void:       <http://rdfs.org/ns/void#> .
+@prefix scovo:      <http://purl.org/NET/scovo#> .
+@prefix sioc:       <http://rdfs.org/sioc/ns#> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix ov:         <http://open.vocab.org/terms/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix :           <http://logd.tw.rpi.edu/source/ebiquity-umbc-edu/dataset/from-tables-to-5-star-linked-data/version/2011-Mar-08/params/enhancement/1/> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://tw.rpi.edu/web/inside/machine/sam#lebot> .
+<http://tw.rpi.edu/web/inside/machine/sam#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://tw.rpi.edu/web/inside/machine/sam#>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+:rule_bundle
+   a conversion:ImplicitBundle;
+   conversion:property_name "rule";
+   conversion:type_name     "Rule";
+.
+
+<http://logd.tw.rpi.edu/source/ebiquity-umbc-edu/dataset/from-tables-to-5-star-linked-data/version/2011-Mar-08/conversion/enhancement/1>
+   a conversion:LayerDataset, void:Dataset;
+   conversion:base_uri           "http://logd.tw.rpi.edu"^^xsd:anyURI;
+   conversion:source_identifier  "ebiquity-umbc-edu";
+   conversion:dataset_identifier "from-tables-to-5-star-linked-data";
+   conversion:version_identifier "2011-Mar-08";
+   conversion:conversion_process [
+      a conversion:EnhancementConversionProcess;
+      conversion:enhancement_identifier "1";
+
+      dcterms:creator <http://tw.rpi.edu/web/inside/machine/sam#lebot>;
+      dcterms:created "2011-03-08T01:54:44-05:00"^^xsd:dateTime;
+
+      conversion:interpret [
+         conversion:symbol "null";
+         conversion:interpretation conversion:null;
+      ];
+      conversion:enhance [
+         ov:csvCol         0;
+         conversion:predicate dcterms:author;
+         conversion:object    <http://www.w3.org/People/Berners-Lee/card#i>;
+      ];
+      conversion:enhance [
+         ov:csvCol         0;
+         conversion:predicate rdfs:seeAlso;
+         conversion:object    <http://www.w3.org/DesignIssues/LinkedData.html>;
+      ];
+      conversion:enhance [
+         ov:csvCol         1;
+         ov:csvHeader     "Rating";
+         conversion:domain_template "rule_rating_[r]";
+         conversion:label "Rating";
+         conversion:comment "";
+         conversion:range  xsd:integer;
+      ];
+      conversion:enhance [
+         ov:csvCol         2;
+         ov:csvHeader     "Rating";
+         conversion:label "Rating";
+         conversion:comment "";
+         conversion:range  xsd:integer;
+      ];
+      conversion:enhance [
+         ov:csvCol         3;
+         ov:csvHeader     "Rating";
+         conversion:label "Rating";
+         conversion:comment "";
+         conversion:range  xsd:integer;
+      ];
+      conversion:enhance [
+         ov:csvCol         4;
+         ov:csvHeader     "Rating";
+         conversion:label "Rating";
+         conversion:comment "";
+         conversion:range  xsd:integer;
+      ];
+      conversion:enhance [
+         ov:csvCol         5;
+         ov:csvHeader     "Rating";
+         conversion:label "Rating";
+         conversion:comment "";
+         conversion:range  xsd:integer;
+      ];
+      conversion:enhance [
+         ov:csvCol         6;
+         ov:csvHeader     "Description";
+         conversion:bundled_by :rule_bundle;
+         conversion:label "Description";
+         conversion:comment "";
+         conversion:equivalent_property dcterms:description;
+         conversion:range  rdfs:Literal;
+      ];
+   ];
+.

@@ -1,0 +1,6 @@
+"Rating","Rating","Rating","Rating","Rating","Description"
+null,null,null,null,1,"Available on the web (whatever format), but with an open license"
+null,null,null,2,2,"Available as machine-readable structured data (e.g. excel instead of image scan of a table)"
+null,null,3,3,3,"as (2) plus non-proprietary format (e.g. CSV instead of excel)"
+null,4,4,4,4,"All the above plus, Use open standards from W3C (RDF and SPARQL) to identify things, so that people can point at your stuff"
+5,5,5,5,5,"All the above, plus: Link your data to other people's data to provide context"
