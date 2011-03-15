@@ -2,10 +2,8 @@
 #
 # Usage:
 #
-#
-#
-#
-# (vload usage: vload [rdf|ttl|nt|nq] [data_file] [graph_uri])
+# Notes:
+#   (vload usage: vload [rdf|ttl|nt|nq] [data_file] [graph_uri])
 
 usage_message="usage: `basename $0` [-n] url [-ng named_graph]" 
 
@@ -19,8 +17,7 @@ fi
 
 dryrun="false"
 if [ $1 == "-n" ]; then
-   dryrun="true"
-   shift 
+   dryrun="true"; shift 
 fi
 
 assudo="sudo"
@@ -29,157 +26,127 @@ if [ `whoami` == "root" ]; then
 fi
 
 curlPath=`which curl`
-curlMD5="md5_`md5.sh $curlPath`"
+curlMD5="md5_`$CSV2RDF4LOD_HOME/bin/util/md5.sh $curlPath`"
 
-# md5 this script
-pvloadMD5=""
-if [ `which md5` ]; then
-   # md5 outputs:
-   # MD5 (pvload.sh) = ecc71834c2b7d73f9616fb00adade0a4
-   pvloadMD5=`md5 $0 | perl -pe 's/^.* = //'`
-elif [ `which md5sum` ]; then
-   pvloadMD5=`md5sum $0 | perl -pe 's/\s.*//'`
-else
-   echo "`basename $0`: can not find md5 to md5 this script."
-fi
+# MD5 this script
+myMD5="md5_`$CSV2RDF4LOD_HOME/bin/util/md5.sh $0`"
 
 TEMP="_"`basename $0``date +%s`_$$.response
 
-alias rname="java edu.rpi.tw.string.NameFactory"
 logID=`java edu.rpi.tw.string.NameFactory`
 while [ $# -gt 0 ]; do
    echo
    echo ---------------------------------- pvload ---------------------------------------
-   url="$1"
 
+   url="$1"
+   requestID=`java edu.rpi.tw.string.NameFactory`
+
+   #
+   # Grab the file.
+   #
    if [ ${dryrun-"."} != "true" ]; then
-      $CSV2RDF4LOD_HOME/bin/util/pcurl.sh $url -n $TEMP
+      $CSV2RDF4LOD_HOME/bin/util/pcurl.sh $url -n $TEMP     # Side affect: creates $TEMP.pml.ttl (will be loaded below).
+      if [ `gunzip -t $TEMP` -eq 0 ]; then
+         echo "`basename $0`: response was compressed; uncompressing."
+         gunzip -t $TEMP.unzipped
+         mv $TEMP.unzipped $TEMP
+      fi
    else
       echo `basename $CSV2RDF4LOD_HOME/bin/util/pcurl.sh` $url -n $TEMP
-      echo "<http://purl.org/twc/vocab/conversion/multiplier> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> ." > $TEMP
+      echo "<http://www.w3.org/2002/07/owl#sameAs> <http://www.w3.org/2002/07/owl#sameAs> <http://www.w3.org/2002/07/owl#sameAs> ." > $TEMP
    fi
+   usageDateTime=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`
 
    echo "PVLOAD: url                $url"
    flag=$2
-   if [ $# -ge 3 -a ${flag:=""} == "-ng" ]; then
+   if [ ${flag:="."} == "-ng" -a $# -ge 2 ]; then # Override the default named graph name (the URL of the source).
       named_graph="$3"
-      echo "PVLOAD: -ng             $named_graph"
-      shift 2
+      echo "PVLOAD: -ng             $named_graph"; shift 2
    else
-      named_graph="$url"
+      named_graph="$url"                          # Default to a named graph name of the URL source.
    fi
    echo "PVLOAD: (URL) $url -> (Named Graph) $named_graph"
-   rapper -g -o ntriples $TEMP > $TEMP.nt
-   rm $TEMP
 
-   requestID=`java edu.rpi.tw.string.NameFactory`
-   usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'`
+   #
+   # Normalize into ntriples (note, this step is not worth describing in the provenance).
+   #
+   rapper -g -o ntriples $TEMP > $TEMP.nt # TODO: does rapper handle gzipped?
+   rm $TEMP
 
    # Relative paths.
    sourceUsage="sourceUsage$requestID"
-   nodeSet="nodeSet$requestID"
+   escapedNG=`echo $named_graph | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'`
+   # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Naming-sparql-service-description's-sd:NamedGraph
+   sdNamedGraph="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}?query=PREFIX%20sd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fsparql-service-description%23%3E%20CONSTRUCT%20%7B%20%3Fendpoints_named_graph%20%3Fp%20%3Fo%20%7D%20WHERE%20%7B%20GRAPH%20%3C${escapedNG}%3E%20%7B%20%5B%5D%20sd%3Aurl%20%3Chttp%3A%2F%2Flogd.tw.rpi.edu%3A8890%2Fsparql%3E%3B%20sd%3AdefaultDatasetDescription%20%5B%20sd%3AnamedGraph%20%3Fendpoints_named_graph%20%5D%20.%20%3Fendpoints_named_graph%20sd%3Aname%20%3C${escapedNG}%3E%3B%20%3Fp%20%3Fo%20.%20%7D%20%7D"
 
    echo
-   echo "@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> ."                     > $TEMP.load.pml.ttl
-   echo "@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> ."                        >> $TEMP.load.pml.ttl
-   echo "@prefix dcterms:  <http://purl.org/dc/terms/> ."                                >> $TEMP.load.pml.ttl
-   echo "@prefix pmlp:     <http://inference-web.org/2.0/pml-provenance.owl#> ."         >> $TEMP.load.pml.ttl
-   echo "@prefix pmlj:     <http://inference-web.org/2.0/pml-justification.owl#> ."      >> $TEMP.load.pml.ttl
-   echo "@prefix irw:      <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> ."   >> $TEMP.load.pml.ttl
-   echo "@prefix nfo:      <http://www.semanticdesktop.org/ontologies/nfo/#> ."          >> $TEMP.load.pml.ttl
-   echo "@prefix conv:     <http://purl.org/twc/vocab/conversion/> ."                    >> $TEMP.load.pml.ttl
-   echo "@prefix httphead: <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> ." >> $TEMP.load.pml.ttl
-   echo "@prefix httpget:  <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> ."  >> $TEMP.load.pml.ttl
-   echo                                                                                  >> $TEMP.load.pml.ttl
-   echo "<$TEMP>"                                                                        >> $TEMP.load.pml.ttl
-   echo "   a pmlp:Source;"                                                              >> $TEMP.load.pml.ttl
-   echo "."                                                                              >> $TEMP.load.pml.ttl
-#   echo                                                                                 >> $TEMP.load.pml.ttl
-#   echo "<$redirectedURL>"                                                              >> $TEMP.load.pml.ttl
-#   echo "   a pmlp:Source;"                                                             >> $TEMP.load.pml.ttl
-#      if [ ${#redirectedModDate} -gt 3 ]; then
-#         echo "   pmlp:hasModificationDateTime \"$redirectedModDate\"^^xsd:dateTime;"   >> $TEMP.load.pml.ttl
-#      fi
-#   echo "."                                                                             >> $TEMP.load.pml.ttl
-#   echo                                                                                 >> $TEMP.load.pml.ttl
-#   if [ ${downloadFile:-"."} == "true" ]; then
-#      echo "<$file>"                                                                    >> $TEMP.load.pml.ttl
-#      echo "   a pmlp:Information;"                                                     >> $TEMP.load.pml.ttl
-#      echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_content>;"                  >> $TEMP.load.pml.ttl
-#      echo "   nfo:hasHash <md5_$downloadedFileMD5>;"                                   >> $TEMP.load.pml.ttl
-#      echo "."                                                                          >> $TEMP.load.pml.ttl
-#      echo ""                                                                           >> $TEMP.load.pml.ttl
-#      echo "<md5_$downloadedFileMD5>"                                                   >> $TEMP.load.pml.ttl
-#      echo "   a nfo:FileHash; "                                                        >> $TEMP.load.pml.ttl
-#      echo "   nfo:hashAlgorithm \"md5\";"                                              >> $TEMP.load.pml.ttl
-#      echo "   nfo:hashValue \"$downloadedFileMD5\";"                                   >> $TEMP.load.pml.ttl
-#      echo "."                                                                          >> $TEMP.load.pml.ttl
-#      echo                                                                              >> $TEMP.load.pml.ttl
-#      echo "<${nodeSet}_content>"                                                       >> $TEMP.load.pml.ttl
-#      echo "   a pmlj:NodeSet;"                                                         >> $TEMP.load.pml.ttl
-#      echo "   pmlj:hasConclusion <$file>;"                                             >> $TEMP.load.pml.ttl
-#      echo "   pmlj:isConsequentOf ["                                                   >> $TEMP.load.pml.ttl
-#      echo "      a pmlj:InferenceStep;"                                                >> $TEMP.load.pml.ttl
-#      echo "      pmlj:hasIndex 0;"                                                     >> $TEMP.load.pml.ttl
-#      echo "      pmlj:hasAntecedentList ();"                                           >> $TEMP.load.pml.ttl
-#      echo "      pmlj:hasSourceUsage     <${sourceUsage}_content>;"                    >> $TEMP.load.pml.ttl
-#      echo "      pmlj:hasInferenceEngine conv:curl_$curlMD5;"                          >> $TEMP.load.pml.ttl
-#      echo "      pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;"                        >> $TEMP.load.pml.ttl
-#      echo "   ];"                                                                      >> $TEMP.load.pml.ttl
-#      echo "."                                                                          >> $TEMP.load.pml.ttl
-#      echo                                                                              >> $TEMP.load.pml.ttl
-#      echo "<${sourceUsage}_content>"                                                   >> $TEMP.load.pml.ttl
-#      echo "   a pmlp:SourceUsage;"                                                     >> $TEMP.load.pml.ttl
-#      echo "   pmlp:hasSource        <$redirectedURL>;"                                 >> $TEMP.load.pml.ttl
-#      echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                 >> $TEMP.load.pml.ttl
-#      echo "."                                                                          >> $TEMP.load.pml.ttl
-#   fi
-#   echo " "                                                                             >> $TEMP.load.pml.ttl
-#   echo "<info${requestID}_url_header>"                                                 >> $TEMP.load.pml.ttl
-#   echo "   a pmlp:Information, conv:HTTPHeader;"                                       >> $TEMP.load.pml.ttl
-#   echo "   pmlp:hasRawString \"\"\"$urlINFO\"\"\";"                                    >> $TEMP.load.pml.ttl
-#   echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_url_header>;"                  >> $TEMP.load.pml.ttl
-#   echo "."                                                                             >> $TEMP.load.pml.ttl
-#   echo " "                                                                             >> $TEMP.load.pml.ttl
-#   echo "<${nodeSet}_url_header>"                                                       >> $TEMP.load.pml.ttl
-#   echo "   a pmlj:NodeSet;"                                                            >> $TEMP.load.pml.ttl
-#   echo "   pmlj:hasConclusion <info${requestID}_url_header>;"                          >> $TEMP.load.pml.ttl
-#   echo "   pmlj:isConsequentOf ["                                                      >> $TEMP.load.pml.ttl
-#   echo "      a pmlj:InferenceStep;"                                                   >> $TEMP.load.pml.ttl
-#   echo "      pmlj:hasIndex 0;"                                                        >> $TEMP.load.pml.ttl
-##   echo "      pmlj:hasAntecedentList ();"                                              >> $TEMP.load.pml.ttl
-#   echo "      pmlj:hasSourceUsage     <${sourceUsage}_url_header>;"                    >> $TEMP.load.pml.ttl
-#   echo "      pmlj:hasInferenceEngine conv:curl_$curlMD5;"                             >> $TEMP.load.pml.ttl
-#   echo "      pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;"                         >> $TEMP.load.pml.ttl
-#   echo "   ];"                                                                         >> $TEMP.load.pml.ttl
-#   echo "."                                                                             >> $TEMP.load.pml.ttl
-#   echo                                                                                 >> $TEMP.load.pml.ttl
-#   echo "<${sourceUsage}_url_header>"                                                   >> $TEMP.load.pml.ttl
-#   echo "   a pmlp:SourceUsage;"                                                        >> $TEMP.load.pml.ttl
-#   echo "   pmlp:hasSource        <$url>;"                                              >> $TEMP.load.pml.ttl
-#   echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                    >> $TEMP.load.pml.ttl
-#   echo "."                                                                             >> $TEMP.load.pml.ttl
-#   echo                                                                                 >> $TEMP.load.pml.ttl
-#   echo                                                                                 >> $TEMP.load.pml.ttl
-#   echo "conv:curl_$curlMD5"                                                            >> $TEMP.load.pml.ttl
-#   echo "   a pmlp:InferenceEngine, conv:Curl;"                                         >> $TEMP.load.pml.ttl
-#   echo "   dcterms:identifier \"$curlMD5\";"                                           >> $TEMP.load.pml.ttl
-#   echo "   dcterms:description \"\"\"`curl --version`\"\"\";"                          >> $TEMP.load.pml.ttl
-#   echo "."                                                                             >> $TEMP.load.pml.ttl
-#   echo                                                                                 >> $TEMP.load.pml.ttl
-#   echo "conv:Curl rdfs:subClassOf pmlp:InferenceEngine ."                              >> $TEMP.load.pml.ttl
+   echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                                         > $TEMP.load.pml.ttl
+   echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                                    >> $TEMP.load.pml.ttl
+   echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                                >> $TEMP.load.pml.ttl
+   echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                                 >> $TEMP.load.pml.ttl
+   echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."                         >> $TEMP.load.pml.ttl
+   echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."                      >> $TEMP.load.pml.ttl
+   echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                                               >> $TEMP.load.pml.ttl
+   echo "@prefix sd:         <http://www.w3.org/ns/sparql-service-description#> ."                         >> $TEMP.load.pml.ttl
+   echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                                         >> $TEMP.load.pml.ttl
+   echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                                      >> $TEMP.load.pml.ttl
+   echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                                       >> $TEMP.load.pml.ttl
+   echo                                                                                                    >> $TEMP.load.pml.ttl
+   $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                                              >> $TEMP.load.pml.ttl
+   echo                                                                                                    >> $TEMP.load.pml.ttl
+   echo "<$url>"                                                                                           >> $TEMP.load.pml.ttl
+   echo "   a pmlp:Source;"                                                                                >> $TEMP.load.pml.ttl
+   echo "."                                                                                                >> $TEMP.load.pml.ttl
+   echo                                                                                                    >> $TEMP.load.pml.ttl
+   echo "<${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}>"                                                >> $TEMP.load.pml.ttl
+   echo "   a pmlp:InferenceEngine, pmlp:WebService;"                                                      >> $TEMP.load.pml.ttl
+   echo "."                                                                                                >> $TEMP.load.pml.ttl
+   echo                                                                                                    >> $TEMP.load.pml.ttl
+   echo "<sdService$requestID> a sd:Service;"                                                              >> $TEMP.load.pml.ttl
+   if [ ${#CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} -gt 0 ]; then
+   echo "   sd:url <$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT>;"                                       >> $TEMP.load.pml.ttl
+   else
+   echo "   rdfs:comment \"sd:url omitted b/c \$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT undefined\";" >> $TEMP.load.pml.ttl
+   fi
+   echo "   sd:defaultDatasetDescription ["                                                                >> $TEMP.load.pml.ttl
+   echo "      a sd:Dataset;"                                                                              >> $TEMP.load.pml.ttl
+   echo "      sd:namedGraph <$sdNamedGraph>;"                                                             >> $TEMP.load.pml.ttl
+   echo "   ];"                                                                                            >> $TEMP.load.pml.ttl
+   echo "."                                                                                                >> $TEMP.load.pml.ttl
+   echo                                                                                                    >> $TEMP.load.pml.ttl
+   echo "<$sdNamedGraph>"                                                                                  >> $TEMP.load.pml.ttl
+   echo "   a sd:NamedGraph;"                                                                              >> $TEMP.load.pml.ttl
+   echo "   sd:name <$named_graph>;"                                                                       >> $TEMP.load.pml.ttl
+   echo "."                                                                                                >> $TEMP.load.pml.ttl
+   echo                                                                                                    >> $TEMP.load.pml.ttl
+   echo "<nodeSet${requestID}>"                                                                            >> $TEMP.load.pml.ttl
+   echo "   a pmlj:NodeSet;"                                                                               >> $TEMP.load.pml.ttl
+   echo "   pmlj:hasConclusion <$sdNamedGraph>;"                                                           >> $TEMP.load.pml.ttl
+   echo "   pmlj:isConsequentOf <infStep${requestID}>;"                                                    >> $TEMP.load.pml.ttl
+   echo "."                                                                                                >> $TEMP.load.pml.ttl
+   echo                                                                                                    >> $TEMP.load.pml.ttl
+   echo "<infStep${requestID}>"                                                                            >> $TEMP.load.pml.ttl
+   echo "   a pmlj:InferenceStep;"                                                                         >> $TEMP.load.pml.ttl
+   echo "   pmlj:hasAntecedentList ( [ a pmlj:NodeSet; pmlj:hasConclusion <$url>; ] );"                    >> $TEMP.load.pml.ttl
+   #echo "   pmlj:hasInferenceEngine [];"                                                                  >> $TEMP.load.pml.ttl
+   echo "   pmlj:hasInferenceRule <http://inference-web.org/registry/MPR/TRIPLE_STORE_LOAD.owl#>;"         >> $TEMP.load.pml.ttl
+   echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                 >> $TEMP.load.pml.ttl
+   echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                 >> $TEMP.load.pml.ttl
+   echo "   dcterms:date \"`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`\"^^xsd:dateTime;"             >> $TEMP.load.pml.ttl
+   echo "."                                                                                                >> $TEMP.load.pml.ttl
+
    echo --------------------------------------------------------------------------------
 
+   vload=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH:-"/opt/virtuoso/scripts/vload"}
    if [ ${dryrun-"."} != "true" ]; then
-      # TODO: move this hard path to ENV VAR.
-      $assudo /opt/virtuoso/scripts/vload nt $TEMP.pml.ttl      $named_graph # How we got the file to load into store.
-      $assudo /opt/virtuoso/scripts/vload nt $TEMP.nt           $named_graph # The file (in ntriples syntax).
-      $assudo /opt/virtuoso/scripts/vload nt $TEMP.load.pml.ttl $named_graph # The provenance of loading it into the store.
-      rm $TEMP.pml.ttl $TEMP.nt $TEMP.load.pml.ttl
+      $assudo $vload nt $TEMP.nt           $named_graph # The file (in ntriples syntax).
+      $assudo $vload nt $TEMP.pml.ttl      $named_graph # Provenance of file (SourceUsage from pcurl.sh).
+      $assudo $vload nt $TEMP.load.pml.ttl $named_graph # Provenance of loading file into the store. TODO: cat $TEMP.load.pml.ttl into a pmlp:hasRawString?
+      rm $TEMP.nt $TEMP.pml.ttl $TEMP.load.pml.ttl
    else
-      echo "/opt/virtuoso/scripts/vload nt $TEMP.pml.ttl      $named_graph"
-      echo "/opt/virtuoso/scripts/vload nt $TEMP.nt           $named_graph"
-      echo "/opt/virtuoso/scripts/vload nt $TEMP.load.pml.ttl $named_graph"
+      echo "$assudo $vload nt $TEMP.pml.ttl      $named_graph"
+      echo "$assudo $vload nt $TEMP.nt           $named_graph"
+      echo "$assudo $vload nt $TEMP.load.pml.ttl $named_graph"
    fi
 
    shift
