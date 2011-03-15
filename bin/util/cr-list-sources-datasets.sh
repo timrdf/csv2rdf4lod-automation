@@ -1,6 +1,10 @@
 #!/bin/bash
 #
 # usage:
+#   cr-list-sources-datasets.sh
+#
+#   cr-list-sources-datasets.sh -s 
+#     List datasets by size.
 
 back_one=`cd .. 2>/dev/null && pwd`
 ANCHOR_SHOULD_BE_SOURCE=`basename $back_one`
@@ -19,7 +23,7 @@ source=`basename \`pwd\` | sed 's/\./-/g'` # data.gov data-gov hack
 
 if [ $# -gt 0 -a "$1" == "-s" ]; then
    # sort by directory size
-   find . -maxdepth 1 -type d | sed -e 's/\.\///' -e 's/^\.$//' | grep -v "^$" | grep -v "\..*" | xargs du -s | sort -n | awk '{print $2}'
+   find . -maxdepth 1 -type d | sed -e 's/\.\///' -e 's/^\.$//' | grep -v "^$" | grep -v "\..*" | xargs du -s | sort -n | awk '{print $2}' | grep -v "^doc$"
 else
-   find . -maxdepth 1 -type d | sed -e 's/\.\///' -e 's/^\.$//' | grep -v "^$" | grep -v "\..*"
+   find . -maxdepth 1 -type d | sed -e 's/\.\///' -e 's/^\.$//' | grep -v "^$" | grep -v "\..*" | grep -v "^doc$" # NOTE: HACK
 fi
