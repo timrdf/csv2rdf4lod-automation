@@ -112,6 +112,10 @@ export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="false"
 #   http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Dec-01/conversion/data-gov-1008-2010-Dec-01.e1
 #   becomes
 #   http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Dec-01/conversion/data-gov-1008-2010-Dec-01.e1.ttl.tgz
+# 
+# To find file extensions that you don't like, SPARQL: 
+#   [] void:dataDump ?dump_file .
+#   filter(!regex(?dump_file,'.ttl.gz$'))
 #
 # If empty, nothing will be appended to URL.
 # (used in convert.sh)
@@ -475,6 +479,16 @@ export CSV2RDF4LOD_PUBLISH_VIRTUOSO="false"
 #
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH="/opt/virtuoso/scripts/vload"
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH="" 
+
+#
+# Customize: The publicly accessible SPARQL endpoint service.
+#
+# Used to describe provenance of loading a file into the endpoint's named graph.
+# (done in pvload.sh)
+#
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT="http://logd.tw.rpi.edu/sparql"
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT=""
+
 
 #
 # ------- ------- query caching options ------- -------
