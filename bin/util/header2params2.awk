@@ -101,7 +101,7 @@ BEGIN {
    if(length(conversionID))         printf("      conversion:enhancement_identifier \"%s\";\n",conversionID);
    if(length(subjectDiscriminator)) printf("      conversion:subject_discriminator  \"%s\";\n",subjectDiscriminator);
                                      print
-   if(length(person_uri)&&length(machine_uri)&&length(whoami)) { # NOTE: implemented in bin/util/user-account-cite.sh, too.
+   if(length(person_uri)&&length(machine_uri)&&length(whoami)) { # NOTE: implemented in bin/util/user-account.sh, too.
                                     printf("      dcterms:creator <%s%s>;\n",machine_uri,whoami);
    }else if(length(machine_uri) && length(whoami)) {
                                     printf("      dcterms:creator <%s%s>;\n",machine_uri,whoami); # TODO: same as above.

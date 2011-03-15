@@ -139,8 +139,8 @@ while [ $# -gt 0 ]; do
       echo "      pmlj:hasSourceUsage     $sourceUsage;"                                 >> $file.pml.ttl
       echo "      pmlj:hasInferenceEngine conv:unzip_sh_md5_$punzipMD5;"                 >> $file.pml.ttl
       echo "      pmlj:hasInferenceRule   conv:spaceless_unzip;"                         >> $file.pml.ttl
-      echo "      oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;">> $file.pml.ttl
-      echo "      hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account-cite.sh`;">> $file.pml.ttl
+      echo "      oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;">> $file.pml.ttl
+      echo "      hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;">> $file.pml.ttl
       echo "   ];"                                                                       >> $file.pml.ttl
       echo "."                                                                           >> $file.pml.ttl
       echo                                                                               >> $file.pml.ttl
