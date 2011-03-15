@@ -25,11 +25,12 @@
 # -v person_uri
 
 BEGIN { 
-   showConversionProcess = length(conversionID) + length(subjectDiscriminator) + length(header) + length(dataStart) + length(interpretAsNull) + length(dataEnd);
-   FS=","
+   ALWAYS_SHOW_CONVERSION_PROCESS = 1; # Added back in to gather empirical results quantifying "effort" to create e1 params. 
+   showConversionProcess = ALWAYS_SHOW_CONVERSION_PROCESS + length(conversionID) + length(subjectDiscriminator) + length(header) + length(dataStart) + length(interpretAsNull) + length(dataEnd);
+   #FS=","
    STEP = length(conversionID) ? sprintf("enhancement/%s",conversionID) : "raw";
    TYPE = length(conversionID) ? "Enhancement" : "Raw";
-   if(length(conversionID)) {
+   if(length(showConversionProcess)) {
       print "@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ."
       print "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."
    }
@@ -55,9 +56,7 @@ BEGIN {
    print "@prefix scovo:      <http://purl.org/NET/scovo#> ."
    print "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."
    print "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."
-   #if(showConversionProcess>0) {
-      print "@prefix ov:         <http://open.vocab.org/terms/> ."
-   #}
+   print "@prefix ov:         <http://open.vocab.org/terms/> ."
    print "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
 
    # Converter produces URIs for the LayerDatasets:
@@ -72,8 +71,12 @@ BEGIN {
    # Still not right; moved down to subject:
    #printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/conversion/%s> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
 
-                                     print
+
+   #
+   # Describe the creator.
+   #
    # NOTE: user account and person implemented in bin/util/user-account.sh, too.
+                                     print
    if( length(machine_uri) && length(whoami) ) {
       if(length(person_uri)) {
                                     printf("<%s> foaf:holdsAccount <%s%s> .\n",person_uri,   machine_uri,whoami);
@@ -87,35 +90,46 @@ BEGIN {
    }else if(length(person_uri)&&length(whoami)) {
                                     printf("<%s> dcterms:identifier \"%s\" .\n",person_uri,whoami);
    }
+
+   #
+   # Describe the dataset.
+   #
                                      print
                                     printf("<%s/source/%s/dataset/%s/version/%s/conversion/%s>\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
-                                     print "   a conversion:LayerDataset, void:Dataset;"
+                                     print "   a conversion:LayerDataset, void:Dataset;\n"
                                     printf("   conversion:base_uri           \"%s\"^^xsd:anyURI;\n",surrogate);
                                     printf("   conversion:source_identifier  \"%s\";\n",sourceID);
                                     printf("   conversion:dataset_identifier \"%s\";\n",datasetID);
                                     printf("   conversion:version_identifier \"%s\";\n",datasetVersion);
                                     #printf("   conversion:dataset_version    \"%s\"; # DEPRECATED in favor of version_identifier\n",datasetVersion);
-   if(showConversionProcess > 0) {
+                                     print ""
                                      print "   conversion:conversion_process ["
                                     printf("      a conversion:%sConversionProcess;\n",TYPE);
-   if(length(conversionID))         printf("      conversion:enhancement_identifier \"%s\";\n",conversionID);
+   if(!length(conversionID))        printf("      conversion:conversion_identifier \"raw\";\n");
+   if( length(conversionID))        printf("      conversion:enhancement_identifier \"%s\";\n",conversionID);
    if(length(subjectDiscriminator)) printf("      conversion:subject_discriminator  \"%s\";\n",subjectDiscriminator);
+
+   #
+   # Authorship description.
+   #
                                      print
-   if(length(person_uri)&&length(machine_uri)&&length(whoami)) { # NOTE: implemented in bin/util/user-account.sh, too.
-                                    printf("      dcterms:creator <%s%s>;\n",machine_uri,whoami);
-   }else if(length(machine_uri) && length(whoami)) {
-                                    printf("      dcterms:creator <%s%s>;\n",machine_uri,whoami); # TODO: same as above.
-   }else if(length(person_uri)  && length(whoami)) {
+   if(length(machine_uri) && length(whoami)) {
+                                    printf("      dcterms:creator <%s%s>;\n",machine_uri,whoami); # NOTE: implemented in bin/util/user-account.sh, too.
+   }else if(length(person_uri) && length(whoami)) {
                                     printf("      dcterms:creator [ a foaf:OnlineAccount; foaf:accountName \"%s\";\n",whoami);
                                     printf("                        sioc:account_of <%s> ];\n",person_uri);
    }else if(length(whoami)) {
                                     printf("      dcterms:creator [ a foaf:OnlineAccount; foaf:accountName \"%s\" ];\n",whoami);
    }
    if(length(nowXSD)) {
-                                    printf("      dcterms:created \"%s\"^^xsd:dateTime;\n",nowXSD);
+                                    printf("      dcterms:created \"%s\"^^xsd:dateTime;\n\n",nowXSD);
    }
+
+   #
+   # Structural enhancement parameters.
+   #
    if(length(header)) {               
-   # TODO: include header info even if just raw.
+                                    # Include header info even if just raw.
                                     printf("      conversion:enhance [      \n");
                                     printf("         ov:csvRow %s;\n",header);
                                     printf("         a conversion:HeaderRow;\n");
@@ -127,7 +141,7 @@ BEGIN {
                                     printf("         a conversion:DataStartRow; \n");
                                     printf("      ];                            \n");
    }
-   if(length(interpretAsNull)) {
+   if(length(interpretAsNull) && length(conversionID)) {
                                     printf("      conversion:interpret [          \n");
                                     printf("         conversion:symbol \"%s\";\n",interpretAsNull);
                                     printf("         conversion:intepretation conversion:null; \n");
@@ -139,31 +153,36 @@ BEGIN {
                                     printf("         a conversion:DataEndRow; \n");
                                     printf("      ];                          \n");
    }
-   } # END if(showConversionProcess > 0)
 }
 
-length(conversionID) { #NR == 1 && length(conversionID) {
-      label=$0;
-      (length(label)>0) ? sprintf("\n         ov:csvHeader      \"%s\";",label) : "";
-      print "      conversion:enhance ["
-      printf("         ov:csvCol         %s;\n",NR)
-      printf("         ov:csvHeader     \"%s\";\n",label) # TODO: if HeaderRow == 0, s/csvHeader/eg/
-      if(length(conversionID)) {
-         printf("         conversion:label \"%s\";\n",label);
-         printf("         conversion:comment \"\";\n");
-      }
-      printf("         conversion:range  %s:Literal;\n",RDFS); # this is either 'rdfs' or 'todo' (raw and e1, respectively)
+{ # length(conversionID) {
+   cellValue=$0;
+
+   # If we know there is no header, we can give an example value.
+   headerOrExample = (length(header) && header <= 0) ? "conversion:eg " : "ov:csvHeader  "; 
+
+   print "      conversion:enhance ["
+   printf("         ov:csvCol          %s;\n",NR);
+   printf("         %s     \"%s\";\n",headerOrExample,cellValue);
+   if(length(conversionID)) { 
+      # NOTE: This MUST NOT be added to the raw interpretation parameters,
+      #       otherwise columns will collapse together prematurely (with human approval).
+      printf("         #conversion:label   \"%s\";\n",cellValue);
+   }
+   printf("         conversion:comment \"\";\n");
+   printf("         conversion:range   %s:Literal;\n",RDFS); # Either 'rdfs' or 'todo' (for raw and e*, respectively)
+   if(length(conversionID)) { 
       if( length(onlyIfCol) && onlyIfCol == i ) {
          print "         a conversion:Only_if_column;"
       }
       if( length(repeatAboveIfEmptyCol) && repeatAboveIfEmptyCol == NR ) {
          print "         a conversion:Repeat_previous_if_empty_column;"
       }
-      print "      ];"
-   #}
+   }
+   print "      ];"
 }
 
 END {
-   if (showConversionProcess > 0) print "   ];"
+   print "   ];"
    printf(".");
 }
