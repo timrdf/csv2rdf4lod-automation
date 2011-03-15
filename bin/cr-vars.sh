@@ -68,6 +68,7 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "--"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO                             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: false)"}"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH                 ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH:-"(will default to: /opt/virtuoso/scripts/vload)"}"
+   echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT:-"(will fail to describe provenance in pvload.sh)"}"
 
    echo "--"
    echo "CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT                      ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: none)"}"
@@ -128,6 +129,8 @@ else
    
    # "--"
    export CSV2RDF4LOD_PUBLISH_VIRTUOSO=""
+   export CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH=""
+   export CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT=""
 
    # "--"
    export CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT=""       
