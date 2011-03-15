@@ -19,11 +19,12 @@
 #       deletes publish/* (not automatic/*) and runs ./convert-1263.sh in all version directories.
 
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` [-n] [-con {raw,e1,e2...,cr:ALL}] [-sourceDir {source,manual}] [[cr:ALL] | datasetIdentifier [datasetIdentifier] ...]"
+   echo "usage: `basename $0` [-n] [-con {raw,e1,e2,...,cr:ALL}] [-sourceDir {source,manual}] <cr:ALL | datasetIdentifier [datasetIdentifier]*>"
    echo ""
    echo "Remove everything in:"
    echo " source/SSS/DDD/version/VVV/automatic/* and"
    echo " source/SSS/DDD/version/VVV/publish/* "
+   echo ""
    echo "Rerun raw and all enhancement conversions using"
    echo " source/SSS/DDD/version/VVV/automatic/convert-DDD.sh if it is present."
    echo ""
@@ -31,15 +32,35 @@ if [ $# -lt 1 ]; then
    echo "   -con:       conversion identifier to publish (raw, e1, e2, ...) (if not specified, runs all.)"
    echo "   -sourceDir: if specified, replace source/SSS/DDD/version/VVV/automatic/convert-DDD.sh "
    echo "               with a newly-generated convert-DDD.sh for CSVs in the {source,manual} directory."
+   echo ""
+   echo "Invoke from source/SSS to re-convert the given conversion layers for the given dataset-ids."
+   echo "Invoke from source/    to re-convert the given conversion layers for the given dataset-ids from all sources."
    exit 1
 fi
 
 back_one=`cd .. 2>/dev/null && pwd`
-ANCHOR_SHOULD_BE_SOURCE=`basename $back_one`
-if [ $ANCHOR_SHOULD_BE_SOURCE != "source" ]; then
-   echo "  Working directory does not appear to be a SOURCE directory."
-   echo "  Run `basename $0` from a SOURCE directory (e.g. csv2rdf4lod/data/source/SOURCE/)"
-   exit 1
+ANCHOR_SHOULD_BE_A_SOURCE=`basename $back_one`
+if [ $ANCHOR_SHOULD_BE_A_SOURCE != "source" ]; then  # Typical case is to convert within a source;
+                                                     # converting within all sources is pretty extereme.
+   ANCHOR_SHOULD_BE_SOURCE=`basename \`pwd\``
+   if [ $ANCHOR_SHOULD_BE_SOURCE == "source" ]; then # But do it anyway...
+      echo "  Rerunning conversions for all `cr-list-sources.sh | wc -l` sources."
+      for source in `cr-list-sources.sh`; do
+         pushd $source &>/dev/null
+            echo "##############################################`echo $source | sed 's/./#/g'`##############################################"
+            echo "##############################################`echo $source | sed 's/./#/g'`##############################################"
+            echo "############################################# $source #############################################"
+            echo "############################################# `echo $source | sed 's/./ /g'` #############################################"
+            echo "############################################# `echo $source | sed 's/./ /g'` #############################################"
+            $0 $* # Run this same script now that we are in the source/ directory, using the same params we were given.
+         popd &>/dev/null
+      done
+      exit 1
+   else
+      echo "  Working directory does not appear to be a SOURCE directory."
+      echo "  Run `basename $0` from a SOURCE directory (e.g. csv2rdf4lod/data/source/SOURCE/)"
+      exit 1
+   fi
 fi
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"must be set. source csv2rdf4lod/source-me.sh."}
@@ -47,9 +68,6 @@ CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"must be set. source csv2rdf4lod/source-me.
 dryRun="false"
 if [ "$1" == "-n" ]; then
    dryRun="true"
-   echo ""
-   echo "       (NOTE: only performing dryrun; remove -n parameter to actually convert.)"
-   echo ""
    shift 
 fi
 
@@ -61,6 +79,8 @@ if [ "$1" == "-con" ]; then
    shift 2
 fi
 
+# This was needed when first transitioning to the csv2rdf4lod file organization,
+# when the CSVs were in place but no convert-*.sh existed.
 csvLoc=""
 if [ "$1" == "-sourceDir" ]; then
    csvLoc="$2"
@@ -83,6 +103,10 @@ if [ "$1" == "cr:ALL" ]; then
    datasetIdentifiers=`cr-list-sources-datasets.sh -s`
    shift 1
 else
+   if [ $# -le 0 ]; then
+      $0 # Call myself with no params to get usage.
+      exit 1
+   fi
    while [ $# -gt 0 ]; do
       datasetIdentifier="$1"
       datasetIdentifiers="$datasetIdentifiers $datasetIdentifier"
@@ -92,6 +116,12 @@ fi
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"must be set. source csv2rdf4lod/source-me.sh."}
 CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"must be set. source csv2rdf4lod/source-me.sh."}
+
+if [ ${dryRun:-"."} == "true" ]; then
+   echo ""
+   echo "       (NOTE: only performing dryrun; remove -n parameter to actually convert.)"
+   echo ""
+fi
 
 for datasetIdentifier in $datasetIdentifiers; do
    #versionDirs=""
@@ -105,7 +135,7 @@ for datasetIdentifier in $datasetIdentifiers; do
 
    versionDirs=`find $datasetIdentifier/version -mindepth 1 -maxdepth 1 -type d | grep -v "/\."` # Cross-compatible (Mac OS X and AIX Unix)
    
-   echo "all versions of $source $datasetIdentifier (`echo $versionDirs | wc -l`):"
+   echo "all versions of $source $datasetIdentifier (`echo $versionDirs | awk '{for(i=1;i<=NF;i++) print $i}' | wc -l | awk '{print $1}'`):"
    echo "$versionDirs"
    for versionDir in $versionDirs; do
       echo "############################## $versionDir ##############################"
