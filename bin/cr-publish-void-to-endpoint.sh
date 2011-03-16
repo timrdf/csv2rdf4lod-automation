@@ -86,10 +86,10 @@ fi
 echo "Finding all VoIDs. Will populate into $namedGraph" >&2
 if [ $numDatasets == "one" ]; then
    # all datasets of ONE source
-   voids=`$assudo find */version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '{print $2}'`
+   voids=`$assudo find */version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
 else
    # all datasets of ALL sources
-   voids=`$assudo find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '{print $2}'`
+   voids=`$assudo find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
    #echo "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID and $CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID"
    if [ ${#CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID} -gt 0 -a ${#CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID} -gt 0 ]; then
       ARCHIVED_void=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID/$CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID-metadata/version/`date +%Y-%b-%d`/source/conversion-metadata.nt

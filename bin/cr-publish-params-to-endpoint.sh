@@ -76,9 +76,9 @@ fi
 
 echo "Finding all csv2rdf4lod-params. Will populate into $namedGraph" >&2
 if [ $numDatasets == "one" ]; then
-   params=`$assudo find */version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '{print $2}'`
+   params=`$assudo find */version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
 else
-   params=`$assudo find */*/version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '{print $2}'`
+   params=`$assudo find */*/version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
 fi
 
 for param in $params

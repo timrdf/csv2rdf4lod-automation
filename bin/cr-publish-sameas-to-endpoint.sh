@@ -76,9 +76,9 @@ fi
 
 echo "Finding all SameAs. Will populate into $namedGraph" >&2
 if [ $numDatasets == "one" ]; then
-   sames=`$assudo find */version/*/publish -name "*sameas.nt" | xargs du -s | sort -nr | awk '{print $2}'`
+   sames=`$assudo find */version/*/publish -name "*sameas.nt" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
 else
-   sames=`$assudo find */*/version/*/publish/ -name "*sameas.nt" | xargs du -s | sort -nr | awk '{print $2}'`
+   sames=`$assudo find */*/version/*/publish/ -name "*sameas.nt" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
 fi
 
 for same in $sames
