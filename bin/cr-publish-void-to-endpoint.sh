@@ -93,9 +93,12 @@ else
    #echo "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID and $CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID"
    if [ ${#CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID} -gt 0 -a ${#CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID} -gt 0 ]; then
       ARCHIVED_void=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID/$CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID-metadata/version/`date +%Y-%b-%d`/source/conversion-metadata.nt
-      echo archiving all VoID to $ARCHIVED_void
+      echo Archiving all VoID to $ARCHIVED_void
       if [ ${dryRun:-"."} != "true" ]; then
          mkdir -p `dirname $ARCHIVED_void`
+         if [ -e $ARCHIVED_void ]; then 
+            rm $ARCHIVED_void # In case we've run this script earlier today.
+         fi
       fi
       TEMP_void=$ARCHIVED_void
    fi
