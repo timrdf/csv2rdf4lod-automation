@@ -14,12 +14,13 @@
 #
 # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-pcurl.sh
 
-usage_message="usage: `basename $0` [-I] [url [-n name] [-e extension]]     [url [-n name] [-e extension]]*" #todo: [-from a.pml] " 
+usage_message="usage: `basename $0` [-I] [url [-F \"a=b\"]* [-n name] [-e extension]]     [url [-F \"a=b\"]* [-n name] [-e extension]]*" #todo: [-from a.pml] " 
 
 if [ $# -lt 1 ]; then
    echo $usage_message 
    echo "  -I  : do not download file; just obtain HTTP header information (c.f. curl -I)"
    echo "  url : the URL to retrieve"
+   echo "  -F  : submit POST with variable=value"
    echo "  -n  : use 'name' as the local file name."
    echo "  -e  : use 'extension' as the extension to the local file name."
    exit 1
@@ -43,6 +44,13 @@ while [ $# -gt 0 ]; do
    echo
    echo ---------------------------------- pcurl ---------------------------------------
    url="$1"
+ 
+   formFields=""
+   while [ "$2" == "-F" -a $# -ge 3 ]; do
+      formFields="$formFields -F $3"
+      echo "PCURL: $formFields"
+      shift 2 
+   done
 
    echo "PCURL: url                $url"
    localName=""
@@ -105,7 +113,8 @@ while [ $# -gt 0 ]; do
       prefRDF="" #"-H 'Accept: application/rdf+xml, */*; q=0.1'"
       #echo curl $prefRDF -L $url 
       if [ ${downloadFile:-"."} == "true" ]; then
-         curl -L $url > $file
+         echo curl -L $url $formFields - $file
+         curl -L $url $formFields > $file
          downloadedFileMD5=`md5.sh $file`
       fi
 
