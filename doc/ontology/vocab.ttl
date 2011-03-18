@@ -806,6 +806,12 @@ conv:AbstractDataset
    rdfs:label "Abstract Dataset";
    rdfs:comment "Dataset with source and dataset identifiers, but not version. Before any version is materialized (captured in time), and the union of all VersionedDatasets.";
    rdfs:subClassOf conv:Dataset;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty void:subset;
+      owl:minQualifiedCardinality 0;
+      owl:onClass conv:VersionedDataset;
+   ];
    owl:disjointWith conv:VersionedDataset, conv:LayerDataset;
 .
 
@@ -814,6 +820,12 @@ conv:VersionedDataset
    rdfs:label "Versioned Dataset";
    rdfs:comment "A materialized (captured in time) dataset -- something is now on disk. Union of all LayerDatasets created by different conversion parameters.";
    rdfs:subClassOf conv:Dataset;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty void:subset;
+      owl:minQualifiedCardinality 0;
+      owl:onClass conv:LayerDataset;
+   ];
    owl:disjointWith conv:AbstractDataset, conv:LayerDataset;
 .
 
@@ -822,7 +834,20 @@ conv:LayerDataset
    rdfs:label "Layer Dataset";
    rdfs:comment "A conversion of a VersionedDataset using a particular set of conversion parameters.";
    rdfs:subClassOf conv:Dataset;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty void:subset;
+      owl:minQualifiedCardinality 0;
+      owl:onClass conv:DatasetSample;
+   ];
    owl:disjointWith conv:AbstractDataset, conv:VersionedDataset;
+.
+
+conv:DatasetSample
+   a rdfs:Class;
+   rdfs:label "Dataset Sample";
+   rdfs:comment "A potentially incomplete subset of a void:Dataset";
+   rdfs:subClassOf conv:Dataset;
 .
 
 conv:AuxiliaryDataset
@@ -864,4 +889,55 @@ conv:num_invocation_logs
    a owl:DatatypeProperty;
    rdfs:label "Number of invocation logs";
    rdfs:comment "Number of docs/logs/* captured by convert-aggregate.sh";
+.
+
+
+conv:ExampleResource
+   a rdfs:Class;
+   rdfs:label "ExampleResource";
+   rdfs:comment "";
+.
+
+conv:Bundle
+   a rdfs:Property;
+   rdfs:label "Bundle";
+   rdfs:comment "";
+.
+
+conv:TypedResourcePromotion
+   a rdfs:Property;
+   rdfs:label "TypedResourcePromotion";
+   rdfs:comment "";
+.
+
+conv:range_template
+   a rdf:Property;
+   rdfs:label "range template";
+   rdfs:comment "";
+.
+
+conv:predicate
+   a rdf:Property;
+   rdfs:label "predicate";
+   rdfs:comment "";
+   rdfs:seeAlso conv:object;
+.
+
+conv:object
+   a rdf:Property;
+   rdfs:label "object";
+   rdfs:comment "";
+   rdfs:seeAlso conv:predicate;
+.
+
+conv:interpret
+   a rdf:Property;
+   rdfs:label "interpret";
+   rdfs:comment "";
+.
+
+conv:key_template
+   a rdf:Property;
+   rdfs:label "key template";
+   rdfs:comment "deprecated; use conv:domain_template";
 .
