@@ -864,6 +864,13 @@ conv:MetaDataset
    owl:disjointWith conv:SameAsDataset;
 .
 
+conv:ConversionMetaDataset
+   a rdfs:Class;
+   rdfs:label "ConversionMetaDataset";
+   rdfs:comment "Metadata for a dataset that is created during the dataset's conversion invocation.";
+   rdfs:subClassOf conv:MetaDataset;
+.
+
 conv:SameAsDataset
    a rdfs:Class;
    rdfs:label "SameAs Dataset";
