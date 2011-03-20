@@ -46,10 +46,10 @@ while [ $# -gt 0 ]; do
    #
    if [ ${dryrun-"."} != "true" ]; then
       $CSV2RDF4LOD_HOME/bin/util/pcurl.sh $url -n $TEMP     # Side affect: creates $TEMP.pml.ttl (will be loaded below).
-      gunzip -t $TEMP &> /dev/null
+      gunzip -t $TEMP | head &> /dev/null
       if [ $? -eq 0 ]; then
          echo "`basename $0`: HTTP response was compressed; uncompressing."
-         gunzip -t $TEMP.unzipped
+         gunzip -c $TEMP > $TEMP.unzipped
          mv $TEMP.unzipped $TEMP
       fi
    else
