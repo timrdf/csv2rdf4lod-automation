@@ -37,6 +37,10 @@ else
    fi
 fi
 
+if [ ${versionID} -le 0 ]; then
+   versionID=$datasetVersion # TEMP - until fully deprecated datasetVersion. versionID should be always set eventually.
+fi
+
 touch $publishDir
 
 SDV=$publishDir/$sourceID-$datasetID-$datasetVersion
@@ -62,10 +66,6 @@ allSAMEAS_L=$sourceID-$datasetID-$datasetVersion.sameas.nt
 filesToCompress="$allRaw"
 
 zip="gz"
-if [ ${versionID} -le 0 ]; then
-   versionID=$datasetVersion # TEMP - until fully deprecated datasetVersion. versionID should be always set eventually.
-fi
-
 if [ ! `which rapper` ]; then
    # check if rapper is on path, if not, report error.
    echo "NOTE: rapper not found. Some serializations will probably be empty." | tee -a $CSV2RDF4LOD_LOG
