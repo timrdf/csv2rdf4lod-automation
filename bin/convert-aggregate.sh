@@ -62,6 +62,9 @@ allSAMEAS_L=$sourceID-$datasetID-$datasetVersion.sameas.nt
 filesToCompress="$allRaw"
 
 zip="gz"
+if [ ${versionID} -le 0 ]; then
+   versionID=$datasetVersion # TEMP - until fully deprecated datasetVersion. versionID should be always set eventually.
+fi
 
 if [ ! `which rapper` ]; then
    # check if rapper is on path, if not, report error.
@@ -712,8 +715,8 @@ echo ""                                                                         
 echo ""                                                                                         >> $vloadSH
 # http://logd.tw.rpi.edu/source/nitrd-gov/dataset/DDD/version/2011-Jan-27
 # http://logd.tw.rpi.edu/source/nitrd-gov/file/DDD/version/2011-Jan-27/conversion/nitrd-gov-DDD-2011-Jan-27.ttl.gz
-echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                                        >> $vloadSH
 echo "dump=$allNT"                                                                              >> $vloadSH
+echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                                        >> $vloadSH
 echo "url=$http_allNT"                                                                          >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                   >> $vloadSH
 echo "   #\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                            >> $vloadSH
@@ -730,6 +733,7 @@ echo ""                                                                         
 echo "dump=$allTTL"                                                                             >> $vloadSH
 echo "url=$http_allTTL"                                                                         >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                   >> $vloadSH
+echo "   #echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                       >> $vloadSH
 echo "   #\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                            >> $vloadSH
 echo "   echo sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                              >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                   >> $vloadSH

@@ -74,6 +74,7 @@ echo "surrogate=\"$CSV2RDF4LOD_BASE_URI\" # Came from \$CSV2RDF4LOD_BASE_URI whe
 echo "sourceID=\"$sourceID\""                                          >> $TMP_SH
 echo "datasetID=\"$datasetID\""                                        >> $TMP_SH
 echo "datasetVersion=\"$versionID\"        # NO SPACES; Use curl -I -L http://www.data.gov/download/$datasetID/csv | grep "Last-Modified:" | awk '{printf("%s-%s-%s",$3,$4,$5)}'" >> $TMP_SH
+echo "versionID=\"$versionID\"        # renaming datasetVersion (deprecating datasetVersion)"       >> $TMP_SH
 echo "eID=\"1\"                             # enhancement identifier"  >> $TMP_SH
 echo "if [ \$# -ge 2 ]; then"                                          >> $TMP_SH
 echo "   if [ \$1 == \"-e\" ]; then"                                   >> $TMP_SH
