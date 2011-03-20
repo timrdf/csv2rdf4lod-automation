@@ -140,19 +140,19 @@ while [ $# -gt 0 ]; do
    echo --------------------------------------------------------------------------------
 
    vload=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH:-"/opt/virtuoso/scripts/vload"}
-   echo $assudo $vload nt ${TEMP}.pml.ttl       $named_graph
+   echo $assudo $vload ttl ${TEMP}.pml.ttl      $named_graph
    if [ ${dryrun-"."} != "true" ]; then # Provenance of response (SourceUsage created by pcurl.sh).
-      $assudo $vload ttl ${TEMP}.pml.ttl        $named_graph 2>1 | grep -v "Loading triples into graph"
+      $assudo $vload ttl ${TEMP}.pml.ttl        $named_graph 2>&1 | grep -v "Loading triples into graph"
       cat /tmp/virtuoso-tmp/vload.log
    fi
    echo $assudo $vload nt ${TEMP}${unzipped}.nt $named_graph
    if [ ${dryrun-"."} != "true" ]; then #        Actual response (in ntriples syntax).
-      $assudo $vload nt ${TEMP}${unzipped}.nt   $named_graph 2>1 | grep -v "Loading triples into graph" 
+      $assudo $vload nt ${TEMP}${unzipped}.nt   $named_graph 2>&1 | grep -v "Loading triples into graph" 
       cat /tmp/virtuoso-tmp/vload.log
    fi
-   echo $assudo $vload nt ${TEMP}.load.pml.ttl  $named_graph
+   echo $assudo $vload ttl ${TEMP}.load.pml.ttl  $named_graph
    if [ ${dryrun-"."} != "true" ]; then # Provenance of loading file into the store. TODO: cat ${TEMP}${unzipped}.load.pml.ttl into a pmlp:hasRawString?
-      $assudo $vload ttl ${TEMP}.load.pml.ttl   $named_graph 2>1 | grep -v "Loading triples into graph"             
+      $assudo $vload ttl ${TEMP}.load.pml.ttl   $named_graph 2>&1 | grep -v "Loading triples into graph"             
       cat /tmp/virtuoso-tmp/vload.log
    fi
    # TODO: rm ${TEMP} ${TEMP}.pml.ttl ${TEMP}${unzipped}.nt ${TEMP}${unzipped}.load.pml.ttl
