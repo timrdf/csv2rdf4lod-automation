@@ -73,7 +73,7 @@ while [ $# -gt 0 ]; do
    # Normalize into ntriples (note, this step is not worth describing in the provenance).
    #
    rapper -g -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt # TODO: does rapper handle gzipped?
-   # TODO: rm $TEMP
+   rm $TEMP
 
    # Relative paths.
    sourceUsage="sourceUsage$requestID"
@@ -155,7 +155,7 @@ while [ $# -gt 0 ]; do
       $assudo $vload ttl ${TEMP}${unzipped}.load.pml.ttl   $named_graph 2>&1 | grep -v "Loading triples into graph"             
       cat /tmp/virtuoso-tmp/vload.log
    fi
-   # TODO: rm ${TEMP} ${TEMP}.pml.ttl ${TEMP}${unzipped}.nt ${TEMP}${unzipped}.load.pml.ttl
+   rm -f ${TEMP} ${TEMP}.pml.ttl ${TEMP}${unzipped}.nt ${TEMP}${unzipped}.load.pml.ttl
 
    shift
 done
