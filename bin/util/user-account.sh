@@ -34,7 +34,7 @@ else
 
    elif [ ${#CSV2RDF4LOD_CONVERT_MACHINE_URI} -gt 0 ]; then
 
-      echo "${CSV2RDF4LOD_CONVERT_MACHINE_URI}`whoami`"; # TODO: same as above.
+      echo "<${CSV2RDF4LOD_CONVERT_MACHINE_URI}`whoami`>"; # TODO: same as above.
 
    elif [ ${#CSV2RDF4LOD_CONVERT_PERSON_URI} -gt 0 ]; then
 
