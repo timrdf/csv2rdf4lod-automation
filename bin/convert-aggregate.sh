@@ -37,7 +37,7 @@ else
    fi
 fi
 
-if [ ${versionID} -le 0 ]; then
+if [ ${#versionID} -le 0 ]; then
    versionID=$datasetVersion # TEMP - until fully deprecated datasetVersion. versionID should be always set eventually.
 fi
 
