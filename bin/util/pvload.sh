@@ -72,7 +72,7 @@ while [ $# -gt 0 ]; do
    # Normalize into ntriples (note, this step is not worth describing in the provenance).
    #
    rapper -g -o ntriples $TEMP > $TEMP.nt # TODO: does rapper handle gzipped?
-   rm $TEMP
+   # TODO: rm $TEMP
 
    # Relative paths.
    sourceUsage="sourceUsage$requestID"
@@ -143,7 +143,7 @@ while [ $# -gt 0 ]; do
       $assudo $vload nt $TEMP.nt           $named_graph # The file (in ntriples syntax).
       $assudo $vload nt $TEMP.pml.ttl      $named_graph # Provenance of file (SourceUsage from pcurl.sh).
       $assudo $vload nt $TEMP.load.pml.ttl $named_graph # Provenance of loading file into the store. TODO: cat $TEMP.load.pml.ttl into a pmlp:hasRawString?
-      rm $TEMP.nt $TEMP.pml.ttl $TEMP.load.pml.ttl
+      # TODO: rm $TEMP.nt $TEMP.pml.ttl $TEMP.load.pml.ttl
    else
       echo "$assudo $vload nt $TEMP.pml.ttl      $named_graph"
       echo "$assudo $vload nt $TEMP.nt           $named_graph"
