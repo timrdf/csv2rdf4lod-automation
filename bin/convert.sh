@@ -414,6 +414,7 @@ echo "surrogate=\"$surrogate\""                                                 
 echo "sourceID=\"$sourceID\""                                                           >> $publishDir/bin/publish.sh
 echo "datasetID=\"$datasetID\""                                                         >> $publishDir/bin/publish.sh
 echo "datasetVersion=\"$datasetVersion\""                                               >> $publishDir/bin/publish.sh
+echo "versionID=\"$datasetVersion\""                                                    >> $publishDir/bin/publish.sh # Note: replacing datasetVersion.
 echo "eID=\"$eID\""                                                                     >> $publishDir/bin/publish.sh
 echo ""                                                                                 >> $publishDir/bin/publish.sh
 echo "sourceDir=\"$sourceDir\""                                                         >> $publishDir/bin/publish.sh
