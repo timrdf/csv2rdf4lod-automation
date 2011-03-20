@@ -53,6 +53,10 @@ rawSAMPLE=$publishDir/$sourceID-$datasetID-$datasetVersion.raw.sample.ttl
 versionedDatasetURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$surrogate}/source/$sourceID/dataset/$datasetID/version/$datasetVersion"
 rawSampleGraph="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$surrogate}/source/$sourceID/dataset/$datasetID/version/$datasetVersion/conversion/raw/subset/sample"
 
+http_allNT="${CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.nt"
+http_allTTL="${CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.ttl"
+http_allRDFXML="${CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.rdf"
+
  allNT_L=$sourceID-$datasetID-$datasetVersion.nt # L: Local name (not including directory; for use when pushd'ing to cHuNk)
 allSAMEAS_L=$sourceID-$datasetID-$datasetVersion.sameas.nt
 filesToCompress="$allRaw"
@@ -706,28 +710,33 @@ echo "   exit 1"                                                                
 echo "fi"                                                                                       >> $vloadSH
 echo ""                                                                                         >> $vloadSH
 echo ""                                                                                         >> $vloadSH
-echo "dump=$allNT"                                                                              >> $vloadSH
+# http://logd.tw.rpi.edu/source/nitrd-gov/dataset/DDD/version/2011-Jan-27
+# http://logd.tw.rpi.edu/source/nitrd-gov/file/DDD/version/2011-Jan-27/conversion/nitrd-gov-DDD-2011-Jan-27.ttl.gz
 echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                                        >> $vloadSH
+echo "dump=$allNT"                                                                              >> $vloadSH
+echo "url=$http_allNT"                                                                          >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                   >> $vloadSH
+echo "   #\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                            >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload nt \$dump \$graph"                                    >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
-echo "elif [ -e \$dump.$zip ]; then"                                                             >> $vloadSH 
-#echo "   tar xzfO \$dump.$zip > \$TEMP"                                                          >> $vloadSH # TODO:notar
-echo "    gunzip -c \$dump.$zip > \$TEMP"                                                         >> $vloadSH # TODO:notar
+echo "elif [ -e \$dump.$zip ]; then"                                                            >> $vloadSH 
+echo "   #\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                       >> $vloadSH
+echo "   gunzip -c \$dump.$zip > \$TEMP"                                                        >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload nt \$TEMP \$graph"                                    >> $vloadSH
 echo "   rm \$TEMP"                                                                             >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
 echo "fi"                                                                                       >> $vloadSH
 echo ""                                                                                         >> $vloadSH
 echo "dump=$allTTL"                                                                             >> $vloadSH
-echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                                        >> $vloadSH
+echo "url=$http_allTTL"                                                                         >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                   >> $vloadSH
+echo "   #\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                            >> $vloadSH
 echo "   echo sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                              >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                   >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
-echo "elif [ -e \$dump.$zip ]; then"                                                             >> $vloadSH 
-#echo "   tar xzfO \$dump.$zip > \$TEMP"                                                          >> $vloadSH # TODO:notar
-echo "    gunzip -c \$dump.$zip > \$TEMP"                                                         >> $vloadSH # TODO:notar
+echo "elif [ -e \$dump.$zip ]; then"                                                            >> $vloadSH 
+echo "   #\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                       >> $vloadSH
+echo "   gunzip -c \$dump.$zip > \$TEMP"                                                        >> $vloadSH
 echo "   echo sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                              >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                   >> $vloadSH
 echo "   rm \$TEMP"                                                                             >> $vloadSH
@@ -735,13 +744,14 @@ echo "   exit 1"                                                                
 echo "fi"                                                                                       >> $vloadSH
 echo ""                                                                                         >> $vloadSH
 echo "dump=$allRDFXML"                                                                          >> $vloadSH
-echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                                        >> $vloadSH
+echo "url=$http_allRDFXML"                                                                      >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                   >> $vloadSH
+echo "   #\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                            >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                                   >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
-echo "elif [ -e \$dump.$zip ]; then"                                                             >> $vloadSH 
-#echo "   tar xzfO \$dump.$zip > \$TEMP"                                                          >> $vloadSH # TODO:notar
-echo "    gunzip -c \$dump.$zip > \$TEMP"                                                         >> $vloadSH # TODO:notar
+echo "elif [ -e \$dump.$zip ]; then"                                                            >> $vloadSH 
+echo "   #\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                       >> $vloadSH
+echo "   gunzip -c \$dump.$zip > \$TEMP"                                                        >> $vloadSH
 echo "   sudo /opt/virtuoso/scripts/vload rdf \$TEMP \$graph"                                   >> $vloadSH
 echo "   rm \$TEMP"                                                                             >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
