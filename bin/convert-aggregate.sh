@@ -739,6 +739,7 @@ echo "   echo sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"              
 echo "   sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                   >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
 echo "elif [ -e \$dump.$zip ]; then"                                                            >> $vloadSH 
+echo "   #echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                  >> $vloadSH
 echo "   #\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                       >> $vloadSH
 echo "   gunzip -c \$dump.$zip > \$TEMP"                                                        >> $vloadSH
 echo "   echo sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                              >> $vloadSH
