@@ -764,7 +764,7 @@ echo "   rm \$TEMP"                                                             
 echo "   exit 1"                                                                                >> $vloadSH
 echo "fi"                                                                                       >> $vloadSH
 chmod +x $vloadSH
-cat $vloadSH | sed 's/vload [^ ]* [^^ ]* /vdelete /' | grep -v "tar xzf" | grep -v "unzip" | grep -v "rm " > $vdeleteSH # TODO:notar
+cat $vloadSH | sed 's/pvload.sh .*-ng/pvdelete.sh/g' | sed 's/vload [^ ]* [^^ ]* /vdelete /' | grep -v "tar xzf" | grep -v "unzip" | grep -v "rm " > $vdeleteSH # TODO:notar
 chmod +x $vdeleteSH
 if [ ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"."} == "true" ]; then
    $vdeleteSH
