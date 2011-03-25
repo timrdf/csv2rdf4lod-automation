@@ -10,7 +10,7 @@ fi
 
 if [ $# -lt 2 -o $# -gt 3 ]; then
    echo $#
-   echo "usage: `basename $0` [-w] google-key local-name"
+   echo "usage: `basename $0` [-{w,f}] google-key local-name"
    exit 1
 fi
 
@@ -20,7 +20,7 @@ LOCAL="$2"
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"must be set. source csv2rdf4lod/source-me.sh."}
 
 dryRun="true"
-if [ "$1" == "-w" ]; then
+if [ "$1" == "-w" -o "$1" == "-f" ]; then
   dryRun="false"
 else
    echo ""
