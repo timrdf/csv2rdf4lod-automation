@@ -17,18 +17,18 @@ fi
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"must be set. source csv2rdf4lod/source-me.sh."}
 
 dryRun="true"
-if [ "$1" == "-w" -o "$1" == "-f" ]; then
-  dryRun="false"
+versionID=`$CSV2RDF4LOD_HOME/bin/util/date.sh | sed 's/_.*$//'`
+if [ "$1" == "-w" ]; then
+   dryRun="false"
+   shift
+elif [ "$1" == "-f" ]; then
+   dryRun="false"
+   versionID=`$CSV2RDF4LOD_HOME/bin/util/date.sh`
+   shift
 else
    echo ""
    echo "       (NOTE: only performing dry run; add -w parameter to actually fetch."
    echo ""
-fi
-
-versionID=`$CSV2RDF4LOD_HOME/bin/util/date.sh | sed 's/_.*$//'`
-if [ ${1:-"."} == "-f" ]; then
-   shift
-   versionID=`$CSV2RDF4LOD_HOME/bin/util/date.sh`
 fi
 
 if [ -d $versionID ]; then
