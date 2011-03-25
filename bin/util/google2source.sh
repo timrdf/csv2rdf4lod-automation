@@ -9,6 +9,7 @@ fi
 
 
 if [ $# -lt 2 -o $# -gt 3 ]; then
+   echo $#
    echo "usage: `basename $0` [-w] google-key local-name"
    exit 1
 fi
