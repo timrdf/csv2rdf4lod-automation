@@ -1,5 +1,13 @@
 #!/bin/bash
 
+ANCHOR_SHOULD_BE_VERSION=`basename \`pwd\``
+if [ $ANCHOR_SHOULD_BE_VERSION != "version" ]; then
+   echo "  Working directory does not appear to be a directory 'version'."
+   echo "  Run `basename $0` from a 'version/' directory (e.g. csv2rdf4lod/data/source/SOURCE/DDD/version/)"
+   exit 1
+fi
+
+
 if [ $# -ne 2 ]; then
    echo "usage: `basename $0` google-key local-name"
    exit 1
