@@ -14,9 +14,6 @@ if [ $# -lt 2 -o $# -gt 3 ]; then
    exit 1
 fi
 
-GOOGLE_SPREADSHEET_ID="$1"
-LOCAL="$2"
-
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"must be set. source csv2rdf4lod/source-me.sh."}
 
 dryRun="true"
@@ -38,6 +35,9 @@ if [ -d $versionID ]; then
    echo "version/$versionID already exists. Wait until tomorrow or use -f"
    exit 1
 fi
+
+GOOGLE_SPREADSHEET_ID="$1"
+LOCAL="$2"
 
 mkdir -p $versionID/source
 
