@@ -141,12 +141,11 @@ BEGIN {
                                     printf("         a conversion:DataStartRow; \n");
                                     printf("      ];                            \n");
    }
-   if(length(interpretAsNull) && length(conversionID)) {
-                                    printf("      conversion:interpret [          \n");
-                                    printf("         conversion:symbol \"%s\";\n",interpretAsNull);
-                                    printf("         conversion:intepretation conversion:null; \n");
-                                    printf("      ];                            \n");
-   }
+   comment_out = length(interpretAsNull) && length(conversionID) ? "" : "#"; # We want to put in the template so it is easy to uncomment.
+                                    printf("      %sconversion:interpret [          \n",             comment_out);
+                                    printf("      %s   conversion:symbol \"%s\";\n",                 comment_out,interpretAsNull);
+                                    printf("      %s   conversion:intepretation conversion:null; \n",comment_out);
+                                    printf("      %s];                            \n",               comment_out);
    if(length(dataEnd)) {
                                     printf("      conversion:enhance [        \n");
                                     printf("         ov:csvRow %s;\n",dataEnd);
