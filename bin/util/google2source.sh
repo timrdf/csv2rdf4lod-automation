@@ -8,7 +8,7 @@ if [ $ANCHOR_SHOULD_BE_VERSION != "version" ]; then
 fi
 
 
-if [ $# -ne 2 ]; then
+if [ $# -lt 2 -o $# -gt 3 ]; then
    echo "usage: `basename $0` [-w] google-key local-name"
    exit 1
 fi
