@@ -9,7 +9,7 @@ fi
 
 
 if [ $# -ne 2 ]; then
-   echo "usage: `basename $0` google-key local-name"
+   echo "usage: `basename $0` [-w] google-key local-name"
    exit 1
 fi
 
