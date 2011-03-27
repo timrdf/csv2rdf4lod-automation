@@ -1,0 +1,201 @@
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix todo:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix vann:       <http://purl.org/vocab/vann/> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
+@prefix time:       <http://www.w3.org/2006/time#> .
+@prefix wgs:        <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames:   <http://www.geonames.org/ontology#> .
+@prefix dbpedia:    <http://dbpedia.org/resource/> .
+@prefix con:        <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix muo:        <http://purl.oclc.org/NET/muo/muo#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
+@prefix void:       <http://rdfs.org/ns/void#> .
+@prefix scovo:      <http://purl.org/NET/scovo#> .
+@prefix sioc:       <http://rdfs.org/sioc/ns#> .
+@prefix sioctypes:  <http://rdfs.org/sioc/types#> .
+@prefix semtweet:   <http://semantictweet.com/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix ov:         <http://open.vocab.org/terms/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix :           <http://logd.tw.rpi.edu/source/twapperkeeper-com/dataset/dollar-a/version/2011-Mar-20/params/enhancement/1/> .
+
+<http://tw.rpi.edu/instances/XianLi> foaf:holdsAccount <http://tw.rpi.edu/web/inside/machine/xian_laptop#xianli> .
+<http://tw.rpi.edu/web/inside/machine/xian_laptop#xianli>
+   a foaf:OnlineAccount;
+   foaf:accountName "xianli";
+   dcterms:isPartOf <http://tw.rpi.edu/web/inside/machine/xian_laptop#>;
+   sioc:account_of  <http://tw.rpi.edu/instances/XianLi>;
+.
+
+:wgs_point_bundle
+   a conversion:ImplicitBundle;
+   conversion:property_name dcterms:spatial;
+   conversion:type_name     wgs:SpatialThing;
+.
+
+<http://logd.tw.rpi.edu/source/twapperkeeper-com/dataset/dollar-a/version/2011-Mar-20/conversion/enhancement/1>
+   a conversion:LayerDataset, void:Dataset;
+
+   conversion:base_uri           "http://logd.tw.rpi.edu"^^xsd:anyURI;
+   conversion:source_identifier  "twapperkeeper-com";
+   conversion:dataset_identifier "stocks";
+   conversion:version_identifier "2011-Mar-20";
+
+   conversion:conversion_process [
+      a conversion:EnhancementConversionProcess;
+      conversion:enhancement_identifier "1";
+
+      dcterms:creator <http://tw.rpi.edu/web/inside/machine/xian_laptop#xianli>;
+      dcterms:created "2011-03-25T16:20:52-04:00"^^xsd:dateTime;
+
+      #conversion:interpret [          
+      #   conversion:symbol "";
+      #   conversion:intepretation conversion:null; 
+      #];                            
+      conversion:enhance [
+         ov:csvCol          1;
+         ov:csvHeader       "text";
+         conversion:domain_name "Tweet";
+         conversion:domain_template "tweet_[#4]";
+         conversion:equivalent_property sioc:content;
+         #conversion:label   "text";
+         conversion:comment "";
+         conversion:range   rdfs:Literal;
+         conversion:object_search [
+            conversion:eg        "is website - $ABC - http:";
+            conversion:regex     "\\$([^\\s]*)";
+            conversion:predicate foaf:topic;
+            conversion:object    "$[\\1]";
+         ];
+         conversion:object_search [
+            conversion:regex     "\\$([^\\s]*)";
+            conversion:predicate sioc:topic;
+            conversion:object    "http://dbpedia.org/resource/[\\1]";
+         ];
+         conversion:object_search [
+            conversion:regex     "\\$([^\\s]*)";
+            conversion:predicate foaf:homepage;
+            conversion:object    "[/sd][\\1]";
+         ];
+      ];
+      conversion:enhance [
+         conversion:class_name "Tweet";
+         conversion:subclass_of sioctypes:MicroblogPost;
+      ];
+      conversion:enhance [
+         ov:csvCol          2;
+         ov:csvHeader       "to_user_id";
+         #conversion:label   "to_user_id";
+         conversion:comment "";
+         conversion:interpret [          
+            conversion:symbol "";
+            conversion:intepretation conversion:null; 
+         ];                            
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          3;
+         ov:csvHeader       "from_user";
+         #conversion:label   "from_user";
+         conversion:comment "";
+         conversion:range_template "http://semantictweet.com/[.]#me";
+         conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol          4;
+         ov:csvHeader       "id";
+         conversion:equivalent_property dcterms:identifier;
+         #conversion:label   "id";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          5;
+         ov:csvHeader       "from_user_id";
+         conversion:equivalent_property sioc:id;
+         conversion:bundled_by [ ov:csvCol 3 ];
+         #conversion:label   "from_user_id";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          6;
+         ov:csvHeader       "iso_language_code";
+         #conversion:label   "iso_language_code";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          7;
+         ov:csvHeader       "source";
+         #conversion:label   "source";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          8;
+         ov:csvHeader       "profile_image_url";
+         #conversion:label   "profile_image_url";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          9;
+         ov:csvHeader       "geo_type";
+         conversion:bundled_by :wgs_point_bundle;
+         #conversion:label   "geo_type";
+         conversion:comment "";
+         conversion:interpret [          
+            conversion:symbol "";
+            conversion:interpretation conversion:null; 
+         ];
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          10;
+         ov:csvHeader       "geo_coordinates_0";
+         conversion:bundled_by :wgs_point_bundle;
+         #conversion:label   "geo_coordinates_0";
+         conversion:comment "";
+         conversion:equivalent_property wgs:lat;
+         conversion:interpret [          
+            conversion:symbol "0";
+            conversion:interpretation conversion:null; 
+         ];
+         conversion:range   xsd:decimal;
+      ];
+      conversion:enhance [
+         ov:csvCol          11;
+         ov:csvHeader       "geo_coordinates_1";
+         conversion:bundled_by :wgs_point_bundle;
+         conversion:equivalent_property wgs:long;
+         #conversion:label   "geo_coordinates_1";
+         conversion:comment "";
+         conversion:interpret [          
+            conversion:symbol "0";
+            conversion:interpretation conversion:null; 
+         ];                            
+         conversion:range   xsd:decimal;
+      ];
+      conversion:enhance [
+         ov:csvCol          12;
+         ov:csvHeader       "created_at";
+         conversion:equivalent_property dcterms:created;
+         #conversion:label   "created_at";
+         conversion:comment "";
+         conversion:eg               "Tue 14 Dec 2010 03:32:04 +0000", "Mon Dec 20 23:02:44 +0000 2010";
+         conversion:datetime_pattern "EEE dd MMM yyyy HH:mm:ss Z",     "EEE MMM dd HH:mm:ss Z yyyy";
+         conversion:range   xsd:dateTime;
+      ];
+      conversion:enhance [
+         ov:csvCol          13;
+         ov:csvHeader       "time";
+         #conversion:label   "time";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+   ];
+.
