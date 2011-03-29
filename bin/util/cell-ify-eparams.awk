@@ -113,7 +113,7 @@ in_cell_enhancement == "true" {
    line=$0;
 
    if( length(label_up) > 0 && $1 == "conversion:label" || $1 == "#conversion:label" ) {
-      print annotate("         %s  \""label_up"\";",$1,PADDING,"was "$2);
+      print annotate("         conversion:label  \""label_up"\";",PADDING,"was "$2);
    }else if( length(out_range) > 0 && $1 == "conversion:range" ) {
       print annotate("         conversion:range  "out_range";",PADDING,"was "$2);
    }else if( $1 == "];" ) {
