@@ -112,8 +112,8 @@ in_cell_enhancement == "true" {
    }
    line=$0;
 
-   if( length(label_up) > 0 && $1 == "conversion:label" ) {
-      print annotate("         conversion:label  \""label_up"\";",PADDING,"was "$2);
+   if( length(label_up) > 0 && $1 == "conversion:label" || $1 == "#conversion:label" ) {
+      print annotate("         %s  \""label_up"\";",$1,PADDING,"was "$2);
    }else if( length(out_range) > 0 && $1 == "conversion:range" ) {
       print annotate("         conversion:range  "out_range";",PADDING,"was "$2);
    }else if( $1 == "];" ) {
@@ -159,7 +159,7 @@ in_cell_enhancement == "true" {
 END {
    #if( num_cells == 0 ) {
       print "# params:"
-      print "#   cellify=`jot -s \",\" 5 10` -v label_up=Year -v up_object={. : Blah} -v up_range=xsd:gYear -v out_range=xsd:decimal -v labels_up=Venue,Another,YAnother"
-      print "#   cellify=`echo \"\" | awk '{for(i=5;i<=10;i++){printf(\",%s\",i)}}'` -v label_up=Year -v up_object=Blah -v up_range=xsd:gYear -v out_range=xsd:decimal -v labels_up=Venue,Another,YAnother"
+      print "#   -v cellify=`jot -s \",\" 5 10` -v label_up=Year -v up_object={. : Blah} -v up_range=xsd:gYear -v out_range=xsd:decimal -v labels_up=Venue,Another,YAnother"
+      print "#   -v cellify=`echo \"\" | awk '{for(i=5;i<=10;i++){printf(\",%s\",i)}}'` -v label_up=Year -v up_object=Blah -v up_range=xsd:gYear -v out_range=xsd:decimal -v labels_up=Venue,Another,YAnother"
    #}
 }
