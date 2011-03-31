@@ -693,7 +693,7 @@ do
    echo "   sampleGraph=\"\$graph/conversion/\$conversionStep/subset/sample\""                  >> $vloadSH
    echo "   sudo /opt/virtuoso/scripts/vload ttl \$sampleTTL \$sampleGraph"                     >> $vloadSH
    echo "   layerID=`echo $conversionStep | sed 's/^.*\//e/'`"                                  >> $vloadSH # .-todo
-   echo "   sampleURL=\"${CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.${eID}.sample\"" >> $vloadSH
+   echo "   sampleURL=\"${CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.${layerID}.sample\"" >> $vloadSH
    echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"         >> $vloadSH
    echo "   #\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"             >> $vloadSH
    echo ""                                                                                      >> $vloadSH
