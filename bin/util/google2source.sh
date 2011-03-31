@@ -9,8 +9,9 @@ fi
 
 
 if [ $# -lt 2 -o $# -gt 3 ]; then
-   echo $#
    echo "usage: `basename $0` [-{w,f}] google-key local-name"
+   echo "    google-key - key from google spreadsheet URL"
+   echo "    local-name - local name within source/"
    exit 1
 fi
 
@@ -31,6 +32,13 @@ else
    echo ""
 fi
 
+if [ $# -lt 2 ]; then
+   echo "usage: `basename $0` [-{w,f}] google-key local-name"
+   echo "    google-key - key from google spreadsheet URL"
+   echo "    local-name - local name within source/; use 'auto' to use dataset name."
+   exit 1
+fi
+
 if [ -d $versionID ]; then
    echo "version/$versionID already exists. Wait until tomorrow or use -f"
    exit 1
@@ -38,6 +46,10 @@ fi
 
 GOOGLE_SPREADSHEET_ID="$1"
 LOCAL="$2"
+if [ $LOCAL == "auto" ]; then
+   LOCAL=`basename \`cd .. 2>/dev/null && pwd\``
+   echo "using dataset identifer for local name in source/$LOCAL"
+fi
 
 mkdir -p $versionID/source
 
