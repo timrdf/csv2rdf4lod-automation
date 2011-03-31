@@ -684,12 +684,17 @@ echo ""                                                                         
 echo "allNT=$allNT # to cite graph"                                                             >> $vloadSH
 echo "graph=\"\`cat \$allNT.graph\`\""                                                          >> $vloadSH
 echo "if [ \"\$1\" == \"--sample\" ]; then"                                                     >> $vloadSH
+http_allRawSample="${CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.rdf"
 for conversionStep in $conversionSteps # <---- Add root-level subsets here.
 do
+   #http://logd.tw.rpi.edu/source/twc-rpi-edu/file/instance-hub-us-states-and-territories/version/2011-Mar-31_17-51-07/conversion/twc-rpi-edu-instance-hub-us-states-and-territories-2011-Mar-31_17-51-07.e1.sample
    echo "   conversionStep=\"$conversionStep\""                                                 >> $vloadSH # .-todo
    echo "   sampleTTL=$SDV.`echo $conversionStep | sed 's/^.*\//e/'`.sample.ttl"                >> $vloadSH # .-todo
    echo "   sampleGraph=\"\$graph/conversion/\$conversionStep/subset/sample\""                  >> $vloadSH
    echo "   sudo /opt/virtuoso/scripts/vload ttl \$sampleTTL \$sampleGraph"                     >> $vloadSH
+   echo "   sampleURL=\"${CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.${eID}.sample" >> $vloadSH
+   echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"         >> $vloadSH
+   echo "   #\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"             >> $vloadSH
    echo ""                                                                                      >> $vloadSH
 done
 echo "   exit 1"                                                                                >> $vloadSH
