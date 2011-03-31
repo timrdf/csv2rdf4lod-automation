@@ -70,5 +70,6 @@ pushd $versionID &> /dev/null
    else
       $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w source/$LOCAL.csv
       ./*.sh
+      ./*.sh # Run the enhancement, too. It will no-op if none to be done.
    fi
 popd &> /dev/null
