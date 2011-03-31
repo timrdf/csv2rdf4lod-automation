@@ -691,11 +691,11 @@ do
    echo "   conversionStep=\"$conversionStep\""                                                 >> $vloadSH # .-todo
    echo "   sampleTTL=$SDV.`echo $conversionStep | sed 's/^.*\//e/'`.sample.ttl"                >> $vloadSH # .-todo
    echo "   sampleGraph=\"\$graph/conversion/\$conversionStep/subset/sample\""                  >> $vloadSH
-   echo "   sudo /opt/virtuoso/scripts/vload ttl \$sampleTTL \$sampleGraph"                     >> $vloadSH
+   echo "   #sudo /opt/virtuoso/scripts/vload ttl \$sampleTTL \$sampleGraph"                     >> $vloadSH
    #http://logd.tw.rpi.edu/source/twc-rpi-edu/file/instance-hub-us-states-and-territories/version/2011-Mar-31_17-51-07/conversion/twc-rpi-edu-instance-hub-us-states-and-territories-2011-Mar-31_17-51-07.e1.sample
    echo "   sampleURL=\"${CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.${layerID}.sample\"" >> $vloadSH
    echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"         >> $vloadSH
-   echo "   #\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"             >> $vloadSH
+   echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"             >> $vloadSH
    echo ""                                                                                      >> $vloadSH
 done
 echo "   exit 1"                                                                                >> $vloadSH
