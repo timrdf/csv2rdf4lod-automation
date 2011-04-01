@@ -90,6 +90,15 @@ conv:DataEndRow
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
+conv:delimits_cell
+   a rdf:Property;
+   rdfs:label "delimits_cell";
+   rdfs:comment "The delimiter that should be used to separate cells in a row.";
+   rdfs:domain conv:ConversionProcess;
+   rdfs:range  rdfs:Literal;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:delimits_cell>;
+.
+
 conv:delimits_object
    a rdf:Property ;
    rdfs:label "delimits_object";
@@ -634,7 +643,7 @@ conv:version_identifier
 
 conv:conversion_process 
 	a rdf:Property ;
-	rdfs:domain void:Dataset ;
+	rdfs:domain conv:LayerDataset ;
 	rdfs:range conv:ConversionProcess ;
 	rdfs:comment "A conversion process that led to the creation or modification of an RDF dataset." ;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
@@ -862,6 +871,13 @@ conv:MetaDataset
    rdfs:comment "";
    rdfs:subClassOf conv:AuxiliaryDataset;
    owl:disjointWith conv:SameAsDataset;
+.
+
+conv:DatasetCatalog
+   a rdfs:Class;
+   rdfs:label "Dataset Catalog";
+   rdfs:comment "A dataset that lists other datasets as its entries.";
+   rdfs:subClassOf conv:MetaDataset;
 .
 
 conv:ConversionMetaDataset
