@@ -58,9 +58,17 @@ while [ $# -gt 0 ]; do
          tidy.sh *.html &> /dev/null
          saxon.sh $CSV2RDF4LOD_HOME/bin/dup/xhtmltable2.xsl     tidy txt -w *.tidy
          saxon.sh $CSV2RDF4LOD_HOME/bin/dg-get-format-links.xsl tidy txt    *.tidy | grep -v "WARNING" > urls.txt
+         numURLs=`wc -l urls.txt | perl -nle '/^\s*(\d+)/ and print $1'`
+         echo "urls.txt length: "`wc -l urls.txt`" ==> $numURLs"
+         if [ ${numURLs:-"0"} -lt 1 ]; then
+            echo "WARNING: Could not obtain data download URLs from data.gov details page. Brute forcing all possible data types."
+            for type in csv esri kml rss xls xml ; do
+               echo "http://www.data.gov/download/${datasetIdentifier}/${type}" >> urls.txt
+            done
+         fi 
          docHTML=`ls *.html`
          cat urls.txt | awk -f $CSV2RDF4LOD_HOME/bin/util/dataurls2pml.awk -v source=$docHTML > $docHTML.tidy.ttl
-         cat urls.txt  | awk -v source="`filename-v3.pl $detailsURL`" 'BEGIN{print "@prefix irw: <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .\n"}{printf("<%s> irw:refersTo <%s> .\n\n",source,$1)}' > urls.ttl
+         cat urls.txt | awk -v source="`filename-v3.pl $detailsURL`" 'BEGIN{print "@prefix irw: <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .\n"}{printf("<%s> irw:refersTo <%s> .\n\n",source,$1)}' > urls.ttl
          cp urls.txt ../../../urls.txt
       popd &> /dev/null
 
