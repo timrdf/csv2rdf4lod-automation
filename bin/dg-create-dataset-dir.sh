@@ -106,7 +106,10 @@ while [ $# -gt 0 ]; do
          echo "------------------------- Data file URLs for dataset $datasetIdentifier ------------------------"
          cat $base/urls.txt
          if [ ${DG_RETRIEVAL_REQUEST_DATA:-"true"} == "true" ]; then
-            pcurl.sh `cat $base/urls.txt | grep -v "rdf"`
+            #pcurl.sh `cat $base/urls.txt | grep -v "rdf"`
+            for url in `cat $base/urls.txt | grep -v "rdf"`; do
+               pcurl.sh $url -n $datasetIdentifier -e `echo $url | sed 's/^.*\///'`
+            done
             if [ `ls *.[Zz][Ii][Pp] 2> /dev/null | wc -l` -gt 0 ]; then
                #unzip *.[Zz][Ii][Pp]
                for zip in *.[Zz][Ii][Pp]
