@@ -143,7 +143,7 @@ BEGIN {
    }
    comment_out = length(interpretAsNull) && length(conversionID) ? "" : "#"; # We want to put in the template so it is easy to uncomment.
                                     printf("      %sconversion:interpret [          \n",             comment_out);
-                                    printf("      %s   conversion:symbol \"%s\";\n",                 comment_out,interpretAsNull);
+                                    printf("      %s   conversion:symbol        \"%s\";\n",                 comment_out,interpretAsNull);
                                     printf("      %s   conversion:interpretation conversion:null; \n",comment_out);
                                     printf("      %s];                            \n",               comment_out);
    if(length(dataEnd)) {
