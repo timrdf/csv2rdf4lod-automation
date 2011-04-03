@@ -106,7 +106,7 @@ while [ $# -gt 0 ]; do
       extensionlessFilename=`basename $artifact | sed 's/^\([^\.]*\)\..*$/\1/'` # failed to cast 'ce.supersector.csv' to 'ce.supersector'
       extensionlessFilename=`basename $artifact | sed 's/\.[^.]*$//'`
       # clean up %20 by replacing with underscore.
-      echo "subjectDiscriminator=\"`echo $extensionlessFilename | sed 's/%20/_/g' | awk '{print tolower($0)}'`\" # Additional part of URI for subjects created; must be URI-ready (e.g., no spaces)." >> $TMP_SH
+      echo "subjectDiscriminator=\"`echo $extensionlessFilename | sed 's/%20/-/g; s/_/-/g' | awk '{print tolower($0)}'`\" # Additional part of URI for subjects created; must be URI-ready (e.g., no spaces)." >> $TMP_SH
    else
       echo "subjectDiscriminator=               # Additional part of URI for subjects created; must be URI-ready (e.g., no spaces)." >> $TMP_SH
    fi
