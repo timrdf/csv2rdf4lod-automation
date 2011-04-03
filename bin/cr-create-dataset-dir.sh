@@ -8,6 +8,8 @@ usage="usage: `basename $0` <file-or-URL> ..."
 
 if [ $# -lt 1 ]; then
    echo $usage
+   echo "  file-or-URL - RDF file (any syntax) containing conversion:{source,dataset,version}_identifer and dct:source pointing to data files."
+   echo "  (if creating a dataset directory without a parameters file, just mkdir -p source/MY-SOURCE-ID/MY-DATASET-ID/version/MY-VERSION-ID/source)"
    exit 1
 fi
 
@@ -41,7 +43,10 @@ while [ $# -gt 0 ]; do
    #
    # conversion:VersionedDataset
    #
-   for dataset in `cat $SETUP_PARAMS.nt | awk '$2=="<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>" && $3=="<http://purl.org/twc/vocab/conversion/VersionedDataset>"{print $1}'`; do
+   for dataset in `cat $SETUP_PARAMS.nt | awk '$2=="<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>"       && 
+                                              ($3=="<http://purl.org/twc/vocab/conversion/VersionedDataset>" ||
+                                               $3=="<http://purl.org/twc/vocab/conversion/LayerDataset>")    && 
+                                               did[$1] != $1 {did[$1]=$1; print $1}'`; do # did := already setup the dataset's version.
       echo $dataset 
       #
       # conversion:source_identifier
@@ -63,7 +68,7 @@ while [ $# -gt 0 ]; do
          for versionID in `cat $SETUP_PARAMS.nt | awk '$1==dataset && $2=="<http://purl.org/twc/vocab/conversion/version_identifier>"{gsub(/\"/,"");print $3}' dataset=$dataset`; do
             echo "         $versionID"
             if [ ${#dataset} -gt 0 -a ${#sourceID} -gt 0 -a ${#datasetID} -gt 0 -a ${#versionID} -gt 0 ]; then
-               versionDir=$sourceID/$datasetID/$versionID
+               versionDir=$sourceID/$datasetID/version/$versionID
                if [ -e $versionDir ]; then
                   echo "Directory exists; skipping: $versionDir"
                else 
@@ -74,7 +79,7 @@ while [ $# -gt 0 ]; do
                      popd &> /dev/null
                   fi
                   pushd $versionDir/source &> /dev/null
-                     cp ../../../../$SETUP_PARAMS* .
+                     cp ../../../../../$SETUP_PARAMS* .
                      #
                      # dct:source URLs
                      #
