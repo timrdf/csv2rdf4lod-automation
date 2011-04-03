@@ -10,11 +10,11 @@
 {
    if( $1 == "@prefix" && $2 == ":" ) {
       # Fix up default namespace.
-      printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/params/enhancement/%s/> .",baseURI,sourceID,dataset_identifier,);
+      printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/params/enhancement/%s/> .",baseURI,sourceID,dataset_identifier,datasetVersion,layerID);
 
    }else if( $0 == ":dataset a void:Dataset;" ) {
       # Change subject to name of layer dataset itself.
-      printf("%s/source/%s/dataset/%s/version/%s/conversion/enhancement/%s",baseURI,sourceID,dataset_identifier,datasetVersion,$layerID);
+      printf("%s/source/%s/dataset/%s/version/%s/conversion/enhancement/%s",baseURI,sourceID,dataset_identifier,datasetVersion,layerID);
 
    }else if( $0~"conversion:subject_discriminator" ) {
       printf("      conversion:subject_discriminator \"%s\";\n",subjectDiscriminator)
