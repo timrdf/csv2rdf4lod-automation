@@ -172,7 +172,7 @@ if [ -e ../../../e$eID.params.ttl ]; then # There are enhancement parameters tha
       echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
       echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
       echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
-      cat ../../../e$eID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/update-e-params-subject-discrim.awk dataset_identifier=$datasetID datasetVersion=$datasetVersion subjectDiscriminator=$subjectDiscriminator >> $eParamsDir/$datafile.global.e$eID.params.ttl 
+      cat ../../../e$eID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/update-e-params-subject-discrim.awk baseURI="$CSV2RDF4LOD_BASE_URI" sourceID=$sourceID dataset_identifier=$datasetID datasetVersion=$datasetVersion layerID="$eID" subjectDiscriminator=$subjectDiscriminator >> $eParamsDir/$datafile.global.e$eID.params.ttl 
       chmod -w $eParamsDir/$datafile.global.e$eID.params.ttl
       runEnhancement="yes"
    fi
@@ -196,7 +196,7 @@ elif [ -e ../e$eID.params.ttl ]; then # There are enhancement parameters that ap
       echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
       echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
       echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
-      cat ../e$eID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/update-e-params-subject-discrim.awk datasetVersion=$datasetVersion subjectDiscriminator=$subjectDiscriminator >> $eParamsDir/$datafile.global.e$eID.params.ttl 
+      cat ../e$eID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/update-e-params-subject-discrim.awk baseURI="$CSV2RDF4LOD_BASE_URI" sourceID=$sourceID dataset_identifier=$datasetID datasetVersion=$datasetVersion layerID="$eID" subjectDiscriminator=$subjectDiscriminator >> $eParamsDir/$datafile.global.e$eID.params.ttl 
       chmod -w $eParamsDir/$datafile.global.e$eID.params.ttl
       runEnhancement="yes"
    fi
@@ -220,7 +220,7 @@ elif [ -e ../$datafile.e$eID.params.ttl ]; then # There are enhancement paramete
       echo "#"                                                                                                 >> $eParamsDir/$datafile.global.e$eID.params.ttl
       echo "#"                                                                                                 >> $eParamsDir/$datafile.global.e$eID.params.ttl
       echo "#"                                                                                                 >> $eParamsDir/$datafile.global.e$eID.params.ttl
-      cat ../$datafile.e$eID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/update-e-params-subject-discrim.awk datasetVersion=$datasetVersion subjectDiscriminator=$subjectDiscriminator >> $eParamsDir/$datafile.global.e$eID.params.ttl 
+      cat ../$datafile.e$eID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/update-e-params-subject-discrim.awk baseURI="$CSV2RDF4LOD_BASE_URI" sourceID=$sourceID dataset_identifier=$datasetID datasetVersion=$datasetVersion layerID="$eID" subjectDiscriminator=$subjectDiscriminator >> $eParamsDir/$datafile.global.e$eID.params.ttl 
       chmod -w $eParamsDir/$datafile.global.e$eID.params.ttl
       runEnhancement="yes"
    fi
