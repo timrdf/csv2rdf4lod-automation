@@ -32,7 +32,10 @@ fi
 cellDelimiter=","
 if [ ${1:-"."} == "-d" -a $# -gt 2 ]; then
    cellDelimiter="$2"
-   echo "delimiter: $1 $2"
+   shift 2
+fi
+if [ ${1:-"."} == "--delimiter" -a $# -gt 2 ]; then # Sorry, bash compound conditionals are obtuse...
+   cellDelimiter="$2"
    shift 2
 fi
 
