@@ -16,7 +16,7 @@
 #                    ^^ dataset                        ^
 #                                                      ^^ version  
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` [-w] [-s sourceIdentifier] [-d datasetIdentifier] [-v versionIdentifier] a.csv [another.csv ...]\\n
+   echo "usage: `basename $0` [-w] [-d delimiter] [-s sourceIdentifier] [-d datasetIdentifier] [-v versionIdentifier] a.csv [another.csv ...]\\n
 run from csv2rdf4lod/data/source/SSS/version/VVV/"
    exit 1
 fi
@@ -27,6 +27,13 @@ if [ "$1" == "-w" ]; then
    shift
 else 
    writeSH=no
+fi
+
+cellDelimiter=","
+if [ ${1:-"."} == "-d" -a $# -gt 2 ]; then
+   cellDelimiter="$2"
+   echo "delimiter: $1 $2"
+   shift 2
 fi
 
 #
@@ -110,6 +117,7 @@ while [ $# -gt 0 ]; do
    else
       echo "subjectDiscriminator=               # Additional part of URI for subjects created; must be URI-ready (e.g., no spaces)." >> $TMP_SH
    fi
+   echo "cellDelimiter=\"$cellDelimiter\"       # ONLY one character; complain to http://sourceforge.net/projects/javacsv/ otherwise." >> $TMP_SH
    echo "header=                             # Line that header is on; only needed if not '1'. '0' means no header." >> $TMP_SH
    echo "dataStart=                          # Line that data starts; only needed if not immediately after header." >> $TMP_SH
    echo "repeatAboveIfEmptyCol=              # 'Fill in' value from row above for this column."                     >> $TMP_SH
