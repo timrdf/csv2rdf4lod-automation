@@ -120,7 +120,7 @@ while [ $# -gt 0 ]; do
    else
       echo "subjectDiscriminator=               # Additional part of URI for subjects created; must be URI-ready (e.g., no spaces)." >> $TMP_SH
    fi
-   echo "cellDelimiter=\"$cellDelimiter\"       # ONLY one character; complain to http://sourceforge.net/projects/javacsv/ otherwise." >> $TMP_SH
+   echo "cellDelimiter=\"$cellDelimiter\"                   # ONLY one character; complain to http://sourceforge.net/projects/javacsv/ otherwise." >> $TMP_SH
    echo "header=                             # Line that header is on; only needed if not '1'. '0' means no header." >> $TMP_SH
    echo "dataStart=                          # Line that data starts; only needed if not immediately after header." >> $TMP_SH
    echo "repeatAboveIfEmptyCol=              # 'Fill in' value from row above for this column."                     >> $TMP_SH
