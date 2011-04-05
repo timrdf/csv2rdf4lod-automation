@@ -1,5 +1,25 @@
 #!/bin/bash
 
+
+
+
+
+
+
+
+
+# TODO: reconcile with bin/cr-create-enhancement-template.sh
+
+
+
+
+
+
+
+
+
+
+
 if [ $# -eq 0 ]; then
    echo "usage: `basename $0` [-h headerRow] -s <source> -d <dataset> -v <version> [-e <enhancement>] <csv> [csv...]"
    echo "  -h[eader]"
@@ -55,6 +75,7 @@ csvHeadersPath="edu.rpi.tw.data.csv.impl.CSVHeaders"                            
 
 h2p=$CSV2RDF4LOD_HOME/bin/util/header2params2.awk                                                     # process by line, not parse the first
 
+cellDelimiter=""
 dataStart=""
 onlyIfCol=""
 repeatIfEmptyCol=""
@@ -71,6 +92,6 @@ while [ $# -gt 0 ]; do
    paramsParams="$paramsParams -v subjectDiscriminator=$subjectDiscriminator -v datasetVersion=$version"
 
    # NOTE: command done below, too.
-   java $csvHeadersPath $data ${header:-"1"} | awk -v conversionID="$enhancement" $paramsParams -f $h2p
+   java $csvHeadersPath $data --header-line ${header:-"1"} | awk -v conversionID="$enhancement" $paramsParams -f $h2p
    shift
 done
