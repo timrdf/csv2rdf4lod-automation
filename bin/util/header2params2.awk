@@ -37,33 +37,35 @@ BEGIN {
    #print "#AWK: cellDelimiter:",cellDelimiter," DELIMITER: ",DELIMITER," comment: ",commentDELIMITER
 
    if(length(showConversionProcess)) {
-      print "@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ."
-      print "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."
+      print "@prefix rdf:           <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ."
+      print "@prefix rdfs:          <http://www.w3.org/2000/01/rdf-schema#> ."
    }
    RDFS="rdfs"
    if(length(conversionID)) {
-      print "@prefix todo:       <http://www.w3.org/2000/01/rdf-schema#> ."
+      print "@prefix todo:          <http://www.w3.org/2000/01/rdf-schema#> ."
       RDFS="todo"
    }
    print "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."
    if(length(conversionID)) {
-      print "@prefix owl:        <http://www.w3.org/2002/07/owl#> ."
-      print "@prefix vann:       <http://purl.org/vocab/vann/> ."
-      print "@prefix skos:       <http://www.w3.org/2004/02/skos/core#> ."
-      print "@prefix time:       <http://www.w3.org/2006/time#> ."
-      print "@prefix wgs:        <http://www.w3.org/2003/01/geo/wgs84_pos#> ."
-      print "@prefix geonames:   <http://www.geonames.org/ontology#> ."
-      print "@prefix dbpedia:    <http://dbpedia.org/resource/> ."
-      print "@prefix con:        <http://www.w3.org/2000/10/swap/pim/contact#> ."
-      print "@prefix muo:        <http://purl.oclc.org/NET/muo/muo#> ."
+      print "@prefix owl:           <http://www.w3.org/2002/07/owl#> ."
+      print "@prefix vann:          <http://purl.org/vocab/vann/> ."
+      print "@prefix skos:          <http://www.w3.org/2004/02/skos/core#> ."
+      print "@prefix time:          <http://www.w3.org/2006/time#> ."
+      print "@prefix wgs:           <http://www.w3.org/2003/01/geo/wgs84_pos#> ."
+      print "@prefix geonames:      <http://www.geonames.org/ontology#> ."
+      print "@prefix geonamesid:    <http://sws.geonames.org/> ."
+      print "@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> ."
+      print "@prefix dbpedia:       <http://dbpedia.org/resource/> ."
+      print "@prefix con:           <http://www.w3.org/2000/10/swap/pim/contact#> ."
+      print "@prefix muo:           <http://purl.oclc.org/NET/muo/muo#> ."
    }
-   print "@prefix dcterms:    <http://purl.org/dc/terms/> ."
-   print "@prefix void:       <http://rdfs.org/ns/void#> ."
-   print "@prefix scovo:      <http://purl.org/NET/scovo#> ."
-   print "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."
-   print "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."
-   print "@prefix ov:         <http://open.vocab.org/terms/> ."
-   print "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
+   print "@prefix dcterms:       <http://purl.org/dc/terms/> ."
+   print "@prefix void:          <http://rdfs.org/ns/void#> ."
+   print "@prefix scovo:         <http://purl.org/NET/scovo#> ."
+   print "@prefix sioc:          <http://rdfs.org/sioc/ns#> ."
+   print "@prefix foaf:          <http://xmlns.com/foaf/0.1/> ."
+   print "@prefix ov:            <http://open.vocab.org/terms/> ."
+   print "@prefix conversion:    <http://purl.org/twc/vocab/conversion/> ."
 
    # Converter produces URIs for the LayerDatasets:
    #
@@ -72,7 +74,7 @@ BEGIN {
    #
    # To make the params more connected to the datasets, we're replacing this:
    #### NOTE: brought this back for a place for implicit bundles to be named, HOWEVER, the dataset is NOT being named within this:
-   printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/params/%s/> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
+   printf("@prefix :              <%s/source/%s/dataset/%s/version/%s/params/%s/> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
    # with this:
    # Still not right; moved down to subject:
    #printf("@prefix :           <%s/source/%s/dataset/%s/version/%s/conversion/%s> .\n",surrogate,sourceID,datasetID,datasetVersion,STEP);
