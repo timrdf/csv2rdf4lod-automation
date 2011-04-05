@@ -12,6 +12,7 @@
 # -v subjectDiscriminator
 # -v conversionID
 #
+# -v cellDelimiter
 # -v header
 # -v dataStart
 # -v dataEnd
@@ -30,6 +31,11 @@ BEGIN {
    #FS=","
    STEP = length(conversionID) ? sprintf("enhancement/%s",conversionID) : "raw";
    TYPE = length(conversionID) ? "Enhancement" : "Raw";
+   # TODO: '|' has no length? --\/
+          DELIMTER  = length(cellDelimiter) ? cellDelimiter : "	" # <--- that's a tab character.
+   commentDELIMITER = length(cellDelimiter) ? ""            : "#";
+   #print "#AWK: cellDelimiter:",cellDelimiter," DELIMITER: ",DELIMITER," comment: ",commentDELIMITER
+
    if(length(showConversionProcess)) {
       print "@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ."
       print "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."
@@ -128,6 +134,11 @@ BEGIN {
    #
    # Structural enhancement parameters.
    #
+                                    printf("      conversion:delimits_cell \"%s\";\n",cellDelimiter);
+                                    printf("      #conversion:delimits_cell \"	\"; # tab\n");
+                                    printf("      #conversion:delimits_cell \"|\";   # pipe\n");
+                                    printf("      #conversion:delimits_cell \",\";   # comma\n");
+                                    print
    if(length(header)) {               
                                     # Include header info even if just raw.
                                     printf("      conversion:enhance [      \n");
