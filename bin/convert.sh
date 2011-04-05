@@ -83,15 +83,18 @@ $CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh > $CSV2RDF4LOD_LOG
 #
 
 #head -${header:-1} $data | tail -1 | awk -v conversionID="$eID" $paramsParams -f $h2p > $eParamsDir/$datafile.e$eID.params.ttl
+#echo "CELL DELMITER: $cellDelimiter"
 csvHeadersClasspath="edu.rpi.tw.data.csv.impl.CSVHeaders"                                                  # is in csv2rdf4lod.jar
 h2p=$CSV2RDF4LOD_HOME/bin/util/header2params2.awk                                                     # process by line, not parse the first
 paramsParams="-v surrogate=$surrogate -v sourceID=$sourceID -v datasetID=$datasetID"                             # NOTE: no variable values 
+paramsParams="$paramsParams -v cellDelimiter=$cellDelimiter"                                                 # ONE character.
 paramsParams="$paramsParams -v header=$header -v dataStart=$dataStart -v onlyIfCol=$onlyIfCol"                   # can be strings or have spaces. 
 paramsParams="$paramsParams -v repeatAboveIfEmptyCol=$repeatAboveIfEmptyCol -v interpretAsNull=$interpretAsNull" # awk "bails out at line 1".
 paramsParams="$paramsParams -v dataEnd=$dataEnd"
 paramsParams="$paramsParams -v subjectDiscriminator=$subjectDiscriminator -v datasetVersion=$datasetVersion"
 paramsParams="$paramsParams -v whoami=`whoami` -v machine_uri=$CSV2RDF4LOD_CONVERT_MACHINE_URI -v person_uri=$CSV2RDF4LOD_CONVERT_PERSON_URI"
 paramsParams="$paramsParams -v nowXSD=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`"
+#echo "PARAMS PARAMS $paramsParams"
 
 #
 #
@@ -104,7 +107,7 @@ if [ $runEnhancement == "yes" ]; then
    TMP_ePARAMS="_"`basename $0``date +%s`_$$.tmp
 
    # NOTE: command done below, too.
-   java $csvHeadersClasspath $data ${header:-"1"} | awk -v conversionID="$eID" $paramsParams -f $h2p > $TMP_ePARAMS
+   java $csvHeadersClasspath $data --header-line ${header:-"1"} --delimiter $cellDelimiter | awk -v conversionID="$eID" $paramsParams -f $h2p > $TMP_ePARAMS
 
    numTemplateTODOs=` grep "todo:Literal" $TMP_ePARAMS                           | wc -l` 
    numRemainingTODOs=`grep "todo:Literal" $eParamsDir/$datafile.e$eID.params.ttl | wc -l` 
@@ -148,7 +151,7 @@ fi
 
 # Regenerate raw parameters EACH TIME.
 #head -${header:-1} $data | tail -1 | awk                     $paramsParams -f $h2p > $destDir/$datafile.raw.params.ttl
-java $csvHeadersClasspath $data ${header:-"1"} | awk $paramsParams -f $h2p > $destDir/$datafile.raw.params.ttl
+java $csvHeadersClasspath $data --header-line ${header:-"1"} --delimiter $cellDelimiter | awk $paramsParams -f $h2p > $destDir/$datafile.raw.params.ttl
 
 # Generate the enhancement parameters only when not present.
 global=""
@@ -236,7 +239,7 @@ elif [ ! -e $eParamsDir/$datafile.e$eID.params.ttl ]; then # No global enhanceme
       echo "E$eID enhancement parameters missing; creating default template. Edit $eParamsDir/$datafile.e$eID.params.ttl and rerun to produce E$eID enhancement." | tee -a $CSV2RDF4LOD_LOG
 
       # NOTE: command also done above (when checking if e params are different from template provided).
-      java $csvHeadersClasspath $data ${header:-"1"} | awk -v conversionID="$eID" $paramsParams -f $h2p > $eParamsDir/$datafile.e$eID.params.ttl
+      java $csvHeadersClasspath $data --header-line ${header:-"1"} --delimiter $cellDelimiter | awk -v conversionID="$eID" $paramsParams -f $h2p > $eParamsDir/$datafile.e$eID.params.ttl
    fi
 fi
 
