@@ -1,0 +1,5 @@
+#!/usr/bin/env Rscript
+args = commandArgs(TRUE)
+library(foreign)
+data = read.spss(args[1])
+write.csv(data,args[2])
