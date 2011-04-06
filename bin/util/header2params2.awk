@@ -100,10 +100,12 @@ BEGIN {
    }
 
    if( length(conversionID)) {       
-                                    printf(":a_bundle\n");
-                                    printf("   conversion:property_name \"a_property\"; # Can also be a URI, e.g. dcterms:title.\n");
-                                    printf("   conversion:type_name     \"My Class\";   # Can also be a URI, e.g. foaf:Person.\n");
-                                    printf(".");
+                                    printf("\n");
+                                    printf("#:a_bundle\n");
+                                    printf("#   a conversion:ImplicitBundle;\n");
+                                    printf("#   conversion:property_name \"a_property\"; # Can also be a URI, e.g. dcterms:title.\n");
+                                    printf("#   conversion:type_name     \"My Class\";   # Can also be a URI, e.g. foaf:Person.\n");
+                                    printf("#.\n");
    }
    #
    # Describe the dataset.
