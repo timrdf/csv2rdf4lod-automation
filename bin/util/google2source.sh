@@ -55,14 +55,14 @@ mkdir -p $versionID/source
 GOOGLE_SPREADSHEET_ID="$1"
 googletoggle="head -1"
 pushd $versionID/source &> /dev/null
+   echo "(in $versionID/source)"
+   echo $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID
+   echo retrieving:
+   echo $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle
    if [ ${dryRun-"."} == "true" ]; then
-      echo "(in $versionID/source)"
-      echo $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID
-      echo retrieving:
-      echo $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle
       echo pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $LOCAL -e csv
    else
-      pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID` -n $LOCAL -e csv
+      pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $LOCAL -e csv
    fi
 popd &> /dev/null
 
