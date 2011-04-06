@@ -44,7 +44,6 @@ if [ -d $versionID ]; then
    exit 1
 fi
 
-GOOGLE_SPREADSHEET_ID="$1"
 LOCAL="$2"
 if [ $LOCAL == "auto" ]; then
    LOCAL=`basename \`cd .. 2>/dev/null && pwd\``
@@ -53,10 +52,15 @@ fi
 
 mkdir -p $versionID/source
 
+GOOGLE_SPREADSHEET_ID="$1"
+googletoggle="tail -1"
 pushd $versionID/source &> /dev/null
    if [ ${dryRun-"."} == "true" ]; then
       echo "(in $versionID/source)"
-      echo pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID` -n $LOCAL -e csv
+      echo $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID
+      echo retrieving:
+      echo $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle
+      echo pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $LOCAL -e csv
    else
       pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID` -n $LOCAL -e csv
    fi
