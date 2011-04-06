@@ -53,7 +53,7 @@ fi
 mkdir -p $versionID/source
 
 GOOGLE_SPREADSHEET_ID="$1"
-googletoggle="tail -1"
+googletoggle="head -1"
 pushd $versionID/source &> /dev/null
    if [ ${dryRun-"."} == "true" ]; then
       echo "(in $versionID/source)"
