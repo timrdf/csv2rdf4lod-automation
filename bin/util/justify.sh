@@ -5,15 +5,21 @@
 #   justify.sh 
 #
 
-usage_message="usage: `basename $0` /path/to/source/a.xls /path/to/destination/a.xls.csv <engine-name>" 
 
-if [ $# -ne 3 ]; then
-   echo $usage_message 
+if [ $# -lt 3 -o $# -gt 4 ]; then
+   echo "usage: `basename $0` /path/to/source/a.xls /path/to/destination/a.xls.csv <engine-name>" 
+   echo "or" 
+   echo "usage: . `basename $0` /path/to/source/a.xls /path/to/destination/a.xls.csv <engine-name> [-h | --history]" 
+   echo "   source      file: a file used to create 'destination file'"
+   echo "   destination file: a file derived from 'source file'."
    echo "   engine-name: (URI-friendly) e.g.:"
    echo "      xls2csv,   tab2comma,     redelimit,            file_rename,   escaping_commas_redelimit"
    echo "      duplicate, google_refine, serialization_change, parse_field,   tabulating_fixed_width"
    echo "      html_tidy, pretty_print,  xsl_html_scrape,      manual_csvify, uncompress"
    echo "      select_subset, etc."
+   echo "   --history: search command history for the command that created 'destination-file' "
+   echo "              from 'source-file' and include it in the provenance."
+   echo "              NOTE: a period (.) must precede the `basename $0` command to access history."
    exit 1
 fi
 
@@ -66,6 +72,21 @@ logID=`java edu.rpi.tw.string.NameFactory`
    method_name="conv:${method}_Method"                                                                      # e.g., 'serialization_change_Method'
    engine_type="conv:`echo $method | awk '{print toupper(substr($0,0,1)) substr($0,2,length($0))}'`_Engine" # e.g.  'Serialization_change_Engine
 
+   commandUsed=""
+   if [ $# -ge 4 ]; then
+      if [ ${4:-"."} == "-h" -o ${4:-"."} == "--history" ]; then
+         if [ `history | wc -l` -gt 0 ]; then
+            commandUsed=`history | grep -v "justify.sh" | grep "$antecedent" | grep "$consequent" | tail -1 | sed -e 's/^ *[^ ]* *//'`
+            # secondary approach: history -r $HOME/.bash_history
+         else
+            echo "    ERROR: `basename $0` could not access history. "
+            echo "    Precede call to `basename $0` with a period:"
+            echo "    . `basename $0` $*"
+            exit 1
+         fi
+      fi
+   fi
+
    if [ ! -e $antecedent ]; then
       echo "$antecedent does not exist; no justifications asserted."
       exit 1
@@ -96,6 +117,9 @@ logID=`java edu.rpi.tw.string.NameFactory`
       echo "$antecedent (a $engine_type applying $method_name) -> $consequent"
       echo $consequent came from $antecedent
       echo "$antecedent -> $consequent"
+      if [ ${#commandUsed} -gt 0 ]; then
+      echo $commandUsed
+      fi
 
       # Relative paths.
       consequentURI="<`basename $consequent`>"
@@ -147,7 +171,7 @@ logID=`java edu.rpi.tw.string.NameFactory`
       echo "   pmlj:hasConclusion $consequentURI;"                                            >> $consequent.pml.ttl
       echo "   pmlj:isConsequentOf <inferenceStep_$requestID>;"                               >> $consequent.pml.ttl
       echo "."                                                                                >> $consequent.pml.ttl
-      echo "<inferenceStep_$requestID>"                                                       >> $consequent.pml.ttl
+      echo "<inferenceStep$requestID>"                                                        >> $consequent.pml.ttl
       echo "   a pmlj:InferenceStep;"                                                         >> $consequent.pml.ttl
       echo "   pmlj:hasIndex 0;"                                                              >> $consequent.pml.ttl
       echo "   pmlj:hasAntecedentList ( $antecedentNodeSet );"                                >> $consequent.pml.ttl
@@ -156,12 +180,15 @@ logID=`java edu.rpi.tw.string.NameFactory`
       echo "   pmlj:hasInferenceRule   $method_name;"                                         >> $consequent.pml.ttl
       echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $consequent.pml.ttl
       echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $consequent.pml.ttl
+      if [ ${#commandUsed} -gt 0 ]; then
+      echo "   dcterms:description \"\"\"$commandUsed\"\"\";"                                 >> $consequent.pml.ttl
+      fi
       echo "."                                                                                >> $consequent.pml.ttl
       echo                                                                                    >> $consequent.pml.ttl
-      echo "<wasControlled_$requestID>"                                                       >> $consequent.pml.ttl
+      echo "<wasControlled$requestID>"                                                        >> $consequent.pml.ttl
       echo "   a oprov:WasControlledBy;"                                                      >> $consequent.pml.ttl
       echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"             >> $consequent.pml.ttl
-      echo "   oprov:effect <${inferenceStep}_content>;"                                      >> $consequent.pml.ttl
+      echo "   oprov:effect <inferenceStep$requestID>;"                                       >> $consequent.pml.ttl
       echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                               >> $consequent.pml.ttl
       echo "."                                                                                >> $consequent.pml.ttl
       echo $antecedentNodeSet                                                                 >> $consequent.pml.ttl
