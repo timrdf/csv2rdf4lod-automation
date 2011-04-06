@@ -99,6 +99,12 @@ BEGIN {
                                     printf("<%s> dcterms:identifier \"%s\" .\n",person_uri,whoami);
    }
 
+   if( length(conversionID)) {       
+                                    printf(":a_bundle\n");
+                                    printf("   conversion:property_name \"a_property\"; # Can also be a URI, e.g. dcterms:title.\n");
+                                    printf("   conversion:type_name     \"My Class\";   # Can also be a URI, e.g. foaf:Person.\n");
+                                    printf(".");
+   }
    #
    # Describe the dataset.
    #
