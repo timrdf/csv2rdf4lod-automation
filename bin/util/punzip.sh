@@ -7,7 +7,6 @@
 #
 
 usage_message="usage: `basename $0` .zip [.zip ...]" 
-echo NO
 if [ $# -lt 1 ]; then
    echo $usage_message 
    exit 1
@@ -82,7 +81,8 @@ while [ $# -gt 0 ]; do
       zipModDateTime=`stat -c "%y" $zip | sed -e 's/ /T/' -e 's/\..* / /' -e 's/ //' -e 's/\(..\)$/:\1/'`
    fi
 
-   usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'`
+   #usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'`
+   usageDateTime=`dateInXSDDateTime.sh`
 
    if [ $unzipper == "unzip" ]; then
       listLength=`unzip -l "$zip" | wc -l`
@@ -149,7 +149,9 @@ while [ $# -gt 0 ]; do
       echo                                                                               >> $file.pml.ttl
       echo "<$zip>"                                                                      >> $file.pml.ttl
       echo "   a pmlp:Source;"                                                           >> $file.pml.ttl
+      if [ ${#zipModDateTime} -gt 0 ]; then
       echo "   pmlp:hasModificationDateTime \"$zipModDateTime\"^^xsd:dateTime;"          >> $file.pml.ttl
+      fi
       echo "."                                                                           >> $file.pml.ttl
       echo                                                                               >> $file.pml.ttl
       echo $nodeSet                                                                      >> $file.pml.ttl
@@ -183,7 +185,7 @@ while [ $# -gt 0 ]; do
       echo "   a pmlp:InferenceEngine, conv:Unzip;"                                      >> $file.pml.ttl
       echo "   dcterms:identifier \"md5_$unzipMD5\";"                                    >> $file.pml.ttl
       echo "   nfo:hasHash <md5_$unzipMD5>;"                                             >> $file.pml.ttl
-      echo "   dcterms:description \"\"\"`unzip --version 2>&1`\"\"\";"                  >> $file.pml.ttl
+      echo "   dcterms:description \"\"\"`$unzipper --version 2>&1`\"\"\";"              >> $file.pml.ttl
       echo "."                                                                           >> $file.pml.ttl
       echo                                                                               >> $file.pml.ttl
       echo "<md5_$unzipMD5>"                                                             >> $file.pml.ttl
