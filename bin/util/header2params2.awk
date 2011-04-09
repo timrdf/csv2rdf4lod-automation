@@ -34,7 +34,7 @@ BEGIN {
    # TODO: '|' has no length? --\/
           DELIMTER  = length(cellDelimiter) ? cellDelimiter : "	" # <--- that's a tab character.
    commentDELIMITER = length(cellDelimiter) ? ""            : "#";
-   #print "#AWK: cellDelimiter:",cellDelimiter," DELIMITER: ",DELIMITER," comment: ",commentDELIMITER
+   print "#AWK: "length(cellDelimiter)" length cellDelimiter:",cellDelimiter," DELIMITER: ",DELIMITER," comment: ",commentDELIMITER
 
    if(length(showConversionProcess)) {
       print "@prefix rdf:           <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ."
@@ -105,7 +105,7 @@ BEGIN {
                                     printf("#:a_bundle\n");
                                     printf("#   a conversion:ImplicitBundle;\n");
                                     printf("#   conversion:property_name \"a_property\"; # Can also be a URI, e.g. dcterms:title.\n");
-                                    printf("#   conversion:type_name     \"My Class\";   # Can also be a URI, e.g. foaf:Person.\n");
+                                    printf("#   #conversion:type_name     \"My Class\";   # Can also be a URI, e.g. foaf:Person.\n");
                                     printf("#.\n");
    }
    #
@@ -145,8 +145,12 @@ BEGIN {
    #
    # Structural enhancement parameters.
    #
+   if( cellDelimiter != "\t" ) {
                                     printf("      conversion:delimits_cell \"%s\";\n",cellDelimiter);
                                     printf("      #conversion:delimits_cell \"	\"; # tab\n");
+   }else {
+                                    printf("      conversion:delimits_cell \"	\"; # tab\n");
+   }
                                     printf("      #conversion:delimits_cell \"|\";   # pipe\n");
                                     printf("      #conversion:delimits_cell \",\";   # comma\n");
                                     print

@@ -16,7 +16,7 @@
 #                    ^^ dataset                        ^
 #                                                      ^^ version  
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` [-w] [-d delimiter] [-s sourceIdentifier] [-d datasetIdentifier] [-v versionIdentifier] a.csv [another.csv ...]\\n
+   echo "usage: `basename $0` [-w] [--delimiter delimiter] [-s sourceIdentifier] [-d datasetIdentifier] [-v versionIdentifier] a.csv [another.csv ...]\\n
 run from csv2rdf4lod/data/source/SSS/version/VVV/"
    exit 1
 fi
@@ -30,11 +30,7 @@ else
 fi
 
 cellDelimiter=","
-if [ ${1:-"."} == "-d" -a $# -gt 2 ]; then
-   cellDelimiter="$2"
-   shift 2
-fi
-if [ ${1:-"."} == "--delimiter" -a $# -gt 2 ]; then # Sorry, bash compound conditionals are obtuse...
+if [ ${1:-"."} == "--delimiter" -a $# -gt 2 ]; then
    cellDelimiter="$2"
    shift 2
 fi
