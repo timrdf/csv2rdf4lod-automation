@@ -107,7 +107,7 @@ if [ $runEnhancement == "yes" ]; then
    TMP_ePARAMS="_"`basename $0``date +%s`_$$.tmp
 
    # NOTE: command done below, too.
-   java $csvHeadersClasspath $data --header-line ${header:-"1"} --delimiter $cellDelimiter | awk -v conversionID="$eID" $paramsParams -f $h2p > $TMP_ePARAMS
+   java $csvHeadersClasspath $data --header-line ${header:-"1"} --delimiter "$cellDelimiter" | awk -v conversionID="$eID" $paramsParams -f $h2p > $TMP_ePARAMS
 
    numTemplateTODOs=` grep "todo:Literal" $TMP_ePARAMS                           | wc -l` 
    numRemainingTODOs=`grep "todo:Literal" $eParamsDir/$datafile.e$eID.params.ttl | wc -l` 
@@ -240,7 +240,7 @@ elif [ ! -e $eParamsDir/$datafile.e$eID.params.ttl ]; then # No global enhanceme
       echo "E$eID enhancement parameters missing; creating default template. Edit $eParamsDir/$datafile.e$eID.params.ttl and rerun to produce E$eID enhancement." | tee -a $CSV2RDF4LOD_LOG
 
       # NOTE: command also done above (when checking if e params are different from template provided).
-      java $csvHeadersClasspath $data --header-line ${header:-"1"} --delimiter $cellDelimiter | awk -v conversionID="$eID" $paramsParams -f $h2p > $eParamsDir/$datafile.e$eID.params.ttl
+      java $csvHeadersClasspath $data --header-line ${header:-"1"} --delimiter "$cellDelimiter" | awk -v conversionID="$eID" $paramsParams -f $h2p > $eParamsDir/$datafile.e$eID.params.ttl
    fi
 fi
 
