@@ -67,8 +67,8 @@ while [ $# -gt 0 ]; do
    else
       echo "`basename $0`: can not find md5 to md5 this script."
    fi
-   echo "my md5: $myMD5"
-   echo "$unzipper's md5: $unzipMD5 ($unzipperPath)"
+   #echo "punzip.sh's md5: $myMD5"
+   #echo "$unzipper's md5: $unzipMD5 ($unzipperPath)"
    
    echo
    echo ---------------------------------- punzip ---------------------------------------
