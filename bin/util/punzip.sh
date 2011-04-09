@@ -7,29 +7,13 @@
 #
 
 usage_message="usage: `basename $0` .zip [.zip ...]" 
-
+echo NO
 if [ $# -lt 1 ]; then
    echo $usage_message 
    exit 1
 fi
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh"}
-
-# md5 this script
-punzipMD5=""
-if [ `which md5` ]; then
-   # md5 outputs:
-   # MD5 (punzip.sh) = ecc71834c2b7d73f9616fb00adade0a4
-   punzipMD5="`md5 $0 | perl -pe 's/^.* = //'`"
-   unzipPath=`which unzip`
-   unzipMD5="`md5 $unzipPath | perl -pe 's/^.* = //'`"
-elif [ `which md5sum` ]; then
-   punzipMD5="`md5sum $0 | perl -pe 's/\s.*//'`"
-   unzipPath=`which unzip`
-   unzipMD5="`md5sum $unzipPath | perl -pe 's/\s.*//'`"
-else
-   echo "`basename $0`: can not find md5 to md5 this script."
-fi
 
 
 # TODO: reimplement this using perl and its unzip module
@@ -54,18 +38,42 @@ fi
 ZIP_LIST_HEADER_LENGTH=3
 ZIP_LIST_FOOTER_LENGTH=2
 
-alias rname="java edu.rpi.tw.string.NameFactory"
-#logID=`rname`
 logID=`java edu.rpi.tw.string.NameFactory`
 while [ $# -gt 0 ]; do
-   echo
-   echo ---------------------------------- punzip ---------------------------------------
+
    zip="$1"
    if [ ! -e $zip ]; then
       echo "$zip does not exist"
       shift
       continue
    fi
+
+   unzipper="unzip"
+   if [[ $zip =~ (\.gz$) ]]; then # NOTE: alternative: ${zip#*.} == "gz"
+      unzipper="gunzip"
+   fi 
+
+   # md5 this script
+   unzipperPath=`which $unzipper`
+   myMD5=""
+   unzipMD5=""
+   if [ `which md5` ]; then
+      # md5 outputs:
+      # MD5 (punzip.sh) = ecc71834c2b7d73f9616fb00adade0a4
+         myMD5="`md5 $0               | perl -pe 's/^.* = //'`"
+      unzipMD5="`md5 $unzipperPath    | perl -pe 's/^.* = //'`"
+   elif [ `which md5sum` ]; then
+         myMD5="`md5sum $0            | perl -pe 's/\s.*//'`"
+      unzipMD5="`md5sum $unzipperPath | perl -pe 's/\s.*//'`"
+   else
+      echo "`basename $0`: can not find md5 to md5 this script."
+   fi
+   echo "my md5: $myMD5"
+   echo "$unzipper's md5: $unzipMD5 ($unzipperPath)"
+   
+   echo
+   echo ---------------------------------- punzip ---------------------------------------
+
    if [ `man stat | grep 't timefmt' | wc -l` -gt 0 ]; then
       # mac version
       zipModDateTime=`stat -t "%Y-%m-%dT%H:%M:%S%z" $zip | awk '{gsub(/"/,"");print $9}' | sed 's/^\(.*\)\(..\)$/\1:\2/'`
@@ -74,13 +82,28 @@ while [ $# -gt 0 ]; do
       zipModDateTime=`stat -c "%y" $zip | sed -e 's/ /T/' -e 's/\..* / /' -e 's/ //' -e 's/\(..\)$/:\1/'`
    fi
 
-   listLength=`unzip -l "$zip" | wc -l`
-   let tailParam="$listLength-$ZIP_LIST_HEADER_LENGTH"
-   let numFiles="$listLength-5"
-
    usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'`
-   for file in `unzip -l "$zip" | tail -$tailParam | head -$numFiles | awk -v zip="$zip" -f $CSV2RDF4LOD_HOME/bin/util/punzip.awk`
+
+   if [ $unzipper == "unzip" ]; then
+      listLength=`unzip -l "$zip" | wc -l`
+      let tailParam="$listLength-$ZIP_LIST_HEADER_LENGTH"
+      let numFiles="$listLength-5"
+
+      # NOTE: the line below ACTUALLY uncompresses the file(s)
+      files=`unzip -l "$zip" | tail -$tailParam | head -$numFiles | awk -v zip="$zip" -f $CSV2RDF4LOD_HOME/bin/util/punzip.awk`
+   elif [ $unzipper == "gunzip" ]; then
+      files=${zip%.*}
+   else
+      echo "WARNING: no files processed b/c "
+      files=""
+   fi
+
+   for file in $files #`unzip -l "$zip" | tail -$tailParam | head -$numFiles | awk -v zip="$zip" -f $CSV2RDF4LOD_HOME/bin/util/punzip.awk`
    do
+      if [ $unzipper == "gunzip" ]; then
+         gunzip -c $zip > $file
+      fi
+
       echo $file came from $zip
       requestID=`java edu.rpi.tw.string.NameFactory`
       extractedFileMD5=`md5.sh $file`
@@ -137,7 +160,7 @@ while [ $# -gt 0 ]; do
       echo "      pmlj:hasIndex 0;"                                                      >> $file.pml.ttl
       echo "      pmlj:hasAntecedentList ( $zipNodeSet );"                               >> $file.pml.ttl
       echo "      pmlj:hasSourceUsage     $sourceUsage;"                                 >> $file.pml.ttl
-      echo "      pmlj:hasInferenceEngine conv:unzip_sh_md5_$punzipMD5;"                 >> $file.pml.ttl
+      echo "      pmlj:hasInferenceEngine conv:unzip_sh_md5_$myMD5;"                     >> $file.pml.ttl
       echo "      pmlj:hasInferenceRule   conv:spaceless_unzip;"                         >> $file.pml.ttl
       echo "      oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;">> $file.pml.ttl
       echo "      hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;">> $file.pml.ttl
@@ -149,14 +172,14 @@ while [ $# -gt 0 ]; do
       echo "   pmlj:hasConclusion <$zip>;"                                               >> $file.pml.ttl
       echo "."                                                                           >> $file.pml.ttl
       echo                                                                               >> $file.pml.ttl
-      echo "conv:unzip_sh_md5_$punzipMD5"                                                >> $file.pml.ttl
+      echo "conv:unzip_sh_md5_$myMD5"                                                    >> $file.pml.ttl
       echo "   a pmlp:InferenceEngine, conv:Unzip_sh;"                                   >> $file.pml.ttl
-      echo "   dcterms:identifier \"md5_$punzipMD5\";"                                   >> $file.pml.ttl
+      echo "   dcterms:identifier \"md5_$myMD5\";"                                       >> $file.pml.ttl
       echo "."                                                                           >> $file.pml.ttl
       echo                                                                               >> $file.pml.ttl
       echo "conv:Unzip_sh rdfs:subClassOf pmlp:InferenceEngine ."                        >> $file.pml.ttl
       echo                                                                               >> $file.pml.ttl
-      echo "conv:unzip_md5_$punzipMD5"                                                   >> $file.pml.ttl
+      echo "conv:unzip_md5_$myMD5"                                                       >> $file.pml.ttl
       echo "   a pmlp:InferenceEngine, conv:Unzip;"                                      >> $file.pml.ttl
       echo "   dcterms:identifier \"md5_$unzipMD5\";"                                    >> $file.pml.ttl
       echo "   nfo:hasHash <md5_$unzipMD5>;"                                             >> $file.pml.ttl
