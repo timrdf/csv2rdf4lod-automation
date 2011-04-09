@@ -34,7 +34,7 @@ BEGIN {
    # TODO: '|' has no length? --\/
           DELIMTER  = length(cellDelimiter) ? cellDelimiter : "	" # <--- that's a tab character.
    commentDELIMITER = length(cellDelimiter) ? ""            : "#";
-   print "#AWK: "length(cellDelimiter)" length cellDelimiter:",cellDelimiter," DELIMITER: ",DELIMITER," comment: ",commentDELIMITER
+   #print "#AWK: "length(cellDelimiter)" length cellDelimiter:",cellDelimiter," DELIMITER: ",DELIMITER," comment: ",commentDELIMITER
 
    if(length(showConversionProcess)) {
       print "@prefix rdf:           <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ."
