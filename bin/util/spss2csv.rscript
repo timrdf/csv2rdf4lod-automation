@@ -1,4 +1,17 @@
 #!/usr/bin/env Rscript
+#
+# Thanks to Jim McCusker for providing this code.
+#
+# Params:
+#   args[1] - input file name
+#   args[2] - output file name
+#
+# See:
+#   https://github.com/timrdf/csv2rdf4lod-automation/wiki/frbr:-CSHALS-2011-tutorial
+#   http://sparql.tw.rpi.edu/?page_id=57 - installing R.
+#   http://sparql.tw.rpi.edu/?page_id=66 - tutorial using R.
+#
+
 args = commandArgs(TRUE)
 library(foreign)
 data = read.spss(args[1])
