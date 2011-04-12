@@ -5,4 +5,5 @@
 # Notes:
 #   (vdelete usage: vload graph_uri)
 
-/opt/virtuoso/scripts/vdelete $* 
+# todo: use CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH
+sudo /opt/virtuoso/scripts/vdelete $* 
