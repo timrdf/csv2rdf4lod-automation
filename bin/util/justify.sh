@@ -7,16 +7,20 @@
 
 
 if [ $# -lt 3 -o $# -gt 4 ]; then
-   echo "usage: `basename $0` /path/to/source/a.xls /path/to/destination/a.xls.csv <engine-name>" 
+   echo "usage:   `basename $0` /path/to/source/a.xls /path/to/destination/a.xls.csv <engine-name>" 
    echo "or" 
    echo "usage: . `basename $0` /path/to/source/a.xls /path/to/destination/a.xls.csv <engine-name> [-h | --history]" 
-   echo "   source      file: a file used to create 'destination file'"
+   echo ""
+   echo "   source      file: a file used to create 'destination file'."
+   echo ""
    echo "   destination file: a file derived from 'source file'."
-   echo "   engine-name: (URI-friendly) e.g.:"
+   echo ""
+   echo "   engine-name     : URI-friendly local name of method used to create destination from source:"
    echo "      xls2csv,   tab2comma,     redelimit,            file_rename,   escaping_commas_redelimit"
    echo "      duplicate, google_refine, serialization_change, parse_field,   tabulating_fixed_width"
    echo "      html_tidy, pretty_print,  xsl_html_scrape,      manual_csvify, uncompress"
    echo "      select_subset, etc."
+   echo ""
    echo "   --history: search command history for the command that created 'destination-file' "
    echo "              from 'source-file' and include it in the provenance."
    echo "              NOTE: a period (.) must precede the `basename $0` command to access history."
@@ -68,6 +72,10 @@ logID=`java edu.rpi.tw.string.NameFactory`
    antecedent="$1"
    consequent="$2"
 
+   if [ ${3:-"."} == "-h" -o ${3:-"."} == "--history" ]; then
+      echo "ERROR: Requested -h --history, but did not specify <engine-name>."
+      exit 1
+   fi
    method="`echo $3 | awk '{print tolower($0)}'`"                                                           # e.g., 'serialization_change'
    method_name="conv:${method}_Method"                                                                      # e.g., 'serialization_change_Method'
    engine_type="conv:`echo $method | awk '{print toupper(substr($0,0,1)) substr($0,2,length($0))}'`_Engine" # e.g.  'Serialization_change_Engine
@@ -80,7 +88,7 @@ logID=`java edu.rpi.tw.string.NameFactory`
             # secondary approach: history -r $HOME/.bash_history
          else
             echo "    ERROR: `basename $0` could not access history. "
-            echo "    Precede call to `basename $0` with a period:"
+            echo "    Invoke `basename $0` with a period:"
             echo "    . `basename $0` $*"
             exit 1
          fi
