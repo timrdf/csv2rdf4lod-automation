@@ -45,7 +45,7 @@ BEGIN {
       print "@prefix todo:          <http://www.w3.org/2000/01/rdf-schema#> ."
       RDFS="todo"
    }
-   print "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."
+   print "@prefix xsd:           <http://www.w3.org/2001/XMLSchema#> ."
    if(length(conversionID)) {
       print "@prefix owl:           <http://www.w3.org/2002/07/owl#> ."
       print "@prefix vann:          <http://purl.org/vocab/vann/> ."
