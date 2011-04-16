@@ -96,7 +96,8 @@ paramsParams="$paramsParams -v whoami=`whoami` -v machine_uri=$CSV2RDF4LOD_CONVE
 paramsParams="$paramsParams -v nowXSD=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`"
 #echo "PARAMS PARAMS $paramsParams"
 
-#csvHeadersParams="--comment-character '${commentCharacter}' " # <-- causes data file to be named / 
+csvHeadersParams="--comment-character $commentCharacter --header-line ${header:-'1'} --delimiter $cellDelimiter" # <-- TODO: causes data file to be named / 
+csvHeadersParams="--header-line ${header:-'1'} --delimiter $cellDelimiter"
 
 #
 #
@@ -109,7 +110,7 @@ if [ $runEnhancement == "yes" ]; then
    TMP_ePARAMS="_"`basename $0``date +%s`_$$.tmp
 
    # NOTE: command done below, too.
-   java $csvHeadersClasspath $data $csvHeadersParams --header-line ${header:-"1"} --delimiter "$cellDelimiter" | awk -v conversionID="$eID" $paramsParams -f $h2p > $TMP_ePARAMS
+   java $csvHeadersClasspath $data $csvHeadersParams | awk -v conversionID="$eID" $paramsParams -f $h2p > $TMP_ePARAMS
 
    numTemplateTODOs=` grep "todo:Literal" $TMP_ePARAMS                           | wc -l` 
    numRemainingTODOs=`grep "todo:Literal" $eParamsDir/$datafile.e$eID.params.ttl | wc -l` 
@@ -153,7 +154,8 @@ fi
 
 # Regenerate raw parameters EACH TIME.
 #head -${header:-1} $data | tail -1 | awk                     $paramsParams -f $h2p > $destDir/$datafile.raw.params.ttl
-java $csvHeadersClasspath $data $csvHeadersParams --header-line ${header:-"1"} --delimiter "$cellDelimiter" | awk $paramsParams -f $h2p > $destDir/$datafile.raw.params.ttl
+echo "java $csvHeadersClasspath $data $csvHeadersParams"
+java $csvHeadersClasspath $data $csvHeadersParams | awk $paramsParams -f $h2p > $destDir/$datafile.raw.params.ttl
 
 # Generate the enhancement parameters only when not present.
 global=""
@@ -241,7 +243,7 @@ elif [ ! -e $eParamsDir/$datafile.e$eID.params.ttl ]; then # No global enhanceme
       echo "E$eID enhancement parameters missing; creating default template. Edit $eParamsDir/$datafile.e$eID.params.ttl and rerun to produce E$eID enhancement." | tee -a $CSV2RDF4LOD_LOG
 
       # NOTE: command also done above (when checking if e params are different from template provided).
-      java $csvHeadersClasspath $data $csvHeadersParams --header-line ${header:-"1"} --delimiter "$cellDelimiter" | awk -v conversionID="$eID" $paramsParams -f $h2p > $eParamsDir/$datafile.e$eID.params.ttl
+      java $csvHeadersClasspath $data $csvHeadersParams | awk -v conversionID="$eID" $paramsParams -f $h2p > $eParamsDir/$datafile.e$eID.params.ttl
    fi
 fi
 
@@ -265,7 +267,7 @@ if [ ${#converterJarPath} -eq 0 ]; then
    converterJarPath=$CSV2RDF4LOD_HOME/bin/dup/csv2rdf4lod.jar
 fi
 
-converterJarMD5=`$CSV2RDF4LOD_HOME/bin/util/md5.sh $converterJarPath`
+converterJarMD5="csv2rdf4lod_`$CSV2RDF4LOD_HOME/bin/util/md5.sh $converterJarPath`"
 
 #
 #
@@ -302,28 +304,34 @@ if [ ${#CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS} -eq 0 ]; then
    dumpExtensions=""
 fi
 
+#
+# Raw conversion?
+#
 if [ $runRaw == "yes" ]; then
    echo "RAW CONVERSION" | tee -a $CSV2RDF4LOD_LOG
 
    # Sample ------------------------------
    if [ ${CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS:-"2"} -gt 0 ]; then
-      $csv2rdf $data $sampleN -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.sample.ttl -id csv2rdf4lod_$converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      $csv2rdf $data $sampleN -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.sample.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       echo "Finished converting $sampleN examples rows." 2>&1 | tee -a $CSV2RDF4LOD_LOG
    fi
 
    # Full ------------------------------
-   $csv2rdf $data             -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl        -id csv2rdf4lod_$converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+   $csv2rdf $data             -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl        -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
 
-   # parse out meta from full
+   # Parse out meta from full
    $CSV2RDF4LOD_HOME/bin/util/grep-tail.sh $destDir/$datafile.raw.ttl > $destDir/$datafile.raw.void.ttl    # .-todo
 fi
 
+#
+# Enhancement conversion?
+#
 if [ $runEnhancement == "yes" ]; then
    echo "E$eID CONVERSION" | tee -a $CSV2RDF4LOD_LOG
 
    # Sample ------------------------------
    if [ ${CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS:-"2"} -gt 0 ]; then
-      $csv2rdf $data $sampleN -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.sample.ttl -id csv2rdf4lod_$converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      $csv2rdf $data $sampleN -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.sample.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       echo "Finished converting $sampleN examples rows." 2>&1 | tee -a $CSV2RDF4LOD_LOG
    fi
 
@@ -331,20 +339,28 @@ if [ $runEnhancement == "yes" ]; then
    if [ ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'" 2>&1 | tee -a $CSV2RDF4LOD_LOG
    else
-      $csv2rdf $data             -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl        -id csv2rdf4lod_$converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      $csv2rdf $data          -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl        -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       $CSV2RDF4LOD_HOME/bin/util/grep-tail.sh $destDir/$datafile.e$eID.ttl > $destDir/$datafile.e$eID.void.ttl # .-todo
+   fi
 
-      #provenance=`ls source/$extensionlessFilename*.pml.ttl | head -1 2> /dev/null`
-      #provenance=`find source -name "$extensionlessFilename*.pml.ttl" | wc -l`
-      #provParam="";
-      #if [ ${#provenance} -a -f $provenance ]; then
-      if [ -f $data.pml.ttl -a ${CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR:-"."} == "true" ]; then
-         provParam="-prov `pwd`/$data.pml.ttl"
-         echo "E$eID (PROV) $provParam" | tee -a $CSV2RDF4LOD_LOG
-         #$csv2rdf `pwd`/$data -ep `pwd`/$eParamsDir/$datafile.e$eID.params.ttl $provParam > $destDir/$extensionlessFilename.e$eID.pml.ttl
-         # LATEST, but makes a semi-verbatim copy of e1... $csv2rdf `pwd`/$data -ep `pwd`/$eParamsDir/$datafile.e$eID.params.ttl $provParam $overrideBaseURI -id csv2rdf4lod_$converterJarMD5 > $destDir/$datafile.e$eID.pml.ttl
-      fi
-   fi                                                                                                      # .-todo
+fi
+
+#
+# Provenance
+#
+#provenance=`ls source/$extensionlessFilename*.pml.ttl | head -1 2> /dev/null`
+#provenance=`find source -name "$extensionlessFilename*.pml.ttl" | wc -l`
+#if [ ${#provenance} -a -f $provenance ]; then
+if [ -f $data.pml.ttl -a ${CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR:-"."} == "true" ]; then
+   prov="-prov `pwd`/$data.pml.ttl"
+   echo "E$eID (PROV) $prov" | tee -a $CSV2RDF4LOD_LOG
+   #$csv2rdf `pwd`/$data -ep `pwd`/$eParamsDir/$datafile.e$eID.params.ttl $prov > $destDir/$extensionlessFilename.e$eID.pml.ttl
+   # LATEST, but makes a semi-verbatim copy of e1... 
+   #$csv2rdf `pwd`/$data -ep `pwd`/$eParamsDir/$datafile.e$eID.params.ttl $prov $overrideBaseURI -id $converterJarMD5 > $destDir/$datafile.e$eID.pml.ttl
+   echo $destDir/$datafile.e$eID.ttl.pml.ttl
+   $csv2rdf $data        -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $prov $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl.pml.ttl -id $converterJarMD5 > $destDir/$datafile.e$eID.ttl.pml.ttl # 2>&1 | tee -a $CSV2RDF4LOD_LOG
+else
+   echo "Skipping provenance pass: $data.pml.ttl and $CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR"
 fi
 
 
