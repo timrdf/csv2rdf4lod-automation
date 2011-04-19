@@ -1,3 +1,5 @@
+# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:i18n
+
 @prefix conversion: <http://purl.org/twc/vocab/conversion/> .
 
 [] conversion:conversion_process [
