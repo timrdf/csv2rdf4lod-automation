@@ -28,5 +28,21 @@
           conversion:symbol         "value-of"@en;
           conversion:interpretation "value-of"@es;
       ];
+      conversion:interpret [
+          conversion:symbol         "subset/meta"@en;
+          conversion:interpretation "subset/meta"@es;
+      ];
+      conversion:interpret [
+          conversion:symbol         "subset/sample"@en;
+          conversion:interpretation "subset/sample"@es;
+      ];
+      conversion:interpret [
+          conversion:symbol         "subset/sameas"@en;
+          conversion:interpretation "subset/sameas"@es;
+      ];
+      conversion:interpret [
+          conversion:symbol         "conversion"@en;
+          conversion:interpretation "conversion"@es;
+      ];
   ]
 ] .  
