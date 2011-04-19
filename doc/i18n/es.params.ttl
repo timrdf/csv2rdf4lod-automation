@@ -5,16 +5,16 @@
 [] conversion:conversion_process [
    conversion:i18n [
       conversion:interpret [
+          conversion:symbol         "source"@en;
+          conversion:interpretation "sourcia"@es
+      ];
+      conversion:interpret [
           conversion:symbol         "dataset"@en;
           conversion:interpretation "dataset"@es;
       ];
       conversion:interpret [
           conversion:symbol         "version"@en;
           conversion:interpretation "version"@es;
-      ];
-      conversion:interpret [
-          conversion:symbol         "source"@en;
-          conversion:interpretation "sourcia"@es
       ];
       conversion:interpret [
           conversion:symbol         "_page"@en;
