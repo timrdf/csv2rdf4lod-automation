@@ -16,7 +16,7 @@
       ];
       conversion:interpret [
           conversion:symbol         "_page"@en;
-          conversion:interpretation "_pagia"@es;
+          conversion:interpretation "_pagina"@es;
       ];
       conversion:interpret [
           conversion:symbol         "typed"@en;
