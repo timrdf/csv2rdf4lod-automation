@@ -1,0 +1,30 @@
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+
+[] conversion:conversion_process [
+   conversion:i18n [
+      conversion:interpret [
+          conversion:symbol         "dataset"@en;
+          conversion:interpretation "dataset"@es;
+      ];
+      conversion:interpret [
+          conversion:symbol         "version"@en;
+          conversion:interpretation "version"@es;
+      ];
+      conversion:interpret [
+          conversion:symbol         "source"@en;
+          conversion:interpretation "sourcia"@es
+      ];
+      conversion:interpret [
+          conversion:symbol         "_page"@en;
+          conversion:interpretation "_pagia"@es;
+      ];
+      conversion:interpret [
+          conversion:symbol         "typed"@en;
+          conversion:interpretation "typed"@es;
+      ];
+      conversion:interpret [
+          conversion:symbol         "value-of"@en;
+          conversion:interpretation "value-of"@es;
+      ];
+  ]
+] .  
