@@ -17,8 +17,8 @@
           conversion:interpretation "version"@es;
       ];
       conversion:interpret [
-          conversion:symbol         "_page"@en;
-          conversion:interpretation "_pagina"@es;
+          conversion:symbol         "conversion"@en;
+          conversion:interpretation "conversion"@es;
       ];
       conversion:interpret [
           conversion:symbol         "typed"@en;
@@ -41,12 +41,12 @@
           conversion:interpretation "subset/sameas"@es;
       ];
       conversion:interpret [
-          conversion:symbol         "conversion"@en;
-          conversion:interpretation "conversion"@es;
-      ];
-      conversion:interpret [
           conversion:symbol         "provenance"@en;
           conversion:interpretation "provenance"@es;
+      ];
+      conversion:interpret [
+          conversion:symbol         "_page"@en;
+          conversion:interpretation "_pagina"@es;
       ];
   ]
 ] .  
