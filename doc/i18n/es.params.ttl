@@ -44,5 +44,9 @@
           conversion:symbol         "conversion"@en;
           conversion:interpretation "conversion"@es;
       ];
+      conversion:interpret [
+          conversion:symbol         "provenance"@en;
+          conversion:interpretation "provenance"@es;
+      ];
   ]
 ] .  
