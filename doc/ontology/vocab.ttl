@@ -11,6 +11,9 @@
 @prefix pmlp:        <http://inference-web.org/2.0/pml-provenance.owl#> .
 @prefix pmlj:        <http://inference-web.org/2.0/pml-justification.owl#> .
 @prefix d2rq:        <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix vs:          <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix coin:        <http://purl.org/court/def/2009/coin#> .
+
 @base <http://purl.org/twc/vocab/conversion/> .
 
 <> a owl:Ontology ;
@@ -73,21 +76,21 @@ conv:DocumentState
 conv:HeaderRow
    a rdfs:Class ;
    rdfs:label "HeaderRow";
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:DataEndRow>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:HeaderRow>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
 conv:DataStartRow
    a rdfs:Class ;
    rdfs:label "DataStartRow";
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:DataStartRow>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:DataStartRow>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
 conv:DataEndRow
    a rdfs:Class ;
    rdfs:label "DataEndRow";
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:DataEndRow>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:DataEndRow>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
@@ -97,14 +100,14 @@ conv:delimits_cell
    rdfs:comment "The delimiter that should be used to separate cells in a row.";
    rdfs:domain conv:ConversionProcess;
    rdfs:range  rdfs:Literal;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:delimits_cell>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:delimits_cell>;
 .
 
 conv:delimits_object
    a rdf:Property ;
    rdfs:label "delimits_object";
    rdfs:comment "A regular expression specifiying how the object literal should be delimited to produce multiple object values.";
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:delimits_object>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:delimits_object>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
@@ -112,7 +115,7 @@ conv:Omitted
    a rdfs:Class ;
    rdfs:subClassOf conv:Enhancement ;
    rdfs:comment "Omit all triples from this column.";
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:Omitted>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:Omitted>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
@@ -120,7 +123,7 @@ conv:Only_if_column
    a rdfs:Class ;
    rdfs:subClassOf conv:Enhancement ;
    rdfs:comment "Omit triple if there is no value in the cell of the given column.";
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:Omitted>,
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:Only_if_column>,
                 d2rq:condition;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
@@ -230,7 +233,7 @@ conv:bundled_by
 #   rdfs:domain conv:BundleEnhancement ;
 #   rdfs:range conv:Bundle ;
    rdfs:range rdfs:Resource ;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:bundled_by>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:bundled_by>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
@@ -246,7 +249,7 @@ conv:domain_template
 	a rdf:Property ;
    rdfs:domain conv:SubjectEnhancement;
    rdfs:comment "Template to name the subject of the triple produced.";
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:domain_template>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:domain_template>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
@@ -268,7 +271,7 @@ conv:domain_name
 	rdfs:domain conv:SubjectEnhancement, conv:SubjectTypeEnhancement ;
 	rdfs:range rdfs:Literal ;
 	rdfs:comment "The local type that should be asserted for the subjects of raw triples." ;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:domain_name>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:domain_name>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
@@ -311,7 +314,7 @@ conv:comment
 	rdfs:domain conv:PropertyCommentEnhancement ;
 	rdfs:range rdfs:Literal ;
 	rdfs:comment "A comment (like rdfs:comment) that will be applied to the property created during conversion." ;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:comment>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:comment>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
@@ -339,7 +342,7 @@ conv:eg
 	a rdf:Property, owl:AnnotationProperty ;
    rdfs:domain conv:ObjectEnhancement;
    rdfs:comment "Example value from a cell in the column for this ColumnEnhancement.";
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:eg>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:eg>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
@@ -347,7 +350,7 @@ conv:Repeat_previous_if_empty_column
    a rdfs:Class ;
    rdfs:subClassOf conv:Enhancement ;
    rdfs:comment "Repeat value of last non-empty cell in this column for the current cell.";
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:Repeat_previous_if_empty_column>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:Repeat_previous_if_empty_column>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
@@ -640,6 +643,12 @@ conv:version_identifier
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
+conv:dataset_version
+   rdfs:seeAlso conv:version_identifier;
+   vs:term_status "archaic";
+   vs:moreinfo <https://github.com/timrdf/csv2rdf4lod-automation/wiki/DEPRECATING:-conversion:dataset_version>;
+.
+
 ### basic connectivity.
 
 conv:conversion_process 
@@ -675,7 +684,7 @@ conv:range_name
 	a rdf:Property ;
 	rdfs:range rdfs:Literal ;
 	rdfs:comment "The local name of an internal class." ;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:range_name>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:range_name>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
@@ -706,7 +715,7 @@ conv:multiplier
    a rdf:Property ;
    rdfs:domain conv:MultiplierEnhancement ;
    rdfs:range rdfs:Literal ;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:multiplier> ;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:multiplier> ;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
@@ -737,7 +746,7 @@ conv:class_name
    a rdf:Property ;
    rdfs:domain conv:SubClassEnhancement; 
    rdfs:range rdfs:Literal ;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subclass_of>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subclass_of>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
@@ -754,7 +763,7 @@ conv:subproperty_of
    a rdf:Property ;
    rdfs:domain conv:SubPropertyEnhancement ;
    rdfs:comment "The external property that is a super property of the local property named by :property_name" ;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subproperty_of>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subproperty_of>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .	
 
@@ -762,21 +771,21 @@ conv:subclass_of
    a rdf:Property ;
    rdfs:domain conv:SubClassEnhancement; 
    rdfs:range rdfs:Class ;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subclass_of>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subclass_of>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
 conv:links_via
    a rdf:Property ;
    rdfs:range rdfs:Resource ;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:links_via>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:links_via>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
 conv:subject_of
    a rdf:Property ;
    rdfs:range rdfs:Resource ;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subject_of>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subject_of>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
@@ -785,7 +794,7 @@ conv:date_pattern
    rdfs:domain conv:DatePromotionEnhancement ;
    rdfs:domain [ owl:onProperty conversion:range; owl:hasValue xsd:date; a owl:Restriction ] ;
    rdfs:range rdfs:Literal ;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:date_pattern>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:date_pattern>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
@@ -793,7 +802,7 @@ conv:datetime_pattern
    a rdf:Property ;
    rdfs:domain conv:DateTimePromotionEnhancement ;
    rdfs:range rdfs:Literal ;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:datetime_pattern>;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:datetime_pattern>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
@@ -963,5 +972,10 @@ conv:interpret
 conv:key_template
    a rdf:Property;
    rdfs:label "key template";
+   vs:term_status "archaic";
    rdfs:comment "deprecated; use conv:domain_template";
+.
+
+coin:slug
+   rdfs:seeAlso <http://codex.wordpress.org/Glossary#Slug>
 .
