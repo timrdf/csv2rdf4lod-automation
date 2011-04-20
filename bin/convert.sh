@@ -47,6 +47,10 @@ if [ ! -e publish/lod-mat ]; then
    mkdir -p publish/lod-mat
 fi
 
+# People like to kill sample named graph loading, leaving _pvload* hanging around.
+
+rm _pvload.sh*.ttl _pvload.sh*.nt &> /dev/null
+
 #
 #
 # Decide if raw or an enhancement conversion should be performed.
