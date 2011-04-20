@@ -380,7 +380,7 @@ pcurl.sh http://www.data.gov/download/1554/csv -n 1554 -e csv}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{855.086, 1100.98}, {71, 18}}</string>
+			<string>{{855.087, 1100.98}, {71, 18}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -572,7 +572,7 @@ pcurl.sh http://www.data.gov/download/1554/csv -n 1554 -e csv}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{643.123, 287.539}, {90, 18}}</string>
+			<string>{{643.123, 287.792}, {90, 18}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -636,7 +636,7 @@ pcurl.sh http://www.data.gov/download/1554/csv -n 1554 -e csv}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{475.353, 323.061}, {137, 18}}</string>
+			<string>{{475.354, 323.061}, {137, 18}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -1212,7 +1212,7 @@ pcurl.sh http://www.data.gov/download/1554/csv -n 1554 -e csv}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{476.912, 553.741}, {107, 18}}</string>
+			<string>{{476.9, 553.741}, {107, 18}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -1532,7 +1532,7 @@ pcurl.sh http://www.data.gov/download/1554/csv -n 1554 -e csv}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{287.974, 1279.6}, {102, 18}}</string>
+			<string>{{287.968, 1279.6}, {102, 18}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -3915,7 +3915,7 @@ pcurl.sh http://www.data.gov/download/1554/csv -n 1554 -e csv}</string>
 			<key>Points</key>
 			<array>
 				<string>{874.452, 1082.22}</string>
-				<string>{750.065, 1157.75}</string>
+				<string>{750.066, 1157.75}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -4043,7 +4043,7 @@ pcurl.sh http://www.data.gov/download/1554/csv -n 1554 -e csv}</string>
 			<key>Points</key>
 			<array>
 				<string>{889.595, 1082.22}</string>
-				<string>{892.292, 1157.75}</string>
+				<string>{892.293, 1157.75}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -4228,7 +4228,7 @@ pcurl.sh http://www.data.gov/download/1554/csv -n 1554 -e csv}</string>
 			<key>Points</key>
 			<array>
 				<string>{528.291, 880.302}</string>
-				<string>{530.069, 835.885}</string>
+				<string>{530.07, 835.885}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -4355,8 +4355,8 @@ pcurl.sh http://www.data.gov/download/1554/csv -n 1554 -e csv}</string>
 \f0\fs22 \cf0 pmlp:hasSource}</string>
 			<key>Points</key>
 			<array>
-				<string>{627.538, 296.104}</string>
-				<string>{767.614, 297.11}</string>
+				<string>{627.538, 296.25}</string>
+				<string>{767.614, 297.502}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -4411,8 +4411,8 @@ pcurl.sh http://www.data.gov/download/1554/csv -n 1554 -e csv}</string>
 \f0\fs22 \cf0 pmlp:hasUsageDateTime}</string>
 			<key>Points</key>
 			<array>
-				<string>{544.079, 317.007}</string>
-				<string>{543.483, 356.597}</string>
+				<string>{544.08, 317.007}</string>
+				<string>{543.485, 356.597}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -5222,8 +5222,8 @@ Connection: keep-alive
 \f0\fs22 \cf0 pmlp:hasRawString}</string>
 			<key>Points</key>
 			<array>
-				<string>{530.403, 583.742}</string>
-				<string>{530.424, 535.187}</string>
+				<string>{530.399, 583.742}</string>
+				<string>{530.401, 535.187}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -5678,8 +5678,8 @@ Date: Fri, 25 Feb 2011 13:08:08 GMT
 \f0\fs22 \cf0 purldc:description}</string>
 			<key>Points</key>
 			<array>
-				<string>{338.528, 1267.59}</string>
-				<string>{339.559, 1316.16}</string>
+				<string>{338.526, 1267.59}</string>
+				<string>{339.548, 1316.16}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -6621,7 +6621,7 @@ Features: GSS-Negotiate IPv6 Largefile NTLM SSL libz __value</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2011-02-25 09:41:09 -0500</string>
+	<string>2011-02-25 13:30:19 -0500</string>
 	<key>Modifier</key>
 	<string>lebot</string>
 	<key>NotesVisible</key>
@@ -6699,7 +6699,7 @@ Features: GSS-Negotiate IPv6 Largefile NTLM SSL libz __value</string>
 			</dict>
 		</array>
 		<key>Frame</key>
-		<string>{{21, 71}, {1346, 1507}}</string>
+		<string>{{462, 395}, {1659, 968}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
@@ -6707,19 +6707,19 @@ Features: GSS-Negotiate IPv6 Largefile NTLM SSL libz __value</string>
 		<key>RightSidebar</key>
 		<false/>
 		<key>Sidebar</key>
-		<true/>
+		<false/>
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{-45.0385, 0.961538}, {1178.85, 1358.65}}</string>
+		<string>{{-140.333, 10.8333}, {1370, 761.667}}</string>
 		<key>Zoom</key>
-		<real>1.0399999618530273</real>
+		<real>1.2000000476837158</real>
 		<key>ZoomValues</key>
 		<array>
 			<array>
 				<string>Canvas 1</string>
+				<real>1.2000000476837158</real>
 				<real>1.0399999618530273</real>
-				<real>1</real>
 			</array>
 		</array>
 	</dict>

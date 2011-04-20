@@ -22,9 +22,8 @@
    sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
 .
 
-<http://www.data.gov/download/1554/csv>
+<http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv>
    a pmlp:Source;
-   irw:redirectsTo <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv>;
 .
 
 <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv>
@@ -34,90 +33,49 @@
 
 <1554.csv>
    a pmlp:Information;
-   pmlp:hasReferenceSourceUsage <sourceUsage_5b661e34-f694-447c-9fb6-719d375cdddb_content>;
+   pmlp:hasReferenceSourceUsage <sourceUsage_39e25866-0d46-45fe-a92a-9cb78eea4178_content>;
 .
 <1554.csv>
    a pmlp:Information;
-   nfo:hasHash <md5_45cde266f2105dae7e94733acfa2b8a5_time_1299305508>;
+   nfo:hasHash <md5_45cde266f2105dae7e94733acfa2b8a5_time_1299306329>;
 .
-<md5_45cde266f2105dae7e94733acfa2b8a5_time_1299305508>
+<md5_45cde266f2105dae7e94733acfa2b8a5_time_1299306329>
    a nfo:FileHash; 
-   dcterms:date "2011-03-05T01:11:48-05:00"^^xsd:dateTime;
+   dcterms:date "2011-03-05T01:25:29-05:00"^^xsd:dateTime;
    nfo:hashAlgorithm "md5";
    nfo:hashValue "45cde266f2105dae7e94733acfa2b8a5";
 .
 
-<nodeSet_5b661e34-f694-447c-9fb6-719d375cdddb_content>
+<nodeSet_39e25866-0d46-45fe-a92a-9cb78eea4178_content>
    a pmlj:NodeSet;
    pmlj:hasConclusion <1554.csv>;
-   pmlj:isConsequentOf <inferenceStep_5b661e34-f694-447c-9fb6-719d375cdddb_content>;
+   pmlj:isConsequentOf <inferenceStep_39e25866-0d46-45fe-a92a-9cb78eea4178_content>;
 .
-<inferenceStep_5b661e34-f694-447c-9fb6-719d375cdddb_content>
+<inferenceStep_39e25866-0d46-45fe-a92a-9cb78eea4178_content>
    a pmlj:InferenceStep;
    pmlj:hasIndex 0;
    pmlj:hasAntecedentList ();
-   pmlj:hasSourceUsage     <sourceUsage_5b661e34-f694-447c-9fb6-719d375cdddb_content>;
+   pmlj:hasSourceUsage     <sourceUsage_39e25866-0d46-45fe-a92a-9cb78eea4178_content>;
    pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
    pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;
    oboro:has_agent          <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
    hartigprov:involvedActor <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
 .
 
-<sourceUsage_5b661e34-f694-447c-9fb6-719d375cdddb_content>
+<sourceUsage_39e25866-0d46-45fe-a92a-9cb78eea4178_content>
    a pmlp:SourceUsage;
    pmlp:hasSource        <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv>;
-   pmlp:hasUsageDateTime "2011-03-05T01:11:47-05:00"^^xsd:dateTime;
+   pmlp:hasUsageDateTime "2011-03-05T01:25:28-05:00"^^xsd:dateTime;
 .
 
-<wasControlledBy_5b661e34-f694-447c-9fb6-719d375cdddb_content>
+<wasControlledBy_39e25866-0d46-45fe-a92a-9cb78eea4178_content>
    a oprov:WasControlledBy;
    oprov:cause  <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
-   oprov:effect <inferenceStep_5b661e34-f694-447c-9fb6-719d375cdddb_content>;
-   oprov:endTime "2011-03-05T01:11:47-05:00"^^xsd:dateTime;
+   oprov:effect <inferenceStep_39e25866-0d46-45fe-a92a-9cb78eea4178_content>;
+   oprov:endTime "2011-03-05T01:25:28-05:00"^^xsd:dateTime;
 .
  
-<info_5b661e34-f694-447c-9fb6-719d375cdddb_url_header>
-   a pmlp:Information, conv:HTTPHeader;
-   pmlp:hasRawString """HTTP/1.1 302 Moved Temporarily
-Server: Microsoft-IIS/6.0
-X-Powered-By: PHP/5.2.9
-Location: http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv
-Content-Type: text/html
-Date: Sat, 05 Mar 2011 06:11:46 GMT
-Connection: keep-alive
-""";
-   pmlp:hasReferenceSourceUsage <sourceUsage_5b661e34-f694-447c-9fb6-719d375cdddb_url_header>;
-.
- 
-<nodeSet_5b661e34-f694-447c-9fb6-719d375cdddb_url_header>
-   a pmlj:NodeSet;
-   pmlj:hasConclusion <info_5b661e34-f694-447c-9fb6-719d375cdddb_url_header>;
-   pmlj:isConsequentOf <inferenceStep_5b661e34-f694-447c-9fb6-719d375cdddb_url_header>;
-.
-<inferenceStep_5b661e34-f694-447c-9fb6-719d375cdddb_url_header>
-   a pmlj:InferenceStep;
-   pmlj:hasIndex 0;
-   pmlj:hasAntecedentList ();
-   pmlj:hasSourceUsage     <sourceUsage_5b661e34-f694-447c-9fb6-719d375cdddb_url_header>;
-   pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
-   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;
-   oboro:has_agent          <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
-   hartigprov:involvedActor <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
-.
-
-<sourceUsage_5b661e34-f694-447c-9fb6-719d375cdddb_url_header>
-   a pmlp:SourceUsage;
-   pmlp:hasSource        <http://www.data.gov/download/1554/csv>;
-   pmlp:hasUsageDateTime "2011-03-05T01:11:47-05:00"^^xsd:dateTime;
-.
-<wasControlledBy_5b661e34-f694-447c-9fb6-719d375cdddb_url_header>
-   a oprov:WasControlledBy;
-   oprov:cause  <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
-   oprov:effect <nodeSet_5b661e34-f694-447c-9fb6-719d375cdddb_url_header>;
-   oprov:endTime "2011-03-05T01:11:47-05:00"^^xsd:dateTime;
-.
-
-<info_5b661e34-f694-447c-9fb6-719d375cdddb_redirected_url_header>
+<info_39e25866-0d46-45fe-a92a-9cb78eea4178_url_header>
    a pmlp:Information, conv:HTTPHeader;
    pmlp:hasRawString """HTTP/1.1 200 OK
 Content-Length: 446436
@@ -126,38 +84,39 @@ Last-Modified: Wed, 12 Jan 2011 15:31:18 GMT
 Accept-Ranges: bytes
 ETag: "027a2c16db2cb1:1629"
 Server: Microsoft-IIS/6.0
-Date: Sat, 05 Mar 2011 05:51:52 GMT
+Date: Sat, 05 Mar 2011 06:05:33 GMT
 """;
-   pmlp:hasReferenceSourceUsage <sourceUsage_5b661e34-f694-447c-9fb6-719d375cdddb_redirected_url_header>;
+   pmlp:hasReferenceSourceUsage <sourceUsage_39e25866-0d46-45fe-a92a-9cb78eea4178_url_header>;
 .
-
-<nodeSet_5b661e34-f694-447c-9fb6-719d375cdddb_redirected_url_header>
+ 
+<nodeSet_39e25866-0d46-45fe-a92a-9cb78eea4178_url_header>
    a pmlj:NodeSet;
-   pmlj:hasConclusion <info_5b661e34-f694-447c-9fb6-719d375cdddb_redirected_url_header>;
-   pmlj:isConsequentOf <inferenceStep_5b661e34-f694-447c-9fb6-719d375cdddb_redirected_url_header>;
+   pmlj:hasConclusion <info_39e25866-0d46-45fe-a92a-9cb78eea4178_url_header>;
+   pmlj:isConsequentOf <inferenceStep_39e25866-0d46-45fe-a92a-9cb78eea4178_url_header>;
 .
-<inferenceStep_5b661e34-f694-447c-9fb6-719d375cdddb_redirected_url_header>
+<inferenceStep_39e25866-0d46-45fe-a92a-9cb78eea4178_url_header>
    a pmlj:InferenceStep;
    pmlj:hasIndex 0;
    pmlj:hasAntecedentList ();
-   pmlj:hasSourceUsage     <sourceUsage_5b661e34-f694-447c-9fb6-719d375cdddb_redirected_url_header>;
+   pmlj:hasSourceUsage     <sourceUsage_39e25866-0d46-45fe-a92a-9cb78eea4178_url_header>;
    pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
    pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;
    oboro:has_agent          <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
    hartigprov:involvedActor <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
 .
 
-<sourceUsage_5b661e34-f694-447c-9fb6-719d375cdddb_redirected_url_header>
+<sourceUsage_39e25866-0d46-45fe-a92a-9cb78eea4178_url_header>
    a pmlp:SourceUsage;
    pmlp:hasSource        <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv>;
-   pmlp:hasUsageDateTime "2011-03-05T01:11:47-05:00"^^xsd:dateTime;
+   pmlp:hasUsageDateTime "2011-03-05T01:25:28-05:00"^^xsd:dateTime;
 .
-<wasControlledBy_5b661e34-f694-447c-9fb6-719d375cdddb_redirected_url_header>
+<wasControlledBy_39e25866-0d46-45fe-a92a-9cb78eea4178_url_header>
    a oprov:WasControlledBy;
    oprov:cause  <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
-   oprov:effect <inferenceStep_5b661e34-f694-447c-9fb6-719d375cdddb_redirected_url_header>;
-   oprov:endTime "2011-03-05T01:11:47-05:00"^^xsd:dateTime;
+   oprov:effect <nodeSet_39e25866-0d46-45fe-a92a-9cb78eea4178_url_header>;
+   oprov:endTime "2011-03-05T01:25:28-05:00"^^xsd:dateTime;
 .
+
 
 conv:curl_md5_5670dffdc5533a4c57243fc97b19a654
    a pmlp:InferenceEngine, conv:Curl;
