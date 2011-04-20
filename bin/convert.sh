@@ -95,7 +95,7 @@ paramsParams="$paramsParams -v subjectDiscriminator=$subjectDiscriminator -v dat
 paramsParams="$paramsParams -v whoami=`whoami` -v machine_uri=$CSV2RDF4LOD_CONVERT_MACHINE_URI -v person_uri=$CSV2RDF4LOD_CONVERT_PERSON_URI"
 paramsParams="$paramsParams -v nowXSD=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`"
 if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
-   echo "FINEST: h2p params: $paramsParams"
+   echo "FINEST: h2p params: $paramsParams" | tee -a $CSV2RDF4LOD_LOG
 fi
 
 csvHeadersParams="--comment-character $commentCharacter --header-line ${header:-'1'} --delimiter $cellDelimiter" # <-- TODO: causes data file to be named / 
