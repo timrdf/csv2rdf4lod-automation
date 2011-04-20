@@ -159,7 +159,7 @@ BEGIN {
                                     printf("      conversion:enhance [      \n");
                                     printf("         ov:csvRow %s;\n",header);
                                     printf("         a conversion:HeaderRow;\n");
-                                    printf("      ];                        \n");
+                                    printf("      ];                        \n\n");
    }
    if(length(dataStart)) {
                                     printf("      conversion:enhance [          \n");
