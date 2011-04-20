@@ -153,8 +153,6 @@ fi
 #
 
 # Regenerate raw parameters EACH TIME.
-#head -${header:-1} $data | tail -1 | awk                     $paramsParams -f $h2p > $destDir/$datafile.raw.params.ttl
-echo "java $csvHeadersClasspath $data $csvHeadersParams"
 java $csvHeadersClasspath $data $csvHeadersParams | awk $paramsParams -f $h2p > $destDir/$datafile.raw.params.ttl
 
 # Generate the enhancement parameters only when not present.
