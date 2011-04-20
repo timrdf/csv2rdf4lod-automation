@@ -70,9 +70,10 @@ if [ ! -d $version ]; then
    mkdir -p $version/source
 
    pushd $version/source &> /dev/null
-      pcurl.sh $url
       touch .__CSV2RDF4LOD_retrieval
+      pcurl.sh $url
       if [ `ls *.gz *.zip 2> /dev/null | wc -l` -gt 0 ]; then
+         touch .__CSV2RDF4LOD_retrieval
          for zip in `ls *.gz *.zip 2> /dev/null`; do
             punzip.sh $zip
          done
@@ -85,6 +86,7 @@ if [ ! -d $version ]; then
 
       files=`find source -newer source/.__CSV2RDF4LOD_retrieval -type f | grep -v "pml.ttl$"`
 
+      echo files: $files
       cr-create-convert-sh.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
 
       ./*.sh # produce raw layer
