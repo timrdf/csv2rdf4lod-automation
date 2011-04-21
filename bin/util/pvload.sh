@@ -155,7 +155,7 @@ while [ $# -gt 0 ]; do
       $assudo $vload ttl ${TEMP}${unzipped}.load.pml.ttl   $named_graph 2>&1 | grep -v "Loading triples into graph"             
       #cat /tmp/virtuoso-tmp/vload.log
    fi
-   rm -f ${TEMP}${unzipped} ${TEMP}.pml.ttl ${TEMP}${unzipped}.nt ${TEMP}${unzipped}.load.pml.ttl
+   rm -f ${TEMP}${unzipped} ${TEMP}.pml.ttl ${TEMP}${unzipped}.nt ${TEMP}${unzipped}.load.pml.ttl #
 
    shift
 done
