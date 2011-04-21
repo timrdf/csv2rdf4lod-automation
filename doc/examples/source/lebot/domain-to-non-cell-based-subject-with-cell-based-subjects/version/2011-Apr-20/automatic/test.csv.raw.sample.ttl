@@ -1,0 +1,834 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd2: <http://www.w3.org/TR/xmlschema-2/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix tw_service: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/> .
+@prefix tw_converter: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Apr-13/> .
+@prefix provenance: <http://logd.tw.rpi.edu/source/lebot/provenance/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix ov: <http://open.vocab.org/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix sdmx: <http://purl.org/linked-data/cube#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix lebot_vocab: <http://logd.tw.rpi.edu/source/lebot/vocab/> .
+@prefix base_vocab: <http://logd.tw.rpi.edu/vocab/> .
+@prefix local_vocab: <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/vocab/> .
+@prefix raw: <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/vocab/raw/> .
+@prefix : <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/> .
+@prefix ns1: <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+raw:tagid a rdf:Property ;
+	ov:csvCol "1"^^xsd:integer ;
+	ov:csvHeader "tagID" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "tagID" ;
+	rdfs:range rdfs:Literal .
+
+raw:name a rdf:Property ;
+	ov:csvCol "2"^^xsd:integer ;
+	ov:csvHeader "name" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "name" ;
+	rdfs:range rdfs:Literal .
+
+raw:num_legs a rdf:Property ;
+	ov:csvCol "3"^^xsd:integer ;
+	ov:csvHeader "num legs" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "num legs" ;
+	rdfs:range rdfs:Literal .
+
+raw:p_2008 a rdf:Property ;
+	ov:csvCol "4"^^xsd:integer ;
+	ov:csvHeader "2008" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "p_2008" ;
+	rdfs:range rdfs:Literal .
+
+raw:p_2009 a rdf:Property ;
+	ov:csvCol "5"^^xsd:integer ;
+	ov:csvHeader "2009" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "p_2009" ;
+	rdfs:range rdfs:Literal .
+
+raw:p_2010 a rdf:Property ;
+	ov:csvCol "6"^^xsd:integer ;
+	ov:csvHeader "2010" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "p_2010" ;
+	rdfs:range rdfs:Literal .
+
+raw:p_2011 a rdf:Property ;
+	ov:csvCol "7"^^xsd:integer ;
+	ov:csvHeader "2011" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "p_2011" ;
+	rdfs:range rdfs:Literal .
+
+:thing_2 dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20> ;
+	raw:tagid "tag78" ;
+	raw:name "Fluffy" ;
+	raw:num_legs "4" ;
+	raw:p_2008 "10" ;
+	raw:p_2009 "11" ;
+	raw:p_2010 "12" ;
+	raw:p_2011 "13" ;
+	ov:csvRow "2"^^xsd:integer .
+
+:thing_3 dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20> ;
+	raw:tagid "tag79" ;
+	raw:name "Polly" ;
+	raw:num_legs "2" ;
+	raw:p_2008 "-" ;
+	raw:p_2009 "" ;
+	raw:p_2010 "1" ;
+	raw:p_2011 "2" ;
+	ov:csvRow "3"^^xsd:integer .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd2: <http://www.w3.org/TR/xmlschema-2/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix tw_service: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/> .
+@prefix tw_converter: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Apr-13/> .
+@prefix provenance: <http://logd.tw.rpi.edu/source/lebot/provenance/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix ov: <http://open.vocab.org/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix sdmx: <http://purl.org/linked-data/cube#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix lebot_vocab: <http://logd.tw.rpi.edu/source/lebot/vocab/> .
+@prefix base_vocab: <http://logd.tw.rpi.edu/vocab/> .
+@prefix local_vocab: <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/vocab/> .
+@prefix raw: <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/vocab/raw/> .
+@prefix : <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/> .
+@prefix ns1: <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+_:node15tpjn7pix2 vann:preferredNamespacePrefix "rdf" ;
+	vann:preferredNamespaceUri "http://www.w3.org/1999/02/22-rdf-syntax-ns#" .
+
+_:node15tpjn7pix3 vann:preferredNamespacePrefix "rdfs" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2000/01/rdf-schema#" .
+
+_:node15tpjn7pix4 vann:preferredNamespacePrefix "xsd" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2001/XMLSchema#" .
+
+_:node15tpjn7pix5 vann:preferredNamespacePrefix "xsd2" ;
+	vann:preferredNamespaceUri "http://www.w3.org/TR/xmlschema-2/#" .
+
+_:node15tpjn7pix6 vann:preferredNamespacePrefix "owl" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2002/07/owl#" .
+
+_:node15tpjn7pix7 vann:preferredNamespacePrefix "pmlp" ;
+	vann:preferredNamespaceUri "http://inference-web.org/2.0/pml-provenance.owl#" .
+
+_:node15tpjn7pix8 vann:preferredNamespacePrefix "pmlj" ;
+	vann:preferredNamespaceUri "http://inference-web.org/2.0/pml-justification.owl#" .
+
+_:node15tpjn7pix9 vann:preferredNamespacePrefix "tw_service" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/tw-rpi-edu/service/" .
+
+_:node15tpjn7pix10 vann:preferredNamespacePrefix "tw_converter" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Apr-13/" .
+
+_:node15tpjn7pix11 vann:preferredNamespacePrefix "provenance" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/lebot/provenance/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw/" .
+
+_:node15tpjn7pix12 vann:preferredNamespacePrefix "conversion" ;
+	vann:preferredNamespaceUri "http://purl.org/twc/vocab/conversion/" .
+
+_:node15tpjn7pix13 vann:preferredNamespacePrefix "ov" ;
+	vann:preferredNamespaceUri "http://open.vocab.org/terms/" .
+
+_:node15tpjn7pix14 vann:preferredNamespacePrefix "dcterms" ;
+	vann:preferredNamespaceUri "http://purl.org/dc/terms/" .
+
+_:node15tpjn7pix15 vann:preferredNamespacePrefix "foaf" ;
+	vann:preferredNamespaceUri "http://xmlns.com/foaf/0.1/" .
+
+_:node15tpjn7pix16 vann:preferredNamespacePrefix "void" ;
+	vann:preferredNamespaceUri "http://rdfs.org/ns/void#" .
+
+_:node15tpjn7pix17 vann:preferredNamespacePrefix "doap" ;
+	vann:preferredNamespaceUri "http://usefulinc.com/ns/doap#" .
+
+_:node15tpjn7pix18 vann:preferredNamespacePrefix "scovo" ;
+	vann:preferredNamespaceUri "http://purl.org/NET/scovo#" .
+
+_:node15tpjn7pix19 vann:preferredNamespacePrefix "sdmx" ;
+	vann:preferredNamespaceUri "http://purl.org/linked-data/cube#" .
+
+_:node15tpjn7pix20 vann:preferredNamespacePrefix "vann" ;
+	vann:preferredNamespaceUri "http://purl.org/vocab/vann/" .
+
+_:node15tpjn7pix21 vann:preferredNamespacePrefix "lebot_vocab" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/lebot/vocab/" .
+
+_:node15tpjn7pix22 vann:preferredNamespacePrefix "base_vocab" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/vocab/" .
+
+_:node15tpjn7pix23 vann:preferredNamespacePrefix "local_vocab" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/vocab/" .
+
+_:node15tpjn7pix24 vann:preferredNamespacePrefix "raw" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/vocab/raw/" .
+
+_:node15tpjn7pix25 vann:preferredNamespacePrefix "" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/" .
+
+_:node15tpjn7pix26 vann:preferredNamespacePrefix "_global_value" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/" .
+
+_:node15tpjn7pix27 vann:preferredNamespacePrefix "sioc" ;
+	vann:preferredNamespaceUri "http://rdfs.org/sioc/ns#" .
+
+_:node15tpjn7pix1 rdfs:seeAlso _:node15tpjn7pix2 , _:node15tpjn7pix3 , _:node15tpjn7pix4 , _:node15tpjn7pix5 , _:node15tpjn7pix6 , _:node15tpjn7pix7 , _:node15tpjn7pix8 , _:node15tpjn7pix9 , _:node15tpjn7pix10 , _:node15tpjn7pix11 , _:node15tpjn7pix12 , _:node15tpjn7pix13 , _:node15tpjn7pix14 , _:node15tpjn7pix15 , _:node15tpjn7pix16 , _:node15tpjn7pix17 , _:node15tpjn7pix18 , _:node15tpjn7pix19 , _:node15tpjn7pix20 , _:node15tpjn7pix21 , _:node15tpjn7pix22 , _:node15tpjn7pix23 , _:node15tpjn7pix24 , _:node15tpjn7pix25 , _:node15tpjn7pix26 , _:node15tpjn7pix27 .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects> a lebot_vocab:Dataset , conversion:Dataset , conversion:AbstractDataset , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "lebot" ;
+	conversion:dataset_identifier "domain-to-non-cell-based-subject-with-cell-based-subjects" ;
+	dcterms:contributor <http://logd.tw.rpi.edu/source/lebot> ;
+	dcterms:identifier "lebot domain-to-non-cell-based-subject-with-cell-based-subjects" ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/lebot/dataset_page/domain-to-non-cell-based-subject-with-cell-based-subjects> ;
+	void:subset <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20> , <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/subset/meta> ;
+	dcterms:modified "2011-04-20T10:06:18.606-05:00"^^xsd:dateTime .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20> a lebot_vocab:Dataset , conversion:Dataset , conversion:VersionedDataset , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "lebot" ;
+	conversion:dataset_identifier "domain-to-non-cell-based-subject-with-cell-based-subjects" ;
+	conversion:version_identifier "2011-Apr-20" ;
+	conversion:dataset_version "2011-Apr-20" ;
+	dcterms:contributor <http://logd.tw.rpi.edu/source/lebot> ;
+	dcterms:identifier "lebot domain-to-non-cell-based-subject-with-cell-based-subjects 2011-Apr-20" ;
+	dcterms:modified "2011-04-20T10:06:18.606-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/lebot/dataset_page/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.ttl.gz> ;
+	void:subset <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> a lebot_vocab:Dataset , conversion:Dataset , conversion:LayerDataset , void:Dataset ;
+	dcterms:modified "2011-04-20T10:06:18.606-05:00"^^xsd:dateTime ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "lebot" ;
+	conversion:dataset_identifier "domain-to-non-cell-based-subject-with-cell-based-subjects" ;
+	conversion:version_identifier "2011-Apr-20" ;
+	conversion:dataset_version "2011-Apr-20" ;
+	conversion:conversion_identifier "raw" ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/lebot/dataset_page/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.raw.ttl.gz> ;
+	void:subset <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw/subset/sample> ;
+	dcterms:created "2011-04-20T10:06:18.495-05:00"^^xsd:dateTime ;
+	dcterms:contributor <http://logd.tw.rpi.edu/source/lebot> ;
+	dcterms:identifier "lebot domain-to-non-cell-based-subject-with-cell-based-subjects 2011-Apr-20 raw" ;
+	conversion:uses_predicate raw:p_2011 , raw:p_2010 , raw:p_2009 , raw:p_2008 , raw:num_legs , raw:name , raw:tagid ;
+	void:exampleResource :thing_2 , :thing_3 .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/subset/meta> a lebot_vocab:Dataset , conversion:Dataset , conversion:MetaDataset , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "lebot" ;
+	conversion:dataset_identifier "domain-to-non-cell-based-subject-with-cell-based-subjects" ;
+	dcterms:modified "2011-04-20T10:06:18.606-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/lebot/dataset_page/domain-to-non-cell-based-subject-with-cell-based-subjects/subset/meta> ;
+	void:vocabulary <http://rdfs.org/ns/void#> , <http://inference-web.org/2.0/pml-provenance.owl#> , <http://inference-web.org/2.0/pml-justification.owl#> , <http://xmlns.com/foaf/0.1/> , <http://purl.org/dc/terms/> , <http://purl.org/NET/scovo#> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.void.ttl.gz> .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw/subset/sample> a lebot_vocab:Dataset , conversion:Dataset , conversion:DatasetSample , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "lebot" ;
+	conversion:dataset_identifier "domain-to-non-cell-based-subject-with-cell-based-subjects" ;
+	conversion:version_identifier "2011-Apr-20" ;
+	conversion:dataset_version "2011-Apr-20" ;
+	conversion:conversion_identifier "raw" ;
+	dcterms:modified "2011-04-20T10:06:18.606-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/lebot/dataset_page/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw/subset/sample> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.raw.sample> .
+
+<http://logd.tw.rpi.edu/source/lebot> a foaf:Agent ;
+	dcterms:identifier "lebot" ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source_page/lebot> .
+
+provenance:nodeset_1 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.raw.sample> ;
+	pmlj:isConsequentOf provenance:infstep_1 .
+
+provenance:nodeset_2 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.void.ttl.gz> ;
+	pmlj:isConsequentOf provenance:infstep_1 .
+
+provenance:nodeset_3 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.raw.ttl.gz> ;
+	pmlj:isConsequentOf provenance:infstep_1 .
+
+provenance:nodeset_4 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.ttl.gz> ;
+	pmlj:isConsequentOf provenance:infstep_1 .
+
+provenance:infstep_1 a pmlj:InferenceStep ;
+	pmlj:hasInferenceEngine tw_converter:csv2rdf4lod_28aea224850baab128f28983eae0284d ;
+	pmlj:hasAntecedentList _:node15tpjn7pix28 ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> _:node15tpjn7pix29 , _:node15tpjn7pix30 .
+
+<http://data.lod2.eu/2011/tools/CSV2RDF4LOD> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> tw_converter:csv2rdf4lod_28aea224850baab128f28983eae0284d .
+
+tw_converter:csv2rdf4lod_28aea224850baab128f28983eae0284d a pmlp:InferenceEngine , doap:Version ;
+	dcterms:identifier "csv2rdf4lod_28aea224850baab128f28983eae0284d" ;
+	dcterms:version "2011-Apr-13" ;
+	doap:revision "2011-Apr-13" ;
+	doap:platform "Java" .
+
+<http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/csv2rdf4lod> a doap:Project ;
+	doap:revision tw_converter:csv2rdf4lod_28aea224850baab128f28983eae0284d ;
+	doap:implements <http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/URI_design_for_RDF_conversion_of_CSV-based_data> , <http://purl.org/twc/vocab/conversion/> ;
+	dcterms:author <http://tw.rpi.edu/instances/TimLebo> ;
+	doap:developer <http://tw.rpi.edu/instances/TimLebo> , <http://tw.rpi.edu/instances/GregoryToddWilliams> , <http://kasei.us/about/foaf.xrdf#greg> , <http://tw.rpi.edu/instances/JamesMcCusker> ;
+	doap:maintainer <http://tw.rpi.edu/instances/TimLebo> ;
+	doap:documenter <http://tw.rpi.edu/instances/TimLebo> , <http://tw.rpi.edu/instances/JohannaFlores> , <http://tw.rpi.edu/instances/LiDing> , <http://tw.rpi.edu/instances/GinoGervasio> ;
+	doap:helper <http://tw.rpi.edu/instances/AlvaroGraves> , <http://tw.rpi.edu/instances/DominicDiFranzo> , <http://tw.rpi.edu/instances/GinoGervasio> , <http://tw.rpi.edu/instances/PingWang> , <http://tw.rpi.edu/instances/XianLi> , <http://tw.rpi.edu/instances/JamesMcCusker> ;
+	doap:homepage <https://github.com/timrdf/csv2rdf4lod-automation/wiki> ;
+	doap:audience "Data modelers and architects that need (potentially non-RDB) tabular data encoded within the Resource Description Framework." ;
+	doap:shortdesc "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/" ;
+	doap:description "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/. Organizes datasets using 'source', 'dataset', and 'version' identifiers to allow for third-party aggregation, refinement, and integration of third-party data. Uses predicate 'layers' to allow backward-compatible refinements of Resources' descriptions. Minimizes human error and increases transparancy of conversion by using RDF-encoded interpretation parameters to control all processing." .
+
+_:node15tpjn7pix31 a doap:GitRepository ;
+	foaf:isPrimaryTopicOf <https://github.com/timrdf/csv2rdf4lod-automation> ;
+	doap:browse <https://github.com/timrdf/csv2rdf4lod-automation> .
+
+<http://tw.rpi.edu/instances/GregoryToddWilliams> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://kasei.us/about/foaf.xrdf#greg> .
+
+<http://tw.rpi.edu/instances/AlvaroGraves> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://alvaro.graves.cl> .
+
+<http://tw.rpi.edu/wiki/Special:URIResolver/Tim_Lebo> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://www.cs.rpi.edu/~weavej3/r/Tim_Lebo> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://tw.rpi.edu/instances/TimLebo> .
+
+_:node15tpjn7pix28 a rdf:List ;
+	rdf:first provenance:nodeset_5 .
+
+provenance:nodeset_5 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/lebot/provenance_file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/manual/test.csv> .
+
+_:node15tpjn7pix28 rdf:rest _:node15tpjn7pix32 .
+
+_:node15tpjn7pix32 a rdf:List ;
+	rdf:first provenance:nodeset_6 .
+
+provenance:nodeset_6 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/lebot/provenance_file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/automatic/test.csv.raw.params.ttl> .
+
+_:node15tpjn7pix29 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> .
+
+_:node15tpjn7pix32 rdf:rest rdf:nil .
+
+_:node15tpjn7pix29 <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/lebot/provenance_file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/manual/test.csv> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Input.owl#Input> .
+
+_:node15tpjn7pix30 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/lebot/provenance_file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/automatic/test.csv.raw.params.ttl> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Parameters.owl#Parameters> .
+
+<http://logd.tw.rpi.edu/source/lebot/provenance_file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/manual/test.csv> a pmlp:Information ;
+	pmlp:hasFormat <http://iw.cs.utep.edu/registry/FMT/text/CSV.owl#CSV> .
+
+<http://logd.tw.rpi.edu/source/lebot/provenance_file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/automatic/test.csv.raw.params.ttl> a pmlp:Information ;
+	pmlp:hasFormat <http://inference-web.org/registry/FMT/RDFAbstractSyntax.owl#RDFAbstractSyntax> .
+
+conversion:SameAsDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:uses_class rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:has_version rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:MetaDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:num_triples rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:enhances rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:enhancement_layer rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:DatasetSample rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:source_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:VersionedDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:LayerDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:base_uri rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:uses_predicate rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:interpretation rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:symbol rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:dataset_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:conversion_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:AbstractDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:null rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:subject_discriminator rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:Dataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:version_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> .
+
+<http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> a foaf:OnlineAccount ;
+	foaf:accountName "lebot" ;
+	dcterms:isPartOf <http://tw.rpi.edu/web/inside/machine/lebot_macbook#> ;
+	sioc:account_of <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> conversion:base_uri "http://logd.tw.rpi.edu"^^xsd:anyURI .
+
+_:node15tpjn7u1x1 a conversion:RawConversionProcess ;
+	conversion:conversion_identifier "raw" ;
+	dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
+	dcterms:created "2011-04-20T10:06:16-04:00"^^xsd:dateTime ;
+	conversion:delimits_cell "," .
+
+_:node15tpjn7u1x2 ov:csvCol "1"^^xsd:integer ;
+	ov:csvHeader "tagID" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x2 .
+
+_:node15tpjn7u1x3 ov:csvCol "2"^^xsd:integer ;
+	ov:csvHeader "name" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x3 .
+
+_:node15tpjn7u1x4 ov:csvCol "3"^^xsd:integer ;
+	ov:csvHeader "num legs" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x4 .
+
+_:node15tpjn7u1x5 ov:csvCol "4"^^xsd:integer ;
+	ov:csvHeader "2008" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x5 .
+
+_:node15tpjn7u1x6 ov:csvCol "5"^^xsd:integer ;
+	ov:csvHeader "2009" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x6 .
+
+_:node15tpjn7u1x7 ov:csvCol "6"^^xsd:integer ;
+	ov:csvHeader "2010" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x7 .
+
+_:node15tpjn7u1x8 ov:csvCol "7"^^xsd:integer ;
+	ov:csvHeader "2011" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x8 .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> conversion:conversion_process _:node15tpjn7u1x1 ;
+	void:statItem _:node15tpjn7pix34 .
+
+_:node15tpjn7pix34 scovo:dimension void:numberOfTriples ;
+	rdf:value "372"^^xsd:integer .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> conversion:num_triples "372"^^xsd:integer .
+
+# CSV2RDF4LOD DATASET METADATA (reproduced from above):
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd2: <http://www.w3.org/TR/xmlschema-2/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix tw_service: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/> .
+@prefix tw_converter: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Apr-13/> .
+@prefix provenance: <http://logd.tw.rpi.edu/source/lebot/provenance/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix ov: <http://open.vocab.org/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix sdmx: <http://purl.org/linked-data/cube#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix lebot_vocab: <http://logd.tw.rpi.edu/source/lebot/vocab/> .
+@prefix base_vocab: <http://logd.tw.rpi.edu/vocab/> .
+@prefix local_vocab: <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/vocab/> .
+@prefix raw: <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/vocab/raw/> .
+@prefix : <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/> .
+@prefix ns1: <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+raw:tagid a rdf:Property ;
+	ov:csvCol "1"^^xsd:integer ;
+	ov:csvHeader "tagID" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "tagID" ;
+	rdfs:range rdfs:Literal .
+
+raw:name a rdf:Property ;
+	ov:csvCol "2"^^xsd:integer ;
+	ov:csvHeader "name" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "name" ;
+	rdfs:range rdfs:Literal .
+
+raw:num_legs a rdf:Property ;
+	ov:csvCol "3"^^xsd:integer ;
+	ov:csvHeader "num legs" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "num legs" ;
+	rdfs:range rdfs:Literal .
+
+raw:p_2008 a rdf:Property ;
+	ov:csvCol "4"^^xsd:integer ;
+	ov:csvHeader "2008" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "p_2008" ;
+	rdfs:range rdfs:Literal .
+
+raw:p_2009 a rdf:Property ;
+	ov:csvCol "5"^^xsd:integer ;
+	ov:csvHeader "2009" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "p_2009" ;
+	rdfs:range rdfs:Literal .
+
+raw:p_2010 a rdf:Property ;
+	ov:csvCol "6"^^xsd:integer ;
+	ov:csvHeader "2010" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "p_2010" ;
+	rdfs:range rdfs:Literal .
+
+raw:p_2011 a rdf:Property ;
+	ov:csvCol "7"^^xsd:integer ;
+	ov:csvHeader "2011" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	rdfs:label "p_2011" ;
+	rdfs:range rdfs:Literal .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd2: <http://www.w3.org/TR/xmlschema-2/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix tw_service: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/> .
+@prefix tw_converter: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Apr-13/> .
+@prefix provenance: <http://logd.tw.rpi.edu/source/lebot/provenance/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix ov: <http://open.vocab.org/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix sdmx: <http://purl.org/linked-data/cube#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix lebot_vocab: <http://logd.tw.rpi.edu/source/lebot/vocab/> .
+@prefix base_vocab: <http://logd.tw.rpi.edu/vocab/> .
+@prefix local_vocab: <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/vocab/> .
+@prefix raw: <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/vocab/raw/> .
+@prefix : <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/> .
+@prefix ns1: <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects> a lebot_vocab:Dataset , conversion:Dataset , conversion:AbstractDataset , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "lebot" ;
+	conversion:dataset_identifier "domain-to-non-cell-based-subject-with-cell-based-subjects" ;
+	dcterms:contributor <http://logd.tw.rpi.edu/source/lebot> ;
+	dcterms:identifier "lebot domain-to-non-cell-based-subject-with-cell-based-subjects" ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/lebot/dataset_page/domain-to-non-cell-based-subject-with-cell-based-subjects> ;
+	void:subset <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20> , <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/subset/meta> ;
+	dcterms:modified "2011-04-20T10:06:18.606-05:00"^^xsd:dateTime .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20> a lebot_vocab:Dataset , conversion:Dataset , conversion:VersionedDataset , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "lebot" ;
+	conversion:dataset_identifier "domain-to-non-cell-based-subject-with-cell-based-subjects" ;
+	conversion:version_identifier "2011-Apr-20" ;
+	conversion:dataset_version "2011-Apr-20" ;
+	dcterms:contributor <http://logd.tw.rpi.edu/source/lebot> ;
+	dcterms:identifier "lebot domain-to-non-cell-based-subject-with-cell-based-subjects 2011-Apr-20" ;
+	dcterms:modified "2011-04-20T10:06:18.606-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/lebot/dataset_page/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.ttl.gz> ;
+	void:subset <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> a lebot_vocab:Dataset , conversion:Dataset , conversion:LayerDataset , void:Dataset ;
+	dcterms:modified "2011-04-20T10:06:18.606-05:00"^^xsd:dateTime ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "lebot" ;
+	conversion:dataset_identifier "domain-to-non-cell-based-subject-with-cell-based-subjects" ;
+	conversion:version_identifier "2011-Apr-20" ;
+	conversion:dataset_version "2011-Apr-20" ;
+	conversion:conversion_identifier "raw" ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/lebot/dataset_page/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.raw.ttl.gz> ;
+	void:subset <http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw/subset/sample> ;
+	dcterms:created "2011-04-20T10:06:18.495-05:00"^^xsd:dateTime ;
+	dcterms:contributor <http://logd.tw.rpi.edu/source/lebot> ;
+	dcterms:identifier "lebot domain-to-non-cell-based-subject-with-cell-based-subjects 2011-Apr-20 raw" ;
+	conversion:uses_predicate raw:p_2011 , raw:p_2010 , raw:p_2009 , raw:p_2008 , raw:num_legs , raw:name , raw:tagid ;
+	void:exampleResource :thing_2 , :thing_3 .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/subset/meta> a lebot_vocab:Dataset , conversion:Dataset , conversion:MetaDataset , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "lebot" ;
+	conversion:dataset_identifier "domain-to-non-cell-based-subject-with-cell-based-subjects" ;
+	dcterms:modified "2011-04-20T10:06:18.606-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/lebot/dataset_page/domain-to-non-cell-based-subject-with-cell-based-subjects/subset/meta> ;
+	void:vocabulary <http://rdfs.org/ns/void#> , <http://inference-web.org/2.0/pml-provenance.owl#> , <http://inference-web.org/2.0/pml-justification.owl#> , <http://xmlns.com/foaf/0.1/> , <http://purl.org/dc/terms/> , <http://purl.org/NET/scovo#> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.void.ttl.gz> .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw/subset/sample> a lebot_vocab:Dataset , conversion:Dataset , conversion:DatasetSample , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "lebot" ;
+	conversion:dataset_identifier "domain-to-non-cell-based-subject-with-cell-based-subjects" ;
+	conversion:version_identifier "2011-Apr-20" ;
+	conversion:dataset_version "2011-Apr-20" ;
+	conversion:conversion_identifier "raw" ;
+	dcterms:modified "2011-04-20T10:06:18.606-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/lebot/dataset_page/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw/subset/sample> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.raw.sample> .
+
+<http://logd.tw.rpi.edu/source/lebot> a foaf:Agent ;
+	dcterms:identifier "lebot" ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source_page/lebot> .
+
+provenance:nodeset_1 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.raw.sample> ;
+	pmlj:isConsequentOf provenance:infstep_1 .
+
+provenance:nodeset_2 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.void.ttl.gz> ;
+	pmlj:isConsequentOf provenance:infstep_1 .
+
+provenance:nodeset_3 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.raw.ttl.gz> ;
+	pmlj:isConsequentOf provenance:infstep_1 .
+
+provenance:nodeset_4 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/lebot/file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/lebot-domain-to-non-cell-based-subject-with-cell-based-subjects-2011-Apr-20.ttl.gz> ;
+	pmlj:isConsequentOf provenance:infstep_1 .
+
+provenance:infstep_1 a pmlj:InferenceStep ;
+	pmlj:hasInferenceEngine tw_converter:csv2rdf4lod_28aea224850baab128f28983eae0284d ;
+	pmlj:hasAntecedentList _:node15tpjn7pix28 ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> _:node15tpjn7pix29 , _:node15tpjn7pix30 .
+
+<http://data.lod2.eu/2011/tools/CSV2RDF4LOD> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> tw_converter:csv2rdf4lod_28aea224850baab128f28983eae0284d .
+
+tw_converter:csv2rdf4lod_28aea224850baab128f28983eae0284d a pmlp:InferenceEngine , doap:Version ;
+	dcterms:identifier "csv2rdf4lod_28aea224850baab128f28983eae0284d" ;
+	dcterms:version "2011-Apr-13" ;
+	doap:revision "2011-Apr-13" ;
+	doap:platform "Java" .
+
+<http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/csv2rdf4lod> a doap:Project ;
+	doap:revision tw_converter:csv2rdf4lod_28aea224850baab128f28983eae0284d ;
+	doap:implements <http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/URI_design_for_RDF_conversion_of_CSV-based_data> , <http://purl.org/twc/vocab/conversion/> ;
+	dcterms:author <http://tw.rpi.edu/instances/TimLebo> ;
+	doap:developer <http://tw.rpi.edu/instances/TimLebo> , <http://tw.rpi.edu/instances/GregoryToddWilliams> , <http://kasei.us/about/foaf.xrdf#greg> , <http://tw.rpi.edu/instances/JamesMcCusker> ;
+	doap:maintainer <http://tw.rpi.edu/instances/TimLebo> ;
+	doap:documenter <http://tw.rpi.edu/instances/TimLebo> , <http://tw.rpi.edu/instances/JohannaFlores> , <http://tw.rpi.edu/instances/LiDing> , <http://tw.rpi.edu/instances/GinoGervasio> ;
+	doap:helper <http://tw.rpi.edu/instances/AlvaroGraves> , <http://tw.rpi.edu/instances/DominicDiFranzo> , <http://tw.rpi.edu/instances/GinoGervasio> , <http://tw.rpi.edu/instances/PingWang> , <http://tw.rpi.edu/instances/XianLi> , <http://tw.rpi.edu/instances/JamesMcCusker> ;
+	doap:homepage <https://github.com/timrdf/csv2rdf4lod-automation/wiki> ;
+	doap:audience "Data modelers and architects that need (potentially non-RDB) tabular data encoded within the Resource Description Framework." ;
+	doap:shortdesc "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/" ;
+	doap:description "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/. Organizes datasets using 'source', 'dataset', and 'version' identifiers to allow for third-party aggregation, refinement, and integration of third-party data. Uses predicate 'layers' to allow backward-compatible refinements of Resources' descriptions. Minimizes human error and increases transparancy of conversion by using RDF-encoded interpretation parameters to control all processing." .
+
+_:node15tpjn7pix31 a doap:GitRepository ;
+	foaf:isPrimaryTopicOf <https://github.com/timrdf/csv2rdf4lod-automation> ;
+	doap:browse <https://github.com/timrdf/csv2rdf4lod-automation> .
+
+<http://tw.rpi.edu/instances/GregoryToddWilliams> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://kasei.us/about/foaf.xrdf#greg> .
+
+<http://tw.rpi.edu/instances/AlvaroGraves> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://alvaro.graves.cl> .
+
+<http://tw.rpi.edu/wiki/Special:URIResolver/Tim_Lebo> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://www.cs.rpi.edu/~weavej3/r/Tim_Lebo> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://tw.rpi.edu/instances/TimLebo> .
+
+_:node15tpjn7pix28 a rdf:List ;
+	rdf:first provenance:nodeset_5 .
+
+provenance:nodeset_5 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/lebot/provenance_file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/manual/test.csv> .
+
+_:node15tpjn7pix28 rdf:rest _:node15tpjn7pix32 .
+
+_:node15tpjn7pix32 a rdf:List ;
+	rdf:first provenance:nodeset_6 .
+
+provenance:nodeset_6 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/lebot/provenance_file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/automatic/test.csv.raw.params.ttl> .
+
+_:node15tpjn7pix29 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> .
+
+_:node15tpjn7pix32 rdf:rest rdf:nil .
+
+_:node15tpjn7pix29 <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/lebot/provenance_file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/manual/test.csv> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Input.owl#Input> .
+
+_:node15tpjn7pix30 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/lebot/provenance_file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/automatic/test.csv.raw.params.ttl> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Parameters.owl#Parameters> .
+
+<http://logd.tw.rpi.edu/source/lebot/provenance_file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/manual/test.csv> a pmlp:Information ;
+	pmlp:hasFormat <http://iw.cs.utep.edu/registry/FMT/text/CSV.owl#CSV> .
+
+<http://logd.tw.rpi.edu/source/lebot/provenance_file/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/automatic/test.csv.raw.params.ttl> a pmlp:Information ;
+	pmlp:hasFormat <http://inference-web.org/registry/FMT/RDFAbstractSyntax.owl#RDFAbstractSyntax> .
+
+conversion:SameAsDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:uses_class rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:has_version rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:MetaDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:num_triples rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:enhances rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:enhancement_layer rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:DatasetSample rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:source_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:VersionedDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:LayerDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:base_uri rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:uses_predicate rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:interpretation rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:symbol rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:dataset_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:conversion_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:AbstractDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:null rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:subject_discriminator rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:Dataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:version_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> .
+
+<http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> a foaf:OnlineAccount ;
+	foaf:accountName "lebot" ;
+	dcterms:isPartOf <http://tw.rpi.edu/web/inside/machine/lebot_macbook#> ;
+	sioc:account_of <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> conversion:base_uri "http://logd.tw.rpi.edu"^^xsd:anyURI .
+
+_:node15tpjn7u1x1 a conversion:RawConversionProcess ;
+	conversion:conversion_identifier "raw" ;
+	dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
+	dcterms:created "2011-04-20T10:06:16-04:00"^^xsd:dateTime ;
+	conversion:delimits_cell "," .
+
+_:node15tpjn7u1x2 ov:csvCol "1"^^xsd:integer ;
+	ov:csvHeader "tagID" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x2 .
+
+_:node15tpjn7u1x3 ov:csvCol "2"^^xsd:integer ;
+	ov:csvHeader "name" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x3 .
+
+_:node15tpjn7u1x4 ov:csvCol "3"^^xsd:integer ;
+	ov:csvHeader "num legs" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x4 .
+
+_:node15tpjn7u1x5 ov:csvCol "4"^^xsd:integer ;
+	ov:csvHeader "2008" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x5 .
+
+_:node15tpjn7u1x6 ov:csvCol "5"^^xsd:integer ;
+	ov:csvHeader "2009" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x6 .
+
+_:node15tpjn7u1x7 ov:csvCol "6"^^xsd:integer ;
+	ov:csvHeader "2010" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x7 .
+
+_:node15tpjn7u1x8 ov:csvCol "7"^^xsd:integer ;
+	ov:csvHeader "2011" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Literal .
+
+_:node15tpjn7u1x1 conversion:enhance _:node15tpjn7u1x8 .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> conversion:conversion_process _:node15tpjn7u1x1 ;
+	void:statItem _:node15tpjn7pix35 .
+
+_:node15tpjn7pix35 scovo:dimension void:numberOfTriples ;
+	rdf:value "372"^^xsd:integer .
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/domain-to-non-cell-based-subject-with-cell-based-subjects/version/2011-Apr-20/conversion/raw> conversion:num_triples "372"^^xsd:integer .
