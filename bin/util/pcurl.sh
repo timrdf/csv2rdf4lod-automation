@@ -1,4 +1,6 @@
 #!/bin/bash
+# 
+# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-pcurl.sh
 #
 # Usage:
 #
