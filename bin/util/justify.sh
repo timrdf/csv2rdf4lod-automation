@@ -85,6 +85,14 @@ logID=`java edu.rpi.tw.string.NameFactory`
       if [ ${4:-"."} == "-h" -o ${4:-"."} == "--history" ]; then
          if [ `history | wc -l` -gt 0 ]; then
             commandUsed=`history | grep -v "justify.sh" | grep "$antecedent" | grep "$consequent" | tail -1 | sed -e 's/^ *[^ ]* *//'`
+            if [ ${#commandUsed} -lt 1 ]; then
+               commandUsed=`history | grep -v "justify.sh" | grep "$consequent" | tail -1 | sed -e 's/^ *[^ ]* *//'`
+            fi
+            if [ ${#commandUsed} -lt 1 ]; then
+               echo "found command: $commandUsed"
+            elif
+               echo "could not find command used to create $consequent"
+            fi
             # secondary approach: history -r $HOME/.bash_history
          else
             echo "    ERROR: `basename $0` could not access history. "
