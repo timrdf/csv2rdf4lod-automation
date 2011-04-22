@@ -1,0 +1,699 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Menu&#8212;DP Dough Troy | Full Menu</title>
+<meta name="keywords" content="DP Dough, Calzones, Dessert Calzones, Pizza, Wings, Wraps" />
+<meta name="Description" content="DP Dough Troy offers Calzone, Wraps, Wings, Salads even Dessert Calzones." />
+<link rel="shortcut icon" href="file:///E|/Documents/GDT_Consultants/gdt-consultants/favicon.ico" />
+<link href="../dpdoughtroy.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+.CreatedByCell {
+	text-align: center;
+}
+</style>
+<link href="../menu.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+
+var iSelectCalzones = 0; 
+var iSelectWraps = 0; 
+var iSelectWings = 0; 
+var iSelectSalads = 0; 
+var iSelectBread = 0; 
+var iSelectBen = 0; 
+var iSelectBeverage = 0; 
+
+function ClearAllStates() {
+  iSelectCalzones = 0; 
+  iSelectWraps = 0; 
+  iSelectWings = 0; 
+  iSelectSalads = 0; 
+  iSelectBread = 0; 
+  iSelectBen = 0; 
+  iSelectBeverage = 0; 
+}
+
+function HideAll() {
+	document.getElementById("notes").className = "HiddenSC";
+	document.getElementById("calzones").className = "HiddenSC";
+	document.getElementById("wraps").className = "HiddenSC";
+	document.getElementById("wings").className = "HiddenSC";
+	document.getElementById("salads").className = "HiddenSC";
+	document.getElementById("breads").className = "HiddenSC";
+	document.getElementById("benjerry").className = "HiddenSC";
+	document.getElementById("beverages").className = "HiddenSC";
+}
+function ReturnToTop() {
+	ClearAllStates();
+	HideAll();
+		document.getElementById("notes").className = "ShowSC";
+}
+
+function SelectCalzones() {
+	if(iSelectCalzones == 0)
+	{
+		ClearAllStates();
+		iSelectCalzones = 1;
+	}
+	else
+		iSelectCalzones = 0;
+
+	HideAll();
+	if(iSelectCalzones == 1)
+		document.getElementById("calzones").className = "ShowSC";
+	else
+		document.getElementById("notes").className = "ShowSC";
+}
+
+function SelectWings() {
+	if(iSelectWings == 0)
+	{
+		ClearAllStates();
+		iSelectWings = 1;
+	}
+	else
+		iSelectWings = 0;
+
+	HideAll();
+	if(iSelectWings == 1)
+		document.getElementById("wings").className = "ShowSC";
+	else
+		document.getElementById("notes").className = "ShowSC";
+}
+
+function SelectWraps() {
+	if(iSelectWraps == 0)
+	{
+		ClearAllStates();
+		iSelectWraps = 1;
+	}
+	else
+		iSelectWraps = 0;
+
+	HideAll();
+	if(iSelectWraps == 1)
+		document.getElementById("wraps").className = "ShowSC";
+	else
+		document.getElementById("notes").className = "ShowSC";
+}
+
+function SelectSalads() {
+	if(iSelectSalads == 0)
+	{
+		ClearAllStates();
+		iSelectSalads = 1;
+	}
+	else
+		iSelectSalads = 0;
+
+	HideAll();
+	if(iSelectSalads == 1)
+		document.getElementById("salads").className = "ShowSC";
+	else
+		document.getElementById("notes").className = "ShowSC";
+}
+
+function SelectBreads() {
+	if(iSelectBread == 0)
+	{
+		ClearAllStates();
+		iSelectBread = 1;
+	}
+	else
+		iSelectBread = 0;
+
+	HideAll();
+	if(iSelectBread == 1)
+		document.getElementById("breads").className = "ShowSC";
+	else
+		document.getElementById("notes").className = "ShowSC";
+}
+
+function SelectBenJerry() {
+	if(iSelectBen == 0)
+	{
+		ClearAllStates();
+		iSelectBen = 1;
+	}
+	else
+		iSelectBen = 0;
+
+	HideAll();
+	if(iSelectBen == 1)
+		document.getElementById("benjerry").className = "ShowSC";
+	else
+		document.getElementById("notes").className = "ShowSC";
+}
+
+function SelectBeverages() {
+	if(iSelectBeverage == 0)
+	{
+		ClearAllStates();
+		iSelectBeverage = 1;
+	}
+	else
+		iSelectBeverage = 0;
+
+	HideAll();
+	if(iSelectBeverage == 1)
+		document.getElementById("beverages").className = "ShowSC";
+	else
+		document.getElementById("notes").className = "ShowSC";
+}
+
+function MM_callJS(jsStr) { //v2.0
+  return eval(jsStr)
+}
+</script>
+</head>
+
+<body onload="MM_preloadImages('images/MenuZoneDn.png','images/MenuWrapsDn.png','images/MenuWingsDn.png','images/MenuSaladsDn.png','images/MenuBreadsDn.png','images/BenJerryDn.png','images/MenuBevDn.png')">
+<!-- DO NOT MOVE! The following AllWebMenus linking code section must always be placed right AFTER the BODY tag-->
+<!-- ******** BEGIN ALLWEBMENUS CODE FOR floatingmenu ******** -->
+<script type="text/javascript">var MenuLinkedBy="AllWebMenus [4]",awmMenuName="floatingmenu",awmBN="856";awmAltUrl="";</script><script charset="UTF-8" src="../floatingmenu.js" type="text/javascript"></script><script type="text/javascript">awmBuildMenu();</script>
+<!-- ******** END ALLWEBMENUS CODE FOR floatingmenu ******** -->
+
+<!-- ******** BEGIN ALLWEBMENUS CODE FOR menu ******** -->
+<script type="text/javascript">var MenuLinkedBy="AllWebMenus [4]",awmMenuName="menu",awmBN="856";awmAltUrl="";</script><script charset="UTF-8" src="../menu.js" type="text/javascript"></script><script type="text/javascript">awmBuildMenu();</script>
+<!-- ******** END ALLWEBMENUS CODE FOR menu ******** -->
+
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="BodyTable">
+  <tr>
+    <td colspan="3" class="FullTitleCell"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="Blank175">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="MenuTwo" id="awmAnchor-menu">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td class="LeftSide"></td>
+    <td class="PageCell">
+    
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="TopEachZone">Each 'Zone' is made-to-order using our dough recipe, and stuffed to your satisfaction with the freshest ingredients.</td>
+        <td class="MenuImageCell"><img src="images/ToEach.png" width="223" height="79" alt="To Each His Zone" /></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="Bdr700">&nbsp;</td>
+        </tr>
+      <tr>
+        <td colspan="2" align="center"><table border="0" cellpadding="0" cellspacing="0" class="MenuVisTable">
+          <tr>
+            <td class="MenuBtnCell108"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('CalzonesSelect','','images/MenuZoneDn.png',1)"><img src="images/MenuZone.png" alt="Display Calzones" name="CalzonesSelect" width="108" height="27" border="0" id="CalzonesSelect" onclick="MM_callJS('SelectCalzones()')" /></a></td>
+            <td class="MenuBtnCell83"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('WrapsSelect','','images/MenuWrapsDn.png',1)"><img src="images/MenuWraps.png" alt="Display Wraps" name="WrapsSelect" width="83" height="27" border="0" id="WrapsSelect" onclick="MM_callJS('SelectWraps()')" /></a></td>
+            <td class="MenuBtnCell79"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('WingsSelect','','images/MenuWingsDn.png',1)"><img src="images/MenuWings.png" alt="Display Wings" name="WingsSelect" width="79" height="27" border="0" id="WingsSelect" onclick="MM_callJS('SelectWings()')" /></a></td>
+            <td class="MenuBtnCell83"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('SaladSelect','','images/MenuSaladsDn.png',1)"><img src="images/MenuSalads.png" alt="Display Salads" name="SaladSelect" width="83" height="27" border="0" id="SaladSelect" onclick="MM_callJS('SelectSalads()')" /></a></td>
+            <td class="MenuBtnCell88"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('BreadSelect','','images/MenuBreadsDn.png',1)"><img src="images/MenuBreads.png" alt="Display Breads" name="BreadSelect" width="88" height="27" border="0" id="BreadSelect" onclick="MM_callJS('SelectBreads()')" /></a></td>
+            <td class="MenuBtnCell139"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('BenJerry','','images/BenJerryDn.png',1)"><img src="images/BenJerry.png" alt="Display Ben &amp; Jerry" name="BenJerry" width="139" height="27" border="0" id="BenJerry" onclick="MM_callJS('SelectBenJerry()')" /></a></td>
+            <td class="MenuBtnCell120"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('BevSelect','','images/MenuBevDn.png',1)"><img src="images/MenuBev.png" alt="Display Beverages" name="BevSelect" width="120" height="27" border="0" id="BevSelect" onclick="MM_callJS('SelectBeverages()')" /></a></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+      	<td colspan="2" class="TopEachZoneCenter" ><img src="images/LeftArrow.png" width="34" height="20" alt="Look here for menu" /> Check out our menu! Select from our categories above. <img src="images/RightArrow.png" width="34" height="20" alt="Look Here for menu" /></td>
+      </tr>
+    </table>
+
+	<table id="notes" width="100%" border="0" cellpadding="0" cellspacing="0" class="ShowSC">
+      <tr>
+        <td colspan="2" class="Bdr700">&nbsp;</td>
+        </tr>
+	  <tr>
+        <td abbr=""class="TopEachZone"><table width="325px" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="60%">Need a menu?
+              <p>Download and print our<br />
+                latest menu</p>
+              <p>Includes promo coupons</p></td>
+            <td width="110px" align="center"><a href="pdf/Menu.pdf"><img src="images/PdfMenuIcon.png" alt="Full Menu" width="97" height="125" class="NoBdrImage" /></a></td>
+          </tr>
+        </table>
+        </td>
+        <td class="TopEachZone">Quid Pro Quo:
+          <li class="Quid">Minimum $7.00 Order For Delivery</li>
+        <li class="Quid">Prices Subject to Change without Notice</li>
+        <li class="Quid">Tax applies to all items</li>
+        <li class="Quid">$1 Delivery Charge added for deliveries 3-5 Miles</li></td>
+      </tr>	
+    </table>
+
+	<table id="calzones" width="100%" border="0" cellpadding="0" cellspacing="0" class="HiddenSC">
+      <tr>
+        <td class="CalzoneBanner">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">A'wakin N'Bacon: <span class="MenuItemDescOneline">&#8212; scrambled eggs, bacon, mozzarella</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">BBQ Chicken: <span class="MenuItemDescOneline">&#8212; breaded chicken, cheddar, bacon, BBQ sauce</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">BBQ Steak: <span class="MenuItemDescOneline">&#8212; steak, mozzarella, American cheese, BBQ sauce</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">The Bomb Zone: <span class="MenuItemDescOneline">&#8212; steak, spinach, mushrooms, garlic, mozzarella, ricotta, parmesan</span>
+      </td></tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Buffer Zone&reg;: <span class="MenuItemDescOneline">&#8212; <span class="MenuItemDescOneline">&#8212; breaded chicken, mozzarella, hot sauce, blue cheese</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Cheeseburg: <span class="MenuItemDescOneline">&#8212; ground beef, cheddar, mozzarella, bacon</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Cheeze&reg: <span class="MenuItemDescOneline">&#8212; mozzarella, ricotta, parmesan</span>
+      </td></tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Chicken Fajita&#8482;: <span class="MenuItemDescOneline">&#8212; breaded chicken, onions, hot sauce, cheddar, jalapeños, black olives</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Chick N'Bacon&reg;: <span class="MenuItemDescOneline">&#8212; breaded chicken, bacon, mozzarella</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Chicken Parma-zone&reg;: <span class="MenuItemDescOneline">&#8212; breaded chicken, mozzarella, parmesan</span>
+      </td></tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Combat Zone&reg;: <span class="MenuItemDescOneline">&#8212; sausage, pepperoni, mozzarella, peppers, mushrooms</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Cordon Bleu: <span class="MenuItemDescOneline">&#8212; breaded chicken, mozzarella, ham, American cheese</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Danger Zone&reg;: <span class="MenuItemDescOneline">&#8212; ground beef, Mexican spices, cheddar, onions, hot sauce</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Drop Zone&reg;: <span class="MenuItemDescOneline">&#8212; breaded chicken, mozzarella, ricotta, pepperoni, parmesan</span>
+      </td></tr>
+      <tr>
+        <td class="MenuItemTitleOneline">End Zone&reg;: <span class="MenuItemDescOneline">&#8212; steak, mozzarella, peppers, onions</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Eggplant Zone: <span class="MenuItemDescOneline">&#8212; eggplant, mozzarella, garlic</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Falling Rock Zone&reg;: <span class="MenuItemDescOneline">&#8212; potato, bacon, cheddar, mozzarella (comes with a side of sour cream)</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Ham &amp; Egg Zone: <span class="MenuItemDescOneline">&#8212; scrambled eggs, ham, mozzarella, American cheese</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Hamzone: <span class="MenuItemDescOneline">&#8212; ham, mozzarella, ricotta, bacon</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Hori&#8212;Zone: <span class="MenuItemDescOneline">&#8212; scrambled eggs, ham, peppers, onions, mozzarella</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Italian Zone: <span class="MenuItemDescOneline">&#8212; pepperoni, salami, ham, mozzarella, ricotta, parmesan</span>
+      </td></tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Loading Zone&reg;: <span class="MenuItemDescOneline">&#8212; breaded chicken, mozzarella, peppers, onions</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Low Cal-Zone&reg;: <span class="MenuItemDescOneline">&#8212; broccoli, mozzarella, cheddar, garlic</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Mac Daddy Zone: <span class="MenuItemDescOneline">&#8212; macaroni, cheese and bacon</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Maui Wowi: <span class="MenuItemDescOneline">&#8212; pineapple, ham, mozzarella</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Meaty: <span class="MenuItemDescOneline">&#8212; meatballs, mozzarella, onions</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">OH Zone: <span class="MenuItemDescOneline">&#8212; steak, mozzarella, American cheese</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Parking Zone&reg;: <span class="MenuItemDescOneline">&#8212; breaded chicken, mozzarella, broccoli</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Party Zone&reg;: <span class="MenuItemDescOneline">&#8212; hamburger, pepperoni, peppers, onions, cheddar, mozzarella</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Pesto: <span class="MenuItemDescOneline">&#8212; mozzarella, tomatoes, pesto</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Passing Zone&reg;: <span class="MenuItemDescOneline">&#8212; breaded chicken, mozzarella, bacon, tomatoes, ranch</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Philly Zone: <span class="MenuItemDescOneline">&#8212; steak, American cheese, onions, mushrooms</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Red Zone&reg;: <span class="MenuItemDescOneline">&#8212; breaded chicken, cheddar, onions, hot sauce</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Roni Zone: <span class="MenuItemDescOneline">&#8212; pepperoni, mozzarella, ricotta, parmesan</span>
+      </td></tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Roni'n Shrooms: <span class="MenuItemDescOneline">&#8212; pepperoni, mozzarella, ricotta, mushrooms, parmesan</span>
+      </td></tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Safety Zone&reg;: <span class="MenuItemDescOneline">&#8212; spinach, mozzarella, ricotta, garlic, olives, mushrooms</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">School Zone&reg;: <span class="MenuItemDescOneline">&#8212; steak, mozzarella, mushrooms</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Southern-Cal Zone&reg;: <span class="MenuItemDescOneline">&#8212; ground beef, cheddar, Mexican spices</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Speed Zone&reg;: <span class="MenuItemDescOneline">&#8212; breaded chicken, mozzarella, ricotta, garlic, spinach</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Spinner: <span class="MenuItemDescOneline">&#8212; spinach, mozzarella, ricotta, garlic</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Sports Zone&reg;: <span class="MenuItemDescOneline">&#8212; sausage, mozzarella, peppers, onions</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Spud Zone: <span class="MenuItemDescOneline">&#8212; potato, eggs, bacon, mozzarella</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Strike Zone&reg;: <span class="MenuItemDescOneline">&#8212; breaded eggplant, spinach, mozzarella, ricotta, garlic</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Target Zone&reg;: <span class="MenuItemDescOneline">&#8212; breaded chicken, mozzarella, American cheese, ranch dressing</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Testing Zone&reg;: <span class="MenuItemDescOneline">&#8212; breaded chicken, mozzarella, pesto</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Time Zone&reg;: <span class="MenuItemDescOneline">&#8212; peppers, mushrooms, onions, mozzarella, ricotta</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Turkey Club: <span class="MenuItemDescOneline">&#8212; turkey, mozzarella, tomato, bacon, American cheese</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Twilight Zone&reg;: <span class="MenuItemDescOneline">&#8212; sausage, mozzarella, secret spices</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Work Zone: <span class="MenuItemDescOneline">&#8212; steak, mozzarella, potatoes</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Veggie: <span class="MenuItemDescOneline">&#8212; broccoli, mushrooms, mozzarella, ricotta</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Yoko Zono: <span class="MenuItemDescOneline">&#8212; scrambled egg, fresh broccoli, mushroom, cheddar</span></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="Bdr700">&nbsp;</td>
+        </tr>
+      <tr>
+        <td class="MenuItemTitleFull">Construction Zone&reg; (Limit 4 Items)</td>
+      </tr>
+      <tr>
+        <td class="MenuItemDescFull"><strong>Meats:</strong> breaded chicken, ground beef, turkey, steak, meatballs, pepperoni, bacon, ham, salami, eggs<br />
+          <strong>Others:</strong>
+          <blockquote>
+            <strong>Vegetables:</strong> peppers, onion, broccoli, mushroom, spinach, tomato, pineapple, potato, eggplant, black olives, jalapeños<br />
+            <strong>Cheese:</strong> mozzarella, cheddar, ricotta, parmesan, American, Wiz<br />
+            <strong>Sauce:</strong> hot sauce, BBQ sauce, Ranch, blue cheese, honey mustard, pesto<br />
+            <strong>Hook it up:</strong> BreadStix spice, crab seasoning, garlic salt, Mexican spices<br />
+            </blockquote>
+          <em><strong>Additional meats are $1.00 each and other additional items are $0.50 each</strong></em><br />
+          ** Ranch, Bleu Cheese, Hot Sauce, BBQ Sauce, Sour Cream, Honey Mustard, Ketchup may replace marinara upon request
+          </td>
+        </tr>
+      <tr>
+        <td class="DCalzoneBanner">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">El Corazone: <span class="MenuItemDescOneline">&#8212; cherry filled calzone</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">Uncle Sam Zone: <span class="MenuItemDescOneline">&#8212; apple filled calzone</span></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitleOneline">The Yet Unnamed Blueberry Zone: <span class="MenuItemDescOneline">&#8212; blueberry filled calzone</span></td>
+      </tr>
+    </table>
+    
+    
+
+	<table id="wraps" width="100%" border="0" cellpadding="0" cellspacing="0" class="HiddenSC">
+      <tr>
+        <td colspan="2" class="WrapsBanner">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">Buffalo Chicken Wrap</td>
+        <td class="MenuItemTitle">The &quot;Blue Hen&quot;</td>
+      </tr>
+      <tr>
+        <td class="MenuItemDesc">Buffalo chicken tenders, lettuce, tomatoes &amp; blue cheese</td>
+        <td class="MenuItemDesc">grilled chicken, ham, lettuce, American, Swiss &amp; honey mustard</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">BBQ Chicken</td>
+        <td class="MenuItemTitle">Greek Wrap</td>
+      </tr>
+      <tr>
+        <td class="MenuItemDesc">BBQ chicken tenders, lettuce, tomato, bacon &amp; cheddar</td>
+        <td class="MenuItemDesc">grilled chicken, lettuce, red onion, black olives, tomato &amp; Greek dressing</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">Chicken Caesar</td>
+        <td class="MenuItemTitle">Your Mom (the wrap)</td>
+      </tr>
+      <tr>
+        <td class="MenuItemDesc">grilled chicken, lettuce, parmesan cheese &amp; Caesar dressing</td>
+        <td class="MenuItemDesc">chicken tenders, lettuce, bacon, tomato, cucumber &amp; Ranch dressing</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">Veggie&#8212;Veggie - Low Fat</td>
+        <td class="MenuItemTitle">Fajita</td>
+      </tr>
+      <tr>
+        <td class="MenuItemDesc">lettuce, tomato, cucumber, broccoli, red onion, mushroom &amp; your choice of dressing</td>
+        <td class="MenuItemDesc">grilled chicken, lettuce, cheddar, tomato, red onion, jalapenos &amp; sour cream</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">Turkey Club</td>
+        <td class="MenuItemTitle">&quot;The Standard&quot;</td>
+      </tr>
+      <tr>
+        <td class="MenuItemDesc">turkey, lettuce, tomato, bacon &amp; mayo</td>
+        <td class="MenuItemDesc">grilled chicken, lettuce, tomato &amp; mayo</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">Make Your Own</td>
+        <td class="MenuItemTitle">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="MenuItemDesc">choose your ingredients! (limit 5 items)</td>
+        <td class="MenuItemDesc">&nbsp;</td>
+      </tr>
+    </table>
+    
+    
+
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="HiddenSC" id="wings">
+      <tr>
+        <td colspan="2" class="WingsBanner">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="MenuItemsNotes"><strong>Dipping Sauce Included with all Wing and Tender orders<br />
+          Specify: Blue Cheese, Honey Mustard, BBQ, Ranch or Buffalo Hot Sauce</strong></td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">Wings</td>
+        <td class="MenuItemTitle">Tenders</td>
+      </tr>
+      <tr>
+        <td class="MenuItemsNotes50">Our delicious Wings and baked, making them a great-tasting, healthy, alternative to deep fried wings.</td>
+        <td class="MenuItemsNotes50">Our succulent, jumbo Chicken Tenders are made from all white meat, seasoned, breaded, and then baked to create one great tasting, healthy snack.</td>
+        </tr>
+      <tr>
+        <td class="MenuItemDesc">6 wings (one side sauce)&#8212;$4.63</td>
+        <td class="MenuItemDesc">1/2 Pound (one side sauce)&#8212;$5.79</td>
+      </tr>
+      <tr>
+        <td class="MenuItemDesc">12 wings (one side sauce)&#8212;$7.18</td>
+        <td class="MenuItemDesc">1 Pound (one side sauce)&#8212;$11.11</td>
+      </tr>
+      <tr>
+        <td class="MenuItemDesc">18 wings (two side sauce)&#8212;$10.19</td>
+        <td class="MenuItemDesc">1-1/2 Pound (two side sauce)&#8212;$15.74</td>
+      </tr>
+      <tr>
+        <td class="MenuItemDesc">24 wings (two side sauce)&#8212;$12.96</td>
+        <td class="MenuItemDesc">2 Pound (two side sauce)&#8212;$18.98</td>
+      </tr>
+      <tr>
+        <td class="MenuItemsNotes50">Extra sauces $0.46 each</td>
+        <td class="MenuItemsNotes50">add 50¢ for tenders smothered in their choice of hot sauce or BBQ sauce</td>
+      </tr>
+    </table>
+    
+    
+
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="HiddenSC" id="salads">
+      <tr>
+        <td colspan="2" class="SaladBanner">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="MenuItemsNotes">See extra sauces section for available dressings</td>
+        </tr>
+      <tr>
+        <td class="MenuItemTitle">Caesar&#8212;$5.56</td>
+        <td class="MenuItemTitle">&nbsp;</td>
+        </tr>
+      <tr>
+        <td colspan="2" class="MenuItemDescFull">romaine &amp; iceberg lettuce, croutons &amp; grated parmesan
+      </td></tr>
+      <tr>
+        <td class="MenuItemTitle">Garden&#8212;$6.25        </td>
+        <td class="MenuItemTitle">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="MenuItemDescFull">romaine &amp; iceberg lettuce, red onions, tomato, cucumbers, broccoli &amp; mushrooms</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">House&#8212;$5.56        </td>
+        <td class="MenuItemTitle">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="MenuItemDescFull">romaine &amp; iceberg lettuce, red onions, tomato, cucumbers</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">Turkey Club&#8212;$6.94        </td>
+        <td class="MenuItemTitle">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="MenuItemDescFull">romaine &amp; iceberg lettuce, American cheese, turkey, tomato &amp; bacon bits</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">Greek&#8212;$6.48        </td>
+        <td class="MenuItemTitle">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="MenuItemDescFull">romaine &amp; iceberg lettuce, tomato, cucumbers, black olives, red onions &amp; feta cheese</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">Grilled Chicken Caesar&#8212;$7.41        </td>
+        <td class="MenuItemTitle">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="MenuItemDescFull">romaine &amp; iceberg lettuce, grilled chicken, croutons &amp; shredded parmesan
+      </td></tr>
+      <tr>
+        <td class="MenuItemTitle">Buffalo Chicken&#8212;$7.64        </td>
+        <td class="MenuItemTitle">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="MenuItemDescFull">garden mix, Buffalo chicken tenders, bacon bits, tomatoes, red onions &amp; blue cheese dressing</td>
+      </tr>
+    </table>
+    
+    
+
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="HiddenSC" id="breads">
+      <tr>
+        <td colspan="2" class="BreadBanner">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">BreadStix&#8212;$3.94</td>
+        <td class="MenuItemTitle">CheeseStix&#8212;$4.86</td>
+      </tr>
+      <tr>
+        <td class="MenuItemDesc">baked golden brown, sprinkled with parmesan cheese &amp; seasoned with Italian spices (marinara included)</td>
+        <td class="MenuItemDesc">baked golden brown, sprinkled with mozzarella cheese, parmesan cheese &amp; seasoned with Italian spices (marinara included)</td>
+      </tr>
+    </table>
+    
+    
+
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="HiddenSC" id="benjerry">
+      <tr>
+        <td colspan="2" class="BandJBanner">&nbsp;</td>
+        </tr>
+      <tr>
+        <td class="MenuItemDesc">&nbsp;</td>
+        <td class="MenuItemTitle">Ice Cream</td>
+      </tr>
+      <tr>
+        <td rowspan="3" class="MenuImageCell"><img src="images/ChunkyMonkey.png" width="250" height="214" alt="Chunky Monkey" /></td>
+        <td class="MenuItemDesc">New York Super Fudge Chunk, Half Baked, Vanilla, Chocolate,
+Phish Food, Chunky Monkey, Chubby Hubby, Americone Dream,
+Peanut Butter Cup, Chocolate Fudge Brownie, Chocolate Chip
+Cookie Dough, Many More!</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">Frozen Yogurt</td>
+      </tr>
+      <tr>
+        <td class="MenuItemDesc">Half Baked, Chocolate Fudge Brownie, Cherry Garcia</td>
+      </tr>
+    </table>
+    
+    
+    
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="HiddenSC" id="beverages">
+      <tr>
+        <td colspan="2" class="BevBanner">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">20 oz. Bottles&#8212;$1.62</td>
+        <td class="MenuItemTitle">2 Liters&#8212;$2.78</td>
+      </tr>
+      <tr>
+        <td class="MenuItemDesc">Coke, Cherry Coke, Diet Coke, Coke Zero, Sprite, Nestea, Dr. Pepper,
+Diet Dr. Pepper, Fanta Orange, Mello Yello, Minute Maid Lemonade,
+Barq's, Ginger Ale, Dasani</td>
+        <td class="MenuItemDesc">Coke, Diet Coke, Cherry Coke, Sprite, Barq's, Fanta Orange</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">Vitamin Water&#8212;$1.85</td>
+        <td class="MenuItemTitle">Honest Tea&#8212;$1.85</td>
+      </tr>
+      <tr>
+        <td class="MenuItemTitle">Yoo-Hoo&#8212;$1.85</td>
+        <td class="MenuItemTitle">&nbsp;</td>
+      </tr>
+    </table>
+    
+    
+    
+    </td>
+    <td class="RightSide" id="awmAnchor-floatingmenu"></td>
+  </tr>
+  <tr>
+    <td colspan="3" class="Bottom"></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td class="CopyrightCell">&copy; 2011 DP Dough Troy | <a href="../sitemap/default.html">Sitemap</a></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</body>
+
+</html>
