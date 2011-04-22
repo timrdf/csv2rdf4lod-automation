@@ -1,0 +1,401 @@
+2011-04-22T09:40:31-04:00
+58 rows in source/menu-on-wall-transcription.csv
+E1 CONVERSION
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     source/menu-on-wall-transcription.csv
+sampleLimit:                  2
+enhancementParametersURL:     manual/menu-on-wall-transcription.csv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/menu-on-wall-transcription.csv.e1.sample.ttl
+converterIdentifier:          csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .dpdoughtroy-com.
+DatasetIdentifierQuerylet(*) .menu-on-wall-transcription.
+DatasetVersionQuerylet(*) .2011-Apr-22.
+DomainTemplateQuerylet(1) .[.].
+
+subjectNS:   :  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/
+objectNS:    _global_value:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/
+
+CellDelimiterQuerylet(*) .,.
+HeaderRowQuerylet(*) .2.
+consuming top matter on line 1 before header line (2): "","","","","","","","","","","",""
+===========
+consumed top matter:
+"","","","","","","","","","","",""
+
+headers present at row 2: "Title","Starred","Contains","Contains","Contains","Contains","Contains","Contains","Dublin Core Source - Transcribees","Dublin Core Source - Google Spreadsheet Transcription","RDF Conversion Setup Script","See Also"
+
+       EquivalentPropertyQuerylet(1) .http://purl.org/dc/terms/title.
+1: "Title" -> "Title" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/title (rdfs:Literal)
+2: "Starred" -> "Starred" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/starred (rdfs:Literal)
+3: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+4: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+5: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+6: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+7: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+8: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+9: "Dublin Core Source - Transcribees" -> "Dublin Core Source - Transcribees" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/dublin_core_source_transcribees (rdfs:Resource)
+10: "Dublin Core Source - Google Spreadsheet Transcription" -> "Dublin Core Source - Google Spreadsheet Transcription" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/dublin_core_source_google_spreadsheet_transcription (rdfs:Resource)
+11: "RDF Conversion Setup Script" -> "RDF Conversion Setup Script" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/rdf_conversion_setup_script (rdfs:Resource)
+12: "See Also" -> "See Also" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/see_also (rdfs:Resource)
+
+
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/BBQ_Chicken, dublin_core_source_transcribees, > @ 4,9
+ResourceValueHandler FAILED: " -pattern-> r4c9reference" !~ 1 patterns @ :BBQ_Chicken :dublin_core_source_transcribees
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/BBQ_Chicken, dublin_core_source_google_spreadsheet_transcription, > @ 4,10
+ResourceValueHandler FAILED: " -pattern-> r4c10reference" !~ 1 patterns @ :BBQ_Chicken :dublin_core_source_google_spreadsheet_transcription
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/BBQ_Chicken, rdf_conversion_setup_script, > @ 4,11
+ResourceValueHandler FAILED: " -pattern-> r4c11reference" !~ 1 patterns @ :BBQ_Chicken :rdf_conversion_setup_script
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/BBQ_Chicken, see_also, > @ 4,12
+ResourceValueHandler FAILED: " -pattern-> r4c12reference" !~ 1 patterns @ :BBQ_Chicken :see_also
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 505 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+Finished converting -sample 2 examples rows.
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     source/menu-on-wall-transcription.csv
+enhancementParametersURL:     manual/menu-on-wall-transcription.csv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/menu-on-wall-transcription.csv.e1.ttl
+converterIdentifier:          csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .dpdoughtroy-com.
+DatasetIdentifierQuerylet(*) .menu-on-wall-transcription.
+DatasetVersionQuerylet(*) .2011-Apr-22.
+DomainTemplateQuerylet(1) .[.].
+
+subjectNS:   :  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/
+objectNS:    _global_value:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/
+
+CellDelimiterQuerylet(*) .,.
+HeaderRowQuerylet(*) .2.
+consuming top matter on line 1 before header line (2): "","","","","","","","","","","",""
+===========
+consumed top matter:
+"","","","","","","","","","","",""
+
+headers present at row 2: "Title","Starred","Contains","Contains","Contains","Contains","Contains","Contains","Dublin Core Source - Transcribees","Dublin Core Source - Google Spreadsheet Transcription","RDF Conversion Setup Script","See Also"
+
+       EquivalentPropertyQuerylet(1) .http://purl.org/dc/terms/title.
+1: "Title" -> "Title" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/title (rdfs:Literal)
+2: "Starred" -> "Starred" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/starred (rdfs:Literal)
+3: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+4: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+5: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+6: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+7: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+8: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+9: "Dublin Core Source - Transcribees" -> "Dublin Core Source - Transcribees" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/dublin_core_source_transcribees (rdfs:Resource)
+10: "Dublin Core Source - Google Spreadsheet Transcription" -> "Dublin Core Source - Google Spreadsheet Transcription" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/dublin_core_source_google_spreadsheet_transcription (rdfs:Resource)
+11: "RDF Conversion Setup Script" -> "RDF Conversion Setup Script" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/rdf_conversion_setup_script (rdfs:Resource)
+12: "See Also" -> "See Also" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/see_also (rdfs:Resource)
+
+
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/BBQ_Chicken, dublin_core_source_transcribees, > @ 4,9
+ResourceValueHandler FAILED: " -pattern-> r4c9reference" !~ 1 patterns @ :BBQ_Chicken :dublin_core_source_transcribees
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/BBQ_Chicken, dublin_core_source_google_spreadsheet_transcription, > @ 4,10
+ResourceValueHandler FAILED: " -pattern-> r4c10reference" !~ 1 patterns @ :BBQ_Chicken :dublin_core_source_google_spreadsheet_transcription
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/BBQ_Chicken, rdf_conversion_setup_script, > @ 4,11
+ResourceValueHandler FAILED: " -pattern-> r4c11reference" !~ 1 patterns @ :BBQ_Chicken :rdf_conversion_setup_script
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/BBQ_Chicken, see_also, > @ 4,12
+ResourceValueHandler FAILED: " -pattern-> r4c12reference" !~ 1 patterns @ :BBQ_Chicken :see_also
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/BBQ_Steak, dublin_core_source_transcribees, > @ 5,9
+ResourceValueHandler FAILED: " -pattern-> r5c9reference" !~ 1 patterns @ :BBQ_Steak :dublin_core_source_transcribees
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/BBQ_Steak, dublin_core_source_google_spreadsheet_transcription, > @ 5,10
+ResourceValueHandler FAILED: " -pattern-> r5c10reference" !~ 1 patterns @ :BBQ_Steak :dublin_core_source_google_spreadsheet_transcription
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/BBQ_Steak, rdf_conversion_setup_script, > @ 5,11
+ResourceValueHandler FAILED: " -pattern-> r5c11reference" !~ 1 patterns @ :BBQ_Steak :rdf_conversion_setup_script
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/BBQ_Steak, see_also, > @ 5,12
+ResourceValueHandler FAILED: " -pattern-> r5c12reference" !~ 1 patterns @ :BBQ_Steak :see_also
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/The_Bomb_Zone, dublin_core_source_transcribees, > @ 6,9
+ResourceValueHandler FAILED: " -pattern-> r6c9reference" !~ 1 patterns @ :The_Bomb_Zone :dublin_core_source_transcribees
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/The_Bomb_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 6,10
+ResourceValueHandler FAILED: " -pattern-> r6c10reference" !~ 1 patterns @ :The_Bomb_Zone :dublin_core_source_google_spreadsheet_transcription
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/The_Bomb_Zone, rdf_conversion_setup_script, > @ 6,11
+ResourceValueHandler FAILED: " -pattern-> r6c11reference" !~ 1 patterns @ :The_Bomb_Zone :rdf_conversion_setup_script
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/The_Bomb_Zone, see_also, > @ 6,12
+ResourceValueHandler FAILED: " -pattern-> r6c12reference" !~ 1 patterns @ :The_Bomb_Zone :see_also
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Buffer_Zone, dublin_core_source_transcribees, > @ 7,9
+ResourceValueHandler FAILED: " -pattern-> r7c9reference" !~ 1 patterns @ :Buffer_Zone :dublin_core_source_transcribees
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Buffer_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 7,10
+ResourceValueHandler FAILED: " -pattern-> r7c10reference" !~ 1 patterns @ :Buffer_Zone :dublin_core_source_google_spreadsheet_transcription
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Buffer_Zone, rdf_conversion_setup_script, > @ 7,11
+ResourceValueHandler FAILED: " -pattern-> r7c11reference" !~ 1 patterns @ :Buffer_Zone :rdf_conversion_setup_script
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Buffer_Zone, see_also, > @ 7,12
+ResourceValueHandler FAILED: " -pattern-> r7c12reference" !~ 1 patterns @ :Buffer_Zone :see_also
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Cheeseburg, dublin_core_source_transcribees, > @ 8,9
+ResourceValueHandler FAILED: " -pattern-> r8c9reference" !~ 1 patterns @ :Cheeseburg :dublin_core_source_transcribees
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Cheeseburg, dublin_core_source_google_spreadsheet_transcription, > @ 8,10
+ResourceValueHandler FAILED: " -pattern-> r8c10reference" !~ 1 patterns @ :Cheeseburg :dublin_core_source_google_spreadsheet_transcription
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Cheeseburg, rdf_conversion_setup_script, > @ 8,11
+ResourceValueHandler FAILED: " -pattern-> r8c11reference" !~ 1 patterns @ :Cheeseburg :rdf_conversion_setup_script
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Cheeseburg, see_also, > @ 8,12
+ResourceValueHandler FAILED: " -pattern-> r8c12reference" !~ 1 patterns @ :Cheeseburg :see_also
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Cheeze, dublin_core_source_transcribees, > @ 9,9
+ResourceValueHandler FAILED: " -pattern-> r9c9reference" !~ 1 patterns @ :Cheeze :dublin_core_source_transcribees
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Cheeze, dublin_core_source_google_spreadsheet_transcription, > @ 9,10
+ResourceValueHandler FAILED: " -pattern-> r9c10reference" !~ 1 patterns @ :Cheeze :dublin_core_source_google_spreadsheet_transcription
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Cheeze, rdf_conversion_setup_script, > @ 9,11
+ResourceValueHandler FAILED: " -pattern-> r9c11reference" !~ 1 patterns @ :Cheeze :rdf_conversion_setup_script
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Cheeze, see_also, > @ 9,12
+ResourceValueHandler FAILED: " -pattern-> r9c12reference" !~ 1 patterns @ :Cheeze :see_also
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Chicken_Fajita, dublin_core_source_transcribees, > @ 10,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Chicken_Fajita, dublin_core_source_google_spreadsheet_transcription, > @ 10,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Chicken_Fajita, rdf_conversion_setup_script, > @ 10,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Chicken_Fajita, see_also, > @ 10,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Chick_N_Bacon, dublin_core_source_transcribees, > @ 11,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Chick_N_Bacon, dublin_core_source_google_spreadsheet_transcription, > @ 11,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Chick_N_Bacon, rdf_conversion_setup_script, > @ 11,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Chick_N_Bacon, see_also, > @ 11,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Chicken_Parmazone, dublin_core_source_transcribees, > @ 12,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Chicken_Parmazone, dublin_core_source_google_spreadsheet_transcription, > @ 12,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Chicken_Parmazone, rdf_conversion_setup_script, > @ 12,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Chicken_Parmazone, see_also, > @ 12,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Combat_Zone, dublin_core_source_transcribees, > @ 13,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Combat_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 13,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Combat_Zone, rdf_conversion_setup_script, > @ 13,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Combat_Zone, see_also, > @ 13,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Construction_Zone, dublin_core_source_transcribees, > @ 14,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Construction_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 14,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Construction_Zone, rdf_conversion_setup_script, > @ 14,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Construction_Zone, see_also, > @ 14,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Cordon_Bleu, dublin_core_source_transcribees, > @ 15,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Cordon_Bleu, dublin_core_source_google_spreadsheet_transcription, > @ 15,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Cordon_Bleu, rdf_conversion_setup_script, > @ 15,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Cordon_Bleu, see_also, > @ 15,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Danger_Zone, dublin_core_source_transcribees, > @ 16,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Danger_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 16,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Danger_Zone, rdf_conversion_setup_script, > @ 16,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Danger_Zone, see_also, > @ 16,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Drop_Zone, dublin_core_source_transcribees, > @ 17,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Drop_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 17,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Drop_Zone, rdf_conversion_setup_script, > @ 17,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Drop_Zone, see_also, > @ 17,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Work_Zone, dublin_core_source_transcribees, > @ 18,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Work_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 18,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Work_Zone, rdf_conversion_setup_script, > @ 18,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Work_Zone, see_also, > @ 18,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Pesto, dublin_core_source_transcribees, > @ 19,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Pesto, dublin_core_source_google_spreadsheet_transcription, > @ 19,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Pesto, rdf_conversion_setup_script, > @ 19,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Pesto, see_also, > @ 19,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/End_Zone, dublin_core_source_transcribees, > @ 20,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/End_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 20,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/End_Zone, rdf_conversion_setup_script, > @ 20,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/End_Zone, see_also, > @ 20,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Eggplant_Zone, dublin_core_source_transcribees, > @ 21,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Eggplant_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 21,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Eggplant_Zone, rdf_conversion_setup_script, > @ 21,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Eggplant_Zone, see_also, > @ 21,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Falling_Rock_Zone, dublin_core_source_transcribees, > @ 22,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Falling_Rock_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 22,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Falling_Rock_Zone, rdf_conversion_setup_script, > @ 22,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Falling_Rock_Zone, see_also, > @ 22,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Ham_N_Egg_Zone, dublin_core_source_transcribees, > @ 23,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Ham_N_Egg_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 23,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Ham_N_Egg_Zone, rdf_conversion_setup_script, > @ 23,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Ham_N_Egg_Zone, see_also, > @ 23,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Hamzone, dublin_core_source_transcribees, > @ 24,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Hamzone, dublin_core_source_google_spreadsheet_transcription, > @ 24,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Hamzone, rdf_conversion_setup_script, > @ 24,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Hamzone, see_also, > @ 24,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Hori-Zone, dublin_core_source_transcribees, > @ 25,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Hori-Zone, dublin_core_source_google_spreadsheet_transcription, > @ 25,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Hori-Zone, rdf_conversion_setup_script, > @ 25,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Hori-Zone, see_also, > @ 25,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Italian_Zone, dublin_core_source_transcribees, > @ 26,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Italian_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 26,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Italian_Zone, rdf_conversion_setup_script, > @ 26,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Italian_Zone, see_also, > @ 26,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Loading_Zone, dublin_core_source_transcribees, > @ 27,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Loading_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 27,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Loading_Zone, rdf_conversion_setup_script, > @ 27,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Loading_Zone, see_also, > @ 27,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Low_Cal_Zone, dublin_core_source_transcribees, > @ 28,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Low_Cal_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 28,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Low_Cal_Zone, rdf_conversion_setup_script, > @ 28,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Low_Cal_Zone, see_also, > @ 28,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Mac_Daddy_Zone, dublin_core_source_transcribees, > @ 29,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Mac_Daddy_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 29,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Mac_Daddy_Zone, rdf_conversion_setup_script, > @ 29,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Mac_Daddy_Zone, see_also, > @ 29,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Maui_Wowi, dublin_core_source_transcribees, > @ 30,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Maui_Wowi, dublin_core_source_google_spreadsheet_transcription, > @ 30,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Maui_Wowi, rdf_conversion_setup_script, > @ 30,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Maui_Wowi, see_also, > @ 30,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Meaty, dublin_core_source_transcribees, > @ 31,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Meaty, dublin_core_source_google_spreadsheet_transcription, > @ 31,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Meaty, rdf_conversion_setup_script, > @ 31,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Meaty, see_also, > @ 31,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/OH_Zone, dublin_core_source_transcribees, > @ 32,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/OH_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 32,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/OH_Zone, rdf_conversion_setup_script, > @ 32,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/OH_Zone, see_also, > @ 32,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Parking_Zone, dublin_core_source_transcribees, > @ 33,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Parking_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 33,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Parking_Zone, rdf_conversion_setup_script, > @ 33,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Parking_Zone, see_also, > @ 33,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Party_Zone, dublin_core_source_transcribees, > @ 34,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Party_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 34,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Party_Zone, rdf_conversion_setup_script, > @ 34,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Party_Zone, see_also, > @ 34,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Turkey_Club, dublin_core_source_transcribees, > @ 35,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Turkey_Club, dublin_core_source_google_spreadsheet_transcription, > @ 35,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Turkey_Club, rdf_conversion_setup_script, > @ 35,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Turkey_Club, see_also, > @ 35,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Twilight_Zone, dublin_core_source_transcribees, > @ 36,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Twilight_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 36,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Twilight_Zone, rdf_conversion_setup_script, > @ 36,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Twilight_Zone, see_also, > @ 36,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Passing_Zone, dublin_core_source_transcribees, > @ 37,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Passing_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 37,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Passing_Zone, rdf_conversion_setup_script, > @ 37,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Passing_Zone, see_also, > @ 37,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Philly_Zone, dublin_core_source_transcribees, > @ 38,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Philly_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 38,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Philly_Zone, rdf_conversion_setup_script, > @ 38,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Philly_Zone, see_also, > @ 38,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Red_Zone, dublin_core_source_transcribees, > @ 39,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Red_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 39,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Red_Zone, rdf_conversion_setup_script, > @ 39,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Red_Zone, see_also, > @ 39,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Roni_Zoni, dublin_core_source_transcribees, > @ 40,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Roni_Zoni, dublin_core_source_google_spreadsheet_transcription, > @ 40,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Roni_Zoni, rdf_conversion_setup_script, > @ 40,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Roni_Zoni, see_also, > @ 40,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Roni_n_Shrooms, dublin_core_source_transcribees, > @ 41,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Roni_n_Shrooms, dublin_core_source_google_spreadsheet_transcription, > @ 41,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Roni_n_Shrooms, rdf_conversion_setup_script, > @ 41,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Roni_n_Shrooms, see_also, > @ 41,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Safety_Zone, dublin_core_source_transcribees, > @ 42,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Safety_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 42,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Safety_Zone, rdf_conversion_setup_script, > @ 42,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Safety_Zone, see_also, > @ 42,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/School_Zone, dublin_core_source_transcribees, > @ 43,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/School_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 43,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/School_Zone, rdf_conversion_setup_script, > @ 43,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/School_Zone, see_also, > @ 43,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Southern_Cal_Zone, dublin_core_source_transcribees, > @ 44,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Southern_Cal_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 44,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Southern_Cal_Zone, rdf_conversion_setup_script, > @ 44,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Southern_Cal_Zone, see_also, > @ 44,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Speed_Zone, dublin_core_source_transcribees, > @ 45,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Speed_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 45,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Speed_Zone, rdf_conversion_setup_script, > @ 45,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Speed_Zone, see_also, > @ 45,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Spinner, dublin_core_source_transcribees, > @ 46,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Spinner, dublin_core_source_google_spreadsheet_transcription, > @ 46,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Spinner, rdf_conversion_setup_script, > @ 46,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Spinner, see_also, > @ 46,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Sports_Zone, dublin_core_source_transcribees, > @ 47,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Sports_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 47,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Sports_Zone, rdf_conversion_setup_script, > @ 47,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Sports_Zone, see_also, > @ 47,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Spud_Zone, dublin_core_source_transcribees, > @ 48,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Spud_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 48,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Spud_Zone, rdf_conversion_setup_script, > @ 48,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Spud_Zone, see_also, > @ 48,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Strike_Zone, dublin_core_source_transcribees, > @ 49,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Strike_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 49,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Strike_Zone, rdf_conversion_setup_script, > @ 49,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Strike_Zone, see_also, > @ 49,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Target_Zone, dublin_core_source_transcribees, > @ 50,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Target_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 50,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Target_Zone, rdf_conversion_setup_script, > @ 50,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Target_Zone, see_also, > @ 50,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Testing_Zone, dublin_core_source_transcribees, > @ 51,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Testing_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 51,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Testing_Zone, rdf_conversion_setup_script, > @ 51,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Testing_Zone, see_also, > @ 51,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Time_Zone, dublin_core_source_transcribees, > @ 52,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Time_Zone, dublin_core_source_google_spreadsheet_transcription, > @ 52,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Time_Zone, rdf_conversion_setup_script, > @ 52,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Time_Zone, see_also, > @ 52,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Veggie, dublin_core_source_transcribees, > @ 53,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Veggie, dublin_core_source_google_spreadsheet_transcription, > @ 53,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Veggie, rdf_conversion_setup_script, > @ 53,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Veggie, see_also, > @ 53,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Yoko_Zono, dublin_core_source_transcribees, > @ 54,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Yoko_Zono, dublin_core_source_google_spreadsheet_transcription, > @ 54,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Yoko_Zono, rdf_conversion_setup_script, > @ 54,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Yoko_Zono, see_also, > @ 54,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------, contains, > @ 55,3
+ResourceValueHandler FAILED: " -pattern-> r55c3reference" !~ 1 patterns @ :--------_------ :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------, contains, > @ 55,4
+ResourceValueHandler FAILED: " -pattern-> r55c4reference" !~ 1 patterns @ :--------_------ :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------, contains, > @ 55,5
+ResourceValueHandler FAILED: " -pattern-> r55c5reference" !~ 1 patterns @ :--------_------ :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------, contains, > @ 55,6
+ResourceValueHandler FAILED: " -pattern-> r55c6reference" !~ 1 patterns @ :--------_------ :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------, contains, > @ 55,7
+ResourceValueHandler FAILED: " -pattern-> r55c7reference" !~ 1 patterns @ :--------_------ :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------, contains, > @ 55,8
+ResourceValueHandler FAILED: " -pattern-> r55c8reference" !~ 1 patterns @ :--------_------ :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------, dublin_core_source_transcribees, > @ 55,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------, dublin_core_source_google_spreadsheet_transcription, > @ 55,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------, rdf_conversion_setup_script, > @ 55,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------, see_also, > @ 55,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Please_direct_feedback_to, contains, > @ 56,4
+ResourceValueHandler FAILED: " -pattern-> r56c4reference" !~ 1 patterns @ :Please_direct_feedback_to :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Please_direct_feedback_to, contains, > @ 56,5
+ResourceValueHandler FAILED: " -pattern-> r56c5reference" !~ 1 patterns @ :Please_direct_feedback_to :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Please_direct_feedback_to, contains, > @ 56,6
+ResourceValueHandler FAILED: " -pattern-> r56c6reference" !~ 1 patterns @ :Please_direct_feedback_to :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Please_direct_feedback_to, contains, > @ 56,7
+ResourceValueHandler FAILED: " -pattern-> r56c7reference" !~ 1 patterns @ :Please_direct_feedback_to :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Please_direct_feedback_to, contains, > @ 56,8
+ResourceValueHandler FAILED: " -pattern-> r56c8reference" !~ 1 patterns @ :Please_direct_feedback_to :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Please_direct_feedback_to, dublin_core_source_transcribees, > @ 56,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Please_direct_feedback_to, dublin_core_source_google_spreadsheet_transcription, > @ 56,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Please_direct_feedback_to, rdf_conversion_setup_script, > @ 56,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Please_direct_feedback_to, see_also, > @ 56,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/dataset_identifiers, contains, > @ 57,7
+ResourceValueHandler FAILED: " -pattern-> r57c7reference" !~ 1 patterns @ :dataset_identifiers :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/dataset_identifiers, contains, > @ 57,8
+ResourceValueHandler FAILED: " -pattern-> r57c8reference" !~ 1 patterns @ :dataset_identifiers :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/dataset_identifiers, dublin_core_source_transcribees, > @ 57,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/dataset_identifiers, dublin_core_source_google_spreadsheet_transcription, > @ 57,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/dataset_identifiers, rdf_conversion_setup_script, > @ 57,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/dataset_identifiers, see_also, > @ 57,12
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Source_dataset_identifiers, contains, > @ 58,7
+ResourceValueHandler FAILED: " -pattern-> r58c7reference" !~ 1 patterns @ :Source_dataset_identifiers :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Source_dataset_identifiers, contains, > @ 58,8
+ResourceValueHandler FAILED: " -pattern-> r58c8reference" !~ 1 patterns @ :Source_dataset_identifiers :contains
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Source_dataset_identifiers, dublin_core_source_transcribees, > @ 58,9
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Source_dataset_identifiers, dublin_core_source_google_spreadsheet_transcription, > @ 58,10
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Source_dataset_identifiers, rdf_conversion_setup_script, > @ 58,11
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/Source_dataset_identifiers, see_also, > @ 58,12
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 1174 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+   convert.sh done
+convert-aggregate.sh publishing raw and enhancements.
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.sample.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.sample.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl
+  (including publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.ttl)
+  (including publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.ttl)
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.nt - skipping; set CSV2RDF4LOD_PUBLISH_NT=true in source-me.sh to publish N-Triples.
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.pml.ttl
+  (including source/menu-on-wall-transcription.csv.pml.ttl)
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.void.ttl
+  (including automatic/menu-on-wall-transcription.csv.e1.void.ttl)
+  (including automatic/menu-on-wall-transcription.csv.raw.void.ttl)
+  (including publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.pml.ttl)
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sameas.nt - skipping; no owl:sameAs in publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl.
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.rdf - skipping; set CSV2RDF4LOD_PUBLISH_RDFXML=true in source-me.sh to publish RDF/XML.
+publish/bin/ln-to-www-root-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sh
+publish/tdb/     - skipping; set CSV2RDF4LOD_PUBLISH_TDB=true in source-me.sh to load conversions into publish/tdb/.
+                 - or run publish/bin/tdbloader-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sh.
+                 - then run $TDBROOT/bin/rdfserver with publish/bin/joseki-config-anterior-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl.
+publish/lod-mat/ - skipping; set CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION=true in source-me.sh to load conversions into publish/lod-mat/,
+                 - or run automatic/lod-materialize-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sh.

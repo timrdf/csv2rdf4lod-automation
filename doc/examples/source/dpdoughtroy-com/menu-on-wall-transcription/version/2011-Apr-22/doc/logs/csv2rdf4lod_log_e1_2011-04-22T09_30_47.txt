@@ -1,0 +1,107 @@
+2011-04-22T09:30:47-04:00
+58 rows in source/menu-on-wall-transcription.csv
+E1 CONVERSION
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     source/menu-on-wall-transcription.csv
+sampleLimit:                  2
+enhancementParametersURL:     manual/menu-on-wall-transcription.csv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/menu-on-wall-transcription.csv.e1.sample.ttl
+converterIdentifier:          csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .dpdoughtroy-com.
+DatasetIdentifierQuerylet(*) .menu-on-wall-transcription.
+DatasetVersionQuerylet(*) .2011-Apr-22.
+DomainTemplateQuerylet(1) .[.].
+
+subjectNS:   :  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/
+objectNS:    _global_value:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/
+
+CellDelimiterQuerylet(*) .,.
+headers present at row 1: "","","","","","","","","","","",""
+
+       EquivalentPropertyQuerylet(1) .http://purl.org/dc/terms/title.
+1: "" -> "column_1" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_1 (rdfs:Literal)
+2: "" -> "column_2" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_2 (rdfs:Literal)
+3: "" -> "column_3" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_3 (rdfs:Literal)
+4: "" -> "column_4" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_4 (rdfs:Literal)
+5: "" -> "column_5" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_5 (rdfs:Literal)
+6: "" -> "column_6" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_6 (rdfs:Literal)
+7: "" -> "column_7" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_7 (rdfs:Literal)
+8: "" -> "column_8" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_8 (rdfs:Literal)
+9: "" -> "column_9" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_9 (rdfs:Literal)
+10: "" -> "column_10" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_10 (rdfs:Literal)
+11: "" -> "column_11" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_11 (rdfs:Literal)
+12: "" -> "column_12" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_12 (rdfs:Literal)
+
+
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 508 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+Finished converting -sample 2 examples rows.
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     source/menu-on-wall-transcription.csv
+enhancementParametersURL:     manual/menu-on-wall-transcription.csv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/menu-on-wall-transcription.csv.e1.ttl
+converterIdentifier:          csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .dpdoughtroy-com.
+DatasetIdentifierQuerylet(*) .menu-on-wall-transcription.
+DatasetVersionQuerylet(*) .2011-Apr-22.
+DomainTemplateQuerylet(1) .[.].
+
+subjectNS:   :  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/
+objectNS:    _global_value:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/
+
+CellDelimiterQuerylet(*) .,.
+headers present at row 1: "","","","","","","","","","","",""
+
+       EquivalentPropertyQuerylet(1) .http://purl.org/dc/terms/title.
+1: "" -> "column_1" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_1 (rdfs:Literal)
+2: "" -> "column_2" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_2 (rdfs:Literal)
+3: "" -> "column_3" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_3 (rdfs:Literal)
+4: "" -> "column_4" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_4 (rdfs:Literal)
+5: "" -> "column_5" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_5 (rdfs:Literal)
+6: "" -> "column_6" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_6 (rdfs:Literal)
+7: "" -> "column_7" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_7 (rdfs:Literal)
+8: "" -> "column_8" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_8 (rdfs:Literal)
+9: "" -> "column_9" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_9 (rdfs:Literal)
+10: "" -> "column_10" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_10 (rdfs:Literal)
+11: "" -> "column_11" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_11 (rdfs:Literal)
+12: "" -> "column_12" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/column_12 (rdfs:Literal)
+
+
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 1388 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+   convert.sh done
+convert-aggregate.sh publishing raw and enhancements.
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.sample.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.sample.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl
+  (including publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.ttl)
+  (including publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.ttl)
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.nt - skipping; set CSV2RDF4LOD_PUBLISH_NT=true in source-me.sh to publish N-Triples.
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.pml.ttl
+  (including source/menu-on-wall-transcription.csv.pml.ttl)
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.void.ttl
+  (including automatic/menu-on-wall-transcription.csv.e1.void.ttl)
+  (including automatic/menu-on-wall-transcription.csv.raw.void.ttl)
+  (including publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.pml.ttl)
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sameas.nt - skipping; no owl:sameAs in publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl.
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.rdf - skipping; set CSV2RDF4LOD_PUBLISH_RDFXML=true in source-me.sh to publish RDF/XML.
+publish/bin/ln-to-www-root-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sh
+publish/tdb/     - skipping; set CSV2RDF4LOD_PUBLISH_TDB=true in source-me.sh to load conversions into publish/tdb/.
+                 - or run publish/bin/tdbloader-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sh.
+                 - then run $TDBROOT/bin/rdfserver with publish/bin/joseki-config-anterior-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl.
+publish/lod-mat/ - skipping; set CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION=true in source-me.sh to load conversions into publish/lod-mat/,
+                 - or run automatic/lod-materialize-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sh.
