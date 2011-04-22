@@ -11,9 +11,9 @@ while [ $# -gt 0 ]; do
    echo "."                                                                      
    echo "<md5_${fileMD5}_time_${date_id}>"                                             
    echo "   a nfo:FileHash; "                                                 
-   echo "   dcterms:date \"`dateInXSDDateTime.sh`\"^^xsd:dateTime;"
+   echo "   dcterms:date      \"`dateInXSDDateTime.sh`\"^^xsd:dateTime;"
    echo "   nfo:hashAlgorithm \"md5\";"                                      
-   echo "   nfo:hashValue \"$fileMD5\";"                          
+   echo "   nfo:hashValue     \"$fileMD5\";"                          
    echo "."                                                                
 
    shift
