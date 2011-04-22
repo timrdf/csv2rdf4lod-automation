@@ -26,17 +26,17 @@
 @prefix : <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/> .
 @prefix ns1: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/> .
 @prefix typed_ingredient: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/> .
-@prefix dbpedia: <http://dbpedia.org/resource/> .
-@prefix geonames: <http://www.geonames.org/ontology#> .
-@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix time: <http://www.w3.org/2006/time#> .
-@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
-@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix con: <http://www.w3.org/2000/10/swap/pim/contact#> .
-@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
-@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
 @prefix geonamesid: <http://sws.geonames.org/> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
 @prefix value_of_contains: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/contains/> .
 @prefix value_of_dublin_core_source_transcribees: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/dublin_core_source_transcribees/> .
 @prefix value_of_dublin_core_source_google_spreadsheet_transcription: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/dublin_core_source_google_spreadsheet_transcription/> .
@@ -129,8 +129,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "A'wakin N' Bacon" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Scrambled_Eggs , typed_ingredient:Bacon , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Scrambled_Eggs , typed_ingredient:Bacon , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -141,8 +141,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "BBQ Chicken" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Bacon , typed_ingredient:Cheddar , typed_ingredient:BBQ_Sauce , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Bacon , typed_ingredient:Cheddar , typed_ingredient:BBQ_Sauce ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -153,8 +153,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "BBQ Steak" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Steak , typed_ingredient:Mozzerella , typed_ingredient:American , typed_ingredient:BBQ_Sauce , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Steak , typed_ingredient:Mozzerella , typed_ingredient:American , typed_ingredient:BBQ_Sauce ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -165,7 +165,7 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "The Bomb Zone" ;
-	e1:starred "" ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
 	e1:contains typed_ingredient:Steak , typed_ingredient:Spinach , typed_ingredient:Mushrooms , typed_ingredient:Garlic , typed_ingredient:Ricotta , typed_ingredient:Parmesan ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
@@ -177,8 +177,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Buffer Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Mozzerella , typed_ingredient:Blue_Cheese , typed_ingredient:Hot_Sauce , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Mozzerella , typed_ingredient:Blue_Cheese , typed_ingredient:Hot_Sauce ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -189,8 +189,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Cheeseburg" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Hamburg , typed_ingredient:Bacon , typed_ingredient:Mozzerella , typed_ingredient:Cheddar , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Hamburg , typed_ingredient:Bacon , typed_ingredient:Mozzerella , typed_ingredient:Cheddar ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -201,8 +201,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Cheeze" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Parmesan , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Parmesan ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -213,7 +213,7 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Chicken Fajita" ;
-	e1:starred "" ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
 	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Jalapenos , typed_ingredient:Black_Olives , typed_ingredient:Onions , typed_ingredient:Hot_Sauce , typed_ingredient:Cheddar ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
@@ -225,8 +225,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Chick N' Bacon" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Bacon , typed_ingredient:Parmesan , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Bacon , typed_ingredient:Parmesan ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -237,8 +237,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Chicken Parmazone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Mozzerella , typed_ingredient:Parmesan , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Mozzerella , typed_ingredient:Parmesan ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -249,8 +249,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Combat Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Pepperoni , typed_ingredient:Sausage , typed_ingredient:Peppers , typed_ingredient:Mushrooms , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Pepperoni , typed_ingredient:Sausage , typed_ingredient:Peppers , typed_ingredient:Mushrooms , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -261,8 +261,7 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Construction Zone" ;
-	e1:starred "" ;
-	e1:contains <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -273,8 +272,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Cordon Bleu" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Ham , typed_ingredient:American , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Ham , typed_ingredient:American , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -285,8 +284,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Danger Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Hamburg , typed_ingredient:Cheddar , typed_ingredient:Onions , typed_ingredient:Hot_Sauce , typed_ingredient:Mexican_Spices , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Hamburg , typed_ingredient:Cheddar , typed_ingredient:Onions , typed_ingredient:Hot_Sauce , typed_ingredient:Mexican_Spices ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -297,8 +296,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Drop Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Pepperoni , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Parmesan , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Pepperoni , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Parmesan ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -309,8 +308,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Work Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Steak , typed_ingredient:Potatoes , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Steak , typed_ingredient:Potatoes , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -321,8 +320,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Pesto" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Pesto , typed_ingredient:Mozzerella , typed_ingredient:Tomatoes , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Pesto , typed_ingredient:Mozzerella , typed_ingredient:Tomatoes ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -333,8 +332,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "End Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Steak , typed_ingredient:Peppers , typed_ingredient:Onions , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Steak , typed_ingredient:Peppers , typed_ingredient:Onions , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -345,8 +344,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Eggplant Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Eggplant , typed_ingredient:Mozzerella , typed_ingredient:Garlic , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Eggplant , typed_ingredient:Mozzerella , typed_ingredient:Garlic ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -357,8 +356,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Falling Rock Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Potato , typed_ingredient:Bacon , typed_ingredient:Cheddar , typed_ingredient:Mozzerella , typed_ingredient:Sour_Cream , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Potato , typed_ingredient:Bacon , typed_ingredient:Cheddar , typed_ingredient:Mozzerella , typed_ingredient:Sour_Cream ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -369,8 +368,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Ham N' Egg Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Eggs , typed_ingredient:Ham , typed_ingredient:Mozzerella , typed_ingredient:American , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Eggs , typed_ingredient:Ham , typed_ingredient:Mozzerella , typed_ingredient:American ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -381,8 +380,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Hamzone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Ham , typed_ingredient:Bacon , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Ham , typed_ingredient:Bacon , typed_ingredient:Mozzerella , typed_ingredient:Ricotta ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -393,8 +392,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Hori-Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Eggs , typed_ingredient:Ham , typed_ingredient:Onions , typed_ingredient:Peppers , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Eggs , typed_ingredient:Ham , typed_ingredient:Onions , typed_ingredient:Peppers , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -405,7 +404,7 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Italian Zone" ;
-	e1:starred "" ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
 	e1:contains typed_ingredient:Salami , typed_ingredient:Ham , typed_ingredient:Pepperoni , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Parmesan ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
@@ -417,8 +416,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Loading Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Peppers , typed_ingredient:Onions , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Peppers , typed_ingredient:Onions , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -429,8 +428,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Low Cal Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Broccoli , typed_ingredient:Garlic , typed_ingredient:Mozzerella , typed_ingredient:Cheddar , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Broccoli , typed_ingredient:Garlic , typed_ingredient:Mozzerella , typed_ingredient:Cheddar ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -441,8 +440,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Mac Daddy Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Macaroni , typed_ingredient:Cheese , typed_ingredient:Bacon , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Macaroni , typed_ingredient:Cheese , typed_ingredient:Bacon ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -453,8 +452,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Maui Wowi" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Pineapple , typed_ingredient:Ham , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Pineapple , typed_ingredient:Ham , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -465,8 +464,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Meaty" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Meatballs , typed_ingredient:Onions , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Meatballs , typed_ingredient:Onions , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -477,8 +476,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "OH Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Steak , typed_ingredient:American , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Steak , typed_ingredient:American , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -489,8 +488,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Parking Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Broccoli , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Broccoli , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -501,7 +500,7 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Party Zone" ;
-	e1:starred "" ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
 	e1:contains typed_ingredient:Hamburg , typed_ingredient:Pepperoni , typed_ingredient:Peppers , typed_ingredient:Onions , typed_ingredient:Cheddar , typed_ingredient:Mozzeralla ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
@@ -513,8 +512,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Turkey Club" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Turkey , typed_ingredient:Bacon , typed_ingredient:Tomato , typed_ingredient:American , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Turkey , typed_ingredient:Bacon , typed_ingredient:Tomato , typed_ingredient:American , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -526,7 +525,7 @@ e1:see_also a rdf:Property ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Twilight Zone" ;
 	e1:starred "*" ;
-	e1:contains typed_ingredient:Mozzerella , typed_ingredient:Sausage , typed_ingredient:Secret_Spices , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:contains typed_ingredient:Mozzerella , typed_ingredient:Sausage , typed_ingredient:Secret_Spices ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -537,8 +536,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Passing Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Mozzerella , typed_ingredient:Bacon , typed_ingredient:Tomatoes , typed_ingredient:Ranch , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Mozzerella , typed_ingredient:Bacon , typed_ingredient:Tomatoes , typed_ingredient:Ranch ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -549,8 +548,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Philly Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Steak , typed_ingredient:American_Cheeze , typed_ingredient:Onions , typed_ingredient:Mushrooms , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Steak , typed_ingredient:American_Cheeze , typed_ingredient:Onions , typed_ingredient:Mushrooms ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -561,8 +560,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Red Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Cheddar , typed_ingredient:Onions , typed_ingredient:Hot_Sauce , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Cheddar , typed_ingredient:Onions , typed_ingredient:Hot_Sauce ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -573,8 +572,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Roni Zoni" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Pepperoni , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Parmesan , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Pepperoni , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Parmesan ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -585,8 +584,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Roni 'n Shrooms" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Pepperoni , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Mushrooms , typed_ingredient:Parmesan , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Pepperoni , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Mushrooms , typed_ingredient:Parmesan ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -597,7 +596,7 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Safety Zone" ;
-	e1:starred "" ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
 	e1:contains typed_ingredient:Spinach , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Garlic , typed_ingredient:Olives , typed_ingredient:Mushrooms ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
@@ -609,8 +608,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "School Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Steak , typed_ingredient:Mushrooms , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Steak , typed_ingredient:Mushrooms , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -621,8 +620,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Southern Cal. Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Hamburg , typed_ingredient:Cheddar , typed_ingredient:Mexican_Spices , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Hamburg , typed_ingredient:Cheddar , typed_ingredient:Mexican_Spices ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -633,8 +632,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Speed Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Spinach , typed_ingredient:Garlic , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Spinach , typed_ingredient:Garlic , typed_ingredient:Mozzerella , typed_ingredient:Ricotta ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -645,8 +644,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Spinner" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Spinach , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Garlic , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Spinach , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Garlic ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -657,8 +656,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Sports Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Sausage , typed_ingredient:Peppers , typed_ingredient:Onions , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Sausage , typed_ingredient:Peppers , typed_ingredient:Onions , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -669,8 +668,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Spud Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Potato , typed_ingredient:Eggs , typed_ingredient:Bacon , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Potato , typed_ingredient:Eggs , typed_ingredient:Bacon , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -681,8 +680,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Strike Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Eggplant , typed_ingredient:Spinach , typed_ingredient:Garlic , typed_ingredient:Ricotta , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Eggplant , typed_ingredient:Spinach , typed_ingredient:Garlic , typed_ingredient:Ricotta , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -693,8 +692,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Target Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:American , typed_ingredient:Mozzerella , typed_ingredient:Ranch , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:American , typed_ingredient:Mozzerella , typed_ingredient:Ranch ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -705,8 +704,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Testing Zone" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Pesto , typed_ingredient:Mozzerella , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Breaded_Chicken , typed_ingredient:Pesto , typed_ingredient:Mozzerella ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -717,7 +716,7 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Time Zone" ;
-	e1:starred "" ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
 	e1:contains typed_ingredient:Peppers , typed_ingredient:Onions , typed_ingredient:Mushrooms , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Parmesan ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
@@ -729,8 +728,8 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Veggie" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Broccoli , typed_ingredient:Mushrooms , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Parmesan , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Broccoli , typed_ingredient:Mushrooms , typed_ingredient:Mozzerella , typed_ingredient:Ricotta , typed_ingredient:Parmesan ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
@@ -741,24 +740,13 @@ e1:see_also a rdf:Property ;
 	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
 	a local_vocab:Calzone , local_vocab:Food ;
 	dcterms:title "Yoko Zono" ;
-	e1:starred "" ;
-	e1:contains typed_ingredient:Scrambled_Eggs , typed_ingredient:Fresh_Broccoli , typed_ingredient:Mushrooms , typed_ingredient:Cheddar , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> ;
+	e1:starred "http://purl.org/twc/vocab/conversion/null" ;
+	e1:contains typed_ingredient:Scrambled_Eggs , typed_ingredient:Fresh_Broccoli , typed_ingredient:Mushrooms , typed_ingredient:Cheddar ;
 	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
 	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
 	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
 	e1:see_also <http://www.dpdoughtroy.com/menu> ;
 	ov:csvRow "54"^^xsd:integer .
-
-<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------> dcterms:identifier "--------_------" ;
-	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ;
-	a local_vocab:Calzone , local_vocab:Food ;
-	dcterms:title "-------- ------" ;
-	e1:starred "" ;
-	e1:dublin_core_source_transcribees <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source> ;
-	e1:dublin_core_source_google_spreadsheet_transcription <https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0> ;
-	e1:rdf_conversion_setup_script <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh> ;
-	e1:see_also <http://www.dpdoughtroy.com/menu> ;
-	ov:csvRow "55"^^xsd:integer .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -786,17 +774,17 @@ e1:see_also a rdf:Property ;
 @prefix : <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/> .
 @prefix ns1: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/> .
 @prefix typed_ingredient: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/> .
-@prefix dbpedia: <http://dbpedia.org/resource/> .
-@prefix geonames: <http://www.geonames.org/ontology#> .
-@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix time: <http://www.w3.org/2006/time#> .
-@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
-@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix con: <http://www.w3.org/2000/10/swap/pim/contact#> .
-@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
-@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
 @prefix geonamesid: <http://sws.geonames.org/> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
 @prefix value_of_contains: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/contains/> .
 @prefix value_of_dublin_core_source_transcribees: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/dublin_core_source_transcribees/> .
 @prefix value_of_dublin_core_source_google_spreadsheet_transcription: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/dublin_core_source_google_spreadsheet_transcription/> .
@@ -819,10 +807,6 @@ typed_ingredient:Bacon dcterms:identifier "Bacon" ;
 typed_ingredient:Mozzerella dcterms:identifier "Mozzerella" ;
 	a local_vocab:Ingredient ;
 	rdfs:label "Mozzerella" .
-
-<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/-> dcterms:identifier "-" ;
-	a local_vocab:Ingredient ;
-	rdfs:label "-" .
 
 :thing_4 con:preferredURI :BBQ_Chicken .
 
@@ -1094,146 +1078,145 @@ typed_ingredient:Fresh_Broccoli dcterms:identifier "Fresh Broccoli" ;
 	a local_vocab:Ingredient ;
 	rdfs:label "Fresh Broccoli" .
 
-:thing_55 con:preferredURI <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------> .
-
-<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ov:csvBottomMatter """\"Please direct feedback to\",\"\",\"http://tw.rpi.edu/instances/TimLebo\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"
+<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> ov:csvBottomMatter """\"-------- ------\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"
+\"Please direct feedback to\",\"\",\"http://tw.rpi.edu/instances/TimLebo\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"
 \"dataset identifiers\",\"\",\"source\",\"dpdoughtroy-com\",\"dataset\",\"menu-on-wall-transcription\",\"\",\"\",\"\",\"\",\"\",\"\"
 \"Source dataset identifiers\",\"\",\"source\",\"dpdoughtroy-com\",\"dataset\",\"menu-on-wall\",\"\",\"\",\"\",\"\",\"\",\"\"
 """ .
 
-_:node15tuse62rx2 vann:preferredNamespacePrefix "rdf" ;
+_:node15tv940s2x2 vann:preferredNamespacePrefix "rdf" ;
 	vann:preferredNamespaceUri "http://www.w3.org/1999/02/22-rdf-syntax-ns#" .
 
-_:node15tuse62rx3 vann:preferredNamespacePrefix "rdfs" ;
+_:node15tv940s2x3 vann:preferredNamespacePrefix "rdfs" ;
 	vann:preferredNamespaceUri "http://www.w3.org/2000/01/rdf-schema#" .
 
-_:node15tuse62rx4 vann:preferredNamespacePrefix "xsd" ;
+_:node15tv940s2x4 vann:preferredNamespacePrefix "xsd" ;
 	vann:preferredNamespaceUri "http://www.w3.org/2001/XMLSchema#" .
 
-_:node15tuse62rx5 vann:preferredNamespacePrefix "xsd2" ;
+_:node15tv940s2x5 vann:preferredNamespacePrefix "xsd2" ;
 	vann:preferredNamespaceUri "http://www.w3.org/TR/xmlschema-2/#" .
 
-_:node15tuse62rx6 vann:preferredNamespacePrefix "owl" ;
+_:node15tv940s2x6 vann:preferredNamespacePrefix "owl" ;
 	vann:preferredNamespaceUri "http://www.w3.org/2002/07/owl#" .
 
-_:node15tuse62rx7 vann:preferredNamespacePrefix "pmlp" ;
+_:node15tv940s2x7 vann:preferredNamespacePrefix "pmlp" ;
 	vann:preferredNamespaceUri "http://inference-web.org/2.0/pml-provenance.owl#" .
 
-_:node15tuse62rx8 vann:preferredNamespacePrefix "pmlj" ;
+_:node15tv940s2x8 vann:preferredNamespacePrefix "pmlj" ;
 	vann:preferredNamespaceUri "http://inference-web.org/2.0/pml-justification.owl#" .
 
-_:node15tuse62rx9 vann:preferredNamespacePrefix "tw_service" ;
+_:node15tv940s2x9 vann:preferredNamespacePrefix "tw_service" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/tw-rpi-edu/service/" .
 
-_:node15tuse62rx10 vann:preferredNamespacePrefix "tw_converter" ;
+_:node15tv940s2x10 vann:preferredNamespacePrefix "tw_converter" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Apr-21/" .
 
-_:node15tuse62rx11 vann:preferredNamespacePrefix "provenance" ;
+_:node15tv940s2x11 vann:preferredNamespacePrefix "provenance" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1/" .
 
-_:node15tuse62rx12 vann:preferredNamespacePrefix "conversion" ;
+_:node15tv940s2x12 vann:preferredNamespacePrefix "conversion" ;
 	vann:preferredNamespaceUri "http://purl.org/twc/vocab/conversion/" .
 
-_:node15tuse62rx13 vann:preferredNamespacePrefix "ov" ;
+_:node15tv940s2x13 vann:preferredNamespacePrefix "ov" ;
 	vann:preferredNamespaceUri "http://open.vocab.org/terms/" .
 
-_:node15tuse62rx14 vann:preferredNamespacePrefix "dcterms" ;
+_:node15tv940s2x14 vann:preferredNamespacePrefix "dcterms" ;
 	vann:preferredNamespaceUri "http://purl.org/dc/terms/" .
 
-_:node15tuse62rx15 vann:preferredNamespacePrefix "foaf" ;
+_:node15tv940s2x15 vann:preferredNamespacePrefix "foaf" ;
 	vann:preferredNamespaceUri "http://xmlns.com/foaf/0.1/" .
 
-_:node15tuse62rx16 vann:preferredNamespacePrefix "void" ;
+_:node15tv940s2x16 vann:preferredNamespacePrefix "void" ;
 	vann:preferredNamespaceUri "http://rdfs.org/ns/void#" .
 
-_:node15tuse62rx17 vann:preferredNamespacePrefix "doap" ;
+_:node15tv940s2x17 vann:preferredNamespacePrefix "doap" ;
 	vann:preferredNamespaceUri "http://usefulinc.com/ns/doap#" .
 
-_:node15tuse62rx18 vann:preferredNamespacePrefix "scovo" ;
+_:node15tv940s2x18 vann:preferredNamespacePrefix "scovo" ;
 	vann:preferredNamespaceUri "http://purl.org/NET/scovo#" .
 
-_:node15tuse62rx19 vann:preferredNamespacePrefix "sdmx" ;
+_:node15tv940s2x19 vann:preferredNamespacePrefix "sdmx" ;
 	vann:preferredNamespaceUri "http://purl.org/linked-data/cube#" .
 
-_:node15tuse62rx20 vann:preferredNamespacePrefix "vann" ;
+_:node15tv940s2x20 vann:preferredNamespacePrefix "vann" ;
 	vann:preferredNamespaceUri "http://purl.org/vocab/vann/" .
 
-_:node15tuse62rx21 vann:preferredNamespacePrefix "dpdoughtroy-com_vocab" ;
+_:node15tv940s2x21 vann:preferredNamespacePrefix "dpdoughtroy-com_vocab" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/vocab/" .
 
-_:node15tuse62rx22 vann:preferredNamespacePrefix "base_vocab" ;
+_:node15tv940s2x22 vann:preferredNamespacePrefix "base_vocab" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/vocab/" .
 
-_:node15tuse62rx23 vann:preferredNamespacePrefix "local_vocab" ;
+_:node15tv940s2x23 vann:preferredNamespacePrefix "local_vocab" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/" .
 
-_:node15tuse62rx24 vann:preferredNamespacePrefix "raw" ;
+_:node15tv940s2x24 vann:preferredNamespacePrefix "raw" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/" .
 
-_:node15tuse62rx25 vann:preferredNamespacePrefix "e1" ;
+_:node15tv940s2x25 vann:preferredNamespacePrefix "e1" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/" .
 
-_:node15tuse62rx26 vann:preferredNamespacePrefix "" ;
+_:node15tv940s2x26 vann:preferredNamespacePrefix "" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/" .
 
-_:node15tuse62rx27 vann:preferredNamespacePrefix "_global_value" ;
+_:node15tv940s2x27 vann:preferredNamespacePrefix "_global_value" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/" .
 
-_:node15tuse62rx28 vann:preferredNamespacePrefix "typed_ingredient" ;
+_:node15tv940s2x28 vann:preferredNamespacePrefix "typed_ingredient" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/" .
 
-_:node15tuse62rx29 vann:preferredNamespacePrefix "dbpedia" ;
-	vann:preferredNamespaceUri "http://dbpedia.org/resource/" .
-
-_:node15tuse62rx30 vann:preferredNamespacePrefix "geonames" ;
-	vann:preferredNamespaceUri "http://www.geonames.org/ontology#" .
-
-_:node15tuse62rx31 vann:preferredNamespacePrefix "wgs" ;
-	vann:preferredNamespaceUri "http://www.w3.org/2003/01/geo/wgs84_pos#" .
-
-_:node15tuse62rx32 vann:preferredNamespacePrefix "skos" ;
-	vann:preferredNamespaceUri "http://www.w3.org/2004/02/skos/core#" .
-
-_:node15tuse62rx33 vann:preferredNamespacePrefix "time" ;
+_:node15tv940s2x29 vann:preferredNamespacePrefix "time" ;
 	vann:preferredNamespaceUri "http://www.w3.org/2006/time#" .
 
-_:node15tuse62rx34 vann:preferredNamespacePrefix "todo" ;
-	vann:preferredNamespaceUri "http://www.w3.org/2000/01/rdf-schema#" .
+_:node15tv940s2x30 vann:preferredNamespacePrefix "skos" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2004/02/skos/core#" .
 
-_:node15tuse62rx35 vann:preferredNamespacePrefix "muo" ;
-	vann:preferredNamespaceUri "http://purl.oclc.org/NET/muo/muo#" .
-
-_:node15tuse62rx36 vann:preferredNamespacePrefix "dgtwc" ;
-	vann:preferredNamespaceUri "http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#" .
-
-_:node15tuse62rx37 vann:preferredNamespacePrefix "con" ;
+_:node15tv940s2x31 vann:preferredNamespacePrefix "con" ;
 	vann:preferredNamespaceUri "http://www.w3.org/2000/10/swap/pim/contact#" .
 
-_:node15tuse62rx38 vann:preferredNamespacePrefix "govtrackusgov" ;
-	vann:preferredNamespaceUri "http://www.rdfabout.com/rdf/usgov/geo/us/" .
+_:node15tv940s2x32 vann:preferredNamespacePrefix "dgtwc" ;
+	vann:preferredNamespaceUri "http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#" .
 
-_:node15tuse62rx39 vann:preferredNamespacePrefix "sioc" ;
-	vann:preferredNamespaceUri "http://rdfs.org/sioc/ns#" .
+_:node15tv940s2x33 vann:preferredNamespacePrefix "geonames" ;
+	vann:preferredNamespaceUri "http://www.geonames.org/ontology#" .
 
-_:node15tuse62rx40 vann:preferredNamespacePrefix "geonamesid" ;
+_:node15tv940s2x34 vann:preferredNamespacePrefix "geonamesid" ;
 	vann:preferredNamespaceUri "http://sws.geonames.org/" .
 
-_:node15tuse62rx41 vann:preferredNamespacePrefix "value_of_contains" ;
+_:node15tv940s2x35 vann:preferredNamespacePrefix "dbpedia" ;
+	vann:preferredNamespaceUri "http://dbpedia.org/resource/" .
+
+_:node15tv940s2x36 vann:preferredNamespacePrefix "sioc" ;
+	vann:preferredNamespaceUri "http://rdfs.org/sioc/ns#" .
+
+_:node15tv940s2x37 vann:preferredNamespacePrefix "todo" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2000/01/rdf-schema#" .
+
+_:node15tv940s2x38 vann:preferredNamespacePrefix "wgs" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2003/01/geo/wgs84_pos#" .
+
+_:node15tv940s2x39 vann:preferredNamespacePrefix "muo" ;
+	vann:preferredNamespaceUri "http://purl.oclc.org/NET/muo/muo#" .
+
+_:node15tv940s2x40 vann:preferredNamespacePrefix "govtrackusgov" ;
+	vann:preferredNamespaceUri "http://www.rdfabout.com/rdf/usgov/geo/us/" .
+
+_:node15tv940s2x41 vann:preferredNamespacePrefix "value_of_contains" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/contains/" .
 
-_:node15tuse62rx42 vann:preferredNamespacePrefix "value_of_dublin_core_source_transcribees" ;
+_:node15tv940s2x42 vann:preferredNamespacePrefix "value_of_dublin_core_source_transcribees" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/dublin_core_source_transcribees/" .
 
-_:node15tuse62rx43 vann:preferredNamespacePrefix "value_of_dublin_core_source_google_spreadsheet_transcription" ;
+_:node15tv940s2x43 vann:preferredNamespacePrefix "value_of_dublin_core_source_google_spreadsheet_transcription" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/dublin_core_source_google_spreadsheet_transcription/" .
 
-_:node15tuse62rx44 vann:preferredNamespacePrefix "value_of_rdf_conversion_setup_script" ;
+_:node15tv940s2x44 vann:preferredNamespacePrefix "value_of_rdf_conversion_setup_script" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/rdf_conversion_setup_script/" .
 
-_:node15tuse62rx45 vann:preferredNamespacePrefix "value_of_see_also" ;
+_:node15tv940s2x45 vann:preferredNamespacePrefix "value_of_see_also" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/see_also/" .
 
-_:node15tuse62rx1 rdfs:seeAlso _:node15tuse62rx2 , _:node15tuse62rx3 , _:node15tuse62rx4 , _:node15tuse62rx5 , _:node15tuse62rx6 , _:node15tuse62rx7 , _:node15tuse62rx8 , _:node15tuse62rx9 , _:node15tuse62rx10 , _:node15tuse62rx11 , _:node15tuse62rx12 , _:node15tuse62rx13 , _:node15tuse62rx14 , _:node15tuse62rx15 , _:node15tuse62rx16 , _:node15tuse62rx17 , _:node15tuse62rx18 , _:node15tuse62rx19 , _:node15tuse62rx20 , _:node15tuse62rx21 , _:node15tuse62rx22 , _:node15tuse62rx23 , _:node15tuse62rx24 , _:node15tuse62rx25 , _:node15tuse62rx26 , _:node15tuse62rx27 , _:node15tuse62rx28 , _:node15tuse62rx29 , _:node15tuse62rx30 , _:node15tuse62rx31 , _:node15tuse62rx32 , _:node15tuse62rx33 , _:node15tuse62rx34 , _:node15tuse62rx35 , _:node15tuse62rx36 , _:node15tuse62rx37 , _:node15tuse62rx38 , _:node15tuse62rx39 , _:node15tuse62rx40 , _:node15tuse62rx41 , _:node15tuse62rx42 , _:node15tuse62rx43 , _:node15tuse62rx44 , _:node15tuse62rx45 .
+_:node15tv940s2x1 rdfs:seeAlso _:node15tv940s2x2 , _:node15tv940s2x3 , _:node15tv940s2x4 , _:node15tv940s2x5 , _:node15tv940s2x6 , _:node15tv940s2x7 , _:node15tv940s2x8 , _:node15tv940s2x9 , _:node15tv940s2x10 , _:node15tv940s2x11 , _:node15tv940s2x12 , _:node15tv940s2x13 , _:node15tv940s2x14 , _:node15tv940s2x15 , _:node15tv940s2x16 , _:node15tv940s2x17 , _:node15tv940s2x18 , _:node15tv940s2x19 , _:node15tv940s2x20 , _:node15tv940s2x21 , _:node15tv940s2x22 , _:node15tv940s2x23 , _:node15tv940s2x24 , _:node15tv940s2x25 , _:node15tv940s2x26 , _:node15tv940s2x27 , _:node15tv940s2x28 , _:node15tv940s2x29 , _:node15tv940s2x30 , _:node15tv940s2x31 , _:node15tv940s2x32 , _:node15tv940s2x33 , _:node15tv940s2x34 , _:node15tv940s2x35 , _:node15tv940s2x36 , _:node15tv940s2x37 , _:node15tv940s2x38 , _:node15tv940s2x39 , _:node15tv940s2x40 , _:node15tv940s2x41 , _:node15tv940s2x42 , _:node15tv940s2x43 , _:node15tv940s2x44 , _:node15tv940s2x45 .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription> a dpdoughtroy-com_vocab:Dataset , conversion:Dataset , conversion:AbstractDataset , void:Dataset ;
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
@@ -1243,7 +1226,7 @@ _:node15tuse62rx1 rdfs:seeAlso _:node15tuse62rx2 , _:node15tuse62rx3 , _:node15t
 	dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription" ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription> ;
 	void:subset <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/subset/meta> ;
-	dcterms:modified "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime .
+	dcterms:modified "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> a dpdoughtroy-com_vocab:Dataset , conversion:Dataset , conversion:VersionedDataset , void:Dataset ;
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
@@ -1253,13 +1236,13 @@ _:node15tuse62rx1 rdfs:seeAlso _:node15tuse62rx2 , _:node15tuse62rx3 , _:node15t
 	conversion:dataset_version "2011-Apr-22" ;
 	dcterms:contributor <http://logd.tw.rpi.edu/source/dpdoughtroy-com> ;
 	dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription 2011-Apr-22" ;
-	dcterms:modified "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl.gz> ;
 	void:subset <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> a dpdoughtroy-com_vocab:Dataset , conversion:Dataset , conversion:LayerDataset , void:Dataset ;
-	dcterms:modified "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime ;
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
 	conversion:source_identifier "dpdoughtroy-com" ;
 	conversion:dataset_identifier "menu-on-wall-transcription" ;
@@ -1269,18 +1252,18 @@ _:node15tuse62rx1 rdfs:seeAlso _:node15tuse62rx2 , _:node15tuse62rx3 , _:node15t
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.ttl.gz> ;
 	void:subset <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1/subset/sample> ;
-	dcterms:created "2011-04-22T11:14:51.166-05:00"^^xsd:dateTime ;
+	dcterms:created "2011-04-22T14:56:29.654-05:00"^^xsd:dateTime ;
 	dcterms:contributor <http://logd.tw.rpi.edu/source/dpdoughtroy-com> ;
 	dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription 2011-Apr-22 e1" ;
 	conversion:uses_predicate e1:see_also , e1:rdf_conversion_setup_script , e1:dublin_core_source_google_spreadsheet_transcription , e1:dublin_core_source_transcribees , e1:contains , e1:starred , dcterms:title ;
 	conversion:uses_class local_vocab:Ingredient , local_vocab:Calzone , local_vocab:Food ;
-	void:exampleResource :A_wakin_N_Bacon , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------> .
+	void:exampleResource :A_wakin_N_Bacon , :Yoko_Zono .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/subset/meta> a dpdoughtroy-com_vocab:Dataset , conversion:Dataset , conversion:MetaDataset , void:Dataset ;
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
 	conversion:source_identifier "dpdoughtroy-com" ;
 	conversion:dataset_identifier "menu-on-wall-transcription" ;
-	dcterms:modified "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/subset/meta> ;
 	void:vocabulary <http://rdfs.org/ns/void#> , <http://inference-web.org/2.0/pml-provenance.owl#> , <http://inference-web.org/2.0/pml-justification.owl#> , <http://xmlns.com/foaf/0.1/> , <http://purl.org/dc/terms/> , <http://purl.org/NET/scovo#> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.void.ttl.gz> .
@@ -1292,7 +1275,7 @@ _:node15tuse62rx1 rdfs:seeAlso _:node15tuse62rx2 , _:node15tuse62rx3 , _:node15t
 	conversion:version_identifier "2011-Apr-22" ;
 	conversion:dataset_version "2011-Apr-22" ;
 	conversion:conversion_identifier "enhancement/1" ;
-	dcterms:modified "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1/subset/sample> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.sample> .
 
@@ -1318,8 +1301,8 @@ provenance:nodeset_4 a pmlj:NodeSet ;
 
 provenance:infstep_1 a pmlj:InferenceStep ;
 	pmlj:hasInferenceEngine tw_converter:csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd ;
-	pmlj:hasAntecedentList _:node15tuse62rx46 ;
-	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> _:node15tuse62rx48 , _:node15tuse62rx47 .
+	pmlj:hasAntecedentList _:node15tv940s2x46 ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> _:node15tv940s2x47 , _:node15tv940s2x48 .
 
 <http://data.lod2.eu/2011/tools/CSV2RDF4LOD> con:preferredURI tw_converter:csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd .
 
@@ -1342,7 +1325,7 @@ tw_converter:csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd a pmlp:InferenceEngine
 	doap:shortdesc "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/" ;
 	doap:description "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/. Organizes datasets using 'source', 'dataset', and 'version' identifiers to allow for third-party aggregation, refinement, and integration of third-party data. Uses predicate 'layers' to allow backward-compatible refinements of Resources' descriptions. Minimizes human error and increases transparancy of conversion by using RDF-encoded interpretation parameters to control all processing." .
 
-_:node15tuse62rx49 a doap:GitRepository ;
+_:node15tv940s2x49 a doap:GitRepository ;
 	foaf:isPrimaryTopicOf <https://github.com/timrdf/csv2rdf4lod-automation> ;
 	doap:browse <https://github.com/timrdf/csv2rdf4lod-automation> .
 
@@ -1354,35 +1337,35 @@ _:node15tuse62rx49 a doap:GitRepository ;
 
 <http://www.cs.rpi.edu/~weavej3/r/Tim_Lebo> con:preferredURI <http://tw.rpi.edu/instances/TimLebo> .
 
-_:node15tuse62rx46 a rdf:List ;
+_:node15tv940s2x46 a rdf:List ;
 	rdf:first provenance:nodeset_5 .
 
 provenance:nodeset_5 a pmlj:NodeSet ;
 	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> .
 
-_:node15tuse62rx46 rdf:rest _:node15tuse62rx50 .
+_:node15tv940s2x46 rdf:rest _:node15tv940s2x50 .
 
-_:node15tuse62rx50 a rdf:List ;
+_:node15tv940s2x50 a rdf:List ;
 	rdf:first provenance:nodeset_6 .
 
 provenance:nodeset_6 a pmlj:NodeSet ;
-	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.e1.params.ttl> .
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.global.e1.params.ttl> .
 
-_:node15tuse62rx47 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> .
+_:node15tv940s2x47 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> .
 
-_:node15tuse62rx50 rdf:rest rdf:nil .
+_:node15tv940s2x50 rdf:rest rdf:nil .
 
-_:node15tuse62rx48 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> ;
-	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.e1.params.ttl> ;
-	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Parameters.owl#Parameters> .
-
-_:node15tuse62rx47 <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> ;
+_:node15tv940s2x47 <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> ;
 	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Input.owl#Input> .
+
+_:node15tv940s2x48 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.global.e1.params.ttl> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Parameters.owl#Parameters> .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> a pmlp:Information ;
 	pmlp:hasFormat <http://iw.cs.utep.edu/registry/FMT/text/CSV.owl#CSV> .
 
-<http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.e1.params.ttl> a pmlp:Information ;
+<http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.global.e1.params.ttl> a pmlp:Information ;
 	pmlp:hasFormat <http://inference-web.org/registry/FMT/RDFAbstractSyntax.owl#RDFAbstractSyntax> .
 
 conversion:SameAsDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
@@ -1438,23 +1421,23 @@ conversion:version_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conver
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> conversion:base_uri "http://logd.tw.rpi.edu"^^xsd:anyURI .
 
-_:node15tuse65nx1 a conversion:EnhancementConversionProcess ;
+_:node15tv940uvx1 a conversion:EnhancementConversionProcess ;
 	conversion:enhancement_identifier "1" ;
 	dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
 	dcterms:created "2011-04-22T09:26:28-04:00"^^xsd:dateTime ;
 	conversion:delimits_cell "," .
 
-_:node15tuse65nx2 ov:csvRow "2"^^xsd:integer ;
+_:node15tv940uvx2 ov:csvRow "2"^^xsd:integer ;
 	a conversion:HeaderRow .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx2 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx2 .
 
-_:node15tuse65nx3 ov:csvRow "55"^^xsd:integer ;
+_:node15tv940uvx3 ov:csvRow "54"^^xsd:integer ;
 	a conversion:DataEndRow .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx3 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx3 .
 
-_:node15tuse65nx4 ov:csvCol "1"^^xsd:integer ;
+_:node15tv940uvx4 ov:csvCol "1"^^xsd:integer ;
 	ov:csvHeader "Title" ;
 	conversion:domain_template "[.]" ;
 	conversion:domain_name "Calzone" ;
@@ -1462,112 +1445,122 @@ _:node15tuse65nx4 ov:csvCol "1"^^xsd:integer ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx4 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx4 .
 
-_:node15tuse65nx5 conversion:class_name "Calzone" ;
+_:node15tv940uvx5 conversion:class_name "Calzone" ;
 	conversion:subclass_of "Food" .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx5 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx5 .
 
-_:node15tuse65nx6 ov:csvCol "2"^^xsd:integer ;
+_:node15tv940uvx6 ov:csvCol "2"^^xsd:integer ;
 	ov:csvHeader "Starred" ;
-	conversion:comment "" ;
+	conversion:comment "" .
+
+_:node15tv940uvx7 conversion:symbol "" ;
+	conversion:interpretation conversion:null .
+
+_:node15tv940uvx6 conversion:interpret _:node15tv940uvx7 ;
 	conversion:range rdfs:Literal .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx6 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx6 .
 
-_:node15tuse65nx7 ov:csvCol "3"^^xsd:integer ;
+_:node15tv940uvx8 ov:csvCol "3"^^xsd:integer ;
 	ov:csvHeader "Contains" ;
 	conversion:label "Contains" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx7 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx8 .
 
-_:node15tuse65nx8 ov:csvCol "4"^^xsd:integer ;
+_:node15tv940uvx9 ov:csvCol "4"^^xsd:integer ;
 	ov:csvHeader "Contains" ;
 	conversion:label "Contains" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx8 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx9 .
 
-_:node15tuse65nx9 ov:csvCol "5"^^xsd:integer ;
+_:node15tv940uvx10 ov:csvCol "5"^^xsd:integer ;
 	ov:csvHeader "Contains" ;
 	conversion:label "Contains" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx9 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx10 .
 
-_:node15tuse65nx10 ov:csvCol "6"^^xsd:integer ;
+_:node15tv940uvx11 ov:csvCol "6"^^xsd:integer ;
 	ov:csvHeader "Contains" ;
 	conversion:label "Contains" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx10 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx11 .
 
-_:node15tuse65nx11 ov:csvCol "7"^^xsd:integer ;
+_:node15tv940uvx12 ov:csvCol "7"^^xsd:integer ;
 	ov:csvHeader "Contains" ;
 	conversion:label "Contains" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx11 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx12 .
 
-_:node15tuse65nx12 ov:csvCol "8"^^xsd:integer ;
+_:node15tv940uvx13 ov:csvCol "8"^^xsd:integer ;
 	ov:csvHeader "Contains" ;
 	conversion:label "Contains" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx12 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx13 .
 
-_:node15tuse65nx13 ov:csvCol "3"^^xsd:integer , "4"^^xsd:integer , "5"^^xsd:integer , "6"^^xsd:integer , "7"^^xsd:integer , "8"^^xsd:integer ;
+_:node15tv940uvx14 ov:csvCol "3"^^xsd:integer , "4"^^xsd:integer , "5"^^xsd:integer , "6"^^xsd:integer , "7"^^xsd:integer , "8"^^xsd:integer ;
 	conversion:range_name "Ingredient" .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx13 .
+_:node15tv940uvx15 conversion:symbol "-" ;
+	conversion:interpretation conversion:null .
 
-_:node15tuse65nx14 ov:csvCol "9"^^xsd:integer ;
+_:node15tv940uvx14 conversion:interpret _:node15tv940uvx15 .
+
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx14 .
+
+_:node15tv940uvx16 ov:csvCol "9"^^xsd:integer ;
 	ov:csvHeader "" ;
 	a conversion:Repeat_previous_if_empty_column ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx14 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx16 .
 
-_:node15tuse65nx15 ov:csvCol "10"^^xsd:integer ;
+_:node15tv940uvx17 ov:csvCol "10"^^xsd:integer ;
 	ov:csvHeader "" ;
 	a conversion:Repeat_previous_if_empty_column ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx15 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx17 .
 
-_:node15tuse65nx16 ov:csvCol "11"^^xsd:integer ;
+_:node15tv940uvx18 ov:csvCol "11"^^xsd:integer ;
 	ov:csvHeader "" ;
 	a conversion:Repeat_previous_if_empty_column ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx16 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx18 .
 
-_:node15tuse65nx17 ov:csvCol "12"^^xsd:integer ;
+_:node15tv940uvx19 ov:csvCol "12"^^xsd:integer ;
 	ov:csvHeader "" ;
 	a conversion:Repeat_previous_if_empty_column ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx17 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx19 .
 
-<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> conversion:conversion_process _:node15tuse65nx1 ;
-	void:statItem _:node15tuse62rx52 .
+<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> conversion:conversion_process _:node15tv940uvx1 ;
+	void:statItem _:node15tv940s2x52 .
 
-_:node15tuse62rx52 scovo:dimension void:numberOfTriples ;
-	rdf:value "1532"^^xsd:integer .
+_:node15tv940s2x52 scovo:dimension void:numberOfTriples ;
+	rdf:value "1477"^^xsd:integer .
 
-<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> conversion:num_triples "1532"^^xsd:integer .
+<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> conversion:num_triples "1477"^^xsd:integer .
 
 # CSV2RDF4LOD DATASET METADATA (reproduced from above):
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -1597,17 +1590,17 @@ _:node15tuse62rx52 scovo:dimension void:numberOfTriples ;
 @prefix : <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/> .
 @prefix ns1: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/> .
 @prefix typed_ingredient: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/> .
-@prefix dbpedia: <http://dbpedia.org/resource/> .
-@prefix geonames: <http://www.geonames.org/ontology#> .
-@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix time: <http://www.w3.org/2006/time#> .
-@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
-@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix con: <http://www.w3.org/2000/10/swap/pim/contact#> .
-@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
-@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
 @prefix geonamesid: <http://sws.geonames.org/> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
 @prefix value_of_contains: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/contains/> .
 @prefix value_of_dublin_core_source_transcribees: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/dublin_core_source_transcribees/> .
 @prefix value_of_dublin_core_source_google_spreadsheet_transcription: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/dublin_core_source_google_spreadsheet_transcription/> .
@@ -1722,17 +1715,17 @@ e1:see_also a rdf:Property ;
 @prefix : <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/> .
 @prefix ns1: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/> .
 @prefix typed_ingredient: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/> .
-@prefix dbpedia: <http://dbpedia.org/resource/> .
-@prefix geonames: <http://www.geonames.org/ontology#> .
-@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix time: <http://www.w3.org/2006/time#> .
-@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
-@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix con: <http://www.w3.org/2000/10/swap/pim/contact#> .
-@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
-@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
 @prefix geonamesid: <http://sws.geonames.org/> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
 @prefix value_of_contains: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/contains/> .
 @prefix value_of_dublin_core_source_transcribees: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/dublin_core_source_transcribees/> .
 @prefix value_of_dublin_core_source_google_spreadsheet_transcription: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/dublin_core_source_google_spreadsheet_transcription/> .
@@ -1747,7 +1740,7 @@ e1:see_also a rdf:Property ;
 	dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription" ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription> ;
 	void:subset <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/subset/meta> ;
-	dcterms:modified "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime .
+	dcterms:modified "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> a dpdoughtroy-com_vocab:Dataset , conversion:Dataset , conversion:VersionedDataset , void:Dataset ;
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
@@ -1757,13 +1750,13 @@ e1:see_also a rdf:Property ;
 	conversion:dataset_version "2011-Apr-22" ;
 	dcterms:contributor <http://logd.tw.rpi.edu/source/dpdoughtroy-com> ;
 	dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription 2011-Apr-22" ;
-	dcterms:modified "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl.gz> ;
 	void:subset <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> a dpdoughtroy-com_vocab:Dataset , conversion:Dataset , conversion:LayerDataset , void:Dataset ;
-	dcterms:modified "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime ;
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
 	conversion:source_identifier "dpdoughtroy-com" ;
 	conversion:dataset_identifier "menu-on-wall-transcription" ;
@@ -1773,18 +1766,18 @@ e1:see_also a rdf:Property ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.ttl.gz> ;
 	void:subset <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1/subset/sample> ;
-	dcterms:created "2011-04-22T11:14:51.166-05:00"^^xsd:dateTime ;
+	dcterms:created "2011-04-22T14:56:29.654-05:00"^^xsd:dateTime ;
 	dcterms:contributor <http://logd.tw.rpi.edu/source/dpdoughtroy-com> ;
 	dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription 2011-Apr-22 e1" ;
 	conversion:uses_predicate e1:see_also , e1:rdf_conversion_setup_script , e1:dublin_core_source_google_spreadsheet_transcription , e1:dublin_core_source_transcribees , e1:contains , e1:starred , dcterms:title ;
 	conversion:uses_class local_vocab:Ingredient , local_vocab:Calzone , local_vocab:Food ;
-	void:exampleResource :A_wakin_N_Bacon , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------> .
+	void:exampleResource :A_wakin_N_Bacon , :Yoko_Zono .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/subset/meta> a dpdoughtroy-com_vocab:Dataset , conversion:Dataset , conversion:MetaDataset , void:Dataset ;
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
 	conversion:source_identifier "dpdoughtroy-com" ;
 	conversion:dataset_identifier "menu-on-wall-transcription" ;
-	dcterms:modified "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/subset/meta> ;
 	void:vocabulary <http://rdfs.org/ns/void#> , <http://inference-web.org/2.0/pml-provenance.owl#> , <http://inference-web.org/2.0/pml-justification.owl#> , <http://xmlns.com/foaf/0.1/> , <http://purl.org/dc/terms/> , <http://purl.org/NET/scovo#> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.void.ttl.gz> .
@@ -1796,7 +1789,7 @@ e1:see_also a rdf:Property ;
 	conversion:version_identifier "2011-Apr-22" ;
 	conversion:dataset_version "2011-Apr-22" ;
 	conversion:conversion_identifier "enhancement/1" ;
-	dcterms:modified "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1/subset/sample> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.sample> .
 
@@ -1822,8 +1815,8 @@ provenance:nodeset_4 a pmlj:NodeSet ;
 
 provenance:infstep_1 a pmlj:InferenceStep ;
 	pmlj:hasInferenceEngine tw_converter:csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd ;
-	pmlj:hasAntecedentList _:node15tuse62rx46 ;
-	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> _:node15tuse62rx48 , _:node15tuse62rx47 .
+	pmlj:hasAntecedentList _:node15tv940s2x46 ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> _:node15tv940s2x47 , _:node15tv940s2x48 .
 
 <http://data.lod2.eu/2011/tools/CSV2RDF4LOD> con:preferredURI tw_converter:csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd .
 
@@ -1846,7 +1839,7 @@ tw_converter:csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd a pmlp:InferenceEngine
 	doap:shortdesc "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/" ;
 	doap:description "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/. Organizes datasets using 'source', 'dataset', and 'version' identifiers to allow for third-party aggregation, refinement, and integration of third-party data. Uses predicate 'layers' to allow backward-compatible refinements of Resources' descriptions. Minimizes human error and increases transparancy of conversion by using RDF-encoded interpretation parameters to control all processing." .
 
-_:node15tuse62rx49 a doap:GitRepository ;
+_:node15tv940s2x49 a doap:GitRepository ;
 	foaf:isPrimaryTopicOf <https://github.com/timrdf/csv2rdf4lod-automation> ;
 	doap:browse <https://github.com/timrdf/csv2rdf4lod-automation> .
 
@@ -1858,35 +1851,35 @@ _:node15tuse62rx49 a doap:GitRepository ;
 
 <http://www.cs.rpi.edu/~weavej3/r/Tim_Lebo> con:preferredURI <http://tw.rpi.edu/instances/TimLebo> .
 
-_:node15tuse62rx46 a rdf:List ;
+_:node15tv940s2x46 a rdf:List ;
 	rdf:first provenance:nodeset_5 .
 
 provenance:nodeset_5 a pmlj:NodeSet ;
 	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> .
 
-_:node15tuse62rx46 rdf:rest _:node15tuse62rx50 .
+_:node15tv940s2x46 rdf:rest _:node15tv940s2x50 .
 
-_:node15tuse62rx50 a rdf:List ;
+_:node15tv940s2x50 a rdf:List ;
 	rdf:first provenance:nodeset_6 .
 
 provenance:nodeset_6 a pmlj:NodeSet ;
-	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.e1.params.ttl> .
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.global.e1.params.ttl> .
 
-_:node15tuse62rx47 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> .
+_:node15tv940s2x47 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> .
 
-_:node15tuse62rx50 rdf:rest rdf:nil .
+_:node15tv940s2x50 rdf:rest rdf:nil .
 
-_:node15tuse62rx48 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> ;
-	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.e1.params.ttl> ;
-	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Parameters.owl#Parameters> .
-
-_:node15tuse62rx47 <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> ;
+_:node15tv940s2x47 <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> ;
 	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Input.owl#Input> .
+
+_:node15tv940s2x48 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.global.e1.params.ttl> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Parameters.owl#Parameters> .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> a pmlp:Information ;
 	pmlp:hasFormat <http://iw.cs.utep.edu/registry/FMT/text/CSV.owl#CSV> .
 
-<http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.e1.params.ttl> a pmlp:Information ;
+<http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.global.e1.params.ttl> a pmlp:Information ;
 	pmlp:hasFormat <http://inference-web.org/registry/FMT/RDFAbstractSyntax.owl#RDFAbstractSyntax> .
 
 conversion:SameAsDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
@@ -1942,23 +1935,23 @@ conversion:version_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conver
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> conversion:base_uri "http://logd.tw.rpi.edu"^^xsd:anyURI .
 
-_:node15tuse65nx1 a conversion:EnhancementConversionProcess ;
+_:node15tv940uvx1 a conversion:EnhancementConversionProcess ;
 	conversion:enhancement_identifier "1" ;
 	dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
 	dcterms:created "2011-04-22T09:26:28-04:00"^^xsd:dateTime ;
 	conversion:delimits_cell "," .
 
-_:node15tuse65nx2 ov:csvRow "2"^^xsd:integer ;
+_:node15tv940uvx2 ov:csvRow "2"^^xsd:integer ;
 	a conversion:HeaderRow .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx2 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx2 .
 
-_:node15tuse65nx3 ov:csvRow "55"^^xsd:integer ;
+_:node15tv940uvx3 ov:csvRow "54"^^xsd:integer ;
 	a conversion:DataEndRow .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx3 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx3 .
 
-_:node15tuse65nx4 ov:csvCol "1"^^xsd:integer ;
+_:node15tv940uvx4 ov:csvCol "1"^^xsd:integer ;
 	ov:csvHeader "Title" ;
 	conversion:domain_template "[.]" ;
 	conversion:domain_name "Calzone" ;
@@ -1966,112 +1959,122 @@ _:node15tuse65nx4 ov:csvCol "1"^^xsd:integer ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx4 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx4 .
 
-_:node15tuse65nx5 conversion:class_name "Calzone" ;
+_:node15tv940uvx5 conversion:class_name "Calzone" ;
 	conversion:subclass_of "Food" .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx5 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx5 .
 
-_:node15tuse65nx6 ov:csvCol "2"^^xsd:integer ;
+_:node15tv940uvx6 ov:csvCol "2"^^xsd:integer ;
 	ov:csvHeader "Starred" ;
-	conversion:comment "" ;
+	conversion:comment "" .
+
+_:node15tv940uvx7 conversion:symbol "" ;
+	conversion:interpretation conversion:null .
+
+_:node15tv940uvx6 conversion:interpret _:node15tv940uvx7 ;
 	conversion:range rdfs:Literal .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx6 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx6 .
 
-_:node15tuse65nx7 ov:csvCol "3"^^xsd:integer ;
+_:node15tv940uvx8 ov:csvCol "3"^^xsd:integer ;
 	ov:csvHeader "Contains" ;
 	conversion:label "Contains" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx7 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx8 .
 
-_:node15tuse65nx8 ov:csvCol "4"^^xsd:integer ;
+_:node15tv940uvx9 ov:csvCol "4"^^xsd:integer ;
 	ov:csvHeader "Contains" ;
 	conversion:label "Contains" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx8 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx9 .
 
-_:node15tuse65nx9 ov:csvCol "5"^^xsd:integer ;
+_:node15tv940uvx10 ov:csvCol "5"^^xsd:integer ;
 	ov:csvHeader "Contains" ;
 	conversion:label "Contains" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx9 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx10 .
 
-_:node15tuse65nx10 ov:csvCol "6"^^xsd:integer ;
+_:node15tv940uvx11 ov:csvCol "6"^^xsd:integer ;
 	ov:csvHeader "Contains" ;
 	conversion:label "Contains" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx10 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx11 .
 
-_:node15tuse65nx11 ov:csvCol "7"^^xsd:integer ;
+_:node15tv940uvx12 ov:csvCol "7"^^xsd:integer ;
 	ov:csvHeader "Contains" ;
 	conversion:label "Contains" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx11 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx12 .
 
-_:node15tuse65nx12 ov:csvCol "8"^^xsd:integer ;
+_:node15tv940uvx13 ov:csvCol "8"^^xsd:integer ;
 	ov:csvHeader "Contains" ;
 	conversion:label "Contains" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx12 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx13 .
 
-_:node15tuse65nx13 ov:csvCol "3"^^xsd:integer , "4"^^xsd:integer , "5"^^xsd:integer , "6"^^xsd:integer , "7"^^xsd:integer , "8"^^xsd:integer ;
+_:node15tv940uvx14 ov:csvCol "3"^^xsd:integer , "4"^^xsd:integer , "5"^^xsd:integer , "6"^^xsd:integer , "7"^^xsd:integer , "8"^^xsd:integer ;
 	conversion:range_name "Ingredient" .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx13 .
+_:node15tv940uvx15 conversion:symbol "-" ;
+	conversion:interpretation conversion:null .
 
-_:node15tuse65nx14 ov:csvCol "9"^^xsd:integer ;
+_:node15tv940uvx14 conversion:interpret _:node15tv940uvx15 .
+
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx14 .
+
+_:node15tv940uvx16 ov:csvCol "9"^^xsd:integer ;
 	ov:csvHeader "" ;
 	a conversion:Repeat_previous_if_empty_column ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx14 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx16 .
 
-_:node15tuse65nx15 ov:csvCol "10"^^xsd:integer ;
+_:node15tv940uvx17 ov:csvCol "10"^^xsd:integer ;
 	ov:csvHeader "" ;
 	a conversion:Repeat_previous_if_empty_column ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx15 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx17 .
 
-_:node15tuse65nx16 ov:csvCol "11"^^xsd:integer ;
+_:node15tv940uvx18 ov:csvCol "11"^^xsd:integer ;
 	ov:csvHeader "" ;
 	a conversion:Repeat_previous_if_empty_column ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx16 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx18 .
 
-_:node15tuse65nx17 ov:csvCol "12"^^xsd:integer ;
+_:node15tv940uvx19 ov:csvCol "12"^^xsd:integer ;
 	ov:csvHeader "" ;
 	a conversion:Repeat_previous_if_empty_column ;
 	conversion:comment "" ;
 	conversion:range rdfs:Resource .
 
-_:node15tuse65nx1 conversion:enhance _:node15tuse65nx17 .
+_:node15tv940uvx1 conversion:enhance _:node15tv940uvx19 .
 
-<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> conversion:conversion_process _:node15tuse65nx1 ;
-	void:statItem _:node15tuse62rx53 .
+<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> conversion:conversion_process _:node15tv940uvx1 ;
+	void:statItem _:node15tv940s2x53 .
 
-_:node15tuse62rx53 scovo:dimension void:numberOfTriples ;
-	rdf:value "1532"^^xsd:integer .
+_:node15tv940s2x53 scovo:dimension void:numberOfTriples ;
+	rdf:value "1477"^^xsd:integer .
 
-<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> conversion:num_triples "1532"^^xsd:integer .
+<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> conversion:num_triples "1477"^^xsd:integer .
 # BEGIN: publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.ttl:
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -3065,85 +3068,85 @@ raw:column_12 a rdf:Property ;
 @prefix ns1: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/> .
 @prefix sioc: <http://rdfs.org/sioc/ns#> .
 
-_:node15tum7q42x2 vann:preferredNamespacePrefix "rdf" ;
+_:node15tv93s5hx2 vann:preferredNamespacePrefix "rdf" ;
 	vann:preferredNamespaceUri "http://www.w3.org/1999/02/22-rdf-syntax-ns#" .
 
-_:node15tum7q42x3 vann:preferredNamespacePrefix "rdfs" ;
+_:node15tv93s5hx3 vann:preferredNamespacePrefix "rdfs" ;
 	vann:preferredNamespaceUri "http://www.w3.org/2000/01/rdf-schema#" .
 
-_:node15tum7q42x4 vann:preferredNamespacePrefix "xsd" ;
+_:node15tv93s5hx4 vann:preferredNamespacePrefix "xsd" ;
 	vann:preferredNamespaceUri "http://www.w3.org/2001/XMLSchema#" .
 
-_:node15tum7q42x5 vann:preferredNamespacePrefix "xsd2" ;
+_:node15tv93s5hx5 vann:preferredNamespacePrefix "xsd2" ;
 	vann:preferredNamespaceUri "http://www.w3.org/TR/xmlschema-2/#" .
 
-_:node15tum7q42x6 vann:preferredNamespacePrefix "owl" ;
+_:node15tv93s5hx6 vann:preferredNamespacePrefix "owl" ;
 	vann:preferredNamespaceUri "http://www.w3.org/2002/07/owl#" .
 
-_:node15tum7q42x7 vann:preferredNamespacePrefix "pmlp" ;
+_:node15tv93s5hx7 vann:preferredNamespacePrefix "pmlp" ;
 	vann:preferredNamespaceUri "http://inference-web.org/2.0/pml-provenance.owl#" .
 
-_:node15tum7q42x8 vann:preferredNamespacePrefix "pmlj" ;
+_:node15tv93s5hx8 vann:preferredNamespacePrefix "pmlj" ;
 	vann:preferredNamespaceUri "http://inference-web.org/2.0/pml-justification.owl#" .
 
-_:node15tum7q42x9 vann:preferredNamespacePrefix "tw_service" ;
+_:node15tv93s5hx9 vann:preferredNamespacePrefix "tw_service" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/tw-rpi-edu/service/" .
 
-_:node15tum7q42x10 vann:preferredNamespacePrefix "tw_converter" ;
+_:node15tv93s5hx10 vann:preferredNamespacePrefix "tw_converter" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Apr-21/" .
 
-_:node15tum7q42x11 vann:preferredNamespacePrefix "provenance" ;
+_:node15tv93s5hx11 vann:preferredNamespacePrefix "provenance" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw/" .
 
-_:node15tum7q42x12 vann:preferredNamespacePrefix "conversion" ;
+_:node15tv93s5hx12 vann:preferredNamespacePrefix "conversion" ;
 	vann:preferredNamespaceUri "http://purl.org/twc/vocab/conversion/" .
 
-_:node15tum7q42x13 vann:preferredNamespacePrefix "ov" ;
+_:node15tv93s5hx13 vann:preferredNamespacePrefix "ov" ;
 	vann:preferredNamespaceUri "http://open.vocab.org/terms/" .
 
-_:node15tum7q42x14 vann:preferredNamespacePrefix "dcterms" ;
+_:node15tv93s5hx14 vann:preferredNamespacePrefix "dcterms" ;
 	vann:preferredNamespaceUri "http://purl.org/dc/terms/" .
 
-_:node15tum7q42x15 vann:preferredNamespacePrefix "foaf" ;
+_:node15tv93s5hx15 vann:preferredNamespacePrefix "foaf" ;
 	vann:preferredNamespaceUri "http://xmlns.com/foaf/0.1/" .
 
-_:node15tum7q42x16 vann:preferredNamespacePrefix "void" ;
+_:node15tv93s5hx16 vann:preferredNamespacePrefix "void" ;
 	vann:preferredNamespaceUri "http://rdfs.org/ns/void#" .
 
-_:node15tum7q42x17 vann:preferredNamespacePrefix "doap" ;
+_:node15tv93s5hx17 vann:preferredNamespacePrefix "doap" ;
 	vann:preferredNamespaceUri "http://usefulinc.com/ns/doap#" .
 
-_:node15tum7q42x18 vann:preferredNamespacePrefix "scovo" ;
+_:node15tv93s5hx18 vann:preferredNamespacePrefix "scovo" ;
 	vann:preferredNamespaceUri "http://purl.org/NET/scovo#" .
 
-_:node15tum7q42x19 vann:preferredNamespacePrefix "sdmx" ;
+_:node15tv93s5hx19 vann:preferredNamespacePrefix "sdmx" ;
 	vann:preferredNamespaceUri "http://purl.org/linked-data/cube#" .
 
-_:node15tum7q42x20 vann:preferredNamespacePrefix "vann" ;
+_:node15tv93s5hx20 vann:preferredNamespacePrefix "vann" ;
 	vann:preferredNamespaceUri "http://purl.org/vocab/vann/" .
 
-_:node15tum7q42x21 vann:preferredNamespacePrefix "dpdoughtroy-com_vocab" ;
+_:node15tv93s5hx21 vann:preferredNamespacePrefix "dpdoughtroy-com_vocab" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/vocab/" .
 
-_:node15tum7q42x22 vann:preferredNamespacePrefix "base_vocab" ;
+_:node15tv93s5hx22 vann:preferredNamespacePrefix "base_vocab" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/vocab/" .
 
-_:node15tum7q42x23 vann:preferredNamespacePrefix "local_vocab" ;
+_:node15tv93s5hx23 vann:preferredNamespacePrefix "local_vocab" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/" .
 
-_:node15tum7q42x24 vann:preferredNamespacePrefix "raw" ;
+_:node15tv93s5hx24 vann:preferredNamespacePrefix "raw" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/" .
 
-_:node15tum7q42x25 vann:preferredNamespacePrefix "" ;
+_:node15tv93s5hx25 vann:preferredNamespacePrefix "" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/" .
 
-_:node15tum7q42x26 vann:preferredNamespacePrefix "_global_value" ;
+_:node15tv93s5hx26 vann:preferredNamespacePrefix "_global_value" ;
 	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/" .
 
-_:node15tum7q42x27 vann:preferredNamespacePrefix "sioc" ;
+_:node15tv93s5hx27 vann:preferredNamespacePrefix "sioc" ;
 	vann:preferredNamespaceUri "http://rdfs.org/sioc/ns#" .
 
-_:node15tum7q42x1 rdfs:seeAlso _:node15tum7q42x2 , _:node15tum7q42x3 , _:node15tum7q42x4 , _:node15tum7q42x5 , _:node15tum7q42x6 , _:node15tum7q42x7 , _:node15tum7q42x8 , _:node15tum7q42x9 , _:node15tum7q42x10 , _:node15tum7q42x11 , _:node15tum7q42x12 , _:node15tum7q42x13 , _:node15tum7q42x14 , _:node15tum7q42x15 , _:node15tum7q42x16 , _:node15tum7q42x17 , _:node15tum7q42x18 , _:node15tum7q42x19 , _:node15tum7q42x20 , _:node15tum7q42x21 , _:node15tum7q42x22 , _:node15tum7q42x23 , _:node15tum7q42x24 , _:node15tum7q42x25 , _:node15tum7q42x26 , _:node15tum7q42x27 .
+_:node15tv93s5hx1 rdfs:seeAlso _:node15tv93s5hx2 , _:node15tv93s5hx3 , _:node15tv93s5hx4 , _:node15tv93s5hx5 , _:node15tv93s5hx6 , _:node15tv93s5hx7 , _:node15tv93s5hx8 , _:node15tv93s5hx9 , _:node15tv93s5hx10 , _:node15tv93s5hx11 , _:node15tv93s5hx12 , _:node15tv93s5hx13 , _:node15tv93s5hx14 , _:node15tv93s5hx15 , _:node15tv93s5hx16 , _:node15tv93s5hx17 , _:node15tv93s5hx18 , _:node15tv93s5hx19 , _:node15tv93s5hx20 , _:node15tv93s5hx21 , _:node15tv93s5hx22 , _:node15tv93s5hx23 , _:node15tv93s5hx24 , _:node15tv93s5hx25 , _:node15tv93s5hx26 , _:node15tv93s5hx27 .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription> a dpdoughtroy-com_vocab:Dataset , conversion:Dataset , conversion:AbstractDataset , void:Dataset ;
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
@@ -3153,7 +3156,7 @@ _:node15tum7q42x1 rdfs:seeAlso _:node15tum7q42x2 , _:node15tum7q42x3 , _:node15t
 	dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription" ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription> ;
 	void:subset <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/subset/meta> ;
-	dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime .
+	dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> a dpdoughtroy-com_vocab:Dataset , conversion:Dataset , conversion:VersionedDataset , void:Dataset ;
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
@@ -3163,13 +3166,13 @@ _:node15tum7q42x1 rdfs:seeAlso _:node15tum7q42x2 , _:node15tum7q42x3 , _:node15t
 	conversion:dataset_version "2011-Apr-22" ;
 	dcterms:contributor <http://logd.tw.rpi.edu/source/dpdoughtroy-com> ;
 	dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription 2011-Apr-22" ;
-	dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl.gz> ;
 	void:subset <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> a dpdoughtroy-com_vocab:Dataset , conversion:Dataset , conversion:LayerDataset , void:Dataset ;
-	dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime ;
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
 	conversion:source_identifier "dpdoughtroy-com" ;
 	conversion:dataset_identifier "menu-on-wall-transcription" ;
@@ -3179,7 +3182,7 @@ _:node15tum7q42x1 rdfs:seeAlso _:node15tum7q42x2 , _:node15tum7q42x3 , _:node15t
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.ttl.gz> ;
 	void:subset <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw/subset/sample> ;
-	dcterms:created "2011-04-22T09:26:30.826-05:00"^^xsd:dateTime ;
+	dcterms:created "2011-04-22T14:56:24.780-05:00"^^xsd:dateTime ;
 	dcterms:contributor <http://logd.tw.rpi.edu/source/dpdoughtroy-com> ;
 	dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription 2011-Apr-22 raw" ;
 	conversion:uses_predicate raw:column_12 , raw:column_11 , raw:column_10 , raw:column_9 , raw:column_8 , raw:column_7 , raw:column_6 , raw:column_5 , raw:column_4 , raw:column_3 , raw:column_2 , raw:column_1 ;
@@ -3189,7 +3192,7 @@ _:node15tum7q42x1 rdfs:seeAlso _:node15tum7q42x2 , _:node15tum7q42x3 , _:node15t
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
 	conversion:source_identifier "dpdoughtroy-com" ;
 	conversion:dataset_identifier "menu-on-wall-transcription" ;
-	dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/subset/meta> ;
 	void:vocabulary <http://rdfs.org/ns/void#> , <http://inference-web.org/2.0/pml-provenance.owl#> , <http://inference-web.org/2.0/pml-justification.owl#> , <http://xmlns.com/foaf/0.1/> , <http://purl.org/dc/terms/> , <http://purl.org/NET/scovo#> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.void.ttl.gz> .
@@ -3201,7 +3204,7 @@ _:node15tum7q42x1 rdfs:seeAlso _:node15tum7q42x2 , _:node15tum7q42x3 , _:node15t
 	conversion:version_identifier "2011-Apr-22" ;
 	conversion:dataset_version "2011-Apr-22" ;
 	conversion:conversion_identifier "raw" ;
-	dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw/subset/sample> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.sample> .
 
@@ -3227,8 +3230,8 @@ provenance:nodeset_4 a pmlj:NodeSet ;
 
 provenance:infstep_1 a pmlj:InferenceStep ;
 	pmlj:hasInferenceEngine tw_converter:csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd ;
-	pmlj:hasAntecedentList _:node15tum7q42x28 ;
-	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> _:node15tum7q42x29 , _:node15tum7q42x30 .
+	pmlj:hasAntecedentList _:node15tv93s5hx28 ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> _:node15tv93s5hx29 , _:node15tv93s5hx30 .
 
 <http://data.lod2.eu/2011/tools/CSV2RDF4LOD> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> tw_converter:csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd .
 
@@ -3251,7 +3254,7 @@ tw_converter:csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd a pmlp:InferenceEngine
 	doap:shortdesc "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/" ;
 	doap:description "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/. Organizes datasets using 'source', 'dataset', and 'version' identifiers to allow for third-party aggregation, refinement, and integration of third-party data. Uses predicate 'layers' to allow backward-compatible refinements of Resources' descriptions. Minimizes human error and increases transparancy of conversion by using RDF-encoded interpretation parameters to control all processing." .
 
-_:node15tum7q42x31 a doap:GitRepository ;
+_:node15tv93s5hx31 a doap:GitRepository ;
 	foaf:isPrimaryTopicOf <https://github.com/timrdf/csv2rdf4lod-automation> ;
 	doap:browse <https://github.com/timrdf/csv2rdf4lod-automation> .
 
@@ -3263,28 +3266,28 @@ _:node15tum7q42x31 a doap:GitRepository ;
 
 <http://www.cs.rpi.edu/~weavej3/r/Tim_Lebo> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://tw.rpi.edu/instances/TimLebo> .
 
-_:node15tum7q42x28 a rdf:List ;
+_:node15tv93s5hx28 a rdf:List ;
 	rdf:first provenance:nodeset_5 .
 
 provenance:nodeset_5 a pmlj:NodeSet ;
 	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> .
 
-_:node15tum7q42x28 rdf:rest _:node15tum7q42x32 .
+_:node15tv93s5hx28 rdf:rest _:node15tv93s5hx32 .
 
-_:node15tum7q42x32 a rdf:List ;
+_:node15tv93s5hx32 a rdf:List ;
 	rdf:first provenance:nodeset_6 .
 
 provenance:nodeset_6 a pmlj:NodeSet ;
 	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/automatic/menu-on-wall-transcription.csv.raw.params.ttl> .
 
-_:node15tum7q42x29 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> .
+_:node15tv93s5hx29 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> .
 
-_:node15tum7q42x32 rdf:rest rdf:nil .
+_:node15tv93s5hx32 rdf:rest rdf:nil .
 
-_:node15tum7q42x29 <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> ;
+_:node15tv93s5hx29 <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> ;
 	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Input.owl#Input> .
 
-_:node15tum7q42x30 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> ;
+_:node15tv93s5hx30 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> ;
 	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/automatic/menu-on-wall-transcription.csv.raw.params.ttl> ;
 	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Parameters.owl#Parameters> .
 
@@ -3347,100 +3350,100 @@ conversion:version_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conver
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> conversion:base_uri "http://logd.tw.rpi.edu"^^xsd:anyURI .
 
-_:node15tum7q6ex1 a conversion:RawConversionProcess ;
+_:node15tv93s7ux1 a conversion:RawConversionProcess ;
 	conversion:conversion_identifier "raw" ;
 	dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
-	dcterms:created "2011-04-22T09:26:28-04:00"^^xsd:dateTime ;
+	dcterms:created "2011-04-22T14:56:22-04:00"^^xsd:dateTime ;
 	conversion:delimits_cell "," .
 
-_:node15tum7q6ex2 ov:csvCol "1"^^xsd:integer ;
+_:node15tv93s7ux2 ov:csvCol "1"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex2 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux2 .
 
-_:node15tum7q6ex3 ov:csvCol "2"^^xsd:integer ;
+_:node15tv93s7ux3 ov:csvCol "2"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex3 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux3 .
 
-_:node15tum7q6ex4 ov:csvCol "3"^^xsd:integer ;
+_:node15tv93s7ux4 ov:csvCol "3"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex4 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux4 .
 
-_:node15tum7q6ex5 ov:csvCol "4"^^xsd:integer ;
+_:node15tv93s7ux5 ov:csvCol "4"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex5 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux5 .
 
-_:node15tum7q6ex6 ov:csvCol "5"^^xsd:integer ;
+_:node15tv93s7ux6 ov:csvCol "5"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex6 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux6 .
 
-_:node15tum7q6ex7 ov:csvCol "6"^^xsd:integer ;
+_:node15tv93s7ux7 ov:csvCol "6"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex7 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux7 .
 
-_:node15tum7q6ex8 ov:csvCol "7"^^xsd:integer ;
+_:node15tv93s7ux8 ov:csvCol "7"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex8 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux8 .
 
-_:node15tum7q6ex9 ov:csvCol "8"^^xsd:integer ;
+_:node15tv93s7ux9 ov:csvCol "8"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex9 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux9 .
 
-_:node15tum7q6ex10 ov:csvCol "9"^^xsd:integer ;
+_:node15tv93s7ux10 ov:csvCol "9"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex10 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux10 .
 
-_:node15tum7q6ex11 ov:csvCol "10"^^xsd:integer ;
+_:node15tv93s7ux11 ov:csvCol "10"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex11 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux11 .
 
-_:node15tum7q6ex12 ov:csvCol "11"^^xsd:integer ;
+_:node15tv93s7ux12 ov:csvCol "11"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex12 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux12 .
 
-_:node15tum7q6ex13 ov:csvCol "12"^^xsd:integer ;
+_:node15tv93s7ux13 ov:csvCol "12"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex13 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux13 .
 
-<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> conversion:conversion_process _:node15tum7q6ex1 ;
-	void:statItem _:node15tum7q42x34 .
+<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> conversion:conversion_process _:node15tv93s7ux1 ;
+	void:statItem _:node15tv93s5hx34 .
 
-_:node15tum7q42x34 scovo:dimension void:numberOfTriples ;
+_:node15tv93s5hx34 scovo:dimension void:numberOfTriples ;
 	rdf:value "1212"^^xsd:integer .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> conversion:num_triples "1212"^^xsd:integer .
@@ -3591,7 +3594,7 @@ raw:column_12 a rdf:Property ;
 	dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription" ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription> ;
 	void:subset <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> , <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/subset/meta> ;
-	dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime .
+	dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> a dpdoughtroy-com_vocab:Dataset , conversion:Dataset , conversion:VersionedDataset , void:Dataset ;
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
@@ -3601,13 +3604,13 @@ raw:column_12 a rdf:Property ;
 	conversion:dataset_version "2011-Apr-22" ;
 	dcterms:contributor <http://logd.tw.rpi.edu/source/dpdoughtroy-com> ;
 	dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription 2011-Apr-22" ;
-	dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl.gz> ;
 	void:subset <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> a dpdoughtroy-com_vocab:Dataset , conversion:Dataset , conversion:LayerDataset , void:Dataset ;
-	dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime ;
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
 	conversion:source_identifier "dpdoughtroy-com" ;
 	conversion:dataset_identifier "menu-on-wall-transcription" ;
@@ -3617,7 +3620,7 @@ raw:column_12 a rdf:Property ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.ttl.gz> ;
 	void:subset <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw/subset/sample> ;
-	dcterms:created "2011-04-22T09:26:30.826-05:00"^^xsd:dateTime ;
+	dcterms:created "2011-04-22T14:56:24.780-05:00"^^xsd:dateTime ;
 	dcterms:contributor <http://logd.tw.rpi.edu/source/dpdoughtroy-com> ;
 	dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription 2011-Apr-22 raw" ;
 	conversion:uses_predicate raw:column_12 , raw:column_11 , raw:column_10 , raw:column_9 , raw:column_8 , raw:column_7 , raw:column_6 , raw:column_5 , raw:column_4 , raw:column_3 , raw:column_2 , raw:column_1 ;
@@ -3627,7 +3630,7 @@ raw:column_12 a rdf:Property ;
 	conversion:base_uri "http://logd.tw.rpi.edu" ;
 	conversion:source_identifier "dpdoughtroy-com" ;
 	conversion:dataset_identifier "menu-on-wall-transcription" ;
-	dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/subset/meta> ;
 	void:vocabulary <http://rdfs.org/ns/void#> , <http://inference-web.org/2.0/pml-provenance.owl#> , <http://inference-web.org/2.0/pml-justification.owl#> , <http://xmlns.com/foaf/0.1/> , <http://purl.org/dc/terms/> , <http://purl.org/NET/scovo#> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.void.ttl.gz> .
@@ -3639,7 +3642,7 @@ raw:column_12 a rdf:Property ;
 	conversion:version_identifier "2011-Apr-22" ;
 	conversion:dataset_version "2011-Apr-22" ;
 	conversion:conversion_identifier "raw" ;
-	dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime ;
+	dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime ;
 	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw/subset/sample> ;
 	void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.sample> .
 
@@ -3665,8 +3668,8 @@ provenance:nodeset_4 a pmlj:NodeSet ;
 
 provenance:infstep_1 a pmlj:InferenceStep ;
 	pmlj:hasInferenceEngine tw_converter:csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd ;
-	pmlj:hasAntecedentList _:node15tum7q42x28 ;
-	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> _:node15tum7q42x29 , _:node15tum7q42x30 .
+	pmlj:hasAntecedentList _:node15tv93s5hx28 ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> _:node15tv93s5hx29 , _:node15tv93s5hx30 .
 
 <http://data.lod2.eu/2011/tools/CSV2RDF4LOD> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> tw_converter:csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd .
 
@@ -3689,7 +3692,7 @@ tw_converter:csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd a pmlp:InferenceEngine
 	doap:shortdesc "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/" ;
 	doap:description "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/. Organizes datasets using 'source', 'dataset', and 'version' identifiers to allow for third-party aggregation, refinement, and integration of third-party data. Uses predicate 'layers' to allow backward-compatible refinements of Resources' descriptions. Minimizes human error and increases transparancy of conversion by using RDF-encoded interpretation parameters to control all processing." .
 
-_:node15tum7q42x31 a doap:GitRepository ;
+_:node15tv93s5hx31 a doap:GitRepository ;
 	foaf:isPrimaryTopicOf <https://github.com/timrdf/csv2rdf4lod-automation> ;
 	doap:browse <https://github.com/timrdf/csv2rdf4lod-automation> .
 
@@ -3701,28 +3704,28 @@ _:node15tum7q42x31 a doap:GitRepository ;
 
 <http://www.cs.rpi.edu/~weavej3/r/Tim_Lebo> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://tw.rpi.edu/instances/TimLebo> .
 
-_:node15tum7q42x28 a rdf:List ;
+_:node15tv93s5hx28 a rdf:List ;
 	rdf:first provenance:nodeset_5 .
 
 provenance:nodeset_5 a pmlj:NodeSet ;
 	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> .
 
-_:node15tum7q42x28 rdf:rest _:node15tum7q42x32 .
+_:node15tv93s5hx28 rdf:rest _:node15tv93s5hx32 .
 
-_:node15tum7q42x32 a rdf:List ;
+_:node15tv93s5hx32 a rdf:List ;
 	rdf:first provenance:nodeset_6 .
 
 provenance:nodeset_6 a pmlj:NodeSet ;
 	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/automatic/menu-on-wall-transcription.csv.raw.params.ttl> .
 
-_:node15tum7q42x29 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> .
+_:node15tv93s5hx29 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> .
 
-_:node15tum7q42x32 rdf:rest rdf:nil .
+_:node15tv93s5hx32 rdf:rest rdf:nil .
 
-_:node15tum7q42x29 <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> ;
+_:node15tv93s5hx29 <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/menu-on-wall-transcription.csv> ;
 	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Input.owl#Input> .
 
-_:node15tum7q42x30 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> ;
+_:node15tv93s5hx30 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> ;
 	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/automatic/menu-on-wall-transcription.csv.raw.params.ttl> ;
 	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Parameters.owl#Parameters> .
 
@@ -3785,100 +3788,100 @@ conversion:version_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conver
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> conversion:base_uri "http://logd.tw.rpi.edu"^^xsd:anyURI .
 
-_:node15tum7q6ex1 a conversion:RawConversionProcess ;
+_:node15tv93s7ux1 a conversion:RawConversionProcess ;
 	conversion:conversion_identifier "raw" ;
 	dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
-	dcterms:created "2011-04-22T09:26:28-04:00"^^xsd:dateTime ;
+	dcterms:created "2011-04-22T14:56:22-04:00"^^xsd:dateTime ;
 	conversion:delimits_cell "," .
 
-_:node15tum7q6ex2 ov:csvCol "1"^^xsd:integer ;
+_:node15tv93s7ux2 ov:csvCol "1"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex2 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux2 .
 
-_:node15tum7q6ex3 ov:csvCol "2"^^xsd:integer ;
+_:node15tv93s7ux3 ov:csvCol "2"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex3 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux3 .
 
-_:node15tum7q6ex4 ov:csvCol "3"^^xsd:integer ;
+_:node15tv93s7ux4 ov:csvCol "3"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex4 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux4 .
 
-_:node15tum7q6ex5 ov:csvCol "4"^^xsd:integer ;
+_:node15tv93s7ux5 ov:csvCol "4"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex5 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux5 .
 
-_:node15tum7q6ex6 ov:csvCol "5"^^xsd:integer ;
+_:node15tv93s7ux6 ov:csvCol "5"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex6 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux6 .
 
-_:node15tum7q6ex7 ov:csvCol "6"^^xsd:integer ;
+_:node15tv93s7ux7 ov:csvCol "6"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex7 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux7 .
 
-_:node15tum7q6ex8 ov:csvCol "7"^^xsd:integer ;
+_:node15tv93s7ux8 ov:csvCol "7"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex8 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux8 .
 
-_:node15tum7q6ex9 ov:csvCol "8"^^xsd:integer ;
+_:node15tv93s7ux9 ov:csvCol "8"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex9 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux9 .
 
-_:node15tum7q6ex10 ov:csvCol "9"^^xsd:integer ;
+_:node15tv93s7ux10 ov:csvCol "9"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex10 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux10 .
 
-_:node15tum7q6ex11 ov:csvCol "10"^^xsd:integer ;
+_:node15tv93s7ux11 ov:csvCol "10"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex11 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux11 .
 
-_:node15tum7q6ex12 ov:csvCol "11"^^xsd:integer ;
+_:node15tv93s7ux12 ov:csvCol "11"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex12 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux12 .
 
-_:node15tum7q6ex13 ov:csvCol "12"^^xsd:integer ;
+_:node15tv93s7ux13 ov:csvCol "12"^^xsd:integer ;
 	ov:csvHeader "" ;
 	conversion:comment "" ;
 	conversion:range rdfs:Literal .
 
-_:node15tum7q6ex1 conversion:enhance _:node15tum7q6ex13 .
+_:node15tv93s7ux1 conversion:enhance _:node15tv93s7ux13 .
 
-<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> conversion:conversion_process _:node15tum7q6ex1 ;
-	void:statItem _:node15tum7q42x35 .
+<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> conversion:conversion_process _:node15tv93s7ux1 ;
+	void:statItem _:node15tv93s5hx35 .
 
-_:node15tum7q42x35 scovo:dimension void:numberOfTriples ;
+_:node15tv93s5hx35 scovo:dimension void:numberOfTriples ;
 	rdf:value "1212"^^xsd:integer .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> conversion:num_triples "1212"^^xsd:integer .

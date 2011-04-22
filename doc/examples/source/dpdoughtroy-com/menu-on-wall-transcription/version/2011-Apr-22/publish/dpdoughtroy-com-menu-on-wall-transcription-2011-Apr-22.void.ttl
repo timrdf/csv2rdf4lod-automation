@@ -25,17 +25,17 @@
 @prefix : <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/> .
 @prefix ns1: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/> .
 @prefix typed_ingredient: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/typed/ingredient/> .
-@prefix dbpedia: <http://dbpedia.org/resource/> .
-@prefix geonames: <http://www.geonames.org/ontology#> .
-@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix time: <http://www.w3.org/2006/time#> .
-@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
-@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix con: <http://www.w3.org/2000/10/swap/pim/contact#> .
-@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
-@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
 @prefix geonamesid: <http://sws.geonames.org/> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
 @prefix value_of_contains: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/contains/> .
 @prefix value_of_dublin_core_source_transcribees: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/dublin_core_source_transcribees/> .
 @prefix value_of_dublin_core_source_google_spreadsheet_transcription: <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/value-of/dublin_core_source_google_spreadsheet_transcription/> .
@@ -67,7 +67,7 @@
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription>
     dcterms:contributor <http://logd.tw.rpi.edu/source/dpdoughtroy-com> ;
     dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription" ;
-    dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime, "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime ;
+    dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime, "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime ;
     conversion:base_uri "http://logd.tw.rpi.edu" ;
     conversion:dataset_identifier "menu-on-wall-transcription" ;
     conversion:source_identifier "dpdoughtroy-com" ;
@@ -76,7 +76,7 @@
     foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription> .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/subset/meta>
-    dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime, "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime ;
+    dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime, "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime ;
     conversion:base_uri "http://logd.tw.rpi.edu" ;
     conversion:dataset_identifier "menu-on-wall-transcription" ;
     conversion:source_identifier "dpdoughtroy-com" ;
@@ -88,7 +88,7 @@
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22>
     dcterms:contributor <http://logd.tw.rpi.edu/source/dpdoughtroy-com> ;
     dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription 2011-Apr-22" ;
-    dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime, "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime ;
+    dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime, "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime ;
     conversion:base_uri "http://logd.tw.rpi.edu" ;
     conversion:dataset_identifier "menu-on-wall-transcription" ;
     conversion:dataset_version "2011-Apr-22" ;
@@ -101,9 +101,9 @@
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1>
     dcterms:contributor <http://logd.tw.rpi.edu/source/dpdoughtroy-com> ;
-    dcterms:created "2011-04-22T11:14:51.166-05:00"^^xsd:dateTime ;
+    dcterms:created "2011-04-22T14:56:29.654-05:00"^^xsd:dateTime ;
     dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription 2011-Apr-22 e1" ;
-    dcterms:modified "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime ;
+    dcterms:modified "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime ;
     conversion:base_uri "http://logd.tw.rpi.edu", "http://logd.tw.rpi.edu"^^xsd:anyURI ;
     conversion:conversion_identifier "enhancement/1" ;
     conversion:conversion_process [
@@ -111,6 +111,12 @@
         dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
         conversion:delimits_cell "," ;
         conversion:enhance [
+            ov:csvCol 5 ;
+            ov:csvHeader "Contains" ;
+            conversion:comment "" ;
+            conversion:label "Contains" ;
+            conversion:range rdfs:Resource
+        ], [
             ov:csvCol 6 ;
             ov:csvHeader "Contains" ;
             conversion:comment "" ;
@@ -130,6 +136,10 @@
             conversion:range rdfs:Resource
         ], [
             ov:csvCol 3, 4, 5, 6, 7, 8 ;
+            conversion:interpret [
+                conversion:interpretation conversion:null ;
+                conversion:symbol "-"
+            ] ;
             conversion:range_name "Ingredient"
         ], [
             ov:csvCol 9 ;
@@ -159,7 +169,7 @@
             ov:csvRow 2 ;
             a conversion:HeaderRow
         ], [
-            ov:csvRow 55 ;
+            ov:csvRow 54 ;
             a conversion:DataEndRow
         ], [
             ov:csvCol 1 ;
@@ -176,6 +186,10 @@
             ov:csvCol 2 ;
             ov:csvHeader "Starred" ;
             conversion:comment "" ;
+            conversion:interpret [
+                conversion:interpretation conversion:null ;
+                conversion:symbol ""
+            ] ;
             conversion:range rdfs:Literal
         ], [
             ov:csvCol 3 ;
@@ -189,35 +203,29 @@
             conversion:comment "" ;
             conversion:label "Contains" ;
             conversion:range rdfs:Resource
-        ], [
-            ov:csvCol 5 ;
-            ov:csvHeader "Contains" ;
-            conversion:comment "" ;
-            conversion:label "Contains" ;
-            conversion:range rdfs:Resource
         ] ;
         conversion:enhancement_identifier "1" ;
         a conversion:EnhancementConversionProcess
     ] ;
     conversion:dataset_identifier "menu-on-wall-transcription" ;
     conversion:dataset_version "2011-Apr-22" ;
-    conversion:num_triples 1532 ;
+    conversion:num_triples 1477 ;
     conversion:source_identifier "dpdoughtroy-com" ;
     conversion:uses_class local_vocab:Calzone, local_vocab:Food, local_vocab:Ingredient ;
     conversion:uses_predicate e1:contains, e1:dublin_core_source_google_spreadsheet_transcription, e1:dublin_core_source_transcribees, e1:rdf_conversion_setup_script, e1:see_also, e1:starred, dcterms:title ;
     conversion:version_identifier "2011-Apr-22" ;
     void:dataDump <http://logd.tw.rpi.edu/source/dpdoughtroy-com/file/menu-on-wall-transcription/version/2011-Apr-22/conversion/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.ttl.gz> ;
-    void:exampleResource <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/--------_------>, :A_wakin_N_Bacon ;
+    void:exampleResource :A_wakin_N_Bacon, :Yoko_Zono ;
     void:statItem [
         scovo:dimension void:numberOfTriples ;
-        rdf:value 1532
+        rdf:value 1477
     ] ;
     void:subset <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1/subset/sample> ;
     a dpdoughtroy-com_vocab:Dataset, conversion:Dataset, conversion:LayerDataset, void:Dataset ;
     foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1> .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/enhancement/1/subset/sample>
-    dcterms:modified "2011-04-22T11:14:51.616-05:00"^^xsd:dateTime ;
+    dcterms:modified "2011-04-22T14:56:30.092-05:00"^^xsd:dateTime ;
     conversion:base_uri "http://logd.tw.rpi.edu" ;
     conversion:conversion_identifier "enhancement/1" ;
     conversion:dataset_identifier "menu-on-wall-transcription" ;
@@ -230,13 +238,13 @@
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw>
     dcterms:contributor <http://logd.tw.rpi.edu/source/dpdoughtroy-com> ;
-    dcterms:created "2011-04-22T09:26:30.826-05:00"^^xsd:dateTime ;
+    dcterms:created "2011-04-22T14:56:24.780-05:00"^^xsd:dateTime ;
     dcterms:identifier "dpdoughtroy-com menu-on-wall-transcription 2011-Apr-22 raw" ;
-    dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime ;
+    dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime ;
     conversion:base_uri "http://logd.tw.rpi.edu", "http://logd.tw.rpi.edu"^^xsd:anyURI ;
     conversion:conversion_identifier "raw" ;
     conversion:conversion_process [
-        dcterms:created "2011-04-22T09:26:28-04:00"^^xsd:dateTime ;
+        dcterms:created "2011-04-22T14:56:22-04:00"^^xsd:dateTime ;
         dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
         conversion:conversion_identifier "raw" ;
         conversion:delimits_cell "," ;
@@ -320,7 +328,7 @@
     foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset_page/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw> .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw/subset/sample>
-    dcterms:modified "2011-04-22T09:26:31.069-05:00"^^xsd:dateTime ;
+    dcterms:modified "2011-04-22T14:56:25.015-05:00"^^xsd:dateTime ;
     conversion:base_uri "http://logd.tw.rpi.edu" ;
     conversion:conversion_identifier "raw" ;
     conversion:dataset_identifier "menu-on-wall-transcription" ;
@@ -519,7 +527,7 @@ provenance:infstep_1
         <http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Input.owl#Input> ;
         a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole>
     ], [
-        <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.e1.params.ttl> ;
+        <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.global.e1.params.ttl> ;
         <http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Parameters.owl#Parameters> ;
         a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole>
     ] ;
@@ -550,7 +558,7 @@ provenance:nodeset_5
     a pmlj:NodeSet .
 
 provenance:nodeset_6
-    pmlj:hasConclusion <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.e1.params.ttl> ;
+    pmlj:hasConclusion <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.global.e1.params.ttl> ;
     a pmlj:NodeSet .
 
 <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance/menu-on-wall-transcription/version/2011-Apr-22/conversion/raw/infstep_1>
@@ -601,7 +609,7 @@ provenance:nodeset_6
     pmlp:hasFormat <http://inference-web.org/registry/FMT/RDFAbstractSyntax.owl#RDFAbstractSyntax> ;
     a pmlp:Information .
 
-<http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.e1.params.ttl>
+<http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/manual/menu-on-wall-transcription.csv.global.e1.params.ttl>
     pmlp:hasFormat <http://inference-web.org/registry/FMT/RDFAbstractSyntax.owl#RDFAbstractSyntax> ;
     a pmlp:Information .
 
@@ -713,8 +721,8 @@ conversion:version_identifier
     a doap:GitRepository ;
     foaf:isPrimaryTopicOf <https://github.com/timrdf/csv2rdf4lod-automation> .
 
-# num logs:       19
-<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> conversion:num_invocation_logs       19 .
+# num logs:       25
+<http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22> conversion:num_invocation_logs       25 .
 @base <http://logd.tw.rpi.edu/source/dpdoughtroy-com/provenance_file/menu-on-wall-transcription/version/2011-Apr-22/source/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
