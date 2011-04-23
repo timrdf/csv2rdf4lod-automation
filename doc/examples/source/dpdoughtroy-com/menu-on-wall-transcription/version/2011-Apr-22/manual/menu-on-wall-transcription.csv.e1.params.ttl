@@ -56,7 +56,7 @@
       ];
 
       conversion:enhance [
-         ov:csvRow 54;
+         ov:csvRow 55;
          a conversion:DataEndRow; # TODO: replace with https://github.com/timrdf/csv2rdf4lod-automation/issues/120
       ];
 
