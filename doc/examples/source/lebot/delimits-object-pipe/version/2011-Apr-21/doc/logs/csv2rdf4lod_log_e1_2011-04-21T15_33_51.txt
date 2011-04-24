@@ -1,0 +1,75 @@
+2011-04-21T15:33:51-04:00
+2 rows in manual/test.csv
+E1 CONVERSION
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     manual/test.csv
+sampleLimit:                  1
+enhancementParametersURL:     manual/test.csv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/test.csv.e1.sample.ttl
+converterIdentifier:          csv2rdf4lod_2c3b69f591c87acc6f49d2941a88dd9b
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .lebot.
+DatasetIdentifierQuerylet(*) .delimits-object-pipe.
+DatasetVersionQuerylet(*) .2011-Apr-21.
+
+subjectNS:   delimits-object-pipe:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/version/2011-Apr-21/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/
+objectNS:    delimits-object-pipe_global_value:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/
+
+CellDelimiterQuerylet(*) .,.
+headers present at row 1: A,B,C,D,E
+
+1: "A" -> "A" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/a (rdfs:Literal)
+2: "B" -> "B" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/b (rdfs:Literal)
+3: "C" -> "C" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/c (rdfs:Literal)
+4: "D" -> "D" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/d (rdfs:Literal)
+       EquivalentPropertyQuerylet(5) .http://purl.org/dc/terms/identifier.
+5: "E" -> "E" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/e (rdfs:Literal)
+
+
+Exception in thread "main" java.lang.NullPointerException
+	at edu.rpi.tw.data.csv.CSVtoRDF.visit(CSVtoRDF.java:2067)
+	at edu.rpi.tw.data.csv.CSVParser.visitRecords(CSVParser.java:269)
+	at edu.rpi.tw.data.csv.CSVtoRDF.toRDF(CSVtoRDF.java:1172)
+	at edu.rpi.tw.data.csv.CSVtoRDF.main(CSVtoRDF.java:419)
+Finished converting -sample 1 examples rows.
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     manual/test.csv
+enhancementParametersURL:     manual/test.csv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/test.csv.e1.ttl
+converterIdentifier:          csv2rdf4lod_2c3b69f591c87acc6f49d2941a88dd9b
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .lebot.
+DatasetIdentifierQuerylet(*) .delimits-object-pipe.
+DatasetVersionQuerylet(*) .2011-Apr-21.
+
+subjectNS:   delimits-object-pipe:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/version/2011-Apr-21/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/
+objectNS:    delimits-object-pipe_global_value:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/
+
+CellDelimiterQuerylet(*) .,.
+headers present at row 1: A,B,C,D,E
+
+1: "A" -> "A" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/a (rdfs:Literal)
+2: "B" -> "B" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/b (rdfs:Literal)
+3: "C" -> "C" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/c (rdfs:Literal)
+4: "D" -> "D" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/d (rdfs:Literal)
+       EquivalentPropertyQuerylet(5) .http://purl.org/dc/terms/identifier.
+5: "E" -> "E" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/e (rdfs:Literal)
+
+
+Exception in thread "main" java.lang.NullPointerException
+	at edu.rpi.tw.data.csv.CSVtoRDF.visit(CSVtoRDF.java:2067)
+	at edu.rpi.tw.data.csv.CSVParser.visitRecords(CSVParser.java:269)
+	at edu.rpi.tw.data.csv.CSVtoRDF.toRDF(CSVtoRDF.java:1172)
+	at edu.rpi.tw.data.csv.CSVtoRDF.main(CSVtoRDF.java:419)
+   convert.sh done
+convert-aggregate.sh delaying publishing until an enhancement is available.
+  To publish with only raw, set CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED="false" in $CSV2RDF4LOD_HOME/source-me.sh.
+  To publish raw with enhanced, add enhancement to manual/test.csv.e1.params.ttl and rerun convert-delimits-object-pipe.sh
+  To force publishing now, run publish/bin/publish.sh
+===========================================================================================

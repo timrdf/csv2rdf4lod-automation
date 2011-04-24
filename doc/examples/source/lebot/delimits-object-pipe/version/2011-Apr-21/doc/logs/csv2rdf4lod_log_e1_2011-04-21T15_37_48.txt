@@ -1,0 +1,223 @@
+2011-04-21T15:37:48-04:00
+FINEST: h2p params: -v surrogate=http://logd.tw.rpi.edu -v sourceID=lebot -v datasetID=delimits-object-pipe -v cellDelimiter=, -v header= -v dataStart= -v onlyIfCol= -v repeatAboveIfEmptyCol= -v interpretAsNull= -v dataEnd= -v subjectDiscriminator= -v datasetVersion=2011-Apr-21 -v whoami=lebot -v machine_uri=http://tw.rpi.edu/web/inside/machine/lebot_macbook# -v person_uri=http://tw.rpi.edu/instances/TimLebo -v nowXSD=2011-04-21T15:37:48-04:00
+2 rows in manual/test.csv
+E1 CONVERSION
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     manual/test.csv
+sampleLimit:                  1
+enhancementParametersURL:     manual/test.csv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/test.csv.e1.sample.ttl
+converterIdentifier:          csv2rdf4lod_b7de4da9686fe22d451824a1302c67ce
+==============================
+Apr 21, 2011 3:37:49 PM edu.rpi.tw.data.rdf.utils.pipes.starts.Cat load
+FINER: load(location,repository): manual/test.csv.e1.params.ttl --> org.openrdf.sail.memory.MemoryStore@3d66aa18
+Apr 21, 2011 3:37:49 PM edu.rpi.tw.data.rdf.utils.pipes.starts.Cat load
+FINER: attempting to parse File as Turtle (mimeTypes=application/x-turtle; ext=ttl)... 
+Apr 21, 2011 3:37:49 PM edu.rpi.tw.data.rdf.utils.pipes.starts.Cat load
+FINER: before: 0
+Apr 21, 2011 3:37:49 PM edu.rpi.tw.data.rdf.utils.pipes.starts.Cat load
+FINER: after: 39
+Apr 21, 2011 3:37:49 PM edu.rpi.tw.data.rdf.utils.pipes.starts.Cat load
+FINER: load attempts: 1
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .lebot.
+DatasetIdentifierQuerylet(*) .delimits-object-pipe.
+DatasetVersionQuerylet(*) .2011-Apr-21.
+
+subjectNS:   delimits-object-pipe:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/version/2011-Apr-21/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/
+objectNS:    delimits-object-pipe_global_value:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/
+
+CellDelimiterQuerylet(*) .,.
+headers present at row 1: A,B,C,D
+
+1: "A" -> "A" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/a (rdfs:Literal)
+2: "B" -> "B" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/b (rdfs:Literal)
+3: "C" -> "C" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/c (rdfs:Literal)
+       EquivalentPropertyQuerylet(4) .http://purl.org/dc/terms/identifier.
+4: "D" -> "D" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/d (rdfs:Literal)
+
+
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 
+
+
+
+
+
+-----------------------------------------------------------------------------------
+visiting row 2 ----------------------------------------------------------------------
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 subject http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/version/2011-Apr-21/thing_2 of 1
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 1's value: "one"
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 1: <0 :a "one"> Letting VerbatimLiteralValueHandler assert as literal.
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 2-[1] done.
+
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 2's value: "two"
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 2: <0 :b "two"> Letting VerbatimLiteralValueHandler assert as literal.
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 2-[2] done.
+
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 3's value: "three"
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 3: <0 :c "three"> Letting VerbatimLiteralValueHandler assert as literal.
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 2-[3] done.
+
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4's value: "FOUR_A|FOUR_B|FOUR_C"
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: object delimiter: \| FOUR_A|FOUR_B|FOUR_C
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4's subvalue: FOUR_A of "FOUR_A|FOUR_B|FOUR_C"
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4: <0 :d "FOUR_A"> Letting VerbatimLiteralValueHandler assert as literal.
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 2-[4] done.
+
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4's subvalue: FOUR_B of "FOUR_A|FOUR_B|FOUR_C"
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4: <0 :d "FOUR_B"> Letting VerbatimLiteralValueHandler assert as literal.
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 2-[4] done.
+
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4's subvalue: FOUR_C of "FOUR_A|FOUR_B|FOUR_C"
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4: <0 :d "FOUR_C"> Letting VerbatimLiteralValueHandler assert as literal.
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 2-[4] done.
+
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 371 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+Finished converting -sample 1 examples rows.
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     manual/test.csv
+enhancementParametersURL:     manual/test.csv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/test.csv.e1.ttl
+converterIdentifier:          csv2rdf4lod_b7de4da9686fe22d451824a1302c67ce
+==============================
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.rdf.utils.pipes.starts.Cat load
+FINER: load(location,repository): manual/test.csv.e1.params.ttl --> org.openrdf.sail.memory.MemoryStore@3d66aa18
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.rdf.utils.pipes.starts.Cat load
+FINER: attempting to parse File as Turtle (mimeTypes=application/x-turtle; ext=ttl)... 
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.rdf.utils.pipes.starts.Cat load
+FINER: before: 0
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.rdf.utils.pipes.starts.Cat load
+FINER: after: 39
+Apr 21, 2011 3:37:50 PM edu.rpi.tw.data.rdf.utils.pipes.starts.Cat load
+FINER: load attempts: 1
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .lebot.
+DatasetIdentifierQuerylet(*) .delimits-object-pipe.
+DatasetVersionQuerylet(*) .2011-Apr-21.
+
+subjectNS:   delimits-object-pipe:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/version/2011-Apr-21/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/
+objectNS:    delimits-object-pipe_global_value:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/
+
+CellDelimiterQuerylet(*) .,.
+headers present at row 1: A,B,C,D
+
+1: "A" -> "A" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/a (rdfs:Literal)
+2: "B" -> "B" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/b (rdfs:Literal)
+3: "C" -> "C" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/c (rdfs:Literal)
+       EquivalentPropertyQuerylet(4) .http://purl.org/dc/terms/identifier.
+4: "D" -> "D" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/enhancement/1/d (rdfs:Literal)
+
+
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 
+
+
+
+
+
+-----------------------------------------------------------------------------------
+visiting row 2 ----------------------------------------------------------------------
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 subject http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/version/2011-Apr-21/thing_2 of 1
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 1's value: "one"
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 1: <0 :a "one"> Letting VerbatimLiteralValueHandler assert as literal.
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 2-[1] done.
+
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 2's value: "two"
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 2: <0 :b "two"> Letting VerbatimLiteralValueHandler assert as literal.
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 2-[2] done.
+
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 3's value: "three"
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 3: <0 :c "three"> Letting VerbatimLiteralValueHandler assert as literal.
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 2-[3] done.
+
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4's value: "FOUR_A|FOUR_B|FOUR_C"
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: object delimiter: \| FOUR_A|FOUR_B|FOUR_C
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4's subvalue: FOUR_A of "FOUR_A|FOUR_B|FOUR_C"
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4: <0 :d "FOUR_A"> Letting VerbatimLiteralValueHandler assert as literal.
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 2-[4] done.
+
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4's subvalue: FOUR_B of "FOUR_A|FOUR_B|FOUR_C"
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4: <0 :d "FOUR_B"> Letting VerbatimLiteralValueHandler assert as literal.
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 2-[4] done.
+
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4's subvalue: FOUR_C of "FOUR_A|FOUR_B|FOUR_C"
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: r 2 c 4: <0 :d "FOUR_C"> Letting VerbatimLiteralValueHandler assert as literal.
+Apr 21, 2011 3:37:51 PM edu.rpi.tw.data.csv.CSVtoRDF visit
+FINEST: 2-[4] done.
+
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 371 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+   convert.sh done
+convert-aggregate.sh publishing raw and enhancements.
+publish/lebot-delimits-object-pipe-2011-Apr-21.raw.ttl
+publish/lebot-delimits-object-pipe-2011-Apr-21.raw.sample.ttl
+publish/lebot-delimits-object-pipe-2011-Apr-21.e1.ttl
+publish/lebot-delimits-object-pipe-2011-Apr-21.e1.sample.ttl
+publish/lebot-delimits-object-pipe-2011-Apr-21.ttl
+  (including publish/lebot-delimits-object-pipe-2011-Apr-21.e1.ttl)
+  (including publish/lebot-delimits-object-pipe-2011-Apr-21.raw.ttl)
+publish/lebot-delimits-object-pipe-2011-Apr-21.nt - skipping; set CSV2RDF4LOD_PUBLISH_NT=true in source-me.sh to publish N-Triples.
+publish/lebot-delimits-object-pipe-2011-Apr-21.pml.ttl
+publish/lebot-delimits-object-pipe-2011-Apr-21.void.ttl
+  (including automatic/test.csv.e1.void.ttl)
+  (including automatic/test.csv.raw.void.ttl)
+  (including publish/lebot-delimits-object-pipe-2011-Apr-21.pml.ttl)
+publish/lebot-delimits-object-pipe-2011-Apr-21.sameas.nt - skipping; no owl:sameAs in publish/lebot-delimits-object-pipe-2011-Apr-21.ttl.
+publish/lebot-delimits-object-pipe-2011-Apr-21.rdf - skipping; set CSV2RDF4LOD_PUBLISH_RDFXML=true in source-me.sh to publish RDF/XML.
+publish/bin/ln-to-www-root-lebot-delimits-object-pipe-2011-Apr-21.sh
+publish/tdb/     - skipping; set CSV2RDF4LOD_PUBLISH_TDB=true in source-me.sh to load conversions into publish/tdb/.
+                 - or run publish/bin/tdbloader-lebot-delimits-object-pipe-2011-Apr-21.sh.
+                 - then run $TDBROOT/bin/rdfserver with publish/bin/joseki-config-anterior-lebot-delimits-object-pipe-2011-Apr-21.ttl.
+publish/lod-mat/ - skipping; set CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION=true in source-me.sh to load conversions into publish/lod-mat/,
+                 - or run automatic/lod-materialize-lebot-delimits-object-pipe-2011-Apr-21.sh.

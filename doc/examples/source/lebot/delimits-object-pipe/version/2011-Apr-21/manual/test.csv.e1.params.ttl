@@ -1,0 +1,95 @@
+@prefix rdf:           <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:          <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix todo:          <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:           <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:           <http://www.w3.org/2002/07/owl#> .
+@prefix vann:          <http://purl.org/vocab/vann/> .
+@prefix skos:          <http://www.w3.org/2004/02/skos/core#> .
+@prefix time:          <http://www.w3.org/2006/time#> .
+@prefix wgs:           <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames:      <http://www.geonames.org/ontology#> .
+@prefix geonamesid:    <http://sws.geonames.org/> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
+@prefix dbpedia:       <http://dbpedia.org/resource/> .
+@prefix con:           <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix muo:           <http://purl.oclc.org/NET/muo/muo#> .
+@prefix dgtwc:         <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix dcterms:       <http://purl.org/dc/terms/> .
+@prefix void:          <http://rdfs.org/ns/void#> .
+@prefix scovo:         <http://purl.org/NET/scovo#> .
+@prefix sioc:          <http://rdfs.org/sioc/ns#> .
+@prefix foaf:          <http://xmlns.com/foaf/0.1/> .
+@prefix ov:            <http://open.vocab.org/terms/> .
+@prefix conversion:    <http://purl.org/twc/vocab/conversion/> .
+@prefix :              <http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/version/2011-Apr-21/params/enhancement/1/> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> .
+<http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://tw.rpi.edu/web/inside/machine/lebot_macbook#>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+#:a_bundle
+#   a conversion:ImplicitBundle;
+#   conversion:property_name "a_property"; # Can also be a URI, e.g. dcterms:title.
+#   #conversion:type_name     "My Class";   # Can also be a URI, e.g. foaf:Person.
+#.
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/version/2011-Apr-21/conversion/enhancement/1>
+   a conversion:LayerDataset, void:Dataset;
+
+   conversion:base_uri           "http://logd.tw.rpi.edu"^^xsd:anyURI;
+   conversion:source_identifier  "lebot";
+   conversion:dataset_identifier "delimits-object-pipe";
+   conversion:version_identifier "2011-Apr-21";
+
+   conversion:conversion_process [
+      a conversion:EnhancementConversionProcess;
+      conversion:enhancement_identifier "1";
+
+      dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
+      dcterms:created "2011-04-21T15:31:47-04:00"^^xsd:dateTime;
+
+      conversion:delimits_cell ",";
+      #conversion:delimits_cell "	"; # tab
+      #conversion:delimits_cell "|";   # pipe
+      #conversion:delimits_cell ",";   # comma
+
+      conversion:enhance [
+         ov:csvCol          1;
+         ov:csvHeader       "A";
+         #conversion:label   "A";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          2;
+         ov:csvHeader       "B";
+         #conversion:label   "B";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          3;
+         ov:csvHeader       "C";
+         #conversion:label   "C";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          4;
+         ov:csvHeader       "E";
+         conversion:equivalent_property dcterms:identifier;
+         #conversion:label   "E";
+         conversion:comment "";
+         conversion:range   rdfs:Literal;
+         conversion:delimits_object "\\|";
+         conversion:interpret [          
+            conversion:symbol        "";
+            conversion:interpretation conversion:null; 
+         ];                            
+      ];
+   ];
+.

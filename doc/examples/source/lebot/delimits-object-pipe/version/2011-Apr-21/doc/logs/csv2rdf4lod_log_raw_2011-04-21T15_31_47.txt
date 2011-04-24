@@ -1,0 +1,73 @@
+2011-04-21T15:31:47-04:00
+convert-delimits-object-pipe.sh converting newlines of manual/test.csv
+E1 enhancement parameters missing; creating default template. Edit manual/test.csv.e1.params.ttl and rerun to produce E1 enhancement.
+2 rows in manual/test.csv
+RAW CONVERSION
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     manual/test.csv
+sampleLimit:                  1
+enhancementParametersURL:     automatic/test.csv.raw.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/test.csv.raw.sample.ttl
+converterIdentifier:          csv2rdf4lod_2c3b69f591c87acc6f49d2941a88dd9b
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .lebot.
+DatasetIdentifierQuerylet(*) .delimits-object-pipe.
+DatasetVersionQuerylet(*) .2011-Apr-21.
+
+subjectNS:   delimits-object-pipe:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/version/2011-Apr-21/
+predicateNS: raw:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/raw/
+objectNS:    delimits-object-pipe_global_value:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/
+
+CellDelimiterQuerylet(*) .,.
+headers present at row 1: A,B,C,D,E
+
+1: "A" -> "A" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/raw/a (rdfs:Literal)
+2: "B" -> "B" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/raw/b (rdfs:Literal)
+3: "C" -> "C" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/raw/c (rdfs:Literal)
+4: "D" -> "D" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/raw/d (rdfs:Literal)
+5: "E" -> "E" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/raw/e (rdfs:Literal)
+
+
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 335 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+Finished converting -sample 1 examples rows.
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     manual/test.csv
+enhancementParametersURL:     automatic/test.csv.raw.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/test.csv.raw.ttl
+converterIdentifier:          csv2rdf4lod_2c3b69f591c87acc6f49d2941a88dd9b
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .lebot.
+DatasetIdentifierQuerylet(*) .delimits-object-pipe.
+DatasetVersionQuerylet(*) .2011-Apr-21.
+
+subjectNS:   delimits-object-pipe:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/version/2011-Apr-21/
+predicateNS: raw:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/raw/
+objectNS:    delimits-object-pipe_global_value:  http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/
+
+CellDelimiterQuerylet(*) .,.
+headers present at row 1: A,B,C,D,E
+
+1: "A" -> "A" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/raw/a (rdfs:Literal)
+2: "B" -> "B" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/raw/b (rdfs:Literal)
+3: "C" -> "C" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/raw/c (rdfs:Literal)
+4: "D" -> "D" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/raw/d (rdfs:Literal)
+5: "E" -> "E" -> http://logd.tw.rpi.edu/source/lebot/dataset/delimits-object-pipe/vocab/raw/e (rdfs:Literal)
+
+
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 335 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+   convert.sh done
+convert-aggregate.sh delaying publishing until an enhancement is available.
+  To publish with only raw, set CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED="false" in $CSV2RDF4LOD_HOME/source-me.sh.
+  To publish raw with enhanced, add enhancement to manual/test.csv.e1.params.ttl and rerun convert-delimits-object-pipe.sh
+  To force publishing now, run publish/bin/publish.sh
+===========================================================================================

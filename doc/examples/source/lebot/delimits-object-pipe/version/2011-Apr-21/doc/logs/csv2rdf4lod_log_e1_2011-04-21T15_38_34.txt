@@ -1,0 +1,8 @@
+2011-04-21T15:38:34-04:00
+FINEST: h2p params: -v surrogate=http://logd.tw.rpi.edu -v sourceID=lebot -v datasetID=delimits-object-pipe -v cellDelimiter=, -v header= -v dataStart= -v onlyIfCol= -v repeatAboveIfEmptyCol= -v interpretAsNull= -v dataEnd= -v subjectDiscriminator= -v datasetVersion=2011-Apr-21 -v whoami=lebot -v machine_uri=http://tw.rpi.edu/web/inside/machine/lebot_macbook# -v person_uri=http://tw.rpi.edu/instances/TimLebo -v nowXSD=2011-04-21T15:38:34-04:00
+   convert.sh done
+convert-aggregate.sh delaying publishing until an enhancement is available.
+  To publish with only raw, set CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED="false" in $CSV2RDF4LOD_HOME/source-me.sh.
+  To publish raw with enhanced, add enhancement to manual/test.csv.e1.params.ttl and rerun convert-delimits-object-pipe.sh
+  To force publishing now, run publish/bin/publish.sh
+===========================================================================================
