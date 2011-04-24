@@ -1,12 +1,16 @@
 # source/SSS/DDD/version/VVV/convert-DDD.sh checks that CSV2RDF4LOD_HOME is set and exits if not.
 
 # 
+# Parameters (environment variables that should be set):
+#
 # @param surrogate      - the base URI.
 # @param sourceID       - a string identifier for the source; established by curator convention.
 # @param datasetID      - a string identifier for the dataset; established by curator convention.
 # @param datasetVersion - a string identifier for the dataset version; established by curator convention.
+# @param eID            - a string identifier for the conversion layer.
 #
 # @param datafile       - the local filename of the csv.
+#
 
 eParamsDir=manual # Enhancement parameter templates are placed in manual/ b/c a human will be modifying them.
 
@@ -59,7 +63,8 @@ rm _pvload.sh*.ttl _pvload.sh*.nt &> /dev/null
 
 runRaw=yes
 runEnhancement=no
-if [ -e "$destDir/$datafile.raw.ttl" ]; then
+if [ -e "$destDir/$datafile.raw.ttl" -o ${CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER:-"."} == "true" ]; then
+   # Raw layer has already been produced OR we just don't want the Raw layer (because it is generally less useful).
    runRaw=no
    runEnhancement=yes
    eID=${eID:?"enhancement identifier not set; re-produce convert*.sh using cr-create-convert-sh.sh, pass it an eID, or add the line: eID=\"1\""}

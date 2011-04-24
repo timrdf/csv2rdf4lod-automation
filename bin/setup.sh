@@ -73,6 +73,14 @@ export CSV2RDF4LOD_CONVERT_PERSON_URI=""
 
 
 #
+# Customize: Prevent the naive interpretation of tabular data ("raw" layer).
+#
+# (used in convert.sh)
+#
+export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER="true"
+export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER="false"
+
+#
 # Customize: Number of rows to include in an example subset.
 #
 # Subset is stored in file(s): automatic/$datafile.raw.sample.ttl
