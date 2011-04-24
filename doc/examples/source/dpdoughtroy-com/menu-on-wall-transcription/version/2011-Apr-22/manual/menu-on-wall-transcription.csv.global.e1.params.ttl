@@ -102,13 +102,26 @@
          ];
       ];
       conversion:enhance [
-         ov:csvCol          9,10;
-         conversion:subproperty_of dcterms:source;
-      ];
-      conversion:enhance [
          ov:csvCol          9,10,11,12;
          a conversion:Repeat_previous_if_empty_column;
          conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol          9;
+         conversion:subproperty_of foaf:depiction;
+         conversion:range_name "Image";
+      ];
+      conversion:enhance [
+         conversion:class_name  "Image";
+         conversion:subclass_of foaf:Image;
+      ];
+      conversion:enhance [
+         ov:csvCol          9,10;
+         conversion:equivalent_property dcterms:source;
+      ];
+      conversion:enhance [
+         ov:csvCol          10;
+         conversion:range_name "Google Spreadsheet";
       ];
       conversion:enhance [
          ov:csvCol          12;

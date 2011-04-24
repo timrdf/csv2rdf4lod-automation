@@ -17,82 +17,82 @@
 @prefix httpget: <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> .
 @prefix httppost: <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> .
 
-<inferenceStep_fbe67ea4-260e-44a9-af37-a6fe170caf1b_content>
+<inferenceStep_6b17305c-0344-4f7c-bfbb-1543aeb04e29_content>
     pmlj:hasAntecedentList rdf:nil ;
     pmlj:hasIndex 0 ;
     pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654 ;
     pmlj:hasInferenceRule httpget:HTTP_1_1_GET ;
-    pmlj:hasSourceUsage <sourceUsage_fbe67ea4-260e-44a9-af37-a6fe170caf1b_content> ;
+    pmlj:hasSourceUsage <sourceUsage_6b17305c-0344-4f7c-bfbb-1543aeb04e29_content> ;
     oboro:has_agent <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
     hartigprov:involvedActor <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
     a pmlj:InferenceStep .
 
-<inferenceStep_fbe67ea4-260e-44a9-af37-a6fe170caf1b_url_header>
+<inferenceStep_6b17305c-0344-4f7c-bfbb-1543aeb04e29_url_header>
     pmlj:hasAntecedentList rdf:nil ;
     pmlj:hasIndex 0 ;
     pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654 ;
     pmlj:hasInferenceRule httphead:HTTP_1_1_HEAD ;
-    pmlj:hasSourceUsage <sourceUsage_fbe67ea4-260e-44a9-af37-a6fe170caf1b_url_header> ;
+    pmlj:hasSourceUsage <sourceUsage_6b17305c-0344-4f7c-bfbb-1543aeb04e29_url_header> ;
     oboro:has_agent <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
     hartigprov:involvedActor <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
     a pmlj:InferenceStep .
 
-<info_fbe67ea4-260e-44a9-af37-a6fe170caf1b_url_header>
+<info_6b17305c-0344-4f7c-bfbb-1543aeb04e29_url_header>
     pmlp:hasRawString """HTTP/1.1 200 OK
 Content-Type: text/csv; charset=UTF-8
 content-disposition: attachment; filename=data.csv
-Date: Fri, 22 Apr 2011 13:26:14 GMT
-Expires: Fri, 22 Apr 2011 13:26:14 GMT
+Date: Sun, 24 Apr 2011 19:08:45 GMT
+Expires: Sun, 24 Apr 2011 19:08:45 GMT
 Cache-Control: private, max-age=0
 X-Content-Type-Options: nosniff
 X-XSS-Protection: 1; mode=block
 Server: GSE
 Transfer-Encoding: chunked
 """ ;
-    pmlp:hasReferenceSourceUsage <sourceUsage_fbe67ea4-260e-44a9-af37-a6fe170caf1b_url_header> ;
+    pmlp:hasReferenceSourceUsage <sourceUsage_6b17305c-0344-4f7c-bfbb-1543aeb04e29_url_header> ;
     a pmlp:Information, conv:HTTPHeader .
 
-<md5_4ffee0fdd839d8514298482e1f527167_time_1303478787>
-    dcterms:date "2011-04-22T09:26:27-04:00"^^xsd:dateTime ;
+<md5_ef668da742211af3ff43f0c808577bd0_time_1303672130>
+    dcterms:date "2011-04-24T15:08:50-04:00"^^xsd:dateTime ;
     nfo:hashAlgorithm "md5" ;
-    nfo:hashValue "4ffee0fdd839d8514298482e1f527167" ;
+    nfo:hashValue "ef668da742211af3ff43f0c808577bd0" ;
     a nfo:FileHash .
 
 <menu-on-wall-transcription.csv>
-    pmlp:hasReferenceSourceUsage <sourceUsage_fbe67ea4-260e-44a9-af37-a6fe170caf1b_content> ;
-    nfo:hasHash <md5_4ffee0fdd839d8514298482e1f527167_time_1303478787> ;
+    pmlp:hasReferenceSourceUsage <sourceUsage_6b17305c-0344-4f7c-bfbb-1543aeb04e29_content> ;
+    nfo:hasHash <md5_ef668da742211af3ff43f0c808577bd0_time_1303672130> ;
     a pmlp:Information .
 
-<nodeSet_fbe67ea4-260e-44a9-af37-a6fe170caf1b_content>
+<nodeSet_6b17305c-0344-4f7c-bfbb-1543aeb04e29_content>
     pmlj:hasConclusion <menu-on-wall-transcription.csv> ;
-    pmlj:isConsequentOf <inferenceStep_fbe67ea4-260e-44a9-af37-a6fe170caf1b_content> ;
+    pmlj:isConsequentOf <inferenceStep_6b17305c-0344-4f7c-bfbb-1543aeb04e29_content> ;
     a pmlj:NodeSet .
 
-<nodeSet_fbe67ea4-260e-44a9-af37-a6fe170caf1b_url_header>
-    pmlj:hasConclusion <info_fbe67ea4-260e-44a9-af37-a6fe170caf1b_url_header> ;
-    pmlj:isConsequentOf <inferenceStep_fbe67ea4-260e-44a9-af37-a6fe170caf1b_url_header> ;
+<nodeSet_6b17305c-0344-4f7c-bfbb-1543aeb04e29_url_header>
+    pmlj:hasConclusion <info_6b17305c-0344-4f7c-bfbb-1543aeb04e29_url_header> ;
+    pmlj:isConsequentOf <inferenceStep_6b17305c-0344-4f7c-bfbb-1543aeb04e29_url_header> ;
     a pmlj:NodeSet .
 
-<sourceUsage_fbe67ea4-260e-44a9-af37-a6fe170caf1b_content>
+<sourceUsage_6b17305c-0344-4f7c-bfbb-1543aeb04e29_content>
     pmlp:hasSource <http://spreadsheets.google.com/tq?tqx=out:csv&tq=select%20*&key=t7_5xgxUiHibGpbWFPtVQLA> ;
-    pmlp:hasUsageDateTime "2011-04-22T09:26:26-04:00"^^xsd:dateTime ;
+    pmlp:hasUsageDateTime "2011-04-24T15:08:50-04:00"^^xsd:dateTime ;
     a pmlp:SourceUsage .
 
-<sourceUsage_fbe67ea4-260e-44a9-af37-a6fe170caf1b_url_header>
+<sourceUsage_6b17305c-0344-4f7c-bfbb-1543aeb04e29_url_header>
     pmlp:hasSource <http://spreadsheets.google.com/tq?tqx=out:csv&tq=select%20*&key=t7_5xgxUiHibGpbWFPtVQLA> ;
-    pmlp:hasUsageDateTime "2011-04-22T09:26:26-04:00"^^xsd:dateTime ;
+    pmlp:hasUsageDateTime "2011-04-24T15:08:50-04:00"^^xsd:dateTime ;
     a pmlp:SourceUsage .
 
-<wasControlledBy_fbe67ea4-260e-44a9-af37-a6fe170caf1b_content>
+<wasControlledBy_6b17305c-0344-4f7c-bfbb-1543aeb04e29_content>
     oprov:cause <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
-    oprov:effect <inferenceStep_fbe67ea4-260e-44a9-af37-a6fe170caf1b_content> ;
-    oprov:endTime "2011-04-22T09:26:26-04:00"^^xsd:dateTime ;
+    oprov:effect <inferenceStep_6b17305c-0344-4f7c-bfbb-1543aeb04e29_content> ;
+    oprov:endTime "2011-04-24T15:08:50-04:00"^^xsd:dateTime ;
     a oprov:WasControlledBy .
 
-<wasControlledBy_fbe67ea4-260e-44a9-af37-a6fe170caf1b_url_header>
+<wasControlledBy_6b17305c-0344-4f7c-bfbb-1543aeb04e29_url_header>
     oprov:cause <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> ;
-    oprov:effect <nodeSet_fbe67ea4-260e-44a9-af37-a6fe170caf1b_url_header> ;
-    oprov:endTime "2011-04-22T09:26:26-04:00"^^xsd:dateTime ;
+    oprov:effect <nodeSet_6b17305c-0344-4f7c-bfbb-1543aeb04e29_url_header> ;
+    oprov:endTime "2011-04-24T15:08:50-04:00"^^xsd:dateTime ;
     a oprov:WasControlledBy .
 
 conv:Curl
