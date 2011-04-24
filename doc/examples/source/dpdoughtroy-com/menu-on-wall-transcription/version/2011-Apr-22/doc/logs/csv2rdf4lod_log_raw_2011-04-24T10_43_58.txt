@@ -1,0 +1,86 @@
+2011-04-24T10:43:58-04:00
+convert-menu-on-wall-transcription.sh converting newlines of source/menu-on-wall-transcription.csv
+58 rows in source/menu-on-wall-transcription.csv
+RAW CONVERSION
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     source/menu-on-wall-transcription.csv
+sampleLimit:                  5
+enhancementParametersURL:     automatic/menu-on-wall-transcription.csv.raw.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/menu-on-wall-transcription.csv.raw.sample.ttl
+converterIdentifier:          csv2rdf4lod_300a4d4ba05e7163595323a38c611302
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .dpdoughtroy-com.
+DatasetIdentifierQuerylet(*) .menu-on-wall-transcription.
+DatasetVersionQuerylet(*) .2011-Apr-22.
+
+subjectNS:   :  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/
+predicateNS: raw:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/
+objectNS:    _global_value:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/
+
+CellDelimiterQuerylet(*) .,.
+headers present at row 1: "","","","","","","","","","","",""
+
+1: "" -> "column_1" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_1 (rdfs:Literal)
+2: "" -> "column_2" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_2 (rdfs:Literal)
+3: "" -> "column_3" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_3 (rdfs:Literal)
+4: "" -> "column_4" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_4 (rdfs:Literal)
+5: "" -> "column_5" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_5 (rdfs:Literal)
+6: "" -> "column_6" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_6 (rdfs:Literal)
+7: "" -> "column_7" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_7 (rdfs:Literal)
+8: "" -> "column_8" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_8 (rdfs:Literal)
+9: "" -> "column_9" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_9 (rdfs:Literal)
+10: "" -> "column_10" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_10 (rdfs:Literal)
+11: "" -> "column_11" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_11 (rdfs:Literal)
+12: "" -> "column_12" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_12 (rdfs:Literal)
+
+
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 484 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+Finished converting -sample 5 examples rows.
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     source/menu-on-wall-transcription.csv
+enhancementParametersURL:     automatic/menu-on-wall-transcription.csv.raw.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/menu-on-wall-transcription.csv.raw.ttl
+converterIdentifier:          csv2rdf4lod_300a4d4ba05e7163595323a38c611302
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .dpdoughtroy-com.
+DatasetIdentifierQuerylet(*) .menu-on-wall-transcription.
+DatasetVersionQuerylet(*) .2011-Apr-22.
+
+subjectNS:   :  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/
+predicateNS: raw:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/
+objectNS:    _global_value:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/
+
+CellDelimiterQuerylet(*) .,.
+headers present at row 1: "","","","","","","","","","","",""
+
+1: "" -> "column_1" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_1 (rdfs:Literal)
+2: "" -> "column_2" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_2 (rdfs:Literal)
+3: "" -> "column_3" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_3 (rdfs:Literal)
+4: "" -> "column_4" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_4 (rdfs:Literal)
+5: "" -> "column_5" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_5 (rdfs:Literal)
+6: "" -> "column_6" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_6 (rdfs:Literal)
+7: "" -> "column_7" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_7 (rdfs:Literal)
+8: "" -> "column_8" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_8 (rdfs:Literal)
+9: "" -> "column_9" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_9 (rdfs:Literal)
+10: "" -> "column_10" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_10 (rdfs:Literal)
+11: "" -> "column_11" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_11 (rdfs:Literal)
+12: "" -> "column_12" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/raw/column_12 (rdfs:Literal)
+
+
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 1212 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+   convert.sh done
+convert-aggregate.sh delaying publishing until an enhancement is available.
+  To publish with only raw, set CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED="false" in $CSV2RDF4LOD_HOME/source-me.sh.
+  To publish raw with enhanced, add enhancement to manual/menu-on-wall-transcription.csv.e1.params.ttl and rerun convert-menu-on-wall-transcription.sh
+  To force publishing now, run publish/bin/publish.sh
+===========================================================================================

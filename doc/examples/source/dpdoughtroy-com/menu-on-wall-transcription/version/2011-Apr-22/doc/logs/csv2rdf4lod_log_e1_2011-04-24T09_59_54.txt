@@ -1,0 +1,7 @@
+2011-04-24T09:59:54-04:00
+   convert.sh done
+convert-aggregate.sh delaying publishing until an enhancement is available.
+  To publish with only raw, set CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED="false" in $CSV2RDF4LOD_HOME/source-me.sh.
+  To publish raw with enhanced, add enhancement to manual/menu-on-wall-transcription.csv.e1.params.ttl and rerun convert-menu-on-wall-transcription.sh
+  To force publishing now, run publish/bin/publish.sh
+===========================================================================================

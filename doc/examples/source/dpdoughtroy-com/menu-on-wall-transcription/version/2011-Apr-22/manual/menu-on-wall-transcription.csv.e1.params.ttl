@@ -69,12 +69,11 @@
          conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
-         conversion:class_name "Calzone";
+         conversion:class_name  "Calzone";
          conversion:subclass_of "Food";
       ];
       conversion:enhance [
          ov:csvCol          2;
-         ov:csvHeader       "Starred";
          conversion:label   "Starred";
          conversion:comment "An asterisk next to the menu item.";
          conversion:interpret [
@@ -94,10 +93,17 @@
          ];
       ];
       conversion:enhance [
+         ov:csvCol          9,10;
+         conversion:subproperty_of dcterms:source;
+      ];
+      conversion:enhance [
          ov:csvCol          9,10,11,12;
          a conversion:Repeat_previous_if_empty_column;
-         conversion:comment "";
          conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol          12;
+         conversion:equivalent_property rdfs:seeAlso;
       ];
    ];
 .

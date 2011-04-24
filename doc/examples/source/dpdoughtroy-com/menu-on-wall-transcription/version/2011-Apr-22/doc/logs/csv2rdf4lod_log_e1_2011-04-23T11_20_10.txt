@@ -1,0 +1,126 @@
+2011-04-23T11:20:10-04:00
+constructing manual/menu-on-wall-transcription.csv.global.e1.params.ttl from file-dependent global params ../menu-on-wall-transcription.csv.e1.params.ttl
+58 rows in source/menu-on-wall-transcription.csv
+E1 CONVERSION
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     source/menu-on-wall-transcription.csv
+sampleLimit:                  2
+enhancementParametersURL:     manual/menu-on-wall-transcription.csv.global.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/menu-on-wall-transcription.csv.e1.sample.ttl
+converterIdentifier:          csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd
+==============================
+manual/menu-on-wall-transcription.csv.global.e1.params.ttl
+org.openrdf.rio.RDFParseException: Namespace prefix 'foaf' used but not defined [line 20]
+	at org.openrdf.rio.helpers.RDFParserBase.reportError(RDFParserBase.java:464)
+	at org.openrdf.rio.turtle.TurtleParser.reportError(TurtleParser.java:1093)
+	at org.openrdf.rio.turtle.TurtleParser.parseQNameOrBoolean(TurtleParser.java:905)
+	at org.openrdf.rio.turtle.TurtleParser.parseValue(TurtleParser.java:527)
+	at org.openrdf.rio.turtle.TurtleParser.parsePredicate(TurtleParser.java:389)
+	at org.openrdf.rio.turtle.TurtleParser.parsePredicateObjectList(TurtleParser.java:309)
+	at org.openrdf.rio.turtle.TurtleParser.parseTriples(TurtleParser.java:299)
+	at org.openrdf.rio.turtle.TurtleParser.parseStatement(TurtleParser.java:206)
+	at org.openrdf.rio.turtle.TurtleParser.parse(TurtleParser.java:184)
+	at org.openrdf.rio.turtle.TurtleParser.parse(TurtleParser.java:129)
+	at org.openrdf.repository.base.RepositoryConnectionBase.addInputStreamOrReader(RepositoryConnectionBase.java:354)
+	at org.openrdf.repository.base.RepositoryConnectionBase.add(RepositoryConnectionBase.java:243)
+	at org.openrdf.repository.base.RepositoryConnectionBase.add(RepositoryConnectionBase.java:203)
+	at edu.rpi.tw.data.rdf.utils.pipes.starts.Cat.load(Cat.java:173)
+	at edu.rpi.tw.data.rdf.utils.pipes.starts.Cat.load(Cat.java:119)
+	at edu.rpi.tw.data.csv.CSVtoRDF.main(CSVtoRDF.java:380)
+
+subjectNS:   DDD:  http://example.org/source/SSS/dataset/DDD/version/VVV/
+predicateNS: raw:  http://example.org/source/SSS/dataset/DDD/vocab/raw/
+objectNS:    DDD_global_value:  http://example.org/source/SSS/dataset/DDD/
+
+headers present at row 1: "","","","","","","","","","","",""
+
+1: "" -> "column_1" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_1 (rdfs:Literal)
+2: "" -> "column_2" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_2 (rdfs:Literal)
+3: "" -> "column_3" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_3 (rdfs:Literal)
+4: "" -> "column_4" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_4 (rdfs:Literal)
+5: "" -> "column_5" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_5 (rdfs:Literal)
+6: "" -> "column_6" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_6 (rdfs:Literal)
+7: "" -> "column_7" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_7 (rdfs:Literal)
+8: "" -> "column_8" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_8 (rdfs:Literal)
+9: "" -> "column_9" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_9 (rdfs:Literal)
+10: "" -> "column_10" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_10 (rdfs:Literal)
+11: "" -> "column_11" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_11 (rdfs:Literal)
+12: "" -> "column_12" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_12 (rdfs:Literal)
+
+
+Resulting size: 367 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+Finished converting -sample 2 examples rows.
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     source/menu-on-wall-transcription.csv
+enhancementParametersURL:     manual/menu-on-wall-transcription.csv.global.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/menu-on-wall-transcription.csv.e1.ttl
+converterIdentifier:          csv2rdf4lod_56f9a80a9b08df257625c8decc9e45dd
+==============================
+manual/menu-on-wall-transcription.csv.global.e1.params.ttl
+org.openrdf.rio.RDFParseException: Namespace prefix 'foaf' used but not defined [line 20]
+	at org.openrdf.rio.helpers.RDFParserBase.reportError(RDFParserBase.java:464)
+	at org.openrdf.rio.turtle.TurtleParser.reportError(TurtleParser.java:1093)
+	at org.openrdf.rio.turtle.TurtleParser.parseQNameOrBoolean(TurtleParser.java:905)
+	at org.openrdf.rio.turtle.TurtleParser.parseValue(TurtleParser.java:527)
+	at org.openrdf.rio.turtle.TurtleParser.parsePredicate(TurtleParser.java:389)
+	at org.openrdf.rio.turtle.TurtleParser.parsePredicateObjectList(TurtleParser.java:309)
+	at org.openrdf.rio.turtle.TurtleParser.parseTriples(TurtleParser.java:299)
+	at org.openrdf.rio.turtle.TurtleParser.parseStatement(TurtleParser.java:206)
+	at org.openrdf.rio.turtle.TurtleParser.parse(TurtleParser.java:184)
+	at org.openrdf.rio.turtle.TurtleParser.parse(TurtleParser.java:129)
+	at org.openrdf.repository.base.RepositoryConnectionBase.addInputStreamOrReader(RepositoryConnectionBase.java:354)
+	at org.openrdf.repository.base.RepositoryConnectionBase.add(RepositoryConnectionBase.java:243)
+	at org.openrdf.repository.base.RepositoryConnectionBase.add(RepositoryConnectionBase.java:203)
+	at edu.rpi.tw.data.rdf.utils.pipes.starts.Cat.load(Cat.java:173)
+	at edu.rpi.tw.data.rdf.utils.pipes.starts.Cat.load(Cat.java:119)
+	at edu.rpi.tw.data.csv.CSVtoRDF.main(CSVtoRDF.java:380)
+
+subjectNS:   DDD:  http://example.org/source/SSS/dataset/DDD/version/VVV/
+predicateNS: raw:  http://example.org/source/SSS/dataset/DDD/vocab/raw/
+objectNS:    DDD_global_value:  http://example.org/source/SSS/dataset/DDD/
+
+headers present at row 1: "","","","","","","","","","","",""
+
+1: "" -> "column_1" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_1 (rdfs:Literal)
+2: "" -> "column_2" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_2 (rdfs:Literal)
+3: "" -> "column_3" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_3 (rdfs:Literal)
+4: "" -> "column_4" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_4 (rdfs:Literal)
+5: "" -> "column_5" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_5 (rdfs:Literal)
+6: "" -> "column_6" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_6 (rdfs:Literal)
+7: "" -> "column_7" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_7 (rdfs:Literal)
+8: "" -> "column_8" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_8 (rdfs:Literal)
+9: "" -> "column_9" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_9 (rdfs:Literal)
+10: "" -> "column_10" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_10 (rdfs:Literal)
+11: "" -> "column_11" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_11 (rdfs:Literal)
+12: "" -> "column_12" -> http://example.org/source/SSS/dataset/DDD/vocab/raw/column_12 (rdfs:Literal)
+
+
+Resulting size: 1137 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+   convert.sh done
+convert-aggregate.sh publishing raw and enhancements.
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.sample.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.sample.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl
+  (including publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.ttl)
+  (including publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.ttl)
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.nt - skipping; set CSV2RDF4LOD_PUBLISH_NT=true in source-me.sh to publish N-Triples.
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.pml.ttl
+  (including source/menu-on-wall-transcription.csv.pml.ttl)
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.void.ttl
+  (including automatic/menu-on-wall-transcription.csv.e1.void.ttl)
+  (including automatic/menu-on-wall-transcription.csv.raw.void.ttl)
+  (including publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.pml.ttl)
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sameas.nt - skipping; no owl:sameAs in publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl.
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.rdf - skipping; set CSV2RDF4LOD_PUBLISH_RDFXML=true in source-me.sh to publish RDF/XML.
+publish/bin/ln-to-www-root-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sh
+publish/tdb/     - skipping; set CSV2RDF4LOD_PUBLISH_TDB=true in source-me.sh to load conversions into publish/tdb/.
+                 - or run publish/bin/tdbloader-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sh.
+                 - then run $TDBROOT/bin/rdfserver with publish/bin/joseki-config-anterior-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl.
+publish/lod-mat/ - skipping; set CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION=true in source-me.sh to load conversions into publish/lod-mat/,
+                 - or run automatic/lod-materialize-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sh.

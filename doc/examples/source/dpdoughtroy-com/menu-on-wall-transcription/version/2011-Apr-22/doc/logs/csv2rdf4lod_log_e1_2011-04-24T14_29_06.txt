@@ -1,0 +1,206 @@
+2011-04-24T14:29:06-04:00
+constructing manual/menu-on-wall-transcription.csv.global.e1.params.ttl from file-dependent global params ../menu-on-wall-transcription.csv.e1.params.ttl
+58 rows in source/menu-on-wall-transcription.csv
+E1 CONVERSION
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     source/menu-on-wall-transcription.csv
+sampleLimit:                  2
+enhancementParametersURL:     manual/menu-on-wall-transcription.csv.global.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/menu-on-wall-transcription.csv.e1.sample.ttl
+converterIdentifier:          csv2rdf4lod_ab4c014d3a1d8f01771a178092d29627
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .dpdoughtroy-com.
+DatasetIdentifierQuerylet(*) .menu-on-wall-transcription.
+DatasetVersionQuerylet(*) .2011-Apr-22.
+SubjectTypeQuerylet(*) .Calzone.
+SubClassOfQuerylet(*) .Calzone. -> ."Food".
+RepeatPreviousIfEmptyColumnsQuerylet(*) .9.
+RepeatPreviousIfEmptyColumnsQuerylet(*) .10.
+RepeatPreviousIfEmptyColumnsQuerylet(*) .11.
+RepeatPreviousIfEmptyColumnsQuerylet(*) .12.
+CodebookQuerylet(2) .. -> .http://purl.org/twc/vocab/conversion/null.
+TypedResourcePromotionQuerylet(3) .Ingredient.
+CodebookQuerylet(3) .-. -> .http://purl.org/twc/vocab/conversion/null.
+TypedResourcePromotionQuerylet(4) .Ingredient.
+CodebookQuerylet(4) .-. -> .http://purl.org/twc/vocab/conversion/null.
+TypedResourcePromotionQuerylet(5) .Ingredient.
+CodebookQuerylet(5) .-. -> .http://purl.org/twc/vocab/conversion/null.
+TypedResourcePromotionQuerylet(6) .Ingredient.
+CodebookQuerylet(6) .-. -> .http://purl.org/twc/vocab/conversion/null.
+TypedResourcePromotionQuerylet(7) .Ingredient.
+CodebookQuerylet(7) .-. -> .http://purl.org/twc/vocab/conversion/null.
+TypedResourcePromotionQuerylet(8) .Ingredient.
+CodebookQuerylet(8) .-. -> .http://purl.org/twc/vocab/conversion/null.
+SubpropertyOfQuerylet(9) .http://purl.org/dc/terms/source.
+SubpropertyOfQuerylet(10) .http://purl.org/dc/terms/source.
+DomainTemplateQuerylet(1) .[.].
+
+subjectNS:   :  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/
+objectNS:    _global_value:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/
+
+CellDelimiterQuerylet(*) .,.
+HeaderRowQuerylet(*) .2.
+DataEndRowQuerylet(*) .55.
+consuming top matter on line 1 before header line (2): "","","","","","","","","","","",""
+===========
+consumed top matter:
+"","","","","","","","","","","",""
+
+headers present at row 2: "Title","Starred","Contains","Contains","Contains","Contains","Contains","Contains","Dublin Core Source - Transcribees","Dublin Core Source - Google Spreadsheet Transcription","RDF Conversion Setup Script","See Also"
+
+       EquivalentPropertyQuerylet(1) .http://purl.org/dc/terms/title.
+1: "Title" -> "Title" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/title (rdfs:Literal)
+InterpretedAsNullQuerylet(2) ..
+ColumnCommentQuerylet(2) .An asterisk next to the menu item..
+2: "Starred" -> "Starred" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/starred (rdfs:Literal)
+InterpretedAsNullQuerylet(3) .-.
+3: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+InterpretedAsNullQuerylet(4) .-.
+4: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+InterpretedAsNullQuerylet(5) .-.
+5: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+InterpretedAsNullQuerylet(6) .-.
+6: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+InterpretedAsNullQuerylet(7) .-.
+7: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+InterpretedAsNullQuerylet(8) .-.
+8: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+9: "Dublin Core Source - Transcribees" -> "Dublin Core Source - Transcribees" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/dublin_core_source_transcribees (rdfs:Resource)
+10: "Dublin Core Source - Google Spreadsheet Transcription" -> "Dublin Core Source - Google Spreadsheet Transcription" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/dublin_core_source_google_spreadsheet_transcription (rdfs:Resource)
+11: "RDF Conversion Setup Script" -> "RDF Conversion Setup Script" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/rdf_conversion_setup_script (rdfs:Resource)
+       EquivalentPropertyQuerylet(12) .http://www.w3.org/2000/01/rdf-schema#seeAlso.
+12: "See Also" -> "See Also" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/see_also (rdfs:Resource)
+
+
+4: repeating value https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source for column 9
+4: repeating value https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0 for column 10
+4: repeating value https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh for column 11
+4: repeating value http://www.dpdoughtroy.com/menu for column 12
+consumed bottom matter:
+"-------- ------","","","","","","","","","","",""
+"Please direct feedback to","","http://tw.rpi.edu/instances/TimLebo","","","","","","","","",""
+"dataset identifiers","","source","dpdoughtroy-com","dataset","menu-on-wall-transcription","","","","","",""
+"Source dataset identifiers","","source","dpdoughtroy-com","dataset","menu-on-wall","","","","","",""
+
+===========
+LayerDatasetDescriptionsQuerylet(D) .http://purl.org/dc/terms/source. .https://spreadsheets.google.com/ccc?key=0ArTeDpS4-nUDdDdfNXhneFVpSGliR3BiV0ZQdFZRTEE&hl=en#gid=0.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 519 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+Finished converting -sample 2 examples rows.
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Apr-21 initiated:
+fileName:                     source/menu-on-wall-transcription.csv
+enhancementParametersURL:     manual/menu-on-wall-transcription.csv.global.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/menu-on-wall-transcription.csv.e1.ttl
+converterIdentifier:          csv2rdf4lod_ab4c014d3a1d8f01771a178092d29627
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .dpdoughtroy-com.
+DatasetIdentifierQuerylet(*) .menu-on-wall-transcription.
+DatasetVersionQuerylet(*) .2011-Apr-22.
+SubjectTypeQuerylet(*) .Calzone.
+SubClassOfQuerylet(*) .Calzone. -> ."Food".
+RepeatPreviousIfEmptyColumnsQuerylet(*) .9.
+RepeatPreviousIfEmptyColumnsQuerylet(*) .10.
+RepeatPreviousIfEmptyColumnsQuerylet(*) .11.
+RepeatPreviousIfEmptyColumnsQuerylet(*) .12.
+CodebookQuerylet(2) .. -> .http://purl.org/twc/vocab/conversion/null.
+TypedResourcePromotionQuerylet(3) .Ingredient.
+CodebookQuerylet(3) .-. -> .http://purl.org/twc/vocab/conversion/null.
+TypedResourcePromotionQuerylet(4) .Ingredient.
+CodebookQuerylet(4) .-. -> .http://purl.org/twc/vocab/conversion/null.
+TypedResourcePromotionQuerylet(5) .Ingredient.
+CodebookQuerylet(5) .-. -> .http://purl.org/twc/vocab/conversion/null.
+TypedResourcePromotionQuerylet(6) .Ingredient.
+CodebookQuerylet(6) .-. -> .http://purl.org/twc/vocab/conversion/null.
+TypedResourcePromotionQuerylet(7) .Ingredient.
+CodebookQuerylet(7) .-. -> .http://purl.org/twc/vocab/conversion/null.
+TypedResourcePromotionQuerylet(8) .Ingredient.
+CodebookQuerylet(8) .-. -> .http://purl.org/twc/vocab/conversion/null.
+SubpropertyOfQuerylet(9) .http://purl.org/dc/terms/source.
+SubpropertyOfQuerylet(10) .http://purl.org/dc/terms/source.
+DomainTemplateQuerylet(1) .[.].
+
+subjectNS:   :  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/version/2011-Apr-22/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/
+objectNS:    _global_value:  http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/
+
+CellDelimiterQuerylet(*) .,.
+HeaderRowQuerylet(*) .2.
+DataEndRowQuerylet(*) .55.
+consuming top matter on line 1 before header line (2): "","","","","","","","","","","",""
+===========
+consumed top matter:
+"","","","","","","","","","","",""
+
+headers present at row 2: "Title","Starred","Contains","Contains","Contains","Contains","Contains","Contains","Dublin Core Source - Transcribees","Dublin Core Source - Google Spreadsheet Transcription","RDF Conversion Setup Script","See Also"
+
+       EquivalentPropertyQuerylet(1) .http://purl.org/dc/terms/title.
+1: "Title" -> "Title" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/title (rdfs:Literal)
+InterpretedAsNullQuerylet(2) ..
+ColumnCommentQuerylet(2) .An asterisk next to the menu item..
+2: "Starred" -> "Starred" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/starred (rdfs:Literal)
+InterpretedAsNullQuerylet(3) .-.
+3: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+InterpretedAsNullQuerylet(4) .-.
+4: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+InterpretedAsNullQuerylet(5) .-.
+5: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+InterpretedAsNullQuerylet(6) .-.
+6: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+InterpretedAsNullQuerylet(7) .-.
+7: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+InterpretedAsNullQuerylet(8) .-.
+8: "Contains" -> "Contains" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/contains (rdfs:Resource)
+9: "Dublin Core Source - Transcribees" -> "Dublin Core Source - Transcribees" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/dublin_core_source_transcribees (rdfs:Resource)
+10: "Dublin Core Source - Google Spreadsheet Transcription" -> "Dublin Core Source - Google Spreadsheet Transcription" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/dublin_core_source_google_spreadsheet_transcription (rdfs:Resource)
+11: "RDF Conversion Setup Script" -> "RDF Conversion Setup Script" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/rdf_conversion_setup_script (rdfs:Resource)
+       EquivalentPropertyQuerylet(12) .http://www.w3.org/2000/01/rdf-schema#seeAlso.
+12: "See Also" -> "See Also" -> http://logd.tw.rpi.edu/source/dpdoughtroy-com/dataset/menu-on-wall-transcription/vocab/enhancement/1/see_also (rdfs:Resource)
+
+
+4: repeating value https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source for column 9
+4: repeating value https://spreadsheets.google.com/spreadsheet/ccc?pli=1&hl=en&key=t7_5xgxUiHibGpbWFPtVQLA&hl=en#gid=0 for column 10
+4: repeating value https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/examples/source/dpdoughtroy-com/menu-on-wall-transcription/version/2source.sh for column 11
+4: repeating value http://www.dpdoughtroy.com/menu for column 12
+5: repeating value https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/examples/source/dpdoughtroy-com/menu-on-wall/version/2011-Apr-20/source for column 9
+consumed bottom matter:
+"-------- ------","","","","","","","","","","",""
+"Please direct feedback to","","http://tw.rpi.edu/instances/TimLebo","","","","","","","","",""
+"dataset identifiers","","source","dpdoughtroy-com","dataset","menu-on-wall-transcription","","","","","",""
+"Source dataset identifiers","","source","dpdoughtroy-com","dataset","menu-on-wall","","","","","",""
+
+===========
+LayerDatasetDescriptionsQuerylet(D) .http://purl.org/dc/terms/source. .https://spreadsheets.google.com/ccc?key=0ArTeDpS4-nUDdDdfNXhneFVpSGliR3BiV0ZQdFZRTEE&hl=en#gid=0.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 1491 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+   convert.sh done
+convert-aggregate.sh publishing raw and enhancements.
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.sample.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.sample.ttl
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl
+  (including publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.e1.ttl)
+  (including publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.raw.ttl)
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.nt - skipping; set CSV2RDF4LOD_PUBLISH_NT=true in source-me.sh to publish N-Triples.
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.pml.ttl
+  (including source/menu-on-wall-transcription.csv.pml.ttl)
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.void.ttl
+  (including automatic/menu-on-wall-transcription.csv.e1.void.ttl)
+  (including publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.pml.ttl)
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sameas.nt - skipping; no owl:sameAs in publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl.
+publish/dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.rdf - skipping; set CSV2RDF4LOD_PUBLISH_RDFXML=true in source-me.sh to publish RDF/XML.
+publish/bin/ln-to-www-root-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sh
+publish/tdb/     - skipping; set CSV2RDF4LOD_PUBLISH_TDB=true in source-me.sh to load conversions into publish/tdb/.
+                 - or run publish/bin/tdbloader-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sh.
+                 - then run $TDBROOT/bin/rdfserver with publish/bin/joseki-config-anterior-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.ttl.
+publish/lod-mat/ - skipping; set CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION=true in source-me.sh to load conversions into publish/lod-mat/,
+                 - or run automatic/lod-materialize-dpdoughtroy-com-menu-on-wall-transcription-2011-Apr-22.sh.
