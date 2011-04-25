@@ -58,6 +58,7 @@ BEGIN {
       print "@prefix dbpedia:       <http://dbpedia.org/resource/> ."
       print "@prefix con:           <http://www.w3.org/2000/10/swap/pim/contact#> ."
       print "@prefix muo:           <http://purl.oclc.org/NET/muo/muo#> ."
+      print "@prefix vs:            <http://www.w3.org/2003/06/sw-vocab-status/ns#> ."
       print "@prefix dgtwc:         <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> ."
    }
    print "@prefix dcterms:       <http://purl.org/dc/terms/> ."
