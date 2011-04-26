@@ -1,0 +1,131 @@
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
+@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix sioc:       <http://rdfs.org/sioc/ns#> .
+@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov:      <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+@prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix conv:       <http://purl.org/twc/vocab/conversion/> .
+@prefix httphead:   <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> .
+@prefix httpget:    <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> .
+@prefix httppost:   <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot> .
+<http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://tw.rpi.edu/web/inside/machine/lebot_macbook#>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+<http://inference-web.org/downloads/pml.jar>
+   a pmlp:Source;
+.
+
+<http://inference-web.org/downloads/pml.jar>
+   a pmlp:Source;
+   pmlp:hasModificationDateTime "2011-01-26T06:05:18"^^xsd:dateTime;
+.
+
+<pml.jar>
+   a pmlp:Information;
+   pmlp:hasReferenceSourceUsage <sourceUsage_690ec830-dfd1-492d-b59a-d84515e29db2_content>;
+.
+<pml.jar>
+   a pmlp:Information;
+   nfo:hasHash <md5_72d705eb1119e5112d4799d6b748e3ad_time_1303855795>;
+.
+<md5_72d705eb1119e5112d4799d6b748e3ad_time_1303855795>
+   a nfo:FileHash; 
+   dcterms:date      "2011-04-26T18:09:55-04:00"^^xsd:dateTime;
+   nfo:hashAlgorithm "md5";
+   nfo:hashValue     "72d705eb1119e5112d4799d6b748e3ad";
+.
+
+<nodeSet_690ec830-dfd1-492d-b59a-d84515e29db2_content>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <pml.jar>;
+   pmlj:isConsequentOf <inferenceStep_690ec830-dfd1-492d-b59a-d84515e29db2_content>;
+.
+<inferenceStep_690ec830-dfd1-492d-b59a-d84515e29db2_content>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_690ec830-dfd1-492d-b59a-d84515e29db2_content>;
+   pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
+   pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;
+   oboro:has_agent          <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
+   hartigprov:involvedActor <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
+.
+
+<sourceUsage_690ec830-dfd1-492d-b59a-d84515e29db2_content>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://inference-web.org/downloads/pml.jar>;
+   pmlp:hasUsageDateTime "2011-04-26T18:09:55-04:00"^^xsd:dateTime;
+.
+
+<wasControlledBy_690ec830-dfd1-492d-b59a-d84515e29db2_content>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
+   oprov:effect <inferenceStep_690ec830-dfd1-492d-b59a-d84515e29db2_content>;
+   oprov:endTime "2011-04-26T18:09:55-04:00"^^xsd:dateTime;
+.
+ 
+<info_690ec830-dfd1-492d-b59a-d84515e29db2_url_header>
+   a pmlp:Information, conv:HTTPHeader;
+   pmlp:hasRawString """HTTP/1.1 200 OK
+Date: Tue, 26 Apr 2011 22:09:54 GMT
+Server: Apache/2.2.3 (CentOS)
+Last-Modified: Wed, 26 Jan 2011 06:05:18 GMT
+ETag: "5638339-24f83-49ab99e0b2380"
+Accept-Ranges: bytes
+Content-Length: 151427
+Connection: close
+Content-Type: application/x-java-archive
+""";
+   pmlp:hasReferenceSourceUsage <sourceUsage_690ec830-dfd1-492d-b59a-d84515e29db2_url_header>;
+.
+ 
+<nodeSet_690ec830-dfd1-492d-b59a-d84515e29db2_url_header>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <info_690ec830-dfd1-492d-b59a-d84515e29db2_url_header>;
+   pmlj:isConsequentOf <inferenceStep_690ec830-dfd1-492d-b59a-d84515e29db2_url_header>;
+.
+<inferenceStep_690ec830-dfd1-492d-b59a-d84515e29db2_url_header>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_690ec830-dfd1-492d-b59a-d84515e29db2_url_header>;
+   pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
+   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;
+   oboro:has_agent          <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
+   hartigprov:involvedActor <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
+.
+
+<sourceUsage_690ec830-dfd1-492d-b59a-d84515e29db2_url_header>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://inference-web.org/downloads/pml.jar>;
+   pmlp:hasUsageDateTime "2011-04-26T18:09:55-04:00"^^xsd:dateTime;
+.
+<wasControlledBy_690ec830-dfd1-492d-b59a-d84515e29db2_url_header>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
+   oprov:effect <nodeSet_690ec830-dfd1-492d-b59a-d84515e29db2_url_header>;
+   oprov:endTime "2011-04-26T18:09:55-04:00"^^xsd:dateTime;
+.
+
+
+conv:curl_md5_5670dffdc5533a4c57243fc97b19a654
+   a pmlp:InferenceEngine, conv:Curl;
+   dcterms:identifier "md5_5670dffdc5533a4c57243fc97b19a654";
+   dcterms:description """curl 7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8l zlib/1.2.3
+Protocols: tftp ftp telnet dict ldap http file https ftps 
+Features: GSS-Negotiate IPv6 Largefile NTLM SSL libz """;
+.
+
+conv:Curl rdfs:subClassOf pmlp:InferenceEngine .
