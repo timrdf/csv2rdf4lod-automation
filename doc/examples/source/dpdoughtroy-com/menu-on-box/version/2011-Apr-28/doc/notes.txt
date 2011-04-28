@@ -1,0 +1,5 @@
+Tim took picture on iPhone and twitpic'd
+   http://twitter.com/#!/timrdf/status/63682287782461441 links to 
+   http://twitpic.com/4qmpq9 links to
+   http://twitpic.com/4qmpq9/full links to
+   http://s3.amazonaws.com/twitpic/photos/full/286594497.jpg?AWSAccessKeyId=AKIAJF3XCCKACR3QDMOA&Expires=1304022829&Signature=sIi1SYk56qXYmq6r39B5J1jF9N8%3D (retrieved with pcurl.sh)
