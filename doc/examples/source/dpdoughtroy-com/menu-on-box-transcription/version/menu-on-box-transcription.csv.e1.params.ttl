@@ -51,12 +51,14 @@
       conversion:enhancement_identifier "1";
 
       dcterms:creator <http://tw.rpi.edu/web/inside/machine/lebot_macbook#lebot>;
-      dcterms:created "2011-04-28T16:29:22-04:00"^^xsd:dateTime;
+      dcterms:created "2011-04-28T16:45:51-04:00"^^xsd:dateTime;
 
       conversion:delimits_cell ",";
-      #conversion:delimits_cell "	"; # tab
-      #conversion:delimits_cell "|";   # pipe
-      #conversion:delimits_cell ",";   # comma
+
+      conversion:enhance [
+         ov:csvRow 2;
+         a conversion:HeaderRow;
+      ];
 
       #conversion:interpret [          
       #   conversion:symbol        "";
@@ -64,24 +66,65 @@
       #];                            
       conversion:enhance [
          ov:csvCol          1;
-         ov:csvHeader       "";
-         #conversion:label   "";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         ov:csvHeader      "Title"; 
+         conversion:domain_template "[.]";
+         conversion:domain_name     "Calzone";
+         conversion:equivalent_property dcterms:title;
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          2;
-         ov:csvHeader       "";
-         #conversion:label   "";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         ov:csvHeader       "Registered";
+         conversion:interpret [          
+            conversion:symbol        "R";
+            conversion:interpretation true; 
+         ];                            
+         conversion:interpret [          
+            conversion:symbol        "-";
+            conversion:interpretation false; 
+         ];                            
+         conversion:range   xsd:boolean;
       ];
       conversion:enhance [
          ov:csvCol          3;
-         ov:csvHeader       "";
-         #conversion:label   "";
+         ov:csvHeader       "Licensed";
+         conversion:interpret [          
+            conversion:symbol        "*";
+            conversion:interpretation true; 
+         ];                            
+         conversion:interpret [          
+            conversion:symbol        "-";
+            conversion:interpretation false; 
+         ];                            
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:boolean;
+      ];
+
+      conversion:enhance [
+         ov:csvCol 4,5,6,7;
+         a conversion:Repeat_previous_if_empty_column;
+         conversion:range rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol 4;
+         conversion:subproperty_of foaf:depiction;
+         conversion:range_name "Image";
+      ];
+      conversion:enhance [
+         conversion:class_name "Image";
+         conversion:subclass_of foaf:Image;
+      ];
+      conversion:enhance [
+         ov:csvCol 4,5;
+         conversion:equivalent_property dcterms:source;
+      ];
+      conversion:enhance [
+         ov:csvCol 6;
+         conversion:range_name "Google Spreadsheet";
+      ];
+      conversion:enhance [
+         ov:csvCol 7;
+         conversion:equivalent_property rdfs:seeAlso;
       ];
    ];
 .
