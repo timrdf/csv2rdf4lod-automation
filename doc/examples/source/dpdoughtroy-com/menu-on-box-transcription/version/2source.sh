@@ -9,5 +9,5 @@
 #
 # to produce RDF.
 
-CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER=true
+export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER=true
 google2source.sh -w t5up1fIZHQWCl8A2frpfC_w auto
