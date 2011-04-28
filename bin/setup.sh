@@ -95,7 +95,7 @@ export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER="false"
 # (used in convert.sh)
 #
 export CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS="100"
-export CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS="0"
+export CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS="10"
 
 #
 # Customize: Omit the full conversion of the dataset.
