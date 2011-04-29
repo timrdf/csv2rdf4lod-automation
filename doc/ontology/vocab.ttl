@@ -949,6 +949,13 @@ conv:range_template
    rdfs:comment "";
 .
 
+conv:SubjectAnnotation
+   a owl:Class;
+   rdfs:label "SubjectAnnotation";
+   rdfs:comment "add a predicate-object description to the subject of a triple created.";
+   rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
+.
+
 conv:predicate
    a rdf:Property;
    rdfs:label "predicate";
