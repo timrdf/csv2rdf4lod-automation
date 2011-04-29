@@ -326,10 +326,13 @@ if [ $runRaw == "yes" ]; then
    fi
 
    # Full ------------------------------
-   $csv2rdf $data             -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl        -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
-
-   # Parse out meta from full
-   $CSV2RDF4LOD_HOME/bin/util/grep-tail.sh $destDir/$datafile.raw.ttl > $destDir/$datafile.raw.void.ttl    # .-todo
+   if [ ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
+      echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'" 2>&1 | tee -a $CSV2RDF4LOD_LOG
+   else
+      $csv2rdf $data             -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl        -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      # Parse out meta from full
+      $CSV2RDF4LOD_HOME/bin/util/grep-tail.sh $destDir/$datafile.raw.ttl > $destDir/$datafile.raw.void.ttl    # .-todo
+   fi
 fi
 
 #
