@@ -1,3 +1,6 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-<http://purl.org/twc/id/machine/lebot/MacBookPro6_2> rdfs:label "Tim's Macbook Pro" .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2> 
+   rdfs:label "Tim's Macbook Pro";
+   owl:sameAs <http://tw.rpi.edu/web/inside/machine/lebot_macbook#>
+.
