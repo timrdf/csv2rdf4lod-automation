@@ -1,0 +1,3 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/twc/id/machine/jluciano/MacBookPro6_2> rdfs:label "Joanne's Macbook Pro" .
