@@ -23,6 +23,7 @@
 	rdfs:seeAlso <http://data-gov.tw.rpi.edu/wiki/URI_design_for_RDF_conversion_of_CSV-based_data> ;
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki> ;
    rdfs:seeAlso <http://doi.acm.org/10.1145/1839707.1839755> ;
+#   rdfs:seeAlso <http://owl.cs.manchester.ac.uk/browser/ontologies/?action=load&clear=true&uri=http://purl.org/twc/vocab/conversion/> ;
     dct:creator <http://tw.rpi.edu/instances/TimLebo> ;
     dct:creator <http://kasei.us/about/foaf.xrdf#greg> ;
     dct:date "2011-02-09";
