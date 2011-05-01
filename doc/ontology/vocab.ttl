@@ -925,11 +925,11 @@ conv:num_invocation_logs
    rdfs:comment "Number of docs/logs/* captured by convert-aggregate.sh";
 .
 
-
 conv:ExampleResource
    a rdfs:Class;
    rdfs:label "ExampleResource";
    rdfs:comment "";
+   rdfs:seeAlso void:exampleResource;
 .
 
 conv:Bundle
