@@ -87,10 +87,10 @@ $CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh > $CSV2RDF4LOD_LOG
 
 #head -${header:-1} $data | tail -1 | awk -v conversionID="$eID" $paramsParams -f $h2p > $eParamsDir/$datafile.e$eID.params.ttl
 #echo "CELL DELMITER: $cellDelimiter"
-csvHeadersClasspath="edu.rpi.tw.data.csv.impl.CSVHeaders"                                                  # is in csv2rdf4lod.jar
-h2p=$CSV2RDF4LOD_HOME/bin/util/header2params2.awk                                                     # process by line, not parse the first
+csvHeadersClasspath="edu.rpi.tw.data.csv.impl.CSVHeaders"                                                        # is in csv2rdf4lod.jar
+h2p=$CSV2RDF4LOD_HOME/bin/util/header2params2.awk                                                                # process by line, not parse the first
 paramsParams="-v surrogate=$surrogate -v sourceID=$sourceID -v datasetID=$datasetID"                             # NOTE: no variable values 
-paramsParams="$paramsParams -v cellDelimiter=$cellDelimiter"                                                 # ONE character.
+paramsParams="$paramsParams -v cellDelimiter=$cellDelimiter"                                                     # ONE character.
 paramsParams="$paramsParams -v header=$header -v dataStart=$dataStart -v onlyIfCol=$onlyIfCol"                   # can be strings or have spaces. 
 paramsParams="$paramsParams -v repeatAboveIfEmptyCol=$repeatAboveIfEmptyCol -v interpretAsNull=$interpretAsNull" # awk "bails out at line 1".
 paramsParams="$paramsParams -v dataEnd=$dataEnd"
@@ -301,7 +301,7 @@ fi
 #
 #
 
-sampleN="-sample ${CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS:-"2"}"        # TODO: add eg_only for -eg flag on converter. ok.
+sampleN="-sample ${CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS:-"2"}"
 dumpExtensions="-VoIDDumpExtensions ${CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS}"
 if [ ${#CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS} -eq 0 ]; then
    dumpExtensions=""
@@ -315,18 +315,18 @@ if [ $runRaw == "yes" ]; then
 
    # Sample ------------------------------
    if [ ${CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS:-"2"} -gt 0 ]; then
-      $csv2rdf $data $sampleN -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.sample.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
-      echo "Finished converting $sampleN examples rows." 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      $csv2rdf $data $sampleN -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.sample.ttl  -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      echo "Finished converting $sampleN examples rows."                                                                                                        2>&1 | tee -a $CSV2RDF4LOD_LOG
    fi
 
    # Full ------------------------------
-   if [ ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
-      echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY=='true'" 2>&1 | tee -a $CSV2RDF4LOD_LOG
-   elif [ ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
-      $csv2rdf $data      -ego   -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl        -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
-      echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'" 2>&1 | tee -a $CSV2RDF4LOD_LOG
+   if [ ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
+      $csv2rdf $data   -ego   -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.example.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'"                                                                       2>&1 | tee -a $CSV2RDF4LOD_LOG
+   elif [ ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
+      echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY=='true'"                                                                        2>&1 | tee -a $CSV2RDF4LOD_LOG
    else
-      $csv2rdf $data             -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl        -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      $csv2rdf $data          -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl         -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       # Parse out meta from full
       $CSV2RDF4LOD_HOME/bin/util/grep-tail.sh $destDir/$datafile.raw.ttl > $destDir/$datafile.raw.void.ttl    # .-todo
    fi
@@ -340,18 +340,19 @@ if [ $runEnhancement == "yes" ]; then
 
    # Sample ------------------------------
    if [ ${CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS:-"2"} -gt 0 ]; then
-      $csv2rdf $data $sampleN -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.sample.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
-      echo "Finished converting $sampleN examples rows." 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      $csv2rdf $data $sampleN -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.sample.ttl  -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      echo "Finished converting $sampleN examples rows."                                                                                                                        2>&1 | tee -a $CSV2RDF4LOD_LOG
    fi
 
    # Full ------------------------------
-   if [ ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
-      echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY=='true'" 2>&1 | tee -a $CSV2RDF4LOD_LOG
-   elif [ ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
-      $csv2rdf $data   -ego   -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl        -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
-      echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'" 2>&1 | tee -a $CSV2RDF4LOD_LOG
+   if [ ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
+      $csv2rdf $data    -ego  -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.example.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY=='true'"                                                                                        2>&1 | tee -a $CSV2RDF4LOD_LOG
+   elif [ ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
+      echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'"                                                                                       2>&1 | tee -a $CSV2RDF4LOD_LOG
    else
-      $csv2rdf $data          -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl        -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      $csv2rdf $data          -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl         -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      # Parse out meta from full
       $CSV2RDF4LOD_HOME/bin/util/grep-tail.sh $destDir/$datafile.e$eID.ttl > $destDir/$datafile.e$eID.void.ttl # .-todo
    fi
 
@@ -431,7 +432,7 @@ if [ ! -e joseki-config-${sourceID}-${datasetID}-anterior.ttl -a "n" == "y" ]; t
    configFilename=$publishDir/joseki-config-${sourceID}-${datasetID}-${subjectDiscriminator}-anterior.ttl
    cat $configTemplate | awk '{gsub("__TDB__DIRECTORY__",dir);print $0}' dir=`pwd`/$publishDir/$datafile.tdb/ > $configFilename
 fi 
-# END of very much fading code.
+# END of very much fading code. TODO: Complete MOLST Form.
 
 
 
@@ -441,7 +442,7 @@ fi
 #
 #
 
-echo '#!/bin/bash'                                                                         > $publishDir/bin/publish.sh
+echo '#!/bin/bash'                                                                       > $publishDir/bin/publish.sh
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh"}' >> $publishDir/bin/publish.sh
 echo "surrogate=\"$surrogate\""                                                         >> $publishDir/bin/publish.sh
 echo "sourceID=\"$sourceID\""                                                           >> $publishDir/bin/publish.sh
