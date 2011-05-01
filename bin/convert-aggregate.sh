@@ -616,8 +616,8 @@ if [ ${CSV2RDF4LOD_PUBLISH_TDB:-"."} == "true" ]; then
    $loadtdbSH
 else
    echo "$TDB_DIR/     - skipping; set CSV2RDF4LOD_PUBLISH_TDB=true in source-me.sh to load conversions into $TDB_DIR/." | tee -a $CSV2RDF4LOD_LOG
-   echo "`echo $TDB_DIR/ | sed 's/./ /g'`     - or run $loadtdbSH." | tee -a $CSV2RDF4LOD_LOG
-   echo "`echo $TDB_DIR/ | sed 's/./ /g'`     - then run \$TDBROOT/bin/rdfserver with $josekiConfigFile." | tee -a $CSV2RDF4LOD_LOG
+   echo "`echo $TDB_DIR/ | sed 's/./ /g'`     - or run $loadtdbSH."                                                      | tee -a $CSV2RDF4LOD_LOG
+   echo "`echo $TDB_DIR/ | sed 's/./ /g'`     - then run \$TDBROOT/bin/rdfserver with $josekiConfigFile."                | tee -a $CSV2RDF4LOD_LOG
 fi
 
 
