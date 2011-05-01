@@ -20,7 +20,7 @@ else
          exit 1
    fi
    if [ ${CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED:-"true"} == "true" ]; then
-      if [ $runEnhancement == "yes" -a `ls $destDir/*.e$eID.ttl 2> /dev/null | wc -l` -gt 0 ]; then
+      if [[ $runEnhancement == "yes" && ( `ls $destDir/*.e$eID.ttl 2> /dev/null | wc -l` > 0 || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
          echo "convert-aggregate.sh publishing raw and enhancements."                                                                     | tee -a $CSV2RDF4LOD_LOG
       else
          # NOTE: If multiple files to convert and the LAST file is not enhanced, 
