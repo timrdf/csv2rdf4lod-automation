@@ -107,11 +107,27 @@ export CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS="10"
 # Setting this to 'true' will prevent the full conversion.
 #
 # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Generating-a-sample-conversion-using-only-a-subset-of-data
-#
+#     https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY
 # (used in convert.sh)
 #
 export CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY="true"
 export CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY="false"
+
+#
+# Customize: Omit the full conversion of the dataset.
+#
+# When developing the enhancement parameters, it is helpful
+# to only convert a few hand-selected rows.
+# 
+# Setting this to 'true' will prevent the full conversion.
+#
+# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Examples-versus-Samples
+#     https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY
+#
+# (used in convert.sh)
+#
+export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="true"
+export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="false"
 
 #
 # Customize: Append extension to URL for void:dataDump.
