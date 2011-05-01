@@ -94,8 +94,8 @@ export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER="false"
 #
 # (used in convert.sh)
 #
-export CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS="100"
-export CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS="10"
+export CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS="100"
+export CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS="10"
 
 #
 # Customize: Omit the full conversion of the dataset.
@@ -110,8 +110,8 @@ export CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS="10"
 #
 # (used in convert.sh)
 #
-export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="true"
-export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="false"
+export CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY="true"
+export CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY="false"
 
 #
 # Customize: Append extension to URL for void:dataDump.
@@ -308,7 +308,7 @@ export CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS_NAMED_GRAPH="auto"
 
 #
 # Customize: include subset of conversion: 
-#               first $CSV2RDF4LOD_CONVERT_NUMBER_EXAMPLE_ROWS
+#               first $CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS
 #
 # if true, invokes:
 #   publish/bin/virtuoso-load-${sourceID}-${datasetID}-${datasetVersion}.sh --sample
