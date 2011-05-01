@@ -316,14 +316,15 @@ if [ $runRaw == "yes" ]; then
    # Sample ------------------------------
    if [ ${CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS:-"2"} -gt 0 ]; then
       $csv2rdf $data $sampleN -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.sample.ttl  -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
-      echo "Finished converting $sampleN examples rows."                                                                                                        2>&1 | tee -a $CSV2RDF4LOD_LOG
+      echo "Finished converting $sampleN sample rows."                                                                                                          2>&1 | tee -a $CSV2RDF4LOD_LOG
    fi
 
    # Full ------------------------------
-   if [ ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
-      $csv2rdf $data   -ego   -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.example.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
-      echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'"                                                                       2>&1 | tee -a $CSV2RDF4LOD_LOG
-   elif [ ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
+   #if [ ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
+   #   # Would require eparams - which are not available in raw.
+   #   #$csv2rdf $data   -ego   -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.example.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+   #   echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'"                                                                       2>&1 | tee -a $CSV2RDF4LOD_LOG
+   if [ ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY=='true'"                                                                        2>&1 | tee -a $CSV2RDF4LOD_LOG
    else
       $csv2rdf $data          -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl         -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
@@ -339,14 +340,15 @@ if [ $runEnhancement == "yes" ]; then
    echo "E$eID CONVERSION" | tee -a $CSV2RDF4LOD_LOG
 
    # Sample ------------------------------
-   if [ ${CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS:-"2"} -gt 0 ]; then
+   if [ ${CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS:-"2"} -gt 0 -a ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} != 'true' ]; then
       $csv2rdf $data $sampleN -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.sample.ttl  -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
-      echo "Finished converting $sampleN examples rows."                                                                                                                        2>&1 | tee -a $CSV2RDF4LOD_LOG
+      echo "Finished converting $sampleN sample rows."                                                                                                                          2>&1 | tee -a $CSV2RDF4LOD_LOG
    fi
 
    # Full ------------------------------
    if [ ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
-      $csv2rdf $data    -ego  -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.example.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      # TODO: add .example back in. took out so it'd get into the publish/tdb/ for testing.
+      $csv2rdf $data    -ego  -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY=='true'"                                                                                        2>&1 | tee -a $CSV2RDF4LOD_LOG
    elif [ ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'"                                                                                       2>&1 | tee -a $CSV2RDF4LOD_LOG
