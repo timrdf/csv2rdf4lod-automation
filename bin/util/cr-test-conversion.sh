@@ -36,18 +36,24 @@ for rq in `find rq/test -name "*.rq"`; do
 
    response=`tdbquery --loc publish/tdb --query $rq 2>&1 | grep -v WARN` 
 
+   if [[ $rq =~ rq/test/ask/present.* && $response =~ .*Yes.*   ||   $rq =~ rq/test/ask/absent.* && $response =~ .*No.* ]]; then
+      passedB="true"
+      let "passed = passed + 1"
+   else
+      passedB="false"
+   fi
+
    if [ $verbose == "true" ]; then
 
-      if [[ $rq =~ rq/test/ask/present.* && $response =~ .*Yes.*   ||   $rq =~ rq/test/ask/absent.* && $response =~ .*No.* ]]; then
-         let "passed = passed + 1"
-         echo "................................................................................"
+      if [ $passedB = "true" ]; then
          fail=""
+         echo "................................................................................"
       else
-         echo "-\-!-*-!-!-!-*-!-*-!-!-!-*-!-*-!-!-!-*-!-*-!-!-!-*-!-*-!-!-!-*-!-*-!-!-!-*-!-!-/"
          fail="          - - - FAIL - - -"
+         echo "-\-!-*-!-!-!-*-!-*-!-!-!-*-!-*-!-!-!-*-!-*-!-!-!-*-!-*-!-!-!-*-!-*-!-!-!-*-!-!-/ $fail $fail $fail"
       fi
 
-      echo "$rq ($response) $fail"
+      echo "$rq ($response)"
       echo
       query=`cat $rq | grep -v "^prefix" | grep -v "^ASK" | grep -v "^WHERE" | grep -v "^ *GRAPH" | grep -v "^ *} *$" | grep -v "^ *$"`
       echo "$query"
