@@ -65,6 +65,7 @@ if [ $# -ge 4 ]; then
          if [ ${#commandUsed} -lt 1 ]; then
             commandUsed=`history | grep -v "justify.sh" | grep "$consequent" | tail -1 | sed -e 's/^ *[^ ]* *//'`
          fi
+         # TODO: fall back to antecedent if consequent not mentioned in history.
       else
          echo "    ERROR: `basename $0` could not access history. "
          echo "    Invoke `basename $0` with a period:"
