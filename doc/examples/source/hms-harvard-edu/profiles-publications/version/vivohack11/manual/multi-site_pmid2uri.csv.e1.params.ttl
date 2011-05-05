@@ -1,0 +1,87 @@
+@prefix rdf:           <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:          <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix todo:          <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:           <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:           <http://www.w3.org/2002/07/owl#> .
+@prefix vann:          <http://purl.org/vocab/vann/> .
+@prefix skos:          <http://www.w3.org/2004/02/skos/core#> .
+@prefix bibo:          <http://purl.org/ontology/bibo/> .
+@prefix frbr:          <http://purl.org/vocab/frbr/core#> .
+@prefix time:          <http://www.w3.org/2006/time#> .
+@prefix wgs:           <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames:      <http://www.geonames.org/ontology#> .
+@prefix geonamesid:    <http://sws.geonames.org/> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
+@prefix dbpedia:       <http://dbpedia.org/resource/> .
+@prefix con:           <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix muo:           <http://purl.oclc.org/NET/muo/muo#> .
+@prefix vs:            <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dgtwc:         <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix dcterms:       <http://purl.org/dc/terms/> .
+@prefix void:          <http://rdfs.org/ns/void#> .
+@prefix scovo:         <http://purl.org/NET/scovo#> .
+@prefix sioc:          <http://rdfs.org/sioc/ns#> .
+@prefix foaf:          <http://xmlns.com/foaf/0.1/> .
+@prefix ov:            <http://open.vocab.org/terms/> .
+@prefix conversion:    <http://purl.org/twc/vocab/conversion/> .
+@prefix :              <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11/params/enhancement/1/> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+<http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11/conversion/enhancement/1>
+   a conversion:LayerDataset, void:Dataset;
+
+   conversion:base_uri           "http://lobd.tw.rpi.edu"^^xsd:anyURI;
+   conversion:source_identifier  "hms-harvard-edu";
+   conversion:dataset_identifier "profiles-publications";
+   conversion:version_identifier "vivohack11";
+
+   conversion:conversion_process [
+      a conversion:EnhancementConversionProcess;
+      conversion:enhancement_identifier "1";
+
+      dcterms:creator <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>;
+      dcterms:created "2011-05-05T14:04:00-04:00"^^xsd:dateTime;
+
+      conversion:delimits_cell ",";
+
+      #conversion:interpret [          
+      #   conversion:symbol        "";
+      #   conversion:interpretation conversion:null; 
+      #];                            
+      conversion:enhance [
+         ov:csvCol          1;
+         ov:csvHeader       "pmid";
+         conversion:domain_template "http://bio2rdf.org/pubmed:[.]";
+         conversion:domain_name "Publication";
+         conversion:equivalent_property bibo:pmid;
+         conversion:comment "";
+         conversion:range      rdfs:Literal;
+         #conversion:links_via </Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/vivo-ufl-edu/publications/version/vivihack11/source/sparql.rdf>;
+         conversion:links_via <http://sparql.vivo.ufl.edu/sparql?query=CONSTRUCT+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}%0D%0AWHERE+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}>;
+         conversion:subject_of bibo:pmid;
+      ];
+      conversion:enhance [
+         conversion:class_name  "Publication";
+         conversion:subclass_of bibo:Document, foaf:Document, dcterms:BibliographicResource, frbr:Expression;
+      ];
+      conversion:enhance [
+         ov:csvCol          2;
+         ov:csvHeader       "url";
+         conversion:equivalent_property owl:sameAs;
+         conversion:label   "Publication";
+         conversion:comment "";
+         conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [ 
+         ov:csvRow 12274, 233839;
+         a conversion:ExampleResource;
+      ];
+   ];
+.

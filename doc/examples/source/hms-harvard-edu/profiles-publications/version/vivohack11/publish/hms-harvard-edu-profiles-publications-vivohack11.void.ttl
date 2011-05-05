@@ -1,0 +1,546 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd2: <http://www.w3.org/TR/xmlschema-2/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix tw_service: <http://lobd.tw.rpi.edu/source/tw-rpi-edu/service/> .
+@prefix tw_converter: <http://lobd.tw.rpi.edu/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-May-01/> .
+@prefix provenance: <http://lobd.tw.rpi.edu/source/hms-harvard-edu/provenance/profiles-publications/version/vivohack11/conversion/enhancement/1/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix ov: <http://open.vocab.org/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix sdmx: <http://purl.org/linked-data/cube#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix coin: <http://purl.org/court/def/2009/coin#> .
+@prefix hms-harvard-edu_vocab: <http://lobd.tw.rpi.edu/source/hms-harvard-edu/vocab/> .
+@prefix base_vocab: <http://lobd.tw.rpi.edu/vocab/> .
+@prefix local_vocab: <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/vocab/> .
+@prefix raw: <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/vocab/raw/> .
+@prefix e1: <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/vocab/enhancement/1/> .
+@prefix : <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11/> .
+@prefix ns1: <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/> .
+@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
+@prefix con: <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix geonamesid: <http://sws.geonames.org/> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix value_of_publication: <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/value-of/publication/> .
+
+<http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/csv2rdf4lod>
+    dcterms:author <http://tw.rpi.edu/instances/TimLebo> ;
+    doap:audience "Data modelers and architects that need (potentially non-RDB) tabular data encoded within the Resource Description Framework." ;
+    doap:description "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/. Organizes datasets using 'source', 'dataset', and 'version' identifiers to allow for third-party aggregation, refinement, and integration of third-party data. Uses predicate 'layers' to allow backward-compatible refinements of Resources' descriptions. Minimizes human error and increases transparancy of conversion by using RDF-encoded interpretation parameters to control all processing." ;
+    doap:developer <http://kasei.us/about/foaf.xrdf#greg>, <http://tw.rpi.edu/instances/GregoryToddWilliams>, <http://tw.rpi.edu/instances/JamesMcCusker>, <http://tw.rpi.edu/instances/TimLebo> ;
+    doap:documenter <http://tw.rpi.edu/instances/GinoGervasio>, <http://tw.rpi.edu/instances/JohannaFlores>, <http://tw.rpi.edu/instances/LiDing>, <http://tw.rpi.edu/instances/TimLebo> ;
+    doap:helper <http://tw.rpi.edu/instances/AlvaroGraves>, <http://tw.rpi.edu/instances/DominicDiFranzo>, <http://tw.rpi.edu/instances/GinoGervasio>, <http://tw.rpi.edu/instances/JamesMcCusker>, <http://tw.rpi.edu/instances/PingWang>, <http://tw.rpi.edu/instances/XianLi> ;
+    doap:homepage <https://github.com/timrdf/csv2rdf4lod-automation/wiki> ;
+    doap:implements <http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/URI_design_for_RDF_conversion_of_CSV-based_data>, <http://purl.org/twc/vocab/conversion/> ;
+    doap:maintainer <http://tw.rpi.edu/instances/TimLebo> ;
+    doap:revision tw_converter:csv2rdf4lod_3d57b8fa6aaafd6885774642769152a6 ;
+    doap:shortdesc "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/" ;
+    a doap:Project .
+
+<http://data.lod2.eu/2011/tools/CSV2RDF4LOD>
+    con:preferredURI tw_converter:csv2rdf4lod_3d57b8fa6aaafd6885774642769152a6 .
+
+<http://lobd.tw.rpi.edu/source/hms-harvard-edu>
+    dcterms:identifier "hms-harvard-edu" ;
+    a foaf:Agent ;
+    foaf:isPrimaryTopicOf <http://lobd.tw.rpi.edu/source_page/hms-harvard-edu> .
+
+<http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications>
+    dcterms:contributor <http://lobd.tw.rpi.edu/source/hms-harvard-edu> ;
+    dcterms:identifier "hms-harvard-edu profiles-publications" ;
+    dcterms:modified "2011-05-05T14:48:21.669-05:00"^^xsd:dateTime ;
+    conversion:base_uri "http://lobd.tw.rpi.edu" ;
+    conversion:dataset_identifier "profiles-publications" ;
+    conversion:source_identifier "hms-harvard-edu" ;
+    void:subset <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/subset/meta>, <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11> ;
+    a hms-harvard-edu_vocab:Dataset, conversion:AbstractDataset, conversion:Dataset, void:Dataset ;
+    foaf:isPrimaryTopicOf <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset_page/profiles-publications> .
+
+<http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/subset/meta>
+    dcterms:modified "2011-05-05T14:48:21.669-05:00"^^xsd:dateTime ;
+    conversion:base_uri "http://lobd.tw.rpi.edu" ;
+    conversion:dataset_identifier "profiles-publications" ;
+    conversion:source_identifier "hms-harvard-edu" ;
+    void:dataDump <http://lobd.tw.rpi.edu/source/hms-harvard-edu/file/profiles-publications/version/vivohack11/conversion/hms-harvard-edu-profiles-publications-vivohack11.void.ttl.gz> ;
+    void:vocabulary <http://inference-web.org/2.0/pml-justification.owl#>, <http://inference-web.org/2.0/pml-provenance.owl#>, <http://purl.org/NET/scovo#>, <http://purl.org/dc/terms/>, <http://rdfs.org/ns/void#>, <http://xmlns.com/foaf/0.1/> ;
+    a hms-harvard-edu_vocab:Dataset, conversion:Dataset, conversion:MetaDataset, void:Dataset ;
+    foaf:isPrimaryTopicOf <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset_page/profiles-publications/subset/meta> .
+
+<http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11>
+    dcterms:contributor <http://lobd.tw.rpi.edu/source/hms-harvard-edu> ;
+    dcterms:identifier "hms-harvard-edu profiles-publications vivohack11" ;
+    dcterms:modified "2011-05-05T14:48:21.669-05:00"^^xsd:dateTime ;
+    conversion:base_uri "http://lobd.tw.rpi.edu" ;
+    conversion:dataset_identifier "profiles-publications" ;
+    conversion:dataset_version "vivohack11" ;
+    conversion:source_identifier "hms-harvard-edu" ;
+    conversion:version_identifier "vivohack11" ;
+    void:dataDump <http://lobd.tw.rpi.edu/source/hms-harvard-edu/file/profiles-publications/version/vivohack11/conversion/hms-harvard-edu-profiles-publications-vivohack11.ttl.gz> ;
+    void:subset <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11/conversion/enhancement/1> ;
+    a hms-harvard-edu_vocab:Dataset, conversion:Dataset, conversion:VersionedDataset, void:Dataset ;
+    foaf:isPrimaryTopicOf <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset_page/profiles-publications/version/vivohack11> .
+
+<http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11/conversion/enhancement/1>
+    dcterms:contributor <http://lobd.tw.rpi.edu/source/hms-harvard-edu> ;
+    dcterms:created "2011-05-05T14:47:10.719-05:00"^^xsd:dateTime ;
+    dcterms:identifier "hms-harvard-edu profiles-publications vivohack11 e1" ;
+    dcterms:modified "2011-05-05T14:48:21.669-05:00"^^xsd:dateTime ;
+    conversion:base_uri "http://lobd.tw.rpi.edu", "http://lobd.tw.rpi.edu"^^xsd:anyURI ;
+    conversion:conversion_identifier "enhancement/1" ;
+    conversion:conversion_process [
+        dcterms:created "2011-05-05T14:04:00-04:00"^^xsd:dateTime ;
+        dcterms:creator <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot> ;
+        conversion:delimits_cell "," ;
+        conversion:enhance [
+            ov:csvCol 1 ;
+            ov:csvHeader "pmid" ;
+            conversion:comment "" ;
+            conversion:domain_name "Publication" ;
+            conversion:domain_template "http://bio2rdf.org/pubmed:[.]" ;
+            conversion:equivalent_property bibo:pmid ;
+            conversion:links_via <http://sparql.vivo.ufl.edu/sparql?query=CONSTRUCT+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}%0D%0AWHERE+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}> ;
+            conversion:range rdfs:Literal ;
+            conversion:subject_of bibo:pmid
+        ], [
+            conversion:class_name "Publication" ;
+            conversion:subclass_of dcterms:BibliographicResource, bibo:Document, frbr:Expression, foaf:Document
+        ], [
+            ov:csvCol 2 ;
+            ov:csvHeader "url" ;
+            conversion:comment "" ;
+            conversion:equivalent_property owl:sameAs ;
+            conversion:label "Publication" ;
+            conversion:range rdfs:Resource
+        ], [
+            ov:csvRow 12274, 233839 ;
+            a conversion:ExampleResource
+        ] ;
+        conversion:enhancement_identifier "1" ;
+        a conversion:EnhancementConversionProcess
+    ] ;
+    conversion:dataset_identifier "profiles-publications" ;
+    conversion:dataset_version "vivohack11" ;
+    conversion:num_triples 3174965 ;
+    conversion:source_identifier "hms-harvard-edu" ;
+    conversion:uses_class local_vocab:Publication, dcterms:BibliographicResource, bibo:Document, frbr:Expression, foaf:Document ;
+    conversion:uses_predicate bibo:pmid, owl:sameAs ;
+    conversion:version_identifier "vivohack11" ;
+    void:dataDump <http://lobd.tw.rpi.edu/source/hms-harvard-edu/file/profiles-publications/version/vivohack11/conversion/hms-harvard-edu-profiles-publications-vivohack11.e1.ttl.gz> ;
+    void:exampleResource <http://bio2rdf.org/pubmed:19022347>, <http://bio2rdf.org/pubmed:34> ;
+    void:statItem [
+        scovo:dimension void:numberOfTriples ;
+        rdf:value 3174965
+    ] ;
+    void:subset <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11/conversion/enhancement/1/subset/sample> ;
+    a hms-harvard-edu_vocab:Dataset, conversion:Dataset, conversion:LayerDataset, void:Dataset ;
+    foaf:isPrimaryTopicOf <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset_page/profiles-publications/version/vivohack11/conversion/enhancement/1> .
+
+<http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11/conversion/enhancement/1/subset/sample>
+    dcterms:modified "2011-05-05T14:48:21.669-05:00"^^xsd:dateTime ;
+    conversion:base_uri "http://lobd.tw.rpi.edu" ;
+    conversion:conversion_identifier "enhancement/1" ;
+    conversion:dataset_identifier "profiles-publications" ;
+    conversion:dataset_version "vivohack11" ;
+    conversion:source_identifier "hms-harvard-edu" ;
+    conversion:version_identifier "vivohack11" ;
+    void:dataDump <http://lobd.tw.rpi.edu/source/hms-harvard-edu/file/profiles-publications/version/vivohack11/conversion/hms-harvard-edu-profiles-publications-vivohack11.e1.sample> ;
+    a hms-harvard-edu_vocab:Dataset, conversion:Dataset, conversion:DatasetSample, void:Dataset ;
+    foaf:isPrimaryTopicOf <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset_page/profiles-publications/version/vivohack11/conversion/enhancement/1/subset/sample> .
+
+local_vocab:Publication
+    a rdfs:Class, owl:Class ;
+    rdfs:label "Publication" ;
+    rdfs:subClassOf dcterms:BibliographicResource, bibo:Document, frbr:Expression, foaf:Document .
+
+e1:pmid
+    ov:csvCol 1 ;
+    ov:csvHeader "pmid" ;
+    dcterms:isReferencedBy <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11/conversion/enhancement/1> ;
+    conversion:enhancement_layer "1" ;
+    conversion:enhances raw:pmid ;
+    a rdf:Property ;
+    rdfs:label "pmid" ;
+    rdfs:range rdfs:Literal .
+
+e1:publication
+    ov:csvCol 2 ;
+    ov:csvHeader "url" ;
+    dcterms:isReferencedBy <http://lobd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11/conversion/enhancement/1> ;
+    conversion:enhancement_layer "1" ;
+    conversion:enhances raw:publication, raw:url ;
+    a rdf:Property ;
+    rdfs:label "Publication" ;
+    rdfs:range rdfs:Resource .
+
+provenance:infstep_1
+    pmlj:hasAntecedentList (provenance:nodeset_5
+        provenance:nodeset_6
+    ) ;
+    pmlj:hasInferenceEngine tw_converter:csv2rdf4lod_3d57b8fa6aaafd6885774642769152a6 ;
+    <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> [
+        <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://lobd.tw.rpi.edu/source/hms-harvard-edu/provenance_file/profiles-publications/version/vivohack11/manual/multi-site_pmid2uri.csv> ;
+        <http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Input.owl#Input> ;
+        a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole>
+    ], [
+        <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://lobd.tw.rpi.edu/source/hms-harvard-edu/provenance_file/profiles-publications/version/vivohack11/manual/multi-site_pmid2uri.csv.e1.params.ttl> ;
+        <http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Parameters.owl#Parameters> ;
+        a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole>
+    ] ;
+    a pmlj:InferenceStep .
+
+provenance:nodeset_1
+    pmlj:hasConclusion <http://lobd.tw.rpi.edu/source/hms-harvard-edu/file/profiles-publications/version/vivohack11/conversion/hms-harvard-edu-profiles-publications-vivohack11.ttl.gz> ;
+    pmlj:isConsequentOf provenance:infstep_1 ;
+    a pmlj:NodeSet .
+
+provenance:nodeset_2
+    pmlj:hasConclusion <http://lobd.tw.rpi.edu/source/hms-harvard-edu/file/profiles-publications/version/vivohack11/conversion/hms-harvard-edu-profiles-publications-vivohack11.e1.ttl.gz> ;
+    pmlj:isConsequentOf provenance:infstep_1 ;
+    a pmlj:NodeSet .
+
+provenance:nodeset_3
+    pmlj:hasConclusion <http://lobd.tw.rpi.edu/source/hms-harvard-edu/file/profiles-publications/version/vivohack11/conversion/hms-harvard-edu-profiles-publications-vivohack11.e1.sample> ;
+    pmlj:isConsequentOf provenance:infstep_1 ;
+    a pmlj:NodeSet .
+
+provenance:nodeset_4
+    pmlj:hasConclusion <http://lobd.tw.rpi.edu/source/hms-harvard-edu/file/profiles-publications/version/vivohack11/conversion/hms-harvard-edu-profiles-publications-vivohack11.void.ttl.gz> ;
+    pmlj:isConsequentOf provenance:infstep_1 ;
+    a pmlj:NodeSet .
+
+provenance:nodeset_5
+    pmlj:hasConclusion <http://lobd.tw.rpi.edu/source/hms-harvard-edu/provenance_file/profiles-publications/version/vivohack11/manual/multi-site_pmid2uri.csv> ;
+    a pmlj:NodeSet .
+
+provenance:nodeset_6
+    pmlj:hasConclusion <http://lobd.tw.rpi.edu/source/hms-harvard-edu/provenance_file/profiles-publications/version/vivohack11/manual/multi-site_pmid2uri.csv.e1.params.ttl> ;
+    a pmlj:NodeSet .
+
+<http://lobd.tw.rpi.edu/source/hms-harvard-edu/provenance_file/profiles-publications/version/vivohack11/manual/multi-site_pmid2uri.csv>
+    pmlp:hasFormat <http://iw.cs.utep.edu/registry/FMT/text/CSV.owl#CSV> ;
+    a pmlp:Information .
+
+<http://lobd.tw.rpi.edu/source/hms-harvard-edu/provenance_file/profiles-publications/version/vivohack11/manual/multi-site_pmid2uri.csv.e1.params.ttl>
+    pmlp:hasFormat <http://inference-web.org/registry/FMT/RDFAbstractSyntax.owl#RDFAbstractSyntax> ;
+    a pmlp:Information .
+
+tw_converter:csv2rdf4lod_3d57b8fa6aaafd6885774642769152a6
+    dcterms:identifier "csv2rdf4lod_3d57b8fa6aaafd6885774642769152a6" ;
+    dcterms:version "2011-May-01" ;
+    doap:platform "Java" ;
+    doap:revision "2011-May-01" ;
+    a pmlp:InferenceEngine, doap:Version .
+
+dcterms:BibliographicResource
+    a rdfs:Class, owl:Class .
+
+bibo:Document
+    a rdfs:Class, owl:Class .
+
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>
+    dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2> ;
+    sioc:account_of <http://tw.rpi.edu/instances/TimLebo> ;
+    a foaf:OnlineAccount ;
+    foaf:accountName "lebot" .
+
+conversion:AbstractDataset
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:Dataset
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:DatasetSample
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:LayerDataset
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:MetaDataset
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:SameAsDataset
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:VersionedDataset
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:base_uri
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:conversion_identifier
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:dataset_identifier
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:enhancement_layer
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:enhances
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:has_version
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:interpretation
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:null
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:num_triples
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:source_identifier
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:subject_discriminator
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:symbol
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:uses_class
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:uses_predicate
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:version_identifier
+    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+frbr:Expression
+    a rdfs:Class, owl:Class .
+
+<http://tw.rpi.edu/instances/AlvaroGraves>
+    con:preferredURI <http://alvaro.graves.cl> .
+
+<http://tw.rpi.edu/instances/GregoryToddWilliams>
+    con:preferredURI <http://kasei.us/about/foaf.xrdf#greg> .
+
+<http://tw.rpi.edu/instances/TimLebo>
+    foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot> .
+
+<http://tw.rpi.edu/wiki/Special:URIResolver/Tim_Lebo>
+    con:preferredURI <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://www.cs.rpi.edu/~weavej3/r/Tim_Lebo>
+    con:preferredURI <http://tw.rpi.edu/instances/TimLebo> .
+
+foaf:Document
+    a rdfs:Class, owl:Class .
+
+[]
+    doap:browse <https://github.com/timrdf/csv2rdf4lod-automation> ;
+    a doap:GitRepository ;
+    foaf:isPrimaryTopicOf <https://github.com/timrdf/csv2rdf4lod-automation> .
+
+# num logs:       22
+<http://logd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11> conversion:num_invocation_logs       22 .
+@base <http://logd.tw.rpi.edu/source/hms-harvard-edu/provenance_file/profiles-publications/version/vivohack11/source/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix conv: <http://purl.org/twc/vocab/conversion/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix oboro: <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov: <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+
+<md5_25a9199919fb74bdccdbc2fa397fc544_time_1304618114>
+    dcterms:date "2011-05-05T13:55:14-04:00"^^xsd:dateTime ;
+    nfo:hashAlgorithm "md5" ;
+    nfo:hashValue "25a9199919fb74bdccdbc2fa397fc544" ;
+    a nfo:FileHash .
+
+<md5_296a18f678d9c76d5723ccfbcc460b09>
+    nfo:hasHash "296a18f678d9c76d5723ccfbcc460b09" ;
+    nfo:hashAlgorithm "md5" ;
+    a nfo:FileHash .
+
+<multi-site_pmid2uri.csv>
+    pmlp:hasReferenceSourceUsage <sourceUsage_d061b7ba-1e9e-4eee-8f97-6f07812c9e73> ;
+    nfo:hasHash <md5_25a9199919fb74bdccdbc2fa397fc544_time_1304618114> ;
+    a pmlp:Information .
+
+<multi-site_pmid2uri.zip>
+    a pmlp:Source .
+
+<nodeSet_d061b7ba-1e9e-4eee-8f97-6f07812c9e73>
+    pmlj:hasConclusion <multi-site_pmid2uri.csv> ;
+    pmlj:isConsequentOf [
+        pmlj:hasAntecedentList (<nodeSet_d061b7ba-1e9e-4eee-8f97-6f07812c9e73_zip_antecedent>
+        ) ;
+        pmlj:hasIndex 0 ;
+        pmlj:hasInferenceEngine conv:unzip_sh_md5_ffa3fbab57307f8c02e8efb32295676a ;
+        pmlj:hasInferenceRule conv:spaceless_unzip ;
+        pmlj:hasSourceUsage <sourceUsage_d061b7ba-1e9e-4eee-8f97-6f07812c9e73> ;
+        oboro:has_agent <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot> ;
+        hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot> ;
+        a pmlj:InferenceStep
+    ] ;
+    a pmlj:NodeSet .
+
+<nodeSet_d061b7ba-1e9e-4eee-8f97-6f07812c9e73_zip_antecedent>
+    pmlj:hasConclusion <multi-site_pmid2uri.zip> ;
+    a pmlj:NodeSet .
+
+<sourceUsage_d061b7ba-1e9e-4eee-8f97-6f07812c9e73>
+    pmlp:hasSource <multi-site_pmid2uri.zip> ;
+    pmlp:hasUsageDateTime "2011-05-05T13:55:13-04:00"^^xsd:dateTime ;
+    a pmlp:SourceUsage .
+
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>
+    dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2> ;
+    sioc:account_of <http://tw.rpi.edu/instances/TimLebo> ;
+    a foaf:OnlineAccount ;
+    foaf:accountName "lebot" .
+
+conv:Unzip
+    rdfs:subClassOf pmlp:InferenceEngine .
+
+conv:Unzip_sh
+    rdfs:subClassOf pmlp:InferenceEngine .
+
+conv:unzip_md5_ffa3fbab57307f8c02e8efb32295676a
+    dcterms:description """caution:  both -n and -o specified; ignoring -o
+UnZip 5.52 of 28 February 2005, by Info-ZIP.  Maintained by C. Spieler.  Send
+bug reports using http://www.info-zip.org/zip-bug.html; see README for details.
+
+Usage: unzip [-Z] [-opts[modifiers]] file[.zip] [list] [-x xlist] [-d exdir]
+  Default action is to extract files in list, except those in xlist, to exdir;
+  file[.zip] may be a wildcard.  -Z => ZipInfo mode (\"unzip -Z\" for usage).
+
+  -p  extract files to pipe, no messages     -l  list files (short format)
+  -f  freshen existing files, create none    -t  test compressed archive data
+  -u  update files, create if necessary      -z  display archive comment
+  -x  exclude files that follow (in xlist)   -d  extract files into exdir
+
+modifiers:                                   -q  quiet mode (-qq => quieter)
+  -n  never overwrite existing files         -a  auto-convert any text files
+  -o  overwrite files WITHOUT prompting      -aa treat ALL files as text
+  -j  junk paths (do not make directories)   -v  be verbose/print version info
+  -C  match filenames case-insensitively     -L  make (some) names lowercase
+  -X  restore UID/GID info                   -V  retain VMS version numbers
+  -K  keep setuid/setgid/tacky permissions   -M  pipe through \"more\" pager
+Examples (see unzip.txt for more info):
+  unzip data1 -x joe   => extract all files except joe from zipfile data1.zip
+  unzip -p foo | more  => send contents of foo.zip via pipe into program more
+  unzip -fo foo ReadMe => quietly replace existing ReadMe if archive file newer""" ;
+    dcterms:identifier "md5_296a18f678d9c76d5723ccfbcc460b09" ;
+    nfo:hasHash <md5_296a18f678d9c76d5723ccfbcc460b09> ;
+    a pmlp:InferenceEngine, conv:Unzip .
+
+conv:unzip_sh_md5_ffa3fbab57307f8c02e8efb32295676a
+    dcterms:identifier "md5_ffa3fbab57307f8c02e8efb32295676a" ;
+    a pmlp:InferenceEngine, conv:Unzip_sh .
+
+<http://tw.rpi.edu/instances/TimLebo>
+    foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot> .
+
+<http://logd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11> <http://purl.org/dc/terms/source> <multi-site_pmid2uri.csv> .
+
+@base <http://logd.tw.rpi.edu/source/hms-harvard-edu/provenance_file/profiles-publications/version/vivohack11/manual/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix oboro: <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov: <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix conv: <http://purl.org/twc/vocab/conversion/> .
+
+<inferenceStep_34231c0e-ecbf-47d6-8134-17f2debcf6be>
+    pmlj:hasAntecedentList (<nodeSet_34231c0e-ecbf-47d6-8134-17f2debcf6be_antecedent>
+    ) ;
+    pmlj:hasIndex 0 ;
+    pmlj:hasInferenceEngine <select_subset_34231c0e-ecbf-47d6-8134-17f2debcf6be> ;
+    pmlj:hasInferenceRule conv:select_subset_Method ;
+    oboro:has_agent <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot> ;
+    dcterms:description "cat source/multi-site_pmid2uri.csv | grep -v \"vivo.ufl.edu\" > manual/multi-site_pmid2uri.csv" ;
+    hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot> ;
+    a pmlj:InferenceStep .
+
+<md5_a0257a408f7a4acd2c5380496f6a0e59_time_1304620742>
+    dcterms:date "2011-05-05T14:39:02-04:00"^^xsd:dateTime ;
+    nfo:hashAlgorithm "md5" ;
+    nfo:hashValue "a0257a408f7a4acd2c5380496f6a0e59" ;
+    a nfo:FileHash .
+
+<md5_fcf85bc2c905ca6d90affbff75345007_time_1304620742>
+    dcterms:date "2011-05-05T14:39:02-04:00"^^xsd:dateTime ;
+    nfo:hashAlgorithm "md5" ;
+    nfo:hashValue "fcf85bc2c905ca6d90affbff75345007" ;
+    a nfo:FileHash .
+
+<multi-site_pmid2uri.csv>
+    pmlp:hasModificationDateTime "2011-05-05T14:38:42-04:00"^^xsd:dateTime ;
+    nfo:hasHash <md5_a0257a408f7a4acd2c5380496f6a0e59_time_1304620742> ;
+    a pmlp:Information .
+
+<nodeSet_34231c0e-ecbf-47d6-8134-17f2debcf6be>
+    pmlj:hasConclusion <multi-site_pmid2uri.csv> ;
+    pmlj:isConsequentOf <inferenceStep__34231c0e-ecbf-47d6-8134-17f2debcf6be> ;
+    a pmlj:NodeSet .
+
+<nodeSet_34231c0e-ecbf-47d6-8134-17f2debcf6be_antecedent>
+    pmlj:hasConclusion <source/multi-site_pmid2uri.csv> ;
+    a pmlj:NodeSet .
+
+<select_subset_34231c0e-ecbf-47d6-8134-17f2debcf6be>
+    dcterms:identifier "select_subset_34231c0e-ecbf-47d6-8134-17f2debcf6be" ;
+    a pmlp:InferenceEngine, conv:Select_subset_Engine .
+
+<wasControlled_34231c0e-ecbf-47d6-8134-17f2debcf6be>
+    oprov:cause <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot> ;
+    oprov:effect <inferenceStep_34231c0e-ecbf-47d6-8134-17f2debcf6be> ;
+    oprov:endTime "2011-05-05T14:39:02-04:00"^^xsd:dateTime ;
+    a oprov:WasControlledBy .
+
+<../source/multi-site_pmid2uri.csv>
+    pmlp:hasModificationDateTime "2011-05-05T14:38:40-04:00"^^xsd:dateTime ;
+    nfo:hasHash <md5_fcf85bc2c905ca6d90affbff75345007_time_1304620742> ;
+    a pmlp:Information .
+
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>
+    dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2> ;
+    sioc:account_of <http://tw.rpi.edu/instances/TimLebo> ;
+    a foaf:OnlineAccount ;
+    foaf:accountName "lebot" .
+
+conv:Select_subset_Engine
+    rdfs:subClassOf pmlp:InferenceEngine .
+
+<http://tw.rpi.edu/instances/TimLebo>
+    foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot> .
+
+<http://logd.tw.rpi.edu/source/hms-harvard-edu/dataset/profiles-publications/version/vivohack11> <http://purl.org/dc/terms/source> <multi-site_pmid2uri.csv> .
+

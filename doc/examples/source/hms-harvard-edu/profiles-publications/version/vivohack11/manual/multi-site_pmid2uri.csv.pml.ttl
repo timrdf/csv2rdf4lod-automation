@@ -1,0 +1,84 @@
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sioc:    <http://rdfs.org/sioc/ns#> .
+@prefix pmlp:    <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov:      <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix pmlj:    <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix conv:    <http://purl.org/twc/vocab/conversion/> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+<multi-site_pmid2uri.csv>
+   a pmlp:Information;
+   pmlp:hasModificationDateTime "2011-05-05T14:38:42-04:00"^^xsd:dateTime;
+.
+<multi-site_pmid2uri.csv>
+   a pmlp:Information;
+   nfo:hasHash <md5_a0257a408f7a4acd2c5380496f6a0e59_time_1304620742>;
+.
+<md5_a0257a408f7a4acd2c5380496f6a0e59_time_1304620742>
+   a nfo:FileHash; 
+   dcterms:date      "2011-05-05T14:39:02-04:00"^^xsd:dateTime;
+   nfo:hashAlgorithm "md5";
+   nfo:hashValue     "a0257a408f7a4acd2c5380496f6a0e59";
+.
+
+<../source/multi-site_pmid2uri.csv>
+   a pmlp:Information;
+   pmlp:hasModificationDateTime "2011-05-05T14:38:40-04:00"^^xsd:dateTime;
+.
+<../source/multi-site_pmid2uri.csv>
+   a pmlp:Information;
+   nfo:hasHash <md5_fcf85bc2c905ca6d90affbff75345007_time_1304620742>;
+.
+<md5_fcf85bc2c905ca6d90affbff75345007_time_1304620742>
+   a nfo:FileHash; 
+   dcterms:date      "2011-05-05T14:39:02-04:00"^^xsd:dateTime;
+   nfo:hashAlgorithm "md5";
+   nfo:hashValue     "fcf85bc2c905ca6d90affbff75345007";
+.
+
+<nodeSet_34231c0e-ecbf-47d6-8134-17f2debcf6be>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <multi-site_pmid2uri.csv>;
+   pmlj:isConsequentOf <inferenceStep__34231c0e-ecbf-47d6-8134-17f2debcf6be>;
+.
+<inferenceStep_34231c0e-ecbf-47d6-8134-17f2debcf6be>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ( <nodeSet_34231c0e-ecbf-47d6-8134-17f2debcf6be_antecedent> );
+   pmlj:hasInferenceEngine <select_subset_34231c0e-ecbf-47d6-8134-17f2debcf6be>;
+   pmlj:hasInferenceRule   conv:select_subset_Method;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>;
+   dcterms:description """cat source/multi-site_pmid2uri.csv | grep -v \"vivo.ufl.edu\" > manual/multi-site_pmid2uri.csv""";
+.
+
+<wasControlled_34231c0e-ecbf-47d6-8134-17f2debcf6be>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>;
+   oprov:effect <inferenceStep_34231c0e-ecbf-47d6-8134-17f2debcf6be>;
+   oprov:endTime "2011-05-05T14:39:02-04:00"^^xsd:dateTime;
+.
+<nodeSet_34231c0e-ecbf-47d6-8134-17f2debcf6be_antecedent>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <source/multi-site_pmid2uri.csv>;
+.
+
+<select_subset_34231c0e-ecbf-47d6-8134-17f2debcf6be>
+   a pmlp:InferenceEngine, conv:Select_subset_Engine;
+   dcterms:identifier "select_subset_34231c0e-ecbf-47d6-8134-17f2debcf6be";
+.
+
+conv:Select_subset_Engine rdfs:subClassOf pmlp:InferenceEngine .

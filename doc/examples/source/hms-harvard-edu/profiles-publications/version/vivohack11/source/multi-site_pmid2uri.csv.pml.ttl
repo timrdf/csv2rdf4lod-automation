@@ -1,0 +1,111 @@
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix nfo:     <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix pmlp:    <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:    <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix conv:    <http://purl.org/twc/vocab/conversion/> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix sioc:    <http://rdfs.org/sioc/ns#> .
+@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov:      <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+<multi-site_pmid2uri.csv>
+   a pmlp:Information;
+   pmlp:hasReferenceSourceUsage <sourceUsage_d061b7ba-1e9e-4eee-8f97-6f07812c9e73>;
+.
+<multi-site_pmid2uri.csv>
+   a pmlp:Information;
+   nfo:hasHash <md5_25a9199919fb74bdccdbc2fa397fc544_time_1304618114>;
+.
+<md5_25a9199919fb74bdccdbc2fa397fc544_time_1304618114>
+   a nfo:FileHash; 
+   dcterms:date      "2011-05-05T13:55:14-04:00"^^xsd:dateTime;
+   nfo:hashAlgorithm "md5";
+   nfo:hashValue     "25a9199919fb74bdccdbc2fa397fc544";
+.
+
+<sourceUsage_d061b7ba-1e9e-4eee-8f97-6f07812c9e73>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <multi-site_pmid2uri.zip>;
+   pmlp:hasUsageDateTime "2011-05-05T13:55:13-04:00"^^xsd:dateTime;
+.
+
+<multi-site_pmid2uri.zip>
+   a pmlp:Source;
+.
+
+<nodeSet_d061b7ba-1e9e-4eee-8f97-6f07812c9e73>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <multi-site_pmid2uri.csv>;
+   pmlj:isConsequentOf [
+      a pmlj:InferenceStep;
+      pmlj:hasIndex 0;
+      pmlj:hasAntecedentList ( <nodeSet_d061b7ba-1e9e-4eee-8f97-6f07812c9e73_zip_antecedent> );
+      pmlj:hasSourceUsage     <sourceUsage_d061b7ba-1e9e-4eee-8f97-6f07812c9e73>;
+      pmlj:hasInferenceEngine conv:unzip_sh_md5_ffa3fbab57307f8c02e8efb32295676a;
+      pmlj:hasInferenceRule   conv:spaceless_unzip;
+      oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>;
+      hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>;
+   ];
+.
+
+<nodeSet_d061b7ba-1e9e-4eee-8f97-6f07812c9e73_zip_antecedent>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <multi-site_pmid2uri.zip>;
+.
+
+conv:unzip_sh_md5_ffa3fbab57307f8c02e8efb32295676a
+   a pmlp:InferenceEngine, conv:Unzip_sh;
+   dcterms:identifier "md5_ffa3fbab57307f8c02e8efb32295676a";
+.
+
+conv:Unzip_sh rdfs:subClassOf pmlp:InferenceEngine .
+
+conv:unzip_md5_ffa3fbab57307f8c02e8efb32295676a
+   a pmlp:InferenceEngine, conv:Unzip;
+   dcterms:identifier "md5_296a18f678d9c76d5723ccfbcc460b09";
+   nfo:hasHash <md5_296a18f678d9c76d5723ccfbcc460b09>;
+   dcterms:description """caution:  both -n and -o specified; ignoring -o
+UnZip 5.52 of 28 February 2005, by Info-ZIP.  Maintained by C. Spieler.  Send
+bug reports using http://www.info-zip.org/zip-bug.html; see README for details.
+
+Usage: unzip [-Z] [-opts[modifiers]] file[.zip] [list] [-x xlist] [-d exdir]
+  Default action is to extract files in list, except those in xlist, to exdir;
+  file[.zip] may be a wildcard.  -Z => ZipInfo mode ("unzip -Z" for usage).
+
+  -p  extract files to pipe, no messages     -l  list files (short format)
+  -f  freshen existing files, create none    -t  test compressed archive data
+  -u  update files, create if necessary      -z  display archive comment
+  -x  exclude files that follow (in xlist)   -d  extract files into exdir
+
+modifiers:                                   -q  quiet mode (-qq => quieter)
+  -n  never overwrite existing files         -a  auto-convert any text files
+  -o  overwrite files WITHOUT prompting      -aa treat ALL files as text
+  -j  junk paths (do not make directories)   -v  be verbose/print version info
+  -C  match filenames case-insensitively     -L  make (some) names lowercase
+  -X  restore UID/GID info                   -V  retain VMS version numbers
+  -K  keep setuid/setgid/tacky permissions   -M  pipe through "more" pager
+Examples (see unzip.txt for more info):
+  unzip data1 -x joe   => extract all files except joe from zipfile data1.zip
+  unzip -p foo | more  => send contents of foo.zip via pipe into program more
+  unzip -fo foo ReadMe => quietly replace existing ReadMe if archive file newer""";
+.
+
+<md5_296a18f678d9c76d5723ccfbcc460b09>
+   a nfo:FileHash; 
+   nfo:hashAlgorithm "md5";
+   nfo:hasHash "296a18f678d9c76d5723ccfbcc460b09";
+.
+
+conv:Unzip rdfs:subClassOf pmlp:InferenceEngine .
+
