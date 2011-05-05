@@ -1,0 +1,130 @@
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
+@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix sioc:       <http://rdfs.org/sioc/ns#> .
+@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov:      <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+@prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix conv:       <http://purl.org/twc/vocab/conversion/> .
+@prefix httphead:   <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> .
+@prefix httpget:    <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> .
+@prefix httppost:   <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+<http://sparql.vivo.ufl.edu/sparql?query=CONSTRUCT+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}%0D%0AWHERE+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}&default-graph-uri=>
+   a pmlp:Source;
+.
+
+<http://sparql.vivo.ufl.edu/sparql?query=CONSTRUCT+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}%0D%0AWHERE+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}&default-graph-uri=>
+   a pmlp:Source;
+.
+
+<sparql-results.rdf>
+   a pmlp:Information;
+   pmlp:hasReferenceSourceUsage <sourceUsage_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_content>;
+.
+<sparql-results.rdf>
+   a pmlp:Information;
+   nfo:hasHash <md5_a89d51d839ad47c8e54b003b12dfe05e_time_1304617285>;
+.
+<md5_a89d51d839ad47c8e54b003b12dfe05e_time_1304617285>
+   a nfo:FileHash; 
+   dcterms:date      "2011-05-05T13:41:25-04:00"^^xsd:dateTime;
+   nfo:hashAlgorithm "md5";
+   nfo:hashValue     "a89d51d839ad47c8e54b003b12dfe05e";
+.
+
+<nodeSet_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_content>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <sparql-results.rdf>;
+   pmlj:isConsequentOf <inferenceStep_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_content>;
+.
+<inferenceStep_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_content>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_content>;
+   pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
+   pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>;
+.
+
+<sourceUsage_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_content>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://sparql.vivo.ufl.edu/sparql?query=CONSTRUCT+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}%0D%0AWHERE+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}&default-graph-uri=>;
+   pmlp:hasUsageDateTime "2011-05-05T13:41:25-04:00"^^xsd:dateTime;
+.
+
+<wasControlledBy_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_content>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>;
+   oprov:effect <inferenceStep_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_content>;
+   oprov:endTime "2011-05-05T13:41:25-04:00"^^xsd:dateTime;
+.
+ 
+<info_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_url_header>
+   a pmlp:Information, conv:HTTPHeader;
+   pmlp:hasRawString """HTTP/1.1 400 Parse error:  CONSTRUCT    ?pub <http://purl.org/ontology/bibo/pmid> ?id    WHERE    ?pub <http://purl.org/ontology/bibo/pmid> ?id    Encountered " <VAR1> "?pub "" at line 2, column 2. Was expecting:     "{" ...     
+Date: Thu, 05 May 2011 17:41:21 GMT
+Server: Jetty(6.1.10)
+Pragma: no-cache
+X-Joseki-Server: Joseki-3.4.2
+Content-Type: text/html; charset=iso-8859-1
+Content-Length: 1842
+Vary: Accept-Encoding
+Connection: close
+""";
+   pmlp:hasReferenceSourceUsage <sourceUsage_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_url_header>;
+.
+ 
+<nodeSet_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_url_header>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <info_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_url_header>;
+   pmlj:isConsequentOf <inferenceStep_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_url_header>;
+.
+<inferenceStep_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_url_header>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_url_header>;
+   pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
+   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>;
+.
+
+<sourceUsage_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_url_header>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://sparql.vivo.ufl.edu/sparql?query=CONSTRUCT+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}%0D%0AWHERE+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}&default-graph-uri=>;
+   pmlp:hasUsageDateTime "2011-05-05T13:41:25-04:00"^^xsd:dateTime;
+.
+<wasControlledBy_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_url_header>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>;
+   oprov:effect <nodeSet_f1f81e3f-3fab-4a3b-bf99-0fa17ce16406_url_header>;
+   oprov:endTime "2011-05-05T13:41:25-04:00"^^xsd:dateTime;
+.
+
+
+conv:curl_md5_5670dffdc5533a4c57243fc97b19a654
+   a pmlp:InferenceEngine, conv:Curl;
+   dcterms:identifier "md5_5670dffdc5533a4c57243fc97b19a654";
+   dcterms:description """curl 7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8l zlib/1.2.3
+Protocols: tftp ftp telnet dict ldap http file https ftps 
+Features: GSS-Negotiate IPv6 Largefile NTLM SSL libz """;
+.
+
+conv:Curl rdfs:subClassOf pmlp:InferenceEngine .

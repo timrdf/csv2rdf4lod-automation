@@ -1,0 +1,6 @@
+CONSTRUCT {
+ ?pub <http://purl.org/ontology/bibo/pmid> ?id
+}
+WHERE {
+ ?pub <http://purl.org/ontology/bibo/pmid> ?id
+}

@@ -1,0 +1,12 @@
+CONSTRUCT {
+ ?pub <http://purl.org/ontology/bibo/pmid> ?id
+}
+WHERE {
+ ?pub <http://purl.org/ontology/bibo/pmid> ?id
+}
+
+
+http://sparql.vivo.ufl.edu/sparql.html
+
+
+http://sparql.vivo.ufl.edu/sparql?query=CONSTRUCT+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}%0D%0AWHERE+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}&default-graph-uri=
