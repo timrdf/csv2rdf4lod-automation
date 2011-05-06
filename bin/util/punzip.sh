@@ -53,6 +53,7 @@ while [ $# -gt 0 ]; do
    fi 
 
    # md5 this script
+   # TODO: md5.sh $0
    unzipperPath=`which $unzipper`
    myMD5=""
    unzipMD5=""
@@ -67,6 +68,8 @@ while [ $# -gt 0 ]; do
    else
       echo "`basename $0`: can not find md5 to md5 this script."
    fi
+      myMD5=`${CSV2RDF4LOD_HOME}/bin/util/md5.sh  $0`
+   unzipMD5="`${CSV2RDF4LOD_HOME}/bin/util/md5.sh $unzipperPath`"
    #echo "punzip.sh's md5: $myMD5"
    #echo "$unzipper's md5: $unzipMD5 ($unzipperPath)"
    
