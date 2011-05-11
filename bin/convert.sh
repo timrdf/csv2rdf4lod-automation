@@ -119,6 +119,7 @@ if [ $runEnhancement == "yes" ]; then
 
    numTemplateTODOs=` grep "todo:Literal" $TMP_ePARAMS                           | wc -l` 
    numRemainingTODOs=`grep "todo:Literal" $eParamsDir/$datafile.e$eID.params.ttl | wc -l` 
+   rm $TMP_ePARAMS
    if [ $numRemainingTODOs -eq $numTemplateTODOs -a ! -e ../e$eID.params.ttl -a ! -e ../$datafile.e$eID.params.ttl ]; then
       # local enhancement parameters are no different from when this script generated them
       # there is no file-version global enhancement parameters
@@ -130,7 +131,6 @@ if [ $runEnhancement == "yes" ]; then
       runEnhancement="no"
    fi
    # TODO: check to see if enhancement parameters match previous enhancement parameters (e2 same as e1). 
-   rm $TMP_ePARAMS
 fi
 
 #
