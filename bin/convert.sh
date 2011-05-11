@@ -448,7 +448,7 @@ fi
 #
 
 echo '#!/bin/bash'                                                                       > $publishDir/bin/publish.sh
-echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh"}' >> $publishDir/bin/publish.sh
+echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $publishDir/bin/publish.sh
 echo "surrogate=\"$surrogate\""                                                         >> $publishDir/bin/publish.sh
 echo "sourceID=\"$sourceID\""                                                           >> $publishDir/bin/publish.sh
 echo "datasetID=\"$datasetID\""                                                         >> $publishDir/bin/publish.sh

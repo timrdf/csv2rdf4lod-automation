@@ -42,7 +42,7 @@ datasetID=`basename $back_two` # Use the names from the canonical directory stru
 datasetDir=`pwd`
 versionID=`basename $datasetDir` # Use the names from the canonical directory structure
 
-CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh"}
+CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
 echo "#   base_uri              $CSV2RDF4LOD_BASE_URI # (env)"
 echo "#   base_uri              $CSV2RDF4LOD_BASE_URI_OVERRIDE # (override)"

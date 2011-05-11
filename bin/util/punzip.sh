@@ -12,7 +12,7 @@ if [ $# -lt 1 ]; then
    exit 1
 fi
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh"}
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
 
 # TODO: reimplement this using perl and its unzip module

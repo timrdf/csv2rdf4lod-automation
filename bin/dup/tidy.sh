@@ -22,7 +22,7 @@ while [ $# -gt 0 ]; do
    artifact="$1"
 
    if [ ! `which tidy &> /dev/null` ]; then
-      CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"tidy not on path and CSV2RDF4LOD_HOME not set. Will fail at xml-ifying html."}
+      CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"tidy not on path and CSV2RDF4LOD_HOME not set. Will fail at xml-ifying html. See https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
       tidy="java -jar $CSV2RDF4LOD_HOME/bin/lib/jtidy-r938/jtidy-r938.jar"
    fi
 

@@ -86,7 +86,7 @@ else
    versionID=`basename $datasetDir` # Use the names from the canonical directory structure
 fi
 
-CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh"}
+CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
 TMP_SH=`date +%s`_$$.sh.tmp
 
@@ -95,7 +95,7 @@ echo "# $datasetID $versionID ($lastModDate)"                          >> $TMP_S
 
 echo "#--------------------------------------------------------------" >> $TMP_SH
 echo ""                                                                >> $TMP_SH
-echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh"}' >> $TMP_SH
+echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $TMP_SH
 echo ""                                                                >> $TMP_SH
 echo "surrogate=\"$CSV2RDF4LOD_BASE_URI\" # Came from \$CSV2RDF4LOD_BASE_URI when `basename $0` created this script." >> $TMP_SH
 echo "sourceID=\"$sourceID\""                                          >> $TMP_SH

@@ -9,7 +9,6 @@
 #
 # ___NOT___ to be called directly: called by convert-DATASET.sh (a script created using cr-create-convert-sh.sh)
 # can also be invoked running publish/bin/publish.sh
-
 if [ ${CSV2RDF4LOD_FORCE_PUBLISH:-"."} == "true" ]; then
    echo "convert-aggregate.sh publishing raw and enhancements (forced)." | tee -a $CSV2RDF4LOD_LOG
 else
@@ -71,7 +70,7 @@ if [ ! `which rapper` ]; then
    echo "NOTE: rapper not found. Some serializations will probably be empty." | tee -a $CSV2RDF4LOD_LOG
 fi
 
-
+or_see_github="or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
 
 #
 # Raw ttl
@@ -356,7 +355,7 @@ echo "# was "                                                >> $lnwwwrootSH
 echo "# ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}" >> $lnwwwrootSH
 echo "# when this script was created. "                      >> $lnwwwrootSH
 echo ""                                                      >> $lnwwwrootSH
-echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT=\${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:?\"not set; source csv2rdf4lod/source-me.sh\"}" >> $lnwwwrootSH
+echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT=\${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:?\"not set; source csv2rdf4lod/source-me.sh $or_see_github\"}" >> $lnwwwrootSH
 echo ""                                                      >> $lnwwwrootSH
 
 echo "##################################################"                                           >> $lnwwwrootSH
@@ -574,7 +573,7 @@ fi
 loadtdbSH="$publishDir/bin/tdbloader-${sourceID}-${datasetID}-${datasetVersion}.sh"
 echo "#!/bin/bash"                                                              > $loadtdbSH
 echo ""                                                                                 >> $loadtdbSH
-echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh"}' >> $loadtdbSH
+echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $loadtdbSH
 echo ""                                                                                 >> $loadtdbSH
 echo "delete=\"\""                                                                      >> $loadtdbSH
 echo "if [ ! -e $allNT ]; then"                                                         >> $loadtdbSH
@@ -633,7 +632,7 @@ echo "#"                                                                        
 echo "# run $fourstoreSH"                                                               >> $fourstoreSH
 echo "# from ${sourceID}/$datasetID/version/$datasetVersion/"                           >> $fourstoreSH
 echo ""                                                                                 >> $fourstoreSH
-echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh"}' >> $fourstoreSH 
+echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $fourstoreSH 
 echo ""                                                                                 >> $fourstoreSH
 echo "allNT=$allNT"                                                                     >> $fourstoreSH
 echo "if [ ! -e \$allNT ]; then"                                                        >> $fourstoreSH
@@ -673,8 +672,8 @@ echo "#                             DatasetLayer"                               
 echo "#                               /    \ "                                                           >> $vloadSH
 echo "# Never loads this ----> [table]   DatasetLayerSample # <---- Loads this with param --sample"      >> $vloadSH
 echo ""                                                                                                  >> $vloadSH
-echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh"}'         >> $vloadSH
-echo 'CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh"}' >> $vloadSH
+echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}'         >> $vloadSH
+echo 'CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $vloadSH
 # deviates from orig design, but more concise by making (reasonable?) assumptions:
 #echo "for serialization in nt ttl rdf"                                                         >> $vloadSH
 #echo "do"                                                                                      >> $vloadSH
@@ -791,7 +790,7 @@ prefixDefs=`$CSV2RDF4LOD_HOME/bin/dup/prefixes2flags.sh $allTTL`
 mappingPatterns='--uripattern="/source/([^/]+)/dataset/(.*)" --filepattern="/source/\\1/file/\\2"'
 mappingPatternsVocab='--uripattern="/source/([^/]+)/vocab/(.*)" --filepattern="/source/\\1/vocab_file/\\2"'
 mappingPatternsProvenance='--uripattern="/source/([^/]+)/provenance/(.*)" --filepattern="/source/\\1/provenance_file/\\2"'
-CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh"}
+CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 MATERIALIZATION_DIR=${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:-$local_materialization_dir}
 
 lodmatSH=$publishDir/bin/lod-materialize-${sourceID}-${datasetID}-${datasetVersion}.sh
@@ -800,7 +799,7 @@ echo "#"                                                                        
 echo "# run $destDir/lod-materialize-${sourceID}-${datasetID}-${datasetVersion}.sh"                            >> $lodmatSH
 echo "# from ${sourceID}/$datasetID/version/$datasetVersion/"                                                  >> $lodmatSH
 echo ""                                                                                                        >> $lodmatSH
-echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh"}'                        >> $lodmatSH
+echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}'                        >> $lodmatSH
 echo ""                                                                                                        >> $lodmatSH
 echo "delete=\"\""                                                                                             >> $lodmatSH
 echo "if [ ! -e $allNT ]; then"                                                                                >> $lodmatSH
@@ -855,7 +854,7 @@ echo "#"                                                                        
 echo "# run $destDir/lod-materialize-${sourceID}-${datasetID}-${datasetVersion}.sh"                            >> $lodmatvoidSH
 echo "# from ${sourceID}/$datasetID/version/$datasetVersion/"                                                  >> $lodmatvoidSH
 echo ""                                                                                                        >> $lodmatvoidSH
-echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh"}'                        >> $lodmatvoidSH
+echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}'                        >> $lodmatvoidSH
 echo ""                                                                                                        >> $lodmatvoidSH
 echo "delete=\"false\""                                                                                        >> $lodmatvoidSH
 echo "if [ ! -e $allVOIDNT ]; then"                                                                            >> $lodmatvoidSH

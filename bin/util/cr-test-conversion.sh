@@ -17,7 +17,7 @@
 # rq/test/ask/present/5-to-1.rq
 # rq/test/ask/present/7-to-5.rq
 
-#CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh"}
+#CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
 if [ ${1-"."} == "--help" ]; then
    echo "usage: `basename $0` [--verbose]"
