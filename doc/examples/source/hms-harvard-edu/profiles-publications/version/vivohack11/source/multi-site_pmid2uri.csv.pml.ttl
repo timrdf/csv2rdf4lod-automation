@@ -21,37 +21,37 @@
 
 <multi-site_pmid2uri.csv>
    a pmlp:Information;
-   pmlp:hasReferenceSourceUsage <sourceUsage_d061b7ba-1e9e-4eee-8f97-6f07812c9e73>;
+   pmlp:hasReferenceSourceUsage <sourceUsage_5d2d7f90-719f-4af1-bc87-77715b81b322>;
 .
 <multi-site_pmid2uri.csv>
    a pmlp:Information;
-   nfo:hasHash <md5_25a9199919fb74bdccdbc2fa397fc544_time_1304618114>;
+   nfo:hasHash <md5_25a9199919fb74bdccdbc2fa397fc544_time_1305132781>;
 .
-<md5_25a9199919fb74bdccdbc2fa397fc544_time_1304618114>
+<md5_25a9199919fb74bdccdbc2fa397fc544_time_1305132781>
    a nfo:FileHash; 
-   dcterms:date      "2011-05-05T13:55:14-04:00"^^xsd:dateTime;
+   dcterms:date      "2011-05-11T12:53:01-04:00"^^xsd:dateTime;
    nfo:hashAlgorithm "md5";
    nfo:hashValue     "25a9199919fb74bdccdbc2fa397fc544";
 .
 
-<sourceUsage_d061b7ba-1e9e-4eee-8f97-6f07812c9e73>
+<sourceUsage_5d2d7f90-719f-4af1-bc87-77715b81b322>
    a pmlp:SourceUsage;
    pmlp:hasSource        <multi-site_pmid2uri.zip>;
-   pmlp:hasUsageDateTime "2011-05-05T13:55:13-04:00"^^xsd:dateTime;
+   pmlp:hasUsageDateTime "2011-05-11T12:53:00-04:00"^^xsd:dateTime;
 .
 
 <multi-site_pmid2uri.zip>
    a pmlp:Source;
 .
 
-<nodeSet_d061b7ba-1e9e-4eee-8f97-6f07812c9e73>
+<nodeSet_5d2d7f90-719f-4af1-bc87-77715b81b322>
    a pmlj:NodeSet;
    pmlj:hasConclusion <multi-site_pmid2uri.csv>;
    pmlj:isConsequentOf [
       a pmlj:InferenceStep;
       pmlj:hasIndex 0;
-      pmlj:hasAntecedentList ( <nodeSet_d061b7ba-1e9e-4eee-8f97-6f07812c9e73_zip_antecedent> );
-      pmlj:hasSourceUsage     <sourceUsage_d061b7ba-1e9e-4eee-8f97-6f07812c9e73>;
+      pmlj:hasAntecedentList ( <nodeSet_5d2d7f90-719f-4af1-bc87-77715b81b322_zip_antecedent> );
+      pmlj:hasSourceUsage     <sourceUsage_5d2d7f90-719f-4af1-bc87-77715b81b322>;
       pmlj:hasInferenceEngine conv:unzip_sh_md5_ffa3fbab57307f8c02e8efb32295676a;
       pmlj:hasInferenceRule   conv:spaceless_unzip;
       oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2lebot>;
@@ -59,7 +59,7 @@
    ];
 .
 
-<nodeSet_d061b7ba-1e9e-4eee-8f97-6f07812c9e73_zip_antecedent>
+<nodeSet_5d2d7f90-719f-4af1-bc87-77715b81b322_zip_antecedent>
    a pmlj:NodeSet;
    pmlj:hasConclusion <multi-site_pmid2uri.zip>;
 .

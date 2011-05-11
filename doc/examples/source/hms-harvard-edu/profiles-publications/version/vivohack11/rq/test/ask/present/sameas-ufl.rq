@@ -1,0 +1,16 @@
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+prefix void: <http://rdfs.org/ns/void#>
+
+ask
+where {
+   graph ?g {
+      <http://bio2rdf.org/pubmed:18031933> void:inDataset <http://bio2rdf.org>;
+                                            owl:sameAs    <http://vivo.ufl.edu/individual/n1320021460>;
+                                           rdfs:seeAlso   <http://vivo.ufl.edu/individual/n1320021460/n1320021460.rdf> .
+
+      <http://bio2rdf.org/pubmed:1494987>  owl:sameAs <http://connects.catalyst.harvard.edu/profiles/profile/pub/1494987> .
+      <http://bio2rdf.org/pubmed:17950564> owl:sameAs <http://connects.catalyst.harvard.edu/profiles/profile/pub/17950564> .
+      <http://bio2rdf.org/pubmed:17157078> owl:sameAs <http://vivo.wustl.edu/individual/p5018067> .
+   }
+}

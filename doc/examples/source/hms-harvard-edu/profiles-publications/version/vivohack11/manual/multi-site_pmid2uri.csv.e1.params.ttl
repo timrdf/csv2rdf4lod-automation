@@ -51,15 +51,22 @@
 
       conversion:delimits_cell ",";
 
-      #conversion:interpret [          
-      #   conversion:symbol        "";
-      #   conversion:interpretation conversion:null; 
-      #];                            
+      conversion:interpret [          
+         conversion:symbol        "null";
+         conversion:interpretation conversion:null; 
+      ];                            
       conversion:enhance [
          ov:csvCol          1;
          ov:csvHeader       "pmid";
+
          conversion:domain_template "http://bio2rdf.org/pubmed:[.]";
-         conversion:domain_name "Publication";
+
+         conversion:domain_name     "Publication";
+
+         a conversion:SubjectAnnotation;
+         conversion:predicate  void:inDataset;
+         conversion:object     "http://bio2rdf.org";
+
          conversion:equivalent_property bibo:pmid;
          conversion:comment "";
          conversion:range      rdfs:Literal;
@@ -74,24 +81,41 @@
       conversion:enhance [
          ov:csvCol          2;
          ov:csvHeader       "url";
-         conversion:equivalent_property owl:sameAs;
+         conversion:equivalent_property rdfs:seeAlso;
          conversion:label   "Publication";
          conversion:comment "";
          conversion:range   rdfs:Resource;
+         conversion:comment "unique domains: connects.catalyst.harvard.edu, vivo.ufl.edu, vivo.wustl.edu";
          conversion:object_search [
-            conversion:regex     "^http://connects.catalyst.harvard.edu.*";
-            conversion:predicate void:inDataset;
-            conversion:object    <http://connects.catalyst.harvard.edu>;
+            conversion:comment "The URLs here are not the URIs of the publication, so we need to strip off the viewas/rdf";
+            conversion:regex     "^(http://connects.catalyst.harvard.edu.*)/viewas/rdf$";
+            conversion:predicate owl:sameAs;
+            conversion:object    "[\\1]";
          ];
-         conversion:object_search [ # TODO: we actually want to have the object as the subject of these triples. -Tim
-            conversion:regex     "^http://vivo.wustl.edu.*";
-            conversion:predicate void:inDataset;
-            conversion:object    <http://vivo.wustl.edu>;
+         conversion:object_search [
+            conversion:comment "The URLs here are not the URIs of the publication, so we need to strip off the /.*.rdf";
+            conversion:eg "http://vivo.wustl.edu/individual/p5018067/p5018067.rdf", 
+                          "http://vivo.ufl.edu/individual/n1320021460/n1320021460.rdf";
+            conversion:regex     "^(http://vivo.*.edu.*)/[^/]*.rdf$";
+            conversion:predicate owl:sameAs;
+            conversion:object    "[\\1]";
          ];
       ];
       conversion:enhance [ 
          ov:csvRow 12274, 233839;
          a conversion:ExampleResource;
+         rdfs:comment "Because it is a Harvard URI.";
+         rdfs:comment "Because they owl:sameAs link to University of Florida's VIVO.";
+      ];
+      conversion:enhance [ 
+         ov:csvRow 284108;
+         a conversion:ExampleResource;
+         rdfs:comment "Because it is a WUSTL URI.";
+      ];
+      conversion:enhance [ 
+         ov:csvRow 317560;
+         a conversion:ExampleResource;
+         rdfs:comment "Because it is a University of Florida URI.";
       ];
    ];
 .

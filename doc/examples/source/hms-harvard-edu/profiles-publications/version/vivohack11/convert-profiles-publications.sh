@@ -20,7 +20,7 @@ fi
 export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER=true
 
 # source/multi-site_pmid2uri.csv
-sourceDir="manual"                  # if directly from source, 'source'; if manual manipulations of source were required, 'manual'.
+sourceDir="source"                  # if directly from source, 'source'; if manual manipulations of source were required, 'manual'.
 destDir="automatic"                 # always 'automatic'
 #--------------------------------------------------------------
 
