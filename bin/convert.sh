@@ -123,7 +123,10 @@ if [ $runEnhancement == "yes" ]; then
       # local enhancement parameters are no different from when this script generated them
       # there is no file-version global enhancement parameters
       # there is no version global enhancement parameters
-      echo "   E$eID conversion parameters has same number of todo:Literals as generated template. skipping." | tee -a $CSV2RDF4LOD_LOG
+      echo "   E$eID conversion parameters file has same number of \"todo:Literal\"s as template originally generated."                  | tee -a $CSV2RDF4LOD_LOG
+      echo "    - Skipping E$eID conversion b/c enhancement parameters appear very similar to the default template."                     | tee -a $CSV2RDF4LOD_LOG
+      echo "    - Replace todo:Literal in E$eID conversion parameters with rdfs:Literal or rdfs:Resource to enable enhanced conversion." | tee -a $CSV2RDF4LOD_LOG
+      exit 1 # Added by user request: quit asap and do not do anything.
       runEnhancement="no"
    fi
    # TODO: check to see if enhancement parameters match previous enhancement parameters (e2 same as e1). 
