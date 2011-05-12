@@ -597,7 +597,7 @@ echo "    exit 1"                                                               
 echo "  fi"                                                                             >> $loadtdbSH
 echo "fi"                                                                               >> $loadtdbSH
 echo ""                                                                                 >> $loadtdbSH
-echo "mkdir $TDB_DIR                           &> /dev/null"                            >> $loadtdbSH
+echo "mkdir $TDB_DIR                      &> /dev/null"                                 >> $loadtdbSH
 echo "rm    $TDB_DIR/*.dat $TDB_DIR/*.idn &> /dev/null"                                 >> $loadtdbSH
 echo ""                                                                                 >> $loadtdbSH
 echo "echo `basename $allNT` into $TDB_DIR as $graph >> $publishDir/ng.info"            >> $loadtdbSH
