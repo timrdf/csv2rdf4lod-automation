@@ -8,9 +8,9 @@ if [ ${1-"."} != "--cite" ]; then
 
    if [ ${#CSV2RDF4LOD_CONVERT_MACHINE_URI} -gt 0 ]; then
       if [ ${#CSV2RDF4LOD_CONVERT_PERSON_URI} -gt 0 ]; then
-         echo "<$CSV2RDF4LOD_CONVERT_PERSON_URI> foaf:holdsAccount <$CSV2RDF4LOD_CONVERT_MACHINE_URI`whoami`> ."
+         echo "<$CSV2RDF4LOD_CONVERT_PERSON_URI> foaf:holdsAccount <${CSV2RDF4LOD_CONVERT_MACHINE_URI}#`whoami`> ."
       fi 
-      echo "<$CSV2RDF4LOD_CONVERT_MACHINE_URI`whoami`>"
+      echo "<${CSV2RDF4LOD_CONVERT_MACHINE_URI}#`whoami`>"
       echo "   a foaf:OnlineAccount;"
       echo "   foaf:accountName \"`whoami`\";"
       echo "   dcterms:isPartOf <$CSV2RDF4LOD_CONVERT_MACHINE_URI>;"
@@ -30,11 +30,11 @@ else
 
    if [ ${#CSV2RDF4LOD_CONVERT_PERSON_URI} -gt 0 -a ${#CSV2RDF4LOD_CONVERT_MACHINE_URI} -gt 0 ]; then
 
-      echo "<$CSV2RDF4LOD_CONVERT_MACHINE_URI`whoami`>"
+      echo "<${CSV2RDF4LOD_CONVERT_MACHINE_URI}#`whoami`>"
 
    elif [ ${#CSV2RDF4LOD_CONVERT_MACHINE_URI} -gt 0 ]; then
 
-      echo "<${CSV2RDF4LOD_CONVERT_MACHINE_URI}`whoami`>"; # TODO: same as above.
+      echo "<${CSV2RDF4LOD_CONVERT_MACHINE_URI}#`whoami`>"; # TODO: same as above.
 
    elif [ ${#CSV2RDF4LOD_CONVERT_PERSON_URI} -gt 0 ]; then
 

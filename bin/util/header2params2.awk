@@ -90,9 +90,9 @@ BEGIN {
                                      print
    if( length(machine_uri) && length(whoami) ) {
       if(length(person_uri)) {
-                                    printf("<%s> foaf:holdsAccount <%s%s> .\n",person_uri,   machine_uri,whoami);
+                                    printf("<%s> foaf:holdsAccount <%s#%s> .\n",person_uri,   machine_uri,whoami);
       }
-                                    printf("<%s%s>\n   a foaf:OnlineAccount;\n   foaf:accountName \"%s\";\n",machine_uri,whoami,   whoami);
+                                    printf("<%s#%s>\n   a foaf:OnlineAccount;\n   foaf:accountName \"%s\";\n",machine_uri,whoami,   whoami);
                                     printf("   dcterms:isPartOf <%s>;\n",machine_uri);
       if(length(person_uri)) {
                                     printf("   sioc:account_of  <%s>;\n",person_uri);
@@ -133,7 +133,7 @@ BEGIN {
    #
                                      print
    if(length(machine_uri) && length(whoami)) {
-                                    printf("      dcterms:creator <%s%s>;\n",machine_uri,whoami); # NOTE: implemented in bin/util/user-account.sh, too.
+                                    printf("      dcterms:creator <%s#%s>;\n",machine_uri,whoami); # NOTE: implemented in bin/util/user-account.sh, too.
    }else if(length(person_uri) && length(whoami)) {
                                     printf("      dcterms:creator [ a foaf:OnlineAccount; foaf:accountName \"%s\";\n",whoami);
                                     printf("                        sioc:account_of <%s> ];\n",person_uri);
