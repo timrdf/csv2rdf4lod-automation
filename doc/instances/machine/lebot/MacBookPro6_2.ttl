@@ -4,3 +4,12 @@
    rdfs:label "Tim's Macbook Pro";
    owl:sameAs <http://tw.rpi.edu/web/inside/machine/lebot_macbook#>
 .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
