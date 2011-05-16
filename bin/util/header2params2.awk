@@ -210,6 +210,11 @@ BEGIN {
 }
 
 END {
+   print "      #conversion:enhance [            "
+   print "      #   ov:csvRow 3,4,5;             "
+   print "      #   a conversion:ExampleResource;"
+   print "      #];                              "
+
    print "   ];"
    printf(".");
 }
