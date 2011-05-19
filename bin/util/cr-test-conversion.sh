@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# Run from https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-cockpit
+# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh
+#
+# Run from a https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-cockpit
 #
 # Example for how to set up rq/:
 #
@@ -21,6 +23,16 @@
 
 if [ ${1-"."} == "--help" ]; then
    echo "usage: `basename $0` [--verbose]"
+fi
+
+CSV2RDF4LOD_PUBLISH=true
+
+# publish/bin/publish.sh
+# publish/bin/tdbloader-test-source-delimits-object.sh
+
+if [[ ! -e publish/tdb && ${#CSV2RDF4LOD_PUBLISH_TDB_DIR} == 0 ]]; then
+   echo "publish/tdb does not exist and \$CSV2RDF4LOD_PUBLISH_TDB_DIR not set."
+   exit 1
 fi
 
 verbose="false"
