@@ -11,6 +11,7 @@
 # can also be invoked running publish/bin/publish.sh
 if [ ${CSV2RDF4LOD_FORCE_PUBLISH:-"."} == "true" ]; then
    echo "convert-aggregate.sh publishing raw and enhancements (forced)." | tee -a $CSV2RDF4LOD_LOG
+   echo "===========================================================================================" | tee -a $CSV2RDF4LOD_LOG
 else
    if [ ${CSV2RDF4LOD_PUBLISH:-"."} == "false" ]; then
          echo "convert-aggregate.sh not publishing b/c \$CSV2RDF4LOD_PUBLISH=false."                        | tee -a $CSV2RDF4LOD_LOG
@@ -77,17 +78,20 @@ or_see_github="or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2
 #
 conversionIDs="raw"
 conversionSteps="raw"
-echo $allRaw | tee -a $CSV2RDF4LOD_LOG
-cat $destDir/*.raw.ttl > $allRaw
+convertedRaw=`test \`find $destDir -name "*.raw.ttl" | wc -l\` -gt 0`
+if [ $convertedRaw ]; then
+   echo $allRaw | tee -a $CSV2RDF4LOD_LOG
+   cat $destDir/*.raw.ttl > $allRaw
+fi
 
 #
 # Sample of raw (TODO: add sample of enhanced, too)
 #
-# REPLACED by an extra call to the converter with the -samples param.
-echo $SDV.raw.sample.ttl | tee -a $CSV2RDF4LOD_LOG
-#$CSV2RDF4LOD_HOME/bin/util/grep-head.sh -p 'ov:csvRow "100' $allRaw > $SDV.raw.sample.ttl
-cat $destDir/*.raw.sample.ttl > $SDV.raw.sample.ttl
-
+if [ `find $destDir -name "*.raw.sample.ttl" | wc -l` -gt 0 ]; then
+   echo $SDV.raw.sample.ttl | tee -a $CSV2RDF4LOD_LOG
+   #$CSV2RDF4LOD_HOME/bin/util/grep-head.sh -p 'ov:csvRow "100' $allRaw > $SDV.raw.sample.ttl # REPLACED by an extra call to the converter with the -samples param.
+   cat $destDir/*.raw.sample.ttl > $SDV.raw.sample.ttl
+fi
 
 #
 # Individual enhancement ttl (any that are not aggregated)
@@ -154,9 +158,11 @@ do
    #cat $destDir/*.e$eID.ttl | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" >  $allE1   2> /dev/null
    #cat $allE1 $allRaw        | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" > $allTTL   2> /dev/null
 done
-echo "  (including $allRaw)" | tee -a $CSV2RDF4LOD_LOG
-echo "# BEGIN: $allRaw:"     >> $allTTL
-cat $allRaw                  >> $allTTL
+if [ $convertedRaw ]; then
+   echo "  (including $allRaw)" | tee -a $CSV2RDF4LOD_LOG
+   echo "# BEGIN: $allRaw:"     >> $allTTL
+   cat $allRaw                  >> $allTTL
+fi
 #grep "^@prefix" $allTTL | sort -u > $destDir/prefixes-$sourceID-$datasetID-$datasetVersion.ttl
 #rapper -i turtle $allTTL -o turtle   > $allTTL.ttl 2> /dev/null # Sorts conversion-ordered TTL into lexiographical order.
 
@@ -256,7 +262,7 @@ if [ ${#numLogs} ]; then
    echo "<$versionedDatasetURI> conversion:num_invocation_logs $numLogs ." >> $allVOID # TODO: how to make sure it is an integer?
 fi
 echo "  (including $allPML)" | tee -a $CSV2RDF4LOD_LOG
-cat $allPML >> $allVOID
+cat $allPML 2> /dev/null >> $allVOID
 if [ -e $allVOID.DO_NOT_LIST ]; then
    mv $allVOID $allVOID.DO_NOT_LIST
 fi
@@ -361,7 +367,7 @@ echo ""                                                      >> $lnwwwrootSH
 echo "##################################################"                                           >> $lnwwwrootSH
 echo "# Link all original files from the provenance_file directory structure to the web directory." >> $lnwwwrootSH
 echo "# (these are from source/)"                                                                   >> $lnwwwrootSH
-for sourceFileProvenance in `ls source/*.pml.ttl`; do
+for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    sourceFile=`echo $sourceFileProvenance | sed 's/.pml.ttl$//'` 
    echo "if [ -e \"$sourceFile\" ]; then "                                 >> $lnwwwrootSH
    echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$sourceFile\"" >> $lnwwwrootSH
