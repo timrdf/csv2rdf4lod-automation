@@ -75,7 +75,7 @@ while [ $# -gt 0 ]; do
    rapper -g -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt # TODO: does rapper handle gzipped?
    # TODO: rm $TEMP
 
-   if [ `wc -l ${TEMP}${unzipped}.nt` -gt 0 ]; then
+   if [ `wc -l ${TEMP}${unzipped}.nt | awk '{print $1}'` -gt 0 ]; then
       # Relative paths.
       sourceUsage="sourceUsage$requestID"
       escapedNG=`echo $named_graph | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'`
