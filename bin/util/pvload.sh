@@ -58,6 +58,7 @@ while [ $# -gt 0 ]; do
       echo "<http://www.w3.org/2002/07/owl#sameAs> <http://www.w3.org/2002/07/owl#sameAs> <http://www.w3.org/2002/07/owl#sameAs> ." > $TEMP
    fi
    usageDateTime=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`
+   usageDateTimeSlug=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh coin:slug`
 
    echo "PVLOAD: url                $url"
    flag=$2
@@ -124,9 +125,10 @@ while [ $# -gt 0 ]; do
       echo                                                                                                    >> ${TEMP}${unzipped}.load.pml.ttl
       echo "<nodeSet${requestID}>"                                                                            >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   a pmlj:NodeSet;"                                                                               >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "   pmlj:hasConclusion <$sdNamedGraph>;"                                                           >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   pmlj:hasConclusion <${sdNamedGraph}_${usageDateTimeSlug}>;"                                    >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   pmlj:isConsequentOf <infStep${requestID}>;"                                                    >> ${TEMP}${unzipped}.load.pml.ttl
       echo "."                                                                                                >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "<${sdNamedGraph}_${usageDateTimeSlug}> skos:broader ${sdNamedGraph} ."                            >> ${TEMP}${unzipped}.load.pml.ttl
       echo                                                                                                    >> ${TEMP}${unzipped}.load.pml.ttl
       echo "<infStep${requestID}>"                                                                            >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   a pmlj:InferenceStep;"                                                                         >> ${TEMP}${unzipped}.load.pml.ttl
