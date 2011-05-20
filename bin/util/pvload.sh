@@ -73,7 +73,7 @@ while [ $# -gt 0 ]; do
    # Normalize into ntriples (note, this step is not worth describing in the provenance).
    #
    rapper -g -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt # TODO: does rapper handle gzipped?
-   rm $TEMP
+   # TODO: rm $TEMP
 
    if [ `wc -l ${TEMP}${unzipped}.nt` -gt 0 ]; then
       # Relative paths.
