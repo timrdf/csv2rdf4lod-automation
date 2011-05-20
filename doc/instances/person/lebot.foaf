@@ -8,7 +8,7 @@
     <owl:sameAs rdf:resource="http://tw.rpi.edu/instances/TimLebo"/>
   </rdf:Description>
   <foaf:Person rdf:about="http://tw.rpi.edu/instances/TimLebo">
-    <foaf:knows rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdf"/>
+    <foaf:knows rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdf#me"/>
     <foaf:knows rdf:resource="http://www.deri.ie/about/team/member/Lin_Clark#me"/>
     <foaf:knows>
       <foaf:Person>

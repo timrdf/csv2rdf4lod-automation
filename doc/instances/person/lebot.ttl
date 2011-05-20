@@ -7,7 +7,7 @@
 <http://tw.rpi.edu/instances/TimLebo>
    a foaf:Person;
    foaf:knows <http://www.deri.ie/about/team/member/Lin_Clark#me>,
-              <http://www.cs.rpi.edu/~weavej3/foaf.rdf>,
+              <http://www.cs.rpi.edu/~weavej3/foaf.rdf#me>,
               [ a foaf:Person;
                 foaf:givenname    "Leonardo";
                 foaf:family_name  "Salayandia";
