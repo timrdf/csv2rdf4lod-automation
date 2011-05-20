@@ -88,6 +88,8 @@ while [ $# -gt 0 ]; do
       echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                                    >> ${TEMP}${unzipped}.load.pml.ttl
       echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                                >> ${TEMP}${unzipped}.load.pml.ttl
       echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                                 >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "@prefix skos:       <http://www.w3.org/2004/02/skos/core#> ."                                     >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."                         >> ${TEMP}${unzipped}.load.pml.ttl
       echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."                         >> ${TEMP}${unzipped}.load.pml.ttl
       echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."                      >> ${TEMP}${unzipped}.load.pml.ttl
       echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                                               >> ${TEMP}${unzipped}.load.pml.ttl
