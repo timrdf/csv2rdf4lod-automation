@@ -6,6 +6,7 @@
 
 <http://tw.rpi.edu/instances/TimLebo>
    a foaf:Person;
+   foaf:page <http://tw.rpi.edu/web/person/TimLebo>;
    foaf:knows <http://www.deri.ie/about/team/member/Lin_Clark#me>,
               <http://www.cs.rpi.edu/~weavej3/foaf.rdf#me>,
               [ a foaf:Person;
@@ -13,7 +14,9 @@
                 foaf:family_name  "Salayandia";
                 foaf:nick         "Leo";
                 foaf:mbox_sha1sum "c65fb441e124a35008de94d34ab77b9410e1a16d";
-                foaf:homepage     <http://www.cs.utep.edu/leonardo">;
+                foaf:homepage     <http://www.cs.utep.edu/leonardo>;
                 foaf:depiction    <http://www.cs.utep.edu/leonardo/salayandia.jpg>;
+                foaf:page         <http://www.cs.utep.edu/leonardo/foaf.rdf>;
+                owl:sameAs        <http://www.cs.utep.edu/leonardo/foaf.rdf#me>;
               ]
 .
