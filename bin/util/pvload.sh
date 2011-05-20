@@ -126,7 +126,8 @@ while [ $# -gt 0 ]; do
       echo                                                                                                    >> ${TEMP}${unzipped}.load.pml.ttl
       echo "<nodeSet${requestID}>"                                                                            >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   a pmlj:NodeSet;"                                                                               >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "   pmlp:hasCreationDateTime \"${usageDateTime}\"^^xsd:dateTime;"                                  >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   pmlp:hasCreationDateTime \"${usageDateTime}\"^^xsd:dateTime; # deprecate"                      >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   dcterms:created          \"${usageDateTime}\"^^xsd:dateTime;"                                  >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   pmlj:hasConclusion <${sdNamedGraph}_${usageDateTimeSlug}>;"                                    >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   pmlj:isConsequentOf <infStep${requestID}>;"                                                    >> ${TEMP}${unzipped}.load.pml.ttl
       echo "."                                                                                                >> ${TEMP}${unzipped}.load.pml.ttl
