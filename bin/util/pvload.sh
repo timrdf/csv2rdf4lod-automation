@@ -130,7 +130,7 @@ while [ $# -gt 0 ]; do
       echo "   pmlj:hasConclusion <${sdNamedGraph}_${usageDateTimeSlug}>;"                                    >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   pmlj:isConsequentOf <infStep${requestID}>;"                                                    >> ${TEMP}${unzipped}.load.pml.ttl
       echo "."                                                                                                >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "<${sdNamedGraph}_${usageDateTimeSlug}> skos:broader ${sdNamedGraph} ."                            >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "<${sdNamedGraph}_${usageDateTimeSlug}> skos:broader <${sdNamedGraph}> ."                          >> ${TEMP}${unzipped}.load.pml.ttl
       echo                                                                                                    >> ${TEMP}${unzipped}.load.pml.ttl
       echo "<infStep${requestID}>"                                                                            >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   a pmlj:InferenceStep;"                                                                         >> ${TEMP}${unzipped}.load.pml.ttl
