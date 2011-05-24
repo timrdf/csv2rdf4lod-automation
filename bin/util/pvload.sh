@@ -80,7 +80,9 @@ while [ $# -gt 0 ]; do
    # Normalize into ntriples (note, this step is not worth describing in the provenance).
    #
    rapper -g -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt
-   # TODO: rm $TEMP
+   if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
+      rm $TEMP
+   fi
 
    if [ `wc -l ${TEMP}${unzipped}.nt | awk '{print $1}'` -gt 0 ]; then
       # Relative paths.
@@ -168,7 +170,9 @@ while [ $# -gt 0 ]; do
          $assudo $vload ttl ${TEMP}${unzipped}.load.pml.ttl   $named_graph 2>&1 | grep -v "Loading triples into graph"             
          #cat /tmp/virtuoso-tmp/vload.log
       fi
-      rm -f ${TEMP}${unzipped} ${TEMP}.pml.ttl ${TEMP}${unzipped}.nt ${TEMP}${unzipped}.load.pml.ttl #
+      if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
+         rm -f ${TEMP}${unzipped} ${TEMP}.pml.ttl ${TEMP}${unzipped}.nt ${TEMP}${unzipped}.load.pml.ttl #
+      fi
       else
          echo "skipping b/c no triples returned."
       fi
