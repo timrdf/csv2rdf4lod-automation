@@ -15,6 +15,9 @@ if [ $# -lt 1 ]; then
    exit 1
 fi
 
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+
 dryrun="false"
 if [ $1 == "-n" ]; then
    dryrun="true"; shift 
@@ -25,8 +28,11 @@ if [ `whoami` == "root" ]; then
    assudo=""
 fi
 
-curlPath=`which curl`
-curlMD5="md5_`$CSV2RDF4LOD_HOME/bin/util/md5.sh $curlPath`"
+PROV_BASE="http://www.provenanceweb.net/id/"
+PROV_BASE="$CSV2RDF4LOD_BASE_URI/id/"
+
+# MD5 this script
+curlMD5="md5_`$CSV2RDF4LOD_HOME/bin/util/md5.sh \`which curl\``"
 
 # MD5 this script
 myMD5="md5_`$CSV2RDF4LOD_HOME/bin/util/md5.sh $0`"
@@ -73,7 +79,7 @@ while [ $# -gt 0 ]; do
    #
    # Normalize into ntriples (note, this step is not worth describing in the provenance).
    #
-   rapper -g -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt # TODO: does rapper handle gzipped?
+   rapper -g -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt
    # TODO: rm $TEMP
 
    if [ `wc -l ${TEMP}${unzipped}.nt | awk '{print $1}'` -gt 0 ]; then
@@ -81,7 +87,7 @@ while [ $# -gt 0 ]; do
       sourceUsage="sourceUsage$requestID"
       escapedNG=`echo $named_graph | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'`
       # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Naming-sparql-service-description's-sd:NamedGraph
-      sdNamedGraph="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}?query=PREFIX%20sd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fsparql-service-description%23%3E%20CONSTRUCT%20%7B%20%3Fendpoints_named_graph%20%3Fp%20%3Fo%20%7D%20WHERE%20%7B%20GRAPH%20%3C${escapedNG}%3E%20%7B%20%5B%5D%20sd%3Aurl%20%3Chttp%3A%2F%2Flogd.tw.rpi.edu%3A8890%2Fsparql%3E%3B%20sd%3AdefaultDatasetDescription%20%5B%20sd%3AnamedGraph%20%3Fendpoints_named_graph%20%5D%20.%20%3Fendpoints_named_graph%20sd%3Aname%20%3C${escapedNG}%3E%3B%20%3Fp%20%3Fo%20.%20%7D%20%7D"
+      named_graph_global="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}?query=PREFIX%20sd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fsparql-service-description%23%3E%20CONSTRUCT%20%7B%20%3Fendpoints_named_graph%20%3Fp%20%3Fo%20%7D%20WHERE%20%7B%20GRAPH%20%3C${escapedNG}%3E%20%7B%20%5B%5D%20sd%3Aurl%20%3Chttp%3A%2F%2Flogd.tw.rpi.edu%3A8890%2Fsparql%3E%3B%20sd%3AdefaultDatasetDescription%20%5B%20sd%3AnamedGraph%20%3Fendpoints_named_graph%20%5D%20.%20%3Fendpoints_named_graph%20sd%3Aname%20%3C${escapedNG}%3E%3B%20%3Fp%20%3Fo%20.%20%7D%20%7D"
 
       echo
       echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                                         > ${TEMP}${unzipped}.load.pml.ttl
@@ -107,7 +113,7 @@ while [ $# -gt 0 ]; do
       echo "   a pmlp:InferenceEngine, pmlp:WebService;"                                                      >> ${TEMP}${unzipped}.load.pml.ttl
       echo "."                                                                                                >> ${TEMP}${unzipped}.load.pml.ttl
       echo                                                                                                    >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "<sdService$requestID> a sd:Service;"                                                              >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "<${PROV_BASE}sdService$requestID> a sd:Service;"                                                  >> ${TEMP}${unzipped}.load.pml.ttl
       if [ ${#CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} -gt 0 ]; then
       echo "   sd:url <$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT>;"                                       >> ${TEMP}${unzipped}.load.pml.ttl
       else
@@ -115,25 +121,25 @@ while [ $# -gt 0 ]; do
       fi
       echo "   sd:defaultDatasetDescription ["                                                                >> ${TEMP}${unzipped}.load.pml.ttl
       echo "      a sd:Dataset;"                                                                              >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "      sd:namedGraph <$sdNamedGraph>;"                                                             >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "      sd:namedGraph <$named_graph_global>;"                                                       >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   ];"                                                                                            >> ${TEMP}${unzipped}.load.pml.ttl
       echo "."                                                                                                >> ${TEMP}${unzipped}.load.pml.ttl
       echo                                                                                                    >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "<$sdNamedGraph>"                                                                                  >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "<$named_graph_global>"                                                                            >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   a sd:NamedGraph;"                                                                              >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   sd:name <$named_graph>;"                                                                       >> ${TEMP}${unzipped}.load.pml.ttl
       echo "."                                                                                                >> ${TEMP}${unzipped}.load.pml.ttl
       echo                                                                                                    >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "<nodeSet${requestID}>"                                                                            >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "<${PROV_BASE}nodeSet${requestID}>"                                                                >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   a pmlj:NodeSet;"                                                                               >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   pmlp:hasCreationDateTime \"${usageDateTime}\"^^xsd:dateTime; # deprecate"                      >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   dcterms:created          \"${usageDateTime}\"^^xsd:dateTime;"                                  >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "   pmlj:hasConclusion <${sdNamedGraph}_${usageDateTimeSlug}>;"                                    >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "   pmlj:isConsequentOf <infStep${requestID}>;"                                                    >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   pmlj:hasConclusion <${named_graph_global}_${usageDateTimeSlug}>;"                              >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   pmlj:isConsequentOf <${PROV_BASE}infStep${requestID}>;"                                        >> ${TEMP}${unzipped}.load.pml.ttl
       echo "."                                                                                                >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "<${sdNamedGraph}_${usageDateTimeSlug}> skos:broader <${sdNamedGraph}> ."                          >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "<${named_graph_global}#${usageDateTimeSlug}> skos:broader <${named_graph_global}> ."              >> ${TEMP}${unzipped}.load.pml.ttl
       echo                                                                                                    >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "<infStep${requestID}>"                                                                            >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "<${PROV_BASE}infStep${requestID}>"                                                                >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   a pmlj:InferenceStep;"                                                                         >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   # TODO: "                                                                                      >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   pmlj:hasAntecedentList ( [ a pmlj:NodeSet; pmlj:hasConclusion <$url>; ] );"                    >> ${TEMP}${unzipped}.load.pml.ttl
