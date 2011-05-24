@@ -136,7 +136,7 @@ while [ $# -gt 0 ]; do
       echo "   a pmlj:NodeSet;"                                                                               >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   pmlp:hasCreationDateTime \"${usageDateTime}\"^^xsd:dateTime; # deprecate"                      >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   dcterms:created          \"${usageDateTime}\"^^xsd:dateTime;"                                  >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "   pmlj:hasConclusion <${named_graph_global}_${usageDateTimeSlug}>;"                              >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   pmlj:hasConclusion <${named_graph_global}#${usageDateTimeSlug}>;"                              >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   pmlj:isConsequentOf <${PROV_BASE}infStep${requestID}>;"                                        >> ${TEMP}${unzipped}.load.pml.ttl
       echo "."                                                                                                >> ${TEMP}${unzipped}.load.pml.ttl
       echo "<${named_graph_global}#${usageDateTimeSlug}> skos:broader <${named_graph_global}> ."              >> ${TEMP}${unzipped}.load.pml.ttl
