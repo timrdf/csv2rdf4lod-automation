@@ -91,6 +91,9 @@ while [ $# -gt 0 ]; do
       # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Naming-sparql-service-description's-sd:NamedGraph
       named_graph_global="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}?query=PREFIX%20sd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fsparql-service-description%23%3E%20CONSTRUCT%20%7B%20%3Fendpoints_named_graph%20%3Fp%20%3Fo%20%7D%20WHERE%20%7B%20GRAPH%20%3C${escapedNG}%3E%20%7B%20%5B%5D%20sd%3Aurl%20%3Chttp%3A%2F%2Flogd.tw.rpi.edu%3A8890%2Fsparql%3E%3B%20sd%3AdefaultDatasetDescription%20%5B%20sd%3AnamedGraph%20%3Fendpoints_named_graph%20%5D%20.%20%3Fendpoints_named_graph%20sd%3Aname%20%3C${escapedNG}%3E%3B%20%3Fp%20%3Fo%20.%20%7D%20%7D"
 
+      java_saxon="java -cp $CLASSPATH:$saxon9 net.sf.saxon.Transform -xsl:$CSV2RDF4LOD_HOME/bin/util/pvload-latest-ng-load.xsl -s:$CSV2RDF4LOD_HOME/bin/util/pvload-latest-ng-load.xsl"
+      latest_NG_nodeset=`$java_saxon endpoint=http://logd.tw.rpi.edu:8890/sparql named-graph=${named_graph}`
+
       echo
       echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                                         > ${TEMP}${unzipped}.load.pml.ttl
       echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                                    >> ${TEMP}${unzipped}.load.pml.ttl
@@ -144,6 +147,7 @@ while [ $# -gt 0 ]; do
       echo "<${PROV_BASE}infStep${requestID}>"                                                                >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   a pmlj:InferenceStep;"                                                                         >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   # TODO: "                                                                                      >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   rdfs:comment \"latest nodeset from endpoint: $latest_NG_nodeset\";"                            >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   pmlj:hasAntecedentList ( [ a pmlj:NodeSet; pmlj:hasConclusion <$url>; ] );"                    >> ${TEMP}${unzipped}.load.pml.ttl
       #echo "   pmlj:hasInferenceEngine [];"                                                                  >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   pmlj:hasInferenceRule <http://inference-web.org/registry/MPR/TRIPLE_STORE_LOAD.owl#>;"         >> ${TEMP}${unzipped}.load.pml.ttl
