@@ -93,6 +93,9 @@ while [ $# -gt 0 ]; do
 
       java_saxon="java -cp $CLASSPATH:$saxon9 net.sf.saxon.Transform -xsl:$CSV2RDF4LOD_HOME/bin/util/pvload-latest-ng-load.xsl -s:$CSV2RDF4LOD_HOME/bin/util/pvload-latest-ng-load.xsl"
       latest_NG_nodeset=`$java_saxon endpoint=http://logd.tw.rpi.edu:8890/sparql named-graph=${named_graph}`
+      if [ ${#latest_NG_nodeset} -gt 0 ]; then
+         latest_NG_nodeset="<$latest_NG_nodeset>"
+      fi
 
       echo
       echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                                          > ${TEMP}${unzipped}.load.pml.ttl
