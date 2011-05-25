@@ -987,3 +987,10 @@ conv:key_template
 coin:slug
    rdfs:seeAlso <http://codex.wordpress.org/Glossary#Slug>
 .
+
+conv:TripleStore
+   a owl:Class;
+   rdfs:subClassOf pmlp:InferenceEngine;
+   rdfs:label "TripleStore";
+   rdfs:comment "";
+.
