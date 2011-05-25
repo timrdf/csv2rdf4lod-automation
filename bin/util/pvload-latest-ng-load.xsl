@@ -33,8 +33,7 @@
    </xsl:variable>
    <xsl:variable name="dimensions-request"  select="vsr:virtuoso($endpoint,vsr:situate-query($queries/*[1],vsr:resource($named-graph)))"/>
    <xsl:variable name="dimensions-response" select="doc($dimensions-request)"/>
-   <xsl:variable name="justification"       select="key('value-of','justification',$dimensions-response)"/>
-   <xsl:value-of select="$justification"/>
+   <xsl:value-of                            select="key('value-of','justification',$dimensions-response)"/>
 </xsl:template>
 
 </xsl:transform>

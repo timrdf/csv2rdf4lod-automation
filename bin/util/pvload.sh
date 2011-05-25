@@ -146,9 +146,8 @@ while [ $# -gt 0 ]; do
       echo                                                                                                    >> ${TEMP}${unzipped}.load.pml.ttl
       echo "<${PROV_BASE}infStep${requestID}>"                                                                >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   a pmlj:InferenceStep;"                                                                         >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "   # TODO: "                                                                                      >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "   rdfs:comment \"latest nodeset from endpoint: $latest_NG_nodeset\";"                            >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "   pmlj:hasAntecedentList ( [ a pmlj:NodeSet; pmlj:hasConclusion <$url>; ] );"                    >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   pmlj:hasAntecedentList ( $latest_NG_nodeset "                                                  >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "                            [ a pmlj:NodeSet; pmlj:hasConclusion <$url>; ] );"                    >> ${TEMP}${unzipped}.load.pml.ttl
       #echo "   pmlj:hasInferenceEngine [];"                                                                  >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   pmlj:hasInferenceRule <http://inference-web.org/registry/MPR/TRIPLE_STORE_LOAD.owl#>;"         >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                 >> ${TEMP}${unzipped}.load.pml.ttl
