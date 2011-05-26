@@ -96,8 +96,8 @@ while [ $# -gt 0 ]; do
       named_graph_global="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}?query=PREFIX%20sd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fsparql-service-description%23%3E%20CONSTRUCT%20%7B%20%3Fendpoints_named_graph%20%3Fp%20%3Fo%20%7D%20WHERE%20%7B%20GRAPH%20%3C${escapedNG}%3E%20%7B%20%5B%5D%20sd%3Aurl%20%3C${HACK}%3E%3B%20sd%3AdefaultDatasetDescription%20%5B%20sd%3AnamedGraph%20%3Fendpoints_named_graph%20%5D%20.%20%3Fendpoints_named_graph%20sd%3Aname%20%3C${escapedNG}%3E%3B%20%3Fp%20%3Fo%20.%20%7D%20%7D"
 
       java_saxon="java -cp $CLASSPATH:$saxon9 net.sf.saxon.Transform -xsl:$CSV2RDF4LOD_HOME/bin/util/pvload-latest-ng-load.xsl -s:$CSV2RDF4LOD_HOME/bin/util/pvload-latest-ng-load.xsl"
-      #latest_NG_nodeset=`$java_saxon endpoint=http://logd.tw.rpi.edu:8890/sparql named-graph=${named_graph}`
-      latest_NG_nodeset=`$java_saxon endpoint=http://logd.tw.rpi.edu/sparql named-graph=${named_graph}`
+      latest_NG_nodeset=`$java_saxon endpoint=http://logd.tw.rpi.edu:8890/sparql named-graph=${named_graph}`
+      #latest_NG_nodeset=`$java_saxon endpoint=http://logd.tw.rpi.edu/sparql named-graph=${named_graph}`
       if [ ${#latest_NG_nodeset} -gt 0 ]; then
          latest_NG_nodeset="<$latest_NG_nodeset>"
       fi
