@@ -32,7 +32,7 @@
       ]]></query>
    </xsl:variable>                             <!-- vsr:endpoint for generic -->
    <xsl:variable name="dimensions-request"  select="vsr:virtuoso($endpoint,vsr:situate-query($queries/*[1],vsr:resource($named-graph)))"/>
-   <xsl:value-of                            select="concat($dimensions-request,$NL)"/>
+   <!--xsl:value-of                            select="concat($dimensions-request,$NL)"/-->
    <xsl:variable name="dimensions-response" select="doc($dimensions-request)"/>
    <xsl:value-of                            select="key('value-of','justification',$dimensions-response)"/>
 
