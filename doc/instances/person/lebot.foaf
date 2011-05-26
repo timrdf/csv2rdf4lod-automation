@@ -12,6 +12,7 @@
   </rdf:Description>
   <foaf:Person rdf:about="http://purl.org/twc/id/person/TimLebo">
     <con:preferredURI rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
+    <foaf:knows rdf:resource="http://data.semanticweb.org/person/satya-s-sahoo"/>
     <foaf:knows rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdf#me"/>
     <foaf:knows rdf:resource="http://www.deri.ie/about/team/member/Lin_Clark#me"/>
     <foaf:knows>
