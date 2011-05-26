@@ -97,6 +97,7 @@ while [ $# -gt 0 ]; do
       latest_NG_nodeset=`$java_saxon endpoint=http://logd.tw.rpi.edu:8890/sparql named-graph=${named_graph}`
       #latest_NG_nodeset=`$java_saxon endpoint=http://logd.tw.rpi.edu/sparql named-graph=${named_graph}`
       if [ ${#latest_NG_nodeset} -gt 0 ]; then
+         echo "PVLOAD: found provenance of previous named graph load: $latest_NG_nodeset"
          latest_NG_nodeset="<$latest_NG_nodeset>"
       fi
 
