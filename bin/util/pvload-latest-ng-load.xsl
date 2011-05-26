@@ -13,8 +13,8 @@
 
 <xsl:template match="/">
    <xsl:variable name="queries">
-      <query><![CDATA[
-         PREFIX dcterms: <http://purl.org/dc/terms/>
+      <!-- https://scm.escience.rpi.edu/trac/ticket/477 -->
+      <query><![CDATA[PREFIX dcterms: <http://purl.org/dc/terms/>
          PREFIX skos:    <http://www.w3.org/2004/02/skos/core#>
          PREFIX pmlj:    <http://inference-web.org/2.0/pml-justification.owl#>
          PREFIX sd:      <http://www.w3.org/ns/sparql-service-description#>
