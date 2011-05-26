@@ -32,8 +32,15 @@
       ]]></query>
    </xsl:variable>
    <xsl:variable name="dimensions-request"  select="vsr:endpoint($endpoint,vsr:situate-query($queries/*[1],vsr:resource($named-graph)))"/>
+   <!--xsl:value-of                            select="concat($dimensions-request,$NL)"/-->
    <xsl:variable name="dimensions-response" select="doc($dimensions-request)"/>
    <xsl:value-of                            select="key('value-of','justification',$dimensions-response)"/>
+
+   <!-- deprecated b/c implementation-specific:
+    xsl:variable name="dimensions-request-v"  select="vsr:virtuoso($endpoint,vsr:situate-query($queries/*[1],vsr:resource($named-graph)))"/>
+   <xsl:value-of                              select="concat($dimensions-request-v,$NL)"/>
+   <xsl:variable name="dimensions-response-v" select="doc($dimensions-request-v)"/>
+   <xsl:value-of                              select="key('value-of','justification',$dimensions-response-v)"/-->
 </xsl:template>
 
 </xsl:transform>
