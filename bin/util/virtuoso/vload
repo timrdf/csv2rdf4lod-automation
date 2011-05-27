@@ -83,6 +83,11 @@ EOF
 		rm $file_name_full
 	
 		# Status message
-		echo "Loading finished! Check ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log for details."	
+      if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
+         echo "Loading finished! ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log:"	
+         cat ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log	
+      else
+         echo "Loading finished! Check ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log for details."	
+      fi
 	fi
 fi
