@@ -28,9 +28,9 @@ else
 		echo "Data file doesn't exist"
 	else
 		# Copy file to Virtuoso allowed directory
-		virtuoso_allowed_dir="/tmp/virtuoso-tmp"
+		virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp"
 		if [ ! -d $virtuoso_allowed_dir ]; then
-			mkdir $virtuoso_allowed_dir
+			mkdir -p $virtuoso_allowed_dir
 			chmod a+w $virtuoso_allowed_dir
 		fi
 		cp ${data_file} ${virtuoso_allowed_dir}
