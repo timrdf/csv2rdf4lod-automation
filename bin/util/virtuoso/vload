@@ -8,6 +8,7 @@
 # Date: May 27, 2011
 # Description: Bulk loader script for Virtuoso
 # Usage: vload [rdf|ttl|nt|nq] [data_file] [graph_uri]
+# See http://docs.openlinksw.com/virtuoso/fn_ttlp_mt.html
 
 # Get input arguments
 args=("$@")
