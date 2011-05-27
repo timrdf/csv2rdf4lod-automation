@@ -1,0 +1,16 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<http://purl.org/twc/id/machine/twc/2011/leo> 
+   rdfs:label "Leo";
+   foaf:homepage <http://tw.rpi.edu/web/inside/machine/leo>;
+.
+
+#<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+#
+#<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+#   a foaf:OnlineAccount;
+#   foaf:accountName "lebot";
+#   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+#   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+#.
