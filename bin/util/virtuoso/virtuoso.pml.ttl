@@ -1,0 +1,133 @@
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
+@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix sioc:       <http://rdfs.org/sioc/ns#> .
+@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov:      <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+@prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix conv:       <http://purl.org/twc/vocab/conversion/> .
+@prefix httphead:   <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> .
+@prefix httpget:    <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> .
+@prefix httppost:   <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+<http://data-gov-wiki.googlecode.com/svn/trunk/web/logd.tw.rpi.edu/2010/virtuoso/virtuoso>
+   a pmlp:Source;
+.
+
+<http://data-gov-wiki.googlecode.com/svn/trunk/web/logd.tw.rpi.edu/2010/virtuoso/virtuoso>
+   a pmlp:Source;
+   pmlp:hasModificationDateTime "2010-12-30T19:03:08"^^xsd:dateTime;
+.
+
+<virtuoso>
+   a pmlp:Information;
+   pmlp:hasReferenceSourceUsage <sourceUsage_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_content>;
+.
+<virtuoso>
+   a pmlp:Information;
+   nfo:hasHash <md5_db21cd1b043b942d1f96e2023246f29d_time_1306510935>;
+.
+<md5_db21cd1b043b942d1f96e2023246f29d_time_1306510935>
+   a nfo:FileHash; 
+   dcterms:date      "2011-05-27T11:42:15-04:00"^^xsd:dateTime;
+   nfo:hashAlgorithm "md5";
+   nfo:hashValue     "db21cd1b043b942d1f96e2023246f29d";
+.
+
+<nodeSet_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_content>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <virtuoso>;
+   pmlj:isConsequentOf <inferenceStep_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_content>;
+.
+<inferenceStep_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_content>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_content>;
+   pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
+   pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+.
+
+<sourceUsage_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_content>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://data-gov-wiki.googlecode.com/svn/trunk/web/logd.tw.rpi.edu/2010/virtuoso/virtuoso>;
+   pmlp:hasUsageDateTime "2011-05-27T11:42:15-04:00"^^xsd:dateTime;
+.
+
+<wasControlledBy_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_content>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   oprov:effect <inferenceStep_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_content>;
+   oprov:endTime "2011-05-27T11:42:15-04:00"^^xsd:dateTime;
+.
+ 
+<info_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_url_header>
+   a pmlp:Information, conv:HTTPHeader;
+   pmlp:hasRawString """HTTP/1.1 200 OK
+Date: Fri, 27 May 2011 15:42:06 GMT
+Server: Apache
+Last-Modified: Thu, 30 Dec 2010 19:03:08 GMT
+ETag: "1640//trunk/web/logd.tw.rpi.edu/2010/virtuoso/virtuoso"
+Accept-Ranges: bytes
+Expires: Fri, 27 May 2011 15:45:07 GMT
+Content-Length: 1903
+Content-Type: text/plain
+Cache-Control: public, max-age=180
+Age: 7
+""";
+   pmlp:hasReferenceSourceUsage <sourceUsage_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_url_header>;
+.
+ 
+<nodeSet_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_url_header>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <info_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_url_header>;
+   pmlj:isConsequentOf <inferenceStep_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_url_header>;
+.
+<inferenceStep_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_url_header>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_url_header>;
+   pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
+   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+.
+
+<sourceUsage_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_url_header>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://data-gov-wiki.googlecode.com/svn/trunk/web/logd.tw.rpi.edu/2010/virtuoso/virtuoso>;
+   pmlp:hasUsageDateTime "2011-05-27T11:42:15-04:00"^^xsd:dateTime;
+.
+<wasControlledBy_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_url_header>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   oprov:effect <nodeSet_378ee42e-2d5c-4e63-90bc-9e1cd7ad37c1_url_header>;
+   oprov:endTime "2011-05-27T11:42:15-04:00"^^xsd:dateTime;
+.
+
+
+conv:curl_md5_5670dffdc5533a4c57243fc97b19a654
+   a pmlp:InferenceEngine, conv:Curl;
+   dcterms:identifier "md5_5670dffdc5533a4c57243fc97b19a654";
+   dcterms:description """curl 7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8l zlib/1.2.3
+Protocols: tftp ftp telnet dict ldap http file https ftps 
+Features: GSS-Negotiate IPv6 Largefile NTLM SSL libz """;
+.
+
+conv:Curl rdfs:subClassOf pmlp:InferenceEngine .
