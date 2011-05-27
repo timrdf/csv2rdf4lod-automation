@@ -81,7 +81,7 @@ while [ $# -gt 0 ]; do
    #
    # Normalize into ntriples (note, this step is not worth describing in the provenance).
    #
-   echo guessing `$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper`
+   #echo guessing `$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper`
    rapper `$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper` -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt
    if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
       rm $TEMP
