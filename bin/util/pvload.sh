@@ -83,10 +83,7 @@ while [ $# -gt 0 ]; do
    #
    rapper -g -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt
    if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
-      echo REMOVING 1
       rm $TEMP
-   else
-      echo NOPE 1
    fi
 
    if [ `wc -l ${TEMP}${unzipped}.nt | awk '{print $1}'` -gt 0 ]; then
@@ -188,10 +185,7 @@ while [ $# -gt 0 ]; do
          #cat /tmp/virtuoso-tmp/vload.log
       fi
       if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
-         echo REMOVING 2
          rm -f ${TEMP}${unzipped} ${TEMP}.pml.ttl ${TEMP}${unzipped}.nt ${TEMP}${unzipped}.load.pml.ttl #
-      else
-         echo NOPE 2
       fi
       else
          echo "skipping b/c no triples returned."
