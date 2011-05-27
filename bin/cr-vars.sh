@@ -69,6 +69,7 @@ if [ ${1:-"no"} != "CLEAR" ]; then
 
    echo "--"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO                             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: false)"}"
+   echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH                   ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"(will default to: /opt/virtuoso/bin/isql)"}"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_UID                         ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_UID:-"(will default to: 1111)"}"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD                    ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"(will default to: dba)"}"
    
@@ -136,6 +137,7 @@ else
    
    # "--"
    export CSV2RDF4LOD_PUBLISH_VIRTUOSO=""
+   export CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH=""
    export CSV2RDF4LOD_PUBLISH_VIRTUOSO_UID=""
    export CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD=""
    export CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH=""

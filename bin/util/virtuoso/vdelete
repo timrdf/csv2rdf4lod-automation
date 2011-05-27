@@ -3,8 +3,9 @@
 # Virtuoso			Graph Delete Script for Virtuoso OSE
 #
 # Author: Shangguan (http://www.cs.rpi.edu/~shangz, shangz@cs.rpi.edu)
-# Version: 1.0
-# Date: Dec 12, 2010
+# Contributor: Tim Lebo (http://tw.rpi.edu/instances/TimLebo)
+# Version: 1.1
+# Date: May 27, 2011
 # Description: Bash script to delte a named graph in Virtuoso
 # Usage: vdelete [graph_uri]
 
@@ -21,8 +22,9 @@ else
         echo "Deleting triples from graph <$graph_uri>, please wait..."
 	
 	# Log into Virtuoso isql env
-	isql_cmd="/opt/virtuoso/bin/isql 1111 dba"
-	isql_pwd="dba"  # default admin password, may need to change
+   # UID and PASSWORD (see http://docs.openlinksw.com/virtuoso/isql.html)
+   isql_cmd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"/opt/virtuoso/bin/isql"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_UID:-"1111"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"
+   isql_pwd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin password, may neeed to change
 	
 	# Call SPARQL CLEAR to delete named graphs
 	sparql_delete="SPARQL CLEAR GRAPH <$graph_uri>;"
