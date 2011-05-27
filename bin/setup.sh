@@ -571,6 +571,26 @@ export CSV2RDF4LOD_PUBLISH_VIRTUOSO="true"
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO="false" 
 
 #
+# Customize: 
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (done in convert-aggregate.sh)
+#
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_UID="1111"
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_UID="" 
+
+#
+# Customize: 
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (done in convert-aggregate.sh)
+#
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD="dba"
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD="" 
+
+#
 # Customize: Set the path of the local script used to load/delete data from
 #            the Virtuoso SPARQL endpoint.
 # Variable type: Machine ? Project ? User ? Activity ?
