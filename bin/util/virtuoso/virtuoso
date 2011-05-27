@@ -1,0 +1,92 @@
+#!/bin/bash
+#
+# /etc/init.d/virtuoso
+# virtuoso    Subsystem file for Virtuoso Open-Source Server
+#
+# chkconfig: 2345 99 05
+# description: Virtuoso server daemon
+
+NAME=virtuoso
+DESC="OpenLink Virtuoso Open-Source Edition"
+
+VIRT_DIR="/opt/virtuoso"
+DAEMON=$VIRT_DIR/bin/virtuoso-t
+DBBASE=$VIRT_DIR/var/lib/virtuoso/db
+ISQL=$VIRT_DIR/bin/isql
+
+PIDFILE=$DBBASE/$NAME.lck
+
+USER=dba  # default admin, need to change accordingly
+PASSWORD=dba  # default admin password, need to change accordingly
+SERVER_PORT=1111
+
+test -x $DAEMON || exit 0
+
+set -e
+
+### Helper functions ###
+running_pid()
+{
+    # Check if a given process pid's cmdline matches a given name
+    pid=$1
+    name=$2
+    [ -z "$pid" ] && return 1
+    [ ! -d /proc/$pid ] &&  return 1
+    cmd=`cat /proc/$pid/cmdline | tr "\000" "\n"|head -n 1 |cut -d : -f 1`
+    # Is this the expected child?
+    [ "$cmd" != "$name" ] &&  return 1
+    return 0
+}
+
+running()
+{
+# Check if the process is running looking at /proc
+
+    # No pidfile, probably no daemon present
+    [ ! -f "$PIDFILE" ] && return 1
+    # Obtain the pid and check it against the binary name
+    . $PIDFILE
+    pid="$VIRT_PID"
+    running_pid $pid $DAEMON || return 1
+    return 0
+}
+###  ###
+
+case "$1" in
+  start)
+	cd $DBBASE || exit -1
+	if running;  then
+	    echo "Server is already running."
+	    exit 1
+	else
+	    echo "Starting $DESC."
+	    $DAEMON +wait || exit -1
+        fi
+	echo "Server successfully started."
+;;
+  stop)
+	test -x $ISQL || exit -1
+	if running;  then
+	    echo "Stopping $DESC."
+	    $ISQL $SERVER_PORT $USER $PASSWORD -K >/dev/null 2>&1 || exit -1
+	    echo "Server successfully stopped."
+	else
+	    echo "Server is already stopped."
+	fi
+;;
+  status)
+	echo -n "Virtuoso server is "
+	if running;  then
+	    echo "running."
+	else
+	    echo "not running."
+	    exit 1
+	fi 
+;;
+  *)
+	N=/etc/init.d/$NAME
+	echo "Usage: $N {start|stop|status}" >&2
+	exit 1
+esac
+
+exit 0
