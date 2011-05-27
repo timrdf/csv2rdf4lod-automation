@@ -3,8 +3,9 @@
 # Virtuoso			Bulk Loader Script
 #
 # Author: Shangguan (http://www.cs.rpi.edu/~shangz, shangz@cs.rpi.edu)
-# Version: 1.0
-# Date: Dec 12, 2010
+# Contributor: Tim Lebo (http://tw.rpi.edu/instances/TimLebo)
+# Version: 1.1
+# Date: May 27, 2010
 # Description: Bulk loader script for Virtuoso
 # Usage: vload [rdf|ttl|nt|nq] [data_file] [graph_uri]
 
