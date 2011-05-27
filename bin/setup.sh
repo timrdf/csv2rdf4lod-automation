@@ -32,7 +32,10 @@ export CSV2RDF4LOD_CONVERTER=""
 #    to set variable used to create enhancement templates.)
 # (used in convert-aggregate.sh)
 #
+# see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-process-phase:-name
+#
 export CSV2RDF4LOD_BASE_URI="http://logd.tw.rpi.edu"
+export CSV2RDF4LOD_BASE_URI="http://yourdomain.org"
 
 #
 # Customize: A base URI to use in place of CSV2RDF4LOD_BASE_URI
@@ -58,7 +61,7 @@ export CSV2RDF4LOD_BASE_URI_OVERRIDE=""
 #
 # (used in convert.sh and util/header2params2.awk)
 #
-export CSV2RDF4LOD_CONVERT_MACHINE_URI="http://tw.rpi.edu/web/inside/machine/gemini#"
+export CSV2RDF4LOD_CONVERT_MACHINE_URI="http://tw.rpi.edu/web/inside/machine/gemini"
 export CSV2RDF4LOD_CONVERT_MACHINE_URI=""
 
 #
