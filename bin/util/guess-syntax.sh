@@ -10,11 +10,11 @@ tool=$2
 
 if [ ${tool:-"."} == "rapper" ]; then
    if [[ $url =~ \.nt$ || $url =~ \.nt\. ]]; then
-      echo "-n ntriples"
+      echo "-i ntriples"
    elif [[ $url =~ \.ttl$ || $url =~ \.ttl\. ]]; then
-      echo "-n turtle"
+      echo "-i turtle"
    elif [[ $url =~ \.rdf$ || $url =~ \.rdf\. ]]; then
-      echo "-n rdfxml"
+      echo "-i rdfxml"
    else
       echo "-g"
    fi
