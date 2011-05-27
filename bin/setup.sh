@@ -4,10 +4,29 @@
 # is /Users/me/Desktop/csv2rdf4lod/bin/dg-create-dataset-dir.sh
 # CSV2RDF4LOD_HOME should be set (above) to /Users/me/Desktop/csv2rdf4lod/
 
-
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/setup.sh
 
 # The following variables may be modified to customize csv2rdf4lod.
 
+# Machine-level  variables:
+#   Variables that are specific to the machine on which development is performed.
+#   (conversion:MachineLevelEnvironmentVariable)
+#   
+# Project-level  variables:
+#   Variables that are specific to the project.
+#   (conversion:ProjectLevelEnvironmentVariable)
+#
+# User-level     variables:
+#   Variables that are specific to the user.
+#   (conversion:UserLevelEnvironmentVariable)
+#
+# Activity-level variables:
+#   Variables that change depending on the activity of the user, e.g. enhancement development, deployment, etc.
+#   (conversion:ActivityLevelEnvironmentVariable)
+#
+# Documentation below:
+#   "Variable type: Machine Y Project Y User N Activity ?"
+# indicates that the variable is, is not, or unknown to be of the corresponding type.
 
 #
 # ------- ------- converting options ------- -------
@@ -17,16 +36,20 @@
 # Customize: The converter to use.
 #   Converter must accept parameters as specified at 
 #   http://data-gov.tw.rpi.edu/wiki/Csv2rdf4lod
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # If not set, defaults to 'java -Xmx3060m edu.rpi.tw.data.csv.CSVtoRDF'
 #
 # (used in $CSV2RDF4LOD_HOME/bin/convert.sh
 #    to invoke the converter.)
 #
+# a conversion:ProjectLevelEnvironmentVariable
 export CSV2RDF4LOD_CONVERTER=""
 
 #
 # Customize: The base URI of the final published linked data.
+#
+# Variable type: Machine Y Project Y User N Activity N
 #
 # (used in cr-create-convert-sh.sh 
 #    to set variable used to create enhancement templates.)
@@ -35,11 +58,12 @@ export CSV2RDF4LOD_CONVERTER=""
 # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-process-phase:-name
 #
 export CSV2RDF4LOD_BASE_URI="http://logd.tw.rpi.edu"
-export CSV2RDF4LOD_BASE_URI="http://yourdomain.org"
+export CSV2RDF4LOD_BASE_URI="http://yourdomain-change-in-source-me.sh.org"
 
 #
 # Customize: A base URI to use in place of CSV2RDF4LOD_BASE_URI
 # when converting. 
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # While CSV2RDF4LOD_BASE_URI is used as the 
 # conversion:base_uri when creating conversion parameters
@@ -51,21 +75,26 @@ export CSV2RDF4LOD_BASE_URI="http://yourdomain.org"
 #
 # (used in convert-aggregate.sh)
 #
+# a conversion:ActivityLevelEnvironmentVariable
 export CSV2RDF4LOD_BASE_URI_OVERRIDE="http://tw2.tw.rpi.edu"
 export CSV2RDF4LOD_BASE_URI_OVERRIDE=""
 
 #
 # Customize: The URI for the machine that is running the conversions.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # Used to create URIs for `whoami` user names
 #
 # (used in convert.sh and util/header2params2.awk)
 #
+# a conversion:MachineLevelEnvironmentVariable
 export CSV2RDF4LOD_CONVERT_MACHINE_URI="http://tw.rpi.edu/web/inside/machine/gemini"
 export CSV2RDF4LOD_CONVERT_MACHINE_URI=""
 
 #
 # Customize: The URI for the person invoking the conversions.
+#
+# Variable type: Machine N Project N User Y Activity N
 #
 # Each person running on the same machine should set this in their own environment.
 #
@@ -77,14 +106,18 @@ export CSV2RDF4LOD_CONVERT_PERSON_URI=""
 
 #
 # Customize: Prevent the naive interpretation of tabular data ("raw" layer).
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # (used in convert.sh)
 #
+# a conversion:ProjectLevelEnvironmentVariable
+# a conversion:ActivityLevelEnvironmentVariable
 export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER="true"
 export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER="false"
 
 #
 # Customize: Number of rows to include in an example subset.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # Subset is stored in file(s): automatic/$datafile.raw.sample.ttl
 #                              automatic/$datafile.e1.sample.ttl
@@ -97,11 +130,14 @@ export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER="false"
 #
 # (used in convert.sh)
 #
+# a conversion:ProjectLevelEnvironmentVariable
+# a conversion:ActivityLevelEnvironmentVariable
 export CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS="100"
 export CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS="10"
 
 #
 # Customize: Omit the full conversion of the dataset.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # When developing the enhancement parameters, it is helpful
 # to only convert the first few rows because the conversion will be
@@ -113,11 +149,14 @@ export CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS="10"
 #     https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY
 # (used in convert.sh)
 #
+# a conversion:ProjectLevelEnvironmentVariable
+# a conversion:ActivityLevelEnvironmentVariable
 export CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY="true"
 export CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY="false"
 
 #
 # Customize: Omit the full conversion of the dataset.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # When developing the enhancement parameters, it is helpful
 # to only convert a few hand-selected rows.
@@ -129,11 +168,14 @@ export CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY="false"
 #
 # (used in convert.sh)
 #
+# a conversion:ProjectLevelEnvironmentVariable
+# a conversion:ActivityLevelEnvironmentVariable
 export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="true"
 export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="false"
 
 #
 # Customize: Append extension to URL for void:dataDump.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # Parameter given to csv2rdf4lod converter (e.g., Java implementation)
 #   http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Dec-01/conversion/data-gov-1008-2010-Dec-01.e1
@@ -147,23 +189,26 @@ export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="false"
 # If empty, nothing will be appended to URL.
 # (used in convert.sh)
 #
+# a conversion:ProjectLevelEnvironmentVariable
 export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS="ttl.gz,nt.gz"
 export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS="ttl.gz"
 
 #
 # Customize: Invoke the converter for granular (row/column) provenance.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # This is only done for enhancements; raw does not get provenance.
 # Produces (e.g.) automatic/$datafile.e1.pml.ttl
 #
 # (used in convert.sh)
 #
+# a conversion:ProjectLevelEnvironmentVariable
 export CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR="true"
 export CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR="false"
 
 #
 # Customize: Enable debugging within the Java CSVtoRDF
-#
+# Variable type: Machine ? Project ? User ? Activity ?
 # (used in convert.sh)
 #
 export CSV2RDF4LOD_CONVERT_DEBUG_LEVEL="fine"
@@ -177,6 +222,7 @@ export CSV2RDF4LOD_CONVERT_DEBUG_LEVEL=""
 
 #
 # Customize: Publish files into publish/
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # This is a misnomer - it should be AGGREGATE.
 #
@@ -191,6 +237,7 @@ export CSV2RDF4LOD_PUBLISH="true"
 #
 # Customize: Aggregate and publish with just raw conversion or 
 #            wait until we have usefully-enhanced conversion?
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # (done in convert-aggregate.sh)
 #
@@ -200,6 +247,7 @@ export CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED="true"
 #
 # Customize: compress all serializations of the dump files, 
 #            deleting the uncompressed versions.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # (done in convert-aggregate.sh)
 #
@@ -209,6 +257,7 @@ export CSV2RDF4LOD_PUBLISH_COMPRESS="true"
 #
 # Customize: Specify the source_identifier 
 #            (in the csv2rdf4lod conversion's source/dataset/version scheme)
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # This is used when archiving the metadata into a versioned dataset.
 #
@@ -222,6 +271,7 @@ export CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID=""
 #            (in the csv2rdf4lod conversion's source/dataset/version scheme)
 #            "base" because the automation will append some tokens to create
 #            a variety of datasets.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # This is used when archiving the metadata into a versioned dataset.
 #
@@ -235,6 +285,7 @@ export CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID="dataset-conversion"
 
 #
 # Customize: Concatenate raw and e* into a single file.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # If false, publish/*.raw.ttl and publish/*.e*.ttl are the only files
 # that represent the dataset.
@@ -246,6 +297,7 @@ export CSV2RDF4LOD_PUBLISH_TTL="true"
 
 #
 # Customize: Concatenate raw and e* into a single file.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # If false, publish/*.raw.ttl and publish/*.e*.ttl are the only files
 # that represent the dataset.
@@ -257,6 +309,8 @@ export CSV2RDF4LOD_PUBLISH_TTL_LAYERS="true"
 
 #
 # Customize: include N-Triples as a serialization when publishing
+# Variable type: Machine ? Project ? User ? Activity ?
+#
 # (done in convert-aggregate.sh)
 #
 export CSV2RDF4LOD_PUBLISH_NT="false"
@@ -264,6 +318,8 @@ export CSV2RDF4LOD_PUBLISH_NT="true"
 
 #
 # Customize: include RDF/XML as a serialization when publishing
+# Variable type: Machine ? Project ? User ? Activity ?
+#
 # (done in convert-aggregate.sh)
 #
 export CSV2RDF4LOD_PUBLISH_RDFXML="true"
@@ -278,6 +334,7 @@ export CSV2RDF4LOD_PUBLISH_RDFXML="false"
 # dataset created. This allows you to publish the description
 # of the dataset without loading the entire (potentially large)
 # dataset.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # (done in convert-aggregate.sh)
 #
@@ -286,6 +343,7 @@ export CSV2RDF4LOD_PUBLISH_SUBSET_VOID="true"
 
 #
 # Customize: The named graph to place all conversion metadata (void, pml, etc).
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # 'auto' will expand to $CSV2RDF4LOD_BASE_URI/vocab/Dataset (or $CSV2RDF4LOD_BASE_URI_OVERRIDE if set)
 #
@@ -296,6 +354,7 @@ export CSV2RDF4LOD_PUBLISH_SUBSET_VOID_NAMED_GRAPH="auto"
 
 #
 # Customize: TODO
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # Datasets whose data is about other Datasets (e.g. data.gov's 92)
 #
@@ -306,6 +365,7 @@ export CSV2RDF4LOD_PUBLISH_TODO="http://purl.org/twc/vocab/conversion/MetaDatase
 
 #
 # Customize: include subset of conversion: ?s owl:sameAs ?o .
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # This allows dataset interconnectivity analysis without loading
 # the entire dataset.
@@ -317,6 +377,7 @@ export CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS="true"
 
 #
 # Customize: The named graph to place all owl:sameAs triples.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # 'auto' will expand to http://purl.org/twc/vocab/conversion/SameAsDataset
 #
@@ -328,6 +389,7 @@ export CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS_NAMED_GRAPH="auto"
 #
 # Customize: include subset of conversion: 
 #               first $CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # if true, invokes:
 #   publish/bin/virtuoso-load-${sourceID}-${datasetID}-${datasetVersion}.sh --sample
@@ -343,6 +405,7 @@ export CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES="false"
 
 #
 # Customize: The named graph to place all conversion parameters.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # (instance data from http://purl.org/twc/vocab/conversion vocabulary)
 #
@@ -360,6 +423,7 @@ export CSV2RDF4LOD_PUBLISH_CONVERSION_PARAMS_NAMED_GRAPH="auto"
 # Customize: number of processes to spawn
 #  used by lod-materialization.
 #  could be used by dg-create-dataset-dir.sh
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # (done in convert-aggregate.sh)
 #
@@ -370,6 +434,8 @@ export CSV2RDF4LOD_CONCURRENCY="2"
 # Customize: populate publish/lod-mat/ with a file for each URI
 # mentioned within the conversion output and within the internal 
 # namespace
+# Variable type: Machine ? Project ? User ? Activity ?
+#
 # (done in convert-aggregate.sh)
 #
 export CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION="true"
@@ -380,6 +446,7 @@ export CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION="false"
 # when lod-materializing. This prevents the need to move files
 # around to get them from the conversion directory to the
 # www directory.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # To populate publish/lod-mat/, leave this variable empty "".
 #
@@ -392,6 +459,7 @@ export CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT=""
 
 #
 # Customize: Number of triples to process before writing all results to disk.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # NOTE: CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION needs to be "true" for
 #       this to take effect.
@@ -408,6 +476,7 @@ export CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WRITE_FREQUENCY="1000000"
 # the number of files written to during /this/ invocation. 
 # When rerunning with identical params, output
 # will be something like: "405773T / 36974F / 0N".
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # If 0: Do not report status.
 # If 1: Report status for every triple.
@@ -431,6 +500,7 @@ export CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_REPORT_FREQUENCY="1000"
 #
 # Customize: If true, load all triples into publish/tdb/
 # (or CSV2RDF4LOD_PUBLISH_TDB_DIR, if set).
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # (done in convert-aggregate.sh)
 #
@@ -440,6 +510,7 @@ export CSV2RDF4LOD_PUBLISH_TDB="false"
 #
 # Customize: Instead of loading the triples into publish/tdb/,
 # load them into the tdb directory CSV2RDF4LOD_PUBLISH_TDB_OVERRIDE.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # (done in convert-aggregate.sh)
 #
@@ -449,6 +520,7 @@ export CSV2RDF4LOD_PUBLISH_TDB_DIR=""
 #
 # Customize: setup tdb directory for individual conversions?
 # Intended for development and debugging only; not for publication.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # (done in convert.sh)
 #
@@ -461,6 +533,7 @@ export CSV2RDF4LOD_PUBLISH_TDB_INDIV="false"
 
 #
 # Customize: If true, load all triples into /var/lib/4store/csv2rdf4lod
+# Variable type: Machine ? Project ? User ? Activity ?
 # see http://4store.org/trac/wiki/Install
 #
 # /var/lib/4store/csv2rdf4lod can be changed to /var/lib/4store/YYYY
@@ -473,6 +546,7 @@ export CSV2RDF4LOD_PUBLISH_4STORE="false"
 
 #
 # Customize: Instead of loading the triples into /var/lib/4store/csv2rdf4lod,
+# Variable type: Machine ? Project ? User ? Activity ?
 # load them into /var/lib/4store/$CSV2RDF4LOD_PUBLISH_4STORE_KB.
 #
 # (done in convert-aggregate.sh)
@@ -486,6 +560,7 @@ export CSV2RDF4LOD_PUBLISH_4STORE_KB=""
 
 #
 # Customize: If true, load all triples into virtuoso triple store.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # This is done by invoking:
 #   publish/bin/virtuoso-load-${sourceID}-${datasetID}-${datasetVersion}.sh
@@ -498,6 +573,7 @@ export CSV2RDF4LOD_PUBLISH_VIRTUOSO="false"
 #
 # Customize: Set the path of the local script used to load/delete data from
 #            the Virtuoso SPARQL endpoint.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # /opt/virtuoso/scripts/vload
 # usage: "vload [rdf|ttl|nt|nq] [data_file] [graph_uri]"
@@ -509,6 +585,7 @@ export CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH=""
 
 #
 # Customize: The publicly accessible SPARQL endpoint service.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # Used to describe provenance of loading a file into the endpoint's named graph.
 # (done in pvload.sh)
@@ -524,6 +601,7 @@ export CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT=""
 #
 # Customize: SPARQL endpoint that should be queried when caching results.
 #            This is the URL of the endpoint that gets populated with conversion results.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # (done in populate-to-endpoint.sh)
 #
@@ -533,6 +611,7 @@ export CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT=""
 #
 # Customize: Directory where SPARQL query files exist 
 #            and should be cached with cache-queries.sh.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # (done in populate-to-endpoint.sh)
 #
@@ -552,6 +631,8 @@ export CSV2RDF4LOD_PUBLISH_SPARQL_RESULTS_DIRECTORY=""
 # Customize: If true, download the data referenced by data.gov/details/xx.
 # If false, just get the headers.
 #
+# Variable type: Machine ? Project ? User ? Activity ?
+#
 # (done in dg-create-dataset-dir.sh)
 #
 export DG_RETRIEVAL_REQUEST_DATA="false"
@@ -560,6 +641,7 @@ export DG_RETRIEVAL_REQUEST_DATA="true"
 #
 # Customize: If true, perform raw conversion of any csvs found in 
 #            download immediately after downloading it.
+# Variable type: Machine ? Project ? User ? Activity ?
 #
 # It can be useful to get all of the data as soon as possible and convert later.
 # If false, the raw conversion can be performed cr-rerun-convert.sh.
