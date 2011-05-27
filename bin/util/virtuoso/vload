@@ -73,7 +73,7 @@ else
 			;;
 		esac
 		
-		${isql_cmd} ${isql_pwd} << EOF &> /tmp/virtuoso-tmp/vload.log
+		${isql_cmd} ${isql_pwd} << EOF &> ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log
 			$load_func
 			checkpoint;
 			exit;
@@ -83,6 +83,6 @@ EOF
 		rm $file_name_full
 	
 		# Status message
-		echo "Loading finished! Check /tmp/virtuoso-tmp/vload.log for details."	
+		echo "Loading finished! Check ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log for details."	
 	fi
 fi

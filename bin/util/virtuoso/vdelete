@@ -19,7 +19,7 @@ else
 	graph_uri=${args[0]}
 
 	# Status message
-        echo "Deleting triples from graph <$graph_uri>, please wait..."
+   echo "Deleting triples from graph <$graph_uri>, please wait..."
 	
 	# Log into Virtuoso isql env
    # UID and PASSWORD (see http://docs.openlinksw.com/virtuoso/isql.html)
@@ -28,12 +28,12 @@ else
 	
 	# Call SPARQL CLEAR to delete named graphs
 	sparql_delete="SPARQL CLEAR GRAPH <$graph_uri>;"
-	${isql_cmd} ${isql_pwd} << EOF &> /tmp/virtuoso-tmp/vdelete.log
+	${isql_cmd} ${isql_pwd} << EOF &> ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vdelete.log
 		$sparql_delete
 		checkpoint;
 		exit;
 EOF
 
 	# Status message
-	echo "Deleting finished! Check /tmp/virtuoso-tmp/vdelete.log for details."
+	echo "Deleting finished! Check ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vdelete.log for details."
 fi
