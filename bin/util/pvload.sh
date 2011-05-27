@@ -167,7 +167,8 @@ while [ $# -gt 0 ]; do
 
       echo --------------------------------------------------------------------------------
 
-      vload=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH:-"/opt/virtuoso/scripts/vload"}
+      #deprecated now that vload is part of csv2rdf4lod-automation: vload=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT______PATH:-"/opt/virtuoso/scripts/v_____load"}
+      vload=$CSV2RDF4LOD_HOME/bin/util/virtuoso/vload
       echo $assudo $vload nt ${TEMP}${unzipped}.nt $named_graph
       if [ ${dryrun-"."} != "true" ]; then #        Actual response (in ntriples syntax).
          $assudo $vload nt ${TEMP}${unzipped}.nt   $named_graph 2>&1 | grep -v "Loading triples into graph" 
