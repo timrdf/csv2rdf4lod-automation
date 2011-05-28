@@ -34,9 +34,9 @@ else
 			chmod a+w $virtuoso_allowed_dir
 		fi
 		cp ${data_file} ${virtuoso_allowed_dir}
-      echo COPYING ${data_file} ${virtuoso_allowed_dir}
 		file_name_local=${data_file##*/}
 		file_name_full=$virtuoso_allowed_dir/$file_name_local
+      echo COPYING ${data_file} $file_name_full
 		
 		# Log into Virtuoso isql env
       # UID and PASSWORD (see http://docs.openlinksw.com/virtuoso/isql.html)
