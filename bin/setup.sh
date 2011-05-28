@@ -597,8 +597,18 @@ export CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH=""
 #
 # (done in convert-aggregate.sh)
 #
-export CSV2RDF4LOD_PUBLISH_VIRTUOSO_UID="1111"
-export CSV2RDF4LOD_PUBLISH_VIRTUOSO_UID="" 
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT="1111"
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT="" 
+
+#
+# Customize: 
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (done in convert-aggregate.sh)
+#
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME="dba"
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME="" 
 
 #
 # Customize: 

@@ -9,16 +9,15 @@
 NAME=virtuoso
 DESC="OpenLink Virtuoso Open-Source Edition"
 
-VIRT_DIR="/opt/virtuoso"
-DAEMON=$VIRT_DIR/bin/virtuoso-t
-DBBASE=$VIRT_DIR/var/lib/virtuoso/db
-ISQL=$VIRT_DIR/bin/isql
+DAEMON=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}/bin/virtuoso-t
+DBBASE=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}/var/lib/virtuoso/db
+ISQL=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}/bin/isql
+
+SERVER_PORT=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"}
+USER=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}     # default admin, need to change accordingly
+PASSWORD=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"} # default admin password, need to change accordingly
 
 PIDFILE=$DBBASE/$NAME.lck
-
-USER=dba  # default admin, need to change accordingly
-PASSWORD=dba  # default admin password, need to change accordingly
-SERVER_PORT=1111
 
 test -x $DAEMON || exit 0
 
