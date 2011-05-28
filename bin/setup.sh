@@ -577,6 +577,16 @@ export CSV2RDF4LOD_PUBLISH_VIRTUOSO="false"
 #
 # (done in convert-aggregate.sh)
 #
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME="/opt/virtuoso" 
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME="" 
+
+#
+# Customize: 
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (done in convert-aggregate.sh)
+#
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH="/opt/virtuoso/bin/isql" 
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH="" 
 
