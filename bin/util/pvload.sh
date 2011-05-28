@@ -23,7 +23,7 @@ if [ $1 == "-n" ]; then
    dryrun="true"; shift 
 fi
 
-assudo="sudo"
+# no longer needed because we cleaned up vload: assudo="sudo"
 if [ `whoami` == "root" ]; then
    assudo=""
 fi
