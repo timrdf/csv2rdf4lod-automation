@@ -6,18 +6,19 @@
 # chkconfig: 2345 99 05
 # description: Virtuoso server daemon
 
-NAME="virtuoso"
+NAME=virtuoso
 DESC="OpenLink Virtuoso Open-Source Edition"
 
-DAEMON=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}/bin/virtuoso-t
-DBBASE=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}/var/lib/virtuoso/db
-ISQL=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}/bin/isql
-
-SERVER_PORT=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"}
-USER=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}     # default admin, need to change accordingly
-PASSWORD=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"} # default admin password, need to change accordingly
+VIRT_DIR="/opt/virtuoso"
+DAEMON=$VIRT_DIR/bin/virtuoso-t
+DBBASE=$VIRT_DIR/var/lib/virtuoso/db
+ISQL=$VIRT_DIR/bin/isql
 
 PIDFILE=$DBBASE/$NAME.lck
+
+USER=dba  # default admin, need to change accordingly
+PASSWORD=dba  # default admin password, need to change accordingly
+SERVER_PORT=1111
 
 test -x $DAEMON || exit 0
 
@@ -53,39 +54,40 @@ running()
 
 case "$1" in
   start)
-	cd $DBBASE || exit -1
-	if running;  then
-	    echo "Server is already running."
-	    exit 1
-	else
-	    echo "Starting $DESC."
-	    $DAEMON +wait || exit -1
+   cd $DBBASE || exit -1
+   if running;  then
+       echo "Server is already running."
+       exit 1
+   else
+       echo "Starting $DESC."
+       $DAEMON +wait || exit -1
         fi
-	echo "Server successfully started."
+   echo "Server successfully started."
 ;;
   stop)
-	test -x $ISQL || exit -1
-	if running;  then
-	    echo "Stopping $DESC."
-	    $ISQL $SERVER_PORT $USER $PASSWORD -K >/dev/null 2>&1 || exit -1
-	    echo "Server successfully stopped."
-	else
-	    echo "Server is already stopped."
-	fi
+   test -x $ISQL || exit -1
+   if running;  then
+       echo "Stopping $DESC."
+       $ISQL $SERVER_PORT $USER $PASSWORD -K >/dev/null 2>&1 || exit -1
+       echo "Server successfully stopped."
+   else
+       echo "Server is already stopped."
+   fi
 ;;
   status)
-	echo -n "Virtuoso server is "
-	if running;  then
-	    echo "running."
-	else
-	    echo "not running."
-	    exit 1
-	fi 
+   echo -n "Virtuoso server is "
+   if running;  then
+       echo "running."
+   else
+       echo "not running."
+       exit 1
+   fi 
 ;;
   *)
-	N=/etc/init.d/$NAME
-	echo "usage: `basename $0` {start, stop, status}" >&2
-	exit 1
+   N=/etc/init.d/$NAME
+   echo "Usage: $N {start|stop|status}" >&2
+   exit 1
 esac
 
 exit 0
+
