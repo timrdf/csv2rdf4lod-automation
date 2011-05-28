@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:sioc="http://rdfs.org/sioc/ns#">
+  <rdf:Description rdf:about="http://purl.org/twc/id/machine/lebot/MacBookPro6_2">
+    <rdfs:label>Tim's Macbook Pro</rdfs:label>
+    <owl:sameAs rdf:resource="http://tw.rpi.edu/web/inside/machine/lebot_macbook#"/>
+  </rdf:Description>
+  <foaf:OnlineAccount rdf:about="http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot">
+    <dcterms:isPartOf rdf:resource="http://purl.org/twc/id/machine/lebot/MacBookPro6_2"/>
+    <sioc:account_of rdf:resource="http://tw.rpi.edu/instances/TimLebo"/>
+    <foaf:accountName>lebot</foaf:accountName>
+  </foaf:OnlineAccount>
+  <rdf:Description rdf:about="http://tw.rpi.edu/instances/TimLebo">
+    <foaf:holdsAccount rdf:resource="http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot"/>
+  </rdf:Description>
+</rdf:RDF>

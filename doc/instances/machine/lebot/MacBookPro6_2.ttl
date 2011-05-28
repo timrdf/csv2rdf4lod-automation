@@ -1,13 +1,17 @@
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sioc:    <http://rdfs.org/sioc/ns#> .
 
 <http://purl.org/twc/id/machine/lebot/MacBookPro6_2> 
    rdfs:label "Tim's Macbook Pro";
-   owl:sameAs <http://tw.rpi.edu/web/inside/machine/lebot_macbook#>
+   owl:sameAs <http://tw.rpi.edu/web/inside/machine/lebot_macbook#>;
 .
 
 <http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
 
-<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
    a foaf:OnlineAccount;
    foaf:accountName "lebot";
    dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
