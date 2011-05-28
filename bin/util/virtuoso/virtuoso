@@ -6,7 +6,7 @@
 # chkconfig: 2345 99 05
 # description: Virtuoso server daemon
 
-NAME=virtuoso
+NAME="virtuoso"
 DESC="OpenLink Virtuoso Open-Source Edition"
 
 DAEMON=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}/bin/virtuoso-t
@@ -84,7 +84,7 @@ case "$1" in
 ;;
   *)
 	N=/etc/init.d/$NAME
-	echo "Usage: $N {start|stop|status}" >&2
+	echo "usage: `basename $0` {start, stop, status}" >&2
 	exit 1
 esac
 
