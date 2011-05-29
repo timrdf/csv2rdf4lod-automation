@@ -385,7 +385,7 @@ for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
    echo "   \$sudo ln \"$sourceFile\" \"\$wwwfile\""                                                 >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
-   echo "   echo \"  $sourceFile omitted.\""                                                         >> $lnwwwrootSH
+   echo "   echo \"  -- $sourceFile omitted. --\""                                                   >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
    echo ""                                                                                           >> $lnwwwrootSH
    echo "if [ -e \"$sourceFileProvenance\" ]; then"                                                  >> $lnwwwrootSH
@@ -398,7 +398,7 @@ for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
    echo "   \$sudo ln \"$sourceFileProvenance\" \"\$wwwfile\""                                       >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
-   echo "   echo \"  $sourceFileProvenance omitted.\""                                               >> $lnwwwrootSH
+   echo "   echo \"  -- $sourceFileProvenance omitted. --\""                                         >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
    echo ""                                                                                           >> $lnwwwrootSH
 done
@@ -418,7 +418,7 @@ do
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
    echo "   \$sudo ln \"$inputFile\" \"\$wwwfile\""                                                  >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
-   echo "   echo \"  $inputFile omitted.\""                                                          >> $lnwwwrootSH
+   echo "   echo \"  -- $inputFile omitted. --\""                                                    >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
    echo ""                                                                                           >> $lnwwwrootSH
 done
@@ -443,7 +443,7 @@ do
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
    echo "   \$sudo ln \"$paramFile\" \"\$wwwfile\""                                                  >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
-   echo "   echo \"  $paramFile omitted.\""                                                          >> $lnwwwrootSH
+   echo "   echo \"  -- $paramFile omitted. --\""                                                    >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
    echo ""                                                                                           >> $lnwwwrootSH
 done
@@ -465,7 +465,7 @@ do
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
    echo "   \$sudo ln \"$pmlFile\" \"\$wwwfile\""                                                    >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
-   echo "   echo \"  $pmlFile omitted.\""                                                            >> $lnwwwrootSH
+   echo "   echo \"  -- $pmlFile omitted. --\""                                                      >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
    echo ""                                                                                           >> $lnwwwrootSH
 done
@@ -501,7 +501,7 @@ do
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
    echo "   \$sudo ln $publishDir/\$dump \$wwwfile"                                                  >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
-   echo "   echo \"  $conversionID $serialization omitted.\""                                        >> $lnwwwrootSH
+   echo "   echo \"  -- full $serialization omitted. -- \""                                          >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
    echo ""                                                                                           >> $lnwwwrootSH
 done
@@ -534,7 +534,7 @@ do
       echo "   echo \"  \$wwwfile\""                                                                 >> $lnwwwrootSH
       echo "   \$sudo ln $publishDir/\$dump \$wwwfile"                                               >> $lnwwwrootSH
       echo "else"                                                                                    >> $lnwwwrootSH
-      echo "   echo \"  $conversionID $serialization omitted.\""                                     >> $lnwwwrootSH
+      echo "   echo \"  -- $conversionID $serialization omitted. --\""                               >> $lnwwwrootSH
       echo "fi"                                                                                      >> $lnwwwrootSH
       echo ""                                                                                        >> $lnwwwrootSH
       for subset in sample                     # <---- Add layer-level subsets here.
@@ -555,7 +555,7 @@ do
          echo "   echo \"  \$wwwfile\""                                                              >> $lnwwwrootSH
          echo "   \$sudo ln $publishDir/\$dump \$wwwfile"                                            >> $lnwwwrootSH
          echo "else"                                                                                 >> $lnwwwrootSH
-         echo "   echo \"  $conversionID $subset $serialization omitted.\""                          >> $lnwwwrootSH
+         echo "   echo \"  -- $conversionID $subset $serialization omitted. --\""                    >> $lnwwwrootSH
          echo "fi"                                                                                   >> $lnwwwrootSH
          echo ""                                                                                     >> $lnwwwrootSH
       done
