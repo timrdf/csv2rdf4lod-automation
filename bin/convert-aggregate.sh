@@ -322,7 +322,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
       echo "$dumpFile.$zip (will delete uncompressed version at end of processing)" | tee -a $CSV2RDF4LOD_LOG
       dumpFileDir=`dirname $dumpFile`
       dumpFileBase=`basename $dumpFile`
-      pushd $dumpFileDir 2>/dev/null
+      pushd $dumpFileDir &> /dev/null
          tar czf $dumpFileBase.$zip $dumpFileBase  # TODO:notar
 
          # Don't use tar if there is only ever one file; use gzip instead:
