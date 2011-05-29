@@ -37,6 +37,11 @@ fi
 
 echo "Loading triples into graph <$graph_uri>..."
 
+if [ ${#CSV2RDF4LOD_CONVERT_DATA_ROOT} -gt 0 ]; then
+   echo $CSV2RDF4LOD_CONVERT_DATA_ROOT
+   echo $data_file
+fi
+
 # Copy file to Virtuoso allowed directory
 cp ${data_file} ${virtuoso_allowed_dir}
 file_name_local=${data_file##*/}
