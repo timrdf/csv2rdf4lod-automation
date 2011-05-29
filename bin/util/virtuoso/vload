@@ -74,11 +74,16 @@ case "$input_format" in
    ;;
 esac
 
-${isql_cmd} ${isql_pwd} << EOF &> ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log
+vload_log=${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$
+
+${isql_cmd} ${isql_pwd} << EOF &> $vload_log
    $load_func
    checkpoint;
    exit;
 EOF
+
+rm ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log
+ln -s $vload_log ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log
 
 # Remove temp file
 rm $file_name_full
@@ -86,8 +91,8 @@ rm $file_name_full
 # Status message
 # TODO: cat file if it contains /^... Error/
 if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
-   echo "Loading finished! ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log:"	
-   cat ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log	
+   echo "Loading finished! $vload_log:"	
+   cat $vload_log
 else
    echo "Loading finished! Check ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log for details."	
 fi
