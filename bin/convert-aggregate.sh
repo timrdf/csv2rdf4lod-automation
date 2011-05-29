@@ -716,8 +716,8 @@ echo "   metaURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/sou
 echo "   graph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\"/vocab/Dataset"     >> $vloadSH
 #echo "   #echo sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                           >> $vloadSH
 #echo "   #sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                >> $vloadSH
-echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"            >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"                 >> $vloadSH
+echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                     >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
 echo "fi"                                                                                       >> $vloadSH
 echo ""                                                                                         >> $vloadSH
