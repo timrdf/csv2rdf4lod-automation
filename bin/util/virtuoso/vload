@@ -10,6 +10,16 @@
 # Usage: vload [rdf|ttl|nt|nq] [data_file] [graph_uri]
 # See http://docs.openlinksw.com/virtuoso/fn_ttlp_mt.html
 
+# Virtuoso can read from directories listed in 'DirsAllowed' 
+# in /opt/virtuoso/var/lib/virtuoso/db/virtuoso.ini
+virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/vload-tmp/input-files"
+if [ ! -d $virtuoso_allowed_dir ]; then
+   mkdir -p $virtuoso_allowed_dir
+   chmod a+w $virtuoso_allowed_dir
+fi
+
+#
+# Check usage
 if [ $# -ne 3 ]; then
 	echo "usage: `basename $0` vload {rdf, ttl, nt, nq} <data_file> <graph_uri>"
    exit 1
@@ -28,11 +38,6 @@ fi
 echo "Loading triples into graph <$graph_uri>..."
 
 # Copy file to Virtuoso allowed directory
-virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/vload-tmp"
-if [ ! -d $virtuoso_allowed_dir ]; then
-   mkdir -p $virtuoso_allowed_dir
-   chmod a+w $virtuoso_allowed_dir
-fi
 cp ${data_file} ${virtuoso_allowed_dir}
 file_name_local=${data_file##*/}
 file_name_full=$virtuoso_allowed_dir/$file_name_local
@@ -85,13 +90,13 @@ echo ""                                                            >> $vload_log
 echo "# user: `whoami`"                                            >> $vload_log
 echo "# time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vload_log
 
+# Move the latest.log pointer to the log we just created.
 rm $virtuoso_allowed_dir/latest.log &> /dev/null
 ln -s $vload_log $virtuoso_allowed_dir/latest.log
 
 # Remove temp file
 rm $file_name_full
 
-# Status message
 # TODO: cat file if it contains /^... Error/
 if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
    echo "Loading finished! $vload_log:"	
