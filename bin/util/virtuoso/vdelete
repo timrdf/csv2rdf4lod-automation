@@ -43,4 +43,4 @@ EOF
 rm $log_dir/latest.log &> /dev/null
 ln -s $vdelete_log $log_dir/latest.log
 
-echo "Deleting finished. Check $vdelete_log $log_dir/latest.log for details."
+echo "Deleting finished. Check $log_dir/latest.log for details (currently $vdelete_log)."
