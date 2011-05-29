@@ -736,7 +736,7 @@ echo ""                                                                         
 # http://logd.tw.rpi.edu/source/nitrd-gov/dataset/DDD/version/2011-Jan-27
 # http://logd.tw.rpi.edu/source/nitrd-gov/file/DDD/version/2011-Jan-27/conversion/nitrd-gov-DDD-2011-Jan-27.ttl.gz
 echo "dump=$allNT"                                                                              >> $vloadSH
-echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                                        >> $vloadSH
+#echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                                        >> $vloadSH
 echo "url=$http_allNT"                                                                          >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                   >> $vloadSH
 echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                        >> $vloadSH
