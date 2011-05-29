@@ -83,8 +83,8 @@ ${isql_cmd} ${isql_pwd} << EOF &> $vload_log
 EOF
 echo "user: `whoami`" >> $vload_log
 
-rm $virtuoso_allowed_dir/vload.log &> /dev/null
-ln -s $vload_log $virtuoso_allowed_dir/vload.log
+rm $virtuoso_allowed_dir/latest.log &> /dev/null
+ln -s $vload_log $virtuoso_allowed_dir/latest.log
 
 # Remove temp file
 rm $file_name_full
@@ -95,5 +95,5 @@ if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
    echo "Loading finished! $vload_log:"	
    cat $vload_log
 else
-   echo "Loading finished! Check $virtuoso_allowed_dir/vload.log for details."	
+   echo "Loading finished! Check $virtuoso_allowed_dir/latest.log for details."	
 fi
