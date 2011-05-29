@@ -30,7 +30,7 @@ if [ ! -d $log_dir ]; then
    chmod a+w $log_dir
 fi
 
-vdelete_log=$log_dir/`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
+vdelete_log=$log_dir/delete_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
 
 # Call SPARQL CLEAR to delete named graphs
 sparql_delete="SPARQL CLEAR GRAPH <$graph_uri>;"
@@ -40,7 +40,7 @@ ${isql_cmd} ${isql_pass} << EOF &> $vdelete_log
    exit;
 EOF
 
-rm $log_dir/latest.log
+rm $log_dir/latest.log &> /dev/null
 ln -s $vdelete_log $log_dir/latest.log
 
 echo "Deleting finished. Check $vdelete_log $log_dir/latest.log for details."
