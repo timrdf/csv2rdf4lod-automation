@@ -81,6 +81,7 @@ ${isql_cmd} ${isql_pwd} << EOF &> $vload_log
    checkpoint;
    exit;
 EOF
+echo "user: `whoami`" >> $vload_log
 
 rm $virtuoso_allowed_dir/vload.log &> /dev/null
 ln -s $vload_log $virtuoso_allowed_dir/vload.log
