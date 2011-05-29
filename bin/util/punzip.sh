@@ -90,7 +90,7 @@ while [ $# -gt 0 ]; do
    fi
 
    for file in $files; do
-      echo $unzipper
+
       if [ $unzipper == "gunzip" ]; then
          usageDateTime=`dateInXSDDateTime.sh`
          gunzip -c $zip > $file
