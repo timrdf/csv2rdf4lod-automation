@@ -20,11 +20,12 @@ usage_message="usage: `basename $0` [-I] [--repeat a.pml.ttl] [url [-F \"a=b\"]*
 
 if [ $# -lt 1 ]; then
    echo $usage_message 
-   echo "  -I  : do not download file; just obtain HTTP header information (c.f. curl -I)"
-   echo "  url : the URL to retrieve"
-   echo "  -F  : submit POST with variable=value"
-   echo "  -n  : use 'name' as the local file name."
-   echo "  -e  : use 'extension' as the extension to the local file name."
+   echo "  -I       : do not download file; just obtain HTTP header information (c.f. curl -I)"
+   echo "  url      : the URL to retrieve"
+   echo "  -F       : submit POST with variable=value"
+   echo "  -n       : use 'name' as the local file name."
+   echo "  -e       : use 'extension' as the extension to the local file name."
+   echo "  --repeat : dig into a PML file and retrieve the pmlp:Sources it describes."
    exit 1
 fi
 
