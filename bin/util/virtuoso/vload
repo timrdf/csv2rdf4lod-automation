@@ -37,7 +37,7 @@ fi
 
 echo "Loading triples into graph <$graph_uri>..."
 
-if [ ${#CSV2RDF4LOD_CONVERT_DATA_ROOT} -gt 0 ]; then
+if [[ ${#CSV2RDF4LOD_CONVERT_DATA_ROOT} > 0 && $data_file =~ $CSV2RDF4LOD_CONVERT_DATA_ROOT.* ]]; then
    echo $CSV2RDF4LOD_CONVERT_DATA_ROOT
    echo $data_file
 fi
