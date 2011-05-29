@@ -62,11 +62,13 @@ while [ $# -gt 0 ]; do
          shift
       fi
    fi
+   if [ $# -eq 0 ]; then
+      exit # Nothing to do after the --repeat
+   fi
 
    echo
    echo ---------------------------------- pcurl ---------------------------------------
    url="$1"
-   echo "URL: ${#url} $url"
  
    HTTP_TYPE="GET"
    formFields=""
