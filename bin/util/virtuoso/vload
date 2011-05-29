@@ -37,20 +37,29 @@ fi
 
 echo "Loading triples into graph <$graph_uri>..."
 
-# Check to see if file is within a directory Virtuoso can directly read from.
+# Check to see if file is within a directory Virtuoso can read from directly.
+load_in_place="false"
 if [[ ${#CSV2RDF4LOD_CONVERT_DATA_ROOT} > 1 ]]; then
    if [[ $data_file =~ $CSV2RDF4LOD_CONVERT_DATA_ROOT.* ]]; then
       echo "NO NEED TO COPY: $data_file is within virtuoso-readable directory: $CSV2RDF4LOD_CONVERT_DATA_ROOT"
+      load_in_place="true"
    elif [[ -e `pwd`/$data_file && `pwd` =~ $CSV2RDF4LOD_CONVERT_DATA_ROOT.* ]]; then
+      # data_file was a local name, but working directory is virtuoso-readable.
       echo "NO NEED TO COPY: $data_file is within virtuoso-readable directory: $CSV2RDF4LOD_CONVERT_DATA_ROOT"
+      load_in_place="true"
+      data_file=`pwd`/$data_file
    fi
 fi
 
-# Copy file to Virtuoso allowed directory
-cp ${data_file} ${virtuoso_allowed_dir}
-file_name_local=${data_file##*/}
-file_name_full=$virtuoso_allowed_dir/$file_name_local
-echo COPYING ${data_file} $file_name_full
+if [[ $load_in_place == "false" ]]; then
+   # Copy file to Virtuoso allowed directory
+   cp ${data_file} ${virtuoso_allowed_dir}
+   file_name_local=${data_file##*/}
+   file_name_full=$virtuoso_allowed_dir/$file_name_local
+   echo COPYING ${data_file} $file_name_full
+else
+   file_name_full=$data_file
+fi
 
 # Log into Virtuoso isql env
 # USERNAME and PASSWORD (see http://docs.openlinksw.com/virtuoso/isql.html)
@@ -103,8 +112,10 @@ echo "# time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vload_log
 rm $virtuoso_allowed_dir/latest.log &> /dev/null
 ln -s $vload_log $virtuoso_allowed_dir/latest.log
 
-# Remove temp file
-rm $file_name_full
+if [[ $load_in_place == "false" ]]; then
+   # Remove temp file
+   rm $file_name_full
+fi
 
 # TODO: cat file if it contains /^... Error/
 if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
