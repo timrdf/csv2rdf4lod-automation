@@ -50,6 +50,8 @@ while [ $# -gt 0 ]; do
    unzipper="unzip"
    if [[ $zip =~ (\.gz$) ]]; then # NOTE: alternative: ${zip#*.} == "gz"
       unzipper="gunzip"
+   elif [[ $zip =~ .*\.tar$ ]]; then
+      unzipper="tar"
    fi 
       myMD5=`${CSV2RDF4LOD_HOME}/bin/util/md5.sh $0`
    unzipMD5=`${CSV2RDF4LOD_HOME}/bin/util/md5.sh \`which $unzipper\``
@@ -78,15 +80,22 @@ while [ $# -gt 0 ]; do
       files=`unzip -l "$zip" | tail -$tailParam | head -$numFiles | awk -v zip="$zip" -f $CSV2RDF4LOD_HOME/bin/util/punzip.awk`
    elif [ $unzipper == "gunzip" ]; then
       files=${zip%.*}
+   elif [ $unzipper == "tar" ]; then
+      files=`tar -tf $zip` 
+      # NOTE: the line below ACTUALLY uncompresses the file(s)
+      tar -tf $zip
    else
       echo "WARNING: no files processed b/c "
       files=""
    fi
 
-   for file in $files #`unzip -l "$zip" | tail -$tailParam | head -$numFiles | awk -v zip="$zip" -f $CSV2RDF4LOD_HOME/bin/util/punzip.awk`
-   do
+   for file in $files; do
       if [ $unzipper == "gunzip" ]; then
+         usageDateTime=`dateInXSDDateTime.sh`
          gunzip -c $zip > $file
+      elif [ $unzipper == "tar" ]; then
+         usageDateTime=`dateInXSDDateTime.sh`
+         tar -f $zip -t $file
       fi
 
       echo $file came from $zip
@@ -176,7 +185,8 @@ while [ $# -gt 0 ]; do
       echo "conv:Unzip rdfs:subClassOf pmlp:InferenceEngine ."                                  >> $file.pml.ttl
       echo                                                                                      >> $file.pml.ttl
       if [[ $file =~ .*.tar ]]; then
-         echo "TODO: expand tar, too"
+         echo "Recursively uncompressing $file"
+         $0 $file 
       fi
    done
    echo --------------------------------------------------------------------------------
