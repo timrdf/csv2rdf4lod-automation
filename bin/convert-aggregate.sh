@@ -733,7 +733,6 @@ echo "   echo usage: \`basename \$0\` --{sample, meta, abstract}"               
 echo "   exit 1"                                                                                >> $vloadSH
 echo "fi"                                                                                       >> $vloadSH
 echo ""                                                                                         >> $vloadSH
-echo ""                                                                                         >> $vloadSH
 # http://logd.tw.rpi.edu/source/nitrd-gov/dataset/DDD/version/2011-Jan-27
 # http://logd.tw.rpi.edu/source/nitrd-gov/file/DDD/version/2011-Jan-27/conversion/nitrd-gov-DDD-2011-Jan-27.ttl.gz
 echo "dump=$allNT"                                                                              >> $vloadSH
