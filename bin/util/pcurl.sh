@@ -49,6 +49,7 @@ while [ $# -gt 0 ]; do
          if [ -e $local_pml ]; then
             sources=`rapper -g -o ntriples $local_pml 2>/dev/null | awk '$3 == "<http://inference-web.org/2.0/pml-provenance.owl#Source>"{if(saw[$1]!=$1){saw[$1]=$1;gsub(/<|>/,"");print $1}}'`
             for url in $sources; do
+               echo "repeating retrieval of $url"
                $CSV2RDF4LOD_HOME/bin/util/pcurl.sh $url # It's a good day when you get to use recursion.
             done
             # TODO: dig in to find -e -n params
