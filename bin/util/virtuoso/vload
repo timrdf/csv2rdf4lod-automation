@@ -38,8 +38,7 @@ fi
 echo "Loading triples into graph <$graph_uri>..."
 
 if [[ ${#CSV2RDF4LOD_CONVERT_DATA_ROOT} > 0 && $data_file =~ $CSV2RDF4LOD_CONVERT_DATA_ROOT.* ]]; then
-   echo $CSV2RDF4LOD_CONVERT_DATA_ROOT
-   echo $data_file
+   echo "NO NEED TO COPY: $data_file is within virtuoso-readable directory: $CSV2RDF4LOD_CONVERT_DATA_ROOT"
 fi
 
 # Copy file to Virtuoso allowed directory
