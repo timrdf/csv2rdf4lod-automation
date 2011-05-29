@@ -16,7 +16,7 @@
 #
 # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-pcurl.sh
 
-usage_message="usage: `basename $0` [-I] [url [-F \"a=b\"]* [-n name] [-e extension]]     [url [-F \"a=b\"]* [-n name] [-e extension]]*" #todo: [-from a.pml] " 
+usage_message="usage: `basename $0` [-I] [--repeat a.pml.ttl] [url [-F \"a=b\"]* [-n name] [-e extension]]     [url [-F \"a=b\"]* [-n name] [-e extension]]*" #todo: [-from a.pml] " 
 
 if [ $# -lt 1 ]; then
    echo $usage_message 
@@ -34,15 +34,33 @@ if [ $1 == "-I" ]; then
    shift 
 fi
 
-curlPath=`which curl`
-curlMD5="md5_`md5.sh $curlPath`"
-
-# md5 this script
+# md5s
 myMD5="md5_`$CSV2RDF4LOD_HOME/bin/util/md5.sh $0`"
+curlMD5="md5_`md5.sh \`which curl\``"
 
-alias rname="java edu.rpi.tw.string.NameFactory"
 logID=`java edu.rpi.tw.string.NameFactory`
 while [ $# -gt 0 ]; do
+
+   if [ "$1" == "--repeat" ]; then
+      if [ $# -gt 1 ]; then
+         local_pml="$2"
+         shift 2
+         if [ -e $local_pml ]; then
+            sources=`rapper -g -o ntriples $local_pml 2>/dev/null | awk '$3 == "<http://inference-web.org/2.0/pml-provenance.owl#Source>"{if(saw[$1]!=$1){saw[$1]=$1;gsub(/<|>/,"");print $1}}'`
+            for url in $sources; do
+               $CSV2RDF4LOD_HOME/bin/util/pcurl.sh $url # It's a good day when you get to use recursion.
+            done
+            # TODO: dig in to find -e -n params
+            # TODO: dig in to find POST att=values
+         else
+            echo "error: a.pml.ttl not specified"
+         fi
+      else
+         echo "error: a.pml.ttl not specified"
+         shift
+      fi
+   fi
+
    echo
    echo ---------------------------------- pcurl ---------------------------------------
    url="$1"
