@@ -28,7 +28,7 @@ fi
 echo "Loading triples into graph <$graph_uri>..."
 
 # Copy file to Virtuoso allowed directory
-virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/a/b/c/d/e/f/g"
+virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/vload-tmp"
 if [ ! -d $virtuoso_allowed_dir ]; then
    mkdir -p $virtuoso_allowed_dir
    chmod a+w $virtuoso_allowed_dir
@@ -74,7 +74,7 @@ case "$input_format" in
    ;;
 esac
 
-vload_log=${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$
+vload_log=$virtuoso_allowed_dir/`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$
 
 ${isql_cmd} ${isql_pwd} << EOF &> $vload_log
    $load_func
@@ -82,8 +82,8 @@ ${isql_cmd} ${isql_pwd} << EOF &> $vload_log
    exit;
 EOF
 
-rm ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log
-ln -s $vload_log ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log
+rm $virtuoso_allowed_dir/vload.log
+ln -s $vload_log $virtuoso_allowed_dir/vload.log
 
 # Remove temp file
 rm $file_name_full
@@ -94,5 +94,5 @@ if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
    echo "Loading finished! $vload_log:"	
    cat $vload_log
 else
-   echo "Loading finished! Check ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log for details."	
+   echo "Loading finished! Check $virtuoso_allowed_dir/vload.log for details."	
 fi
