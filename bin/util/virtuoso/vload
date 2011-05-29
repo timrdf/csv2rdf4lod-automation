@@ -28,7 +28,7 @@ fi
 echo "Loading triples into graph <$graph_uri>..."
 
 # Copy file to Virtuoso allowed directory
-virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp"
+virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/a/b/c/d/e/f/g"
 if [ ! -d $virtuoso_allowed_dir ]; then
    mkdir -p $virtuoso_allowed_dir
    chmod a+w $virtuoso_allowed_dir
@@ -84,6 +84,7 @@ EOF
 rm $file_name_full
 
 # Status message
+# TODO: cat file if it contains /^... Error/
 if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
    echo "Loading finished! ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log:"	
    cat ${CSV2RDF4LOD_HOME}/tmp/virtuoso-tmp/vload.log	
