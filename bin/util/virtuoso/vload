@@ -41,11 +41,9 @@ echo "Loading triples into graph <$graph_uri>..."
 load_in_place="false"
 if [[ ${#CSV2RDF4LOD_CONVERT_DATA_ROOT} > 1 ]]; then
    if [[ $data_file =~ $CSV2RDF4LOD_CONVERT_DATA_ROOT.* ]]; then
-      echo "NO NEED TO COPY: $data_file is within virtuoso-readable directory: $CSV2RDF4LOD_CONVERT_DATA_ROOT"
       load_in_place="true"
    elif [[ -e `pwd`/$data_file && `pwd` =~ $CSV2RDF4LOD_CONVERT_DATA_ROOT.* ]]; then
       # data_file was a local name, but working directory is virtuoso-readable.
-      echo "NO NEED TO COPY: $data_file is within virtuoso-readable directory: $CSV2RDF4LOD_CONVERT_DATA_ROOT"
       load_in_place="true"
       data_file=`pwd`/$data_file
    fi
@@ -58,6 +56,7 @@ if [[ $load_in_place == "false" ]]; then
    file_name_full=$virtuoso_allowed_dir/$file_name_local
    echo COPYING ${data_file} $file_name_full
 else
+   echo "no need to copy: $data_file is within virtuoso-readable directory: $CSV2RDF4LOD_CONVERT_DATA_ROOT"
    file_name_full=$data_file
 fi
 
