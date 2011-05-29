@@ -13,6 +13,7 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "CSV2RDF4LOD_CONVERT_PERSON_URI                           ${CSV2RDF4LOD_CONVERT_PERSON_URI:="(not required)"}"
 
    echo "--"
+   echo "CSV2RDF4LOD_CONVERT_DATA_ROOT                            ${CSV2RDF4LOD_CONVERT_DATA_ROOT:="(not required)"}"
    echo "CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER                       ${CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER:="(will default to: false)"}"
    echo "CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS                   ${CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS:="(will default to: 2)"}"
    echo "CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY                   ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:="(will default to: false)"}"
@@ -97,6 +98,7 @@ else
    export CSV2RDF4LOD_CONVERT_MACHINE_URI=""           
    export CSV2RDF4LOD_CONVERT_PERSON_URI=""           
 
+   export CSV2RDF4LOD_CONVERT_DATA_ROOT=""
    export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER=""
    export CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS=""
    export CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY=""

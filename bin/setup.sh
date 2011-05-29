@@ -103,6 +103,21 @@ export CSV2RDF4LOD_CONVERT_MACHINE_URI=""
 export CSV2RDF4LOD_CONVERT_PERSON_URI="http://tw.rpi.edu/instances/notTimLebo"
 export CSV2RDF4LOD_CONVERT_PERSON_URI=""
 
+#
+# Customize: 
+#
+# Variable type: Machine N Project Y User Y Activity N
+#
+# This is '/source/' as described in "Starting a Data Directory (source/)" at 
+# https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-process-phase:-retrieve
+#
+# This is ONLY required to avoid a redundant file copy when loading into Virtuoso.
+# If it is not set, things will still work but we waste time and disk space.
+#
+# (used in vload)
+#
+export CSV2RDF4LOD_CONVERT_DATA_ROOT="/projects/lobd/data/source"
+export CSV2RDF4LOD_CONVERT_DATA_ROOT=""
 
 #
 # Customize: Prevent the naive interpretation of tabular data ("raw" layer).
