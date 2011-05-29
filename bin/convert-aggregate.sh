@@ -702,8 +702,8 @@ do
    layerID=`echo $layerSlug | sed 's/^.*\//e/'` # enhancement/1 -> e1
    echo "   layerSlug=\"$layerSlug\""                                                           >> $vloadSH # .-todo
    echo "   sampleGraph=\"\$graph/conversion/\$layerSlug/subset/sample\""                       >> $vloadSH
-   echo "   #sampleTTL=$SDV.`echo $layerSlug | sed 's/^.*\//e/'`.sample.ttl"                    >> $vloadSH # .-todo
-   echo "   #sudo /opt/virtuoso/scripts/vload ttl \$sampleTTL \$sampleGraph"                    >> $vloadSH
+#   echo "   #sampleTTL=$SDV.`echo $layerSlug | sed 's/^.*\//e/'`.sample.ttl"                    >> $vloadSH # .-todo
+#   echo "   #sudo /opt/virtuoso/scripts/vload ttl \$sampleTTL \$sampleGraph"                    >> $vloadSH
    echo "   sampleURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.${layerID}.sample.ttl\"" >> $vloadSH
    #                  http://logd.tw.rpi.edu/source/twc-rpi-edu/file/instance-hub-us-states-and-territories/version/2011-Mar-31_17-51-07/conversion/twc-rpi-edu-instance-hub-us-states-and-territories-2011-Mar-31_17-51-07.e1.sample
    echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"         >> $vloadSH
@@ -714,8 +714,8 @@ echo "   exit 1"                                                                
 echo "elif [ \"\${1:-'.'}\" == \"--meta\" -a -e $allVOID ]; then"                               >> $vloadSH
 echo "   metaURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.void.ttl\"" >> $vloadSH
 echo "   graph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\"/vocab/Dataset"     >> $vloadSH
-echo "   #echo sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                           >> $vloadSH
-echo "   #sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                >> $vloadSH
+#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                           >> $vloadSH
+#echo "   #sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                >> $vloadSH
 echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"            >> $vloadSH
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"                 >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
