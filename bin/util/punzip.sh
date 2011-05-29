@@ -51,27 +51,10 @@ while [ $# -gt 0 ]; do
    if [[ $zip =~ (\.gz$) ]]; then # NOTE: alternative: ${zip#*.} == "gz"
       unzipper="gunzip"
    fi 
-
-   # md5 this script
-   # TODO: md5.sh $0
-   unzipperPath=`which $unzipper`
-   myMD5=""
-   unzipMD5=""
-   if [ `which md5` ]; then
-      # md5 outputs:
-      # MD5 (punzip.sh) = ecc71834c2b7d73f9616fb00adade0a4
-         myMD5="`md5 $0               | perl -pe 's/^.* = //'`"
-      unzipMD5="`md5 $unzipperPath    | perl -pe 's/^.* = //'`"
-   elif [ `which md5sum` ]; then
-         myMD5="`md5sum $0            | perl -pe 's/\s.*//'`"
-      unzipMD5="`md5sum $unzipperPath | perl -pe 's/\s.*//'`"
-   else
-      echo "`basename $0`: can not find md5 to md5 this script."
-   fi
-      myMD5=`${CSV2RDF4LOD_HOME}/bin/util/md5.sh  $0`
-   unzipMD5="`${CSV2RDF4LOD_HOME}/bin/util/md5.sh $unzipperPath`"
+      myMD5=`${CSV2RDF4LOD_HOME}/bin/util/md5.sh $0`
+   unzipMD5=`${CSV2RDF4LOD_HOME}/bin/util/md5.sh \`which $unzipper\``
    #echo "punzip.sh's md5: $myMD5"
-   #echo "$unzipper's md5: $unzipMD5 ($unzipperPath)"
+   #echo "$unzipper's md5: $unzipMD5 (`which $unzipper`)"
    
    echo
    echo ---------------------------------- punzip ---------------------------------------
@@ -84,7 +67,6 @@ while [ $# -gt 0 ]; do
       zipModDateTime=`stat -c "%y" $zip | sed -e 's/ /T/' -e 's/\..* / /' -e 's/ //' -e 's/\(..\)$/:\1/'`
    fi
 
-   #usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'`
    usageDateTime=`dateInXSDDateTime.sh`
 
    if [ $unzipper == "unzip" ]; then
