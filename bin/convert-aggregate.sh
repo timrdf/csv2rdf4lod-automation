@@ -724,7 +724,7 @@ echo ""                                                                         
 echo "# Modify the graph before continuing to load everything"                                  >> $vloadSH
 echo "if [[ \${1:-'.'} == \"--unversioned\" || \${1:-'.'} == \"--abstract\" ]]; then"           >> $vloadSH
 echo "   # strip off version"                                                                   >> $vloadSH
-echo "   graph="\$\{CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/$\{sourceID}/dataset/$\{datasetID}\"" >> $vloadSH
+echo "   graph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/dataset/${datasetID}\"" >> $vloadSH
 echo "   graph=\"\`echo \$graph\ | perl -pe 's|/version/[^/]*$||'\`\""                          >> $vloadSH
 echo "   echo populating abstract named graph \(\$graph\) instead of versioned named graph."    >> $vloadSH
 echo "elif [ \$# -gt 0 ]; then"                                                                 >> $vloadSH
