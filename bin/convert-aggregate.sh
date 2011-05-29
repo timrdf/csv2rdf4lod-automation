@@ -712,9 +712,12 @@ do
 done
 echo "   exit 1"                                                                                >> $vloadSH
 echo "elif [ \"\${1:-'.'}\" == \"--meta\" -a -e $allVOID ]; then"                               >> $vloadSH
+echo "   metaURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.void.ttl\"" >> $vloadSH
 echo "   graph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\"/vocab/Dataset"     >> $vloadSH
-echo "   echo sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                            >> $vloadSH
-echo "   sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                 >> $vloadSH
+echo "   #echo sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                           >> $vloadSH
+echo "   #sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                >> $vloadSH
+echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"            >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"                 >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
 echo "fi"                                                                                       >> $vloadSH
 echo ""                                                                                         >> $vloadSH
