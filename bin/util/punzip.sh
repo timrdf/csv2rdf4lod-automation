@@ -90,6 +90,7 @@ while [ $# -gt 0 ]; do
    fi
 
    for file in $files; do
+      echo $unzipper
       if [ $unzipper == "gunzip" ]; then
          usageDateTime=`dateInXSDDateTime.sh`
          gunzip -c $zip > $file
@@ -100,7 +101,7 @@ while [ $# -gt 0 ]; do
 
       echo $file came from $zip
       requestID=`java edu.rpi.tw.string.NameFactory`
-      extractedFileMD5=`md5.sh $file`
+      extractedFileMD5=`$CSV2RDF4LOD_HOME/bin/util/md5.sh $file`
 
       # Relative paths.
       fileURI="<$file>"
