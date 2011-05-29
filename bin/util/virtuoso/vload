@@ -74,7 +74,7 @@ case "$input_format" in
    ;;
 esac
 
-vload_log=$virtuoso_allowed_dir/`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$
+vload_log=$virtuoso_allowed_dir/`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
 
 ${isql_cmd} ${isql_pwd} << EOF &> $vload_log
    $load_func
