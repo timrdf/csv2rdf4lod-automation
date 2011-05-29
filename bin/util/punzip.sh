@@ -96,7 +96,7 @@ while [ $# -gt 0 ]; do
          gunzip -c $zip > $file
       elif [ $unzipper == "tar" ]; then
          usageDateTime=`dateInXSDDateTime.sh`
-         tar -f $zip -t $file
+         tar --file $zip --extract $file
       fi
 
       echo $file came from $zip
