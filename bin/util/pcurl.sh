@@ -66,6 +66,7 @@ while [ $# -gt 0 ]; do
    echo
    echo ---------------------------------- pcurl ---------------------------------------
    url="$1"
+   echo "URL: $url"
  
    HTTP_TYPE="GET"
    formFields=""
