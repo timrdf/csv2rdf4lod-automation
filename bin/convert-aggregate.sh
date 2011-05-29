@@ -44,6 +44,7 @@ fi
 touch $publishDir
 
 SDV=$publishDir/$sourceID-$datasetID-$datasetVersion
+S_D_V=$sourceID-$datasetID-$datasetVersion
 allRaw=$publishDir/$sourceID-$datasetID-$datasetVersion.raw.ttl
 allEX=$publishDir/$sourceID-$datasetID-$datasetVersion.e$eID.ttl # only the current enhancement.
 allTTL=$publishDir/$sourceID-$datasetID-$datasetVersion.ttl
@@ -77,7 +78,7 @@ or_see_github="or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2
 # Raw ttl
 #
 conversionIDs="raw"
-conversionSteps="raw"
+layerSlugs="raw"
 convertedRaw=`test \`find $destDir -name "*.raw.ttl" | wc -l\` -gt 0`
 if [ $convertedRaw ]; then
    filesToCompress="$allRaw"
@@ -125,7 +126,7 @@ do
    fi
 
    conversionIDs="$conversionIDs e$eIDD"
-   conversionSteps="$conversionSteps enhancement/$eIDD"
+   layerSlugs="$layerSlugs enhancement/$eIDD"
 done
 
 
@@ -696,17 +697,17 @@ echo "allNT=$allNT # to cite graph"                                             
 echo "graph=\"\`cat \$allNT.graph\`\""                                                          >> $vloadSH
 echo "if [ \"\$1\" == \"--sample\" ]; then"                                                     >> $vloadSH
 http_allRawSample="\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.rdf"
-for conversionStep in $conversionSteps # <---- Add root-level subsets here.
+for layerSlug in $layerSlugs # <---- Add root-level subsets here.
 do
-   layerID=`echo $conversionStep | sed 's/^.*\//e/'`
-   echo "   conversionStep=\"$conversionStep\""                                                 >> $vloadSH # .-todo
-   echo "   sampleTTL=$SDV.`echo $conversionStep | sed 's/^.*\//e/'`.sample.ttl"                >> $vloadSH # .-todo
-   echo "   sampleGraph=\"\$graph/conversion/\$conversionStep/subset/sample\""                  >> $vloadSH
-   echo "   #sudo /opt/virtuoso/scripts/vload ttl \$sampleTTL \$sampleGraph"                     >> $vloadSH
+   layerID=`echo $layerSlug | sed 's/^.*\//e/'` # enhancement/1 -> e1
+   echo "   layerSlug=\"$layerSlug\""                                                           >> $vloadSH # .-todo
+   echo "   sampleTTL=$SDV.`echo $layerSlug | sed 's/^.*\//e/'`.sample.ttl"                     >> $vloadSH # .-todo
+   echo "   sampleURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.${layerID}.sample.ttl\"" >> $vloadSH
    #http://logd.tw.rpi.edu/source/twc-rpi-edu/file/instance-hub-us-states-and-territories/version/2011-Mar-31_17-51-07/conversion/twc-rpi-edu-instance-hub-us-states-and-territories-2011-Mar-31_17-51-07.e1.sample
-   echo "   sampleURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.${layerID}.sample\"" >> $vloadSH
+   echo "   sampleGraph=\"\$graph/conversion/\$layerSlug/subset/sample\""                       >> $vloadSH
+   echo "   #sudo /opt/virtuoso/scripts/vload ttl \$sampleTTL \$sampleGraph"                    >> $vloadSH
    echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"         >> $vloadSH
-   echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"             >> $vloadSH
+   echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"              >> $vloadSH
    echo ""                                                                                      >> $vloadSH
 done
 echo "   exit 1"                                                                                >> $vloadSH
