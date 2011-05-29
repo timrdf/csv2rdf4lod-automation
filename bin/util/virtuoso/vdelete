@@ -39,8 +39,9 @@ ${isql_cmd} ${isql_pass} << EOF &> $vdelete_log
    checkpoint;
    exit;
 EOF
-echo ""               >> $vdelete_log
-echo "# user: `whoami`" >> $vdelete_log
+echo ""                                                            >> $vdelete_log
+echo "# user: `whoami`"                                            >> $vdelete_log
+echo "# time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vdelete_log
 
 rm $log_dir/latest.log &> /dev/null
 ln -s $vdelete_log $log_dir/latest.log
