@@ -63,7 +63,7 @@ http_allRDFXML="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$
 
  allNT_L=$sourceID-$datasetID-$datasetVersion.nt # L: Local name (not including directory; for use when pushd'ing to cHuNk)
 allSAMEAS_L=$sourceID-$datasetID-$datasetVersion.sameas.nt
-filesToCompress="$allRaw"
+filesToCompress=""
 
 zip="gz"
 if [ ! `which rapper` ]; then
@@ -80,6 +80,7 @@ conversionIDs="raw"
 conversionSteps="raw"
 convertedRaw=`test \`find $destDir -name "*.raw.ttl" | wc -l\` -gt 0`
 if [ $convertedRaw ]; then
+   filesToCompress="$allRaw"
    echo $allRaw | tee -a $CSV2RDF4LOD_LOG
    cat $destDir/*.raw.ttl > $allRaw
 fi
@@ -315,7 +316,7 @@ fi
 
 
 #
-# Tarball dump files
+# Compressed dump files
 #
 if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
    for dumpFile in $filesToCompress ; do
@@ -334,7 +335,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
          # gunzip -c $dumpFileBase.gz > $dumpFileBase # Keep .gz and write to original.
          # FYI: 
          # bzip has a -k option to keep it around.
-      popd
+      popd &> /dev/null
       # NOTE, pre-tarball will be deleted at end of this script.
    done
 fi
