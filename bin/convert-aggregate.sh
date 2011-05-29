@@ -947,13 +947,13 @@ fi
 
 
 #
-# Removed the pre-tarball dump files
+# Removed the pre-compressed dump files
 #
 if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
    for dumpFile in $filesToCompress ; do
-      # NOTE, tarball was created earlier in this script.
+      # NOTE, compressed file was created earlier in this script.
       if [ -e $dumpFile.$zip ]; then
-         echo "  $dumpFile - removed b/c \$CSV2RDF4LOD_PUBLISH_COMPRESS=\"true\"" | tee -a $CSV2RDF4LOD_LOG
+         echo "$dumpFile - removed b/c \$CSV2RDF4LOD_PUBLISH_COMPRESS=\"true\"" | tee -a $CSV2RDF4LOD_LOG
          rm $dumpFile
       fi
    done
