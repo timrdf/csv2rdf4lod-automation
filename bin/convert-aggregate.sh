@@ -383,7 +383,7 @@ for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    echo "     \$sudo mkdir -p \`dirname \$wwwfile\`"                                                 >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-   echo "  \$sudo ln \"$sourceFile\" \"\$wwwfile\""                                                  >> $lnwwwrootSH
+   echo "   \$sudo ln \"$sourceFile\" \"\$wwwfile\""                                                 >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  $sourceFile omitted.\""                                                         >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -391,12 +391,12 @@ for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    echo "if [ -e \"$sourceFileProvenance\" ]; then"                                                  >> $lnwwwrootSH
    echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$sourceFileProvenance\"" >> $lnwwwrootSH
    echo "   if [ -e \"\$wwwfile\" ]; then "                                                          >> $lnwwwrootSH
-   echo "    \$sudo rm -f \$wwwfile"                                                                 >> $lnwwwrootSH
+   echo "     \$sudo rm -f \$wwwfile"                                                                >> $lnwwwrootSH
    echo "   else"                                                                                    >> $lnwwwrootSH
    echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                             >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-   echo "  \$sudo ln \"$sourceFileProvenance\" \"\$wwwfile\""                                        >> $lnwwwrootSH
+   echo "   \$sudo ln \"$sourceFileProvenance\" \"\$wwwfile\""                                       >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  $sourceFileProvenance omitted.\""                                               >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -411,12 +411,12 @@ do
    echo "if [ -e \"$inputFile\" ]; then "                                                            >> $lnwwwrootSH
    echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$inputFile\"" >> $lnwwwrootSH
    echo "   if [ -e \"\$wwwfile\" ]; then "                                                          >> $lnwwwrootSH
-   echo "      rm -f \"\$wwwfile\""                                                                  >> $lnwwwrootSH
+   echo "      \$sudo rm -f \"\$wwwfile\""                                                           >> $lnwwwrootSH
    echo "   else"                                                                                    >> $lnwwwrootSH
-   echo "      mkdir -p \`dirname \"\$wwwfile\"\`"                                                   >> $lnwwwrootSH
+   echo "      \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                            >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-   echo "   ln \"$inputFile\" \"\$wwwfile\""                                                         >> $lnwwwrootSH
+   echo "   \$sudo ln \"$inputFile\" \"\$wwwfile\""                                                  >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  $inputFile omitted.\""                                                          >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -441,7 +441,7 @@ do
    echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                             >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-   echo "  \$sudo ln \"$paramFile\" \"\$wwwfile\""                                                   >> $lnwwwrootSH
+   echo "   \$sudo ln \"$paramFile\" \"\$wwwfile\""                                                  >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  $paramFile omitted.\""                                                          >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -463,7 +463,7 @@ do
    echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                             >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-   echo "  \$sudo ln \"$pmlFile\" \"\$wwwfile\""                                                     >> $lnwwwrootSH
+   echo "   \$sudo ln \"$pmlFile\" \"\$wwwfile\""                                                    >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  $pmlFile omitted.\""                                                            >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -486,7 +486,7 @@ do
    echo "     \$sudo mkdir -p \`dirname \$wwwfile.$zip\`"                                            >> $lnwwwrootSH 
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile.$zip\""                                                               >> $lnwwwrootSH 
-   echo "  \$sudo ln $publishDir/\$dump.$zip \$wwwfile.$zip"                                         >> $lnwwwrootSH 
+   echo "   \$sudo ln $publishDir/\$dump.$zip \$wwwfile.$zip"                                        >> $lnwwwrootSH 
    echo ""                                                                                           >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then"                                                               >> $lnwwwrootSH
    echo "      echo \"  \$wwwfile\" - removing b/c $zip available"                                   >> $lnwwwrootSH 
