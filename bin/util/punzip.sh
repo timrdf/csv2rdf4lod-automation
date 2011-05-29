@@ -175,7 +175,7 @@ while [ $# -gt 0 ]; do
       echo                                                                                      >> $file.pml.ttl
       echo "conv:Unzip rdfs:subClassOf pmlp:InferenceEngine ."                                  >> $file.pml.ttl
       echo                                                                                      >> $file.pml.ttl
-      if [ $file =~ .*.tar ]; then
+      if [[ $file =~ *.tar ]]; then
          echo "TODO: expand tar, too"
       fi
    done
