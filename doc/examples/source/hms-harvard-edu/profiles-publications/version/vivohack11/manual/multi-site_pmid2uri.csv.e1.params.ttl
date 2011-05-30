@@ -70,8 +70,8 @@
          conversion:equivalent_property bibo:pmid;
          conversion:comment "";
          conversion:range      rdfs:Literal;
-         conversion:links_via </Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/vivo-ufl-edu/publications/version/vivihack11/source/sparql.rdf>;
-         #conversion:links_via <http://sparql.vivo.ufl.edu/sparql?query=CONSTRUCT+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}%0D%0AWHERE+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}>;
+         #conversion:links_via </Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/vivo-ufl-edu/publications/version/vivihack11/source/sparql.rdf>;
+         conversion:links_via <http://sparql.vivo.ufl.edu/sparql?query=CONSTRUCT+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}%0D%0AWHERE+{%0D%0A+%3Fpub+%3Chttp%3A%2F%2Fpurl.org%2Fontology%2Fbibo%2Fpmid%3E+%3Fid%0D%0A}>;
          conversion:subject_of bibo:pmid;
       ];
       conversion:enhance [
