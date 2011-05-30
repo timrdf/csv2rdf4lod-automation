@@ -103,20 +103,20 @@ while [ $# -gt 0 ]; do
       echo "PCURL: basename localname $localName"
    fi
 
-   echo getting last mod xsddatetime
-   urlINFO=`curl -I $url`
+   #echo getting last mod xsddatetime
+   urlINFO=`curl -I $url 2> /dev/null`
    urlModDateTime=`urldate.sh -field Last-Modified: -format dateTime $url`
-   #echo "url modification date:  $urlModDateTime"
+   echo "PCURL: URL modification date:  $urlModDateTime"
 
-   echo getting redirect name
+   #echo getting redirect name
    redirectedURL=`filename-v3.pl $url`
-   redirectedURLINFO=`curl -I $redirectedURL`
+   redirectedURLINFO=`curl -I $redirectedURL 2> /dev/null`
    redirectedModDate=`urldate.sh -field Last-Modified: -format dateTime $redirectedURL`
    echo "PCURL: http redirect basename `basename $redirectedURL`"
 
-   echo getting last mod
+   #echo getting last mod
    documentVersion=`urldate.sh -field Last-Modified: $url`
-   #echo "mod date: $documentVersion"
+   echo "PCURL: URL mod date: $documentVersion"
    if [ ${#documentVersion} -le 3 ]; then
       documentVersion="undated"
       echo "version: $documentVersion"
@@ -125,9 +125,10 @@ while [ $# -gt 0 ]; do
    file=`basename $redirectedURL`$extension
    if [ ${#localName} -gt 0 ]; then
       file=$localName$extension
+      echo "PCURL: local name overriding redirected name"
    fi
    #file=${localName}-$documentVersion${extension}
-   
+   echo "PCURL: local file name will be $file"
 
    if [ ! -e $file -a ${#documentVersion} -gt 0 ]; then 
       requestID=`java edu.rpi.tw.string.NameFactory`
