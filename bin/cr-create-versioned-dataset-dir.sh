@@ -82,16 +82,24 @@ if [ ! -d $version ]; then
 
    pushd $version &> /dev/null
 
-      # Include source/* that is newer than source/.__CSV2RDF4LOD_retrieval and NOT *.pml.ttl
+      if [ -e ../2manual.sh ]; then
+         # Leave it up to the global 2manual.sh to populate manual/ from any of the source/
+         # 2manual.sh should also create the cr-create-convert.sh.
+         chmod +x ../2manual.sh
+         ../2manual.sh
+      else
+         # Take a best guess as to what data files should be converted.
+         # Include source/* that is newer than source/.__CSV2RDF4LOD_retrieval and NOT *.pml.ttl
 
-      files=`find source -newer source/.__CSV2RDF4LOD_retrieval -type f | grep -v "pml.ttl$"`
+         files=`find source -newer source/.__CSV2RDF4LOD_retrieval -type f | grep -v "pml.ttl$"`
 
-      echo files: $files
-      cr-create-convert-sh.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
+         echo files: $files
+         cr-create-convert-sh.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
+      fi
 
-      ./*.sh # produce raw layer
+      ./*.sh # produce raw layer 
       ./*.sh # produce e1 layer (if global params are at ../*e1..params.ttl)
-      # TODO: handle more than just e1
+      # TODO: handle more than just e1; for each $eparams in ../*.params.ttl
 
    popd &> /dev/null
 else
