@@ -83,7 +83,7 @@ while [ $# -gt 0 ]; do
    #
    #echo guessing `$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper`
    syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper`
-   echo LIKED GUESS: $?
+   echo LIKED GUESS $syntax: $?
    rapper `$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper` -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt
    if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
       rm $TEMP
