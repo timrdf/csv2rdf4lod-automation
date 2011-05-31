@@ -39,7 +39,7 @@ while [ $# -gt 0 ]; do
       if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} == "finest" ]; then
          echo "pvloading $queryURL"
       fi
-      ${CSV2RDF4LOD_HOME}/bin/util/pvload.sh $queryURL $named_graph # Queries endpoint again.
+      ${CSV2RDF4LOD_HOME}/bin/util/pvload.sh $queryURL -ng $named_graph # Queries endpoint again.
    fi
 
    if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
