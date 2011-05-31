@@ -16,7 +16,7 @@ if [ ${tool:-"."} == "rapper" ]; then
       echo "-i ntriples"
    elif [[ $url =~ \.ttl$ || $url =~ \.ttl\. ]]; then
       echo "-i turtle"
-   elif [[ $url =~ \.rdf$ || $url =~ \.rdf\. ]]; then
+   elif [[ $url =~ \.rdf$ || $url =~ \.rdf\. || $url =~ \.rdf# ]]; then
       echo "-i rdfxml"
    else
       # We faild to guess based on the file name.
