@@ -12,14 +12,14 @@ url=$1
 tool=$2
 
 if [ ${tool:-"."} == "rapper" ]; then
-   if [[ $url =~ \.nt$ || $url =~ \.nt\. ]]; then
+   if [[ $url =~ \.nt$ || $url =~ \.nt\. || $url =~ \.nt# ]]; then
       echo "-i ntriples"
-   elif [[ $url =~ \.ttl$ || $url =~ \.ttl\. ]]; then
+   elif [[ $url =~ \.ttl$ || $url =~ \.ttl\. || $url =~ \.ttl# ]]; then
       echo "-i turtle"
    elif [[ $url =~ \.rdf$ || $url =~ \.rdf\. || $url =~ \.rdf# ]]; then
       echo "-i rdfxml"
    else
-      # We faild to guess based on the file name.
+      # We failed to guess based on the file name.
       # rdf:about=
       echo "-g"
       exit 1
