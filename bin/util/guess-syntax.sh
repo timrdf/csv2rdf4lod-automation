@@ -2,6 +2,15 @@
 # 
 # exit 0 if it likes it's guess
 # exit 1 if it does not.
+#
+#
+# Example usage:
+#
+#   syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper`
+#   liked_guess=$? # 0 : liked its guess, 1: did NOT like its guess
+#   if [[ $liked_guess == 1 ]]; then
+#      syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect ${TEMP}${unzipped} rapper`
+#   fi
 
 if [ $# -lt 1 ]; then
    echo "usage: `basename $0` [--inspect] url-of.rdf [tool:{rapper,jena}]"
