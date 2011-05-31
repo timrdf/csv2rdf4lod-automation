@@ -85,9 +85,10 @@ while [ $# -gt 0 ]; do
    syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper`
    liked_guess=$? # 0 : liked its guess, 1: did NOT like its guess
    if [[ $liked_guess == 1 ]]; then
+      echo "DIDN'T LIKED SYNTAX GUESS $syntax: $liked_syntax"
       syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect ${TEMP}${unzipped} rapper`
+      echo "GUESS BY INSPECTION: $syntax"
    fi
-   echo LIKED GUESS $syntax: $liked_syntax
    rapper $syntax -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt
    if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
       rm $TEMP
