@@ -41,9 +41,17 @@ if [ ${tool:-"."} == "rapper" ]; then
       guess="-g"
    fi
    if [ $inspect == "true" ]; then
-      if [[ `head -1000 $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'` > 5 ]]; then
+      if [[ `head -1000 $url | awk '$0 ~ /[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*/{c++}END{printf("%s",c)}'` > 2 ]]; then
+         # <> <> <>
+         guess="-i ntriples"
+      elif [[ `head -1000 $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` > 2 ]]; then
+         # @prefix
+         guess="-i turtle"
+      elif [[ `head -1000 $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'` > 2 ]]; then
          # rdf:about=
          guess="-i rdfxml"
+      else
+         guess="-g"
       fi
    fi
    echo $guess
