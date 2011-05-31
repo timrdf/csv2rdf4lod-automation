@@ -36,10 +36,15 @@ while [ $# -gt 0 ]; do
    # Query it in directly (will connect up with previous provenance via queryURL)
    #
    if [ ${#queryURL} -gt 0 ]; then
+      if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} == "finest" ]; then
+         echo "pvloading $queryURL"
+      fi
       ${CSV2RDF4LOD_HOME}/bin/util/pvload.sh $queryURL $named_graph # Queries endpoint again.
    fi
 
-   rm -rf $TEMP_query $TEMP_results &> /dev/null
+   if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
+      rm -rf $TEMP_query $TEMP_results &> /dev/null
+   fi
 
    shift
 done
