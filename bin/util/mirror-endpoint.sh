@@ -27,8 +27,8 @@ while [ $# -gt 0 ]; do
    #                                                       \/        \/ hacks applies only to Virtuoso
    ${CSV2RDF4LOD_HOME}/bin/util/cache-queries.sh $endpoint -p format -o xml -q $TEMP_query -od $TEMP_results
   
-   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload rdf $TEMP_results/$TEMP_QUERY.xml         $named_graph # NOTE: No provenance of this load; done with pvload.sh below.
-   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload rdf $TEMP_results/$TEMP_QUERY.xml.pml.ttl $named_graph # NOTE: No provenance of this load
+   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload rdf $TEMP_results/$TEMP_query.xml         $named_graph # NOTE: No provenance of this load; done with pvload.sh below.
+   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload rdf $TEMP_results/$TEMP_query.xml.pml.ttl $named_graph # NOTE: No provenance of this load
 
    queryURL=`grep "^<.*query=construct" $TEMP_results/$TEMP_QUERY.xml.pml.ttl | awk '{gsub(/<|>/,"");print}' | head -1` # grepping when should be sparqling...
   
