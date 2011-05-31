@@ -1,0 +1,5 @@
+2011-05-31T17:08:30-04:00
+E1 enhancement parameters missing; creating default template. Edit manual/323_ER_DOI_submission_sheet.xls.csv.e1.params.ttl and rerun to produce E1 enhancement.
+   convert.sh done
+convert-aggregate.sh not publishing b/c $CSV2RDF4LOD_PUBLISH=false.
+===========================================================================================

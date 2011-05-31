@@ -1,0 +1,83 @@
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sioc:    <http://rdfs.org/sioc/ns#> .
+@prefix pmlp:    <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov:      <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix pmlj:    <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix conv:    <http://purl.org/twc/vocab/conversion/> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+<323_ER_DOI_submission_sheet.xls.csv>
+   a pmlp:Information;
+   pmlp:hasModificationDateTime "2011-05-31T17:28:19-04:00"^^xsd:dateTime;
+.
+<323_ER_DOI_submission_sheet.xls.csv>
+   a pmlp:Information;
+   nfo:hasHash <md5_674440541549cb79f178b3aff0d70200_time_1306877641>;
+.
+<md5_674440541549cb79f178b3aff0d70200_time_1306877641>
+   a nfo:FileHash; 
+   dcterms:date      "2011-05-31T17:34:01-04:00"^^xsd:dateTime;
+   nfo:hashAlgorithm "md5";
+   nfo:hashValue     "674440541549cb79f178b3aff0d70200";
+.
+
+<../source/323_ER_DOI_submission_sheet.XLS>
+   a pmlp:Information;
+   pmlp:hasModificationDateTime "2011-05-31T17:33:30-04:00"^^xsd:dateTime;
+.
+<../source/323_ER_DOI_submission_sheet.XLS>
+   a pmlp:Information;
+   nfo:hasHash <md5_0ae7912e548130ff0cd3d30af71f4bc7_time_1306877641>;
+.
+<md5_0ae7912e548130ff0cd3d30af71f4bc7_time_1306877641>
+   a nfo:FileHash; 
+   dcterms:date      "2011-05-31T17:34:01-04:00"^^xsd:dateTime;
+   nfo:hashAlgorithm "md5";
+   nfo:hashValue     "0ae7912e548130ff0cd3d30af71f4bc7";
+.
+
+<nodeSet_f418e1df-97bd-4235-93c8-3fad680ee1d9>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <323_ER_DOI_submission_sheet.xls.csv>;
+   pmlj:isConsequentOf <inferenceStep__f418e1df-97bd-4235-93c8-3fad680ee1d9>;
+.
+<inferenceStep_f418e1df-97bd-4235-93c8-3fad680ee1d9>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ( <nodeSet_f418e1df-97bd-4235-93c8-3fad680ee1d9_antecedent> );
+   pmlj:hasInferenceEngine <xls2csv_f418e1df-97bd-4235-93c8-3fad680ee1d9>;
+   pmlj:hasInferenceRule   conv:xls2csv_Method;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+.
+
+<wasControlled_f418e1df-97bd-4235-93c8-3fad680ee1d9>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   oprov:effect <inferenceStep_f418e1df-97bd-4235-93c8-3fad680ee1d9>;
+   oprov:endTime "2011-05-31T17:34:00-04:00"^^xsd:dateTime;
+.
+<nodeSet_f418e1df-97bd-4235-93c8-3fad680ee1d9_antecedent>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <source/323_ER_DOI_submission_sheet.XLS>;
+.
+
+<xls2csv_f418e1df-97bd-4235-93c8-3fad680ee1d9>
+   a pmlp:InferenceEngine, conv:Xls2csv_Engine;
+   dcterms:identifier "xls2csv_f418e1df-97bd-4235-93c8-3fad680ee1d9";
+.
+
+conv:Xls2csv_Engine rdfs:subClassOf pmlp:InferenceEngine .

@@ -1,0 +1,7 @@
+2011-05-31T17:09:50-04:00
+   E1 conversion parameters file has same number of "todo:Literal"s as template originally generated.
+    - Skipping E1 conversion b/c enhancement parameters appear very similar to the default template.
+    - Replace todo:Literal in E1 conversion parameters with rdfs:Literal or rdfs:Resource to enable enhanced conversion.
+   convert.sh done
+convert-aggregate.sh not publishing b/c $CSV2RDF4LOD_PUBLISH=false.
+===========================================================================================

@@ -1,0 +1,196 @@
+2011-05-31T17:12:31-04:00
+101 rows in manual/323_ER_DOI_submission_sheet.xls.csv
+E1 CONVERSION
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-May-27 initiated:
+fileName:                     manual/323_ER_DOI_submission_sheet.xls.csv
+sampleLimit:                  2
+enhancementParametersURL:     manual/323_ER_DOI_submission_sheet.xls.csv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/323_ER_DOI_submission_sheet.xls.csv.e1.sample.ttl
+converterIdentifier:          csv2rdf4lod_d2978f778642d5c60a283d9c024f4a25
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .iodp-org.
+DatasetIdentifierQuerylet(*) .publications.
+DatasetVersionQuerylet(*) .2011-May-31.
+
+subjectNS:   publications:  http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/
+objectNS:    publications_global_value:  http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/
+
+CellDelimiterQuerylet(*) .,.
+HeaderRowQuerylet(*) .2.
+consuming top matter on line 1 before header line (2): ,,,,,,,,,,,,
+===========
+consumed top matter:
+,,,,,,,,,,,,
+
+headers present at row 2: DOI,html,authors,year,title,Series Title,Vol,type,type,ISSN,pubdate,publisher,dois cited in references
+
+       EquivalentPropertyQuerylet(1) .http://purl.org/ontology/bibo/doi.
+1: "DOI" -> "DOI" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/doi (rdfs:Literal)
+2: "html" -> "html" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/html (rdfs:Resource)
+       EquivalentPropertyQuerylet(3) .http://purl.org/dc/terms/author.
+3: "authors" -> "authors" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/authors (rdfs:Literal)
+       EquivalentPropertyQuerylet(4) .http://purl.org/dc/terms/temporal.
+4: "year" -> "year" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/year (xsd2:gYear)
+       EquivalentPropertyQuerylet(5) .http://purl.org/dc/terms/title.
+5: "title" -> "title" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/title (rdfs:Literal)
+6: "Series Title" -> "Series Title" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/series_title (rdfs:Literal)
+7: "Vol" -> "Vol" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/vol (rdfs:Literal)
+8: "type" -> "type" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/type (rdfs:Literal)
+9: "type" -> "type_2" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/type_2 (rdfs:Literal)
+10: "ISSN" -> "ISSN" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/issn (rdfs:Literal)
+11: "pubdate" -> "pubdate" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/pubdate (rdfs:Literal)
+12: "publisher" -> "publisher" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/publisher (rdfs:Literal)
+13: "dois cited in references" -> "dois cited in references" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/dois_cited_in_references (rdfs:Literal)
+
+
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_3, html, > @ 3,2
+ResourceValueHandler FAILED: " -pattern-> r3c2reference" !~ 1 patterns @ :thing_3 :html
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 574 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+Finished converting -sample 2 sample rows.
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-May-27 initiated:
+fileName:                     manual/323_ER_DOI_submission_sheet.xls.csv
+enhancementParametersURL:     manual/323_ER_DOI_submission_sheet.xls.csv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/323_ER_DOI_submission_sheet.xls.csv.e1.ttl
+converterIdentifier:          csv2rdf4lod_d2978f778642d5c60a283d9c024f4a25
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .iodp-org.
+DatasetIdentifierQuerylet(*) .publications.
+DatasetVersionQuerylet(*) .2011-May-31.
+
+subjectNS:   publications:  http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/
+objectNS:    publications_global_value:  http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/
+
+CellDelimiterQuerylet(*) .,.
+HeaderRowQuerylet(*) .2.
+consuming top matter on line 1 before header line (2): ,,,,,,,,,,,,
+===========
+consumed top matter:
+,,,,,,,,,,,,
+
+headers present at row 2: DOI,html,authors,year,title,Series Title,Vol,type,type,ISSN,pubdate,publisher,dois cited in references
+
+       EquivalentPropertyQuerylet(1) .http://purl.org/ontology/bibo/doi.
+1: "DOI" -> "DOI" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/doi (rdfs:Literal)
+2: "html" -> "html" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/html (rdfs:Resource)
+       EquivalentPropertyQuerylet(3) .http://purl.org/dc/terms/author.
+3: "authors" -> "authors" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/authors (rdfs:Literal)
+       EquivalentPropertyQuerylet(4) .http://purl.org/dc/terms/temporal.
+4: "year" -> "year" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/year (xsd2:gYear)
+       EquivalentPropertyQuerylet(5) .http://purl.org/dc/terms/title.
+5: "title" -> "title" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/title (rdfs:Literal)
+6: "Series Title" -> "Series Title" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/series_title (rdfs:Literal)
+7: "Vol" -> "Vol" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/vol (rdfs:Literal)
+8: "type" -> "type" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/type (rdfs:Literal)
+9: "type" -> "type_2" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/type_2 (rdfs:Literal)
+10: "ISSN" -> "ISSN" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/issn (rdfs:Literal)
+11: "pubdate" -> "pubdate" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/pubdate (rdfs:Literal)
+12: "publisher" -> "publisher" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/publisher (rdfs:Literal)
+13: "dois cited in references" -> "dois cited in references" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/dois_cited_in_references (rdfs:Literal)
+
+
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_3, html, > @ 3,2
+ResourceValueHandler FAILED: " -pattern-> r3c2reference" !~ 1 patterns @ :thing_3 :html
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_16, html, > @ 16,2
+ResourceValueHandler FAILED: " -pattern-> r16c2reference" !~ 1 patterns @ :thing_16 :html
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_17, html, > @ 17,2
+ResourceValueHandler FAILED: " -pattern-> r17c2reference" !~ 1 patterns @ :thing_17 :html
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_18, html, > @ 18,2
+ResourceValueHandler FAILED: " -pattern-> r18c2reference" !~ 1 patterns @ :thing_18 :html
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_19, html, > @ 19,2
+ResourceValueHandler FAILED: " -pattern-> r19c2reference" !~ 1 patterns @ :thing_19 :html
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_20, html, > @ 20,2
+ResourceValueHandler FAILED: " -pattern-> r20c2reference" !~ 1 patterns @ :thing_20 :html
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_21, html, > @ 21,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_22, html, > @ 22,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_23, html, > @ 23,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_24, html, > @ 24,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_25, html, > @ 25,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_26, html, > @ 26,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_27, html, > @ 27,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_28, html, > @ 28,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_29, html, > @ 29,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_30, html, > @ 30,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_31, html, > @ 31,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_32, html, > @ 32,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_33, html, > @ 33,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_34, html, > @ 34,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_35, html, > @ 35,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_36, html, > @ 36,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_37, html, > @ 37,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_38, html, > @ 38,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_39, html, > @ 39,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_40, html, > @ 40,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_41, html, > @ 41,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_42, html, > @ 42,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_43, html, > @ 43,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_44, html, > @ 44,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_45, html, > @ 45,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_46, html, > @ 46,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_47, html, > @ 47,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_48, html, > @ 48,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_49, html, > @ 49,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_50, html, > @ 50,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_51, html, > @ 51,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_52, html, > @ 52,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_53, html, > @ 53,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_54, html, > @ 54,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_55, html, > @ 55,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_56, html, > @ 56,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_57, html, > @ 57,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_58, html, > @ 58,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_59, html, > @ 59,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_60, html, > @ 60,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_61, html, > @ 61,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_62, html, > @ 62,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_63, html, > @ 63,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_64, html, > @ 64,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_65, html, > @ 65,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_66, html, > @ 66,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_67, html, > @ 67,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_68, html, > @ 68,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_69, html, > @ 69,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_70, html, > @ 70,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_71, html, > @ 71,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_72, html, > @ 72,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_73, html, > @ 73,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_74, html, > @ 74,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_75, html, > @ 75,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_76, html, > @ 76,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_77, html, > @ 77,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_78, html, > @ 78,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_79, html, > @ 79,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_80, html, > @ 80,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_81, html, > @ 81,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_82, html, > @ 82,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_83, html, > @ 83,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_84, html, > @ 84,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_85, html, > @ 85,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_86, html, > @ 86,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_87, html, > @ 87,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_88, html, > @ 88,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_89, html, > @ 89,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_90, html, > @ 90,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_95, html, > @ 95,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_96, html, > @ 96,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_97, html, > @ 97,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_98, html, > @ 98,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_99, html, > @ 99,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_100, html, > @ 100,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_101, html, > @ 101,2
+WARNING: ResourceValueHandlerpromoted value to null: <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/thing_102, html, > @ 102,2
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 2175 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+   convert.sh done
+convert-aggregate.sh not publishing b/c $CSV2RDF4LOD_PUBLISH=false.
+===========================================================================================

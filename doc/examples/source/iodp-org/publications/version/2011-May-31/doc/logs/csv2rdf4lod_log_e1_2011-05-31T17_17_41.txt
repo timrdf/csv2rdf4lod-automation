@@ -1,0 +1,136 @@
+2011-05-31T17:17:41-04:00
+101 rows in manual/323_ER_DOI_submission_sheet.xls.csv
+E1 CONVERSION
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-May-27 initiated:
+fileName:                     manual/323_ER_DOI_submission_sheet.xls.csv
+sampleLimit:                  2
+enhancementParametersURL:     manual/323_ER_DOI_submission_sheet.xls.csv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/323_ER_DOI_submission_sheet.xls.csv.e1.sample.ttl
+converterIdentifier:          csv2rdf4lod_d2978f778642d5c60a283d9c024f4a25
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .iodp-org.
+DatasetIdentifierQuerylet(*) .publications.
+DatasetVersionQuerylet(*) .2011-May-31.
+SubjectTypeQuerylet(*) .Publication.
+SubClassOfQuerylet(*) .Publication. -> .http://purl.org/ontology/bibo/Document.
+SubClassOfQuerylet(*) .Publication. -> .http://xmlns.com/foaf/0.1/Document.
+SubClassOfQuerylet(*) .Publication. -> .http://purl.org/dc/terms/BibliographicResource.
+SubClassOfQuerylet(*) .Publication. -> .http://purl.org/vocab/frbr/core#Work.
+OnlyIfColumnsQuerylet(1)
+CodebookQuerylet(2) .. -> .http://purl.org/twc/vocab/conversion/null.
+DomainTemplateQuerylet(*) .publication_[#1].
+
+subjectNS:   publications:  http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/
+objectNS:    publications_global_value:  http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/
+
+CellDelimiterQuerylet(*) .,.
+HeaderRowQuerylet(*) .2.
+consuming top matter on line 1 before header line (2): ,,,,,,,,,,,,
+===========
+consumed top matter:
+,,,,,,,,,,,,
+
+headers present at row 2: DOI,html,authors,year,title,Series Title,Vol,type,type,ISSN,pubdate,publisher,dois cited in references
+
+       EquivalentPropertyQuerylet(1) .http://purl.org/ontology/bibo/doi.
+1: "DOI" -> "DOI" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/doi (rdfs:Literal)
+       InterpretedAsNullQuerylet(2) ..
+2: "html" -> "html" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/html (rdfs:Resource)
+       EquivalentPropertyQuerylet(3) .http://purl.org/dc/terms/author.
+3: "authors" -> "authors" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/authors (rdfs:Literal)
+       EquivalentPropertyQuerylet(4) .http://purl.org/dc/terms/date.
+4: "year" -> "year" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/year (xsd2:gYear)
+       EquivalentPropertyQuerylet(5) .http://purl.org/dc/terms/title.
+5: "title" -> "title" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/title (rdfs:Literal)
+6: "Series Title" -> "Series Title" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/series_title (rdfs:Literal)
+7: "Vol" -> "Vol" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/vol (rdfs:Literal)
+8: "type" -> "type" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/type (rdfs:Literal)
+9: "type" -> "type_2" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/type_2 (rdfs:Literal)
+       EquivalentPropertyQuerylet(10) .http://purl.org/ontology/bibo/issn.
+10: "ISSN" -> "ISSN" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/issn (rdfs:Literal)
+       DatePatternQuerylet(11) .MM/dd/yy 0.
+11: "pubdate" -> "pubdate" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/pubdate (xsd:date)
+12: "publisher" -> "publisher" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/publisher (rdfs:Literal)
+13: "dois cited in references" -> "dois cited in references" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/dois_cited_in_references (rdfs:Literal)
+
+
+3: skipping row b/c only-if-col 1 (DOI) value is empty.
+
+
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 603 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+Finished converting -sample 2 sample rows.
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-May-27 initiated:
+fileName:                     manual/323_ER_DOI_submission_sheet.xls.csv
+enhancementParametersURL:     manual/323_ER_DOI_submission_sheet.xls.csv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/323_ER_DOI_submission_sheet.xls.csv.e1.ttl
+converterIdentifier:          csv2rdf4lod_d2978f778642d5c60a283d9c024f4a25
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .iodp-org.
+DatasetIdentifierQuerylet(*) .publications.
+DatasetVersionQuerylet(*) .2011-May-31.
+SubjectTypeQuerylet(*) .Publication.
+SubClassOfQuerylet(*) .Publication. -> .http://purl.org/ontology/bibo/Document.
+SubClassOfQuerylet(*) .Publication. -> .http://xmlns.com/foaf/0.1/Document.
+SubClassOfQuerylet(*) .Publication. -> .http://purl.org/dc/terms/BibliographicResource.
+SubClassOfQuerylet(*) .Publication. -> .http://purl.org/vocab/frbr/core#Work.
+OnlyIfColumnsQuerylet(1)
+CodebookQuerylet(2) .. -> .http://purl.org/twc/vocab/conversion/null.
+DomainTemplateQuerylet(*) .publication_[#1].
+
+subjectNS:   publications:  http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/
+objectNS:    publications_global_value:  http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/
+
+CellDelimiterQuerylet(*) .,.
+HeaderRowQuerylet(*) .2.
+consuming top matter on line 1 before header line (2): ,,,,,,,,,,,,
+===========
+consumed top matter:
+,,,,,,,,,,,,
+
+headers present at row 2: DOI,html,authors,year,title,Series Title,Vol,type,type,ISSN,pubdate,publisher,dois cited in references
+
+       EquivalentPropertyQuerylet(1) .http://purl.org/ontology/bibo/doi.
+1: "DOI" -> "DOI" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/doi (rdfs:Literal)
+       InterpretedAsNullQuerylet(2) ..
+2: "html" -> "html" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/html (rdfs:Resource)
+       EquivalentPropertyQuerylet(3) .http://purl.org/dc/terms/author.
+3: "authors" -> "authors" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/authors (rdfs:Literal)
+       EquivalentPropertyQuerylet(4) .http://purl.org/dc/terms/date.
+4: "year" -> "year" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/year (xsd2:gYear)
+       EquivalentPropertyQuerylet(5) .http://purl.org/dc/terms/title.
+5: "title" -> "title" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/title (rdfs:Literal)
+6: "Series Title" -> "Series Title" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/series_title (rdfs:Literal)
+7: "Vol" -> "Vol" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/vol (rdfs:Literal)
+8: "type" -> "type" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/type (rdfs:Literal)
+9: "type" -> "type_2" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/type_2 (rdfs:Literal)
+       EquivalentPropertyQuerylet(10) .http://purl.org/ontology/bibo/issn.
+10: "ISSN" -> "ISSN" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/issn (rdfs:Literal)
+       DatePatternQuerylet(11) .MM/dd/yy 0.
+11: "pubdate" -> "pubdate" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/pubdate (xsd:date)
+12: "publisher" -> "publisher" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/publisher (rdfs:Literal)
+13: "dois cited in references" -> "dois cited in references" -> http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/vocab/enhancement/1/dois_cited_in_references (rdfs:Literal)
+
+
+3: skipping row b/c only-if-col 1 (DOI) value is empty.
+
+
+16: skipping row b/c only-if-col 1 (DOI) value is empty.
+17: skipping row b/c only-if-col 1 (DOI) value is empty.
+18: skipping row b/c only-if-col 1 (DOI) value is empty.
+19: skipping row b/c only-if-col 1 (DOI) value is empty.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 871 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+   convert.sh done
+convert-aggregate.sh not publishing b/c $CSV2RDF4LOD_PUBLISH=false.
+===========================================================================================
