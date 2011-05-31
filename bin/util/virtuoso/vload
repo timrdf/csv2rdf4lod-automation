@@ -35,7 +35,7 @@ if [ ! -e $data_file ]; then
    exit 1
 fi
 
-echo "Loading triples into graph <$graph_uri>..."
+echo "Loading triples into graph <$graph_uri> ..."
 
 # Check to see if file is within a directory Virtuoso can read from directly.
 load_in_place="false"
