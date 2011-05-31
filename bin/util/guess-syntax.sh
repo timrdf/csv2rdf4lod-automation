@@ -32,7 +32,7 @@ if [ ${tool:-"."} == "rapper" ]; then
       guess="-g"
    fi
    if [ $inspect == "true" ]; then
-      if [[ `head -1000 $url | awk '$0 ~ "rdf:about" {c++} END {printf("%s",c)}'` > 5 ]]; then
+      if [[ `head -1000 $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'` > 5 ]]; then
          # rdf:about=
          guess="-i rdfxml"
       fi
