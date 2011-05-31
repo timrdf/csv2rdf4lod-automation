@@ -104,13 +104,13 @@ while [ $# -gt 0 ]; do
    fi
 
    #echo getting last mod xsddatetime
-   urlINFO=`curl -I $url 2> /dev/null`
+   urlINFO=`curl -I --globoff $url 2> /dev/null`
    urlModDateTime=`urldate.sh -field Last-Modified: -format dateTime $url`
    echo "PCURL: URL modification date:  $urlModDateTime"
 
    #echo getting redirect name
    redirectedURL=`filename-v3.pl $url`
-   redirectedURLINFO=`curl -I $redirectedURL 2> /dev/null`
+   redirectedURLINFO=`curl -I --globoff $redirectedURL 2> /dev/null`
    redirectedModDate=`urldate.sh -field Last-Modified: -format dateTime $redirectedURL`
    echo "PCURL: http redirect basename `basename $redirectedURL`"
 
@@ -141,8 +141,8 @@ while [ $# -gt 0 ]; do
       prefRDF="" #"-H 'Accept: application/rdf+xml, */*; q=0.1'"
       #echo curl $prefRDF -L $url 
       if [ ${downloadFile:-"."} == "true" ]; then
-         echo curl -L $url $formFields REDIRECT_ANGLE $file
-         curl -L $url $formFields > $file
+         echo curl -L --globoff $url $formFields REDIRECT_ANGLE $file
+         curl -L --globoff $url $formFields > $file
          downloadedFileMD5=`md5.sh $file`
       fi
 
