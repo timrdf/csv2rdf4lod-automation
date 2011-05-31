@@ -30,7 +30,7 @@ while [ $# -gt 0 ]; do
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload rdf $TEMP_results/$TEMP_query.xml         $named_graph # NOTE: No provenance of this load; done with pvload.sh below.
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload ttl $TEMP_results/$TEMP_query.xml.pml.ttl $named_graph # NOTE: No provenance of this load
 
-   queryURL=`grep "^<.*query=construct" $TEMP_results/$TEMP_QUERY.xml.pml.ttl | awk '{gsub(/<|>/,"");print}' | head -1` # grepping when should be sparqling...
+   queryURL=`grep "^<.*query=construct" $TEMP_results/$TEMP_query.xml.pml.ttl | awk '{gsub(/<|>/,"");print}' | head -1` # grepping when should be sparqling...
   
    #
    # Query it in directly (will connect up with previous provenance via queryURL)
