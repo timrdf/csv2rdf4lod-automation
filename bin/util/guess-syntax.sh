@@ -29,49 +29,73 @@ tool=$2
 
 guess=""
 
-if [ ${tool:-"."} == "rapper" ]; then
-   if [[ $url =~ \.nt$ || $url =~ \.nt\. || $url =~ \.nt# ]]; then
+#
+# Take a stab:
+#
+
+if [[ $url =~ \.nt$ || $url =~ \.nt\. || $url =~ \.nt# ]]; then
+   guess="-i ntriples"
+elif [[ $url =~ \.ttl$ || $url =~ \.ttl\. || $url =~ \.ttl# ]]; then
+   guess="-i turtle"
+elif [[ $url =~ \.rdf$ || $url =~ \.rdf\. || $url =~ \.rdf# ]]; then
+   guess="-i rdfxml"
+elif [[ $url =~ \.xml$ || $url =~ \.xml\. || $url =~ \.xml# ]]; then
+   guess="-i rdfxml"
+else
+   # We failed to guess based on the file name.
+   guess="-g"
+fi
+if [ $inspect == "true" ]; then
+   if [[   `head -1000 $url | awk '$0 ~ /[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*/ && $0 !~ "rdf:about=" && $0 !~ "rdf:nodeID=" {c++;print} END {printf("%s",c)}'` -gt 2 ]]; then
+      # <> <> <>
       guess="-i ntriples"
-   elif [[ $url =~ \.ttl$ || $url =~ \.ttl\. || $url =~ \.ttl# ]]; then
+   elif [[ `head -1000 $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` -gt 2 ]]; then
+      # @prefix
       guess="-i turtle"
-   elif [[ $url =~ \.rdf$ || $url =~ \.rdf\. || $url =~ \.rdf# ]]; then
-      guess="-i rdfxml"
-   elif [[ $url =~ \.xml$ || $url =~ \.xml\. || $url =~ \.xml# ]]; then
+   elif [[ `head -1000 $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
+      # rdf:about=
       guess="-i rdfxml"
    else
-      # We failed to guess based on the file name.
+      #echo "still no idea after --inspect"
+      #echo "ntriples: `head -1000 $url | awk '$0 ~ /[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*/{c++}END{printf("%s",c)}'`"
+      #echo "turtle:   `head -1000 $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'`"
+      #echo "rdfxml:   `head -1000 $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'`"
       guess="-g"
    fi
-   if [ $inspect == "true" ]; then
-      if [[   `head -1000 $url | awk '$0 ~ /[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*/ && $0 !~ "rdf:about=" && $0 !~ "rdf:nodeID=" {c++;print} END {printf("%s",c)}'` -gt 2 ]]; then
-         # <> <> <>
-         guess="-i ntriples"
-      elif [[ `head -1000 $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` -gt 2 ]]; then
-         # @prefix
-         guess="-i turtle"
-      elif [[ `head -1000 $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
-         # rdf:about=
-         guess="-i rdfxml"
-      else
-         #echo "still no idea after --inspect"
-         #echo "ntriples: `head -1000 $url | awk '$0 ~ /[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*/{c++}END{printf("%s",c)}'`"
-         #echo "turtle:   `head -1000 $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'`"
-         #echo "rdfxml:   `head -1000 $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'`"
-         guess="-g"
-      fi
-   fi
-   echo $guess
-   if [[ $guess == "-g" ]]; then
-      exit 1
-   fi
-elif [ ${tool:-"."} == "rapper" ]; then
-   if [[ $url =~ \.nt$ || $url =~ \.nt\. ]]; then
-      echo "ntriples"
-   elif [[ $url =~ \.ttl$ || $url =~ \.ttl\. ]]; then
-      echo "turtle"
-   elif [[ $url =~ \.rdf$ || $url =~ \.rdf\. ]]; then
-      echo "rdfxml"
+fi
+
+#
+# Translate to whims of each tool:
+#
+
+if [ ${tool:-"."} == "rapper" ]; then
+   guess=$guess
+
+elif [ ${tool:-"."} == "jena" ]; then
+   if [[ $guess == "-i ntriples" ]]; then
+      guess="$guess"
+   elif [[ $guess == "-i ntriples" ]]; then
+      guess="$guess"
    else
+
+elif [ ${tool:-"."} == "vload" ]; then
+   # rdf, ttl, nt, nq
+   if [[ $guess == "-i ntriples" ]]; then
+      guess="nt"
+   elif [[ $guess == "-i turtle" ]]; then
+      guess="ttl"
+   elif [[ $guess == "-i rdfxml" ]]; then
+      guess="rdf"
+   elif [[ $guess == "-g" ]]; then
+      echo "rdf"
+      exit 1
+   else
+      echo "rdf"
       exit 1
    fi
+fi
+
+echo $guess
+if [[ $guess == "-g" || $guess == "" ]]; then
+   exit 1
 fi
