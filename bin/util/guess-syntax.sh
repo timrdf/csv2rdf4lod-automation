@@ -41,7 +41,7 @@ if [ ${tool:-"."} == "rapper" ]; then
       guess="-g"
    fi
    if [ $inspect == "true" ]; then
-      if [[   `head -1000 $url | awk '$0 ~ /[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*/ {c++} END {printf("%s",c)}'` -gt 2 ]]; then
+      if [[   `head -1000 $url | awk '$0 ~ /[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*/ && $0 !~ "rdf:about=" && $0 !~ "rdf:nodeID=" {c++;print} END {printf("%s",c)}'` -gt 2 ]]; then
          # <> <> <>
          guess="-i ntriples"
       elif [[ `head -1000 $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` -gt 2 ]]; then
