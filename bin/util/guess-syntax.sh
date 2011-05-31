@@ -77,6 +77,9 @@ elif [ ${tool:-"."} == "jena" ]; then
    elif [[ $guess == "-i ntriples" ]]; then
       guess="$guess"
    else
+      echo "rdf"
+      exit 1
+   fi
 
 elif [ ${tool:-"."} == "vload" ]; then
    # rdf, ttl, nt, nq
