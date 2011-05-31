@@ -36,6 +36,8 @@ if [ ${tool:-"."} == "rapper" ]; then
       guess="-i turtle"
    elif [[ $url =~ \.rdf$ || $url =~ \.rdf\. || $url =~ \.rdf# ]]; then
       guess="-i rdfxml"
+   elif [[ $url =~ \.xml$ || $url =~ \.xml\. || $url =~ \.xml# ]]; then
+      guess="-i rdfxml"
    else
       # We failed to guess based on the file name.
       guess="-g"
