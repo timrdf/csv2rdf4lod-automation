@@ -1,4 +1,7 @@
 #!/bin/bash
+# 
+# exit 0 if it likes it's guess
+# exit 1 if it does not.
 
 if [ $# -lt 1 ]; then
    echo "usage: `basename $0` url-of.rdf [tool:{rapper,jena}]"
@@ -16,7 +19,10 @@ if [ ${tool:-"."} == "rapper" ]; then
    elif [[ $url =~ \.rdf$ || $url =~ \.rdf\. ]]; then
       echo "-i rdfxml"
    else
+      # We faild to guess based on the file name.
+      # rdf:about=
       echo "-g"
+      exit 1
    fi
 elif [ ${tool:-"."} == "rapper" ]; then
    if [[ $url =~ \.nt$ || $url =~ \.nt\. ]]; then
@@ -25,5 +31,7 @@ elif [ ${tool:-"."} == "rapper" ]; then
       echo "turtle"
    elif [[ $url =~ \.rdf$ || $url =~ \.rdf\. ]]; then
       echo "rdfxml"
+   else
+      exit 1
    fi
 fi
