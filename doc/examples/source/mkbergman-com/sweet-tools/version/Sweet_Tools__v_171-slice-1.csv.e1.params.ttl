@@ -46,6 +46,11 @@
 <http://logd.tw.rpi.edu/source/mkbergman-com/dataset/sweet-tools/version/2011-Feb-01/conversion/enhancement/1>
    a conversion:LayerDataset, void:Dataset;
 
+   foaf:page <http://www.mkbergman.com/sweet-tools/>;
+   dcterms:source <http://mkbergman.com/SweetTools/Sweet_Tools__v_171-slice-1.csv>,
+                  <http://mkbergman.com/SweetTools/Sweet_Tools__v_171-slice-1.n3>,
+                  <http://mkbergman.com/SweetTools/Sweet_Tools__v_171-slice-1.rdf>;
+
    conversion:base_uri           "http://logd.tw.rpi.edu"^^xsd:anyURI;
    conversion:source_identifier  "mkbergman-com";
    conversion:dataset_identifier "sweet-tools";
