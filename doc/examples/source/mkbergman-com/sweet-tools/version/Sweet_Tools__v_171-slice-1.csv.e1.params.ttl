@@ -104,6 +104,7 @@
          ov:csvCol          3;
          ov:csvHeader       "&prefLabel";
          conversion:equivalent_property iron:prefLabel;
+         conversion:subproperty_of      skos:prefLabel;
          conversion:comment "";
          conversion:range   todo:Literal;
       ];
@@ -138,6 +139,10 @@
          ov:csvHeader       "&category";
          conversion:equivalent_property cosmo:category;
          conversion:comment "";
+         conversion:interpret [          
+            conversion:symbol        "";
+            conversion:interpretation conversion:null; 
+         ];                            
          conversion:range   todo:Literal;
       ];
       conversion:enhance [
