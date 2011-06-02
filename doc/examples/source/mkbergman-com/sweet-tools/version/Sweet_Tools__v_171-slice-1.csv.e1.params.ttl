@@ -1,0 +1,260 @@
+@prefix rdf:           <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:          <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix todo:          <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:           <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:           <http://www.w3.org/2002/07/owl#> .
+@prefix vann:          <http://purl.org/vocab/vann/> .
+@prefix skos:          <http://www.w3.org/2004/02/skos/core#> .
+@prefix time:          <http://www.w3.org/2006/time#> .
+@prefix wgs:           <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames:      <http://www.geonames.org/ontology#> .
+@prefix geonamesid:    <http://sws.geonames.org/> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
+@prefix dbpedia:       <http://dbpedia.org/resource/> .
+@prefix con:           <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix muo:           <http://purl.oclc.org/NET/muo/muo#> .
+@prefix vs:            <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix frbr:          <http://purl.org/vocab/frbr/core#> .
+@prefix bibo:          <http://purl.org/ontology/bibo/> .
+@prefix dgtwc:         <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix dcterms:       <http://purl.org/dc/terms/> .
+@prefix void:          <http://rdfs.org/ns/void#> .
+@prefix scovo:         <http://purl.org/NET/scovo#> .
+@prefix sioc:          <http://rdfs.org/sioc/ns#> .
+@prefix foaf:          <http://xmlns.com/foaf/0.1/> .
+@prefix ov:            <http://open.vocab.org/terms/> .
+@prefix conversion:    <http://purl.org/twc/vocab/conversion/> .
+@prefix :              <http://logd.tw.rpi.edu/source/mkbergman-com/dataset/sweet-tools/version/2011-Feb-01/params/enhancement/1/> .
+@prefix cosmo:         <http://purl.org/ontology/cosmo#> .
+@prefix iron:          <http://purl.org/ontology/iron#> .
+@prefix doap:          <http://usefulinc.com/ns/doap#> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+#:a_bundle
+#   a conversion:ImplicitBundle;
+#   conversion:property_name "a_property"; # Can also be a URI, e.g. dcterms:title.
+#   #conversion:type_name     "My Class";   # Can also be a URI, e.g. foaf:Person.
+#.
+
+<http://logd.tw.rpi.edu/source/mkbergman-com/dataset/sweet-tools/version/2011-Feb-01/conversion/enhancement/1>
+   a conversion:LayerDataset, void:Dataset;
+
+   conversion:base_uri           "http://logd.tw.rpi.edu"^^xsd:anyURI;
+   conversion:source_identifier  "mkbergman-com";
+   conversion:dataset_identifier "sweet-tools";
+   conversion:version_identifier "2011-Feb-01";
+
+   conversion:conversion_process [
+      a conversion:EnhancementConversionProcess;
+      conversion:enhancement_identifier "1";
+
+      dcterms:creator <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+      dcterms:created "2011-06-01T21:40:20-04:00"^^xsd:dateTime;
+
+      conversion:delimits_cell ",";
+
+      conversion:enhance [      
+         ov:csvRow 2;
+         a conversion:HeaderRow;
+      ];                        
+
+      #conversion:interpret [          
+      #   conversion:symbol        "";
+      #   conversion:interpretation conversion:null; 
+      #];                            
+      conversion:enhance [
+         #conversion:domain_template "tool_[r]";
+         conversion:domain_template "http://vanilla.openstructs.org/wsf/datasets/110/[@id]";
+         conversion:domain_name     "SweetTool";
+         rdfs:comment "column1 = 3store ==> <http://vanilla.openstructs.org/wsf/datasets/110/3store>";
+      ];
+      conversion:enhance [
+         conversion:class_name "SweetTool";
+         #conversion:subclass_of <http://purl.org/ontology/cosmo#Tool>;
+      ];
+      conversion:enhance [
+         ov:csvCol          1;
+         ov:csvHeader       "&id";
+         conversion:equivalent_property dcterms:identifier;
+         conversion:comment "";
+         conversion:range   rdfs:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          2;
+         ov:csvHeader       "&type";
+         conversion:equivalent_property rdf:type;
+         conversion:comment "";
+         rdfs:comment "column2 = KRBrowser ==> <http://purl.org/ontology/cosmo#KRBrowser>";
+         conversion:range   rdfs:Resource;
+         conversion:range_template "http://purl.org/ontology/cosmo#[.]";
+      ];
+      conversion:enhance [
+         ov:csvCol          3;
+         ov:csvHeader       "&prefLabel";
+         conversion:equivalent_property iron:prefLabel;
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          4;
+         ov:csvHeader       "&href";
+         conversion:equivalent_property foaf:page;
+         conversion:comment "";
+         conversion:interpret [          
+            conversion:symbol        "";
+            conversion:interpretation conversion:null; 
+         ];                            
+         conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol          5;
+         ov:csvHeader       "&description";
+         conversion:equivalent_property iron:description;
+         conversion:subproperty_of    dcterms:description;
+         conversion:comment "";
+         conversion:range   rdfs:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          6;
+         ov:csvHeader       "&foss";
+         conversion:equivalent_property cosmo:foss;
+         conversion:comment "";
+         conversion:range   rdfs:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          7;
+         ov:csvHeader       "&category";
+         conversion:equivalent_property cosmo:category;
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          8;
+         ov:csvHeader       "&language";
+         conversion:equivalent_property cosmo:language;
+         conversion:subproperty_of    doap:programming-language;
+         conversion:comment "";
+         conversion:range   rdfs:Resource;
+         rdfs:seeAlso <http://logd.tw.rpi.edu:8890/sparql?query=PREFIX%20dcterms%3A%20%20%20%20%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E%0APREFIX%20conversion%3A%20%3Chttp%3A%2F%2Fpurl.org%2Ftwc%2Fvocab%2Fconversion%2F%3E%0ACONSTRUCT%20%7B%20%3Flanguage%20dcterms%3Aidentifier%20%3Fid%20%7D%0AWHERE%20%7B%0A%20%20GRAPH%20%3Chttp%3A%2F%2Flogd.tw.rpi.edu%2Fsource%2Ftwc-rpi-edu%2Fdataset%2Finstance-hub-programming-langauges%3E%20%7B%0A%20%20%20%20%3Flanguage%20dcterms%3Aidentifier%20%3Fid%0A%20%20%7D%0A%7D%0A>,
+                      <https://scm.escience.rpi.edu/trac/ticket/468>,
+                      <https://github.com/timrdf/csv2rdf4lod-automation/issues/139>;
+         # Temp solution until we can lod-link objects and get a valie CONSTRUCT from SparqlProxy:
+         conversion:interpret [
+            conversion:symbol         "", "Unknown", "Other", "Multiple", "Don't Know", "Definition / Specification";
+            conversion:interpretation conversion:null;
+         ];
+         conversion:interpret [
+            conversion:symbol         "C / C++";
+            conversion:interpretation <http://dbpedia.org/resource/C%2B%2B>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "C#";
+            conversion:interpretation <http://dbpedia.org/resource/C_Sharp_(programming_language)>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "Flex/Flash/Flare";
+            conversion:interpretation <http://dbpedia.org/resource/Adobe_Flash>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "Haskell";
+            conversion:interpretation <http://dbpedia.org/resource/Haskell_(programming_language)>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "Java";
+            conversion:interpretation <http://dbpedia.org/resource/Java_(programming_language)>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "JavaScript";
+            conversion:interpretation <http://dbpedia.org/resource/JavaScript>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "Lisp";
+            conversion:interpretation <http://dbpedia.org/resource/Lisp>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "PHP";
+            conversion:interpretation <http://dbpedia.org/resource/Php>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "Perl";
+            conversion:interpretation <http://dbpedia.org/resource/Perl>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "Pike";
+            conversion:interpretation <http://dbpedia.org/resource/Pike_(programming_language)>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "Prolog";
+            conversion:interpretation <http://dbpedia.org/resource/Prolog>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "Python";
+            conversion:interpretation <http://dbpedia.org/resource/Python>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "Ruby";
+            conversion:interpretation <http://dbpedia.org/resource/Ruby_(programming_language)>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "Tcl/Tk";
+            conversion:interpretation <http://dbpedia.org/resource/Tcl/tk>;
+         ];
+         conversion:interpret [
+            conversion:symbol         "XSLT";
+            conversion:interpretation <http://dbpedia.org/resource/XSLT>;
+         ];
+      ];
+      conversion:enhance [
+         ov:csvCol          9;
+         ov:csvHeader       "&status";
+         conversion:equivalent_property cosmo:status;
+         conversion:comment "";
+         conversion:range   rdfs:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          10;
+         ov:csvHeader       "&firstPosted";
+         conversion:equivalent_property cosmo:firstPosted;
+         conversion:eg "6/19/2007";
+         #conversion:label   "firstPosted";
+         conversion:comment "";
+         conversion:date_pattern "MM/dd/yyyy";
+         conversion:range   xsd:date;
+      ];
+      conversion:enhance [
+         ov:csvCol          11;
+         ov:csvHeader       "&updateDate";
+         conversion:equivalent_property cosmo:updateDate;
+         #NO!. The tool wasn't modified, this record was. conversion:subproperty_of      dcterms:modified;
+         conversion:comment "";
+         conversion:interpret [          
+            conversion:symbol        "";
+            conversion:interpretation conversion:null; 
+         ];                            
+         conversion:date_pattern "MM/dd/yyyy";
+         conversion:range   xsd:date;
+      ];
+      conversion:enhance [
+         ov:csvCol          12;
+         ov:csvHeader       "&thumbnail";
+         conversion:equivalent_property foaf:thumbnail;
+         conversion:comment "";
+         conversion:range   rdfs:Resource;
+         conversion:interpret [          
+            conversion:symbol        "";
+            conversion:interpretation conversion:null; 
+         ];                            
+      ];
+      #conversion:enhance [            
+      #   ov:csvRow 3,4,5;             
+      #   a conversion:ExampleResource;
+      #];                              
+   ];
+.
