@@ -2,6 +2,7 @@
 
 root="http://data.oceandrilling.org/publications"
 
+mkdir source &> /dev/null
 pushd source &> /dev/null
 
    pcurl.sh $root/301_DOI_submission_sheet.xls
