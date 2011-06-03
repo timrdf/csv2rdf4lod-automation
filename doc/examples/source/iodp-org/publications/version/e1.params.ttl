@@ -1,0 +1,200 @@
+@prefix rdf:           <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:          <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix todo:          <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:           <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:           <http://www.w3.org/2002/07/owl#> .
+@prefix vann:          <http://purl.org/vocab/vann/> .
+@prefix skos:          <http://www.w3.org/2004/02/skos/core#> .
+@prefix time:          <http://www.w3.org/2006/time#> .
+@prefix wgs:           <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames:      <http://www.geonames.org/ontology#> .
+@prefix geonamesid:    <http://sws.geonames.org/> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
+@prefix dbpedia:       <http://dbpedia.org/resource/> .
+@prefix con:           <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix muo:           <http://purl.oclc.org/NET/muo/muo#> .
+@prefix vs:            <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix frbr:          <http://purl.org/vocab/frbr/core#> .
+@prefix bibo:          <http://purl.org/ontology/bibo/> .
+@prefix dgtwc:         <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix dcterms:       <http://purl.org/dc/terms/> .
+@prefix void:          <http://rdfs.org/ns/void#> .
+@prefix scovo:         <http://purl.org/NET/scovo#> .
+@prefix sioc:          <http://rdfs.org/sioc/ns#> .
+@prefix foaf:          <http://xmlns.com/foaf/0.1/> .
+@prefix ov:            <http://open.vocab.org/terms/> .
+@prefix conversion:    <http://purl.org/twc/vocab/conversion/> .
+@prefix :              <http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/params/enhancement/1/> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+#:a_bundle
+#   a conversion:ImplicitBundle;
+#   conversion:property_name "a_property"; # Can also be a URI, e.g. dcterms:title.
+#   #conversion:type_name     "My Class";   # Can also be a URI, e.g. foaf:Person.
+#.
+
+<http://logd.tw.rpi.edu/source/iodp-org/dataset/publications/version/2011-May-31/conversion/enhancement/1>
+   a conversion:LayerDataset, void:Dataset;
+
+   conversion:base_uri           "http://logd.tw.rpi.edu"^^xsd:anyURI;
+   conversion:source_identifier  "iodp-org";
+   conversion:dataset_identifier "publications";
+   conversion:version_identifier "2011-May-31";
+
+   conversion:conversion_process [
+      a conversion:EnhancementConversionProcess;
+      conversion:enhancement_identifier "1";
+
+      dcterms:creator <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+      dcterms:created "2011-05-31T17:09:28-04:00"^^xsd:dateTime;
+
+      conversion:delimits_cell ",";
+
+      conversion:enhance [      
+         ov:csvRow 2;
+         a conversion:HeaderRow;
+      ];                        
+
+      #conversion:interpret [          
+      #   conversion:symbol        "";
+      #   conversion:interpretation conversion:null; 
+      #];                            
+      conversion:enhance [
+         conversion:domain_template "publication_[#1]";
+         conversion:domain_name     "Publication";
+      ];
+      conversion:enhance [
+         conversion:class_name     "Publication";
+         conversion:subclass_of bibo:Document, foaf:Document, dcterms:BibliographicResource, frbr:Work;
+      ];
+      conversion:enhance [
+         ov:csvCol          1;
+         ov:csvHeader       "DOI";
+         a conversion:Only_if_column;
+         conversion:equivalent_property bibo:doi;
+         conversion:comment "";
+         conversion:range   rdfs:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          2;
+         ov:csvHeader       "html";
+         #conversion:label   "html";
+         conversion:comment "";
+         conversion:interpret [          
+            conversion:symbol        "";
+            conversion:interpretation conversion:null; 
+         ];                            
+         conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol          3;
+         ov:csvHeader       "authors";
+         conversion:equivalent_property dcterms:author;
+         conversion:comment "";
+         conversion:delimits_object "\\|";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          4;
+         ov:csvHeader       "year";
+         conversion:equivalent_property dcterms:date;
+         conversion:comment "";
+         conversion:range   xsd:gYear;
+      ];
+      conversion:enhance [
+         ov:csvCol          5;
+         ov:csvHeader       "title";
+         conversion:equivalent_property dcterms:title;
+         conversion:comment "";
+         conversion:range   rdfs:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          6;
+         ov:csvHeader       "Series Title";
+         conversion:equivalent_property dcterms:isPartOf;
+         #conversion:label   "Series Title";
+         conversion:comment "";
+         conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol          7;
+         ov:csvHeader       "Vol";
+         conversion:bundled_by [ ov:csvCol 6 ];
+         conversion:equivalent_property bibo:volume;
+         conversion:comment "";
+         conversion:range   xsd:integer;
+         rdfs:comment """Now, one item of interest to me and something I need to ask the pubs people is if they always use a \"vol\" (volume) entry that matches the leg (expedition) number.  If that is the case then we could map publication-vol to IODP-expedition in a SKOS vocabulary in some manner to span across the two graphs.  
+
+YES..
+
+the publication volume in the now CSV documents at http://data.oceandrilling.org/publications/index.html is always what I call expedition (http://data.oceandrilling.org/core/1/expedition) -Doug""";
+      ];
+      conversion:enhance [
+         ov:csvCol          8;
+         ov:csvHeader       "type";
+         conversion:bundled_by [ ov:csvCol 6 ];
+         conversion:equivalent_property rdf:type;
+         #conversion:label   "type";
+         conversion:comment "";
+         #conversion:range_template "^._";
+         conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol          9;
+         ov:csvHeader       "type";
+         conversion:bundled_by [ ov:csvCol 6 ];
+         conversion:equivalent_property rdf:type;
+         conversion:comment "";
+         #conversion:range_template "^._";
+         conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol          10;
+         ov:csvHeader       "ISSN";
+         conversion:bundled_by [ ov:csvCol 6 ];
+         conversion:equivalent_property bibo:issn;
+         conversion:comment "";
+         conversion:range   rdfs:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          11;
+         ov:csvHeader       "pubdate";
+         conversion:eg      "03/15/11";
+         conversion:bundled_by [ ov:csvCol 6 ];
+         #conversion:label   "pubdate";
+         conversion:comment "";
+         conversion:date_pattern "MM/dd/yy";
+         conversion:range   xsd:date;
+      ];
+      conversion:enhance [
+         ov:csvCol          12;
+         ov:csvHeader       "publisher";
+         conversion:bundled_by [ ov:csvCol 6 ];
+         conversion:equivalent_property dcterms:publisher;
+         conversion:comment "";
+         conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol          13;
+         ov:csvHeader       "dois cited in references";
+         #conversion:label   "dois cited in references";
+         conversion:comment "";
+         conversion:interpret [          
+            conversion:symbol        "";
+            conversion:interpretation conversion:null; 
+         ];                            
+         conversion:range   rdfs:Resource;
+      ];
+      #conversion:enhance [            
+      #   ov:csvRow 3,4,5;             
+      #   a conversion:ExampleResource;
+      #];                              
+   ];
+.
