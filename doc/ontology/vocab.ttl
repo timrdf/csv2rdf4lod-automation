@@ -994,3 +994,13 @@ conv:TripleStore
    rdfs:label "TripleStore";
    rdfs:comment "";
 .
+
+conv:ConversionTrigger
+   a owl:Class;
+   rdfs:subClassOf pmlp:InferenceEngine;
+   rdfs:label "ConversionTrigger";
+   rdfs:comment "In csv2rdf4lod-automation, the conversion trigger is a shell script situated within the conversion cockpit that initiates conversion of source data to RDF.";
+   foaf:page <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-trigger>;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-create-convert-sh.sh>,
+                <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-cockpit>;
+.
