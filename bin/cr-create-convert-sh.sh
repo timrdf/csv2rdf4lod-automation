@@ -90,13 +90,14 @@ CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source
 
 TMP_SH=`date +%s`_$$.sh.tmp
 
-echo "#!/bin/bash"                                                                                      > $TMP_SH
-echo "#"                                                                                               >> $TMP_SH
-echo "# <#> a <http://purl.org/twc/vocab/conversion/ConversionTrigger> ;"                              >> $TMP_SH
-echo "#     rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-trigger> ." >> $TMP_SH
-echo "#"                                                                                               >> $TMP_SH
-echo "# datasetID versionID (lastModDate):"                                                            >> $TMP_SH
-echo "# $datasetID $versionID ($lastModDate)"                                                          >> $TMP_SH
+echo "#!/bin/bash"                                                                                                      > $TMP_SH
+echo "#"                                                                                                               >> $TMP_SH
+echo "# <#> a <http://purl.org/twc/vocab/conversion/ConversionTrigger> ;"                                              >> $TMP_SH
+echo "#     rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-trigger> ."                 >> $TMP_SH
+echo "#                  <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-create-convert-sh.sh> ." >> $TMP_SH
+echo "#"                                                                                                               >> $TMP_SH
+echo "# datasetID versionID (lastModDate):"                                                                            >> $TMP_SH
+echo "# $datasetID $versionID ($lastModDate)"                                                                          >> $TMP_SH
 
 echo "#--------------------------------------------------------------"    >> $TMP_SH
 echo ""                                                                   >> $TMP_SH
