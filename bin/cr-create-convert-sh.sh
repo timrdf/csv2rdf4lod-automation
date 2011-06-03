@@ -90,30 +90,33 @@ CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source
 
 TMP_SH=`date +%s`_$$.sh.tmp
 
-echo "#!/bin/bash"                                                      > $TMP_SH
-echo "# $datasetID $versionID ($lastModDate)"                          >> $TMP_SH
+echo "#!/bin/bash"                                                                                      > $TMP_SH
+echo "#"                                                                                               >> $TMP_SH
+echo "# <#> a <http://purl.org/twc/vocab/conversion/ConversionTrigger> ;"                              >> $TMP_SH
+echo "#     rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-trigger> ." >> $TMP_SH
+echo "# $datasetID $versionID ($lastModDate)"                                                          >> $TMP_SH
 
-echo "#--------------------------------------------------------------" >> $TMP_SH
-echo ""                                                                >> $TMP_SH
+echo "#--------------------------------------------------------------"    >> $TMP_SH
+echo ""                                                                   >> $TMP_SH
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $TMP_SH
-echo ""                                                                >> $TMP_SH
+echo ""                                                                   >> $TMP_SH
 echo "surrogate=\"$CSV2RDF4LOD_BASE_URI\" # Came from \$CSV2RDF4LOD_BASE_URI when `basename $0` created this script." >> $TMP_SH
-echo "sourceID=\"$sourceID\""                                          >> $TMP_SH
-echo "datasetID=\"$datasetID\""                                        >> $TMP_SH
+echo "sourceID=\"$sourceID\""                                             >> $TMP_SH
+echo "datasetID=\"$datasetID\""                                           >> $TMP_SH
 echo "datasetVersion=\"$versionID\"        # NO SPACES; Use curl -I -L http://www.data.gov/download/$datasetID/csv | grep "Last-Modified:" | awk '{printf("%s-%s-%s",$3,$4,$5)}'" >> $TMP_SH
 echo "versionID=\"$versionID\"             # renaming datasetVersion (deprecating datasetVersion)"       >> $TMP_SH
-echo "eID=\"1\"                             # enhancement identifier"  >> $TMP_SH
-echo "if [ \$# -ge 2 ]; then"                                          >> $TMP_SH
-echo "   if [ \$1 == \"-e\" ]; then"                                   >> $TMP_SH
-echo "     eID=\"\$2\" "                                               >> $TMP_SH
-echo "   fi"                                                           >> $TMP_SH
-echo "fi"                                                              >> $TMP_SH
-echo ""                                                                >> $TMP_SH
-echo ""                                                                >> $TMP_SH
-echo "# $1"                                                            >> $TMP_SH
+echo "eID=\"1\"                             # enhancement identifier"     >> $TMP_SH
+echo "if [ \$# -ge 2 ]; then"                                             >> $TMP_SH
+echo "   if [ \$1 == \"-e\" ]; then"                                      >> $TMP_SH
+echo "     eID=\"\$2\" "                                                  >> $TMP_SH
+echo "   fi"                                                              >> $TMP_SH
+echo "fi"                                                                 >> $TMP_SH
+echo ""                                                                   >> $TMP_SH
+echo ""                                                                   >> $TMP_SH
+echo "# $1"                                                               >> $TMP_SH
 echo "sourceDir=\"`dirname "$1"`\"                  # if directly from source, 'source'; if manual manipulations of source were required, 'manual'." >> $TMP_SH
-echo "destDir=\"automatic\"                 # always 'automatic'"      >> $TMP_SH
-echo "#--------------------------------------------------------------" >> $TMP_SH
+echo "destDir=\"automatic\"                 # always 'automatic'"         >> $TMP_SH
+echo "#--------------------------------------------------------------"    >> $TMP_SH
 
 if [ $# -gt 1 ]; then
    includeDiscriminator="yes"
