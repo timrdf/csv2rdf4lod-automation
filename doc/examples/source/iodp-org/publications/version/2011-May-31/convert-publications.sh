@@ -2,6 +2,8 @@
 #
 # <#> a <http://purl.org/twc/vocab/conversion/ConversionTrigger> ;
 #     rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-trigger> .
+#
+# datasetID versionID lastModDate:
 # publications 2011-May-31 ()
 #--------------------------------------------------------------
 
