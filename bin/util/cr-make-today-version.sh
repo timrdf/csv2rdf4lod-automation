@@ -20,6 +20,8 @@ dir=`dateInXSDDateTime.sh | sed -e 's/T.*$//' -e 's/-/ /g' | awk '{abbr["01"]="J
 if [ ! -e $dir -a ${1:-"."} == '-w' ]; then
    mkdir $dir
    echo $dir
+   mkdir $dir/source
+   echo $dir/source
 else
    echo $dir
    echo "use -w to make dir"
