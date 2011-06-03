@@ -28,3 +28,5 @@ pushd source &> /dev/null
    $CSV2RDF4LOD_HOME/bin/util/pcurl.sh $root/ODP_DOI_210IR_Submission_sheet.csv 
 
 popd &> /dev/null
+
+cr-create-convert-sh.sh -w source/*.csv
