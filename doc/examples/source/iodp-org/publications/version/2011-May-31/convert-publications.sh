@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# <#> a <http://purl.org/twc/vocab/conversion/ConversionTrigger> ;
+#     rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-trigger> .
 # publications 2011-May-31 ()
 #--------------------------------------------------------------
 
