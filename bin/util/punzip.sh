@@ -2,20 +2,37 @@
 #
 # Usage:
 #
-#   punzip.sh http://www.whitehouse.gov/files/disclosures/visitors/WhiteHouse-WAVES-Key-1209.txt
-#   (produces WhiteHouse-WAVES-Key-1209.txt and WhiteHouse-WAVES-Key-1209.txt.pml.ttl)
-#
+# punzip.sh                            US-44-009-result.zip --> data.csv             and data.csv.pml.ttl
+# punzip.sh -n US-44-009-result -e csv US-44-009-result.zip --> US-44-009-result.csv and US-44-009-result.csv.pml.ttl
+# punzip.sh                     -e csv US-44-009-result.zip --> data.csv.csv         and data.csv.csv.pml.ttl 
+# punzip.sh -n US-44-009-result        US-44-009-result.zip --> US-44-009-result     and US-44-009-result.pml.ttl
 
-usage_message="usage: `basename $0` .zip [.zip ...]" 
+usage_message="usage: `basename $0` [-n filename] [-e file_extension] .zip [.zip ...]" 
 if [ $# -lt 1 ]; then
    echo $usage_message 
+   echo "  -n: filename to name every file coming out of the zip."
+   echo "  -e: extension to use for every file coming out of the zip."
    exit 1
 fi
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
 
-# TODO: reimplement this using perl and its unzip module
+outfile_override=""
+if [[ $1 == "-n" ]]; then
+   outfile_override="$2" 
+   echo "`basename $0` will use \"$outfile_override\" to name every file from the zip."
+   shift 2
+fi
+
+outfile_extension_override=""
+if [[ $1 == "-e" ]]; then
+   outfile_extension_override="$2" 
+   echo "`basename $0` will append \"$outfile_extension_override\" to every file from the zip."
+   shift 2
+fi
+
+# TODO: reimplement this using perl and its unzip module.
 
 # bash-3.2$ unzip -l state_combined_ak.zip
 # Archive:  state_combined_ak.zip
@@ -77,7 +94,10 @@ while [ $# -gt 0 ]; do
       let numFiles="$listLength-5"
 
       # NOTE: the line below ACTUALLY uncompresses the file(s)
-      files=`unzip -l "$zip" | tail -$tailParam | head -$numFiles | awk -v zip="$zip" -f $CSV2RDF4LOD_HOME/bin/util/punzip.awk`
+      echo BEGIN
+      unzip -l "$zip" | tail -$tailParam | head -$numFiles #| awk -v zip="$zip" -f $CSV2RDF4LOD_HOME/bin/util/punzip.awk`
+      echo END
+      files=`unzip -l "$zip" | tail -$tailParam | head -$numFiles | awk -v zip="$zip" -v file_name="$outfile_override" -v file_extension="$outfile_extension_override" -f $CSV2RDF4LOD_HOME/bin/util/punzip.awk`
    elif [ $unzipper == "gunzip" ]; then
       files=${zip%.*}
    elif [ $unzipper == "tar" ]; then
