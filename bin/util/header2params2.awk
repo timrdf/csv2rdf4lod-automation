@@ -61,6 +61,7 @@ BEGIN {
       print "@prefix vs:            <http://www.w3.org/2003/06/sw-vocab-status/ns#> ."
       print "@prefix frbr:          <http://purl.org/vocab/frbr/core#> ."
       print "@prefix bibo:          <http://purl.org/ontology/bibo/> ."
+      print "@prefix doap:          <http://usefulinc.com/ns/doap#> ."
       print "@prefix dgtwc:         <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> ."
    }
    print "@prefix dcterms:       <http://purl.org/dc/terms/> ."
@@ -171,16 +172,24 @@ BEGIN {
                                     printf("      ];                            \n");
    }
    comment_out = length(interpretAsNull) && length(conversionID) ? "" : "#"; # We want to put in the template so it is easy to uncomment.
-                                    printf("      %sconversion:interpret [          \n",             comment_out);
-                                    printf("      %s   conversion:symbol        \"%s\";\n",                 comment_out,interpretAsNull);
+                                    printf("      %sconversion:interpret [\n",                        comment_out);
+                                    printf("      %s   conversion:symbol        \"%s\";\n",           comment_out,interpretAsNull);
                                     printf("      %s   conversion:interpretation conversion:null; \n",comment_out);
-                                    printf("      %s];                            \n",               comment_out);
+                                    printf("      %s];\n",                                            comment_out);
    if(length(dataEnd)) {
                                     printf("      conversion:enhance [        \n");
                                     printf("         ov:csvRow %s;\n",dataEnd);
                                     printf("         a conversion:DataEndRow; \n");
                                     printf("      ];                          \n");
    }
+                                    printf("      #conversion:enhance [\n");
+                                    printf("      #   conversion:domain_template \"tool_[r]\";\n");
+                                    printf("      #   conversion:domain_name     \"Tool\";\n");
+                                    printf("      #];\n");
+                                    printf("      #conversion:enhance [\n");
+                                    printf("      #   conversion:class_name \"Tool\";\n");
+                                    printf("      #   conversion:subclass_of <http://purl.org/...>;\n");
+                                    printf("      #];\n");
 }
 
 { # length(conversionID) {
