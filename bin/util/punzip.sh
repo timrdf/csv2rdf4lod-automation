@@ -94,9 +94,6 @@ while [ $# -gt 0 ]; do
       let numFiles="$listLength-5"
 
       # NOTE: the line below ACTUALLY uncompresses the file(s)
-      echo BEGIN
-      unzip -l "$zip" | tail -$tailParam | head -$numFiles #| awk -v zip="$zip" -f $CSV2RDF4LOD_HOME/bin/util/punzip.awk`
-      echo END
       files=`unzip -l "$zip" | tail -$tailParam | head -$numFiles | awk -v zip="$zip" -v file_name="$outfile_override" -v file_extension="$outfile_extension_override" -f $CSV2RDF4LOD_HOME/bin/util/punzip.awk`
    elif [ $unzipper == "gunzip" ]; then
       files=${zip%.*}
