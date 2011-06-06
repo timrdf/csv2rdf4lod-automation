@@ -821,7 +821,7 @@ conv:Dataset
    rdfs:subClassOf void:Dataset;
    rdfs:subClassOf [
       a owl:Restriction;
-      owl:onProperty dcterms:contributor;
+      owl:onProperty dct:contributor;
       owl:minQualifiedCardinality 1;
       owl:onClass conv:Source;
    ];
