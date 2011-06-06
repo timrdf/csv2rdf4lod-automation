@@ -819,6 +819,20 @@ conv:Dataset
    rdfs:label "Dataset";
    rdfs:comment "Asserted by the converter.";
    rdfs:subClassOf void:Dataset;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty dcterms:contributor;
+      owl:minQualifiedCardinality 1;
+      owl:onClass conv:Source;
+   ];
+.
+
+conv:Source
+   a rdfs:Class;
+   rdfs:label "Source";
+   rdfs:comment "A person, organization, or agent from which a dataset is retrieved.";
+   rdfs:subClassOf foaf:Agent;
+   owl:disjointWith conv:Dataset;
 .
 
 conv:AbstractDataset
