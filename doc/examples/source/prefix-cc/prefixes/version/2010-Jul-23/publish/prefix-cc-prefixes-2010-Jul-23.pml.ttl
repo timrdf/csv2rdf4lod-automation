@@ -1,0 +1,66 @@
+@base <http://logd.tw.rpi.edu/source/prefix-cc/provenance_file/prefixes/version/2010-Jul-23/source/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+
+<all.file.csv>
+    pmlp:hasReferenceSourceUsage <sourceUsage_e5d89fb2-2f5b-45b8-aace-6f024a1b3b69> ;
+    a pmlp:Information .
+
+<nodeSet_e5d89fb2-2f5b-45b8-aace-6f024a1b3b69>
+    pmlj:hasConclusion <all.file.csv> ;
+    pmlj:isConsequentOf [
+        pmlj:hasAntecedentList rdf:nil ;
+        pmlj:hasIndex 0 ;
+        pmlj:hasInferenceEngine _:genid1 ;
+        pmlj:hasInferenceRule <DirectAssertion> ;
+        pmlj:hasSourceUsage <sourceUsage_e5d89fb2-2f5b-45b8-aace-6f024a1b3b69> ;
+        a pmlj:InferenceStep
+    ] ;
+    a pmlj:NodeSet .
+
+<sourceUsage_e5d89fb2-2f5b-45b8-aace-6f024a1b3b69>
+    pmlp:hasSource <http://prefix.cc/popular/all.file.csv> ;
+    pmlp:hasUsageDateTime "2010-07-23T10:58:10-04:00"^^xsd:dateTime ;
+    a pmlp:SourceUsage .
+
+<http://prefix.cc/popular/all.file.csv>
+    a pmlp:Source .
+
+<http://logd.tw.rpi.edu/source/prefix-cc/dataset/prefixes/version/2010-Jul-23> <http://purl.org/dc/terms/source> <all.file.csv> .
+
+@base <http://logd.tw.rpi.edu/source/prefix-cc/provenance_file/prefixes/version/2010-Jul-23/source/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+
+<all.file.vann>
+    pmlp:hasReferenceSourceUsage <sourceUsage_50ef3664-1732-4132-bd83-b21073d38053> ;
+    a pmlp:Information .
+
+<nodeSet_50ef3664-1732-4132-bd83-b21073d38053>
+    pmlj:hasConclusion <all.file.vann> ;
+    pmlj:isConsequentOf [
+        pmlj:hasAntecedentList rdf:nil ;
+        pmlj:hasIndex 0 ;
+        pmlj:hasInferenceEngine _:genid1 ;
+        pmlj:hasInferenceRule <DirectAssertion> ;
+        pmlj:hasSourceUsage <sourceUsage_50ef3664-1732-4132-bd83-b21073d38053> ;
+        a pmlj:InferenceStep
+    ] ;
+    a pmlj:NodeSet .
+
+<sourceUsage_50ef3664-1732-4132-bd83-b21073d38053>
+    pmlp:hasSource <http://prefix.cc/popular/all.file.vann> ;
+    pmlp:hasUsageDateTime "2010-07-23T10:58:07-04:00"^^xsd:dateTime ;
+    a pmlp:SourceUsage .
+
+<http://prefix.cc/popular/all.file.vann>
+    a pmlp:Source .
+
+<http://logd.tw.rpi.edu/source/prefix-cc/dataset/prefixes/version/2010-Jul-23> <http://purl.org/dc/terms/source> <all.file.vann> .
+

@@ -1,0 +1,112 @@
+@base <http://logd.tw.rpi.edu/source/prefix-cc/provenance_file/prefixes/version/2011-Jun-10/source/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix oboro: <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov: <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+@prefix irw: <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix conv: <http://purl.org/twc/vocab/conversion/> .
+@prefix httphead: <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> .
+@prefix httpget: <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> .
+@prefix httppost: <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> .
+
+<all.file.csv>
+    pmlp:hasReferenceSourceUsage <sourceUsage_2ca37a35-58bf-4da1-87d5-8c826c76467b_content> ;
+    nfo:hasHash <md5_md5.sh: can not find md5 to run._time_1307728812> ;
+    a pmlp:Information .
+
+<inferenceStep_2ca37a35-58bf-4da1-87d5-8c826c76467b_content>
+    pmlj:hasAntecedentList rdf:nil ;
+    pmlj:hasIndex 0 ;
+    pmlj:hasInferenceEngine conv:curl_md5_md5 ;
+    pmlj:hasSourceUsage <sourceUsage_2ca37a35-58bf-4da1-87d5-8c826c76467b_content> ;
+    a pmlj:InferenceStep .
+
+<md5_md5.sh: can not find md5 to run._time_1307728812>
+    dcterms:date "2011-06-10T14:00:12-04:00"^^xsd:dateTime ;
+    nfo:hashAlgorithm "md5" ;
+    nfo:hashValue "md5.sh: can not find md5 to run." ;
+    a nfo:FileHash .
+
+<nodeSet_2ca37a35-58bf-4da1-87d5-8c826c76467b_content>
+    pmlj:hasConclusion <all.file.csv> ;
+    pmlj:isConsequentOf <inferenceStep_2ca37a35-58bf-4da1-87d5-8c826c76467b_content> ;
+    a pmlj:NodeSet .
+
+<http://prefix.cc/popular/all.file.csv>
+    a pmlp:Source .
+
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
+    dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2> ;
+    sioc:account_of <http://tw.rpi.edu/instances/TimLebo> ;
+    a foaf:OnlineAccount ;
+    foaf:accountName "lebot" .
+
+<http://tw.rpi.edu/instances/TimLebo>
+    foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+
+<http://logd.tw.rpi.edu/source/prefix-cc/dataset/prefixes/version/2011-Jun-10> <http://purl.org/dc/terms/source> <all.file.csv> .
+
+@base <http://logd.tw.rpi.edu/source/prefix-cc/provenance_file/prefixes/version/2011-Jun-10/source/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix oboro: <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov: <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+@prefix irw: <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix conv: <http://purl.org/twc/vocab/conversion/> .
+@prefix httphead: <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> .
+@prefix httpget: <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> .
+@prefix httppost: <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> .
+
+<all.file.vann>
+    pmlp:hasReferenceSourceUsage <sourceUsage_effa8b0d-5375-4af2-ba6b-fe38521940e1_content> ;
+    nfo:hasHash <md5_md5.sh: can not find md5 to run._time_1307728808> ;
+    a pmlp:Information .
+
+<inferenceStep_effa8b0d-5375-4af2-ba6b-fe38521940e1_content>
+    pmlj:hasAntecedentList rdf:nil ;
+    pmlj:hasIndex 0 ;
+    pmlj:hasInferenceEngine conv:curl_md5_md5 ;
+    pmlj:hasSourceUsage <sourceUsage_effa8b0d-5375-4af2-ba6b-fe38521940e1_content> ;
+    a pmlj:InferenceStep .
+
+<md5_md5.sh: can not find md5 to run._time_1307728808>
+    dcterms:date "2011-06-10T14:00:08-04:00"^^xsd:dateTime ;
+    nfo:hashAlgorithm "md5" ;
+    nfo:hashValue "md5.sh: can not find md5 to run." ;
+    a nfo:FileHash .
+
+<nodeSet_effa8b0d-5375-4af2-ba6b-fe38521940e1_content>
+    pmlj:hasConclusion <all.file.vann> ;
+    pmlj:isConsequentOf <inferenceStep_effa8b0d-5375-4af2-ba6b-fe38521940e1_content> ;
+    a pmlj:NodeSet .
+
+<http://prefix.cc/popular/all.file.vann>
+    a pmlp:Source .
+
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
+    dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2> ;
+    sioc:account_of <http://tw.rpi.edu/instances/TimLebo> ;
+    a foaf:OnlineAccount ;
+    foaf:accountName "lebot" .
+
+<http://tw.rpi.edu/instances/TimLebo>
+    foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+
+<http://logd.tw.rpi.edu/source/prefix-cc/dataset/prefixes/version/2011-Jun-10> <http://purl.org/dc/terms/source> <all.file.vann> .
+
