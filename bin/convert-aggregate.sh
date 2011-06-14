@@ -57,7 +57,7 @@ allSAMEAS=$publishDir/$sourceID-$datasetID-$datasetVersion.sameas.nt
 rawSAMPLE=$publishDir/$sourceID-$datasetID-$datasetVersion.raw.sample.ttl
 versionedDatasetURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$surrogate}/source/$sourceID/dataset/$datasetID/version/$datasetVersion"
 rawSampleGraph="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$surrogate}/source/$sourceID/dataset/$datasetID/version/$datasetVersion/conversion/raw/subset/sample"
-
+# TODO: use surrogate or BASE_URI? I'm leaning BASE_URI since it's not encoded in the directory structure.
 http_allNT="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.nt"
 http_allTTL="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.ttl"
 http_allRDFXML="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.rdf"
@@ -205,7 +205,7 @@ for dir in source manual automatic; do
       # http://logd.tw.rpi.edu/source/data-gov/provenance_file/1008/version/2010-Aug-30/source/STATE_SINGLE_PW.CSV
       # rapper -g -o turtle source/STATE_SINGLE_PW.CSV.pml.ttl  http://logd.tw.rpi.edu/source/data-gov/provenance_file/1008/version/2010-Aug-30/source/
       sourceFile=`echo $pml | sed 's/.pml.ttl$//'`
-      base4rapper="${CSV2RDF4LOD_BASE_URI}/source/${sourceID}/provenance_file/${datasetID}/version/${datasetVersion}/$dir/"
+      base4rapper="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/provenance_file/${datasetID}/version/${datasetVersion}/$dir/"
       echo "  (including $pml)" | tee -a $CSV2RDF4LOD_LOG
       if [ `which rapper` ]; then
          rapper -g -o turtle $pml $base4rapper >> $allPML 2> /dev/null
@@ -221,7 +221,7 @@ done
 TEMP_pml="_"`basename $0``date +%s`_$$.tmp
 if [ -d ../../doc ]; then
    for pml in `find ../../doc -name "*.pml.ttl"`; do
-      base4rapper="${CSV2RDF4LOD_BASE_URI}/source/${sourceID}/doc_file/${datasetID}/`echo $pml | sed 's/......doc.//'`"
+      base4rapper="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/doc_file/${datasetID}/`echo $pml | sed 's/......doc.//'`"
       # TODO: has a base of: @base <http://logd.tw.rpi.edu/source/data-gov/doc_file/1008/1008.html.pml.ttl>
       cp $pml $TEMP_pml
       echo "  (including $pml)" | tee -a $CSV2RDF4LOD_LOG
