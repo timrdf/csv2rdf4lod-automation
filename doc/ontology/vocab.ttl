@@ -1018,3 +1018,10 @@ conv:ConversionTrigger
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-create-convert-sh.sh>,
                 <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-cockpit>;
 .
+
+conv:LargeValue
+   a owl:Class;
+   rdfs:label "LargeValue";
+   rdfs:comment "Used to denote that the value of a cell is 'large', where 'large' is loosely defined by the implementing system. For example, javacsv thinks 100,000 characters is Large and requires a setting to permit more than that.";
+.
+
