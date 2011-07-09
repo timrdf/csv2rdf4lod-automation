@@ -4,12 +4,6 @@
    xmlns:foaf="http://xmlns.com/foaf/0.1/"
    xmlns:owl="http://www.w3.org/2002/07/owl#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-  <rdf:Description rdf:about="file:///Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/instances/person/lebot.ttl#tim">
-    <owl:sameAs rdf:resource="http://inference-web.org/registry/PER/TimLebo.owl#TimLebo"/>
-    <owl:sameAs rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
-    <owl:sameAs rdf:resource="http://tw.rpi.edu/instances/TimLebo"/>
-    <owl:sameAs rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo"/>
-  </rdf:Description>
   <foaf:Person rdf:about="http://purl.org/twc/id/person/TimLebo">
     <con:preferredURI rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
     <foaf:knows rdf:resource="http://data.semanticweb.org/person/satya-s-sahoo"/>
@@ -28,4 +22,8 @@
     </foaf:knows>
     <foaf:page rdf:resource="http://tw.rpi.edu/web/person/TimLebo"/>
   </foaf:Person>
+  <rdf:Description rdf:about="http://tw.rpi.edu/instances/TimLebo">
+    <owl:sameAs rdf:resource="http://inference-web.org/registry/PER/TimLebo.owl#TimLebo"/>
+    <owl:sameAs rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo"/>
+  </rdf:Description>
 </rdf:RDF>
