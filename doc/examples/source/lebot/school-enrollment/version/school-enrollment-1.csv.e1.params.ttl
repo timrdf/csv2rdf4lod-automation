@@ -85,25 +85,48 @@
          ov:csvHeader       "Grade";
          #conversion:label   "Grade";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:interpret [
+            conversion:symbol "9";
+            conversion:interpretation <http://dbpedia.org/resource/Ninth_grade>;
+         ];
+         conversion:interpret [
+            conversion:symbol "10";
+            conversion:interpretation <http://dbpedia.org/resource/Tenth_grade>;
+         ];
+         conversion:interpret [
+            conversion:symbol "11";
+            conversion:interpretation <http://dbpedia.org/resource/Eleventh_grade>;
+         ];
+         conversion:interpret [
+            conversion:symbol "12";
+            conversion:interpretation <http://dbpedia.org/resource/Twelfth_grade>;
+         ];
+         conversion:range   rdfs:Resource;
       ];
       conversion:enhance [
          ov:csvCol          3;
          ov:csvHeader       "Homeroom";
          #conversion:label   "Homeroom";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Resource;
+         conversion:range_name "Room";
+      ];
+      conversion:enhance [
+         conversion:class_name "Room";
+         conversion:subclass_of wgs:SpatialThing;
       ];
       conversion:enhance [
          ov:csvCol          4;
          ov:csvHeader       "Enrolled Classes";
          #conversion:label   "Enrolled Classes";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Resource;
+         conversion:range_name "Course";
       ];
-      #conversion:enhance [            
-      #   ov:csvRow 3,4,5;             
-      #   a conversion:ExampleResource;
-      #];                              
+      conversion:enhance [            
+         ov:csvRow 3,4;             
+         a conversion:ExampleResource;
+         rdfs:comment "Just picking a few out to be void:exampleResources.";
+      ];                              
    ];
 .
