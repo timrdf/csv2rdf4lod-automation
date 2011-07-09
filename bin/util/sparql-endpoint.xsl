@@ -96,6 +96,18 @@
    <xsl:value-of select="concat('&lt;',$value,'>')"/>
 </xsl:function>
 
+<xsl:function name="vsr:literal">
+   <xsl:param name="value"/>
+   <xsl:value-of select="concat($DQ,$value,$DQ)"/>
+</xsl:function>
+
+<xsl:function name="vsr:limit-offset">
+   <xsl:param name="query"/>
+   <xsl:param name="limit"/>
+   <xsl:param name="offset"/>
+   <xsl:value-of select="concat($query,' limit ',$limit,' offset ',$offset)"/>
+</xsl:function>
+
 <!-- constants -->
 <xsl:variable name="queryLanguage" select="('sparql','serql')"/>
 <xsl:variable name="mime-types"    select="('','application/rdf+xml','application/sparql-results+xml')"/>
