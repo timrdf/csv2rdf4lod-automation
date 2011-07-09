@@ -118,8 +118,9 @@
       conversion:enhance [
          ov:csvCol          4;
          ov:csvHeader       "Enrolled Classes";
-         #conversion:label   "Enrolled Classes";
+         conversion:label   "Enrolled In";
          conversion:comment "";
+         conversion:delimits_object ";\\s*";
          conversion:range   rdfs:Resource;
          conversion:range_name "Course";
       ];
