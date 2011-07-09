@@ -23,7 +23,8 @@
                 owl:sameAs        <http://purl.org/twc/id/person/LeonardoSalayandia>;
               ],
               <http://data.semanticweb.org/person/satya-s-sahoo>,
-              <http://purl.org/twc/id/person/NicholasDelRio>;
+              <http://purl.org/twc/id/person/NicholasDelRio>,
+              <http://www.w3.org/People/Eric/ericP-foaf#ericP>;
 
    foaf:currentProject <http://purl.org/twc/id/software/csv2rdf4lod>;
    foaf:pastProject [ foaf:page <https://ritdml.rit.edu/bitstream/handle/1850/993/TLeboThesis07-2005.pdf>,
