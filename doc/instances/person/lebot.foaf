@@ -24,5 +24,12 @@
       </foaf:Person>
     </foaf:knows>
     <foaf:page rdf:resource="http://tw.rpi.edu/web/person/TimLebo"/>
+    <foaf:pastProject>
+      <rdf:Description>
+        <foaf:page rdf:resource="http://www.actapress.com/Abstract.aspx?paperId=27881"/>
+        <foaf:page rdf:resource="https://ritdml.rit.edu/bitstream/handle/1850/993/TLeboThesis07-2005.pdf"/>
+        <foaf:page rdf:resource="https://ritdml.rit.edu/handle/1850/993"/>
+      </rdf:Description>
+    </foaf:pastProject>
   </foaf:Person>
 </rdf:RDF>
