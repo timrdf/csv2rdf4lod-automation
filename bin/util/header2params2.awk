@@ -62,6 +62,7 @@ BEGIN {
       print "@prefix frbr:          <http://purl.org/vocab/frbr/core#> ."
       print "@prefix bibo:          <http://purl.org/ontology/bibo/> ."
       print "@prefix doap:          <http://usefulinc.com/ns/doap#> ."
+      print "@prefix qb:            <http://purl.org/linked-data/cube#> ."
       print "@prefix dgtwc:         <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> ."
    }
    print "@prefix dcterms:       <http://purl.org/dc/terms/> ."
