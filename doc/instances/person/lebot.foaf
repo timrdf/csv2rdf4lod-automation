@@ -1,30 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rdf:RDF
-   xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
-   xmlns:foaf="http://xmlns.com/foaf/0.1/"
-   xmlns:owl="http://www.w3.org/2002/07/owl#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="file:///Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/instances/person/lebot.ttl#tim">
+    <owl:sameAs rdf:resource="http://tw.rpi.edu/instances/TimLebo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/instances/person/lebot.ttl#tim">
+    <owl:sameAs rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
+  </rdf:Description>
   <rdf:Description rdf:about="file:///Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/instances/person/lebot.ttl#tim">
     <owl:sameAs rdf:resource="http://inference-web.org/registry/PER/TimLebo.owl#TimLebo"/>
-    <owl:sameAs rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
-    <owl:sameAs rdf:resource="http://tw.rpi.edu/instances/TimLebo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/instances/person/lebot.ttl#tim">
     <owl:sameAs rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo"/>
   </rdf:Description>
-  <foaf:Person rdf:about="http://purl.org/twc/id/person/TimLebo">
+  <rdf:Description rdf:about="http://purl.org/twc/id/person/TimLebo">
     <con:preferredURI rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
-    <foaf:knows rdf:resource="http://data.semanticweb.org/person/satya-s-sahoo"/>
-    <foaf:knows rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdf#me"/>
-    <foaf:knows rdf:resource="http://www.deri.ie/about/team/member/Lin_Clark#me"/>
-    <foaf:knows>
-      <foaf:Person>
-        <owl:sameAs rdf:resource="http://purl.org/twc/id/person/LeonardoSalayandia"/>
-        <foaf:depiction rdf:resource="http://www.cs.utep.edu/leonardo/salayandia.jpg"/>
-        <foaf:family_name>Salayandia</foaf:family_name>
-        <foaf:givenname>Leonardo</foaf:givenname>
-        <foaf:homepage rdf:resource="http://www.cs.utep.edu/leonardo"/>
-        <foaf:nick>Leo</foaf:nick>
-      </foaf:Person>
-    </foaf:knows>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid1">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid1">
+    <foaf:givenname>Leonardo</foaf:givenname>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid1">
+    <foaf:family_name>Salayandia</foaf:family_name>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid1">
+    <foaf:nick>Leo</foaf:nick>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid1">
+    <foaf:homepage rdf:resource="http://www.cs.utep.edu/leonardo"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid1">
+    <foaf:depiction rdf:resource="http://www.cs.utep.edu/leonardo/salayandia.jpg"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="genid1">
+    <owl:sameAs rdf:resource="http://purl.org/twc/id/person/LeonardoSalayandia"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/twc/id/person/TimLebo">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/twc/id/person/TimLebo">
     <foaf:page rdf:resource="http://tw.rpi.edu/web/person/TimLebo"/>
-  </foaf:Person>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/twc/id/person/TimLebo">
+    <foaf:knows rdf:resource="http://www.deri.ie/about/team/member/Lin_Clark#me"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/twc/id/person/TimLebo">
+    <foaf:knows rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdf#me"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/twc/id/person/TimLebo">
+    <foaf:knows rdf:nodeID="genid1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/twc/id/person/TimLebo">
+    <foaf:knows rdf:resource="http://data.semanticweb.org/person/satya-s-sahoo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/twc/id/person/TimLebo">
+    <foaf:knows rdf:resource="http://purl.org/twc/id/person/NicholasDelRio"/>
+  </rdf:Description>
 </rdf:RDF>

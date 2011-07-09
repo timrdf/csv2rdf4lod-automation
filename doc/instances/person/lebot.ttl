@@ -22,5 +22,6 @@
                 foaf:depiction    <http://www.cs.utep.edu/leonardo/salayandia.jpg>;
                 owl:sameAs        <http://purl.org/twc/id/person/LeonardoSalayandia>;
               ],
-              <http://data.semanticweb.org/person/satya-s-sahoo>
+              <http://data.semanticweb.org/person/satya-s-sahoo>,
+              <http://purl.org/twc/id/person/NicholasDelRio>;
 .
