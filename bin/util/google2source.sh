@@ -88,10 +88,12 @@ while [ $# -gt 0 ]; do
    pushd $versionID &> /dev/null
       if [ ${dryRun-"."} == "true" ]; then
          echo "(in $versionID)"
-         echo `basename $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh` -w --header-line 2 source/$LOCALc.csv
+         #echo `basename $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh` -w --header-line 2 source/$LOCALc.csv
+         echo `basename $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh` -w source/$LOCALc.csv
          echo ./*.sh
       else
-         $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w --header-line 2 source/$LOCALc.csv
+         #$CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w --header-line 2 source/$LOCALc.csv
+         $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w source/$LOCALc.csv
          ./*.sh
          ./*.sh # Run the enhancement, too. It will no-op if none to be done.
       fi
