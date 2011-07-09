@@ -7,11 +7,13 @@ if [ $ANCHOR_SHOULD_BE_VERSION != "version" ]; then
    exit 1
 fi
 
-
-if [ $# -lt 2 -o $# -gt 3 ]; then
-   echo "usage: `basename $0` [-{w,f}] google-key local-name"
-   echo "    google-key - key from google spreadsheet URL"
-   echo "    local-name - local name within source/"
+if [ $# -lt 2 ]; then
+   echo "usage: `basename $0` [-{w,f}] google-key local-name [google-key]*"
+   echo "    -w            - write instead of doing a dry run (dry run is default)."
+   echo "    -f            - force another version, even though there is already one for today."
+   echo "    google-key    - key from google spreadsheet URL"
+   echo "    local-name    - local name within source/ (use 'cr:auto' to default to dataset identifier)"
+   echo "    [google-key]* - more keys from google spreadsheet URLs"
    exit 1
 fi
 
@@ -33,9 +35,13 @@ else
 fi
 
 if [ $# -lt 2 ]; then
-   echo "usage: `basename $0` [-{w,f}] google-key local-name"
-   echo "    google-key - key from google spreadsheet URL"
-   echo "    local-name - local name within source/; use 'auto' to use dataset name."
+   echo "usage: `basename $0` [-{w,f}] google-key local-name [google-key]*"
+   echo "    -w            - write instead of doing a dry run (dry run is default)."
+   echo "    -f            - force another version, even though there is already one for today."
+   echo "    google-key    - key from google spreadsheet URL"
+   echo "    local-name    - local name within source/ (use 'cr:auto' to default to dataset identifier)"
+   echo "    [google-key]* - more keys from google spreadsheet URLs"
+   echo "."
    exit 1
 fi
 
@@ -45,7 +51,7 @@ if [ -d $versionID ]; then
 fi
 
 LOCAL="$2"
-if [ $LOCAL == "auto" ]; then
+if [ $LOCAL == "auto" -o $LOCAL == "cr:auto" ]; then
    LOCAL=`basename \`cd .. 2>/dev/null && pwd\``
    echo "using dataset identifer for local name in source/$LOCAL"
 fi
@@ -53,27 +59,43 @@ fi
 mkdir -p $versionID/source
 
 GOOGLE_SPREADSHEET_ID="$1"
-googletoggle="head -1"
-pushd $versionID/source &> /dev/null
-   echo "(in $versionID/source)"
-   echo $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID
-   echo retrieving:
-   echo $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle
-   if [ ${dryRun-"."} == "true" ]; then
-      echo pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $LOCAL -e csv
-   else
-      pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $LOCAL -e csv
-   fi
-popd &> /dev/null
+shift
 
-pushd $versionID &> /dev/null
-   if [ ${dryRun-"."} == "true" ]; then
-      echo "(in $versionID)"
-      echo $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w source/$LOCAL.csv
-      echo ./*.sh
-   else
-      $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w source/$LOCAL.csv
-      ./*.sh
-      ./*.sh # Run the enhancement, too. It will no-op if none to be done.
-   fi
-popd &> /dev/null
+let count=0
+while [ $# -gt 0 ]; do
+
+   echo 
+
+   googletoggle="head -1"
+   pushd $versionID/source &> /dev/null
+      echo "(in $versionID/source)"
+      echo `basename $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh` $GOOGLE_SPREADSHEET_ID
+      echo retrieving:
+      echo `basename $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh` $GOOGLE_SPREADSHEET_ID | $googletoggle
+      let "count= $count + 1"
+      if [ $# -ne $count ]; then # pretty neat!
+         LOCALc="$LOCAL-$count"
+      else
+         LOCALc=$LOCAL
+      fi
+      if [ ${dryRun-"."} == "true" ]; then
+         echo pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $LOCALc -e csv
+      else
+         pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $LOCALc -e csv
+      fi
+   popd &> /dev/null
+
+   pushd $versionID &> /dev/null
+      if [ ${dryRun-"."} == "true" ]; then
+         echo "(in $versionID)"
+         echo `basename $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh` -w source/$LOCALc.csv
+         echo ./*.sh
+      else
+         $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w source/$LOCALc.csv
+         ./*.sh
+         ./*.sh # Run the enhancement, too. It will no-op if none to be done.
+      fi
+   popd &> /dev/null
+
+   shift
+done
