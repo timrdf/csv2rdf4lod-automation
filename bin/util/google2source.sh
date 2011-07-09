@@ -82,6 +82,7 @@ while [ $# -gt 0 ]; do
          echo pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $LOCALc -e csv
       else
          pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $LOCALc -e csv
+         # TODO: edit in place and kill the stupid randomly occurring (or not occuring) first line "","","","","","",""
       fi
    popd &> /dev/null
 
@@ -100,4 +101,5 @@ while [ $# -gt 0 ]; do
    popd &> /dev/null
 
    shift
+   GOOGLE_SPREADSHEET_ID="$1"
 done
