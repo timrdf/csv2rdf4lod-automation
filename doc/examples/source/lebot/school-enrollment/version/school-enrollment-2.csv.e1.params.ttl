@@ -23,9 +23,11 @@
 @prefix scovo:         <http://purl.org/NET/scovo#> .
 @prefix sioc:          <http://rdfs.org/sioc/ns#> .
 @prefix foaf:          <http://xmlns.com/foaf/0.1/> .
+@prefix qb:            <http://purl.org/linked-data/cube#> .
 @prefix ov:            <http://open.vocab.org/terms/> .
 @prefix conversion:    <http://purl.org/twc/vocab/conversion/> .
 @prefix :              <http://logd.tw.rpi.edu/source/lebot/dataset/school-enrollment/version/2011-Jul-08/params/enhancement/1/> .
+@prefix typed_course:  <http://logd.tw.rpi.edu/source/lebot/dataset/school-enrollment/typed/course/> .
 
 <http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
 <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
@@ -40,6 +42,9 @@
 #   conversion:property_name "a_property"; # Can also be a URI, e.g. dcterms:title.
 #   #conversion:type_name     "My Class";   # Can also be a URI, e.g. foaf:Person.
 #.
+
+rdf:value conversion:equivalent_property <http://logd.tw.rpi.edu/source/lebot/dataset/school-enrollment/vocab/enhancement/1/enrolled> .
+# TODO: rdf:value conversion:equivalent_property "[/sd]vocab/[e]/enrolled" .
 
 <http://logd.tw.rpi.edu/source/lebot/dataset/school-enrollment/version/2011-Jul-08/conversion/enhancement/1>
    a conversion:LayerDataset, void:Dataset;
@@ -58,74 +63,74 @@
       dcterms:created "2011-07-08T21:34:52-04:00"^^xsd:dateTime;
 
       conversion:delimits_cell ",";
-      #conversion:delimits_cell "	"; # tab
-      #conversion:delimits_cell "|";   # pipe
-      #conversion:delimits_cell ",";   # comma
 
-      #conversion:interpret [
-      #   conversion:symbol        "";
-      #   conversion:interpretation conversion:null; 
-      #];
-      #conversion:enhance [
+      conversion:interpret [
+         conversion:symbol        "";
+         conversion:interpretation conversion:null; 
+      ];
+      conversion:enhance [
       #   conversion:domain_template "tool_[r]";
-      #   conversion:domain_name     "Tool";
-      #];
+         conversion:domain_name     "Student Enrollment";
+      ];
       #conversion:enhance [
       #   conversion:class_name "Tool";
       #   conversion:subclass_of <http://purl.org/...>;
       #];
       conversion:enhance [
          ov:csvCol          1;
-         ov:csvHeader       "";
-         #conversion:label   "";
+         ov:csvHeader       "Student ID";
+         conversion:label   "Student";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Resource;
+         conversion:range_name "Student";
+      ];
+      conversion:enhance [
+         conversion:class_name "Student";
+         conversion:subclass_of foaf:Person;
       ];
       conversion:enhance [
          ov:csvCol          2;
-         ov:csvHeader       "Literature";
-         #conversion:label   "Literature";
+         ov:csvHeader       "Name";
+         conversion:bundled_by [ ov:csvCol 1 ];
+         conversion:equivalent_property foaf:firstName;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          3,4,5,6,7,8;
+         a qb:Observation;
+         conversion:label   "Course";
+         conversion:object  "[/sd]typed/course/[.]";
+         conversion:range   xsd:boolean;
       ];
       conversion:enhance [
          ov:csvCol          3;
-         ov:csvHeader       "Physical Education";
-         #conversion:label   "Physical Education";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         ov:csvHeader       "Literature";
       ];
       conversion:enhance [
          ov:csvCol          4;
-         ov:csvHeader       "Algebra";
-         #conversion:label   "Algebra";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         ov:csvHeader       "Physical Education";
       ];
       conversion:enhance [
          ov:csvCol          5;
-         ov:csvHeader       "Biology";
-         #conversion:label   "Biology";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         ov:csvHeader       "Algebra";
       ];
       conversion:enhance [
          ov:csvCol          6;
-         ov:csvHeader       "Chemistry";
-         #conversion:label   "Chemistry";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         ov:csvHeader       "Biology";
       ];
       conversion:enhance [
          ov:csvCol          7;
-         ov:csvHeader       "History";
-         #conversion:label   "History";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         ov:csvHeader       "Chemistry";
       ];
-      #conversion:enhance [            
-      #   ov:csvRow 3,4,5;             
-      #   a conversion:ExampleResource;
-      #];                              
+      conversion:enhance [
+         ov:csvCol          8;
+         ov:csvHeader       "History";
+      ];
+      conversion:enhance [            
+         ov:csvRow 3,4;             
+         a conversion:ExampleResource;
+         rdfs:comment "Pick a few to become void:exampleResources.";
+      ];                              
    ];
 .
