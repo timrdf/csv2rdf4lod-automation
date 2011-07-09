@@ -76,7 +76,7 @@
       conversion:enhance [
          ov:csvCol          1;
          ov:csvHeader       "";
-         conversion:equivalent_class foaf:firstName;
+         conversion:equivalent_property foaf:firstName;
          conversion:comment "";
          conversion:range   rdfs:Literal;
       ];
