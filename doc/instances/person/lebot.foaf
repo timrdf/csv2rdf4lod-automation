@@ -6,6 +6,9 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <foaf:Person rdf:about="http://purl.org/twc/id/person/TimLebo">
     <con:preferredURI rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
+    <owl:sameAs rdf:resource="http://inference-web.org/registry/PER/TimLebo.owl#TimLebo"/>
+    <owl:sameAs rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo"/>
+    <foaf:currentProject rdf:resource="http://purl.org/twc/id/software/csv2rdf4lod"/>
     <foaf:knows rdf:resource="http://data.semanticweb.org/person/satya-s-sahoo"/>
     <foaf:knows rdf:resource="http://purl.org/twc/id/person/NicholasDelRio"/>
     <foaf:knows rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdf#me"/>
@@ -22,8 +25,4 @@
     </foaf:knows>
     <foaf:page rdf:resource="http://tw.rpi.edu/web/person/TimLebo"/>
   </foaf:Person>
-  <rdf:Description rdf:about="http://tw.rpi.edu/instances/TimLebo">
-    <owl:sameAs rdf:resource="http://inference-web.org/registry/PER/TimLebo.owl#TimLebo"/>
-    <owl:sameAs rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo"/>
-  </rdf:Description>
 </rdf:RDF>

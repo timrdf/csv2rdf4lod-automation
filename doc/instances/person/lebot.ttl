@@ -2,15 +2,16 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix con:  <http://www.w3.org/2000/10/swap/pim/contact#> .
 
-<http://tw.rpi.edu/instances/TimLebo> owl:sameAs
-   <http://inference-web.org/registry/PER/TimLebo.owl#TimLebo>,
-   <http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo> .
-
-<http://purl.org/twc/id/person/TimLebo> con:preferredURI <http://purl.org/twc/id/person/TimLebo> .
-
 <http://purl.org/twc/id/person/TimLebo>
    a foaf:Person;
+
    foaf:page <http://tw.rpi.edu/web/person/TimLebo>;
+
+   owl:sameAs <http://inference-web.org/registry/PER/TimLebo.owl#TimLebo>,
+              <http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo>;
+
+   con:preferredURI <http://purl.org/twc/id/person/TimLebo>;
+
    foaf:knows <http://www.deri.ie/about/team/member/Lin_Clark#me>,
               <http://www.cs.rpi.edu/~weavej3/foaf.rdf#me>,
               [ a foaf:Person;
@@ -23,4 +24,6 @@
               ],
               <http://data.semanticweb.org/person/satya-s-sahoo>,
               <http://purl.org/twc/id/person/NicholasDelRio>;
+
+   foaf:currentProject <http://purl.org/twc/id/software/csv2rdf4lod>;
 .
