@@ -1,0 +1,130 @@
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
+@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix sioc:       <http://rdfs.org/sioc/ns#> .
+@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov:      <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+@prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix conv:       <http://purl.org/twc/vocab/conversion/> .
+@prefix httphead:   <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> .
+@prefix httpget:    <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> .
+@prefix httppost:   <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+<http://apache.ziply.com//commons/validator/binaries/commons-validator-1.3.1.tar.gz>
+   a pmlp:Source;
+.
+
+<http://apache.ziply.com//commons/validator/binaries/commons-validator-1.3.1.tar.gz>
+   a pmlp:Source;
+   pmlp:hasModificationDateTime "2006-11-28T22:50:11"^^xsd:dateTime;
+.
+
+<commons-validator-1.3.1.tar.gz>
+   a pmlp:Information;
+   pmlp:hasReferenceSourceUsage <sourceUsage_649963e9-edb4-4c15-ab56-40f51facf940_content>;
+.
+<commons-validator-1.3.1.tar.gz>
+   a pmlp:Information;
+   nfo:hasHash <md5_e1f8c698fec1dc6a47e77a6a97e43fac_time_1310252912>;
+.
+<md5_e1f8c698fec1dc6a47e77a6a97e43fac_time_1310252912>
+   a nfo:FileHash; 
+   dcterms:date      "2011-07-09T19:08:32-04:00"^^xsd:dateTime;
+   nfo:hashAlgorithm "md5";
+   nfo:hashValue     "e1f8c698fec1dc6a47e77a6a97e43fac";
+.
+
+<nodeSet_649963e9-edb4-4c15-ab56-40f51facf940_content>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <commons-validator-1.3.1.tar.gz>;
+   pmlj:isConsequentOf <inferenceStep_649963e9-edb4-4c15-ab56-40f51facf940_content>;
+.
+<inferenceStep_649963e9-edb4-4c15-ab56-40f51facf940_content>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_649963e9-edb4-4c15-ab56-40f51facf940_content>;
+   pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
+   pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+.
+
+<sourceUsage_649963e9-edb4-4c15-ab56-40f51facf940_content>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://apache.ziply.com//commons/validator/binaries/commons-validator-1.3.1.tar.gz>;
+   pmlp:hasUsageDateTime "2011-07-09T19:08:03-04:00"^^xsd:dateTime;
+.
+
+<wasControlledBy_649963e9-edb4-4c15-ab56-40f51facf940_content>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   oprov:effect <inferenceStep_649963e9-edb4-4c15-ab56-40f51facf940_content>;
+   oprov:endTime "2011-07-09T19:08:03-04:00"^^xsd:dateTime;
+.
+ 
+<info_649963e9-edb4-4c15-ab56-40f51facf940_url_header>
+   a pmlp:Information, conv:HTTPHeader;
+   pmlp:hasRawString """HTTP/1.1 200 OK
+Date: Sat, 09 Jul 2011 23:06:51 GMT
+Server: Apache/1.3.35 (Unix) mod_perl/1.29 PHP/5.1.4
+Last-Modified: Tue, 28 Nov 2006 22:50:11 GMT
+ETag: "d80132-c8b0a-456cbd23"
+Accept-Ranges: bytes
+Content-Length: 822026
+Content-Type: application/x-gzip
+""";
+   pmlp:hasReferenceSourceUsage <sourceUsage_649963e9-edb4-4c15-ab56-40f51facf940_url_header>;
+.
+ 
+<nodeSet_649963e9-edb4-4c15-ab56-40f51facf940_url_header>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <info_649963e9-edb4-4c15-ab56-40f51facf940_url_header>;
+   pmlj:isConsequentOf <inferenceStep_649963e9-edb4-4c15-ab56-40f51facf940_url_header>;
+.
+<inferenceStep_649963e9-edb4-4c15-ab56-40f51facf940_url_header>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_649963e9-edb4-4c15-ab56-40f51facf940_url_header>;
+   pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
+   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+.
+
+<sourceUsage_649963e9-edb4-4c15-ab56-40f51facf940_url_header>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://apache.ziply.com//commons/validator/binaries/commons-validator-1.3.1.tar.gz>;
+   pmlp:hasUsageDateTime "2011-07-09T19:08:03-04:00"^^xsd:dateTime;
+.
+<wasControlledBy_649963e9-edb4-4c15-ab56-40f51facf940_url_header>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   oprov:effect <nodeSet_649963e9-edb4-4c15-ab56-40f51facf940_url_header>;
+   oprov:endTime "2011-07-09T19:08:03-04:00"^^xsd:dateTime;
+.
+
+
+conv:curl_md5_5670dffdc5533a4c57243fc97b19a654
+   a pmlp:InferenceEngine, conv:Curl;
+   dcterms:identifier "md5_5670dffdc5533a4c57243fc97b19a654";
+   dcterms:description """curl 7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8r zlib/1.2.3
+Protocols: tftp ftp telnet dict ldap http file https ftps 
+Features: GSS-Negotiate IPv6 Largefile NTLM SSL libz """;
+.
+
+conv:Curl rdfs:subClassOf pmlp:InferenceEngine .
