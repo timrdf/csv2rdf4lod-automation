@@ -1,0 +1,8 @@
+PREFIX ov:  <http://open.vocab.org/terms/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+ASK
+WHERE {
+   GRAPH ?g {
+      <http://bio2rdf.org/geneid:Has_Space_1> ov:csvRow "2"^^xsd:integer .
+   }
+}

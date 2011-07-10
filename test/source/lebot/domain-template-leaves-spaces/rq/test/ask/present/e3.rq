@@ -1,0 +1,8 @@
+PREFIX ov:  <http://open.vocab.org/terms/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+ASK
+WHERE {
+   GRAPH ?g {
+      <http://logd.tw.rpi.edu/source/lebot/dataset/domain-template-leaves-spaces/version/2011-Jun-09/Has_Space_2> ov:csvRow "2"^^xsd:integer .
+   }
+}
