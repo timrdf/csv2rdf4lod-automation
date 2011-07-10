@@ -61,13 +61,14 @@ mkdir -p $versionID/source
 GOOGLE_SPREADSHEET_ID="$1"
 shift
 
-let count=0
-while [ $# -gt 0 ]; do
+googletoggle="head -1"
+pushd $versionID/source &> /dev/null
 
-   echo 
+   let count=0
+   while [ $# -gt 0 ]; do
 
-   googletoggle="head -1"
-   pushd $versionID/source &> /dev/null
+      echo 
+
       echo "(in $versionID/source)"
       echo `basename $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh` $GOOGLE_SPREADSHEET_ID
       echo retrieving:
@@ -82,24 +83,26 @@ while [ $# -gt 0 ]; do
          echo pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $LOCALc -e csv
       else
          pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $LOCALc -e csv
-         # TODO: edit in place and kill the stupid randomly occurring (or not occuring) first line "","","","","","",""
+         # Edit in place and kill the stupid randomly occurring (or not occuring) first line (e.g. "","","","","","","")
+         perl -ni -e 'print if ($l || !/""(?:,""){3,4}/); ++$l;' $LOCALc.csv # Thanks to Eric Prud'hommeaux for this! 2011 Jul 09
       fi
-   popd &> /dev/null
 
-   pushd $versionID &> /dev/null
-      if [ ${dryRun-"."} == "true" ]; then
-         echo "(in $versionID)"
-         #echo `basename $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh` -w --header-line 2 source/$LOCALc.csv
-         echo `basename $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh` -w source/$LOCALc.csv
-         echo ./*.sh
-      else
-         #$CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w --header-line 2 source/$LOCALc.csv
-         $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w source/$LOCALc.csv
-         ./*.sh
-         ./*.sh # Run the enhancement, too. It will no-op if none to be done.
-      fi
-   popd &> /dev/null
+      shift
+      GOOGLE_SPREADSHEET_ID="$1"
+   done
 
-   shift
-   GOOGLE_SPREADSHEET_ID="$1"
-done
+popd &> /dev/null
+
+pushd $versionID &> /dev/null
+   if [ ${dryRun-"."} == "true" ]; then
+      echo "(in $versionID)"
+      #echo `basename $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh` -w --header-line 2 source/$LOCALc.csv
+      echo `basename $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh` -w source/*.csv
+      echo ./*.sh
+   else
+      #$CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w --header-line 2 source/$LOCALc.csv
+      $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w source/*.csv
+      ./*.sh
+      ./*.sh # Run the enhancement, too. It will no-op if none to be done.
+   fi
+popd &> /dev/null
