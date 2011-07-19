@@ -21,7 +21,7 @@ mkdir -p rq/test/ask/present &> /dev/null
 # Sample queries:
 #
 
-present="rq/test/ask/present/has-a-triple.rq"
+present="rq/test/ask/present/a-dataset-exists.rq"
 if [ ! -e $present ]; then
    echo $present
    echo "prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>" > $present
