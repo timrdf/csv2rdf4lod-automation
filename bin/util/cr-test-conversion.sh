@@ -43,7 +43,7 @@ CSV2RDF4LOD_PUBLISH=true
 
 if [[ ! -e publish/tdb && ${#CSV2RDF4LOD_PUBLISH_TDB_DIR} == 0 ]]; then
    echo "publish/tdb does not exist and \$CSV2RDF4LOD_PUBLISH_TDB_DIR not set."
-   echo "export CSV2RDF4LOD_PUBLISH_TDB=true; publish/bin/publish.sh"
+   echo "export CSV2RDF4LOD_PUBLISH=true; export CSV2RDF4LOD_PUBLISH_TDB=true; publish/bin/publish.sh"
    exit 1
 fi
 
