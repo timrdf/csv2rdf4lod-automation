@@ -328,8 +328,8 @@ export CSV2RDF4LOD_PUBLISH_TTL_LAYERS="true"
 #
 # (done in convert-aggregate.sh)
 #
-export CSV2RDF4LOD_PUBLISH_NT="false"
 export CSV2RDF4LOD_PUBLISH_NT="true"
+export CSV2RDF4LOD_PUBLISH_NT="false"
 
 #
 # Customize: include RDF/XML as a serialization when publishing
