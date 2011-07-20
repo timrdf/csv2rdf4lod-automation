@@ -9,7 +9,7 @@ echo "   has set \$CSV2RDF4LOD_HOME to $CSV2RDF4LOD_HOME in source-me.sh"
 cat bin/setup.sh | grep -v "# NOTE:" >> source-me.sh
 echo ""
 
-echo "What to do next:"
+echo "~~~ What to do next: ~~~"
 echo "   'source source-me.sh' to set environment variables."
 echo "    sourcing source-me.sh must be done each time you log in, so consider adding it to your .login/.bashrc."
 echo ""
