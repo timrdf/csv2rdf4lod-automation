@@ -11,7 +11,8 @@ echo ""
 
 echo "~~~ What to do next: ~~~"
 echo "   'source source-me.sh' to set environment variables."
-echo "    sourcing source-me.sh must be done each time you log in, so consider adding it to your .login/.bashrc."
+echo "    sourcing source-me.sh must be done each time you log in, so consider adding this to your .bashrc:"
+echo "      source $CSV2RDF4LOD_HOME/source-me.sh # http://purl.org/twc/id/software/csv2rdf4lod"
 echo ""
 echo "    use cr-vars.sh to see the environment variables that CSV2RDF4LOD uses to control execution flow."
 mv install.sh bin/
