@@ -3,10 +3,10 @@
 CSV2RDF4LOD_HOME=`pwd`
 echo export CSV2RDF4LOD_HOME=$CSV2RDF4LOD_HOME > source-me.sh
 echo "`basename $0`:"
+echo "   created source-me.sh."
 echo "   has set \$CSV2RDF4LOD_HOME to $CSV2RDF4LOD_HOME in source-me.sh"
 
 cat bin/setup.sh | grep -v "# NOTE:" >> source-me.sh
-echo "   created source-me.sh."
 echo ""
 
 echo "What to do next:"
