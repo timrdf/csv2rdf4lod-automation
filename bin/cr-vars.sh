@@ -87,6 +87,7 @@ if [ ${1:-"no"} != "CLEAR" ]; then
       echo "--"
       echo "see documentation for variables in:"
       echo "$CSV2RDF4LOD_HOME/bin/setup.sh"
+      echo "http://purl.org/twc/id/software/csv2rdf4lod"
    fi
 else
 
