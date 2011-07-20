@@ -1,6 +1,7 @@
 #!/bin/bash
 
-echo export CSV2RDF4LOD_HOME=`pwd` > source-me.sh
+CSV2RDF4LOD_HOME=`pwd`
+echo export CSV2RDF4LOD_HOME=$CSV2RDF4LOD_HOME > source-me.sh
 echo "`basename $0`:"
 echo "   has set \$CSV2RDF4LOD_HOME to $CSV2RDF4LOD_HOME in source-me.sh"
 
