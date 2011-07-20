@@ -70,13 +70,15 @@ if [ ${1:-"no"} != "CLEAR" ]; then
 
    echo "--"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO                             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: false)"}"
+                                                    virtuoso_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso)"}
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME                        ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"(will default to: /opt/virtuoso)"}"
-   echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH                   ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"(will default to: /opt/virtuoso/bin/isql)"}"
+   echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH                   ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"(will default to: $virtuoso_home/bin/isql)"}"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT                        ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"(will default to: 1111)"}"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME                    ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"(will default to: dba)"}"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD                    ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"(will default to: dba)"}"
+   echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_INI_PATH                    ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_INI_PATH:-"(will default to: $virtuoso_home/var/lib/virtuoso/db/virtuoso.ini)"}"
    
-   echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH                 ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH:-"(will default to: /opt/virtuoso/scripts/vload)"}"
+   echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH                 ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH:-"(DEPRECATED. will default to: /opt/virtuoso/scripts/vload)"}"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT:-"(will fail to describe provenance in pvload.sh)"}"
 
    echo "--"
