@@ -590,7 +590,9 @@ export CSV2RDF4LOD_PUBLISH_VIRTUOSO="false"
 #
 # Variable type: Machine ? Project ? User ? Activity ?
 #
-# (done in convert-aggregate.sh)
+# (done in)
+#
+# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore
 #
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME="/opt/virtuoso" 
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME="" 
@@ -600,7 +602,9 @@ export CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME=""
 #
 # Variable type: Machine ? Project ? User ? Activity ?
 #
-# (done in convert-aggregate.sh)
+# (done in )
+#
+# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore
 #
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH="/opt/virtuoso/bin/isql" 
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH="" 
@@ -610,7 +614,9 @@ export CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH=""
 #
 # Variable type: Machine ? Project ? User ? Activity ?
 #
-# (done in convert-aggregate.sh)
+# (done in )
+#
+# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore
 #
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT="1111"
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT="" 
@@ -620,7 +626,9 @@ export CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT=""
 #
 # Variable type: Machine ? Project ? User ? Activity ?
 #
-# (done in convert-aggregate.sh)
+# (done in )
+#
+# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore
 #
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME="dba"
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME="" 
@@ -630,10 +638,24 @@ export CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME=""
 #
 # Variable type: Machine ? Project ? User ? Activity ?
 #
-# (done in convert-aggregate.sh)
+# (done in )
+#
+# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore
 #
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD="dba"
 export CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD="" 
+
+
+#
+# Customize: 
+#
+# Variable type: Machine Y Project Y User ? Activity ?
+#
+# (done in )
+#
+# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore
+#
+export CSV2RDF4LOD_PUBLISH_VIRTUOSO_INI_PATH=""
 
 #
 # Customize: Set the path of the local script used to load/delete data from
