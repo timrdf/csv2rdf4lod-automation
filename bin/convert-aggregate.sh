@@ -366,13 +366,13 @@ echo ""                                                                         
 echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT=\${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:?\"not set; source csv2rdf4lod/source-me.sh $or_see_github\"}" >> $lnwwwrootSH
 echo ""                                                                                              >> $lnwwwrootSH
 echo "verbose=\"no\""                                                                                >> $lnwwwrootSH
-echo "if [ \$# -gt 0 -a \$1 == \"-v\" ]; then"                                                       >> $lnwwwrootSH
+echo "if [ \$# -gt 0 -a \${1:-\"\"} == \"-v\" ]; then"                                               >> $lnwwwrootSH
 echo "  verbose=\"yes\""                                                                             >> $lnwwwrootSH
 echo "  shift"                                                                                       >> $lnwwwrootSH
 echo "fi"                                                                                            >> $lnwwwrootSH
 echo ""                                                                                              >> $lnwwwrootSH
 echo "symbolic=\"\""                                                                                 >> $lnwwwrootSH
-echo "if [ \$# -gt 0 -a \$1 == \"-s\" ]; then"                                                       >> $lnwwwrootSH
+echo "if [ \$# -gt 0 -a \${1:-\"\"} == \"-s\" ]; then"                                               >> $lnwwwrootSH
 echo "  symbolic=\"-s \""                                                                            >> $lnwwwrootSH
 echo "  shift"                                                                                       >> $lnwwwrootSH
 echo "fi"                                                                                            >> $lnwwwrootSH
