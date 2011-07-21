@@ -141,8 +141,8 @@ else
    filesToCompress="$filesToCompress $allTTL"
 fi
 
-ls -lt publish
 echo $allTTL $willDeleteMsg | tee -a $CSV2RDF4LOD_LOG
+ls -lt publish
 anyEsDone="no"
 for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
    eTTL=$publishDir/$sourceID-$datasetID-$datasetVersion.e$eIDD.ttl
