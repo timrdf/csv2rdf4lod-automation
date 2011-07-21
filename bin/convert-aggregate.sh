@@ -242,7 +242,7 @@ rm $TEMP_pml 2> /dev/null
 #
 # All void
 #
-ls -lt
+ls -lt publish
 if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:-"true"} == "true" ]; then
    echo $allVOID | tee -a $CSV2RDF4LOD_LOG
    rm $allVOID.TEMP 2> /dev/null
