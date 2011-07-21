@@ -377,7 +377,7 @@ echo "if [[ \$# -gt 0 && \${1:-\"\"} == \"-s\" || \\"                           
 echo "      \${CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE:-\".\"} == \"soft\" ]]; then"                    >> $lnwwwrootSH
 echo "  symbolic=\"-sf \""                                                                           >> $lnwwwrootSH
 echo "  pwd=\`pwd\`/"                                                                                >> $lnwwwrootSH
-echo "  echo SYMBOLIC: \$symbolic \$pwd"                                                             >> $lnwwwrootSH
+#echo "  echo SYMBOLIC: \$symbolic \$pwd"                                                             >> $lnwwwrootSH
 echo "  shift"                                                                                       >> $lnwwwrootSH
 echo "fi"                                                                                            >> $lnwwwrootSH
 echo ""                                                                                              >> $lnwwwrootSH
