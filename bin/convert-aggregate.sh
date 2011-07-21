@@ -79,7 +79,8 @@ or_see_github="or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2
 #
 conversionIDs="raw"
 layerSlugs="raw"
-convertedRaw=`test \`find $destDir -name "*.raw.ttl" | wc -l\` -gt 0`
+#convertedRaw=`test \`find $destDir -name "*.raw.ttl" | wc -l\` -gt 0`
+convertedRaw=`test \`find $destDir -name "*.raw.ttl"\``
 if [ $convertedRaw ]; then
    filesToCompress="$allRaw"
    echo $allRaw | tee -a $CSV2RDF4LOD_LOG
@@ -104,8 +105,7 @@ fi
 #     enhancementLevels=`find $destDir -name "*.e[!.].ttl" | sed -e 's/^.*\.e\([^.]*\).ttl/\1/' | sort -u` # WARNING: only handles e1 through e9
 enhancementLevels=`cr-list-enhancement-identifiers.sh` # WARNING: only handles e1 through e9
 anyEsDone="no"
-for eIDD in $enhancementLevels # eIDD to avoid overwritting currently-requested enhancement eID
-do
+for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
    eTTL=$publishDir/$sourceID-$datasetID-$datasetVersion.e$eIDD.ttl
    eTTLsample=`echo $eTTL | sed 's/.ttl$/.sample.ttl/'` # Just insert sample to the next-to-last
 
