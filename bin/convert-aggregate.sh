@@ -506,7 +506,8 @@ do
    echo "     \$sudo mkdir -p \`dirname \$wwwfile.$zip\`"                                            >> $lnwwwrootSH 
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile.$zip\""                                                               >> $lnwwwrootSH 
-   echo "   \$sudo ln \$symbolic $publishDir/\$dump.$zip \$wwwfile.$zip"                             >> $lnwwwrootSH 
+   echo "   echo \$sudo ln \$symbolic \${pwd}$publishDir/\$dump.$zip \$wwwfile.$zip"                             >> $lnwwwrootSH  # TODO
+   echo "   \$sudo ln \$symbolic \${pwd}$publishDir/\$dump.$zip \$wwwfile.$zip"                      >> $lnwwwrootSH
    echo ""                                                                                           >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then"                                                               >> $lnwwwrootSH
    echo "      echo \"  \$wwwfile\" - removing b/c $zip available"                                   >> $lnwwwrootSH 
@@ -519,8 +520,8 @@ do
    echo "      \$sudo mkdir -p \`dirname \$wwwfile\`"                                                >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-   echo "   echo \$sudo ln \$symbolic $publishDir/\$dump \$wwwfile"                                       >> $lnwwwrootSH # TODO
-   echo "   \$sudo ln \$symbolic $publishDir/\$dump \$wwwfile"                                       >> $lnwwwrootSH
+   echo "   echo \$sudo ln \$symbolic \${pwd}$publishDir/\$dump \$wwwfile"                                       >> $lnwwwrootSH # TODO
+   echo "   \$sudo ln \$symbolic \${pwd}$publishDir/\$dump \$wwwfile"                                       >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  -- full $serialization omitted -- \""                                           >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -540,7 +541,7 @@ do
       echo "      \$sudo mkdir -p \`dirname \$wwwfile.$zip\`"                                        >> $lnwwwrootSH 
       echo "   fi"                                                                                   >> $lnwwwrootSH
       echo "   echo \"  \$wwwfile.$zip\""                                                            >> $lnwwwrootSH 
-      echo "   \$sudo ln \$symbolic $publishDir/\$dump.$zip \$wwwfile.$zip"                          >> $lnwwwrootSH 
+      echo "   \$sudo ln \$symbolic \${pwd}$publishDir/\$dump.$zip \$wwwfile.$zip"                          >> $lnwwwrootSH 
       echo ""                                                                                        >> $lnwwwrootSH
       echo "   if [ -e \$wwwfile ]; then"                                                            >> $lnwwwrootSH
       echo "      echo \"  \$wwwfile\" - removing b/c $zip available"                                >> $lnwwwrootSH 
@@ -553,8 +554,8 @@ do
       echo "      \$sudo mkdir -p \`dirname \$wwwfile\`"                                             >> $lnwwwrootSH
       echo "   fi"                                                                                   >> $lnwwwrootSH
       echo "   echo \"  \$wwwfile\""                                                                 >> $lnwwwrootSH
-      echo "   echo \$sudo ln \$symbolic $publishDir/\$dump \$wwwfile"                                    >> $lnwwwrootSH # TODO
-      echo "   \$sudo ln \$symbolic $publishDir/\$dump \$wwwfile"                                    >> $lnwwwrootSH
+      echo "   echo \$sudo ln \$symbolic \${pwd}$publishDir/\$dump \$wwwfile"                                    >> $lnwwwrootSH # TODO
+      echo "   \$sudo ln \$symbolic \${pwd}$publishDir/\$dump \$wwwfile"                                    >> $lnwwwrootSH
       echo "else"                                                                                    >> $lnwwwrootSH
       echo "   echo \"  -- $conversionID $serialization omitted --\""                                >> $lnwwwrootSH
       echo "fi"                                                                                      >> $lnwwwrootSH
@@ -575,8 +576,8 @@ do
          echo "      \$sudo mkdir -p \`dirname \$wwwfile\`"                                          >> $lnwwwrootSH
          echo "   fi"                                                                                >> $lnwwwrootSH
          echo "   echo \"  \$wwwfile\""                                                              >> $lnwwwrootSH
-         echo "   echo \$sudo ln \$symbolic $publishDir/\$dump \$wwwfile"                                 >> $lnwwwrootSH # TODO
-         echo "   \$sudo ln \$symbolic $publishDir/\$dump \$wwwfile"                                 >> $lnwwwrootSH
+         echo "   echo \$sudo ln \$symbolic \${pwd}$publishDir/\$dump \$wwwfile"                                 >> $lnwwwrootSH # TODO
+         echo "   \$sudo ln \$symbolic \${pwd}$publishDir/\$dump \$wwwfile"                                 >> $lnwwwrootSH
          echo "else"                                                                                 >> $lnwwwrootSH
          echo "   echo \"  -- $conversionID $subset $serialization omitted --\""                     >> $lnwwwrootSH
          echo "fi"                                                                                   >> $lnwwwrootSH
