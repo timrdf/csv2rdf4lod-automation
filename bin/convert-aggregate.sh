@@ -376,6 +376,7 @@ echo "pwd=\"\""                                                                 
 echo "if [ \$# -gt 0 -a \${1:-\"\"} == \"-s\" ]; then"                                               >> $lnwwwrootSH
 echo "  symbolic=\"-s \""                                                                            >> $lnwwwrootSH
 echo "  pwd=\`pwd\`/"                                                                                >> $lnwwwrootSH
+echo "  echo SYMBOLIC: \$symbolic \$pwd"                                                             >> $lnwwwrootSH
 echo "  shift"                                                                                       >> $lnwwwrootSH
 echo "fi"                                                                                            >> $lnwwwrootSH
 echo ""                                                                                              >> $lnwwwrootSH
@@ -397,6 +398,7 @@ for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    echo "     \$sudo mkdir -p \`dirname \$wwwfile\`"                                                 >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
+   echo "   echo \$sudo ln \$symbolic \"\${pwd}$sourceFile\" \"\$wwwfile\""                          >> $lnwwwrootSH # TODO rm
    echo "   \$sudo ln \$symbolic \"\${pwd}$sourceFile\" \"\$wwwfile\""                               >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  -- $sourceFile omitted --\""                                                    >> $lnwwwrootSH
