@@ -86,7 +86,7 @@ if [ $convertedRaw ]; then
    echo $allRaw | tee -a $CSV2RDF4LOD_LOG
    cat $destDir/*.raw.ttl > $allRaw
 else
-   echo \"  -- $allRaw omitted --\" | tee -a $CSV2RDF4LOD_LOG
+   echo " -- $allRaw omitted --" | tee -a $CSV2RDF4LOD_LOG
 fi
 
 #
