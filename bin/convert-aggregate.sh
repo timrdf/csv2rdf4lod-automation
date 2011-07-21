@@ -141,10 +141,10 @@ else
    filesToCompress="$filesToCompress $allTTL"
 fi
 
+ls -lt publish
 echo $allTTL $willDeleteMsg | tee -a $CSV2RDF4LOD_LOG
 anyEsDone="no"
-for eIDD in $enhancementLevels # eIDD to avoid overwritting currently-requested enhancement eID
-do
+for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
    eTTL=$publishDir/$sourceID-$datasetID-$datasetVersion.e$eIDD.ttl
 
    echo "  (including $eTTL)" | tee -a $CSV2RDF4LOD_LOG
@@ -167,6 +167,7 @@ if [ $convertedRaw ]; then
 fi
 #grep "^@prefix" $allTTL | sort -u > $destDir/prefixes-$sourceID-$datasetID-$datasetVersion.ttl
 #rapper -i turtle $allTTL -o turtle   > $allTTL.ttl 2> /dev/null # Sorts conversion-ordered TTL into lexiographical order.
+ls -lt publish
 
 
 #
@@ -242,7 +243,6 @@ rm $TEMP_pml 2> /dev/null
 #
 # All void
 #
-ls -lt publish
 if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:-"true"} == "true" ]; then
    echo $allVOID | tee -a $CSV2RDF4LOD_LOG
    rm $allVOID.TEMP 2> /dev/null
