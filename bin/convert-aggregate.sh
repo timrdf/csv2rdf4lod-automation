@@ -325,6 +325,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
       dumpFileDir=`dirname $dumpFile`
       dumpFileBase=`basename $dumpFile`
       pushd $dumpFileDir &> /dev/null
+         echo tar czf $dumpFileBase.$zip $dumpFileBase  # TODO:notar
          tar czf $dumpFileBase.$zip $dumpFileBase  # TODO:notar
 
          # Don't use tar if there is only ever one file; use gzip instead:
