@@ -584,44 +584,68 @@ if [ ! -e $josekiConfigFile ]; then
    cat $CSV2RDF4LOD_HOME/bin/dup/joseki-config-ANTERIOR.ttl | awk '{gsub("__TDB__DIRECTORY__",dir);print $0}' dir=`pwd`/$TDB_DIR > $josekiConfigFile
 fi
 loadtdbSH="$publishDir/bin/tdbloader-${sourceID}-${datasetID}-${datasetVersion}.sh"
-echo "#!/bin/bash"                                                              > $loadtdbSH
-echo ""                                                                                 >> $loadtdbSH
+echo "#!/bin/bash"                                                                             > $loadtdbSH
+echo ""                                                                                       >> $loadtdbSH
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $loadtdbSH
-echo ""                                                                                 >> $loadtdbSH
-echo "delete=\"\""                                                                      >> $loadtdbSH
-echo "if [ ! -e $allNT ]; then"                                                         >> $loadtdbSH
-echo "  delete=\"$allNT\""                                                              >> $loadtdbSH
-echo "  if [ -e $allNT.$zip ]; then"                                                     >> $loadtdbSH 
-#echo "    tar xzf $allNT.$zip"                                                           >> $loadtdbSH # TODO:notar
-echo "    gunzip -c $allNT.$zip > $allNT"                                                 >> $loadtdbSH # TODO:notar
-echo "  elif [ -e $allTTL ]; then"                                                      >> $loadtdbSH
-echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""     >> $loadtdbSH
-echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                    >> $loadtdbSH
-echo "  elif [ -e $allTTL.$zip ]; then"                                                  >> $loadtdbSH 
-#echo "    tar xzf $allTTL.$zip"                                                          >> $loadtdbSH # TODO:notar
-echo "    gunzip -c $allTTL.$zip > $allTTL"                                               >> $loadtdbSH # TODO:notar
-echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""     >> $loadtdbSH
-echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                    >> $loadtdbSH
-echo "    rm $allTTL"                                                                   >> $loadtdbSH
-echo "  else"                                                                           >> $loadtdbSH
-echo "    echo $allNT, $allNT.$zip, $allTTL, or $allTTL.$zip needed to lod-materialize."  >> $loadtdbSH 
-echo "    delete=\"\""                                                                  >> $loadtdbSH
-echo "    exit 1"                                                                       >> $loadtdbSH
-echo "  fi"                                                                             >> $loadtdbSH
-echo "fi"                                                                               >> $loadtdbSH
-echo ""                                                                                 >> $loadtdbSH
-echo "mkdir $TDB_DIR                      &> /dev/null"                                 >> $loadtdbSH
-echo "rm    $TDB_DIR/*.dat $TDB_DIR/*.idn &> /dev/null"                                 >> $loadtdbSH
-echo ""                                                                                 >> $loadtdbSH
-echo "echo `basename $allNT` into $TDB_DIR as $graph >> $publishDir/ng.info"            >> $loadtdbSH
-echo "echo \`wc -l $allNT\` triples."                                                   >> $loadtdbSH
-echo ""                                                                                 >> $loadtdbSH
-echo "tdbloader --loc=$TDB_DIR --graph=\`cat $allNT.graph\` $allNT"                     >> $loadtdbSH
-echo ""                                                                                 >> $loadtdbSH
-echo "if [ \${#delete} -gt 0 ]; then"                                                   >> $loadtdbSH
-echo "   rm \$delete"                                                                   >> $loadtdbSH
-echo "fi"                                                                               >> $loadtdbSH
-chmod +x                                                                                   $loadtdbSH
+echo ""                                                                                       >> $loadtdbSH
+echo "delete=\"\""                                                                            >> $loadtdbSH
+echo "#if [ ! -e $allNT ]; then"                                                              >> $loadtdbSH
+echo "#  delete=\"$allNT\""                                                                   >> $loadtdbSH
+echo "#  if [ -e $allNT.$zip ]; then"                                                         >> $loadtdbSH 
+echo "#    gunzip -c $allNT.$zip > $allNT"                                                    >> $loadtdbSH
+echo "#  elif [ -e $allTTL ]; then"                                                           >> $loadtdbSH
+echo "#    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""          >> $loadtdbSH
+echo "#    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                         >> $loadtdbSH
+echo "#  elif [ -e $allTTL.$zip ]; then"                                                      >> $loadtdbSH 
+echo "#    gunzip -c $allTTL.$zip > $allTTL"                                                  >> $loadtdbSH
+echo "#    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""          >> $loadtdbSH
+echo "#    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                         >> $loadtdbSH
+echo "#    rm $allTTL"                                                                        >> $loadtdbSH
+echo "#  else"                                                                                >> $loadtdbSH
+echo "#    echo $allNT, $allNT.$zip, $allTTL, or $allTTL.$zip needed to lod-materialize."     >> $loadtdbSH 
+echo "#    delete=\"\""                                                                       >> $loadtdbSH
+echo "#    exit 1"                                                                            >> $loadtdbSH
+echo "#  fi"                                                                                  >> $loadtdbSH
+echo "#fi"                                                                                    >> $loadtdbSH
+echo "load_file=\"\""                                                                         >> $loadtdbSH
+echo "if [ -e     \"$allNT\" ]; then"                                                         >> $loadtdbSH
+echo "  load_file=\"$allNT\""                                                                 >> $loadtdbSH
+echo "elif [ -e   \"$allTTL\" ]; then"                                                        >> $loadtdbSH
+echo "  load_file=\"$allTTL\""                                                                >> $loadtdbSH
+echo "elif [ -e   \"$allTTL.$zip\" ]; then"                                                   >> $loadtdbSH 
+echo "  load_file=\"$allTTL\""                                                                >> $loadtdbSH
+echo "  gunzip -c  $allTTL.$zip > $allTTL"                                                    >> $loadtdbSH
+echo "     delete=\"$allTTL\""                                                                >> $loadtdbSH
+echo "elif [ -e   \"$allNT.$zip\" ]; then"                                                    >> $loadtdbSH
+echo "  load_file=\"$allNT\""                                                                 >> $loadtdbSH
+echo "  gunzip -c  $allNT.$zip > $allNT"                                                      >> $loadtdbSH
+echo "     delete=\"$allNT\""                                                                 >> $loadtdbSH
+echo "fi"                                                                                     >> $loadtdbSH
+echo ""                                                                                       >> $loadtdbSH
+echo "mkdir $TDB_DIR                         &> /dev/null"                                    >> $loadtdbSH
+echo "rm    $TDB_DIR/*.dat $TDB_DIR/*.idn &> /dev/null"                                       >> $loadtdbSH
+echo ""                                                                                       >> $loadtdbSH
+echo "echo \`basename \$load_file\` into $TDB_DIR as $graph >> $publishDir/ng.info"           >> $loadtdbSH
+echo ""                                                                                       >> $loadtdbSH
+                                                                             billion="000000000"
+echo "if [ \$load_file = \"$allTTL\" -a \`stat -f \"%z\" \"$allTTL\"\` -gt 2$billion ]; then" >> $loadtdbSH
+echo "  dir=\"`dirname $allTTL`\""                                                            >> $loadtdbSH
+echo "  echo \"cHuNking $allTTL in \$dir\""                                                   >> $loadtdbSH
+echo "  rm \$dir/cHuNk*.ttl &> /dev/null"                                                     >> $loadtdbSH
+echo "  \${CSV2RDF4LOD_HOME}/bin/split_ttl.pl \$load_file"                                    >> $loadtdbSH
+echo "  for cHuNk in \$dir/cHuNk*.ttl; do"                                                    >> $loadtdbSH
+echo "    echo giving \$cHuNk to tdbloader"                                                   >> $loadtdbSH
+echo "    tdbloader --loc=$TDB_DIR --graph=\`cat $allNT.graph\` \$cHuNk"                      >> $loadtdbSH
+echo "    rm \$cHuNk"                                                                         >> $loadtdbSH 
+echo "  done"                                                                                 >> $loadtdbSH 
+echo "else"                                                                                   >> $loadtdbSH 
+echo "  tdbloader --loc=$TDB_DIR --graph=\`cat $allNT.graph\` \$load_file"                    >> $loadtdbSH
+echo "fi"                                                                                     >> $loadtdbSH 
+echo ""                                                                                       >> $loadtdbSH
+echo "if [ \${#delete} -gt 0 ]; then"                                                         >> $loadtdbSH
+echo "   rm \$delete"                                                                         >> $loadtdbSH
+echo "fi"                                                                                     >> $loadtdbSH
+chmod +x                                                                                         $loadtdbSH
 
 if [ ${CSV2RDF4LOD_PUBLISH_TDB:-"."} == "true" ]; then
    echo $TDB_DIR/ | tee -a $CSV2RDF4LOD_LOG
