@@ -395,7 +395,7 @@ for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    echo "     \$sudo mkdir -p \`dirname \$wwwfile\`"                                                 >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-   echo "   \$sudo ln $symbolic \"$sourceFile\" \"\$wwwfile\""                                       >> $lnwwwrootSH
+   echo "   \$sudo ln \$symbolic \"$sourceFile\" \"\$wwwfile\""                                      >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  -- $sourceFile omitted --\""                                                    >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -408,7 +408,7 @@ for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                             >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-   echo "   \$sudo ln $symbolic \"$sourceFileProvenance\" \"\$wwwfile\""                             >> $lnwwwrootSH
+   echo "   \$sudo ln \$symbolic \"$sourceFileProvenance\" \"\$wwwfile\""                            >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  -- $sourceFileProvenance omitted --\""                                          >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -428,7 +428,7 @@ do
    echo "      \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                            >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-   echo "   \$sudo ln $symbolic \"$inputFile\" \"\$wwwfile\""                                        >> $lnwwwrootSH
+   echo "   \$sudo ln \$symbolic \"$inputFile\" \"\$wwwfile\""                                       >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  -- $inputFile omitted --\""                                                     >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -453,7 +453,7 @@ do
    echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                             >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-   echo "   \$sudo ln $symbolic \"$paramFile\" \"\$wwwfile\""                                        >> $lnwwwrootSH
+   echo "   \$sudo ln \$symbolic \"$paramFile\" \"\$wwwfile\""                                       >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  -- $paramFile omitted --\""                                                     >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -475,7 +475,7 @@ do
    echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                             >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-   echo "   \$sudo ln $symbolic \"$pmlFile\" \"\$wwwfile\""                                          >> $lnwwwrootSH
+   echo "   \$sudo ln \$symbolic \"$pmlFile\" \"\$wwwfile\""                                         >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  -- $pmlFile omitted --\""                                                       >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -498,7 +498,7 @@ do
    echo "     \$sudo mkdir -p \`dirname \$wwwfile.$zip\`"                                            >> $lnwwwrootSH 
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile.$zip\""                                                               >> $lnwwwrootSH 
-   echo "   \$sudo ln $symbolic $publishDir/\$dump.$zip \$wwwfile.$zip"                              >> $lnwwwrootSH 
+   echo "   \$sudo ln \$symbolic $publishDir/\$dump.$zip \$wwwfile.$zip"                             >> $lnwwwrootSH 
    echo ""                                                                                           >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then"                                                               >> $lnwwwrootSH
    echo "      echo \"  \$wwwfile\" - removing b/c $zip available"                                   >> $lnwwwrootSH 
@@ -511,7 +511,7 @@ do
    echo "      \$sudo mkdir -p \`dirname \$wwwfile\`"                                                >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-   echo "   \$sudo ln $symbolic $publishDir/\$dump \$wwwfile"                                        >> $lnwwwrootSH
+   echo "   \$sudo ln \$symbolic $publishDir/\$dump \$wwwfile"                                       >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  -- full $serialization omitted -- \""                                           >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -531,7 +531,7 @@ do
       echo "      \$sudo mkdir -p \`dirname \$wwwfile.$zip\`"                                        >> $lnwwwrootSH 
       echo "   fi"                                                                                   >> $lnwwwrootSH
       echo "   echo \"  \$wwwfile.$zip\""                                                            >> $lnwwwrootSH 
-      echo "   \$sudo ln $symbolic $publishDir/\$dump.$zip \$wwwfile.$zip"                           >> $lnwwwrootSH 
+      echo "   \$sudo ln \$symbolic $publishDir/\$dump.$zip \$wwwfile.$zip"                          >> $lnwwwrootSH 
       echo ""                                                                                        >> $lnwwwrootSH
       echo "   if [ -e \$wwwfile ]; then"                                                            >> $lnwwwrootSH
       echo "      echo \"  \$wwwfile\" - removing b/c $zip available"                                >> $lnwwwrootSH 
@@ -544,7 +544,7 @@ do
       echo "      \$sudo mkdir -p \`dirname \$wwwfile\`"                                             >> $lnwwwrootSH
       echo "   fi"                                                                                   >> $lnwwwrootSH
       echo "   echo \"  \$wwwfile\""                                                                 >> $lnwwwrootSH
-      echo "   \$sudo ln $symbolic $publishDir/\$dump \$wwwfile"                                     >> $lnwwwrootSH
+      echo "   \$sudo ln \$symbolic $publishDir/\$dump \$wwwfile"                                    >> $lnwwwrootSH
       echo "else"                                                                                    >> $lnwwwrootSH
       echo "   echo \"  -- $conversionID $serialization omitted --\""                                >> $lnwwwrootSH
       echo "fi"                                                                                      >> $lnwwwrootSH
@@ -565,7 +565,7 @@ do
          echo "      \$sudo mkdir -p \`dirname \$wwwfile\`"                                          >> $lnwwwrootSH
          echo "   fi"                                                                                >> $lnwwwrootSH
          echo "   echo \"  \$wwwfile\""                                                              >> $lnwwwrootSH
-         echo "   \$sudo ln $symbolic $publishDir/\$dump \$wwwfile"                                  >> $lnwwwrootSH
+         echo "   \$sudo ln \$symbolic $publishDir/\$dump \$wwwfile"                                 >> $lnwwwrootSH
          echo "else"                                                                                 >> $lnwwwrootSH
          echo "   echo \"  -- $conversionID $subset $serialization omitted --\""                     >> $lnwwwrootSH
          echo "fi"                                                                                   >> $lnwwwrootSH
