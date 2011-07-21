@@ -374,7 +374,7 @@ echo ""                                                                         
 echo "symbolic=\"\""                                                                                 >> $lnwwwrootSH
 echo "pwd=\"\""                                                                                      >> $lnwwwrootSH
 echo "if [ \$# -gt 0 -a \${1:-\"\"} == \"-s\" ]; then"                                               >> $lnwwwrootSH
-echo "  symbolic=\"-s \""                                                                            >> $lnwwwrootSH
+echo "  symbolic=\"-sf \""                                                                           >> $lnwwwrootSH
 echo "  pwd=\`pwd\`/"                                                                                >> $lnwwwrootSH
 echo "  echo SYMBOLIC: \$symbolic \$pwd"                                                             >> $lnwwwrootSH
 echo "  shift"                                                                                       >> $lnwwwrootSH
