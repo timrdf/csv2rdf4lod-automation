@@ -242,6 +242,7 @@ rm $TEMP_pml 2> /dev/null
 #
 # All void
 #
+ls -lt
 if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:-"true"} == "true" ]; then
    echo $allVOID | tee -a $CSV2RDF4LOD_LOG
    rm $allVOID.TEMP 2> /dev/null
@@ -325,7 +326,6 @@ if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
       dumpFileDir=`dirname $dumpFile`
       dumpFileBase=`basename $dumpFile`
       pushd $dumpFileDir &> /dev/null
-         echo tar czf $dumpFileBase.$zip $dumpFileBase  # TODO:notar
          tar czf $dumpFileBase.$zip $dumpFileBase  # TODO:notar
 
          # Don't use tar if there is only ever one file; use gzip instead:
