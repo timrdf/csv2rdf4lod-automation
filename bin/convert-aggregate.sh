@@ -80,7 +80,7 @@ or_see_github="or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2
 conversionIDs="raw"
 layerSlugs="raw"
 convertedRaw="0"
-for raw in `find $destDir -name "*.raw.ttl"`; do convertedRaw="1" done
+for raw in `find $destDir -name "*.raw.ttl"`; do; convertedRaw="1"; done
 if [ $convertedRaw ]; then
    filesToCompress="$allRaw"
    echo $allRaw | tee -a $CSV2RDF4LOD_LOG
