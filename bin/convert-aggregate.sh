@@ -79,8 +79,11 @@ or_see_github="or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2
 #
 conversionIDs="raw"
 layerSlugs="raw"
-#convertedRaw=`test \`find $destDir -name "*.raw.ttl" | wc -l\` -gt 0`
-convertedRaw=`test \`find $destDir -name "*.raw.ttl"\``
+convertedRaw=`test \`find $destDir -name "*.raw.ttl" | wc -l\` -gt 0`
+convertedRaw="0"
+for raw in `find $destDir -name "*.raw.ttl"`; do
+   convertedRaw="1"
+done
 if [ $convertedRaw ]; then
    filesToCompress="$allRaw"
    echo $allRaw | tee -a $CSV2RDF4LOD_LOG
@@ -162,7 +165,7 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
    #cat $destDir/*.e$eID.ttl | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" >  $allE1   2> /dev/null
    #cat $allE1 $allRaw        | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" > $allTTL   2> /dev/null
 done
-if [ $convertedRaw ]; then
+if [ ${convertedRaw:-"."} == "yes" ]; then
    echo "  (including $allRaw)" | tee -a $CSV2RDF4LOD_LOG
    echo "# BEGIN: $allRaw:"     >> $allTTL
    cat $allRaw                  >> $allTTL
