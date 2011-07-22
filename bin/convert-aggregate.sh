@@ -162,7 +162,7 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
    #cat $destDir/*.e$eID.ttl | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" >  $allE1   2> /dev/null
    #cat $allE1 $allRaw        | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" > $allTTL   2> /dev/null
 done
-if [ ${convertedRaw:-"."} == "yes" ]; then
+if [ $convertedRaw ]; then
    echo "  (including $allRaw)" | tee -a $CSV2RDF4LOD_LOG
    echo "# BEGIN: $allRaw:"     >> $allTTL
    cat $allRaw                  >> $allTTL
