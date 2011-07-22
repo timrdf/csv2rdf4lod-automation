@@ -62,7 +62,8 @@ fi
 
 # Log into Virtuoso isql env
 # USERNAME and PASSWORD (see http://docs.openlinksw.com/virtuoso/isql.html)
-isql_cmd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"/opt/virtuoso/bin/isql"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"dba"}"
+virt_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
+isql_cmd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virt_home/bin/isql"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"dba"}"
 isql_pwd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin password, may neeed to change
 
 # Call Virtuoso loading functions for different input formats
