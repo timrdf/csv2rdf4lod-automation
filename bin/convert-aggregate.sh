@@ -252,12 +252,16 @@ if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:-"true"} == "true" ]; then
       echo "  (including $void)" | tee -a $CSV2RDF4LOD_LOG
       cat $void >> $allVOID.TEMP
    done
-   if [ `which rapper` ]; then
-      rapper -i turtle -o turtle $allVOID.TEMP > $allVOID 2> /dev/null
-      rm $allVOID.TEMP
-   else
-      mv $allVOID.TEMP $allVOID
-   fi
+   #if [ -e $allVOID.TEMP ]; then # VoID should aways be there.
+      if [ `which rapper` ]; then
+         rapper -i turtle -o turtle $allVOID.TEMP > $allVOID 2> /dev/null
+         rm $allVOID.TEMP
+      else
+         mv $allVOID.TEMP $allVOID
+      fi
+   #else
+   #   echo "$allVOID - (none)" | tee -a $CSV2RDF4LOD_LOG
+   #fi
 else
    echo "$allVOID - skipping; set CSV2RDF4LOD_PUBLISH_SUBSET_VOID=true in source-me.sh to publish Meta." | tee -a $CSV2RDF4LOD_LOG
 fi
