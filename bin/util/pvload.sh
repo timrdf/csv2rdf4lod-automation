@@ -12,6 +12,7 @@ if [ $# -lt 1 ]; then
    echo "  -n  : dry run - do not download or load into named graph."
    echo "  url : the URL to retrieve and load into a named graph."
    echo "  -ng : the named graph to place 'url'. (if not provided, -ng == 'url')."
+   echo "  (setting env var CSV2RDF4LOD_CONVERT_DEBUG_LEVEL=finest will leave temporary files after invocation.)"
    exit 1
 fi
 
@@ -175,6 +176,12 @@ while [ $# -gt 0 ]; do
 
       echo --------------------------------------------------------------------------------
 
+      #
+      # Virtuoso can't handle files (even though rapper can):
+      #
+      # _pvload.sh1311351506_22193.response.pml.ttl
+      # _pvload.sh1311351506_22193.response.unzipped.load.pml.ttl
+
       #deprecated now that vload is part of csv2rdf4lod-automation: vload=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT______PATH:-"/opt/virtuoso/scripts/v_____load"}
       vload=$CSV2RDF4LOD_HOME/bin/util/virtuoso/vload
       echo $assudo $vload nt ${TEMP}${unzipped}.nt $named_graph
@@ -184,16 +191,21 @@ while [ $# -gt 0 ]; do
       fi
       echo $assudo $vload ttl ${TEMP}.pml.ttl      $named_graph
       if [ ${dryrun-"."} != "true" ]; then # Provenance of response (SourceUsage created by pcurl.sh).
-         $assudo $vload ttl ${TEMP}.pml.ttl        $named_graph 2>&1 | grep -v "Loading triples into graph"
+         rapper -g -o ntriples ${TEMP}.pml.ttl > ${TEMP}.pml.ttl.nt
+         $assudo $vload nt ${TEMP}.pml.ttl.nt     $named_graph 2>&1 | grep -v "Loading triples into graph"
          #cat /tmp/virtuoso-tmp/vload.log
       fi
       echo $assudo $vload ttl ${TEMP}.load.pml.ttl  $named_graph
       if [ ${dryrun-"."} != "true" ]; then # Provenance of loading file into the store. TODO: cat ${TEMP}${unzipped}.load.pml.ttl into a pmlp:hasRawString?
-         $assudo $vload ttl ${TEMP}${unzipped}.load.pml.ttl   $named_graph 2>&1 | grep -v "Loading triples into graph"             
+         rapper -g -o ntriples ${TEMP}${unzipped}.load.pml.ttl > ${TEMP}${unzipped}.load.pml.ttl.nt
+         $assudo $vload nt ${TEMP}${unzipped}.load.pml.ttl.nt   $named_graph 2>&1 | grep -v "Loading triples into graph"             
          #cat /tmp/virtuoso-tmp/vload.log
       fi
+      #
+      # Clean up
+      #
       if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
-         rm -f ${TEMP}${unzipped} ${TEMP}.pml.ttl ${TEMP}${unzipped}.nt ${TEMP}${unzipped}.load.pml.ttl #
+         rm -f ${TEMP}${unzipped} ${TEMP}.pml.ttl ${TEMP}.pml.ttl.nt ${TEMP}${unzipped}.nt ${TEMP}${unzipped}.load.pml.ttl ${TEMP}${unzipped}.load.pml.ttl.nt #
       fi
       else
          echo "skipping b/c no triples returned."
