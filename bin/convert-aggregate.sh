@@ -79,12 +79,11 @@ or_see_github="or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2
 #
 conversionIDs="raw"
 layerSlugs="raw"
-convertedRaw="0"
-for raw in `find $destDir -name "*.raw.ttl"`; do convertedRaw="1"; done
+convertedRaw="0"; for raw in `find $destDir -name "*.raw.ttl"`; do convertedRaw="1"; done
 if [ $convertedRaw ]; then
-   filesToCompress="$allRaw"
    echo $allRaw | tee -a $CSV2RDF4LOD_LOG
    cat $destDir/*.raw.ttl > $allRaw
+   filesToCompress="$allRaw"
 else
    echo " -- $allRaw omitted --" | tee -a $CSV2RDF4LOD_LOG
 fi
@@ -92,7 +91,8 @@ fi
 #
 # Sample of raw (TODO: add sample of enhanced, too)
 #
-if [ `find $destDir -name "*.raw.sample.ttl" | wc -l` -gt 0 ]; then
+convertedRawSamples="0"; for raw in `find $destDir -name "*.raw.sample.ttl"`; do convertedRaw="1"; done
+if [ $convertedRawSamples ]; then
    echo $SDV.raw.sample.ttl | tee -a $CSV2RDF4LOD_LOG
    #$CSV2RDF4LOD_HOME/bin/util/grep-head.sh -p 'ov:csvRow "100' $allRaw > $SDV.raw.sample.ttl # REPLACED by an extra call to the converter with the -samples param.
    cat $destDir/*.raw.sample.ttl > $SDV.raw.sample.ttl
