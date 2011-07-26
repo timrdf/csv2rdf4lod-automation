@@ -1,4 +1,0 @@
-2011-07-26T00:17:17-04:00
-   convert.sh done
-convert-aggregate.sh not publishing b/c $CSV2RDF4LOD_PUBLISH=false.
-===========================================================================================

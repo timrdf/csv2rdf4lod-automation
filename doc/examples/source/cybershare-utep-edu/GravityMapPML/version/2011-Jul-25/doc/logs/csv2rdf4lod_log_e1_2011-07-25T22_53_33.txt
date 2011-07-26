@@ -1,5 +1,0 @@
-2011-07-25T22:53:33-04:00
-E1 enhancement parameters missing; creating default template. Edit manual/006021185888999658_gravityDataset.txt.e1.params.ttl and rerun to produce E1 enhancement.
-   convert.sh done
-convert-aggregate.sh not publishing b/c $CSV2RDF4LOD_PUBLISH=false.
-===========================================================================================
