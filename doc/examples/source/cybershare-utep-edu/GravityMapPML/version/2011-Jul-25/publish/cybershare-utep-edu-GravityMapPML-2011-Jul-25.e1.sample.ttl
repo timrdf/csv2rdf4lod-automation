@@ -1,0 +1,1236 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd2: <http://www.w3.org/TR/xmlschema-2/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix tw_service: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/> .
+@prefix tw_converter: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Jul-26/> .
+@prefix provenance_1: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix ov: <http://open.vocab.org/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix sdmx: <http://purl.org/linked-data/cube#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix coin: <http://purl.org/court/def/2009/coin#> .
+@prefix cybershare-utep-edu_vocab: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/vocab/> .
+@prefix base_vocab: <http://logd.tw.rpi.edu/vocab/> .
+@prefix GravityMapPML_vocab: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/> .
+@prefix raw: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/raw/> .
+@prefix e1: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/> .
+@prefix GravityMapPML: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/> .
+@prefix GravityMapPML_global_value: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/> .
+@prefix typed_source: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/source/> .
+@prefix typed_agency: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/agency/> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix con: <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix geonamesid: <http://sws.geonames.org/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix value_of_source: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/value-of/source/> .
+@prefix value_of_contributing_agency: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/value-of/contributing_agency/> .
+
+GravityMapPML_vocab:Measure a rdfs:Class , owl:Class ;
+	rdfs:label "Measure" .
+
+e1:lonnad83 a rdf:Property ;
+	ov:csvCol "1"^^xsd:integer ;
+	ov:csvHeader "lonnad83" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "lonnad83" ;
+	rdfs:range xsd:decimal ;
+	conversion:enhances raw:lonnad83 .
+
+GravityMapPML_vocab:Source a rdfs:Class , owl:Class ;
+	rdfs:label "Source" .
+
+GravityMapPML_vocab:Agency a rdfs:Class , owl:Class ;
+	rdfs:label "Agency" ;
+	rdfs:subClassOf foaf:Organization .
+
+foaf:Organization a rdfs:Class , owl:Class .
+
+e1:latnad83 a rdf:Property ;
+	ov:csvCol "2"^^xsd:integer ;
+	ov:csvHeader "latnad83" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "latnad83" ;
+	rdfs:range xsd:decimal ;
+	conversion:enhances raw:latnad83 .
+
+e1:cbanom267 a rdf:Property ;
+	ov:csvCol "3"^^xsd:integer ;
+	ov:csvHeader "cbanom267" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "cbanom267" ;
+	rdfs:range xsd:decimal ;
+	conversion:enhances raw:cbanom267 .
+
+e1:elevngvd88m a rdf:Property ;
+	ov:csvCol "4"^^xsd:integer ;
+	ov:csvHeader "elevngvd88m" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "elevngvd88m" ;
+	rdfs:range xsd:decimal ;
+	conversion:enhances raw:elevngvd88m .
+
+e1:source a rdf:Property ;
+	ov:csvCol "5"^^xsd:integer ;
+	ov:csvHeader "sourcecode" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "Source" ;
+	rdfs:range rdfs:Resource ;
+	conversion:enhances raw:sourcecode , raw:source .
+
+e1:author a rdf:Property ;
+	ov:csvCol "6"^^xsd:integer ;
+	ov:csvHeader "author" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "author" ;
+	rdfs:range rdfs:Literal ;
+	conversion:enhances raw:author .
+
+e1:contributing_agency a rdf:Property ;
+	ov:csvCol "7"^^xsd:integer ;
+	ov:csvHeader "contributingagency" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "Contributing Agency" ;
+	rdfs:range rdfs:Resource ;
+	conversion:enhances raw:contributingagency , raw:contributing_agency .
+
+GravityMapPML:measure_2 dcterms:identifier "measure_2" ;
+	coin:slug "measure_2" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25> ;
+	void:inDataset <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25> ;
+	a GravityMapPML_vocab:Measure ;
+	wgs:lon "-108.9992812"^^xsd:decimal ;
+	wgs:lat "33.2830637"^^xsd:decimal ;
+	e1:cbanom267 "-199.39"^^xsd:decimal ;
+	wgs:alt "1896.38"^^xsd:decimal ;
+	e1:source <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/source/4686_ngs> ;
+	dcterms:contributor dbpedia:USGS ;
+	ov:csvRow "2"^^xsd:integer .
+
+GravityMapPML:measure_3 dcterms:identifier "measure_3" ;
+	coin:slug "measure_3" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25> ;
+	void:inDataset <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25> ;
+	a GravityMapPML_vocab:Measure ;
+	wgs:lon "-108.9964498"^^xsd:decimal ;
+	wgs:lat "33.1484"^^xsd:decimal ;
+	e1:cbanom267 "-193.98"^^xsd:decimal ;
+	wgs:alt "1766.27"^^xsd:decimal ;
+	e1:source <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/source/6335WIL8> ;
+	e1:author "G._A._ABRAMS" , "R._A._MARTIN" , "J._C._WYNN" ;
+	dcterms:contributor dbpedia:USGS ;
+	ov:csvRow "3"^^xsd:integer .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd2: <http://www.w3.org/TR/xmlschema-2/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix tw_service: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/> .
+@prefix tw_converter: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Jul-26/> .
+@prefix provenance_1: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix ov: <http://open.vocab.org/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix sdmx: <http://purl.org/linked-data/cube#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix coin: <http://purl.org/court/def/2009/coin#> .
+@prefix cybershare-utep-edu_vocab: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/vocab/> .
+@prefix base_vocab: <http://logd.tw.rpi.edu/vocab/> .
+@prefix GravityMapPML_vocab: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/> .
+@prefix raw: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/raw/> .
+@prefix e1: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/> .
+@prefix GravityMapPML: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/> .
+@prefix GravityMapPML_global_value: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/> .
+@prefix typed_source: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/source/> .
+@prefix typed_agency: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/agency/> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix con: <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix geonamesid: <http://sws.geonames.org/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix value_of_source: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/value-of/source/> .
+@prefix value_of_contributing_agency: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/value-of/contributing_agency/> .
+
+GravityMapPML:thing_2 con:preferredURI GravityMapPML:measure_2 .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/source/4686_ngs> dcterms:identifier "4686_ngs" ;
+	a GravityMapPML_vocab:Source ;
+	rdfs:label "4686_ngs" .
+
+dbpedia:USGS dcterms:identifier "U._S._GEOLOGICAL_SURVEY_(USGS)" ;
+	a GravityMapPML_vocab:Agency , foaf:Organization ;
+	conversion:symbol "U._S._GEOLOGICAL_SURVEY_(USGS)" ;
+	conversion:interpretation dbpedia:USGS ;
+	rdfs:label dbpedia:USGS .
+
+GravityMapPML:thing_3 con:preferredURI GravityMapPML:measure_3 .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/source/6335WIL8> dcterms:identifier "6335WIL8" ;
+	a GravityMapPML_vocab:Source ;
+	rdfs:label "6335WIL8" .
+
+_:node165iami2ax2 vann:preferredNamespacePrefix "rdf" ;
+	vann:preferredNamespaceUri "http://www.w3.org/1999/02/22-rdf-syntax-ns#" .
+
+_:node165iami2ax3 vann:preferredNamespacePrefix "rdfs" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2000/01/rdf-schema#" .
+
+_:node165iami2ax4 vann:preferredNamespacePrefix "xsd" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2001/XMLSchema#" .
+
+_:node165iami2ax5 vann:preferredNamespacePrefix "xsd2" ;
+	vann:preferredNamespaceUri "http://www.w3.org/TR/xmlschema-2/#" .
+
+_:node165iami2ax6 vann:preferredNamespacePrefix "owl" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2002/07/owl#" .
+
+_:node165iami2ax7 vann:preferredNamespacePrefix "pmlp" ;
+	vann:preferredNamespaceUri "http://inference-web.org/2.0/pml-provenance.owl#" .
+
+_:node165iami2ax8 vann:preferredNamespacePrefix "pmlj" ;
+	vann:preferredNamespaceUri "http://inference-web.org/2.0/pml-justification.owl#" .
+
+_:node165iami2ax9 vann:preferredNamespacePrefix "tw_service" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/tw-rpi-edu/service/" .
+
+_:node165iami2ax10 vann:preferredNamespacePrefix "tw_converter" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Jul-26/" .
+
+_:node165iami2ax11 vann:preferredNamespacePrefix "provenance_1" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1/" .
+
+_:node165iami2ax12 vann:preferredNamespacePrefix "conversion" ;
+	vann:preferredNamespaceUri "http://purl.org/twc/vocab/conversion/" .
+
+_:node165iami2ax13 vann:preferredNamespacePrefix "ov" ;
+	vann:preferredNamespaceUri "http://open.vocab.org/terms/" .
+
+_:node165iami2ax14 vann:preferredNamespacePrefix "dcterms" ;
+	vann:preferredNamespaceUri "http://purl.org/dc/terms/" .
+
+_:node165iami2ax15 vann:preferredNamespacePrefix "foaf" ;
+	vann:preferredNamespaceUri "http://xmlns.com/foaf/0.1/" .
+
+_:node165iami2ax16 vann:preferredNamespacePrefix "void" ;
+	vann:preferredNamespaceUri "http://rdfs.org/ns/void#" .
+
+_:node165iami2ax17 vann:preferredNamespacePrefix "doap" ;
+	vann:preferredNamespaceUri "http://usefulinc.com/ns/doap#" .
+
+_:node165iami2ax18 vann:preferredNamespacePrefix "scovo" ;
+	vann:preferredNamespaceUri "http://purl.org/NET/scovo#" .
+
+_:node165iami2ax19 vann:preferredNamespacePrefix "sdmx" ;
+	vann:preferredNamespaceUri "http://purl.org/linked-data/cube#" .
+
+_:node165iami2ax20 vann:preferredNamespacePrefix "vann" ;
+	vann:preferredNamespaceUri "http://purl.org/vocab/vann/" .
+
+_:node165iami2ax21 vann:preferredNamespacePrefix "coin" ;
+	vann:preferredNamespaceUri "http://purl.org/court/def/2009/coin#" .
+
+_:node165iami2ax22 vann:preferredNamespacePrefix "cybershare-utep-edu_vocab" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/cybershare-utep-edu/vocab/" .
+
+_:node165iami2ax23 vann:preferredNamespacePrefix "base_vocab" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/vocab/" .
+
+_:node165iami2ax24 vann:preferredNamespacePrefix "GravityMapPML_vocab" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/" .
+
+_:node165iami2ax25 vann:preferredNamespacePrefix "raw" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/raw/" .
+
+_:node165iami2ax26 vann:preferredNamespacePrefix "e1" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/" .
+
+_:node165iami2ax27 vann:preferredNamespacePrefix "GravityMapPML" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/" .
+
+_:node165iami2ax28 vann:preferredNamespacePrefix "GravityMapPML_global_value" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/" .
+
+_:node165iami2ax29 vann:preferredNamespacePrefix "typed_source" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/source/" .
+
+_:node165iami2ax30 vann:preferredNamespacePrefix "typed_agency" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/agency/" .
+
+_:node165iami2ax31 vann:preferredNamespacePrefix "govtrackusgov" ;
+	vann:preferredNamespaceUri "http://www.rdfabout.com/rdf/usgov/geo/us/" .
+
+_:node165iami2ax32 vann:preferredNamespacePrefix "todo" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2000/01/rdf-schema#" .
+
+_:node165iami2ax33 vann:preferredNamespacePrefix "skos" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2004/02/skos/core#" .
+
+_:node165iami2ax34 vann:preferredNamespacePrefix "con" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2000/10/swap/pim/contact#" .
+
+_:node165iami2ax35 vann:preferredNamespacePrefix "geonamesid" ;
+	vann:preferredNamespaceUri "http://sws.geonames.org/" .
+
+_:node165iami2ax36 vann:preferredNamespacePrefix "time" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2006/time#" .
+
+_:node165iami2ax37 vann:preferredNamespacePrefix "bibo" ;
+	vann:preferredNamespaceUri "http://purl.org/ontology/bibo/" .
+
+_:node165iami2ax38 vann:preferredNamespacePrefix "sioc" ;
+	vann:preferredNamespaceUri "http://rdfs.org/sioc/ns#" .
+
+_:node165iami2ax39 vann:preferredNamespacePrefix "vs" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2003/06/sw-vocab-status/ns#" .
+
+_:node165iami2ax40 vann:preferredNamespacePrefix "dgtwc" ;
+	vann:preferredNamespaceUri "http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#" .
+
+_:node165iami2ax41 vann:preferredNamespacePrefix "muo" ;
+	vann:preferredNamespaceUri "http://purl.oclc.org/NET/muo/muo#" .
+
+_:node165iami2ax42 vann:preferredNamespacePrefix "dbpedia" ;
+	vann:preferredNamespaceUri "http://dbpedia.org/resource/" .
+
+_:node165iami2ax43 vann:preferredNamespacePrefix "qb" ;
+	vann:preferredNamespaceUri "http://purl.org/linked-data/cube#" .
+
+_:node165iami2ax44 vann:preferredNamespacePrefix "wgs" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2003/01/geo/wgs84_pos#" .
+
+_:node165iami2ax45 vann:preferredNamespacePrefix "geonames" ;
+	vann:preferredNamespaceUri "http://www.geonames.org/ontology#" .
+
+_:node165iami2ax46 vann:preferredNamespacePrefix "frbr" ;
+	vann:preferredNamespaceUri "http://purl.org/vocab/frbr/core#" .
+
+_:node165iami2ax47 vann:preferredNamespacePrefix "value_of_source" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/value-of/source/" .
+
+_:node165iami2ax48 vann:preferredNamespacePrefix "value_of_contributing_agency" ;
+	vann:preferredNamespaceUri "http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/value-of/contributing_agency/" .
+
+_:node165iami2ax1 rdfs:seeAlso _:node165iami2ax2 , _:node165iami2ax3 , _:node165iami2ax4 , _:node165iami2ax5 , _:node165iami2ax6 , _:node165iami2ax7 , _:node165iami2ax8 , _:node165iami2ax9 , _:node165iami2ax10 , _:node165iami2ax11 , _:node165iami2ax12 , _:node165iami2ax13 , _:node165iami2ax14 , _:node165iami2ax15 , _:node165iami2ax16 , _:node165iami2ax17 , _:node165iami2ax18 , _:node165iami2ax19 , _:node165iami2ax20 , _:node165iami2ax21 , _:node165iami2ax22 , _:node165iami2ax23 , _:node165iami2ax24 , _:node165iami2ax25 , _:node165iami2ax26 , _:node165iami2ax27 , _:node165iami2ax28 , _:node165iami2ax29 , _:node165iami2ax30 , _:node165iami2ax31 , _:node165iami2ax32 , _:node165iami2ax33 , _:node165iami2ax34 , _:node165iami2ax35 , _:node165iami2ax36 , _:node165iami2ax37 , _:node165iami2ax38 , _:node165iami2ax39 , _:node165iami2ax40 , _:node165iami2ax41 , _:node165iami2ax42 , _:node165iami2ax43 , _:node165iami2ax44 , _:node165iami2ax45 , _:node165iami2ax46 , _:node165iami2ax47 , _:node165iami2ax48 .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML> a cybershare-utep-edu_vocab:Dataset , conversion:Dataset , conversion:AbstractDataset , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "cybershare-utep-edu" ;
+	conversion:dataset_identifier "GravityMapPML" ;
+	dcterms:contributor <http://logd.tw.rpi.edu/source/cybershare-utep-edu> ;
+	dcterms:identifier "cybershare-utep-edu GravityMapPML" ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset_page/GravityMapPML> ;
+	void:subset <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25> , <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/subset/meta> ;
+	dcterms:modified "2011-07-26T00:19:32.767-05:00"^^xsd:dateTime .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25> a cybershare-utep-edu_vocab:Dataset , conversion:Dataset , conversion:VersionedDataset , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "cybershare-utep-edu" ;
+	conversion:dataset_identifier "GravityMapPML" ;
+	conversion:version_identifier "2011-Jul-25" ;
+	conversion:dataset_version "2011-Jul-25" ;
+	dcterms:contributor <http://logd.tw.rpi.edu/source/cybershare-utep-edu> ;
+	dcterms:identifier "cybershare-utep-edu GravityMapPML 2011-Jul-25" ;
+	dcterms:modified "2011-07-26T00:19:32.767-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset_page/GravityMapPML/version/2011-Jul-25> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.ttl.gz> ;
+	void:subset <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> a cybershare-utep-edu_vocab:Dataset , conversion:Dataset , conversion:LayerDataset , void:Dataset ;
+	dcterms:modified "2011-07-26T00:19:32.767-05:00"^^xsd:dateTime ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "cybershare-utep-edu" ;
+	conversion:dataset_identifier "GravityMapPML" ;
+	conversion:version_identifier "2011-Jul-25" ;
+	conversion:dataset_version "2011-Jul-25" ;
+	conversion:conversion_identifier "enhancement/1" ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset_page/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.e1.ttl.gz> ;
+	void:subset <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1/subset/sample> ;
+	dcterms:created "2011-07-26T00:19:32.587-05:00"^^xsd:dateTime ;
+	dcterms:contributor <http://logd.tw.rpi.edu/source/cybershare-utep-edu> ;
+	dcterms:identifier "cybershare-utep-edu GravityMapPML 2011-Jul-25 e1" ;
+	conversion:uses_predicate dcterms:contributor , e1:author , e1:source , wgs:alt , e1:cbanom267 , wgs:lat , wgs:lon ;
+	conversion:uses_class GravityMapPML_vocab:Source , GravityMapPML_vocab:Measure , foaf:Organization , GravityMapPML_vocab:Agency ;
+	void:exampleResource GravityMapPML:measure_2 , GravityMapPML:measure_3 .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/subset/meta> a cybershare-utep-edu_vocab:Dataset , conversion:Dataset , conversion:MetaDataset , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "cybershare-utep-edu" ;
+	conversion:dataset_identifier "GravityMapPML" ;
+	dcterms:modified "2011-07-26T00:19:32.767-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset_page/GravityMapPML/subset/meta> ;
+	void:vocabulary <http://rdfs.org/ns/void#> , <http://inference-web.org/2.0/pml-provenance.owl#> , <http://inference-web.org/2.0/pml-justification.owl#> , <http://xmlns.com/foaf/0.1/> , <http://purl.org/dc/terms/> , <http://purl.org/NET/scovo#> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.void.ttl.gz> .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1/subset/sample> a cybershare-utep-edu_vocab:Dataset , conversion:Dataset , conversion:DatasetSample , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "cybershare-utep-edu" ;
+	conversion:dataset_identifier "GravityMapPML" ;
+	conversion:version_identifier "2011-Jul-25" ;
+	conversion:dataset_version "2011-Jul-25" ;
+	conversion:conversion_identifier "enhancement/1" ;
+	dcterms:modified "2011-07-26T00:19:32.767-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset_page/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1/subset/sample> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.e1.sample> .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu> a foaf:Agent ;
+	dcterms:identifier "cybershare-utep-edu" ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source_page/cybershare-utep-edu> .
+
+provenance_1:nodeset_1 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.ttl.gz> ;
+	pmlj:isConsequentOf provenance_1:infstep_1 .
+
+provenance_1:nodeset_2 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.e1.sample> ;
+	pmlj:isConsequentOf provenance_1:infstep_1 .
+
+provenance_1:nodeset_3 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.e1.ttl.gz> ;
+	pmlj:isConsequentOf provenance_1:infstep_1 .
+
+provenance_1:nodeset_4 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.void.ttl.gz> ;
+	pmlj:isConsequentOf provenance_1:infstep_1 .
+
+provenance_1:infstep_1 a pmlj:InferenceStep ;
+	pmlj:hasInferenceEngine tw_converter:csv2rdf4lod_01bf06cdb56097c2eb26f2b754740f4d ;
+	pmlj:hasAntecedentList _:node165iami2ax49 ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> _:node165iami2ax51 , _:node165iami2ax50 .
+
+<http://data.lod2.eu/2011/tools/CSV2RDF4LOD> con:preferredURI tw_converter:csv2rdf4lod_01bf06cdb56097c2eb26f2b754740f4d .
+
+<http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/csv2rdf4lod> con:preferredURI tw_converter:csv2rdf4lod_01bf06cdb56097c2eb26f2b754740f4d .
+
+tw_converter:csv2rdf4lod_01bf06cdb56097c2eb26f2b754740f4d a pmlp:InferenceEngine , doap:Version ;
+	dcterms:identifier "csv2rdf4lod_01bf06cdb56097c2eb26f2b754740f4d" ;
+	dcterms:version "2011-Jul-26" ;
+	doap:revision "2011-Jul-26" ;
+	doap:platform "Java" .
+
+<http://purl.org/twc/id/software/csv2rdf4lod> rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki> .
+
+<http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/csv2rdf4lod> a doap:Project ;
+	doap:revision tw_converter:csv2rdf4lod_01bf06cdb56097c2eb26f2b754740f4d ;
+	doap:implements <http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/URI_design_for_RDF_conversion_of_CSV-based_data> , <http://purl.org/twc/vocab/conversion/> ;
+	dcterms:author <http://tw.rpi.edu/instances/TimLebo> ;
+	doap:developer <http://tw.rpi.edu/instances/TimLebo> , <http://tw.rpi.edu/instances/GregoryToddWilliams> , <http://kasei.us/about/foaf.xrdf#greg> , <http://tw.rpi.edu/instances/JamesMcCusker> , <http://tw.rpi.edu/instances/ZhenningShangguan> ;
+	doap:maintainer <http://tw.rpi.edu/instances/TimLebo> ;
+	doap:documenter <http://tw.rpi.edu/instances/TimLebo> , <http://tw.rpi.edu/instances/JohannaFlores> , <http://tw.rpi.edu/instances/LiDing> , <http://tw.rpi.edu/instances/GinoGervasio> ;
+	doap:helper <http://tw.rpi.edu/instances/AlvaroGraves> , <http://tw.rpi.edu/instances/DominicDiFranzo> , <http://tw.rpi.edu/instances/GinoGervasio> , <http://tw.rpi.edu/instances/PingWang> , <http://tw.rpi.edu/instances/XianLi> , <http://tw.rpi.edu/instances/JamesMcCusker> , <http://www.w3.org/People/Eric/ericP-foaf#ericP> , <http://tw.rpi.edu/instances/AnkitSrivastava> , <http://purl.org/twc/id/person/Maryam_Fazel-Zarandi> , <http://tw.rpi.edu/instances/AlexanderLahuerta> ;
+	doap:homepage <https://github.com/timrdf/csv2rdf4lod-automation/wiki> ;
+	doap:audience "Data modelers and architects that need (potentially non-RDB) tabular data encoded within the Resource Description Framework." ;
+	doap:shortdesc "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/" ;
+	doap:description "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/. Organizes datasets using 'source', 'dataset', and 'version' identifiers to allow for third-party aggregation, refinement, and integration of third-party data. Uses predicate 'layers' to allow backward-compatible refinements of Resources' descriptions. Minimizes human error and increases transparancy of conversion by using RDF-encoded interpretation parameters to control all processing." .
+
+_:node165iami2ax52 a doap:GitRepository ;
+	foaf:isPrimaryTopicOf <https://github.com/timrdf/csv2rdf4lod-automation> ;
+	doap:browse <https://github.com/timrdf/csv2rdf4lod-automation> .
+
+<http://tw.rpi.edu/instances/GregoryToddWilliams> con:preferredURI <http://kasei.us/about/foaf.xrdf#greg> .
+
+<http://tw.rpi.edu/instances/AlvaroGraves> con:preferredURI <http://alvaro.graves.cl> .
+
+<http://purl.org/twc/id/person/TimLebo> con:preferredURI <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://tw.rpi.edu/wiki/Special:URIResolver/Tim_Lebo> con:preferredURI <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://www.cs.rpi.edu/~weavej3/r/Tim_Lebo> con:preferredURI <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://purl.org/twc/id/person/Maryam_Fazel-Zarandi> con:preferredURI <http://tw.rpi.edu/instances/MaryamFazel-Zarandi> .
+
+_:node165iami2ax49 a rdf:List ;
+	rdf:first provenance_1:nodeset_5 .
+
+provenance_1:nodeset_5 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance_file/GravityMapPML/version/2011-Jul-25/manual/006021185888999658_gravityDataset.txt.tsv> .
+
+_:node165iami2ax49 rdf:rest _:node165iami2ax53 .
+
+_:node165iami2ax53 a rdf:List ;
+	rdf:first provenance_1:nodeset_6 .
+
+provenance_1:nodeset_6 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance_file/GravityMapPML/version/2011-Jul-25/manual/006021185888999658_gravityDataset.txt.tsv.e1.params.ttl> .
+
+_:node165iami2ax51 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> .
+
+_:node165iami2ax53 rdf:rest rdf:nil .
+
+_:node165iami2ax51 <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance_file/GravityMapPML/version/2011-Jul-25/manual/006021185888999658_gravityDataset.txt.tsv.e1.params.ttl> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Parameters.owl#Parameters> .
+
+_:node165iami2ax50 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance_file/GravityMapPML/version/2011-Jul-25/manual/006021185888999658_gravityDataset.txt.tsv> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Input.owl#Input> .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance_file/GravityMapPML/version/2011-Jul-25/manual/006021185888999658_gravityDataset.txt.tsv> a pmlp:Information ;
+	pmlp:hasFormat <http://iw.cs.utep.edu/registry/FMT/text/CSV.owl#CSV> .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance_file/GravityMapPML/version/2011-Jul-25/manual/006021185888999658_gravityDataset.txt.tsv.e1.params.ttl> a pmlp:Information ;
+	pmlp:hasFormat <http://inference-web.org/registry/FMT/RDFAbstractSyntax.owl#RDFAbstractSyntax> .
+
+conversion:SameAsDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:uses_class rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:has_version rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:MetaDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:num_triples rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:enhances rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:enhancement_layer rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:DatasetSample rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:source_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:VersionedDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:LayerDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:base_uri rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:uses_predicate rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:interpretation rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:symbol rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:dataset_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:conversion_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:AbstractDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:null rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:subject_discriminator rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:Dataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:version_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> a foaf:OnlineAccount ;
+	foaf:accountName "lebot" ;
+	dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2> ;
+	sioc:account_of <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> conversion:base_uri "http://logd.tw.rpi.edu"^^xsd:anyURI .
+
+_:node165iami53x1 a conversion:EnhancementConversionProcess ;
+	conversion:enhancement_identifier "1" ;
+	dcterms:creator <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> ;
+	dcterms:created "2011-07-25T23:00:31-04:00"^^xsd:dateTime ;
+	conversion:delimits_cell "\t" .
+
+_:node165iami53x2 conversion:domain_template "measure_[r]" ;
+	conversion:domain_name "Measure" .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x2 .
+
+_:node165iami53x3 ov:csvCol "1"^^xsd:integer ;
+	ov:csvHeader "lonnad83" ;
+	conversion:equivalent_property wgs:lon ;
+	conversion:comment "" ;
+	conversion:range xsd:decimal .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x3 .
+
+_:node165iami53x4 ov:csvCol "2"^^xsd:integer ;
+	ov:csvHeader "latnad83" ;
+	conversion:equivalent_property wgs:lat ;
+	conversion:comment "" ;
+	conversion:range xsd:decimal .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x4 .
+
+_:node165iami53x5 ov:csvCol "3"^^xsd:integer ;
+	ov:csvHeader "cbanom267" ;
+	conversion:comment "" ;
+	conversion:range xsd:decimal .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x5 .
+
+_:node165iami53x6 ov:csvCol "4"^^xsd:integer ;
+	ov:csvHeader "elevngvd88m" ;
+	conversion:equivalent_property wgs:alt ;
+	conversion:comment "" ;
+	conversion:range xsd:decimal .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x6 .
+
+_:node165iami53x7 ov:csvCol "5"^^xsd:integer ;
+	ov:csvHeader "sourcecode" ;
+	conversion:label "Source" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Resource ;
+	conversion:range_name "Source" .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x7 .
+
+_:node165iami53x8 ov:csvCol "6"^^xsd:integer ;
+	ov:csvHeader "author" ;
+	conversion:comment "" ;
+	conversion:delimits_object ",_" .
+
+_:node165iami53x9 conversion:symbol "UNKNOWN" ;
+	conversion:interpretation conversion:null .
+
+_:node165iami53x8 conversion:interpret _:node165iami53x9 ;
+	conversion:range rdfs:Literal .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x8 .
+
+_:node165iami53x10 ov:csvCol "7"^^xsd:integer ;
+	ov:csvHeader "contributingagency" ;
+	conversion:equivalent_property dcterms:contributor ;
+	conversion:label "Contributing Agency" ;
+	conversion:comment "" .
+
+_:node165iami53x11 conversion:symbol "UNK" ;
+	conversion:interpretation conversion:null .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x11 .
+
+_:node165iami53x12 conversion:symbol "DMAHTC/GSS" ;
+	conversion:interpretation "DMAHTC/GSS" .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x12 .
+
+_:node165iami53x13 conversion:symbol "DMAH/TC" ;
+	conversion:interpretation "DMAH/TC" .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x13 .
+
+_:node165iami53x14 conversion:symbol "NATIONAL_GEODETIC_SURVEY" ;
+	conversion:interpretation <http://dbpedia.org/resource/U.S._National_Geodetic_Survey> .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x14 .
+
+_:node165iami53x15 conversion:symbol "NATIONAL_OCEANIC_AND_ATMOSPHERIC_ADMINISTRATION_(NOAA)" ;
+	conversion:interpretation dbpedia:NOAA .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x15 .
+
+_:node165iami53x16 conversion:symbol "OREGON_STATE_UNIVERSITY" ;
+	conversion:interpretation dbpedia:Oregon_State_University .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x16 .
+
+_:node165iami53x17 conversion:symbol "UNIVERSITY_OF_ARIZONA" ;
+	conversion:interpretation dbpedia:University_of_Arizona .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x17 .
+
+_:node165iami53x18 conversion:symbol "UNIVERSITY_OF_NEW_MEXICO" ;
+	conversion:interpretation dbpedia:University_of_New_Mexico .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x18 .
+
+_:node165iami53x19 conversion:symbol "UNIVERSITY_OF_TEXAS_AT_EL_PASO" ;
+	conversion:interpretation dbpedia:University_of_Texas-El_Paso .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x19 .
+
+_:node165iami53x20 conversion:symbol "UNIVERSITY_OF_WISCONSIN" ;
+	conversion:interpretation <http://dbpedia.org/resource/University_of_Wisconsin_(disambiguation)> .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x20 .
+
+_:node165iami53x21 conversion:symbol "UNIVERSITY_OF_WYOMING" ;
+	conversion:interpretation dbpedia:University_of_Wyoming .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x21 .
+
+_:node165iami53x22 conversion:symbol "U._S._GEOLOGICAL_SURVEY_(USGS)" ;
+	conversion:interpretation dbpedia:USGS .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x22 ;
+	conversion:range rdfs:Resource ;
+	conversion:range_name "Agency" .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x10 .
+
+_:node165iami53x23 conversion:class_name "Agency" ;
+	conversion:subclass_of foaf:Organization .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x23 .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> conversion:conversion_process _:node165iami53x1 ;
+	void:statItem _:node165iami2ax55 .
+
+_:node165iami2ax55 scovo:dimension void:numberOfTriples ;
+	rdf:value "553"^^xsd:integer .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> conversion:num_triples "553"^^xsd:integer .
+
+# CSV2RDF4LOD DATASET METADATA (reproduced from above):
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd2: <http://www.w3.org/TR/xmlschema-2/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix tw_service: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/> .
+@prefix tw_converter: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Jul-26/> .
+@prefix provenance_1: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix ov: <http://open.vocab.org/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix sdmx: <http://purl.org/linked-data/cube#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix coin: <http://purl.org/court/def/2009/coin#> .
+@prefix cybershare-utep-edu_vocab: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/vocab/> .
+@prefix base_vocab: <http://logd.tw.rpi.edu/vocab/> .
+@prefix GravityMapPML_vocab: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/> .
+@prefix raw: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/raw/> .
+@prefix e1: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/> .
+@prefix GravityMapPML: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/> .
+@prefix GravityMapPML_global_value: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/> .
+@prefix typed_source: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/source/> .
+@prefix typed_agency: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/agency/> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix con: <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix geonamesid: <http://sws.geonames.org/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix value_of_source: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/value-of/source/> .
+@prefix value_of_contributing_agency: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/value-of/contributing_agency/> .
+
+GravityMapPML_vocab:Measure a rdfs:Class , owl:Class ;
+	rdfs:label "Measure" .
+
+e1:lonnad83 a rdf:Property ;
+	ov:csvCol "1"^^xsd:integer ;
+	ov:csvHeader "lonnad83" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "lonnad83" ;
+	rdfs:range xsd:decimal ;
+	conversion:enhances raw:lonnad83 .
+
+GravityMapPML_vocab:Source a rdfs:Class , owl:Class ;
+	rdfs:label "Source" .
+
+GravityMapPML_vocab:Agency a rdfs:Class , owl:Class ;
+	rdfs:label "Agency" ;
+	rdfs:subClassOf foaf:Organization .
+
+foaf:Organization a rdfs:Class , owl:Class .
+
+e1:latnad83 a rdf:Property ;
+	ov:csvCol "2"^^xsd:integer ;
+	ov:csvHeader "latnad83" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "latnad83" ;
+	rdfs:range xsd:decimal ;
+	conversion:enhances raw:latnad83 .
+
+e1:cbanom267 a rdf:Property ;
+	ov:csvCol "3"^^xsd:integer ;
+	ov:csvHeader "cbanom267" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "cbanom267" ;
+	rdfs:range xsd:decimal ;
+	conversion:enhances raw:cbanom267 .
+
+e1:elevngvd88m a rdf:Property ;
+	ov:csvCol "4"^^xsd:integer ;
+	ov:csvHeader "elevngvd88m" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "elevngvd88m" ;
+	rdfs:range xsd:decimal ;
+	conversion:enhances raw:elevngvd88m .
+
+e1:source a rdf:Property ;
+	ov:csvCol "5"^^xsd:integer ;
+	ov:csvHeader "sourcecode" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "Source" ;
+	rdfs:range rdfs:Resource ;
+	conversion:enhances raw:sourcecode , raw:source .
+
+e1:author a rdf:Property ;
+	ov:csvCol "6"^^xsd:integer ;
+	ov:csvHeader "author" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "author" ;
+	rdfs:range rdfs:Literal ;
+	conversion:enhances raw:author .
+
+e1:contributing_agency a rdf:Property ;
+	ov:csvCol "7"^^xsd:integer ;
+	ov:csvHeader "contributingagency" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	rdfs:label "Contributing Agency" ;
+	rdfs:range rdfs:Resource ;
+	conversion:enhances raw:contributingagency , raw:contributing_agency .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd2: <http://www.w3.org/TR/xmlschema-2/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix tw_service: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/> .
+@prefix tw_converter: <http://logd.tw.rpi.edu/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Jul-26/> .
+@prefix provenance_1: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix ov: <http://open.vocab.org/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix sdmx: <http://purl.org/linked-data/cube#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix coin: <http://purl.org/court/def/2009/coin#> .
+@prefix cybershare-utep-edu_vocab: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/vocab/> .
+@prefix base_vocab: <http://logd.tw.rpi.edu/vocab/> .
+@prefix GravityMapPML_vocab: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/> .
+@prefix raw: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/raw/> .
+@prefix e1: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/> .
+@prefix GravityMapPML: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/> .
+@prefix GravityMapPML_global_value: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/> .
+@prefix typed_source: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/source/> .
+@prefix typed_agency: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/typed/agency/> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix con: <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix geonamesid: <http://sws.geonames.org/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dgtwc: <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix value_of_source: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/value-of/source/> .
+@prefix value_of_contributing_agency: <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/value-of/contributing_agency/> .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML> a cybershare-utep-edu_vocab:Dataset , conversion:Dataset , conversion:AbstractDataset , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "cybershare-utep-edu" ;
+	conversion:dataset_identifier "GravityMapPML" ;
+	dcterms:contributor <http://logd.tw.rpi.edu/source/cybershare-utep-edu> ;
+	dcterms:identifier "cybershare-utep-edu GravityMapPML" ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset_page/GravityMapPML> ;
+	void:subset <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25> , <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/subset/meta> ;
+	dcterms:modified "2011-07-26T00:19:32.767-05:00"^^xsd:dateTime .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25> a cybershare-utep-edu_vocab:Dataset , conversion:Dataset , conversion:VersionedDataset , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "cybershare-utep-edu" ;
+	conversion:dataset_identifier "GravityMapPML" ;
+	conversion:version_identifier "2011-Jul-25" ;
+	conversion:dataset_version "2011-Jul-25" ;
+	dcterms:contributor <http://logd.tw.rpi.edu/source/cybershare-utep-edu> ;
+	dcterms:identifier "cybershare-utep-edu GravityMapPML 2011-Jul-25" ;
+	dcterms:modified "2011-07-26T00:19:32.767-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset_page/GravityMapPML/version/2011-Jul-25> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.ttl.gz> ;
+	void:subset <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> a cybershare-utep-edu_vocab:Dataset , conversion:Dataset , conversion:LayerDataset , void:Dataset ;
+	dcterms:modified "2011-07-26T00:19:32.767-05:00"^^xsd:dateTime ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "cybershare-utep-edu" ;
+	conversion:dataset_identifier "GravityMapPML" ;
+	conversion:version_identifier "2011-Jul-25" ;
+	conversion:dataset_version "2011-Jul-25" ;
+	conversion:conversion_identifier "enhancement/1" ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset_page/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.e1.ttl.gz> ;
+	void:subset <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1/subset/sample> ;
+	dcterms:created "2011-07-26T00:19:32.587-05:00"^^xsd:dateTime ;
+	dcterms:contributor <http://logd.tw.rpi.edu/source/cybershare-utep-edu> ;
+	dcterms:identifier "cybershare-utep-edu GravityMapPML 2011-Jul-25 e1" ;
+	conversion:uses_predicate dcterms:contributor , e1:author , e1:source , wgs:alt , e1:cbanom267 , wgs:lat , wgs:lon ;
+	conversion:uses_class GravityMapPML_vocab:Source , GravityMapPML_vocab:Measure , foaf:Organization , GravityMapPML_vocab:Agency ;
+	void:exampleResource GravityMapPML:measure_2 , GravityMapPML:measure_3 .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/subset/meta> a cybershare-utep-edu_vocab:Dataset , conversion:Dataset , conversion:MetaDataset , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "cybershare-utep-edu" ;
+	conversion:dataset_identifier "GravityMapPML" ;
+	dcterms:modified "2011-07-26T00:19:32.767-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset_page/GravityMapPML/subset/meta> ;
+	void:vocabulary <http://rdfs.org/ns/void#> , <http://inference-web.org/2.0/pml-provenance.owl#> , <http://inference-web.org/2.0/pml-justification.owl#> , <http://xmlns.com/foaf/0.1/> , <http://purl.org/dc/terms/> , <http://purl.org/NET/scovo#> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.void.ttl.gz> .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1/subset/sample> a cybershare-utep-edu_vocab:Dataset , conversion:Dataset , conversion:DatasetSample , void:Dataset ;
+	conversion:base_uri "http://logd.tw.rpi.edu" ;
+	conversion:source_identifier "cybershare-utep-edu" ;
+	conversion:dataset_identifier "GravityMapPML" ;
+	conversion:version_identifier "2011-Jul-25" ;
+	conversion:dataset_version "2011-Jul-25" ;
+	conversion:conversion_identifier "enhancement/1" ;
+	dcterms:modified "2011-07-26T00:19:32.767-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset_page/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1/subset/sample> ;
+	void:dataDump <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.e1.sample> .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu> a foaf:Agent ;
+	dcterms:identifier "cybershare-utep-edu" ;
+	foaf:isPrimaryTopicOf <http://logd.tw.rpi.edu/source_page/cybershare-utep-edu> .
+
+provenance_1:nodeset_1 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.ttl.gz> ;
+	pmlj:isConsequentOf provenance_1:infstep_1 .
+
+provenance_1:nodeset_2 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.e1.sample> ;
+	pmlj:isConsequentOf provenance_1:infstep_1 .
+
+provenance_1:nodeset_3 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.e1.ttl.gz> ;
+	pmlj:isConsequentOf provenance_1:infstep_1 .
+
+provenance_1:nodeset_4 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/cybershare-utep-edu/file/GravityMapPML/version/2011-Jul-25/conversion/cybershare-utep-edu-GravityMapPML-2011-Jul-25.void.ttl.gz> ;
+	pmlj:isConsequentOf provenance_1:infstep_1 .
+
+provenance_1:infstep_1 a pmlj:InferenceStep ;
+	pmlj:hasInferenceEngine tw_converter:csv2rdf4lod_01bf06cdb56097c2eb26f2b754740f4d ;
+	pmlj:hasAntecedentList _:node165iami2ax49 ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> _:node165iami2ax51 , _:node165iami2ax50 .
+
+<http://data.lod2.eu/2011/tools/CSV2RDF4LOD> con:preferredURI tw_converter:csv2rdf4lod_01bf06cdb56097c2eb26f2b754740f4d .
+
+<http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/csv2rdf4lod> con:preferredURI tw_converter:csv2rdf4lod_01bf06cdb56097c2eb26f2b754740f4d .
+
+tw_converter:csv2rdf4lod_01bf06cdb56097c2eb26f2b754740f4d a pmlp:InferenceEngine , doap:Version ;
+	dcterms:identifier "csv2rdf4lod_01bf06cdb56097c2eb26f2b754740f4d" ;
+	dcterms:version "2011-Jul-26" ;
+	doap:revision "2011-Jul-26" ;
+	doap:platform "Java" .
+
+<http://purl.org/twc/id/software/csv2rdf4lod> rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki> .
+
+<http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/csv2rdf4lod> a doap:Project ;
+	doap:revision tw_converter:csv2rdf4lod_01bf06cdb56097c2eb26f2b754740f4d ;
+	doap:implements <http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/URI_design_for_RDF_conversion_of_CSV-based_data> , <http://purl.org/twc/vocab/conversion/> ;
+	dcterms:author <http://tw.rpi.edu/instances/TimLebo> ;
+	doap:developer <http://tw.rpi.edu/instances/TimLebo> , <http://tw.rpi.edu/instances/GregoryToddWilliams> , <http://kasei.us/about/foaf.xrdf#greg> , <http://tw.rpi.edu/instances/JamesMcCusker> , <http://tw.rpi.edu/instances/ZhenningShangguan> ;
+	doap:maintainer <http://tw.rpi.edu/instances/TimLebo> ;
+	doap:documenter <http://tw.rpi.edu/instances/TimLebo> , <http://tw.rpi.edu/instances/JohannaFlores> , <http://tw.rpi.edu/instances/LiDing> , <http://tw.rpi.edu/instances/GinoGervasio> ;
+	doap:helper <http://tw.rpi.edu/instances/AlvaroGraves> , <http://tw.rpi.edu/instances/DominicDiFranzo> , <http://tw.rpi.edu/instances/GinoGervasio> , <http://tw.rpi.edu/instances/PingWang> , <http://tw.rpi.edu/instances/XianLi> , <http://tw.rpi.edu/instances/JamesMcCusker> , <http://www.w3.org/People/Eric/ericP-foaf#ericP> , <http://tw.rpi.edu/instances/AnkitSrivastava> , <http://purl.org/twc/id/person/Maryam_Fazel-Zarandi> , <http://tw.rpi.edu/instances/AlexanderLahuerta> ;
+	doap:homepage <https://github.com/timrdf/csv2rdf4lod-automation/wiki> ;
+	doap:audience "Data modelers and architects that need (potentially non-RDB) tabular data encoded within the Resource Description Framework." ;
+	doap:shortdesc "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/" ;
+	doap:description "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/. Organizes datasets using 'source', 'dataset', and 'version' identifiers to allow for third-party aggregation, refinement, and integration of third-party data. Uses predicate 'layers' to allow backward-compatible refinements of Resources' descriptions. Minimizes human error and increases transparancy of conversion by using RDF-encoded interpretation parameters to control all processing." .
+
+_:node165iami2ax52 a doap:GitRepository ;
+	foaf:isPrimaryTopicOf <https://github.com/timrdf/csv2rdf4lod-automation> ;
+	doap:browse <https://github.com/timrdf/csv2rdf4lod-automation> .
+
+<http://tw.rpi.edu/instances/GregoryToddWilliams> con:preferredURI <http://kasei.us/about/foaf.xrdf#greg> .
+
+<http://tw.rpi.edu/instances/AlvaroGraves> con:preferredURI <http://alvaro.graves.cl> .
+
+<http://purl.org/twc/id/person/TimLebo> con:preferredURI <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://tw.rpi.edu/wiki/Special:URIResolver/Tim_Lebo> con:preferredURI <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://www.cs.rpi.edu/~weavej3/r/Tim_Lebo> con:preferredURI <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://purl.org/twc/id/person/Maryam_Fazel-Zarandi> con:preferredURI <http://tw.rpi.edu/instances/MaryamFazel-Zarandi> .
+
+_:node165iami2ax49 a rdf:List ;
+	rdf:first provenance_1:nodeset_5 .
+
+provenance_1:nodeset_5 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance_file/GravityMapPML/version/2011-Jul-25/manual/006021185888999658_gravityDataset.txt.tsv> .
+
+_:node165iami2ax49 rdf:rest _:node165iami2ax53 .
+
+_:node165iami2ax53 a rdf:List ;
+	rdf:first provenance_1:nodeset_6 .
+
+provenance_1:nodeset_6 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance_file/GravityMapPML/version/2011-Jul-25/manual/006021185888999658_gravityDataset.txt.tsv.e1.params.ttl> .
+
+_:node165iami2ax51 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> .
+
+_:node165iami2ax53 rdf:rest rdf:nil .
+
+_:node165iami2ax51 <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance_file/GravityMapPML/version/2011-Jul-25/manual/006021185888999658_gravityDataset.txt.tsv.e1.params.ttl> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Parameters.owl#Parameters> .
+
+_:node165iami2ax50 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance_file/GravityMapPML/version/2011-Jul-25/manual/006021185888999658_gravityDataset.txt.tsv> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Input.owl#Input> .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance_file/GravityMapPML/version/2011-Jul-25/manual/006021185888999658_gravityDataset.txt.tsv> a pmlp:Information ;
+	pmlp:hasFormat <http://iw.cs.utep.edu/registry/FMT/text/CSV.owl#CSV> .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/provenance_file/GravityMapPML/version/2011-Jul-25/manual/006021185888999658_gravityDataset.txt.tsv.e1.params.ttl> a pmlp:Information ;
+	pmlp:hasFormat <http://inference-web.org/registry/FMT/RDFAbstractSyntax.owl#RDFAbstractSyntax> .
+
+conversion:SameAsDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:uses_class rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:has_version rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:MetaDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:num_triples rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:enhances rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:enhancement_layer rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:DatasetSample rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:source_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:VersionedDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:LayerDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:base_uri rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:uses_predicate rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:interpretation rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:symbol rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:dataset_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:conversion_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:AbstractDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:null rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:subject_discriminator rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:Dataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:version_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> a foaf:OnlineAccount ;
+	foaf:accountName "lebot" ;
+	dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2> ;
+	sioc:account_of <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> conversion:base_uri "http://logd.tw.rpi.edu"^^xsd:anyURI .
+
+_:node165iami53x1 a conversion:EnhancementConversionProcess ;
+	conversion:enhancement_identifier "1" ;
+	dcterms:creator <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> ;
+	dcterms:created "2011-07-25T23:00:31-04:00"^^xsd:dateTime ;
+	conversion:delimits_cell "\t" .
+
+_:node165iami53x2 conversion:domain_template "measure_[r]" ;
+	conversion:domain_name "Measure" .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x2 .
+
+_:node165iami53x3 ov:csvCol "1"^^xsd:integer ;
+	ov:csvHeader "lonnad83" ;
+	conversion:equivalent_property wgs:lon ;
+	conversion:comment "" ;
+	conversion:range xsd:decimal .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x3 .
+
+_:node165iami53x4 ov:csvCol "2"^^xsd:integer ;
+	ov:csvHeader "latnad83" ;
+	conversion:equivalent_property wgs:lat ;
+	conversion:comment "" ;
+	conversion:range xsd:decimal .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x4 .
+
+_:node165iami53x5 ov:csvCol "3"^^xsd:integer ;
+	ov:csvHeader "cbanom267" ;
+	conversion:comment "" ;
+	conversion:range xsd:decimal .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x5 .
+
+_:node165iami53x6 ov:csvCol "4"^^xsd:integer ;
+	ov:csvHeader "elevngvd88m" ;
+	conversion:equivalent_property wgs:alt ;
+	conversion:comment "" ;
+	conversion:range xsd:decimal .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x6 .
+
+_:node165iami53x7 ov:csvCol "5"^^xsd:integer ;
+	ov:csvHeader "sourcecode" ;
+	conversion:label "Source" ;
+	conversion:comment "" ;
+	conversion:range rdfs:Resource ;
+	conversion:range_name "Source" .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x7 .
+
+_:node165iami53x8 ov:csvCol "6"^^xsd:integer ;
+	ov:csvHeader "author" ;
+	conversion:comment "" ;
+	conversion:delimits_object ",_" .
+
+_:node165iami53x9 conversion:symbol "UNKNOWN" ;
+	conversion:interpretation conversion:null .
+
+_:node165iami53x8 conversion:interpret _:node165iami53x9 ;
+	conversion:range rdfs:Literal .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x8 .
+
+_:node165iami53x10 ov:csvCol "7"^^xsd:integer ;
+	ov:csvHeader "contributingagency" ;
+	conversion:equivalent_property dcterms:contributor ;
+	conversion:label "Contributing Agency" ;
+	conversion:comment "" .
+
+_:node165iami53x11 conversion:symbol "UNK" ;
+	conversion:interpretation conversion:null .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x11 .
+
+_:node165iami53x12 conversion:symbol "DMAHTC/GSS" ;
+	conversion:interpretation "DMAHTC/GSS" .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x12 .
+
+_:node165iami53x13 conversion:symbol "DMAH/TC" ;
+	conversion:interpretation "DMAH/TC" .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x13 .
+
+_:node165iami53x14 conversion:symbol "NATIONAL_GEODETIC_SURVEY" ;
+	conversion:interpretation <http://dbpedia.org/resource/U.S._National_Geodetic_Survey> .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x14 .
+
+_:node165iami53x15 conversion:symbol "NATIONAL_OCEANIC_AND_ATMOSPHERIC_ADMINISTRATION_(NOAA)" ;
+	conversion:interpretation dbpedia:NOAA .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x15 .
+
+_:node165iami53x16 conversion:symbol "OREGON_STATE_UNIVERSITY" ;
+	conversion:interpretation dbpedia:Oregon_State_University .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x16 .
+
+_:node165iami53x17 conversion:symbol "UNIVERSITY_OF_ARIZONA" ;
+	conversion:interpretation dbpedia:University_of_Arizona .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x17 .
+
+_:node165iami53x18 conversion:symbol "UNIVERSITY_OF_NEW_MEXICO" ;
+	conversion:interpretation dbpedia:University_of_New_Mexico .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x18 .
+
+_:node165iami53x19 conversion:symbol "UNIVERSITY_OF_TEXAS_AT_EL_PASO" ;
+	conversion:interpretation dbpedia:University_of_Texas-El_Paso .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x19 .
+
+_:node165iami53x20 conversion:symbol "UNIVERSITY_OF_WISCONSIN" ;
+	conversion:interpretation <http://dbpedia.org/resource/University_of_Wisconsin_(disambiguation)> .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x20 .
+
+_:node165iami53x21 conversion:symbol "UNIVERSITY_OF_WYOMING" ;
+	conversion:interpretation dbpedia:University_of_Wyoming .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x21 .
+
+_:node165iami53x22 conversion:symbol "U._S._GEOLOGICAL_SURVEY_(USGS)" ;
+	conversion:interpretation dbpedia:USGS .
+
+_:node165iami53x10 conversion:interpret _:node165iami53x22 ;
+	conversion:range rdfs:Resource ;
+	conversion:range_name "Agency" .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x10 .
+
+_:node165iami53x23 conversion:class_name "Agency" ;
+	conversion:subclass_of foaf:Organization .
+
+_:node165iami53x1 conversion:enhance _:node165iami53x23 .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> conversion:conversion_process _:node165iami53x1 ;
+	void:statItem _:node165iami2ax56 .
+
+_:node165iami2ax56 scovo:dimension void:numberOfTriples ;
+	rdf:value "553"^^xsd:integer .
+
+<http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/conversion/enhancement/1> conversion:num_triples "553"^^xsd:integer .

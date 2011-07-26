@@ -1,0 +1,133 @@
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
+@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix sioc:       <http://rdfs.org/sioc/ns#> .
+@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov:      <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+@prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix conv:       <http://purl.org/twc/vocab/conversion/> .
+@prefix httphead:   <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> .
+@prefix httpget:    <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> .
+@prefix httppost:   <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+<http://rio.cs.utep.edu/ciserver/ciprojects/GravityMapPML/006021185888999658_gravityDataset.txt>
+   a pmlp:Source;
+.
+
+<http://rio.cs.utep.edu/ciserver/ciprojects/GravityMapPML/006021185888999658_gravityDataset.txt>
+   a pmlp:Source;
+   pmlp:hasModificationDateTime "2010-06-08T02:43:00"^^xsd:dateTime;
+.
+
+<006021185888999658_gravityDataset.txt>
+   a pmlp:Information;
+   pmlp:hasReferenceSourceUsage <sourceUsage_8acc8989-020a-4776-a6e2-12627bdd3811_content>;
+.
+<006021185888999658_gravityDataset.txt>
+   a pmlp:Information;
+   nfo:hasHash <md5_9e1736b3b6e0937263350fd12ebbf1d8_time_1311648773>;
+.
+<md5_9e1736b3b6e0937263350fd12ebbf1d8_time_1311648773>
+   a nfo:FileHash; 
+   dcterms:date      "2011-07-25T22:52:53-04:00"^^xsd:dateTime;
+   nfo:hashAlgorithm "md5";
+   nfo:hashValue     "9e1736b3b6e0937263350fd12ebbf1d8";
+.
+
+<nodeSet_8acc8989-020a-4776-a6e2-12627bdd3811_content>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <006021185888999658_gravityDataset.txt>;
+   pmlj:isConsequentOf <inferenceStep_8acc8989-020a-4776-a6e2-12627bdd3811_content>;
+.
+<inferenceStep_8acc8989-020a-4776-a6e2-12627bdd3811_content>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_8acc8989-020a-4776-a6e2-12627bdd3811_content>;
+   pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
+   pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+.
+
+<sourceUsage_8acc8989-020a-4776-a6e2-12627bdd3811_content>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://rio.cs.utep.edu/ciserver/ciprojects/GravityMapPML/006021185888999658_gravityDataset.txt>;
+   pmlp:hasUsageDateTime "2011-07-25T22:52:52-04:00"^^xsd:dateTime;
+.
+
+<wasControlledBy_8acc8989-020a-4776-a6e2-12627bdd3811_content>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   oprov:effect <inferenceStep_8acc8989-020a-4776-a6e2-12627bdd3811_content>;
+   oprov:endTime "2011-07-25T22:52:52-04:00"^^xsd:dateTime;
+.
+ 
+<info_8acc8989-020a-4776-a6e2-12627bdd3811_url_header>
+   a pmlp:Information, conv:HTTPHeader;
+   pmlp:hasRawString """HTTP/1.1 200 OK
+Date: Tue, 26 Jul 2011 02:52:51 GMT
+Server: Apache/2.2.3 (CentOS)
+Last-Modified: Tue, 08 Jun 2010 02:43:00 GMT
+ETag: "2048798-19afe-bf60f500"
+Accept-Ranges: bytes
+Content-Length: 105214
+Cache-Control: max-age=1209600
+Expires: Tue, 09 Aug 2011 02:52:51 GMT
+Connection: close
+Content-Type: text/plain; charset=UTF-8
+""";
+   pmlp:hasReferenceSourceUsage <sourceUsage_8acc8989-020a-4776-a6e2-12627bdd3811_url_header>;
+.
+ 
+<nodeSet_8acc8989-020a-4776-a6e2-12627bdd3811_url_header>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <info_8acc8989-020a-4776-a6e2-12627bdd3811_url_header>;
+   pmlj:isConsequentOf <inferenceStep_8acc8989-020a-4776-a6e2-12627bdd3811_url_header>;
+.
+<inferenceStep_8acc8989-020a-4776-a6e2-12627bdd3811_url_header>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_8acc8989-020a-4776-a6e2-12627bdd3811_url_header>;
+   pmlj:hasInferenceEngine conv:curl_md5_5670dffdc5533a4c57243fc97b19a654;
+   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+.
+
+<sourceUsage_8acc8989-020a-4776-a6e2-12627bdd3811_url_header>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://rio.cs.utep.edu/ciserver/ciprojects/GravityMapPML/006021185888999658_gravityDataset.txt>;
+   pmlp:hasUsageDateTime "2011-07-25T22:52:52-04:00"^^xsd:dateTime;
+.
+<wasControlledBy_8acc8989-020a-4776-a6e2-12627bdd3811_url_header>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   oprov:effect <nodeSet_8acc8989-020a-4776-a6e2-12627bdd3811_url_header>;
+   oprov:endTime "2011-07-25T22:52:52-04:00"^^xsd:dateTime;
+.
+
+
+conv:curl_md5_5670dffdc5533a4c57243fc97b19a654
+   a pmlp:InferenceEngine, conv:Curl;
+   dcterms:identifier "md5_5670dffdc5533a4c57243fc97b19a654";
+   dcterms:description """curl 7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8r zlib/1.2.3
+Protocols: tftp ftp telnet dict ldap http file https ftps 
+Features: GSS-Negotiate IPv6 Largefile NTLM SSL libz """;
+.
+
+conv:Curl rdfs:subClassOf pmlp:InferenceEngine .

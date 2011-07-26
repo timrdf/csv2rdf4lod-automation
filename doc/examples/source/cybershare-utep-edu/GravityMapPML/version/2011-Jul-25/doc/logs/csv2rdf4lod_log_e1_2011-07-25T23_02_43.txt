@@ -1,0 +1,78 @@
+2011-07-25T23:02:43-04:00
+1365 rows in manual/006021185888999658_gravityDataset.txt.tsv
+E1 CONVERSION
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Jul-09 initiated:
+fileName:                     manual/006021185888999658_gravityDataset.txt.tsv
+sampleLimit:                  2
+enhancementParametersURL:     manual/006021185888999658_gravityDataset.txt.tsv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/006021185888999658_gravityDataset.txt.tsv.e1.sample.ttl
+converterIdentifier:          csv2rdf4lod_b92dc38c4025924bb4dc547a1e478cd4
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .cybershare-utep-edu.
+DatasetIdentifierQuerylet(*) .GravityMapPML.
+DatasetVersionQuerylet(*) .2011-Jul-25.
+
+subjectNS:   GravityMapPML:  http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/
+objectNS:    GravityMapPML_global_value:  http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/
+
+CellDelimiterQuerylet(*) .	.
+headers present at row 1: lonnad83	latnad83	cbanom267	elevngvd88m	sourcecode	author	contributingagency
+
+       EquivalentPropertyQuerylet(1) .http://www.w3.org/2003/01/geo/wgs84_pos#lon.
+1: "lonnad83" -> "lonnad83" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/lonnad83 (xsd:decimal)
+       EquivalentPropertyQuerylet(2) .http://www.w3.org/2003/01/geo/wgs84_pos#lat.
+2: "latnad83" -> "latnad83" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/latnad83 (xsd:decimal)
+3: "cbanom267" -> "cbanom267" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/cbanom267 (rdfs:Literal)
+       EquivalentPropertyQuerylet(4) .http://www.w3.org/2003/01/geo/wgs84_pos#alt.
+4: "elevngvd88m" -> "elevngvd88m" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/elevngvd88m (xsd:decimal)
+5: "sourcecode" -> "sourcecode" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/sourcecode (rdfs:Literal)
+6: "author" -> "author" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/author (rdfs:Literal)
+7: "contributingagency" -> "contributingagency" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/contributingagency (rdfs:Literal)
+
+
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 451 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+Finished converting -sample 2 sample rows.
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Jul-09 initiated:
+fileName:                     manual/006021185888999658_gravityDataset.txt.tsv
+enhancementParametersURL:     manual/006021185888999658_gravityDataset.txt.tsv.e1.params.ttl
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/006021185888999658_gravityDataset.txt.tsv.e1.ttl
+converterIdentifier:          csv2rdf4lod_b92dc38c4025924bb4dc547a1e478cd4
+==============================
+BaseURIQuerylet(*) .http://logd.tw.rpi.edu.
+DatasetSourceIdentifierQuerylet(*) .cybershare-utep-edu.
+DatasetIdentifierQuerylet(*) .GravityMapPML.
+DatasetVersionQuerylet(*) .2011-Jul-25.
+
+subjectNS:   GravityMapPML:  http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/version/2011-Jul-25/
+predicateNS: e1:  http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/
+objectNS:    GravityMapPML_global_value:  http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/
+
+CellDelimiterQuerylet(*) .	.
+headers present at row 1: lonnad83	latnad83	cbanom267	elevngvd88m	sourcecode	author	contributingagency
+
+       EquivalentPropertyQuerylet(1) .http://www.w3.org/2003/01/geo/wgs84_pos#lon.
+1: "lonnad83" -> "lonnad83" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/lonnad83 (xsd:decimal)
+       EquivalentPropertyQuerylet(2) .http://www.w3.org/2003/01/geo/wgs84_pos#lat.
+2: "latnad83" -> "latnad83" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/latnad83 (xsd:decimal)
+3: "cbanom267" -> "cbanom267" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/cbanom267 (rdfs:Literal)
+       EquivalentPropertyQuerylet(4) .http://www.w3.org/2003/01/geo/wgs84_pos#alt.
+4: "elevngvd88m" -> "elevngvd88m" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/elevngvd88m (xsd:decimal)
+5: "sourcecode" -> "sourcecode" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/sourcecode (rdfs:Literal)
+6: "author" -> "author" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/author (rdfs:Literal)
+7: "contributingagency" -> "contributingagency" -> http://logd.tw.rpi.edu/source/cybershare-utep-edu/dataset/GravityMapPML/vocab/enhancement/1/contributingagency (rdfs:Literal)
+
+
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 14064 triples
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+   convert.sh done
+convert-aggregate.sh not publishing b/c $CSV2RDF4LOD_PUBLISH=false.
+===========================================================================================
