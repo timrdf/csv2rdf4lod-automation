@@ -144,7 +144,6 @@ else
 fi
 
 echo $allTTL $willDeleteMsg | tee -a $CSV2RDF4LOD_LOG
-ls -lt publish
 anyEsDone="no"
 for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
    eTTL=$publishDir/$sourceID-$datasetID-$datasetVersion.e$eIDD.ttl
@@ -169,7 +168,6 @@ if [ $convertedRaw ]; then
 fi
 #grep "^@prefix" $allTTL | sort -u > $destDir/prefixes-$sourceID-$datasetID-$datasetVersion.ttl
 #rapper -i turtle $allTTL -o turtle   > $allTTL.ttl 2> /dev/null # Sorts conversion-ordered TTL into lexiographical order.
-ls -lt publish
 
 
 #
