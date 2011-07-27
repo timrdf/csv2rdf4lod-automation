@@ -7,7 +7,7 @@
 
    foaf:page <http://tw.rpi.edu/web/person/TimLebo>;
 
-   owl:sameAs <http://tw.rpi.edu/instances/TimLebo>;
+   owl:sameAs <http://tw.rpi.edu/instances/TimLebo>,
               <http://inference-web.org/registry/PER/TimLebo.owl#TimLebo>,
               <http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo>,
               <http://rio.cs.utep.edu/ciserver/person/Timothy_Lebo.owl#Timothy_Lebo>;

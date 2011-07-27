@@ -3,4 +3,36 @@
    xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
    xmlns:foaf="http://xmlns.com/foaf/0.1/"
    xmlns:owl="http://www.w3.org/2002/07/owl#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <foaf:Person rdf:about="http://purl.org/twc/id/person/TimLebo">
+    <con:preferredURI rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
+    <owl:sameAs rdf:resource="http://inference-web.org/registry/PER/TimLebo.owl#TimLebo"/>
+    <owl:sameAs rdf:resource="http://rio.cs.utep.edu/ciserver/person/Timothy_Lebo.owl#Timothy_Lebo"/>
+    <owl:sameAs rdf:resource="http://tw.rpi.edu/instances/TimLebo"/>
+    <owl:sameAs rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo"/>
+    <foaf:currentProject rdf:resource="http://purl.org/twc/id/software/csv2rdf4lod"/>
+    <foaf:knows rdf:resource="http://data.semanticweb.org/person/satya-s-sahoo"/>
+    <foaf:knows rdf:resource="http://purl.org/twc/id/person/NicholasDelRio"/>
+    <foaf:knows rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdf#me"/>
+    <foaf:knows rdf:resource="http://www.deri.ie/about/team/member/Lin_Clark#me"/>
+    <foaf:knows rdf:resource="http://www.w3.org/People/Eric/ericP-foaf#ericP"/>
+    <foaf:knows>
+      <foaf:Person>
+        <owl:sameAs rdf:resource="http://purl.org/twc/id/person/LeonardoSalayandia"/>
+        <foaf:depiction rdf:resource="http://www.cs.utep.edu/leonardo/salayandia.jpg"/>
+        <foaf:family_name>Salayandia</foaf:family_name>
+        <foaf:givenname>Leonardo</foaf:givenname>
+        <foaf:homepage rdf:resource="http://www.cs.utep.edu/leonardo"/>
+        <foaf:nick>Leo</foaf:nick>
+      </foaf:Person>
+    </foaf:knows>
+    <foaf:page rdf:resource="http://tw.rpi.edu/web/person/TimLebo"/>
+    <foaf:pastProject>
+      <rdf:Description>
+        <foaf:page rdf:resource="http://www.actapress.com/Abstract.aspx?paperId=27881"/>
+        <foaf:page rdf:resource="https://ritdml.rit.edu/bitstream/handle/1850/993/TLeboThesis07-2005.pdf"/>
+        <foaf:page rdf:resource="https://ritdml.rit.edu/handle/1850/993"/>
+      </rdf:Description>
+    </foaf:pastProject>
+  </foaf:Person>
+</rdf:RDF>
