@@ -101,7 +101,8 @@ while [ $# -gt 0 ]; do
       rm cHuNk* &> /dev/null
       $CSV2RDF4LOD_HOME/bin/split_ttl.pl ${TEMP}${unzipped}
       for chunk in cHuNk*; do
-         rapper $syntax -o ntriples ${TEMP}${unzipped} >> ${TEMP}${unzipped}.nt
+         rapper $syntax -o ntriples $chunk >> ${TEMP}${unzipped}.nt
+         wc -l ${TEMP}${unzipped}.nt
       done
       rm cHuNk*
    done
