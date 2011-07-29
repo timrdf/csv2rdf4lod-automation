@@ -13,20 +13,25 @@
 @prefix d2rq:        <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
 @prefix vs:          <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
 @prefix coin:        <http://purl.org/court/def/2009/coin#> .
+@prefix vann:        <http://purl.org/vocab/vann/> .
 
 @base <http://purl.org/twc/vocab/conversion/> .
 
 <> a owl:Ontology ;
     dct:description "Ontology used to describe interpretations of tabular literals to produce RDF.";
 	rdfs:comment "This ontology used by the csv2rdf4lod project." ;
+   rdfs:seeAlso <http://purl.org/twc/id/software/csv2rdf4lod>;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki> ;
 	rdfs:seeAlso <http://data-gov.tw.rpi.edu/wiki/Csv2rdf4lod> ;
 	rdfs:seeAlso <http://data-gov.tw.rpi.edu/wiki/URI_design_for_RDF_conversion_of_CSV-based_data> ;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki> ;
    rdfs:seeAlso <http://doi.acm.org/10.1145/1839707.1839755> ;
 #   rdfs:seeAlso <http://owl.cs.manchester.ac.uk/browser/ontologies/?action=load&clear=true&uri=http://purl.org/twc/vocab/conversion/> ;
     dct:creator <http://tw.rpi.edu/instances/TimLebo> ;
     dct:creator <http://kasei.us/about/foaf.xrdf#greg> ;
     dct:date "2011-02-09";
+   vann:preferredNamespacePrefix "conversion";
+   vann:preferredNamespaceUri    "http://purl.org/twc/vocab/conversion/";
+   rdfs:seeAlso <http://prefix.cc/conversion>;
 .
 
 ### Classes
