@@ -36,7 +36,7 @@ guess=""
 if [[ $url =~ \.nt$ || $url =~ \.nt\. || $url =~ \.nt# ]]; then
    if [[ $url =~ \.nt$ ]]; then
       echo one
-   elif [[ $url =~ \.nt\. ]]; then
+   elif [[ $url =~ \\.nt\\. ]]; then
       echo two
    elif [[ $url =~ \.nt# ]]; then
       echo three
