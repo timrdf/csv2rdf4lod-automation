@@ -33,15 +33,7 @@ guess=""
 # Take a stab:
 #
 
-if [[ $url =~ \\.nt$ || $url =~ \\.nt\\. || $url =~ \\.nt# ]]; then
-   #if [[ $url =~ \.nt$ ]]; then
-   #   echo one
-   #elif [[ $url =~ \\.nt\\. ]]; then
-   #   echo two
-   #elif [[ $url =~ \.nt# ]]; then
-   #   echo three
-   #fi
-   #echo "yup, ntriples"
+if [[ $url =~ \\.nt$ || $url =~ \\.nt\\. || $url =~ \\.nt# ]]; then # Replaced \. with \\. b/c other OSes were recognizing them as regex.
    guess="-i ntriples"
 elif [[ $url =~ \\.ttl$ || $url =~ \\.ttl\\. || $url =~ \\.ttl# ]]; then
    guess="-i turtle"
