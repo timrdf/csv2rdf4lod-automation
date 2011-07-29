@@ -98,6 +98,7 @@ while [ $# -gt 0 ]; do
    for file in `find . -size +1900M -name ${TEMP}${unzipped}`; do 
       too_big="yes"; 
       echo "${TEMP}${unzipped} exceeds 1900MB, chunking."; 
+      rm cHuNk* &> /dev/null
       $CSV2RDF4LOD_HOME/bin/split_ttl.pl ${TEMP}${unzipped}
       for chunk in cHuNk*; do
          rapper $syntax -o ntriples ${TEMP}${unzipped} >> ${TEMP}${unzipped}.nt
