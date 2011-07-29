@@ -33,21 +33,21 @@ guess=""
 # Take a stab:
 #
 
-if [[ $url =~ \.nt$ || $url =~ \\.nt\\. || $url =~ \.nt# ]]; then
-   if [[ $url =~ \.nt$ ]]; then
-      echo one
-   elif [[ $url =~ \\.nt\\. ]]; then
-      echo two
-   elif [[ $url =~ \.nt# ]]; then
-      echo three
-   fi
-   echo "yup, ntriples"
+if [[ $url =~ \\.nt$ || $url =~ \\.nt\\. || $url =~ \\.nt# ]]; then
+   #if [[ $url =~ \.nt$ ]]; then
+   #   echo one
+   #elif [[ $url =~ \\.nt\\. ]]; then
+   #   echo two
+   #elif [[ $url =~ \.nt# ]]; then
+   #   echo three
+   #fi
+   #echo "yup, ntriples"
    guess="-i ntriples"
-elif [[ $url =~ \.ttl$ || $url =~ \.ttl\. || $url =~ \.ttl# ]]; then
+elif [[ $url =~ \\.ttl$ || $url =~ \\.ttl\\. || $url =~ \\.ttl# ]]; then
    guess="-i turtle"
-elif [[ $url =~ \.rdf$ || $url =~ \.rdf\. || $url =~ \.rdf# ]]; then
+elif [[ $url =~ \\.rdf$ || $url =~ \\.rdf\\. || $url =~ \\.rdf# ]]; then
    guess="-i rdfxml"
-elif [[ $url =~ \.xml$ || $url =~ \.xml\. || $url =~ \.xml# ]]; then
+elif [[ $url =~ \\.xml$ || $url =~ \\.xml\\. || $url =~ \\.xml# ]]; then
    guess="-i rdfxml"
 else
    # We failed to guess based on the file name.
