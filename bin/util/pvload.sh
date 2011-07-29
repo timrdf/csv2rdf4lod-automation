@@ -90,7 +90,22 @@ while [ $# -gt 0 ]; do
       syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect ${TEMP}${unzipped} rapper`
       echo "GUESS BY INSPECTION: $syntax"
    fi
-   rapper $syntax -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt
+
+   # Turtle to N-TRIPLES (b/c Virtuoso chokes on some Turtle and we need to spoon feed).
+   too_big="no"
+   for file in `find . -size +1900M -name ${TEMP}${unzipped}`; do 
+      too_big="yes"; 
+      echo "${TEMP}${unzipped} exceeds 1900MB, chunking."; 
+      $CSV2RDF4LOD_HOME/bin/split_ttl.pl ${TEMP}${unzipped}
+      for chunk in cHuNk*; do
+         rapper $syntax -o ntriples ${TEMP}${unzipped} >> ${TEMP}${unzipped}.nt
+      done
+      rm cHuNk*
+   done
+   if [ $too_big == "no" ]; then
+      rapper $syntax -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt
+   fi
+
    if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
       rm $TEMP
    fi
