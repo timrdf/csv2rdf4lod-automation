@@ -13,7 +13,7 @@
 #   fi
 
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` [--inspect] url-of.rdf [tool:{rapper,jena}]"
+   echo "usage: `basename $0` [--inspect] url-of.rdf [{rapper,jena}]"
    echo "  --inspect: look at the local file and guess (if not specified, guesses based on the file name)."
    exit 1
 fi
@@ -34,6 +34,7 @@ guess=""
 #
 
 if [[ $url =~ \.nt$ || $url =~ \.nt\. || $url =~ \.nt# ]]; then
+   echo "yup, ntriples"
    guess="-i ntriples"
 elif [[ $url =~ \.ttl$ || $url =~ \.ttl\. || $url =~ \.ttl# ]]; then
    guess="-i turtle"
