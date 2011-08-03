@@ -266,7 +266,7 @@ fi
 numLogs=`find doc/logs -name 'csv2rdf4lod_log_*' | wc -l`
 echo "# num logs: $numLogs" >> $allVOID
 if [ ${#numLogs} ]; then
-   echo "<$versionedDatasetURI> conversion:num_invocation_logs $numLogs ." >> $allVOID # TODO: how to make sure it is an integer?
+   echo "<$versionedDatasetURI> <http://purl.org/twc/vocab/conversion/num_invocation_logs> $numLogs ." >> $allVOID # TODO: how to make sure it is an integer?
 fi
 echo "  (including $allPML)" | tee -a $CSV2RDF4LOD_LOG
 cat $allPML 2> /dev/null >> $allVOID
@@ -657,7 +657,7 @@ echo ""                                                                         
 echo "echo \`basename \$load_file\` into $TDB_DIR as $graph >> $publishDir/ng.info"           >> $loadtdbSH
 echo ""                                                                                       >> $loadtdbSH
                                                                              billion="000000000"
-echo "if [ \$load_file = \"$allTTL\" -a \`stat -f \"%z\" \"$allTTL\"\` -gt 2$billion ]; then" >> $loadtdbSH
+echo "if [ \$load_file = \"$allTTL\" -a \`stat -f \"%z\" \"$allTTL\"\` -gt 2$billion ]; then" >> $loadtdbSH # TODO: stat -c "%s" on some flavors of unix.
 echo "  dir=\"`dirname $allTTL`\""                                                            >> $loadtdbSH
 echo "  echo \"cHuNking $allTTL in \$dir\""                                                   >> $loadtdbSH
 echo "  rm \$dir/cHuNk*.ttl &> /dev/null"                                                     >> $loadtdbSH
