@@ -127,7 +127,7 @@ if [ $runEnhancement == "yes" ]; then
       echo "   E$eID conversion parameters file has same number of \"todo:Literal\"s as template originally generated."                  | tee -a $CSV2RDF4LOD_LOG
       echo "    - Skipping E$eID conversion b/c enhancement parameters appear very similar to the default template."                     | tee -a $CSV2RDF4LOD_LOG
       echo "    - Replace todo:Literal in E$eID conversion parameters with rdfs:Literal or rdfs:Resource to enable enhanced conversion." | tee -a $CSV2RDF4LOD_LOG
-      exit 1 # Added by user request: quit asap and do not do anything.
+      #exit 1 # Added by user request: quit asap and do not do anything. https://github.com/timrdf/csv2rdf4lod-automation/issues/128
       runEnhancement="no"
    fi
    # TODO: check to see if enhancement parameters match previous enhancement parameters (e2 same as e1). 
@@ -146,7 +146,7 @@ else
 fi
 csv2rdf=${CSV2RDF4LOD_CONVERTER:-"java $javaprops -Xmx3060m edu.rpi.tw.data.csv.CSVtoRDF"}
 
-if [ $runRaw == "yes" ]; then 
+if [ $runRaw == "yes" -a "decide if" == "this is still needed" ]; then 
    #flip -u $data # Mac-only solution
    echo "`basename $0` converting newlines of $data" | tee -a $CSV2RDF4LOD_LOG
    perl -pi -e 's/\r\n/\n/' $data
@@ -304,7 +304,7 @@ fi
 #
 #
 
-sampleN="-sample ${CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS:-"2"}"
+sampleN="-sample ${CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS:-"2"}"
 dumpExtensions="-VoIDDumpExtensions ${CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS}"
 if [ ${#CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS} -eq 0 ]; then
    dumpExtensions=""
@@ -317,7 +317,7 @@ if [ $runRaw == "yes" ]; then
    echo "RAW CONVERSION" | tee -a $CSV2RDF4LOD_LOG
 
    # Sample ------------------------------
-   if [ ${CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS:-"2"} -gt 0 ]; then
+   if [ ${CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS:-"2"} -gt 0 ]; then
       $csv2rdf $data $sampleN -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.sample.ttl  -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       echo "Finished converting $sampleN sample rows."                                                                                                          2>&1 | tee -a $CSV2RDF4LOD_LOG
    fi
@@ -343,7 +343,7 @@ if [ $runEnhancement == "yes" ]; then
    echo "E$eID CONVERSION" | tee -a $CSV2RDF4LOD_LOG
 
    # Sample ------------------------------
-   if [ ${CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS:-"2"} -gt 0 -a ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} != 'true' ]; then
+   if [ ${CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS:-"2"} -gt 0 -a ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} != 'true' ]; then
       $csv2rdf $data $sampleN -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.sample.ttl  -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       echo "Finished converting $sampleN sample rows."                                                                                                                          2>&1 | tee -a $CSV2RDF4LOD_LOG
    fi
@@ -377,8 +377,8 @@ if [ -f $data.pml.ttl -a ${CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR:-"."} == "tru
    #$csv2rdf `pwd`/$data -ep `pwd`/$eParamsDir/$datafile.e$eID.params.ttl $prov $overrideBaseURI -id $converterJarMD5 > $destDir/$datafile.e$eID.pml.ttl
    echo $destDir/$datafile.e$eID.ttl.pml.ttl
    $csv2rdf $data        -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $prov $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl.pml.ttl -id $converterJarMD5 > $destDir/$datafile.e$eID.ttl.pml.ttl # 2>&1 | tee -a $CSV2RDF4LOD_LOG
-else
-   echo "Skipping provenance pass: $data.pml.ttl and $CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR"
+#else
+#   echo "Skipping provenance pass. ($data.pml.ttl and CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR=$CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR)"
 fi
 
 
