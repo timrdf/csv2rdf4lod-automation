@@ -1,32 +1,13 @@
 # NOTE: setup.sh (this file) is a template used by install.sh to create source-me.sh
-# NOTE: source-me.sh should be modified, not setup.sh
+# NOTE: my-csv2rdf4lod-source-me.sh should be modified, not setup.sh
 # if path of dg-create-dataset-dir.sh 
 # is /Users/me/Desktop/csv2rdf4lod/bin/dg-create-dataset-dir.sh
 # CSV2RDF4LOD_HOME should be set (above) to /Users/me/Desktop/csv2rdf4lod/
 
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/setup.sh
+# https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
 
 # The following variables may be modified to customize csv2rdf4lod.
-
-# Machine-level  variables:
-#   Variables that are specific to the machine on which development is performed.
-#   (conversion:MachineLevelEnvironmentVariable)
-#   
-# Project-level  variables:
-#   Variables that are specific to the project.
-#   (conversion:ProjectLevelEnvironmentVariable)
-#
-# User-level     variables:
-#   Variables that are specific to the user.
-#   (conversion:UserLevelEnvironmentVariable)
-#
-# Activity-level variables:
-#   Variables that change depending on the activity of the user, e.g. enhancement development, deployment, etc.
-#   (conversion:ActivityLevelEnvironmentVariable)
-#
-# Documentation below:
-#   "Variable type: Machine Y Project Y User N Activity ?"
-# indicates that the variable is, is not, or unknown to be of the corresponding type.
 
 #
 # ------- ------- converting options ------- -------
@@ -147,8 +128,8 @@ export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER="false"
 #
 # a conversion:ProjectLevelEnvironmentVariable
 # a conversion:ActivityLevelEnvironmentVariable
-export CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS="100"
-export CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS="10"
+export CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS="100"
+export CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS="10"
 
 #
 # Customize: Omit the full conversion of the dataset.
@@ -245,6 +226,10 @@ export CSV2RDF4LOD_CONVERT_DEBUG_LEVEL=""
 # PUBLISH should mean to put those triples into an accessible endpoint or on the web in some form.
 #
 # (done in convert-aggregate.sh)
+# This is only used at the very beginning of convert-aggregate.sh when it is deciding
+# if it should execute or not. It decides to execute b/c the conversion trigger invokes it
+# every time it runs AND the publish/bin/publish.sh script invokes it when publish.sh is 
+# manually invoked.
 #
 export CSV2RDF4LOD_PUBLISH="false"
 export CSV2RDF4LOD_PUBLISH="true"
@@ -403,7 +388,7 @@ export CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS_NAMED_GRAPH="auto"
 
 #
 # Customize: include subset of conversion: 
-#               first $CSV2RDF4LOD_CONVERT_NUMBER_SAMPLE_ROWS
+#            first $CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS
 # Variable type: Machine ? Project ? User ? Activity ?
 #
 # if true, invokes:
@@ -781,3 +766,24 @@ alias csv2rdf4lod='java edu.rpi.tw.data.csv.CSVtoRDF'
 # # # # # # # These variables should not be modified # # # # # # 
 cr-vars.sh
 echo "(run cr-vars.sh to see all environment variables that CSV2RDF4LOD uses to control execution flow)"
+
+
+# Machine-level  variables:
+#   Variables that are specific to the machine on which development is performed.
+#   (conversion:MachineLevelEnvironmentVariable)
+#   
+# Project-level  variables:
+#   Variables that are specific to the project.
+#   (conversion:ProjectLevelEnvironmentVariable)
+#
+# User-level     variables:
+#   Variables that are specific to the user.
+#   (conversion:UserLevelEnvironmentVariable)
+#
+# Activity-level variables:
+#   Variables that change depending on the activity of the user, e.g. enhancement development, deployment, etc.
+#   (conversion:ActivityLevelEnvironmentVariable)
+#
+# Documentation below:
+#   "Variable type: Machine Y Project Y User N Activity ?"
+# indicates that the variable is, is not, or unknown to be of the corresponding type.
