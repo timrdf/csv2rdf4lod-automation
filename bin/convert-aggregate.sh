@@ -20,14 +20,17 @@ else
          exit 1
    fi
    if [ ${CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED:-"true"} == "true" ]; then
-      if [[ $runEnhancement == "yes" && ( `ls $destDir/*.e$eID.ttl 2> /dev/null | wc -l` > 0 || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
+      #if [[ $runEnhancement == "yes" && ( `ls $destDir/*.e$eID.ttl 2> /dev/null | wc -l` > 0 || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
+      dumps="no"; for dump in `find $destDir -name "*.e$eID.ttl"`; do dumps="yes"; done
+      if [[ $runEnhancement == "yes" && ( $dumps == "yes" || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
          echo "convert-aggregate.sh publishing raw and enhancements."                                                                     | tee -a $CSV2RDF4LOD_LOG
       else
          # NOTE: If multiple files to convert and the LAST file is not enhanced, 
          #       the runEnhancement flag will be "no" and convert-aggregate.sh will not aggregate.
          # To overcome this bug, manually run publish/bin/publish.sh to force the aggregation.
+         sourceme="my-csv2rdf4lod-source-me.sh"
          echo "convert-aggregate.sh delaying publishing until an enhancement is available."                                               | tee -a $CSV2RDF4LOD_LOG
-         echo "  To publish with only raw, set CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED=\"false\" in \$CSV2RDF4LOD_HOME/source-me.sh."    | tee -a $CSV2RDF4LOD_LOG
+         echo "  To publish with only raw, set CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED=\"false\" in \$CSV2RDF4LOD_HOME/$sourceme.sh."    | tee -a $CSV2RDF4LOD_LOG
          echo "  To publish raw with enhanced, add enhancement to $eParamsDir/$datafile.e$eID.params.ttl and rerun convert-$datasetID.sh" | tee -a $CSV2RDF4LOD_LOG
          echo "  To force publishing now, run publish/bin/publish.sh"                                                                     | tee -a $CSV2RDF4LOD_LOG
          echo "==========================================================================================="                               | tee -a $CSV2RDF4LOD_LOG
@@ -79,20 +82,20 @@ or_see_github="or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2
 #
 conversionIDs="raw"
 layerSlugs="raw"
-convertedRaw="0"; for raw in `find $destDir -name "*.raw.ttl"`; do convertedRaw="1"; done
-if [ $convertedRaw ]; then
+convertedRaw="no"; for raw in `find $destDir -name "*.raw.ttl"`; do convertedRaw="yes"; done
+if [ $convertedRaw == "yes" ]; then
    echo $allRaw | tee -a $CSV2RDF4LOD_LOG
    cat $destDir/*.raw.ttl > $allRaw
    filesToCompress="$allRaw"
 else
-   echo " -- $allRaw omitted --" | tee -a $CSV2RDF4LOD_LOG
+   echo "$allRaw - omitted" | tee -a $CSV2RDF4LOD_LOG
 fi
 
 #
 # Sample of raw (TODO: add sample of enhanced, too)
 #
-convertedRawSamples="0"; for raw in `find $destDir -name "*.raw.sample.ttl"`; do convertedRaw="1"; done
-if [ $convertedRawSamples ]; then
+convertedRawSamples="no"; for raw in `find $destDir -name "*.raw.sample.ttl"`; do convertedRaw="yes"; done
+if [ $convertedRawSamples == "yes" ]; then
    echo $SDV.raw.sample.ttl | tee -a $CSV2RDF4LOD_LOG
    #$CSV2RDF4LOD_HOME/bin/util/grep-head.sh -p 'ov:csvRow "100' $allRaw > $SDV.raw.sample.ttl # REPLACED by an extra call to the converter with the -samples param.
    cat $destDir/*.raw.sample.ttl > $SDV.raw.sample.ttl
@@ -161,7 +164,7 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
    #cat $destDir/*.e$eID.ttl | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" >  $allE1   2> /dev/null
    #cat $allE1 $allRaw        | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" > $allTTL   2> /dev/null
 done
-if [ $convertedRaw ]; then
+if [ $convertedRaw == "yes" ]; then
    echo "  (including $allRaw)" | tee -a $CSV2RDF4LOD_LOG
    echo "# BEGIN: $allRaw:"     >> $allTTL
    cat $allRaw                  >> $allTTL
