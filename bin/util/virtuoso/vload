@@ -21,12 +21,21 @@ fi
 #
 # Check usage
 if [ $# -ne 3 ]; then
-	echo "usage: `basename $0` {rdf, ttl, nt, nq} <data_file> <graph_uri>"
+	echo "usage: `basename $0` {rdf, ttl, nt, nq} <data_file> [--replace] <graph_uri>"
    exit 1
 fi
 
 input_format="$1"
 data_file="$2"
+
+replace="no"
+operation="Loading"
+if [ $3 == "--replace" ]; then
+	replace="yes"
+	operation="Replacing"
+	shift
+fi
+
 graph_uri="$3"
 
 # Check if file exists
@@ -35,7 +44,7 @@ if [ ! -e $data_file ]; then
    exit 1
 fi
 
-echo "Loading triples into graph <$graph_uri> ..."
+echo "${operation} triples into graph <$graph_uri> ..."
 
 # Check to see if file is within a directory Virtuoso can read from directly.
 load_in_place="false"
@@ -99,7 +108,13 @@ esac
 
 vload_log=$virtuoso_allowed_dir/load_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
 
+sparql_delete=""
+if [ $replace == "yes" ]; then
+	sparql_delete="SPARQL CLEAR GRAPH <$graph_uri>;"
+fi
+
 ${isql_cmd} ${isql_pwd} << EOF &> $vload_log
+   $sparql_delete
    $load_func
    checkpoint;
    exit;
@@ -119,8 +134,8 @@ fi
 
 # TODO: cat file if it contains /^... Error/
 if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
-   echo "Loading finished! $vload_log:"	
+   echo "${operation} finished! $vload_log:"	
    cat $vload_log
 else
-   echo "Loading finished! Check $virtuoso_allowed_dir/latest.log for details."	
+   echo "${operation} finished! Check $virtuoso_allowed_dir/latest.log for details."	
 fi
