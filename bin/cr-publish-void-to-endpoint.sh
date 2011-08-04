@@ -118,6 +118,7 @@ echo "Deleting $namedGraph"                              >&2
 echo  "  $assudo /opt/virtuoso/scripts/vdelete $namedGraph" >&2
 if [ ${dryRun:-"."} != "true" -a $namedGraph != "." ]; then
    $assudo /opt/virtuoso/scripts/vdelete               $namedGraph 
+   # TODO: ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete
 fi
 
 echo ""
@@ -125,6 +126,7 @@ echo "Loading void into $namedGraph"                                >&2
 echo "  $assudo /opt/virtuoso/scripts/vload nt $TEMP_void $namedGraph" >&2
 if [ ${dryRun:-"."} != "true" -a $namedGraph != "." ]; then
    $assudo /opt/virtuoso/scripts/vload   nt $TEMP_void $namedGraph
+   # TODO: ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload
 fi
 
 if [ -e $TEMP_void ]; then
