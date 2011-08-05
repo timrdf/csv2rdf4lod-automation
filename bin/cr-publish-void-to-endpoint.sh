@@ -1,5 +1,8 @@
 #!/bin/bash
 #
+# See also:
+# https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets
+#
 # Usage:
 #    (pwd: source/DDD, e.g. source/data-gov):
 #
