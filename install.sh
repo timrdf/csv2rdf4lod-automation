@@ -7,6 +7,14 @@ echo "   has created my-csv2rdf4lod-source-me.sh."
 echo "   has set \$CSV2RDF4LOD_HOME to $CSV2RDF4LOD_HOME in my-csv2rdf4lod-source-me.sh"
 
 cat bin/setup.sh | grep -v "# NOTE:" >> my-csv2rdf4lod-source-me.sh
+
+if [ "$1" == "--csh" ]; then
+   perl -pe 's/export [^ =]*$//; s/^(\w+)="([^"]*)"/setenv \1 "\2"/; s/export (\S+)="([^"]*)"/setenv \1 "\2"/' \
+         my-csv2rdf4lod-source-me.sh > my-csv2rdf4lod-source-me.csh
+elif [ "$1" == "--cygwin" ]; then
+   echo "--cygwin not implemented"
+fi
+
 echo ""
 
 echo "~~~ What to do next: ~~~"
