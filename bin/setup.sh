@@ -431,6 +431,18 @@ export CSV2RDF4LOD_CONCURRENCY="8"
 export CSV2RDF4LOD_CONCURRENCY="2"
 
 #
+# Customize: ln publish/*.ttl into a corresponding directory in
+#            /var/www directory ($CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT)
+#            to publish on web. The void:Datasets point to these void:dataDumps.
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (done in convert-aggregate.sh and publish/bin/ln-*.sh)
+#
+export CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES="true"
+export CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES="false"
+
+#
 # Customize: use ln or ln -s when linking from the conversion root
 #            directory to the /var/www directory to publish on web.
 #
@@ -742,25 +754,25 @@ export DG_RETRIEVAL_CONVERT_RAW="false"
 
 # # # # # # # These variables should not be modified # # # # # #
 #
-export formats=$CSV2RDF4LOD_HOME/bin/dup/formats # TODO: @deprecated.
+export formats=${CSV2RDF4LOD_HOME}/bin/dup/formats # TODO: @deprecated.
 #
-PATH="$PATH:$CSV2RDF4LOD_HOME/bin:$CSV2RDF4LOD_HOME/bin/util"
-PATH="$PATH:$CSV2RDF4LOD_HOME/bin:$CSV2RDF4LOD_HOME/bin/dup"
-PATH="$PATH:$CSV2RDF4LOD_HOME/bin:$CSV2RDF4LOD_HOME/bin/util/virtuoso"
-PATH="$PATH:/opt/local/bin/" # This is for perl
-PATH="$PATH:/usr/local/bin/" # This is for rapper
+PATH="${PATH}:${CSV2RDF4LOD_HOME}/bin:${CSV2RDF4LOD_HOME}/bin/util"
+PATH="${PATH}:${CSV2RDF4LOD_HOME}/bin:${CSV2RDF4LOD_HOME}/bin/dup"
+PATH="${PATH}:${CSV2RDF4LOD_HOME}/bin:${CSV2RDF4LOD_HOME}/bin/util/virtuoso"
+PATH="${PATH}:/opt/local/bin/" # This is for perl
+PATH="${PATH}:/usr/local/bin/" # This is for rapper
 export PATH
 #
 # TODO: NOTE: cygwin needs formatting with quotes and semicolons such as:  CLASSPATH="$CLASSPATH;$CSV2RDF4LOD_HOME/bin/dup/csv2rdf4lod.jar"
-CLASSPATH="$CLASSPATH:$CSV2RDF4LOD_HOME/bin/dup/csv2rdf4lod.jar"
-CLASSPATH="$CLASSPATH:$CSV2RDF4LOD_HOME/bin/dup/openrdf-sesame-2.3.1-onejar.jar"
-CLASSPATH="$CLASSPATH:$CSV2RDF4LOD_HOME/bin/dup/slf4j-api-1.5.6.jar"
-CLASSPATH="$CLASSPATH:$CSV2RDF4LOD_HOME/bin/dup/slf4j-nop-1.5.6.jar"
-CLASSPATH="$CLASSPATH:$CSV2RDF4LOD_HOME/bin/lib/javacsv2.0/javacsv.jar"
-CLASSPATH="$CLASSPATH:$CSV2RDF4LOD_HOME/bin/lib/commons-validator-1.3.1/commons-validator-1.3.1.jar"
+CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/csv2rdf4lod.jar"
+CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/openrdf-sesame-2.3.1-onejar.jar"
+CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/slf4j-api-1.5.6.jar"
+CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/slf4j-nop-1.5.6.jar"
+CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/lib/javacsv2.0/javacsv.jar"
+CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/lib/commons-validator-1.3.1/commons-validator-1.3.1.jar"
 export CLASSPATH
 #
-export saxon9=$CSV2RDF4LOD_HOME/bin/dup/saxonb9-1-0-8j.jar 
+export saxon9=${CSV2RDF4LOD_HOME}/bin/dup/saxonb9-1-0-8j.jar 
 #
 alias csv2rdf4lod='java edu.rpi.tw.data.csv.CSVtoRDF'
 # # # # # # # These variables should not be modified # # # # # # 
