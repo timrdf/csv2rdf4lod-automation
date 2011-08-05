@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CSV2RDF4LOD_HOME=`pwd`
-echo export CSV2RDF4LOD_HOME=$CSV2RDF4LOD_HOME > my-csv2rdf4lod-source-me.sh
+echo "export CSV2RDF4LOD_HOME=\"$CSV2RDF4LOD_HOME\"" > my-csv2rdf4lod-source-me.sh
 echo "`basename $0`:"
 echo "   has created my-csv2rdf4lod-source-me.sh."
 echo "   has set \$CSV2RDF4LOD_HOME to $CSV2RDF4LOD_HOME in my-csv2rdf4lod-source-me.sh"
