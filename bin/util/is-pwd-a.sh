@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/is-pwd-a.sh
 
 VALIDS="cr:conversion-cockpit"
 
