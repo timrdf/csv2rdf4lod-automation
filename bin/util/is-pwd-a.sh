@@ -22,7 +22,7 @@ d="" # dataset_identifier
 v="" # version_identifier
 is_a="no"
 
-while [[ $# -ge 1 && "$1" != "--id-of" && "$2" != "--id-of" ]]; do
+while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
    if   [[ $1 == "cr:directory-of-sources" || $1 == "cr:data-root"          ]]; then
        source=`basename \`pwd\``
       if [[ "$source" == "source" ]]; then
