@@ -75,11 +75,11 @@ done
 
 if   [[ "$1" == "--id-of" && "$2" == "s-d-v" && ${#s} > 0 && ${#d} > 0 && ${#v} > 0 ]]; then
    echo "$s-$d-$v"
-elif [[ "$1" == "--id-of" && "$2" == "s" && ${#s} > 0 ]]; then
+elif [[ "$1" == "--id-of" && "$2" == "s" ]]; #&& ${#s} > 0 ]]; then
    echo "$s"
-elif [[ "$1" == "--id-of" && "$2" == "d" && ${#d} > 0 ]]; then
+elif [[ "$1" == "--id-of" && "$2" == "d" ]]; #&& ${#d} > 0 ]]; then
    echo "$d"
-elif [[ "$1" == "--id-of" && "$2" == "v" && ${#v} > 0 ]]; then
+elif [[ "$1" == "--id-of" && "$2" == "v" ]]; #&& ${#v} > 0 ]]; then
    echo "$v"
 else
    echo $is_a
