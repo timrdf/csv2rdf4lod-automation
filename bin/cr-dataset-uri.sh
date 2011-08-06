@@ -4,7 +4,8 @@
 
 back_one=`cd .. 2>/dev/null && pwd`
 ANCHOR_SHOULD_BE_VERSION=`basename $back_one`
-if [ $ANCHOR_SHOULD_BE_VERSION != "version" ]; then
+#if [ $ANCHOR_SHOULD_BE_VERSION != "version" ]; then
+if [ `is-pwd-a.sh cr:conversion-cockpit` != "yes" ]; then
    echo "  Working directory does not appear to be a VERSION directory."
    echo "  Run `basename $0` from a VERSION directory (e.g. csv2rdf4lod/data/source/SOURCE/DDD/version/VVV/)"
    exit 1
