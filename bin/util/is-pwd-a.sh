@@ -11,7 +11,9 @@ if [ "$1" == "--types" ]; then
 fi
 
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` {$VALIDS} [--id-of {s, d, v, s-d-v}]"
+   echo "usage: `basename $0` {$VALIDS}+ [--id-of {s, d, v, s-d-v}]"
+   echo "  if more than one type is given, \"yes\" is returned if the pwd is ANY of those specified."
+   echo "  --id-of: instead of returning \"yes\" or \"no\", return the identifier for source, dataset, or version."
    exit 1
 fi
 
