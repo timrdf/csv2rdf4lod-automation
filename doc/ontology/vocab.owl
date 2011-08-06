@@ -91,6 +91,10 @@
     <rdfs:comment></rdfs:comment>
     <rdfs:label>Bundle</rdfs:label>
   </rdfs:Property>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/CSV2RDF4LOD_environment_variables">
+    <rdfs:comment>A shell script that sets https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables to control the behavior of csv2rdf4lod-automation.</rdfs:comment>
+    <rdfs:label>CSV2RDF4LOD_environment_variables</rdfs:label>
+  </owl:Class>
   <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/ConversionMetaDataset">
     <rdfs:comment>Metadata for a dataset that is created during the dataset's conversion invocation.</rdfs:comment>
     <rdfs:label>ConversionMetaDataset</rdfs:label>

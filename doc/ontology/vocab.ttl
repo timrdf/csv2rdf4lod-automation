@@ -1083,3 +1083,9 @@ conversion:AtomicInputDataset
    rdfs:comment "An RDF dataset produced by the conversion of a single tabular file. When handling datasets with multiple files, a fourth level in the VoID hierarchy is needed. As opposed to datasets with a single input file, which has three levels. In both cases, the lowest level is an AtomicInputDataset. This, in combination with conversion:subsetT allows you to use inference to not concern yourself with these details.";
    rdfs:subClassOf conversion:Dataset;
 .
+
+conversion:CSV2RDF4LOD_environment_variables
+   a owl:Class;
+   rdfs:label "CSV2RDF4LOD_environment_variables";
+   rdfs:comment "A shell script that sets https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables to control the behavior of csv2rdf4lod-automation.";
+.
