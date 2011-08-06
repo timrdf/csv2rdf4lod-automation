@@ -1,3 +1,8 @@
+# <#> a <http://purl.org/twc/vocab/conversion/CSV2RDF4LOD_environment_variables> ;
+#     rdfs:seeAlso 
+#     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-%28considerations-for-a-distributed-workflow%29>,
+#     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-source-me.sh> .
+
 # NOTE: setup.sh (this file) is a template used by install.sh to create source-me.sh
 # NOTE: my-csv2rdf4lod-source-me.sh should be modified, not setup.sh
 # if path of dg-create-dataset-dir.sh 
