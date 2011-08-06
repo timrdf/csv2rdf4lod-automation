@@ -598,10 +598,13 @@ done
 
 chmod +x $lnwwwrootSH
 
-if [ ${#CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT} -gt 0 ]; then
+if [ ${#CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT} -gt 0 -a ${CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES:-"false"} == "true" ]; then
    echo "$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT - linking dump files into web root:" | tee -a $CSV2RDF4LOD_LOG
    # Execute the script we just generated.
    $lnwwwrootSH #2> /dev/null
+else
+   echo "$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT - skipping. Set CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES=true and CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT to /var/www" | tee -a $CSV2RDF4LOD_LOG
+   echo "`echo $CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/ | sed 's/./ /g'` or run $lnwwwrootSH manually."
 fi
 
 
