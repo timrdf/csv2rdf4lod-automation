@@ -32,7 +32,7 @@
 
 #CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
-if [ "$1" == "--setup" ]; then
+if [ "$1" == "--rq" ]; then
 
    if [[ `is-pwd-a.sh cr:dataset`            == "no" && \
          `is-pwd-a.sh cr:conversion-cockpit` == "no"      ]]; then
@@ -95,6 +95,28 @@ if [ "$1" == "--setup" ]; then
 fi
 
 
+# # # # # # End of --rq # # # # # #
+
+
+if [ "$1" == "--setup" ]; then
+   shift
+   export CSV2RDF4LOD_PUBLISH="true"
+   if [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
+      # publish/bin/tdbloader-data-gov-au-catalog-2011-Jun-27.sh
+      tdbloader="publish/bin/tdbloader-`${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit s-d-v`.sh"
+      if [[ ! -e $tdbloader ]]; then
+         if [[ ! -e publish/bin/publish.sh ]]; then
+            ./convert*.sh
+         fi
+         publish/bin/publish.sh
+      fi
+      $tdbloader
+   else
+      echo "https://github.com/timrdf/csv2rdf4lod-automation/issues/171"
+   fi
+fi
+
+
 # # # # # # End of --setup # # # # # #
 
 
@@ -122,7 +144,7 @@ if [[ ! -e publish/tdb && ${#CSV2RDF4LOD_PUBLISH_TDB_DIR} == 0 ]]; then
    echo "   but..."
    echo "   \$CSV2RDF4LOD_PUBLISH_TDB_DIR is not set."
    echo ""
-   echo "`basename $0` can run --setup from source/DDD/ or within a conversion cockpit."
+   echo "`basename $0` can run --rq from source/DDD/ or within a conversion cockpit."
    echo "   See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"
    exit 1
 fi
