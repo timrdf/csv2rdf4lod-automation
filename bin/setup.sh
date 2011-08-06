@@ -1,7 +1,7 @@
-# NOTE: setup.sh (this file) is a template used by install.sh to create source-me.sh
-# NOTE: my-csv2rdf4lod-source-me.sh should be modified, not setup.sh
-# if path of dg-create-dataset-dir.sh 
-# is /Users/me/Desktop/csv2rdf4lod/bin/dg-create-dataset-dir.sh
+# NOTE:    setup.sh (this file) is a template used by install.sh to create source-me.sh.
+# WARNING: setup.sh (this file) should not be edited. Edit my-csv2rdf4lod-source-me.sh.
+# if path of cr-vars.sh 
+# is /Users/me/Desktop/csv2rdf4lod/bin/cr-vars.sh
 # CSV2RDF4LOD_HOME should be set (above) to /Users/me/Desktop/csv2rdf4lod/
 
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/setup.sh
