@@ -1065,3 +1065,21 @@ conversion:LargeValue
    rdfs:label "LargeValue";
    rdfs:comment "Used to denote that the value of a cell is 'large', where 'large' is loosely defined by the implementing system. For example, javacsv thinks 100,000 characters is Large and requires a setting to permit more than that.";
 .
+
+void:subset 
+   a rdf:Property;
+   rdfs:subPropertyOf conversion:subseT;
+.
+conversion:subseT a owl:TransitiveProperty;
+   a owl:ObjectProperty;
+   rdfs:label "subsetT";
+   rdfs:comment "A transitive version of void:subset";
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/issues/173>
+.
+
+conversion:AtomicInputDataset
+   a owl:Class;
+   rdfs:label "AtomicInputDataset";
+   rdfs:comment "An RDF dataset produced by the conversion of a single tabular file. When handling datasets with multiple files, a fourth level in the VoID hierarchy is needed. As opposed to datasets with a single input file, which has three levels. In both cases, the lowest level is an AtomicInputDataset. This, in combination with conversion:subsetT allows you to use inference to not concern yourself with these details.";
+   rdfs:subClassOf conversion:Dataset;
+.
