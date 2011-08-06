@@ -51,6 +51,7 @@ while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
       dataset=`basename \`cd ../../       2>/dev/null && pwd\`` # TODO: need to add that step in...
             d=`basename \`cd ../          2>/dev/null && pwd\`` # TODO: need to add that step in...
       version=`basename \`pwd\``
+            v=""
       if [[ "$source" == "source" && "$version" == "version" ]]; then # TODO: need to add that step in...
          is_a="yes"
       fi
@@ -71,8 +72,6 @@ while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
    fi
    shift
 done
-
-echo rest $*
 
 if   [[ "$1" == "--id-of" && "$2" == "s-d-v" && ${#s} > 0 && ${#d} > 0 && ${#v} > 0 ]]; then
    echo "$s-$d-$v"
