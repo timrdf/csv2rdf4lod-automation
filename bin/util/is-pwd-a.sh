@@ -11,67 +11,69 @@ if [ "$1" == "--types" ]; then
 fi
 
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` {$VALIDS} [{s, d, v, s-d-v}]"
+   echo "usage: `basename $0` {$VALIDS} [--id-of {s, d, v, s-d-v}]"
    exit 1
 fi
 
-s=""
-d=""
-v=""
+s="" #  source_identifier
+d="" # dataset_identifier
+v="" # version_identifier
 is_a="no"
 
-if   [[ $1 == "cr:directory-of-sources" || $1 == "cr:data-root"          ]]; then
-    source=`basename \`pwd\``
-   if [[ "$source" == "source" ]]; then
-      is_a="yes"
-   fi
-elif [[ $1 == "cr:source"                                                ]]; then
-    source=`basename \`cd ../          2>/dev/null && pwd\``
-   if [[ "$source" == "source" ]]; then
-      is_a="yes"
-   fi
-elif [[ $1 == "cr:directory-of-datasets"                                 ]]; then
-    source=`basename \`cd ../../       2>/dev/null && pwd\``
-    dataset=`basename \`pwd\``                               # TODO: need to add that step in...
-   if [[ "$source" == "source" && "$dataset" == "dataset" ]]; then
-      is_a="yes"
-   fi
-elif [[ $1 == "cr:dataset"                                               ]]; then
-   source=`basename \`cd ../../ 2>/dev/null && pwd\``
-                                                             # TODO: need to add that step in...
-   if [[ "$source" == "source" ]]; then
-      is_a="yes"
-   fi
-elif [[ $1 == "cr:directory-of-versions"                                 ]]; then
-    source=`basename \`cd ../../../    2>/dev/null && pwd\``
-   dataset=`basename \`cd ../../       2>/dev/null && pwd\`` # TODO: need to add that step in...
-   version=`basename \`pwd\``
-   if [[ "$source" == "source" && "$version" == "version" ]]; then # TODO: need to add that step in...
-      is_a="yes"
-   fi
-elif [[ $1 == "cr:version"              || $1 == "cr:conversion-cockpit" ]]; then
-    source=`basename \`cd ../../../../ 2>/dev/null && pwd\``
-         s=`basename \`cd ../../../    2>/dev/null && pwd\``
-   dataset=`basename \`cd ../../       2>/dev/null && pwd\`` # TODO: need to add that step in...
-         d=`basename \`cd ../../       2>/dev/null && pwd\`` # TODO: need to add that step in...
-   version=`basename \`cd ../          2>/dev/null && pwd\``
-         v=`basename \`pwd\``
+while [[ $# -gt 0 && "$2" != "--id-of" ]]; do
+   if   [[ $1 == "cr:directory-of-sources" || $1 == "cr:data-root"          ]]; then
+       source=`basename \`pwd\``
+      if [[ "$source" == "source" ]]; then
+         is_a="yes"
+      fi
+   elif [[ $1 == "cr:source"                                                ]]; then
+       source=`basename \`cd ../          2>/dev/null && pwd\``
+      if [[ "$source" == "source" ]]; then
+         is_a="yes"
+      fi
+   elif [[ $1 == "cr:directory-of-datasets"                                 ]]; then
+       source=`basename \`cd ../../       2>/dev/null && pwd\``
+       dataset=`basename \`pwd\``                               # TODO: need to add that step in...
+      if [[ "$source" == "source" && "$dataset" == "dataset" ]]; then
+         is_a="yes"
+      fi
+   elif [[ $1 == "cr:dataset"                                               ]]; then
+      source=`basename \`cd ../../ 2>/dev/null && pwd\``
+                                                                # TODO: need to add that step in...
+      if [[ "$source" == "source" ]]; then
+         is_a="yes"
+      fi
+   elif [[ $1 == "cr:directory-of-versions"                                 ]]; then
+       source=`basename \`cd ../../../    2>/dev/null && pwd\``
+      dataset=`basename \`cd ../../       2>/dev/null && pwd\`` # TODO: need to add that step in...
+      version=`basename \`pwd\``
+      if [[ "$source" == "source" && "$version" == "version" ]]; then # TODO: need to add that step in...
+         is_a="yes"
+      fi
+   elif [[ $1 == "cr:version"              || $1 == "cr:conversion-cockpit" ]]; then
+       source=`basename \`cd ../../../../ 2>/dev/null && pwd\``
+            s=`basename \`cd ../../../    2>/dev/null && pwd\``
+      dataset=`basename \`cd ../../       2>/dev/null && pwd\`` # TODO: need to add that step in...
+            d=`basename \`cd ../../       2>/dev/null && pwd\`` # TODO: need to add that step in...
+      version=`basename \`cd ../          2>/dev/null && pwd\``
+            v=`basename \`pwd\``
 
-   if [[ "$source" == "source" && "$version" == "version" ]]; then
-      is_a="yes"
+      if [[ "$source" == "source" && "$version" == "version" ]]; then
+         is_a="yes"
+      fi
+   else
+      echo "usage: `basename $0` {$VALIDS}"
+      exit 1
    fi
-else
-   echo "usage: `basename $0` {$VALIDS}"
-   exit 1
-fi
+done
 
-if   [[ "$2" == "s-d-v" && ${#s} > 0 && ${#d} > 0 && ${#v} > 0 ]]; then
+if   [[ "$1" == "--id-of" && "$2" == "s-d-v" && ${#s} > 0 && ${#d} > 0 && ${#v} > 0 ]]; then
    echo "$s-$d-$v"
-elif [[ "$2" == "s" && ${#s} > 0 ]]; then
+elif [[ "$1" == "--id-of" && "$2" == "s" && ${#s} > 0 ]]; then
    echo "$s"
-elif [[ "$2" == "d" && ${#d} > 0 ]]; then
+elif [[ "$1" == "--id-of" && "$2" == "d" && ${#d} > 0 ]]; then
    echo "$d"
-elif [[ "$2" == "v" && ${#v} > 0 ]]; then
+elif [[ "$1" == "--id-of" && "$2" == "v" && ${#v} > 0 ]]; then
    echo "$v"
 else
    echo $is_a
