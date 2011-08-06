@@ -65,6 +65,7 @@ while [[ $# -gt 0 && "$2" != "--id-of" ]]; do
       echo "usage: `basename $0` {$VALIDS}"
       exit 1
    fi
+   shift
 done
 
 if   [[ "$1" == "--id-of" && "$2" == "s-d-v" && ${#s} > 0 && ${#d} > 0 && ${#v} > 0 ]]; then
