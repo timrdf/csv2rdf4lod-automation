@@ -930,8 +930,8 @@ conversion:VersionControlledDataset
    a owl:Class;
    rdfs:subClassOf conversion:Dataset, doap:Project;
    rdfs:label "VersionControlledDataset";
-   rfds:comment "A conversion:Dataset whose skeleton is available from a version control system.";
-   rfds:comment "VersionControlledDatasets should cite locations their csv2rdf4lod skeleton.";
+   rdfs:comment "A conversion:Dataset whose skeleton is available from a version control system.";
+   rdfs:comment "VersionControlledDatasets should cite locations their csv2rdf4lod skeleton.";
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Version-control-strategies:-only-the-essential-minimum-is-needed>;
 .
 
@@ -939,8 +939,8 @@ conversion:UnitTestedDataset
    a owl:Class;
    rdfs:subClassOf void:Dataset;
    rdfs:label "UnitTestedDatset";
-   rfds:comment "An RDF dataset tested with SPARQL queries verifying the presense or absence of particular triples.";
-   rfds:comment "UnitTestedDatasets should cite locations for their unit tests.";
+   rdfs:comment "An RDF dataset tested with SPARQL queries verifying the presense or absence of particular triples.";
+   rdfs:comment "UnitTestedDatasets should cite locations for their unit tests.";
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh>;
 .
 
