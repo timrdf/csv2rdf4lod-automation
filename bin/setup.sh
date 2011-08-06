@@ -1,5 +1,5 @@
-# NOTE:    setup.sh (this file) is a template used by install.sh to create source-me.sh.
-# WARNING: setup.sh (this file) should not be edited. Edit my-csv2rdf4lod-source-me.sh.
+# _NOTE_    setup.sh (this file) is a template used by install.sh to create source-me.sh.
+# _WARNING_ setup.sh (this file) should not be edited. Edit my-csv2rdf4lod-source-me.sh.
 # if path of cr-vars.sh 
 # is /Users/me/Desktop/csv2rdf4lod/bin/cr-vars.sh
 # CSV2RDF4LOD_HOME should be set (above) to /Users/me/Desktop/csv2rdf4lod/

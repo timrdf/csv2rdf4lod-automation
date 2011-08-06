@@ -16,7 +16,7 @@ echo "`basename $0`:"
 echo "   has created my-csv2rdf4lod-source-me.${ext}."
 echo "   has set \$CSV2RDF4LOD_HOME to $CSV2RDF4LOD_HOME in my-csv2rdf4lod-source-me.${ext}"
 
-cat bin/setup.sh | grep -v "# NOTE:" >> my-csv2rdf4lod-source-me.sh
+cat bin/setup.sh | grep -v "# _NOTE_" | grep -v "# _WARNING_" >> my-csv2rdf4lod-source-me.sh
 
 if [ "$1" == "--csh" ]; then
  # perl -pi -e
