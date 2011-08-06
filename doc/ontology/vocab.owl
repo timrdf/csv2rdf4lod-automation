@@ -4,6 +4,7 @@
    xmlns:conv="http://purl.org/twc/vocab/conversion/"
    xmlns:d2rq="http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#"
    xmlns:dct="http://purl.org/dc/terms/"
+   xmlns:doap="http://usefulinc.com/ns/doap#"
    xmlns:foaf="http://xmlns.com/foaf/0.1/"
    xmlns:ov="http://open.vocab.org/terms/"
    xmlns:owl="http://www.w3.org/2002/07/owl#"
@@ -542,6 +543,11 @@
       </owl:Restriction>
     </rdfs:subClassOf>
   </rdfs:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/VersionControlledDataset">
+    <rdfs:label>VersionControlledDataset</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Dataset"/>
+    <rdfs:subClassOf rdf:resource="http://usefulinc.com/ns/doap#Project"/>
+  </owl:Class>
   <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/VersionedDataset">
     <rdfs:comment>A materialized (captured in time) dataset -- something is now on disk. Union of all LayerDatasets created by different conversion parameters.</rdfs:comment>
     <rdfs:label>Versioned Dataset</rdfs:label>
