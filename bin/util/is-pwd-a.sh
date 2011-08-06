@@ -47,7 +47,9 @@ while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
       fi
    elif [[ $1 == "cr:directory-of-versions"                                 ]]; then
        source=`basename \`cd ../../../    2>/dev/null && pwd\``
+            s=`basename \`cd ../../       2>/dev/null && pwd\``
       dataset=`basename \`cd ../../       2>/dev/null && pwd\`` # TODO: need to add that step in...
+            d=`basename \`cd ../          2>/dev/null && pwd\`` # TODO: need to add that step in...
       version=`basename \`pwd\``
       if [[ "$source" == "source" && "$version" == "version" ]]; then # TODO: need to add that step in...
          is_a="yes"
