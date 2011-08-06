@@ -21,6 +21,15 @@ echo "--------------------------------------------------------------------------
 echo "$datafile"
 #echo Dataset URI $graph | tee -a $CSV2RDF4LOD_LOG
 
+
+# Deal with filenames such as the string containing asterisks, e.g. '*.csv'
+if [[ "$datafile" !=  "${datafile/\*/}" ]]; then
+   echo "[WARNING] Requested conversion of data file \"$datafile\"; files must be cited explicitly."
+   echo "[WARNING] Consider rerunning cr-create-convert-sh.sh; it is structured poorly -- ESPECIALLY if you are converting only one file."
+   echo "[WARNING] https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-create-convert-sh.sh"
+   exit 1 
+fi
+
 versionDir=`pwd`
 
 #
