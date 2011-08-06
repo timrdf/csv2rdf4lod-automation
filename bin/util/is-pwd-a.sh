@@ -72,6 +72,9 @@ while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
          is=`${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $pwd_type`
          if [[ "$is" == "yes" ]]; then
             is_a="yes"
+            s=`${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $pwd_type --id-of s`
+            d=`${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $pwd_type --id-of d`
+            v=`${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $pwd_type --id-of v`
          fi
       done
    else
