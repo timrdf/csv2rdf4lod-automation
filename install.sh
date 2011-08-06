@@ -6,7 +6,11 @@ if [ "$1" == "--csh" ]; then
 fi
 
 CSV2RDF4LOD_HOME=`pwd`
-echo "export CSV2RDF4LOD_HOME=\"$CSV2RDF4LOD_HOME\"" > my-csv2rdf4lod-source-me.${ext}
+echo "# <#> a <http://purl.org/twc/vocab/conversion/CSV2RDF4LOD_environment_variables> ;"    > my-csv2rdf4lod-source-me.${ext}
+echo "#     rdfs:seeAlso"                                                                   >> my-csv2rdf4lod-source-me.${ext}
+echo "#     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-%28considerations-for-a-distributed-workflow%29>," >> my-csv2rdf4lod-source-me.${ext}
+echo "#     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-source-me.sh>" . >> my-csv2rdf4lod-source-me.${ext}
+echo "export CSV2RDF4LOD_HOME=\"$CSV2RDF4LOD_HOME\""                                        >> my-csv2rdf4lod-source-me.${ext}
 echo "`basename $0`:"
 echo "   has created my-csv2rdf4lod-source-me.${ext}."
 echo "   has set \$CSV2RDF4LOD_HOME to $CSV2RDF4LOD_HOME in my-csv2rdf4lod-source-me.${ext}"
@@ -25,7 +29,7 @@ echo ""
 
 echo "~~~ What to do next: ~~~"
 echo "   'source my-csv2rdf4lod-source-me.${ext}' to set environment variables."
-echo "    sourcing my-csv2rdf4lod-source-me.${ext} must be done EACH TIME you log in, so consider adding this to your .bashrc:"
+echo "    sourcing my-csv2rdf4lod-source-me.${ext} must be done each time you log in, so consider adding this to your .bashrc:"
 echo ""
 echo "      source $CSV2RDF4LOD_HOME/my-csv2rdf4lod-source-me.${ext} # http://purl.org/twc/id/software/csv2rdf4lod"
 echo ""
