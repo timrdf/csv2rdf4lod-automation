@@ -16,3 +16,4 @@ while [ $# -gt 0 ];do
    done
    shift
 done
+echo $too_big
