@@ -6,10 +6,10 @@ if [ "$1" == "--csh" ]; then
 fi
 
 CSV2RDF4LOD_HOME=`pwd`
-echo "# <#> a <http://purl.org/twc/vocab/conversion/CSV2RDF4LOD_environment_variables> ;"    > my-csv2rdf4lod-source-me.${ext}
-echo "#     rdfs:seeAlso"                                                                   >> my-csv2rdf4lod-source-me.${ext}
-echo "#     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-%28considerations-for-a-distributed-workflow%29>," >> my-csv2rdf4lod-source-me.${ext}
-echo "#     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-source-me.sh>" . >> my-csv2rdf4lod-source-me.${ext}
+echo "#3 <#> a <http://purl.org/twc/vocab/conversion/CSV2RDF4LOD_environment_variables> ;"    > my-csv2rdf4lod-source-me.${ext}
+echo "#3     rdfs:seeAlso"                                                                   >> my-csv2rdf4lod-source-me.${ext}
+echo "#3     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-%28considerations-for-a-distributed-workflow%29>," >> my-csv2rdf4lod-source-me.${ext}
+echo "#3     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-source-me.sh>" . >> my-csv2rdf4lod-source-me.${ext}
 echo ""                                                                                     >> my-csv2rdf4lod-source-me.${ext}
 echo "export CSV2RDF4LOD_HOME=\"$CSV2RDF4LOD_HOME\""                                        >> my-csv2rdf4lod-source-me.${ext}
 echo "`basename $0`:"
