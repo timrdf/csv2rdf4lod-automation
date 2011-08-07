@@ -66,7 +66,7 @@ while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
       if [[ "$source" == "source" && "$version" == "version" ]]; then
          is_a="yes"
       fi
-   elif [[ "$1" == "cr:bone" ]]; then
+   elif [[ "$1" == "cr:bone" || "$1" == "." ]]; then
       # Any step in the data root skeleton.
       for pwd_type in `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh --types`; do
          is=`${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $pwd_type`
