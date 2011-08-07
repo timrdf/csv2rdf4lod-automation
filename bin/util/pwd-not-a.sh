@@ -19,15 +19,17 @@ while [[ $# -ge 1 ]]; do
    elif [[ $1 == "cr:source"                                                ]]; then
       echo "  todo $1"
    elif [[ $1 == "cr:directory-of-datasets"                                 ]]; then
-      echo "  todo $1"
+      echo ""
       echo "  Working directory does not appear to be a directory of datasets."
-      echo "  You can run this from a directory of datsets (e.g. csv2rdf4lod/data/source/SOURCE/)."
+      echo "  You can run this from a directory of datasets (e.g. csv2rdf4lod/data/source/SOURCE/)."
    elif [[ $1 == "cr:dataset"                                               ]]; then
       echo ""
       echo "  Working directory does not appear to be a dataset."
       echo "  You can run this from (e.g. csv2rdf4lod/data/source/SOURCE/DDD/)."
    elif [[ $1 == "cr:directory-of-versions"                                 ]]; then
-      echo "  todo $1"
+      echo ""
+      echo "  Working directory does not appear to be a directory of version."
+      echo "  You can run this from a directory of versions (e.g. csv2rdf4lod/data/source/SOURCE/DDD/version/)."
    elif [[ $1 == "cr:version"              || $1 == "cr:conversion-cockpit" ]]; then
       echo ""
       echo "  Working directory does not appear to be a conversion cockpit."
