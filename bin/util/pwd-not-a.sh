@@ -28,7 +28,7 @@ while [[ $# -ge 1 ]]; do
       echo "  You can run this from (e.g. csv2rdf4lod/data/source/SOURCE/DDD/)."
    elif [[ $1 == "cr:directory-of-versions"                                 ]]; then
       echo ""
-      echo "  Working directory does not appear to be a directory of version."
+      echo "  Working directory does not appear to be a directory of versions."
       echo "  You can run this from a directory of versions (e.g. csv2rdf4lod/data/source/SOURCE/DDD/version/)."
    elif [[ $1 == "cr:version"              || $1 == "cr:conversion-cockpit" ]]; then
       echo ""
