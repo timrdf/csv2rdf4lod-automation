@@ -104,6 +104,7 @@ if [ "$1" == "--catalog" ]; then
       for rq in `find . -type d -name rq | sed 's/^\.\///'`; do
          if [[ -d $rq/test ]]; then
             pushd `dirname $rq` &> /dev/null
+               $0 $* # recursive call
             popd &> /dev/null
          fi
       done
