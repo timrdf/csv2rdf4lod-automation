@@ -112,7 +112,7 @@ if [ "$1" == "--catalog" ]; then
                   if [[ "$2" == "-w" ]]; then
                      echo "<$test> a earl:TestCase ." >> list.ttl
                   else
-                     echo "    <$test> a earl:TestCase ."
+                     echo "    $test"
                   fi
                done 
             popd &> /dev/null
