@@ -2,22 +2,21 @@
 #
 # print out some information about the dataset in the current directory.
 
-back_one=`cd .. 2>/dev/null && pwd`
-ANCHOR_SHOULD_BE_VERSION=`basename $back_one`
-#if [ $ANCHOR_SHOULD_BE_VERSION != "version" ]; then
-if [ `is-pwd-a.sh cr:conversion-cockpit` != "yes" ]; then
-   echo "  Working directory does not appear to be a VERSION directory."
-   echo "  Run `basename $0` from a VERSION directory (e.g. csv2rdf4lod/data/source/SOURCE/DDD/version/VVV/)"
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+
+ACCEPTABLE_PWDs="cr:directory-of-versions cr:conversion-cockpit"
+if [ `is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
 fi
 
 prefixDef=""
 prefix=""
-q1=""
-q2=""
-a1=""
-a2=""
-end=""
+q1=""  # Quote
+q2=""  # Quote
+a1=""  # Angle
+a2=""  # Angle
+end="" # Period
 if [ ${1:-"."} == 'void' ]; then
    prefixDef="@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
    isabstract="    a conversion:AbstractDataset;"
@@ -63,6 +62,4 @@ echo "    ${prefix}base_uri              ${q1}$base_uri${q2}"
 echo "    ${prefix}source_identifier     ${q1}$sourceID${q2}"                                        
 echo "    ${prefix}dataset_identifier    ${q1}$datasetID${q2}"                                    
 echo "    ${prefix}version_identifier    ${q1}$versionID${q2}"
-echo $end
-
-
+echo $end 
