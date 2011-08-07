@@ -141,10 +141,16 @@ if [ "$1" == "--show-catalog" ]; then
    exit
 fi
 
-#if [ "$1" == "--cat-catalog" ]; then
-#   cr-test-conversion.sh --show-catalog | grep -v "^[^ ]" | sed 's/^ *//'
-#   exit
-#fi
+if [ "$1" == "--cat-catalog" ]; then
+   for list in `cr-test-conversion.sh --catalog | grep "^s"`; do 
+      echo ""
+      echo $list; 
+      echo ""
+      path=${list#`cr-pwd.sh`}; 
+      cat $path | sed "s/^ *</$path/"; 
+   done
+   exit
+fi
 
 # # # # # # End of --catalog # # # # # #
 
