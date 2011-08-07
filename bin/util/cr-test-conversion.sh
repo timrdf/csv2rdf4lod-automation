@@ -178,15 +178,15 @@ fi
 
 
 if [ ${1-"."} == "--help" ]; then
-   echo "usage:" # TODO: parameterize the rq directory.
-   echo "`basename $0` --rq                   : Create initial rq/test/ask/{present,absent}/*.rq directory structure."
-   echo "`basename $0` --setup                : Run tests, populate the tdb/ beforehand."
-   echo "`basename $0` --setup {--verbose, -v}: Run tests, populate the tdb/ beforehand, and show query contents."
-   echo "`basename $0`                        : Run tests. Needs rq/test or ../../rq/test and publish/tdb/."
-   echo "`basename $0` {--verbose, -v}        : Run tests. Needs same as above. Shows the query contents while testing."
-   echo "`basename $0` --catalog -w           : Find all rq/test and create rq/test/list.ttl rdf:typing them to earl:TestCase."
-   echo "`basename $0` --catalog              : Show dryrun of finding all rq/test; print hypothetical contents of rq/test/list.ttl."
-   echo "`basename $0` --show-catalog         : Show all rq/test/list.ttl"
+   echo "usage: `basename $0`" # TODO: parameterize the rq directory.
+   echo " --rq                   : Create initial rq/test/ask/{present,absent}/*.rq directory structure."
+   echo " --setup                : Run tests, populate the tdb/ beforehand."
+   echo " --setup {--verbose, -v}: Run tests, populate the tdb/ beforehand, and show query contents."
+   echo "                        : Run tests. Needs rq/test or ../../rq/test and publish/tdb/."
+   echo " {--verbose, -v}        : Run tests. Needs same as above. Shows the query contents while testing."
+   echo " --catalog -w           : Find all rq/test and create rq/test/list.ttl rdf:typing them to earl:TestCase."
+   echo " --catalog              : Show dryrun of finding all rq/test; print hypothetical contents of rq/test/list.ttl."
+   echo " --show-catalog         : Show all rq/test/list.ttl"
    exit
 fi
 
