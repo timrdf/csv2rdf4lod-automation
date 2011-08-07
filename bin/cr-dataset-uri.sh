@@ -32,17 +32,9 @@ if [ ${1:-"."} == 'void' ]; then
 fi
 base_uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
 
-back_three=`cd ../../.. 2>/dev/null && pwd`
-sourceID=`basename $back_three` # Use the names from the canonical directory structure
-if [ $sourceID == "data.gov" ]; then
-   sourceID="data-gov"
-fi
-
-back_two=`cd ../.. 2>/dev/null && pwd`
-datasetID=`basename $back_two` # Use the names from the canonical directory structure
-
-datasetDir=`pwd`
-versionID=`basename $datasetDir` # Use the names from the canonical directory structure
+sourceID=`is-pwd-a.sh  cr:bone --id-of source`
+datasetID=`is-pwd-a.sh cr:bone --id-of dataset`
+versionID=`is-pwd-a.sh cr:bone --id-of version`
 
 CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
