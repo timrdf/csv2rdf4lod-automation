@@ -109,6 +109,7 @@ if [ "$1" == "--catalog" ]; then
          fi
       done
    elif [[ -d rq/test ]]; then
+      rq=`pwd`
       echo $rq/test
       pushd $rq/test &> /dev/null
          if [[ "$2" == "-w" ]]; then
