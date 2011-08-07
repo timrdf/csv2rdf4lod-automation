@@ -108,25 +108,23 @@ if [ "$1" == "--catalog" ]; then
             popd &> /dev/null
          fi
       done
-   elif [[ `is-pwd-a.sh cr:dataset` == "yes" ]]; then
-      rq=`pwd`/rq
-      if [[ -d $rq/test ]]; then
-         echo $rq/test
-         pushd $rq/test &> /dev/null
+   elif [[ -d rq/test ]]; then
+      echo $rq/test
+      pushd $rq/test &> /dev/null
+         if [[ "$2" == "-w" ]]; then
+            echo "@prefix earl: <http://www.w3.org/ns/earl#> ."  > list.ttl
+            echo ""                                             >> list.ttl
+         fi
+         for test in `find . -name "*.rq" | sed 's/^\.\///'`; do
             if [[ "$2" == "-w" ]]; then
-               echo "@prefix earl: <http://www.w3.org/ns/earl#> ."  > list.ttl
-               echo ""                                             >> list.ttl
+               echo "<$test> a earl:TestCase ." >> list.ttl
+            else
+               echo "    $test"
             fi
-            for test in `find . -name "*.rq" | sed 's/^\.\///'`; do
-               if [[ "$2" == "-w" ]]; then
-                  echo "<$test> a earl:TestCase ." >> list.ttl
-               else
-                  echo "    $test"
-               fi
-            done 
-         popd &> /dev/null
-      fi 
+         done 
+      popd &> /dev/null
    else
+      pwd
       pwd-not-a.sh cr:data-root cr:dataset cr:conversion-cockpit 
    fi
    exit
