@@ -185,7 +185,7 @@ if [ ${1-"."} == "--help" ]; then
    echo "`basename $0` --setup                : Run tests, populate the tdb/ beforehand."
    echo "`basename $0` --setup {--verbose, -v}: Run tests, populate the tdb/ beforehand, and show query contents."
    echo "`basename $0` --catalog -w           : Find all rq/test and create rq/test/list.ttl rdf:typing them to earl:TestCase."
-   echo "`basename $0` --catalog              : Show dryrun of finding all rq/test and print hypothetical contents of rq/test/list.ttl."
+   echo "`basename $0` --catalog              : Show dryrun of finding all rq/test; print hypothetical contents of rq/test/list.ttl."
    echo "`basename $0` --show-catalog         : Show all rq/test/list.ttl"
    exit
 fi
