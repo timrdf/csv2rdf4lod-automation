@@ -160,7 +160,7 @@ if [ "$1" == "--setup" ]; then
    export CSV2RDF4LOD_PUBLISH="true"
    if [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       # publish/bin/tdbloader-data-gov-au-catalog-2011-Jun-27.sh
-      tdbloader="publish/bin/tdbloader-`${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit s-d-v`.sh"
+      tdbloader="publish/bin/tdbloader-`${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit --id-of s-d-v`.sh"
       if [[ ! -e $tdbloader ]]; then
          if [[ ! -e publish/bin/publish.sh ]]; then
             ./convert*.sh
