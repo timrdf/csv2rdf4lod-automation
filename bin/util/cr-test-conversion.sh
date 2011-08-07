@@ -124,6 +124,7 @@ if [ "$1" == "--catalog" ]; then
          done 
       popd &> /dev/null
    else
+      echo $0 $* 
       pwd-not-a.sh cr:data-root cr:dataset cr:conversion-cockpit 
    fi
    exit
@@ -137,6 +138,12 @@ if [ "$1" == "--show-catalog" ]; then
       echo ""
       cat $path | sed 's/^/   /'; 
    done
+   exit
+fi
+
+if [ "$1" == "--cat-catalog" ]; then
+   echo yo
+   cr-test-conversion.sh --show-catalog | grep -v "^[^ ]" | sed 's/^ *//'
    exit
 fi
 
