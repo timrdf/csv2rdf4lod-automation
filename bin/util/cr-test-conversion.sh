@@ -101,9 +101,9 @@ fi
 if [ "$1" == "--catalog" ]; then
 
    if [[ `is-pwd-a.sh cr:data-root` == "yes" ]]; then
-      for rq in `find . -type d -name rq`; do
+      for rq in `find . -type d -name rq | sed 's/^\.\///'`; do
          if [[ -d $rq/test ]]; then
-            echo $rq/test | sed 's/^\.\///'
+            echo $rq/test
             pushd $rq/test &> /dev/null
                if [[ "$2" == "-w" ]]; then
                   echo "@prefix earl: <http://www.w3.org/ns/earl#> ." > list.ttl
