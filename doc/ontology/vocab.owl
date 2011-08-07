@@ -810,6 +810,11 @@
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
   </rdf:Property>
+  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/testable_by">
+    <rdfs:seeAlso rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"/>
+    <owl:inverseOf rdf:resource="http://purl.org/dc/terms/subject"/>
+    <owl:inverseOf rdf:resource="http://www.w3.org/2006/03/test-description#informationResourceInput"/>
+  </rdf:Property>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/type_name">
     <rdfs:comment>The local name of a class within this dataset-specific namespace.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/ImplicitBundle"/>
@@ -822,5 +827,8 @@
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>The version of conversion being performed per dataset.</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://www.w3.org/2006/03/test-description#informationResourceInput">
+    <rdfs:comment>Information Resource (e.g. a file) used as input for the test case</rdfs:comment>
   </rdf:Property>
 </rdf:RDF>

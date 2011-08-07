@@ -957,7 +957,7 @@ conversion:UnitTestedDataset
 
 conversion:testable_by
    a rdf:Property;
-   owl:inverseOf w3test:informationResourceInput, dcterms:subject;
+   owl:inverseOf w3test:informationResourceInput, dct:subject;
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh>;
 .
 
