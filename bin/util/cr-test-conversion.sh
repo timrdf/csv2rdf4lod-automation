@@ -110,7 +110,7 @@ if [ "$1" == "--catalog" ]; then
       done
    elif [[ -d rq/test ]]; then
       rq=`pwd`
-      echo $rq/test
+      echo `cr-pwd.sh`/test
       pushd $rq/test &> /dev/null
          if [[ "$2" == "-w" ]]; then
             echo "@prefix earl: <http://www.w3.org/ns/earl#> ."  > list.ttl
