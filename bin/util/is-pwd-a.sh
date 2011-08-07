@@ -40,7 +40,10 @@ while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
          is_a="yes"
       fi
    elif [[ $1 == "cr:dataset"                                               ]]; then
-      source=`basename \`cd ../../ 2>/dev/null && pwd\``
+       source=`basename \`cd ../../        2>/dev/null && pwd\``
+            s=`basename \`cd ../           2>/dev/null && pwd\``
+         # TODO: dataset/
+            d=`basename \`pwd\``
                                                                 # TODO: need to add that step in...
       if [[ "$source" == "source" ]]; then
          is_a="yes"
