@@ -662,8 +662,9 @@ echo "rm    $TDB_DIR/*.dat $TDB_DIR/*.idn &> /dev/null"                         
 echo ""                                                                                       >> $loadtdbSH
 echo "echo \`basename \$load_file\` into $TDB_DIR as $graph >> $publishDir/ng.info"           >> $loadtdbSH
 echo ""                                                                                       >> $loadtdbSH
-                                                                             billion="000000000"
-echo "if [ \$load_file = \"$allTTL\" -a \`stat -f \"%z\" \"$allTTL\"\` -gt 2$billion ]; then" >> $loadtdbSH # TODO: stat -c "%s" on some flavors of unix.
+#                                                                             billion="000000000"
+#echo "if [ \$load_file = \"$allTTL\" -a \`stat -f \"%z\" \"$allTTL\"\` -gt 2$billion ]; then" >> $loadtdbSH # replaced b/c stat -c "%s" on some flavors of unix.
+echo "if [[ \$load_file == \"$allTTL\" && \`too-big-for-rapper.sh\` == \"yes\" ]]; then"      >> $loadtdbSH
 echo "  dir=\"`dirname $allTTL`\""                                                            >> $loadtdbSH
 echo "  echo \"cHuNking $allTTL in \$dir\""                                                   >> $loadtdbSH
 echo "  rm \$dir/cHuNk*.ttl &> /dev/null"                                                     >> $loadtdbSH
