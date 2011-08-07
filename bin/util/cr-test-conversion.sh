@@ -137,6 +137,7 @@ if [ "$1" == "--show-catalog" ]; then
       echo ""
       cat $path | sed 's/^/   /'; 
    done
+   exit
 fi
 
 # # # # # # End of --catalog # # # # # #
