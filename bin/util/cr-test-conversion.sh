@@ -114,7 +114,7 @@ if [ "$1" == "--catalog" ]; then
       echo $*
       pushd $rq/test &> /dev/null
          if [[ "$2" == "-w" ]]; then
-            echo writing...
+            echo writing from `pwd`...
             echo "@prefix earl: <http://www.w3.org/ns/earl#> ."  > list.ttl
             echo ""                                             >> list.ttl
          fi
