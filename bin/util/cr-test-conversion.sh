@@ -103,22 +103,30 @@ if [ "$1" == "--catalog" ]; then
    if [[ `is-pwd-a.sh cr:data-root` == "yes" ]]; then
       for rq in `find . -type d -name rq | sed 's/^\.\///'`; do
          if [[ -d $rq/test ]]; then
-            echo $rq/test
-            pushd $rq/test &> /dev/null
-               if [[ "$2" == "-w" ]]; then
-                  echo "@prefix earl: <http://www.w3.org/ns/earl#> ."  > list.ttl
-                  echo ""                                             >> list.ttl
-               fi
-               for test in `find . -name "*.rq" | sed 's/^\.\///'`; do
-                  if [[ "$2" == "-w" ]]; then
-                     echo "<$test> a earl:TestCase ." >> list.ttl
-                  else
-                     echo "    $test"
-                  fi
-               done 
+            pushd `dirname $rq` &> /dev/null
             popd &> /dev/null
          fi
       done
+   elif [[ `is-pwd-a.sh cr:dataset` == "yes" ]]; then
+      rq=`pwd`
+      if [[ -d rq/test ]]; then
+         echo $rq/test
+         pushd $rq/test &> /dev/null
+            if [[ "$2" == "-w" ]]; then
+               echo "@prefix earl: <http://www.w3.org/ns/earl#> ."  > list.ttl
+               echo ""                                             >> list.ttl
+            fi
+            for test in `find . -name "*.rq" | sed 's/^\.\///'`; do
+               if [[ "$2" == "-w" ]]; then
+                  echo "<$test> a earl:TestCase ." >> list.ttl
+               else
+                  echo "    $test"
+               fi
+            done 
+         popd &> /dev/null
+      fi 
+   else
+      pwd-not-a.sh cr:data-root cr:dataset cr:conversion-cockpit 
    fi
    exit
 
