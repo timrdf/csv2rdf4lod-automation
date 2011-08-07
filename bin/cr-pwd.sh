@@ -13,11 +13,17 @@ if [[ "$1" == "--types" ]]; then
 fi
 
 if   [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:data-root`             == "yes" ]]; then
+   pwd
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source`                == "yes" ]]; then
+   pwd
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:directory-of-datasets` == "yes" ]]; then
+   pwd
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:dataset`               == "yes" ]]; then
+   pwd
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:directory-of-versions` == "yes" ]]; then
+   pwd
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit`    == "yes" ]]; then
+   pwd
 else
    echo "Not recognized; see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Directory-Conventions" 
 fi
