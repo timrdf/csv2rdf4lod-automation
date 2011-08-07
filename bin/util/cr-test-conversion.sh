@@ -178,7 +178,7 @@ fi
 
 
 if [ ${1-"."} == "--help" ]; then
-   echo "usage: `basename $0` {--rq, --catalog, --show-catalog} [--setup] [--verbose | -v]" # TODO: parameterize the rq directory.
+   echo "usage:" # TODO: parameterize the rq directory.
    echo "`basename $0` --rq                   : create initial rq/test/ask/{present,absent}/*.rq directory structure."
    echo "`basename $0` --catalog              : find all rq/test and create rq/test/list.ttl rdf:typing them to earl:TestCase."
    echo "`basename $0` --show-catalog         : show all rq/test/list.ttl"
