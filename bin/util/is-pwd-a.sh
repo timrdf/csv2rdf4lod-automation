@@ -11,7 +11,7 @@ if [ "$1" == "--types" ]; then
 fi
 
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` {$VALIDS}+ [--id-of {s, d, v, s-d-v}]"
+   echo "usage: `basename $0` {$VALIDS}+ [--id-of {source, s, dataset, d, version, v, s-d-v}]"
    echo "  if more than one type is given, \"yes\" is returned if the pwd is ANY of those specified."
    echo "  --id-of: instead of returning \"yes\" or \"no\", return the identifier for source, dataset, or version."
    exit 1
@@ -86,11 +86,11 @@ done
 
 if   [[ "$1" == "--id-of" && "$2" == "s-d-v" && ${#s} > 0 && ${#d} > 0 && ${#v} > 0 ]]; then
    echo "$s-$d-$v"
-elif [[ "$1" == "--id-of" && "$2" == "s" ]]; then # && ${#s} > 0 ]]; then
+elif [[ "$1" == "--id-of" && ( "$2" == "source"  || "$2" == "s" ) ]]; then # && ${#s} > 0 ]]; then
    echo "$s"
-elif [[ "$1" == "--id-of" && "$2" == "d" ]]; then # && ${#d} > 0 ]]; then
+elif [[ "$1" == "--id-of" && ( "$2" == "dataset" || "$2" == "d" ) ]]; then # && ${#d} > 0 ]]; then
    echo "$d"
-elif [[ "$1" == "--id-of" && "$2" == "v" ]]; then # && ${#v} > 0 ]]; then
+elif [[ "$1" == "--id-of" && ( "$2" == "version" || "$2" == "v" ) ]]; then # && ${#v} > 0 ]]; then
    echo "$v"
 else
    echo $is_a
