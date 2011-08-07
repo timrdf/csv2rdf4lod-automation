@@ -127,9 +127,15 @@ if [ "$1" == "--catalog" ]; then
       pwd-not-a.sh cr:data-root cr:dataset cr:conversion-cockpit 
    fi
    exit
-   # for list in `cr-test-conversion.sh --catalog | grep "^s"`; do path=${list#`cr-pwd.sh`}; echo $path; cat $path | sed 's/^/   /'; done
 fi
 
+if [ "$1" == "--show-catalog" ]; then
+   for list in `cr-test-conversion.sh --catalog | grep "^s"`; do 
+      path=${list#`cr-pwd.sh`}; 
+      echo $path; 
+      cat $path | sed 's/^/   /'; 
+   done
+fi
 
 # # # # # # End of --catalog # # # # # #
 
