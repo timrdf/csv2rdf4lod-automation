@@ -103,9 +103,9 @@ if [ "$1" == "--catalog" ]; then
    if [[ `is-pwd-a.sh cr:data-root` == "yes" ]]; then
       for rq in `find . -type d -name rq`; do
          if [[ -d $rq/test ]]; then
-            echo $rq | sed 's/\.\///'
-            pushd $rq &> /dev/null
-               for test in `find test -name "*.rq"`; do
+            echo $rq/test | sed 's/\.\///'
+            pushd $rq/test &> /dev/null
+               for test in `find . -name "*.rq"`; do
                   echo "    $test"
                done 
             popd &> /dev/null
