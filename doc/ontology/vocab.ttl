@@ -963,7 +963,7 @@ conversion:testable_by
 
 w3test:informationResourceInput
    a rdf:Property;
-   rdfs:comment "Information Resource (e.g. a file) used as input for the test case".
+   rdfs:comment "Information Resource (e.g. a file) used as input for the test case";
 .
 
 
