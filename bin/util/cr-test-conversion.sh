@@ -108,8 +108,8 @@ if [ "$1" == "--catalog" ]; then
          fi
       done
    elif [[ `is-pwd-a.sh cr:dataset` == "yes" ]]; then
-      rq=`pwd`
-      if [[ -d rq/test ]]; then
+      rq=`pwd`/rq
+      if [[ -d $rq/test ]]; then
          echo $rq/test
          pushd $rq/test &> /dev/null
             if [[ "$2" == "-w" ]]; then
