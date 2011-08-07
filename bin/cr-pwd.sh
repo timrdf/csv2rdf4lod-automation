@@ -15,23 +15,23 @@ fi
 if   [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:data-root`             == "yes" ]]; then
    echo "source/"
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source`                == "yes" ]]; then
-   cruft=`cd ../../ && pwd`
+   cruft=`cd ../../ && pwd`/
    here=`pwd`
    echo ${here#$cruft}
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:directory-of-datasets` == "yes" ]]; then
-   cruft=`cd ../../../ && pwd`
+   cruft=`cd ../../../ && pwd`/
    here=`pwd`
    echo ${here#$cruft}
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:dataset`               == "yes" ]]; then
-   cruft=`cd ../../../ && pwd` # TODO: fill in ../ when adding dataset/
+   cruft=`cd ../../../ && pwd`/ # TODO: fill in ../ when adding dataset/
    here=`pwd`
    echo ${here#$cruft}
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:directory-of-versions` == "yes" ]]; then
-   cruft=`cd ../../../../ && pwd`
+   cruft=`cd ../../../../ && pwd`/
    here=`pwd`
    echo ${here#$cruft}
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit`    == "yes" ]]; then
-   cruft=`cd ../../../../../ && pwd`
+   cruft=`cd ../../../../../ && pwd`/
    here=`pwd`
    echo ${here#$cruft}
 else
