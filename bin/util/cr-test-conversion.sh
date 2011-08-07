@@ -110,8 +110,8 @@ if [ "$1" == "--catalog" ]; then
                else
                   echo "    @prefix earl: <http://www.w3.org/ns/earl#> ."
                fi
-               for test in `find . -name "*.rq"`; do
-                  echo $test | sed 's/^ *\.\//    /'
+               for test in `find . -name "*.rq" | sed 's/^\.\///'`; do
+                  echo "    $test"
                   if [[ "$2" == "-w" ]]; then
                      echo "<$test> a earl:TestCase ." >> list.ttl
                   else
