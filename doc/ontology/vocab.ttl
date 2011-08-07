@@ -3,6 +3,7 @@
 @prefix owl:	      <http://www.w3.org/2002/07/owl#> .
 @prefix foaf:	      <http://xmlns.com/foaf/0.1/> .
 @prefix xsd:	      <http://www.w3.org/2001/XMLSchema#> .
+@prefix w3test:      <http://www.w3.org/2006/03/test-description#> .
 @prefix dct:         <http://purl.org/dc/terms/> .
 @prefix doap:        <http://usefulinc.com/ns/doap#> .
 @prefix void:	      <http://rdfs.org/ns/void#> .
@@ -933,6 +934,11 @@ conversion:VersionControlledDataset
    rdfs:comment "A conversion:Dataset whose skeleton is available from a version control system.";
    rdfs:comment "VersionControlledDatasets should cite locations their csv2rdf4lod skeleton.";
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Version-control-strategies:-only-the-essential-minimum-is-needed>;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty     doap:repository;
+      owl:minCardinality 1;
+   ];
 .
 
 conversion:UnitTestedDataset
@@ -942,7 +948,24 @@ conversion:UnitTestedDataset
    rdfs:comment "An RDF dataset tested with SPARQL queries verifying the presense or absence of particular triples.";
    rdfs:comment "UnitTestedDatasets should cite locations for their unit tests.";
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh>;
+   rdfs:subClassOf [
+      a owl:Restriction;
+      owl:onProperty     conversion:testable_by;
+      owl:minCardinality 1;
+   ];
 .
+
+conversion:testable_by
+   a rdf:Property;
+   owl:inverseOf w3test:informationResourceInput, dcterms:subject;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh>;
+.
+
+w3test:informationResourceInput
+   a rdf:Property;
+   rdfs:comment "Information Resource (e.g. a file) used as input for the test case".
+.
+
 
 conversion:Curl
    a rdfs:Class;
