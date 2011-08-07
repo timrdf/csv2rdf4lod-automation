@@ -106,7 +106,8 @@ if [ "$1" == "--catalog" ]; then
             echo $rq/test
             pushd $rq/test &> /dev/null
                if [[ "$2" == "-w" ]]; then
-                  echo "@prefix earl: <http://www.w3.org/ns/earl#> ." > list.ttl
+                  echo "@prefix earl: <http://www.w3.org/ns/earl#> ."  > list.ttl
+                  echo ""                                             >> list.ttl
                fi
                for test in `find . -name "*.rq" | sed 's/^\.\///'`; do
                   if [[ "$2" == "-w" ]]; then
