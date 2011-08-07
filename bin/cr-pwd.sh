@@ -16,7 +16,9 @@ if   [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:data-root`             == "
    echo "source/"
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source`                == "yes" ]]; then
    cruft=`cd ../ && pwd`
-   echo $cruft `pwd`
+   here=`pwd`
+   echo $cruft $here
+   echo ${here#$cruft}
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:directory-of-datasets` == "yes" ]]; then
    pwd
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:dataset`               == "yes" ]]; then
