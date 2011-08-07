@@ -124,7 +124,6 @@ if [ "$1" == "--catalog" ]; then
          done 
       popd &> /dev/null
    else
-      pwd
       pwd-not-a.sh cr:data-root cr:dataset cr:conversion-cockpit 
    fi
    exit
