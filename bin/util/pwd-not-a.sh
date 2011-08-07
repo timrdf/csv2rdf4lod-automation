@@ -17,19 +17,19 @@ while [[ $# -ge 1 ]]; do
       echo "  Working directory does not appear to be a data root."
       echo "  You can run this from a data root (e.g. csv2rdf4lod/data/source/)"
    elif [[ $1 == "cr:source"                                                ]]; then
-      echo "  todo"
+      echo "  todo $1"
    elif [[ $1 == "cr:directory-of-datasets"                                 ]]; then
-      echo "  todo"
+      echo "  todo $1"
    elif [[ $1 == "cr:dataset"                                               ]]; then
-      echo "  todo"
+      echo "  todo $1"
    elif [[ $1 == "cr:directory-of-versions"                                 ]]; then
-      echo "  todo"
+      echo "  todo $1"
    elif [[ $1 == "cr:version"              || $1 == "cr:conversion-cockpit" ]]; then
       echo ""
       echo "  Working directory does not appear to be a conversion cockpit."
       echo "  You can run this from a conversion cockpit (e.g. csv2rdf4lod/data/source/SOURCE/DDD/version/VVV/)"
    elif [[ "$1" == "cr:bone" || "$1" == "." ]]; then
-      echo "  todo"
+      echo "  todo $1"
    else
       echo "usage: `basename $0` {$VALIDS}"
       exit 1
