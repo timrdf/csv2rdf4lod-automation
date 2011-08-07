@@ -98,6 +98,21 @@ fi
 # # # # # # End of --rq # # # # # #
 
 
+if [ "$1" == "--catalog" ]; then
+
+   if [[ `is-pwd-a.sh cr:data-root` == "yes" ]]; then
+      for rq in `find . -type d -name rq`; do
+         echo $rq | sed 's/\.\///'
+         pushd $rq &> /dev/null
+         popd $rq &> /dev/null
+      done
+   fi
+fi
+
+
+# # # # # # End of --catalog # # # # # #
+
+
 if [ "$1" == "--setup" ]; then
    shift
    export CSV2RDF4LOD_PUBLISH="true"
