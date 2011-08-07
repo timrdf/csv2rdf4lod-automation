@@ -141,16 +141,16 @@ if [ "$1" == "--show-catalog" ]; then
    exit
 fi
 
-if [ "$1" == "--cat-catalog" ]; then
-   for list in `cr-test-conversion.sh --catalog | grep "^s"`; do 
-      echo ""
-      echo $list; 
-      echo ""
-      path=${list#`cr-pwd.sh`}; 
-      cat $path | sed "s/^ *</$path/"; 
-   done
-   exit
-fi
+#if [ "$1" == "--cat-catalog" ]; then
+#   for list in `cr-test-conversion.sh --catalog | grep "^s"`; do 
+#      echo ""
+#      echo $list; 
+#      echo ""
+#      path=${list#`cr-pwd.sh`}; 
+#      cat $path | sed "s/^ *</$path/"; 
+#   done
+#   exit
+#fi
 
 # # # # # # End of --catalog # # # # # #
 
@@ -178,7 +178,15 @@ fi
 
 
 if [ ${1-"."} == "--help" ]; then
-   echo "usage: `basename $0` [--verbose | -v]" # TODO: parameterize the rq directory.
+   echo "usage: `basename $0` {--rq, --catalog, --show-catalog} [--setup] [--verbose | -v]" # TODO: parameterize the rq directory.
+   echo "`basename $0` --rq                   : create initial rq/test/ask/{present,absent}/*.rq directory structure."
+   echo "`basename $0` --catalog              : find all rq/test and create rq/test/list.ttl rdf:typing them to earl:TestCase."
+   echo "`basename $0` --show-catalog         : show all rq/test/list.ttl"
+   echo "`basename $0`                        : run tests. Needs rq/test or ../../rq/test."
+   echo "`basename $0` {--verbose, -v}        : run tests, showing the query contents."
+   echo "`basename $0` --setup                : run tests, populate the tdb/ beforehand."
+   echo "`basename $0` --setup {--verbose, -v}: run tests, populate the tdb/ beforehand, and show query contents."
+   exit
 fi
 
 CSV2RDF4LOD_PUBLISH=true
