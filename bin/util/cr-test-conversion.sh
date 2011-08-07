@@ -91,7 +91,7 @@ if [ "$1" == "--rq" ]; then
    else
       echo $absent already exists. Not modifying.
    fi
-   exit 1
+   exit
 fi
 
 
@@ -107,6 +107,7 @@ if [ "$1" == "--catalog" ]; then
          popd $rq &> /dev/null
       done
    fi
+   exit
 fi
 
 
