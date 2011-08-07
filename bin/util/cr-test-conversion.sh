@@ -132,6 +132,7 @@ fi
 if [ "$1" == "--show-catalog" ]; then
    for list in `cr-test-conversion.sh --catalog | grep "^s"`; do 
       path=${list#`cr-pwd.sh`}; 
+      echo ""
       echo $path; 
       cat $path | sed 's/^/   /'; 
    done
