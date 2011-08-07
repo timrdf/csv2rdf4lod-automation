@@ -105,7 +105,7 @@ if [ "$1" == "--catalog" ]; then
          echo $rq | sed 's/\.\///'
          pushd $rq &> /dev/null
             for test in `find test -name "*.rq"`; do
-               echo "  $test"
+               echo "    $test"
             done 
          popd &> /dev/null
       done
