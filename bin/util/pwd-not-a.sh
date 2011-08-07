@@ -2,7 +2,7 @@
 #
 # Print error messages guiding user to the right directory type for a particular command invocation.
 #
-# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/is-pwd-a.sh
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/pwd-not-a.sh
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Directory-Conventions
 
 VALIDS=`cr-pwd-type.sh --types`
