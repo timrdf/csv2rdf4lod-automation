@@ -141,10 +141,10 @@ if [ "$1" == "--show-catalog" ]; then
    exit
 fi
 
-if [ "$1" == "--cat-catalog" ]; then
-   cr-test-conversion.sh --show-catalog | grep -v "^[^ ]" | sed 's/^ *//'
-   exit
-fi
+#if [ "$1" == "--cat-catalog" ]; then
+#   cr-test-conversion.sh --show-catalog | grep -v "^[^ ]" | sed 's/^ *//'
+#   exit
+#fi
 
 # # # # # # End of --catalog # # # # # #
 
