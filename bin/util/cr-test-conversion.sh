@@ -142,7 +142,6 @@ if [ "$1" == "--show-catalog" ]; then
 fi
 
 if [ "$1" == "--cat-catalog" ]; then
-   echo yo
    cr-test-conversion.sh --show-catalog | grep -v "^[^ ]" | sed 's/^ *//'
    exit
 fi
