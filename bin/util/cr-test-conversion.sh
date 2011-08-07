@@ -134,6 +134,7 @@ if [ "$1" == "--show-catalog" ]; then
       path=${list#`cr-pwd.sh`}; 
       echo ""
       echo $path; 
+      echo ""
       cat $path | sed 's/^/   /'; 
    done
 fi
