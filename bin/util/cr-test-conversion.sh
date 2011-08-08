@@ -252,7 +252,7 @@ for rq in `find $rq_dir -name "*.rq"`; do
 
       echo "$rq ($response)"
       echo
-      query=`cat $rq | grep -v "^prefix" | grep -v "^ASK" | grep -v "^WHERE" | grep -v "^ *GRAPH" | grep -v "^ *} *$" | grep -v "^ *$"`
+      query=`cat $rq | grep -v -i "^prefix" | grep -v -i "^ASK" | grep -v -i "^WHERE" | grep -v -i "^ *GRAPH" | grep -v "^ *} *$" | grep -v "^ *$"`
       echo "$query"
       echo
 
