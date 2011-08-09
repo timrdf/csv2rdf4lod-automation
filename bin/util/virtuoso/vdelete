@@ -41,10 +41,10 @@ ${isql_cmd} ${isql_pass} << EOF &> $vdelete_log
    checkpoint;
    exit;
 EOF
-echo ""                                                                >> $vdelete_log
-echo "# start time: $start"                                            >> $vdelete_log
-echo "# user: `whoami`"                                                >> $vdelete_log
-echo "# end time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vdelete_log
+echo ""                                                                  >> $vdelete_log
+echo "# start time: $start"                                              >> $vdelete_log
+echo "# user: `whoami`"                                                  >> $vdelete_log
+echo "# end   time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vdelete_log
 
 # Move the latest.log pointer to the log we just created.
 rm $log_dir/latest.log &> /dev/null
