@@ -15,9 +15,9 @@ if [ ! `which rapper` ]; then
    exit 1
 fi
 
-assudo="sudo"
+sudo="sudo"
 if [ `whoami` == "root" ]; then
-   assudo=""
+   sudo=""
 fi
 
 # Log the invocation of this script.
