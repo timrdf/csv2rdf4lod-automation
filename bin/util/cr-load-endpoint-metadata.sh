@@ -72,24 +72,22 @@ pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query
    asOf=`dateInXSDDateTime.sh`
    echo
    echo "--- $datasetGraph $asOf"
-   pwd
-   ls
-   echo $asOf                                                                                                                > results/dataset-as-of.txt
-   echo "<$datasetGraph>       <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-as-of.nt
+   $sudo echo $asOf                                                                                                                > results/dataset-as-of.txt
+   $sudo echo "<$datasetGraph>       <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-as-of.nt
    # @deprecated: $sudo /opt/virtuoso/scripts/vload nt results/dataset-as-of.nt        $datasetGraph
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-as-of.nt        $datasetGraph
 
    echo
    echo "--- $sameAsDatasetGraph $asOf"
-   echo $asOf                                                                                                                > results/dataset-sameas-as-of.txt
-   echo "<$sameAsDatasetGraph> <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-sameas-as-of.nt
+   $sudo echo $asOf                                                                                                                > results/dataset-sameas-as-of.txt
+   $sudo echo "<$sameAsDatasetGraph> <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-sameas-as-of.nt
    # @deprecated: $sudo /opt/virtuoso/scripts/vload nt results/dataset-sameas-as-of.nt $sameAsDatasetGraph
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-sameas-as-of.nt $sameAsDatasetGraph
 
    echo
    echo "--- $paramsDatasetGraph $asOf"
-   echo $asOf                                                                                                                > results/dataset-params-as-of.txt
-   echo "<$paramsDatasetGraph> <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-params-as-of.nt
+   $sudo echo $asOf                                                                                                                > results/dataset-params-as-of.txt
+   $sudo echo "<$paramsDatasetGraph> <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-params-as-of.nt
    # @deprecated: $sudo /opt/virtuoso/scripts/vload nt results/dataset-params-as-of.nt $paramsDatasetGraph
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-params-as-of.nt $paramsDatasetGraph
 
