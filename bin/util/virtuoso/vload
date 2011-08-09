@@ -12,7 +12,7 @@
 
 #
 # Check usage
-if [[ $# -lt 3 || -gt 4 ]]; then
+if [[ $# -lt 3 || $# -gt 4 ]]; then
 	echo "usage: `basename $0` {rdf, ttl, nt, nq} <data_file> <graph_uri> [-v | --verbose]"
    exit 1
 fi
