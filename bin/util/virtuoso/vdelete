@@ -34,16 +34,17 @@ fi
 vdelete_log=$log_dir/delete_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
 
 # Call SPARQL CLEAR to delete named graphs
-echo "# time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vdelete_log
+start=`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`
 sparql_delete="SPARQL CLEAR GRAPH <$graph_uri>;"
 ${isql_cmd} ${isql_pass} << EOF &> $vdelete_log
    $sparql_delete
    checkpoint;
    exit;
 EOF
-echo ""                                                            >> $vdelete_log
-echo "# user: `whoami`"                                            >> $vdelete_log
-echo "# time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vdelete_log
+echo ""                                                                >> $vdelete_log
+echo "# start time: $start"                                            >> $vload_log
+echo "# user: `whoami`"                                                >> $vdelete_log
+echo "# end time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vdelete_log
 
 # Move the latest.log pointer to the log we just created.
 rm $log_dir/latest.log &> /dev/null
