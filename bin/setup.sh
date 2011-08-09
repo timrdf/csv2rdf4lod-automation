@@ -95,7 +95,9 @@ export CSV2RDF4LOD_CONVERT_PERSON_URI=""
 # This is ONLY required to avoid a redundant file copy when loading into Virtuoso.
 # If it is not set, things will still work but we waste time and disk space.
 #
-# (used in vload)
+# (used in
+#  https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-load-endpoint-metadata.sh
+#  https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/virtuoso/vload)
 #
 export CSV2RDF4LOD_CONVERT_DATA_ROOT="/projects/lobd/data/source"
 export CSV2RDF4LOD_CONVERT_DATA_ROOT=""
