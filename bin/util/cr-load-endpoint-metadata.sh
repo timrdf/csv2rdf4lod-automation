@@ -18,8 +18,8 @@ fi
 # Log the invocation of this script.
 log_dir="${CSV2RDF4LOD_HOME}/log/`basename $0`"
 if [ ! -d $log_dir ]; then
-   mkdir -p $log_dir
-   chmod a+w $log_dir
+   sudo mkdir -p $log_dir
+   sudo chmod a+w $log_dir
 fi
 log_file=$log_dir/`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_`whoami`_pid$$.log
 echo "start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` > $log_file
@@ -60,7 +60,7 @@ if [ ! -d "${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}" ]; then
    exit 1
 fi
 if [ ! -d "${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query" ]; then 
-   mkdir -p ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query
+   sudo mkdir -p ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query
 fi
 pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query 
    assudo="sudo"
