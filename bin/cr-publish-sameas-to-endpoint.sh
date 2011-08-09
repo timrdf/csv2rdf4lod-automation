@@ -95,19 +95,19 @@ do
 done
 
 echo ""
-echo "Deleting $namedGraph"                                 >&2
-echo  "  $assudo /opt/virtuoso/scripts/vdelete $namedGraph" >&2
+echo "Deleting $namedGraph"                                         >&2
+echo  "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph" >&2
 if [ ${dryRun:-"."} != "true" -a $namedGraph != "." ]; then
-   $assudo /opt/virtuoso/scripts/vdelete               $namedGraph 
-   # TODO: ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete
+   # @deprecated: $assudo /opt/virtuoso/scripts/vdelete               $namedGraph 
+   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph 
 fi
 
 echo ""
-echo "Loading sameas into $namedGraph"                                   >&2
-echo "  $assudo /opt/virtuoso/scripts/vload nt $TEMP_sameas $namedGraph" >&2
+echo "Loading sameas into $namedGraph"                                           >&2
+echo "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP_sameas $namedGraph" >&2
 if [ ${dryRun:-"."} != "true" -a $namedGraph != "." ]; then
-   $assudo /opt/virtuoso/scripts/vload   nt $TEMP_sameas $namedGraph
-   # TODO: ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload
+   # @deprecated: $assudo /opt/virtuoso/scripts/vload   nt $TEMP_sameas $namedGraph
+   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP_sameas $namedGraph
 fi
 
 if [ -e $TEMP_sameas ]; then

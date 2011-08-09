@@ -121,8 +121,10 @@ for file in `find $TEMP -name "*gz"`; do files_to_load="yes"; done
 if [ $files_to_load == "yes" -a ${dryRun:-"false"} == "false" ]; then
    echo "-----------------------------------------------------------"
 
-   echo $assudo /opt/virtuoso/scripts/vdelete $metaDatasetGraph
-   $assudo /opt/virtuoso/scripts/vdelete $metaDatasetGraph # TODO: use $CSV2RDF4LOD_HOME/bin/util/virtuoso/vdelete
+   # @deprecated: echo $assudo /opt/virtuoso/scripts/vdelete $metaDatasetGraph
+   # @deprecated: $assudo /opt/virtuoso/scripts/vdelete $metaDatasetGraph
+   echo $assudo ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $metaDatasetGraph
+   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $metaDatasetGraph
    
 
    # Load data into graph
@@ -132,7 +134,8 @@ if [ $files_to_load == "yes" -a ${dryRun:-"false"} == "false" ]; then
       gunzip $zip
       ttl=`echo $zip | sed 's/^\.\/// ; s/.gz$//'`
       echo "[INFO] Loading `pwd`/$ttl into $metaDatasetGraph"
-      $assudo /opt/virtuoso/scripts/vload ttl $ttl $metaDatasetGraph # TODO: use $CSV2RDF4LOD_HOME/bin/util/virtuoso/vload
+      # @deprecated: $assudo /opt/virtuoso/scripts/vload ttl $ttl $metaDatasetGraph
+      ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload ttl $ttl $metaDatasetGraph
       $assudo rm $zip 2> /dev/null
    done
 elif [ $files_to_load == "yes" ]; then

@@ -835,7 +835,7 @@ echo "dump=$allRDFXML"                                                          
 echo "url=$http_allRDFXML"                                                                      >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                   >> $vloadSH
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                            >> $vloadSH
-echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                                   >> $vloadSH
+#echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                                   >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
 echo "elif [ -e \$dump.$zip ]; then"                                                            >> $vloadSH 
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                       >> $vloadSH

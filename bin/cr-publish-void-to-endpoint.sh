@@ -103,16 +103,16 @@ do
 done
 
 echo ""
-echo "Deleting $namedGraph"                                 >&2
-echo  "  $assudo /opt/virtuoso/scripts/vdelete $namedGraph" >&2
+echo "Deleting $namedGraph"                                         >&2
+echo  "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph" >&2
 if [ ${dryRun:-"."} != "true" -a $namedGraph != "." ]; then
    # @deprecated: $assudo /opt/virtuoso/scripts/vdelete               $namedGraph 
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete             $namedGraph
 fi
 
 echo ""
-echo "Loading void into $namedGraph"                                   >&2
-echo "  $assudo /opt/virtuoso/scripts/vload nt $TEMP_void $namedGraph" >&2
+echo "Loading void into $namedGraph"                                           >&2
+echo "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP_void $namedGraph" >&2
 if [ ${dryRun:-"."} != "true" -a $namedGraph != "." ]; then
    # @deprecated: $assudo /opt/virtuoso/scripts/vload   nt $TEMP_void $namedGraph
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP_void $namedGraph
