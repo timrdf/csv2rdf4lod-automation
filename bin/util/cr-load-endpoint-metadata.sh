@@ -72,6 +72,8 @@ pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query
    asOf=`dateInXSDDateTime.sh`
    echo
    echo "--- $datasetGraph $asOf"
+   pwd
+   ls
    echo $asOf                                                                                                                > results/dataset-as-of.txt
    echo "<$datasetGraph>       <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-as-of.nt
    # @deprecated: $sudo /opt/virtuoso/scripts/vload nt results/dataset-as-of.nt        $datasetGraph
