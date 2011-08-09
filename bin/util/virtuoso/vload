@@ -132,5 +132,5 @@ else
 fi
 
 if [[ "$4" == "-v" || "$4" == "--verbose" ]]; then
-   cat $vdelete_log
+   cat $vload_log
 fi
