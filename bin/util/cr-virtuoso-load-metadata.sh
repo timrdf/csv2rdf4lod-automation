@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-virtuoso-load-metadata.sh
 #
@@ -12,7 +12,10 @@ CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh o
 CSV2RDF4LOD_CONVERT_DATA_ROOT=${CSV2RDF4LOD_CONVERT_DATA_ROOT:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT=${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
-
+if [ ! `which rapper` ]; then
+   echo "need rapper on path."
+   exit 1
+fi
 
 # Log the invocation of this script.
 log_dir="${CSV2RDF4LOD_HOME}/log/`basename $0`"
