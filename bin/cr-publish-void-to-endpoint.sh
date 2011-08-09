@@ -10,6 +10,9 @@
 #      datasetGraph=`cr-publish-void-to-endpoint.sh   -n auto 2>&1 | awk '/Will populate into/{print $7}'`
 #      cr-publish-void-to-endpoint.sh   auto # http://logd.tw.rpi.edu/vocab/Dataset
 
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"must be set. source csv2rdf4lod/source-me.sh."}
+CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"must be set. source csv2rdf4lod/source-me.sh."}
+
 ACCEPTABLE_PWDs="cr:data-root cr:source"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
@@ -28,6 +31,14 @@ if [ $ANCHOR_SHOULD_BE_SOURCE != "source" ]; then
 else
    numDatasets="one"      
    namedGraph=$CSV2RDF4LOD_BASE_URI/source/`basename $back_zero`/vocab/Dataset
+fi
+
+if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:data-root` == "yes" ]; then
+   numDatasets="all"      
+   namedGraph="$CSV2RDF4LOD_BASE_URI/vocab/Dataset"
+elif [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source` == "yes" ]; then
+   numDatasets="one"      
+   namedGraph=$CSV2RDF4LOD_BASE_URI/source/`is-pwd-a.sh cr:source --id-of source`/vocab/Dataset
 fi
 
 echo $numDatasets into $namedGraph
@@ -61,8 +72,6 @@ if [ $# -gt 0 -a "$1" != "auto" ]; then
    shift 
 fi
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"must be set. source csv2rdf4lod/source-me.sh."}
-CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"must be set. source csv2rdf4lod/source-me.sh."}
 
 TEMP_void="_"`basename $0``date +%s`_$$.tmp
 ARCHIVED_void=""
