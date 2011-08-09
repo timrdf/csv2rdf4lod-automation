@@ -24,15 +24,13 @@ if [ $ANCHOR_SHOULD_BE_SOURCE != "source" ]; then
    if [ `basename $back_zero` == "source" ]; then
       numDatasets="all"      
       namedGraph="$CSV2RDF4LOD_BASE_URI/vocab/Dataset"
-   else
-      echo "  Working directory does not appear to be a SOURCE directory."
-      echo "  Run `basename $0` from a SOURCE directory (e.g. csv2rdf4lod/data/source/SOURCE/)"
-      exit 1
    fi
 else
    numDatasets="one"      
    namedGraph=$CSV2RDF4LOD_BASE_URI/source/`basename $back_zero`/vocab/Dataset
 fi
+
+echo $numDatasets into $namedGraph
 
 if [ $# -lt 1 ]; then
    echo "usage: `basename $0` [-n] <named_graph_URI | auto | .>"
