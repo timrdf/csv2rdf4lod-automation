@@ -38,7 +38,7 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:data-root` == "yes" ]; then
    namedGraph="$CSV2RDF4LOD_BASE_URI/vocab/Dataset"
 elif [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source` == "yes" ]; then
    numDatasets="one"      
-   namedGraph=$CSV2RDF4LOD_BASE_URI/source/`is-pwd-a.sh cr:source --id-of source`/vocab/Dataset
+   namedGraph=$CSV2RDF4LOD_BASE_URI/source/`is-pwd-a.sh cr:bone --id-of source`/vocab/Dataset
 fi
 
 echo $numDatasets into $namedGraph
