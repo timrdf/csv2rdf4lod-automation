@@ -130,7 +130,7 @@ fi
 if [ "$dryRun" == "true" ]; then
    echo "" 
    echo "" 
-   echo "       (NOTE: only performed dryrun; remove -n parameter to actually load triple store.)"
+   echo "       (NOTE: only performed dryrun; remove -n parameter to actually load triple store's <$namedGraph>)"
    echo ""
    echo ""
    shift 
