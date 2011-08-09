@@ -4,28 +4,18 @@
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets
 #
 # Usage:
-#    (pwd: source/DDD, e.g. source/data-gov):
 #
-#    cr-rerun-virtuoso-load-sh.sh -con raw 1623
-#       deletes automatic/* and only runs the raw conversion.
-#
-#    cr-rerun-virtuoso-load-sh.sh 1623
-#       same as `cr-rerun-virtuoso-load-sh.sh -con e1 1623`
-#
-#    cr-rerun-virtuoso-load-sh.sh -con e1 1623
-#       if raw conversion is NOT in automatic/, runs the raw conversion
-#       if raw conversion is     in automatic/, runs the e1  conversion
-#
-#    cr-rerun-virtuoso-load-sh.sh -con raw `cr-list-sources-datasets.sh`
-#
-#    todo:
-#       deletes publish/* (not automatic/*) and runs ./convert-1263.sh in all version directories.
-# 
 # Example usage:
 #   pushd /work/data-gov/v2010/csv2rdf4lod/data/source
 #      datasetGraph=`cr-publish-void-to-endpoint.sh   -n auto 2>&1 | awk '/Will populate into/{print $7}'`
 #      cr-publish-void-to-endpoint.sh   auto # http://logd.tw.rpi.edu/vocab/Dataset
 
+ACCEPTABLE_PWDs="cr:data-root cr:source"
+if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
+   exit 1
+   # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
+fi
 
 back_one=`cd .. 2>/dev/null && pwd`
 back_zero=`pwd`
