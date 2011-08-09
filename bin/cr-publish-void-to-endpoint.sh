@@ -42,7 +42,9 @@ dryRun="false"
 if [ "$1" == "-n" ]; then
    dryRun="true"
    echo "" 
+   echo "" 
    echo "       (NOTE: only performing dryrun; remove -n parameter to actually convert.)"
+   echo "" 
    echo ""
    shift 
 fi
@@ -123,4 +125,13 @@ if [ -e $TEMP_void ]; then
       tar czf $TEMP_void.tgz $TEMP_void
    fi
    rm $TEMP_void 
+fi
+
+if [ "$dryrun" == "true" ]; then
+   echo "" 
+   echo "" 
+   echo "       (NOTE: only performing dryrun; remove -n parameter to actually convert.)"
+   echo ""
+   echo ""
+   shift 
 fi
