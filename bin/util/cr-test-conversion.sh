@@ -167,6 +167,20 @@ if [ "$1" == "--setup" ]; then
          fi
          publish/bin/publish.sh
       fi
+      # Make sure conversions are published.
+      published="no"
+      for ttl in `find publish -depth 0 -name "*.ttl"`; do echo $ttl; published="yes"; done
+      if [[ "$published" == "no" ]]; then
+         echo "`basename $0` rerunning publish/bin/publish.sh b/c no publish/*.ttl"
+         publish/bin/publish.sh
+      fi
+      # Make sure the published conversions are newer than the unpublished conversions.
+      latestAutomaticTTL=`ls -lt automatic/*.ttl | grep ttl | head -1`
+      latestPublishedTTL=`ls -lt   publish/*.ttl | grep ttl | head -1`
+      if [[ $latestPublishedTTL -ot $latestAutomaticTTL ]]; then
+         echo "`basename $0` rerunning publish/bin/publish.sh b/c publish/*.ttl older than automatic/*.ttl"
+         publish/bin/publish.sh
+      fi
       $tdbloader
    else
       echo "https://github.com/timrdf/csv2rdf4lod-automation/issues/171"
