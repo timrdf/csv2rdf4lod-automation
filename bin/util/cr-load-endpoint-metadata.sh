@@ -90,6 +90,9 @@ pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query
    #
    # Cache the dataset summary SPARQL queries
    #
+   if [ ! -e cr-load-endpoint-metadataset.rq ]; then
+      $sudo cat $CSV2RDF4LOD_HOME/bin/util/cr-load-endpoint-metadataset.trq | sed "s/\?:graph/<$datasetGraph>/" > cr-load-endpoint-metadataset.rq
+   fi
    echo "cache-queries.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
    $assudo cache-queries.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} -o sparql gvds xml csv -q *.rq *.sparql
    # -o sparql gvds xml
