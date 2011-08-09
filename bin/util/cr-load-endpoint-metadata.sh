@@ -99,7 +99,7 @@ pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query
    fi
    echo
    echo "cache-queries.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
-   for query in `find . -name *.rq -o -name *.sparql`; do
+   for query in `find . -name "*.rq$" -o -name "*.sparql$"`; do
       $sudo cache-queries.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} -o sparql gvds xml csv -q $query
    done
    # -o sparql gvds xml
