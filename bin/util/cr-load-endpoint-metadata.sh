@@ -77,12 +77,12 @@ pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query
    # @deprecated: $sudo /opt/virtuoso/scripts/vload nt results/dataset-as-of.nt        $datasetGraph
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-as-of.nt        $datasetGraph
 
-   echo
-   echo "--- $sameAsDatasetGraph $asOf"
-   $sudo echo $asOf                                                                                                                > results/dataset-sameas-as-of.txt
-   $sudo echo "<$sameAsDatasetGraph> <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-sameas-as-of.nt
-   # @deprecated: $sudo /opt/virtuoso/scripts/vload nt results/dataset-sameas-as-of.nt $sameAsDatasetGraph
-   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-sameas-as-of.nt $sameAsDatasetGraph
+   #echo
+   #echo "--- $sameAsDatasetGraph $asOf"
+   #$sudo echo $asOf                                                                                                                > results/dataset-sameas-as-of.txt
+   #$sudo echo "<$sameAsDatasetGraph> <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-sameas-as-of.nt
+   ## @deprecated: $sudo /opt/virtuoso/scripts/vload nt results/dataset-sameas-as-of.nt $sameAsDatasetGraph
+   #${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-sameas-as-of.nt $sameAsDatasetGraph
 
    echo
    echo "--- $paramsDatasetGraph $asOf"
@@ -94,9 +94,7 @@ pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query
    #
    # Cache the dataset summary SPARQL queries
    #
-   if [ ! -e cr-load-endpoint-metadataset.rq ]; then
-      $sudo cat $CSV2RDF4LOD_HOME/bin/util/cr-load-endpoint-metadataset.trq | sed "s/\?:graph/<$datasetGraph>/" > cr-load-endpoint-metadataset.rq
-   fi
+   $sudo cat $CSV2RDF4LOD_HOME/bin/util/cr-load-endpoint-metadataset.trq | sed "s/\?:graph/<$datasetGraph>/" > cr-load-endpoint-metadataset.rq
    echo
    echo "cache-queries.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
    for query in `find . -name "*.rq$" -o -name "*.sparql$"`; do
