@@ -97,7 +97,10 @@ pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query
    $sudo perl -pe "s|\?:graph|<$datasetGraph>|" $CSV2RDF4LOD_HOME/bin/util/cr-load-endpoint-metadataset.trq > cr-load-endpoint-metadataset.rq
    echo
    echo "cache-queries.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
+   find . -name ".rq" -o -name "*.sparql"
+   echo FIND
    for query in `find . -name ".rq" -o -name "*.sparql"`; do
+      echo $query
       $sudo cache-queries.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} -o sparql gvds xml csv -q $query
    done
    # -o sparql gvds xml
