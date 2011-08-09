@@ -31,6 +31,10 @@ rm $log_dir/latest.log &> /dev/null
 ln -s $log_file $log_dir/latest.log
 
 
+if [ ! -d "${CSV2RDF4LOD_CONVERT_DATA_ROOT}" ]; then
+   echo "[WARNING] CSV2RDF4LOD_CONVERT_DATA_ROOT: $CSV2RDF4LOD_CONVERT_DATA_ROOT does not exist; cannot load metadata."
+   exit 1
+fi
 pushd ${CSV2RDF4LOD_CONVERT_DATA_ROOT}
 
    echo "cr-publish-void-to-endpoint.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`   | tee -a $log_file
@@ -38,10 +42,10 @@ pushd ${CSV2RDF4LOD_CONVERT_DATA_ROOT}
    cr-publish-void-to-endpoint.sh   auto # http://logd.tw.rpi.edu/vocab/Dataset
    echo "cr-publish-void-to-endpoint.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`     | tee -a $log_file
 
-   echo "cr-publish-sameas-to-endpoint.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
-   sameAsDatasetGraph=`cr-publish-sameas-to-endpoint.sh -n auto 2>&1 | awk '/Will populate into/{print $7}'`
-   cr-publish-sameas-to-endpoint.sh auto # http://purl.org/twc/vocab/conversion/SameAsDataset
-   echo "cr-publish-sameas-to-endpoint.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`   | tee -a $log_file
+   #echo "cr-publish-sameas-to-endpoint.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
+   #sameAsDatasetGraph=`cr-publish-sameas-to-endpoint.sh -n auto 2>&1 | awk '/Will populate into/{print $7}'`
+   #cr-publish-sameas-to-endpoint.sh auto # http://purl.org/twc/vocab/conversion/SameAsDataset
+   #echo "cr-publish-sameas-to-endpoint.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`   | tee -a $log_file
 
    echo "cr-publish-params-to-endpoint.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
    paramsDatasetGraph=`cr-publish-params-to-endpoint.sh -n auto 2>&1 | awk '/Will populate into/{print $7}'`
@@ -51,7 +55,11 @@ pushd ${CSV2RDF4LOD_CONVERT_DATA_ROOT}
 popd
 
 
-if [ ! -d ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query ]; then 
+if [ ! -d "${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}" ]; then 
+   echo "[WARNING] CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT: $CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT does not exist; cannot cache queries."
+   exit 1
+fi
+if [ ! -d "${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query" ]; then 
    mkdir -p ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query
 fi
 pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query 
