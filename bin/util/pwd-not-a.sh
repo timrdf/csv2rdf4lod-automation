@@ -42,7 +42,7 @@ while [[ $# -ge 1 ]]; do
       echo ""
       echo "  Working directory does not appear to be a conversion cockpit."
       echo "  You can run this from a conversion cockpit"
-      echo "(e.g. \$whatever/source/mySOURCE/myDATASET/version/VVV/)."
+      echo "  (e.g. \$whatever/source/mySOURCE/myDATASET/version/VVV/)."
    elif [[ "$1" == "cr:bone" || "$1" == "." ]]; then
       echo "  todo $1"
    else
