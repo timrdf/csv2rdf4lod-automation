@@ -20,19 +20,6 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 fi
 
-back_one=`cd .. 2>/dev/null && pwd`
-back_zero=`pwd`
-ANCHOR_SHOULD_BE_SOURCE=`basename $back_one`
-if [ $ANCHOR_SHOULD_BE_SOURCE != "source" ]; then
-   if [ `basename $back_zero` == "source" ]; then
-      numDatasets="all"      
-      namedGraph="$CSV2RDF4LOD_BASE_URI/vocab/Dataset"
-   fi
-else
-   numDatasets="one"      
-   namedGraph=$CSV2RDF4LOD_BASE_URI/source/`basename $back_zero`/vocab/Dataset
-fi
-
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:data-root` == "yes" ]; then
    numDatasets="all"      
    namedGraph="$CSV2RDF4LOD_BASE_URI/vocab/Dataset"
@@ -40,8 +27,6 @@ elif [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source` == "yes" ]; then
    numDatasets="one"      
    namedGraph=$CSV2RDF4LOD_BASE_URI/source/`is-pwd-a.sh cr:bone --id-of source`/vocab/Dataset
 fi
-
-echo $numDatasets into $namedGraph
 
 if [ $# -lt 1 ]; then
    echo "usage: `basename $0` [-n] <named_graph_URI | auto | .>"
@@ -83,7 +68,7 @@ if [ `whoami` == "root" ]; then
    fi
 fi
 
-echo "Finding all VoIDs. Will populate into $namedGraph" >&2
+echo "Finding all VoIDs from `pwd`. Will populate into $namedGraph" >&2
 if [ $numDatasets == "one" ]; then
    # all datasets of ONE source
    voids=`$assudo find */version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
