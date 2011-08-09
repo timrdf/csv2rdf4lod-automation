@@ -123,8 +123,8 @@ fi
 
 # TODO: cat file if it contains /^... Error/
 if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
-   echo "Loading finished! $vload_log:"	
+   echo "Loading finished. $vload_log:"	
    cat $vload_log
 else
-   echo "Loading finished! Check $virtuoso_allowed_dir/latest.log for details."	
+   echo "Loading finished. Check $virtuoso_allowed_dir/latest.log for details (currently $vload_log)."	
 fi
