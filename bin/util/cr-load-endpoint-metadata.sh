@@ -15,11 +15,16 @@ if [ ! `which rapper` ]; then
    exit 1
 fi
 
+assudo="sudo"
+if [ `whoami` == "root" ]; then
+   assudo=""
+fi
+
 # Log the invocation of this script.
 log_dir="${CSV2RDF4LOD_HOME}/log/`basename $0`"
 if [ ! -d $log_dir ]; then
-   sudo mkdir -p $log_dir
-   sudo chmod a+w $log_dir
+   $sudo mkdir -p $log_dir
+   $sudo chmod a+w $log_dir
 fi
 log_file=$log_dir/`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_`whoami`_pid$$.log
 echo "start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` > $log_file
@@ -59,14 +64,10 @@ if [ ! -d "${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}" ]; then
    echo "[WARNING] CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT: $CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT does not exist; cannot cache queries."
    exit 1
 fi
-if [ ! -d "${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query" ]; then 
-   sudo mkdir -p ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query
+if [ ! -d "${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query/results" ]; then 
+   $sudo mkdir -p ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query/results
 fi
 pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query 
-   assudo="sudo"
-   if [ `whoami` == "root" ]; then
-      assudo=""
-   fi
 
    asOf=`dateInXSDDateTime.sh`
    echo $datasetGraph $asOf
