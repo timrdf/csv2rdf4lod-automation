@@ -8,6 +8,7 @@ ACCEPTABLE_PWDs="cr:dataset cr:directory-of-versions cr:conversion-cockpit"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
+   # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 fi
 
 prefixDef=""
