@@ -43,17 +43,17 @@ fi
 pushd ${CSV2RDF4LOD_CONVERT_DATA_ROOT}
 
    echo "cr-publish-void-to-endpoint.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`   | tee -a $log_file
-         datasetGraph=`cr-publish-void-to-endpoint.sh   -n auto 2>&1 | awk '/Will populate into/{print $7}'`
+         datasetGraph=`cr-publish-void-to-endpoint.sh   -n auto 2>&1 | awk '/Will populate into/{print $9}'`
    cr-publish-void-to-endpoint.sh   auto # http://logd.tw.rpi.edu/vocab/Dataset
    echo "cr-publish-void-to-endpoint.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`     | tee -a $log_file
 
    #echo "cr-publish-sameas-to-endpoint.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
-   #sameAsDatasetGraph=`cr-publish-sameas-to-endpoint.sh -n auto 2>&1 | awk '/Will populate into/{print $7}'`
+   #sameAsDatasetGraph=`cr-publish-sameas-to-endpoint.sh -n auto 2>&1 | awk '/Will populate into/{print $9}'`
    #cr-publish-sameas-to-endpoint.sh auto # http://purl.org/twc/vocab/conversion/SameAsDataset
    #echo "cr-publish-sameas-to-endpoint.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`   | tee -a $log_file
 
    echo "cr-publish-params-to-endpoint.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
-   paramsDatasetGraph=`cr-publish-params-to-endpoint.sh -n auto 2>&1 | awk '/Will populate into/{print $7}'`
+   paramsDatasetGraph=`cr-publish-params-to-endpoint.sh -n auto 2>&1 | awk '/Will populate into/{print $9}'`
    cr-publish-params-to-endpoint.sh auto # http://purl.org/twc/vocab/conversion/ConversionProcess
    echo "cr-publish-params-to-endpoint.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`   | tee -a $log_file
 

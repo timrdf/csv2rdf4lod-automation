@@ -77,7 +77,7 @@ if [ `whoami` == "root" ]; then
    assudo=""
 fi
 
-echo "Finding all csv2rdf4lod-params. Will populate into $namedGraph" >&2
+echo "Finding all csv2rdf4lod-params in `pwd`. Will populate into $namedGraph" >&2
 if [ $numDatasets == "one" ]; then
    params=`$assudo find */version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
 else
