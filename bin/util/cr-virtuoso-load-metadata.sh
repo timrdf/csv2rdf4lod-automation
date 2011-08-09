@@ -4,9 +4,7 @@
 #
 # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets
 
-PATH=$PATH:/usr/local/bin/                                        # to get rapper on
-source /work/data-gov/v2010/csv2rdf4lod/config/csv2rdf4lod-source-me-logd.sh # replaces the above; now in svn. -lebot 2011 July 29
-echo Using CSV2RDF4LOD_HOME $CSV2RDF4LOD_HOME
+# TODO: When running cron as root, need to make sure all vars are set: source /work/data-gov/v2010/csv2rdf4lod/config/csv2rdf4lod-source-me-logd.sh # replaces the above; now in svn. -lebot 2011 July 29
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 CSV2RDF4LOD_CONVERT_DATA_ROOT=${CSV2RDF4LOD_CONVERT_DATA_ROOT:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
