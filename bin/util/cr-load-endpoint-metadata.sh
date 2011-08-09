@@ -114,10 +114,10 @@ popd
 pushd ${CSV2RDF4LOD_CONVERT_DATA_ROOT}
    # Populate the MetaDataset named graph.
    metaDatasetGraph='http://purl.org/twc/vocab/conversion/MetaDataset'
-   echo "cr-virtuoso-load-metadataset.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`  | tee -a $log_file
+   echo "cr-load-endpoint-metadataset.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`  | tee -a $log_file
                                                     # @deprecated: $sudo ./logd-load-metadata-graph.sh -w -ng $metaDatasetGraph
-   $CSV2RDF4LOD_HOME/bin/util/cr-virtuoso-load-metadataset.sh -w -ng $metaDatasetGraph
-   echo "cr-virtuoso-load-metadataset.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`    | tee -a $log_file
+   $CSV2RDF4LOD_HOME/bin/util/cr-load-endpoint-metadataset.sh -w -ng $metaDatasetGraph
+   echo "cr-load-endpoint-metadataset.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`    | tee -a $log_file
 popd
 
 echo "end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
