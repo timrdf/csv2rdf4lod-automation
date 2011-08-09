@@ -9,7 +9,7 @@
 # Description: Bash script to delte a named graph in Virtuoso
 # Usage: vdelete [graph_uri]
 
-if [ $# -ne 1 ]; then
+if [[ $# -lt 1 || $# -gt 2 ]]; then
 	echo "usage: `basename $0` <graph_uri> [-v | --verbose]"
    exit 1
 fi
