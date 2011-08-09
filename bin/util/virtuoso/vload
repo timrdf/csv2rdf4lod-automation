@@ -60,7 +60,7 @@ if [[ $load_in_place == "false" ]]; then
    file_name_full=$virtuoso_allowed_dir/$file_name_local
    echo COPYING ${data_file} $file_name_full
 else
-   echo "(no need to copy; file is within \$CSV2RDF4LOD_CONVERT_DATA_ROOT, a virtuoso-readable directory."
+   echo "(no need to copy; file is within \$CSV2RDF4LOD_CONVERT_DATA_ROOT, a virtuoso-readable directory.)"
    file_name_full=$data_file
 fi
 
