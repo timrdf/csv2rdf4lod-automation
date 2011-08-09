@@ -43,7 +43,7 @@ if [ "$1" == "-n" ]; then
    dryRun="true"
    echo "" 
    echo "" 
-   echo "       (NOTE: only performing dryrun; remove -n parameter to actually convert.)"
+   echo "       (NOTE: only performing dryrun; remove -n parameter to actually load triple store.)"
    echo "" 
    echo ""
    shift 
@@ -130,7 +130,7 @@ fi
 if [ "$dryRun" == "true" ]; then
    echo "" 
    echo "" 
-   echo "       (NOTE: only performing dryrun; remove -n parameter to actually convert.)"
+   echo "       (NOTE: only performed dryrun; remove -n parameter to actually load triple store.)"
    echo ""
    echo ""
    shift 
