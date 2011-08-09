@@ -127,7 +127,7 @@ if [ -e $TEMP_void ]; then
    rm $TEMP_void 
 fi
 
-if [ "$dryrun" == "true" ]; then
+if [ "$dryRun" == "true" ]; then
    echo "" 
    echo "" 
    echo "       (NOTE: only performing dryrun; remove -n parameter to actually convert.)"
