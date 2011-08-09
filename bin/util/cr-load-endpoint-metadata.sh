@@ -73,19 +73,19 @@ pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query
    echo $datasetGraph $asOf
    echo $asOf                                                                                                                > results/dataset-as-of.txt
    echo "<$datasetGraph>       <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-as-of.nt
-   # @deprecated: $assudo /opt/virtuoso/scripts/vload nt results/dataset-as-of.nt        $datasetGraph
+   # @deprecated: $sudo /opt/virtuoso/scripts/vload nt results/dataset-as-of.nt        $datasetGraph
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-as-of.nt        $datasetGraph
 
    echo $sameAsDatasetGraph $asOf
    echo $asOf                                                                                                                > results/dataset-sameas-as-of.txt
    echo "<$sameAsDatasetGraph> <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-sameas-as-of.nt
-   # @deprecated: $assudo /opt/virtuoso/scripts/vload nt results/dataset-sameas-as-of.nt $sameAsDatasetGraph
+   # @deprecated: $sudo /opt/virtuoso/scripts/vload nt results/dataset-sameas-as-of.nt $sameAsDatasetGraph
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-sameas-as-of.nt $sameAsDatasetGraph
 
    echo $paramsDatasetGraph $asOf
    echo $asOf                                                                                                                > results/dataset-params-as-of.txt
    echo "<$paramsDatasetGraph> <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-params-as-of.nt
-   # @deprecated: $assudo /opt/virtuoso/scripts/vload nt results/dataset-params-as-of.nt $paramsDatasetGraph
+   # @deprecated: $sudo /opt/virtuoso/scripts/vload nt results/dataset-params-as-of.nt $paramsDatasetGraph
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-params-as-of.nt $paramsDatasetGraph
 
    #
@@ -95,13 +95,13 @@ pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query
       $sudo cat $CSV2RDF4LOD_HOME/bin/util/cr-load-endpoint-metadataset.trq | sed "s/\?:graph/<$datasetGraph>/" > cr-load-endpoint-metadataset.rq
    fi
    echo "cache-queries.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
-   $assudo cache-queries.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} -o sparql gvds xml csv -q *.rq *.sparql
+   $sudo cache-queries.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} -o sparql gvds xml csv -q *.rq *.sparql
    # -o sparql gvds xml
    echo "cache-queries.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
 
    # For grabbing from the stats web page using php's include():
    for results in `find results -name "*.sparql.csv"`; do 
-      perl $CSV2RDF4LOD_HOME/bin/util/sparql-csv2plain.pl $results
+      $sudo perl $CSV2RDF4LOD_HOME/bin/util/sparql-csv2plain.pl $results
    done
 popd
 
@@ -109,7 +109,7 @@ pushd ${CSV2RDF4LOD_CONVERT_DATA_ROOT}
    # Populate the MetaDataset named graph.
    metaDatasetGraph='http://purl.org/twc/vocab/conversion/MetaDataset'
    echo "cr-virtuoso-load-metadataset.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`  | tee -a $log_file
-                                                    # @deprecated: $assudo ./logd-load-metadata-graph.sh -w -ng $metaDatasetGraph
+                                                    # @deprecated: $sudo ./logd-load-metadata-graph.sh -w -ng $metaDatasetGraph
    cr-virtuoso-load-metadataset.sh -w -ng $metaDatasetGraph
    echo "cr-virtuoso-load-metadataset.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`    | tee -a $log_file
 popd
