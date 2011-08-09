@@ -13,7 +13,7 @@
 #
 # Check usage
 if [ $# -ne 3 ]; then
-	echo "usage: `basename $0` {rdf, ttl, nt, nq} <data_file> <graph_uri>"
+	echo "usage: `basename $0` {rdf, ttl, nt, nq} <data_file> <graph_uri> [-v | --verbose]"
    exit 1
 fi
 
@@ -129,4 +129,8 @@ if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
    cat $vload_log
 else
    echo "Loading finished. Check $virtuoso_allowed_dir/latest.log for details (currently $vload_log)."	
+fi
+
+if [[ "$4" == "-v" || "$4" == "--verbose" ]]; then
+   cat $vdelete_log
 fi

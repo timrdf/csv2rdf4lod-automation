@@ -10,7 +10,7 @@
 # Usage: vdelete [graph_uri]
 
 if [ $# -ne 1 ]; then
-	echo "usage: `basename $0` <graph_uri>"
+	echo "usage: `basename $0` <graph_uri> [-v | --verbose]"
    exit 1
 fi
 
@@ -51,3 +51,7 @@ rm $log_dir/latest.log &> /dev/null
 ln -s $vdelete_log $log_dir/latest.log
 
 echo "Deleting finished. Check $log_dir/latest.log for details (currently $vdelete_log)."
+
+if [[ "$2" == "-v" || "$2" == "--verbose" ]]; then
+   cat $vdelete_log
+fi
