@@ -34,6 +34,7 @@ fi
 vdelete_log=$log_dir/delete_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
 
 # Call SPARQL CLEAR to delete named graphs
+echo "# time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vdelete_log
 sparql_delete="SPARQL CLEAR GRAPH <$graph_uri>;"
 ${isql_cmd} ${isql_pass} << EOF &> $vdelete_log
    $sparql_delete
