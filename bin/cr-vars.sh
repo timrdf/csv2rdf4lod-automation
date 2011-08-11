@@ -1,6 +1,10 @@
 #!/bin/bash
 
 if [ ${1:-"no"} != "CLEAR" ]; then
+   show_all="no"
+   if [ "$1" == "--all" ]; then
+      show_all="yes";
+   fi
    #echo "CLASSPATH                             $CLASSPATH"
    #echo "PATH                                  $PATH"
 
@@ -52,7 +56,7 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES                    ${CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES:-"(will default to: false)"}"
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE                     ${CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE:-"(will default to: hard)"}"
    echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION                  ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION:-"(will default to: false)"}"
-   if [ "$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION" == "true" ]; then
+   if [ "$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION" == "true" -o $show_all == "yes" ]; then
    echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WRITE_FREQUENCY  ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WRITE_FREQUENCY:-"(will default to: 1,000,000)"}"
 
    echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_REPORT_FREQUENCY ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_REPORT_FREQUENCY:-"(will default to: 1,000)"}"
@@ -71,7 +75,7 @@ if [ ${1:-"no"} != "CLEAR" ]; then
 
    echo "  "
    echo "CSV2RDF4LOD_PUBLISH_4STORE                               ${CSV2RDF4LOD_PUBLISH_4STORE:-"(will default to: false)"}"
-   if [ "$CSV2RDF4LOD_PUBLISH_4STORE" == "true" ]; then
+   if [ "$CSV2RDF4LOD_PUBLISH_4STORE" == "true" -o $show_all == "yes" ]; then
    echo "CSV2RDF4LOD_PUBLISH_4STORE_KB                            ${CSV2RDF4LOD_PUBLISH_4STORE_KB:-"(will default to: csv2rdf4lod -- leading to /var/lib/4store/csv2rdf4lod)"}" 
    else
       echo "   ..."
@@ -80,7 +84,7 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "  "
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO                             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: false)"}"
                                                     virtuoso_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
-   if [ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" ]; then
+   if [ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" -o $show_all == "yes" ]; then
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME                        ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"(will default to: /opt/virtuoso)"}"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH                   ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"(will default to: $virtuoso_home/bin/isql)"}"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT                        ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"(will default to: 1111)"}"
