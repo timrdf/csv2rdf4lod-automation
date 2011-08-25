@@ -110,9 +110,30 @@
          ];
          conversion:interpret [
             conversion:symbol        "L.T.", "LT";
-            conversion:interpretation "Lettuce, Tomato"; 
+            conversion:interpretation "Lettuce, Tomato";
          ];
-         conversion:delimits_object ",\\s*"; # TODO
+         conversion:delimits_object ",\\s*"; # TODO: for LT and Double Cheeseburger
+         conversion:interpret [
+            conversion:symbol        "Double Cheeseburger";
+            conversion:interpretation "Cheeseburger, Extra Cheeseburger";
+         ];
+         conversion:interpret [
+            conversion:symbol        "Cheesesteak";
+            conversion:interpretation "Cheese Steak"; 
+            rdfs:seeAlso <http://dbpedia.org/resource/Cheesesteak>;
+         ];
+         conversion:interpret [
+            conversion:symbol        "Honey Mustard Sauce";
+            conversion:interpretation "Honey Mustard"; 
+         ];
+         conversion:interpret [
+            conversion:symbol        "Mozz. Sticks";
+            conversion:interpretation "Mozzeralla Sticks"; 
+         ];
+         conversion:interpret [
+            conversion:symbol        "Mayo";
+            conversion:interpretation "Mayonnaise"; 
+         ];
          conversion:range   rdfs:Resource;
          conversion:range_name "Ingredient";
       ];
@@ -127,9 +148,10 @@
       conversion:enhance [
          ov:csvCol          13;
          ov:csvHeader       "AKA";
+         conversion:equivalent_property skos:altLabel;
          #conversion:label   "AKA";
          conversion:comment "";
-         conversion:range   skos:altLabel;
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          14;
