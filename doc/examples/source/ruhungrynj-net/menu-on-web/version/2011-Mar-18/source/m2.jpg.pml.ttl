@@ -1,0 +1,130 @@
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
+@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix sioc:       <http://rdfs.org/sioc/ns#> .
+@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov:      <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+@prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix conv:       <http://purl.org/twc/vocab/conversion/> .
+@prefix httphead:   <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> .
+@prefix httpget:    <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> .
+@prefix httppost:   <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+<http://www.ruhungrynj.net/img/m2.jpg>
+   a pmlp:Source;
+.
+
+<http://www.ruhungrynj.net/img/m2.jpg>
+   a pmlp:Source;
+   pmlp:hasModificationDateTime "2011-03-18T18:46:12"^^xsd:dateTime;
+.
+
+<m2.jpg>
+   a pmlp:Information;
+   pmlp:hasReferenceSourceUsage <sourceUsage_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_content>;
+.
+<m2.jpg>
+   a pmlp:Information;
+   nfo:hasHash <md5_0fca02544c8bc57eaa0f7164bf9e4a95_time_1314299583>;
+.
+<md5_0fca02544c8bc57eaa0f7164bf9e4a95_time_1314299583>
+   a nfo:FileHash; 
+   dcterms:date      "2011-08-25T15:13:03-04:00"^^xsd:dateTime;
+   nfo:hashAlgorithm "md5";
+   nfo:hashValue     "0fca02544c8bc57eaa0f7164bf9e4a95";
+.
+
+<nodeSet_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_content>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <m2.jpg>;
+   pmlj:isConsequentOf <inferenceStep_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_content>;
+.
+<inferenceStep_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_content>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_content>;
+   pmlj:hasInferenceEngine conv:curl_md5_1e49140eb1b32a1f32308199f0dde126;
+   pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+.
+
+<sourceUsage_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_content>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://www.ruhungrynj.net/img/m2.jpg>;
+   pmlp:hasUsageDateTime "2011-08-25T15:12:57-04:00"^^xsd:dateTime;
+.
+
+<wasControlledBy_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_content>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   oprov:effect <inferenceStep_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_content>;
+   oprov:endTime "2011-08-25T15:12:57-04:00"^^xsd:dateTime;
+.
+ 
+<info_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_url_header>
+   a pmlp:Information, conv:HTTPHeader;
+   pmlp:hasRawString """HTTP/1.1 200 OK
+Date: Thu, 25 Aug 2011 19:12:52 GMT
+Server: Apache
+Last-Modified: Fri, 18 Mar 2011 18:46:12 GMT
+ETag: "17446d-6dd54-4d83a874"
+Accept-Ranges: bytes
+Content-Length: 449876
+Content-Type: image/jpeg
+""";
+   pmlp:hasReferenceSourceUsage <sourceUsage_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_url_header>;
+.
+ 
+<nodeSet_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_url_header>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <info_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_url_header>;
+   pmlj:isConsequentOf <inferenceStep_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_url_header>;
+.
+<inferenceStep_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_url_header>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_url_header>;
+   pmlj:hasInferenceEngine conv:curl_md5_1e49140eb1b32a1f32308199f0dde126;
+   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+.
+
+<sourceUsage_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_url_header>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://www.ruhungrynj.net/img/m2.jpg>;
+   pmlp:hasUsageDateTime "2011-08-25T15:12:57-04:00"^^xsd:dateTime;
+.
+<wasControlledBy_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_url_header>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   oprov:effect <nodeSet_3c4b25a5-c59a-4d7a-af0a-5b6f59a5d454_url_header>;
+   oprov:endTime "2011-08-25T15:12:57-04:00"^^xsd:dateTime;
+.
+
+
+conv:curl_md5_1e49140eb1b32a1f32308199f0dde126
+   a pmlp:InferenceEngine, conv:Curl;
+   dcterms:identifier "md5_1e49140eb1b32a1f32308199f0dde126";
+   dcterms:description """curl 7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8r zlib/1.2.3
+Protocols: tftp ftp telnet dict ldap http file https ftps 
+Features: GSS-Negotiate IPv6 Largefile NTLM SSL libz """;
+.
+
+conv:Curl rdfs:subClassOf pmlp:InferenceEngine .

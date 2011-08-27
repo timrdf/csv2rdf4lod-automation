@@ -2,25 +2,28 @@
 #
 # print out some information about the dataset in the current directory.
 
-back_one=`cd .. 2>/dev/null && pwd`
-ANCHOR_SHOULD_BE_VERSION=`basename $back_one`
-if [ $ANCHOR_SHOULD_BE_VERSION != "version" ]; then
-   echo "  Working directory does not appear to be a VERSION directory."
-   echo "  Run `basename $0` from a VERSION directory (e.g. csv2rdf4lod/data/source/SOURCE/DDD/version/VVV/)"
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+
+ACCEPTABLE_PWDs="cr:dataset cr:directory-of-versions cr:conversion-cockpit"
+if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
+   # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 fi
 
 prefixDef=""
 prefix=""
-q1=""
-q2=""
-a1=""
-a2=""
-end=""
+q1=""  # Quote
+q2=""  # Quote
+a1=""  # Angle
+a2=""  # Angle
+end="" # Period
 if [ ${1:-"."} == 'void' ]; then
    prefixDef="@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
    isabstract="    a conversion:AbstractDataset;"
-   isversioned="    a conversion:VersionedDataset;"
+   if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]; then
+      isversioned="    a conversion:VersionedDataset;"
+   fi
    prefix="conversion:"
    a1="<"
    a2=">"
@@ -30,17 +33,9 @@ if [ ${1:-"."} == 'void' ]; then
 fi
 base_uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
 
-back_three=`cd ../../.. 2>/dev/null && pwd`
-sourceID=`basename $back_three` # Use the names from the canonical directory structure
-if [ $sourceID == "data.gov" ]; then
-   sourceID="data-gov"
-fi
-
-back_two=`cd ../.. 2>/dev/null && pwd`
-datasetID=`basename $back_two` # Use the names from the canonical directory structure
-
-datasetDir=`pwd`
-versionID=`basename $datasetDir` # Use the names from the canonical directory structure
+sourceID=`is-pwd-a.sh  cr:bone --id-of source`
+datasetID=`is-pwd-a.sh cr:bone --id-of dataset`
+versionID=`is-pwd-a.sh cr:bone --id-of version`
 
 CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
@@ -56,12 +51,12 @@ echo "    ${prefix}source_identifier     ${q1}$sourceID${q2}"
 echo "    ${prefix}dataset_identifier    ${q1}$datasetID${q2}"                                    
 echo $end
 echo
-echo "$a1$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID$a2"
-echo      $isversioned
-echo "    ${prefix}base_uri              ${q1}$base_uri${q2}"
-echo "    ${prefix}source_identifier     ${q1}$sourceID${q2}"                                        
-echo "    ${prefix}dataset_identifier    ${q1}$datasetID${q2}"                                    
-echo "    ${prefix}version_identifier    ${q1}$versionID${q2}"
-echo $end
-
-
+if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]; then
+   echo "$a1$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID$a2"
+   echo      $isversioned
+   echo "    ${prefix}base_uri              ${q1}$base_uri${q2}"
+   echo "    ${prefix}source_identifier     ${q1}$sourceID${q2}"                                        
+   echo "    ${prefix}dataset_identifier    ${q1}$datasetID${q2}"                                    
+   echo "    ${prefix}version_identifier    ${q1}$versionID${q2}"
+   echo $end 
+fi

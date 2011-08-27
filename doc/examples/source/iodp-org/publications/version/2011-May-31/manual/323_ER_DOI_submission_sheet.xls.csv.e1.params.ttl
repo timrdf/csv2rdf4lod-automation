@@ -130,6 +130,11 @@
          conversion:equivalent_property bibo:volume;
          conversion:comment "";
          conversion:range   xsd:integer;
+         rdfs:comment """Now, one item of interest to me and something I need to ask the pubs people is if they always use a \"vol\" (volume) entry that matches the leg (expedition) number.  If that is the case then we could map publication-vol to IODP-expedition in a SKOS vocabulary in some manner to span across the two graphs.  
+
+YES..
+
+the publication volume in the now CSV documents at http://data.oceandrilling.org/publications/index.html is always what I call expedition (http://data.oceandrilling.org/core/1/expedition) -Doug""";
       ];
       conversion:enhance [
          ov:csvCol          8;

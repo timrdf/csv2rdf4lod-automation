@@ -105,40 +105,40 @@ else
    explainVersionID="Came from directory name ../ (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Directory-Conventions)"
 fi
 
-CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source my-csv2rdf4lod-source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
 TMP_SH=`date +%s`_$$.sh.tmp
 
-echo "#!/bin/bash"                                                                                                      > $TMP_SH
-echo "#"                                                                                                               >> $TMP_SH
-echo "# <#> a <http://purl.org/twc/vocab/conversion/ConversionTrigger> ;"                                              >> $TMP_SH
-echo "#     rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-trigger>,"                  >> $TMP_SH
-echo "#                  <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-create-convert-sh.sh> ." >> $TMP_SH
-echo "#"                                                                                                               >> $TMP_SH
-echo "# datasetID versionID (lastModDate):"                                                                            >> $TMP_SH
-echo "# $datasetID $versionID ($lastModDate)"                                                                          >> $TMP_SH
+echo "#!/bin/bash"                                                                                                       > $TMP_SH
+echo "#"                                                                                                                >> $TMP_SH
+echo "#3 <#> a <http://purl.org/twc/vocab/conversion/ConversionTrigger> ;"                                              >> $TMP_SH
+echo "#3     rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-trigger>,"                  >> $TMP_SH
+echo "#3                  <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-create-convert-sh.sh> ." >> $TMP_SH
+echo "#"                                                                                                                >> $TMP_SH
+echo "# datasetID versionID (lastModDate):"                                                                             >> $TMP_SH
+echo "# $datasetID $versionID ($lastModDate)"                                                                           >> $TMP_SH
 
-echo "#--------------------------------------------------------------"                                                 >> $TMP_SH
-echo ""                                                                                                                >> $TMP_SH
+echo "#--------------------------------------------------------------"                                                  >> $TMP_SH
+echo ""                                                                                                                 >> $TMP_SH
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $TMP_SH
-echo ""                                                                                                                >> $TMP_SH
-echo "# The identifiers used to name the dataset that will be converted."                                              >> $TMP_SH
-echo "#            (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-process-phase:-name)"                >> $TMP_SH
-echo "surrogate=\"$CSV2RDF4LOD_BASE_URI\" # Came from \$CSV2RDF4LOD_BASE_URI when `basename $0` created this script."  >> $TMP_SH
-echo "sourceID=\"$sourceID\"               # $explainSourceID"                                                         >> $TMP_SH
-echo "datasetID=\"$datasetID\"             # $explainDatasetID"                                                        >> $TMP_SH
-echo "datasetVersion=\"$versionID\"        # DEPRECATED"                                                               >> $TMP_SH
-echo "versionID=\"$versionID\"             # $explainVersionID renaming datasetVersion (deprecating datasetVersion)"   >> $TMP_SH
-echo "eID=\"1\"                             # enhancement identifier"                                                  >> $TMP_SH
-echo "if [[ \${1:-\".\"} == \"-e\" && \$# -ge 2 ]]; then"                                                              >> $TMP_SH
-echo "   eID=\"\$2\" # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Generating-enhancement-parameters"    >> $TMP_SH
-echo "fi"                                                                                                              >> $TMP_SH
-echo ""                                                                                                                >> $TMP_SH
-echo ""                                                                                                                >> $TMP_SH
+echo ""                                                                                                                 >> $TMP_SH
+echo "# The identifiers used to name the dataset that will be converted."                                               >> $TMP_SH
+echo "#            (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-process-phase:-name)"          >> $TMP_SH
+echo "surrogate=\"$CSV2RDF4LOD_BASE_URI\" # Came from \$CSV2RDF4LOD_BASE_URI when `basename $0` created this script."   >> $TMP_SH
+echo "sourceID=\"$sourceID\"               # $explainSourceID"                                                          >> $TMP_SH
+echo "datasetID=\"$datasetID\"             # $explainDatasetID"                                                         >> $TMP_SH
+echo "datasetVersion=\"$versionID\"        # DEPRECATED"                                                                >> $TMP_SH
+echo "versionID=\"$versionID\"             # $explainVersionID renaming datasetVersion (deprecating datasetVersion)"    >> $TMP_SH
+echo "eID=\"1\"                             # enhancement identifier"                                                   >> $TMP_SH
+echo "if [[ \${1:-\".\"} == \"-e\" && \$# -ge 2 ]]; then"                                                               >> $TMP_SH
+echo "   eID=\"\$2\" # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Generating-enhancement-parameters"     >> $TMP_SH
+echo "fi"                                                                                                               >> $TMP_SH
+echo ""                                                                                                                 >> $TMP_SH
+echo ""                                                                                                                 >> $TMP_SH
 #echo "# $1"                                                                                                            >> $TMP_SH
 #echo "sourceDir=\"`dirname "$1"`\"                  # if converting data directly (unmodified) from source organization, 'source'; if manual manipulations were required, 'manual'." >> $TMP_SH
-echo "destDir=\"automatic\"                 # convention has led to always be 'automatic'; the directory where the converted RDF is put."       >> $TMP_SH
-echo "#--------------------------------------------------------------"                                                 >> $TMP_SH
+echo "destDir=\"automatic\"                 # convention has led to always be 'automatic'; the directory where the converted RDF is put." >> $TMP_SH
+echo "#--------------------------------------------------------------"                                                  >> $TMP_SH
 
 if [ $# -gt 1 ]; then
    includeDiscriminator="yes"

@@ -9,8 +9,8 @@
 # Description: Bash script to delte a named graph in Virtuoso
 # Usage: vdelete [graph_uri]
 
-if [ $# -ne 1 ]; then
-	echo "usage: `basename $0` <graph_uri>"
+if [[ $# -lt 1 || $# -gt 2 ]]; then
+	echo "usage: `basename $0` <graph_uri> [-v | --verbose]"
    exit 1
 fi
 
@@ -34,18 +34,24 @@ fi
 vdelete_log=$log_dir/delete_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
 
 # Call SPARQL CLEAR to delete named graphs
+start=`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`
 sparql_delete="SPARQL CLEAR GRAPH <$graph_uri>;"
 ${isql_cmd} ${isql_pass} << EOF &> $vdelete_log
    $sparql_delete
    checkpoint;
    exit;
 EOF
-echo ""                                                            >> $vdelete_log
-echo "# user: `whoami`"                                            >> $vdelete_log
-echo "# time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vdelete_log
+echo ""                                                                  >> $vdelete_log
+echo "# start time: $start"                                              >> $vdelete_log
+echo "# user: `whoami`"                                                  >> $vdelete_log
+echo "# end   time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vdelete_log
 
 # Move the latest.log pointer to the log we just created.
 rm $log_dir/latest.log &> /dev/null
 ln -s $vdelete_log $log_dir/latest.log
 
 echo "Deleting finished. Check $log_dir/latest.log for details (currently $vdelete_log)."
+
+if [[ "$2" == "-v" || "$2" == "--verbose" ]]; then
+   cat $vdelete_log
+fi

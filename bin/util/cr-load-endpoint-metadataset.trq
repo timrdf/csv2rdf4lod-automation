@@ -1,0 +1,9 @@
+PREFIX conversion: <http://purl.org/twc/vocab/conversion/>
+SELECT distinct ?sourceID ?datasetID
+WHERE {
+  GRAPH ?:graph {
+    ?abstract a conversion:MetaDataset;
+        conversion:source_identifier  ?sourceID;
+        conversion:dataset_identifier ?datasetID .
+  }
+}ORDER BY ?sourceID

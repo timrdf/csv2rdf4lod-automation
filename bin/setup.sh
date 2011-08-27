@@ -1,8 +1,8 @@
-# NOTE: setup.sh (this file) is a template used by install.sh to create source-me.sh
-# NOTE: my-csv2rdf4lod-source-me.sh should be modified, not setup.sh
-# if path of dg-create-dataset-dir.sh 
-# is /Users/me/Desktop/csv2rdf4lod/bin/dg-create-dataset-dir.sh
-# CSV2RDF4LOD_HOME should be set (above) to /Users/me/Desktop/csv2rdf4lod/
+# _NOTE_    setup.sh (this file) is a template used by install.sh to create source-me.sh.
+# _WARNING_ setup.sh (this file) should not be edited. Edit my-csv2rdf4lod-source-me.sh.
+# if path of cr-vars.sh 
+# is /Users/me/Desktop/csv2rdf4lod-automation/bin/cr-vars.sh
+# CSV2RDF4LOD_HOME should be set (above) to /Users/me/Desktop/csv2rdf4lod-automation/
 
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/setup.sh
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
@@ -95,7 +95,9 @@ export CSV2RDF4LOD_CONVERT_PERSON_URI=""
 # This is ONLY required to avoid a redundant file copy when loading into Virtuoso.
 # If it is not set, things will still work but we waste time and disk space.
 #
-# (used in vload)
+# (used in
+#  https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-load-endpoint-metadata.sh
+#  https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/virtuoso/vload)
 #
 export CSV2RDF4LOD_CONVERT_DATA_ROOT="/projects/lobd/data/source"
 export CSV2RDF4LOD_CONVERT_DATA_ROOT=""
@@ -431,6 +433,18 @@ export CSV2RDF4LOD_CONCURRENCY="8"
 export CSV2RDF4LOD_CONCURRENCY="2"
 
 #
+# Customize: ln publish/*.ttl into a corresponding directory in
+#            /var/www directory ($CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT)
+#            to publish on web. The void:Datasets point to these void:dataDumps.
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (done in convert-aggregate.sh and publish/bin/ln-*.sh)
+#
+export CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES="true"
+export CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES="false"
+
+#
 # Customize: use ln or ln -s when linking from the conversion root
 #            directory to the /var/www directory to publish on web.
 #
@@ -742,25 +756,23 @@ export DG_RETRIEVAL_CONVERT_RAW="false"
 
 # # # # # # # These variables should not be modified # # # # # #
 #
-export formats=$CSV2RDF4LOD_HOME/bin/dup/formats # TODO: @deprecated.
-#
-PATH="$PATH:$CSV2RDF4LOD_HOME/bin:$CSV2RDF4LOD_HOME/bin/util"
-PATH="$PATH:$CSV2RDF4LOD_HOME/bin:$CSV2RDF4LOD_HOME/bin/dup"
-PATH="$PATH:$CSV2RDF4LOD_HOME/bin:$CSV2RDF4LOD_HOME/bin/util/virtuoso"
-PATH="$PATH:/opt/local/bin/" # This is for perl
-PATH="$PATH:/usr/local/bin/" # This is for rapper
+PATH="${PATH}:${CSV2RDF4LOD_HOME}/bin:${CSV2RDF4LOD_HOME}/bin/util"
+PATH="${PATH}:${CSV2RDF4LOD_HOME}/bin:${CSV2RDF4LOD_HOME}/bin/dup"
+PATH="${PATH}:${CSV2RDF4LOD_HOME}/bin:${CSV2RDF4LOD_HOME}/bin/util/virtuoso"
+PATH="${PATH}:/opt/local/bin/" # This is for perl
+PATH="${PATH}:/usr/local/bin/" # This is for rapper
 export PATH
 #
 # TODO: NOTE: cygwin needs formatting with quotes and semicolons such as:  CLASSPATH="$CLASSPATH;$CSV2RDF4LOD_HOME/bin/dup/csv2rdf4lod.jar"
-CLASSPATH="$CLASSPATH:$CSV2RDF4LOD_HOME/bin/dup/csv2rdf4lod.jar"
-CLASSPATH="$CLASSPATH:$CSV2RDF4LOD_HOME/bin/dup/openrdf-sesame-2.3.1-onejar.jar"
-CLASSPATH="$CLASSPATH:$CSV2RDF4LOD_HOME/bin/dup/slf4j-api-1.5.6.jar"
-CLASSPATH="$CLASSPATH:$CSV2RDF4LOD_HOME/bin/dup/slf4j-nop-1.5.6.jar"
-CLASSPATH="$CLASSPATH:$CSV2RDF4LOD_HOME/bin/lib/javacsv2.0/javacsv.jar"
-CLASSPATH="$CLASSPATH:$CSV2RDF4LOD_HOME/bin/lib/commons-validator-1.3.1/commons-validator-1.3.1.jar"
+CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/csv2rdf4lod.jar"
+CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/openrdf-sesame-2.3.1-onejar.jar"
+CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/slf4j-api-1.5.6.jar"
+CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/slf4j-nop-1.5.6.jar"
+CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/lib/javacsv2.0/javacsv.jar"
+CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/lib/commons-validator-1.3.1/commons-validator-1.3.1.jar"
 export CLASSPATH
 #
-export saxon9=$CSV2RDF4LOD_HOME/bin/dup/saxonb9-1-0-8j.jar 
+export saxon9="${CSV2RDF4LOD_HOME}/bin/dup/saxonb9-1-0-8j.jar"
 #
 alias csv2rdf4lod='java edu.rpi.tw.data.csv.CSVtoRDF'
 # # # # # # # These variables should not be modified # # # # # # 

@@ -1,5 +1,8 @@
 #!/bin/bash
 #
+# See also:
+# https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets
+#
 # Usage:
 #    (pwd: source/DDD, e.g. source/data-gov):
 #
@@ -74,7 +77,7 @@ if [ `whoami` == "root" ]; then
    assudo=""
 fi
 
-echo "Finding all csv2rdf4lod-params. Will populate into $namedGraph" >&2
+echo "Finding all csv2rdf4lod-params in `pwd`. Will populate into $namedGraph" >&2
 if [ $numDatasets == "one" ]; then
    params=`$assudo find */version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
 else
@@ -94,19 +97,19 @@ do
 done
 
 echo ""
-echo "Deleting $namedGraph"                                 >&2
-echo  "  $assudo /opt/virtuoso/scripts/vdelete $namedGraph" >&2
+echo "Deleting $namedGraph"                                                 >&2
+echo  "  $assudo ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph" >&2
 if [ ${dryRun:-"."} != "true" -a $namedGraph != "." ]; then
-   $assudo /opt/virtuoso/scripts/vdelete               $namedGraph 
-   # TODO: ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete
+   # @deprecated: $assudo /opt/virtuoso/scripts/vdelete               $namedGraph 
+   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph 
 fi
 
 echo ""
-echo "Loading params into $namedGraph"                                   >&2
-echo "  $assudo /opt/virtuoso/scripts/vload nt $TEMP_params $namedGraph" >&2
+echo "Loading params into $namedGraph"                                                   >&2
+echo "  $assudo ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP_params $namedGraph" >&2
 if [ ${dryRun:-"."} != "true" -a $namedGraph != "." ]; then
-   $assudo /opt/virtuoso/scripts/vload   nt $TEMP_params $namedGraph
-   # TODO: ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload
+   # @deprecated: $assudo /opt/virtuoso/scripts/vload   nt $TEMP_params $namedGraph
+   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP_params $namedGraph
 fi
 
 if [ -e $TEMP_params ]; then

@@ -4,6 +4,7 @@
    xmlns:conv="http://purl.org/twc/vocab/conversion/"
    xmlns:d2rq="http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#"
    xmlns:dct="http://purl.org/dc/terms/"
+   xmlns:doap="http://usefulinc.com/ns/doap#"
    xmlns:foaf="http://xmlns.com/foaf/0.1/"
    xmlns:ov="http://open.vocab.org/terms/"
    xmlns:owl="http://www.w3.org/2002/07/owl#"
@@ -14,6 +15,7 @@
    xmlns:vann="http://purl.org/vocab/vann/"
    xmlns:void="http://rdfs.org/ns/void#"
    xmlns:vs="http://www.w3.org/2003/06/sw-vocab-status/ns#"
+   xmlns:w3test="http://www.w3.org/2006/03/test-description#"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
   <rdf:Description rdf:about="http://purl.org/court/def/2009/coin#slug">
     <rdfs:seeAlso rdf:resource="http://codex.wordpress.org/Glossary#Slug"/>
@@ -47,6 +49,11 @@
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/LayerDataset"/>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/VersionedDataset"/>
   </rdfs:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/AtomicInputDataset">
+    <rdfs:comment>An RDF dataset produced by the conversion of a single tabular file. When handling datasets with multiple files, a fourth level in the VoID hierarchy is needed. As opposed to datasets with a single input file, which has three levels. In both cases, the lowest level is an AtomicInputDataset. This, in combination with conversion:subsetT allows you to use inference to not concern yourself with these details.</rdfs:comment>
+    <rdfs:label>AtomicInputDataset</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Dataset"/>
+  </owl:Class>
   <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/AuxiliaryDataset">
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Dataset"/>
     <owl:disjointWith>
@@ -86,6 +93,10 @@
     <rdfs:comment></rdfs:comment>
     <rdfs:label>Bundle</rdfs:label>
   </rdfs:Property>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/CSV2RDF4LOD_environment_variables">
+    <rdfs:comment>A shell script that sets https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables to control the behavior of csv2rdf4lod-automation.</rdfs:comment>
+    <rdfs:label>CSV2RDF4LOD_environment_variables</rdfs:label>
+  </owl:Class>
   <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/ConversionMetaDataset">
     <rdfs:comment>Metadata for a dataset that is created during the dataset's conversion invocation.</rdfs:comment>
     <rdfs:label>ConversionMetaDataset</rdfs:label>
@@ -607,6 +618,33 @@
       </owl:Restriction>
     </rdfs:subClassOf>
   </rdfs:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/UnitTestedDataset">
+    <rdfs:comment>An RDF dataset tested with SPARQL queries verifying the presense or absence of particular triples.</rdfs:comment>
+    <rdfs:comment>UnitTestedDatasets should cite locations for their unit tests.</rdfs:comment>
+    <rdfs:label>UnitTestedDatset</rdfs:label>
+    <rdfs:seeAlso rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"/>
+    <rdfs:subClassOf rdf:resource="http://rdfs.org/ns/void#Dataset"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/testable_by"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/VersionControlledDataset">
+    <rdfs:comment>A conversion:Dataset whose skeleton is available from a version control system.</rdfs:comment>
+    <rdfs:comment>VersionControlledDatasets should cite locations their csv2rdf4lod skeleton.</rdfs:comment>
+    <rdfs:label>VersionControlledDataset</rdfs:label>
+    <rdfs:seeAlso rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Version-control-strategies:-only-the-essential-minimum-is-needed"/>
+    <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Dataset"/>
+    <rdfs:subClassOf rdf:resource="http://usefulinc.com/ns/doap#Project"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="http://usefulinc.com/ns/doap#repository"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
   <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/VersionedDataset">
     <rdfs:comment>A materialized (captured in time) dataset -- something is now on disk. Union of all LayerDatasets created by different conversion parameters.</rdfs:comment>
     <rdfs:label>Versioned Dataset</rdfs:label>
@@ -875,6 +913,12 @@
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subproperty_of"/>
   </rdf:Property>
+  <owl:TransitiveProperty rdf:about="http://purl.org/twc/vocab/conversion/subseT">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment>A transitive version of void:subset</rdfs:comment>
+    <rdfs:label>subsetT</rdfs:label>
+    <rdfs:seeAlso rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/issues/173"/>
+  </owl:TransitiveProperty>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/symbol">
     <rdfs:comment></rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/SymbolInterpretationEnhancement"/>
@@ -886,6 +930,11 @@
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/TemplateResourcePromotionEnhancement"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/testable_by">
+    <rdfs:seeAlso rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"/>
+    <owl:inverseOf rdf:resource="http://purl.org/dc/terms/subject"/>
+    <owl:inverseOf rdf:resource="http://www.w3.org/2006/03/test-description#informationResourceInput"/>
   </rdf:Property>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/type_name">
     <rdfs:comment>The local name of a class within this dataset-specific namespace.</rdfs:comment>
@@ -899,5 +948,11 @@
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>The version of conversion being performed per dataset.</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://rdfs.org/ns/void#subset">
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/twc/vocab/conversion/subseT"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://www.w3.org/2006/03/test-description#informationResourceInput">
+    <rdfs:comment>Information Resource (e.g. a file) used as input for the test case</rdfs:comment>
   </rdf:Property>
 </rdf:RDF>

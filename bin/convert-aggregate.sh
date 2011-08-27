@@ -598,10 +598,13 @@ done
 
 chmod +x $lnwwwrootSH
 
-if [ ${#CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT} -gt 0 ]; then
+if [ ${#CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT} -gt 0 -a ${CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES:-"false"} == "true" ]; then
    echo "$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT - linking dump files into web root:" | tee -a $CSV2RDF4LOD_LOG
    # Execute the script we just generated.
    $lnwwwrootSH #2> /dev/null
+else
+   echo "$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT - skipping. Set CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES=true and CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT to /var/www" | tee -a $CSV2RDF4LOD_LOG
+   echo "`echo $CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/ | sed 's/./ /g'` or run $lnwwwrootSH manually."
 fi
 
 
@@ -659,8 +662,9 @@ echo "rm    $TDB_DIR/*.dat $TDB_DIR/*.idn &> /dev/null"                         
 echo ""                                                                                       >> $loadtdbSH
 echo "echo \`basename \$load_file\` into $TDB_DIR as $graph >> $publishDir/ng.info"           >> $loadtdbSH
 echo ""                                                                                       >> $loadtdbSH
-                                                                             billion="000000000"
-echo "if [ \$load_file = \"$allTTL\" -a \`stat -f \"%z\" \"$allTTL\"\` -gt 2$billion ]; then" >> $loadtdbSH # TODO: stat -c "%s" on some flavors of unix.
+#                                                                             billion="000000000"
+#echo "if [ \$load_file = \"$allTTL\" -a \`stat -f \"%z\" \"$allTTL\"\` -gt 2$billion ]; then" >> $loadtdbSH # replaced b/c stat -c "%s" on some flavors of unix.
+echo "if [[ \$load_file == \"$allTTL\" && \"\`too-big-for-rapper.sh\`\" == \"yes\" ]]; then"  >> $loadtdbSH
 echo "  dir=\"`dirname $allTTL`\""                                                            >> $loadtdbSH
 echo "  echo \"cHuNking $allTTL in \$dir\""                                                   >> $loadtdbSH
 echo "  rm \$dir/cHuNk*.ttl &> /dev/null"                                                     >> $loadtdbSH
@@ -831,7 +835,7 @@ echo "dump=$allRDFXML"                                                          
 echo "url=$http_allRDFXML"                                                                      >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                   >> $vloadSH
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                            >> $vloadSH
-echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                                   >> $vloadSH
+#echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                                   >> $vloadSH
 echo "   exit 1"                                                                                >> $vloadSH
 echo "elif [ -e \$dump.$zip ]; then"                                                            >> $vloadSH 
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                       >> $vloadSH
