@@ -79,19 +79,19 @@ isql_pwd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin pass
 load_func=""
 case "$input_format" in
    "rdf")
-   load_func="DB.DBA.RDF_LOAD_RDFXML_MT(file_to_string_output('$file_name_full'), '', '$graph_uri');"
+   load_func="DB.DBA.RDF_LOAD_RDFXML_MT(file_to_string_output('$file_name_full'), '', '$graph_uri', 2, $CSV2RDF4LOD_CONCURRENCY);"
    # echo $load_func
    ;;
    "ttl")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255);"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, $CSV2RDF4LOD_CONCURRENCY);"
    # echo $load_func
    ;;
    "nt")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255);"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, $CSV2RDF4LOD_CONCURRENCY);"
    # echo $load_func
    ;;
    "nq")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 512);"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 512, 2, $CSV2RDF4LOD_CONCURRENCY);"
    # echo $load_func
    ;;
    *)
