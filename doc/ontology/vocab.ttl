@@ -259,7 +259,7 @@ conversion:domain_template
    rdfs:comment "Template to name the subject of the triple produced.";
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:domain_template>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
-   rdfs:comment "TODO, cannot happen: :cp a conversion:EnhancementConversionProcess; conversion:enhance [ ov:csvCol 1; conversion:domain_template "a" ], [ ov:csvCol 2; conversion:domain_template "b" ] (col 1 and col 2 make the enhancements distinct, and an EnhancementConversionProcess can only have one domain_templated enhancement.)";
+   rdfs:comment "TODO, cannot happen: :cp a conversion:EnhancementConversionProcess; conversion:enhance [ ov:csvCol 1; conversion:domain_template 'a' ], [ ov:csvCol 2; conversion:domain_template 'b' ] (col 1 and col 2 make the enhancements distinct, and an EnhancementConversionProcess can only have one domain_templated enhancement.)";
 .
 
 conversion:SubjectTypeEnhancement
