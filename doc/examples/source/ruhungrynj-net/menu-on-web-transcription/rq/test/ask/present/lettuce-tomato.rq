@@ -1,0 +1,14 @@
+prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>
+prefix dcterms:    <http://purl.org/dc/terms/>
+prefix void:       <http://rdfs.org/ns/void#>
+prefix conversion: <http://purl.org/twc/vocab/conversion/>
+prefix e1: <http://localhost/source/ruhungrynj-net/dataset/menu-on-web-transcription/vocab/enhancement/1/>
+prefix typed_ingredient: <http://localhost/source/ruhungrynj-net/dataset/menu-on-web-transcription/typed/ingredient/>
+
+ASK
+WHERE {
+   GRAPH ?g {
+      ?item dcterms:title "Fat Cat" ;
+            e1:contains typed_ingredient:Lettuce , typed_ingredient:Tomato .
+   }
+}

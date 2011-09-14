@@ -762,6 +762,7 @@
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:domain_name"/>
   </rdf:Property>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/domain_template">
+    <rdfs:comment>TODO, cannot happen: :cp a conversion:EnhancementConversionProcess; conversion:enhance [ ov:csvCol 1; conversion:domain_template 'a' ], [ ov:csvCol 2; conversion:domain_template 'b' ] (col 1 and col 2 make the enhancements distinct, and an EnhancementConversionProcess can only have one domain_templated enhancement.)</rdfs:comment>
     <rdfs:comment>Template to name the subject of the triple produced.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/SubjectEnhancement"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>

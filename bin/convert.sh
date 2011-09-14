@@ -339,9 +339,11 @@ if [ $runRaw == "yes" ]; then
    if [ ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY=='true'"                                                                        2>&1 | tee -a $CSV2RDF4LOD_LOG
    else
-      $csv2rdf $data          -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl         -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      $csv2rdf $data -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl -wm $destDir/$datafile.raw.void.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+
       # Parse out meta from full
-      $CSV2RDF4LOD_HOME/bin/util/grep-tail.sh $destDir/$datafile.raw.ttl > $destDir/$datafile.raw.void.ttl    # .-todo
+      # DEPRECATED: replaced with -wm in original call -------------------------------------------------------------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      #$CSV2RDF4LOD_HOME/bin/util/grep-tail.sh $destDir/$datafile.raw.ttl > $destDir/$datafile.raw.void.ttl    # .-todo
    fi
 fi
 
@@ -365,9 +367,11 @@ if [ $runEnhancement == "yes" ]; then
    elif [ ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'"                                                                                       2>&1 | tee -a $CSV2RDF4LOD_LOG
    else
-      $csv2rdf $data          -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl         -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      $csv2rdf $data -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl -wm $destDir/$datafile.e$eID.void.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+
       # Parse out meta from full
-      $CSV2RDF4LOD_HOME/bin/util/grep-tail.sh $destDir/$datafile.e$eID.ttl > $destDir/$datafile.e$eID.void.ttl # .-todo
+      # DEPRECATED: replaced with -wm in original call -----------------------------------------------------------------------------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      #$CSV2RDF4LOD_HOME/bin/util/grep-tail.sh $destDir/$datafile.e$eID.ttl > $destDir/$datafile.e$eID.void.ttl # .-todo
    fi
 
 fi
