@@ -1,0 +1,171 @@
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
+@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix sioc:       <http://rdfs.org/sioc/ns#> .
+@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov:      <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+@prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix conv:       <http://purl.org/twc/vocab/conversion/> .
+@prefix httphead:   <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> .
+@prefix httpget:    <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> .
+@prefix httppost:   <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+<http://www.data.gov/download/1554/csv>
+   a pmlp:Source;
+   irw:redirectsTo <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv>;
+.
+
+<http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv>
+   a pmlp:Source;
+   pmlp:hasModificationDateTime "2011-01-12T15:31:18"^^xsd:dateTime;
+.
+
+<csv>
+   a pmlp:Information;
+   pmlp:hasReferenceSourceUsage <sourceUsage_74052750-d49d-419b-9f2f-e3c75419e940_content>;
+.
+<csv>
+   a pmlp:Information;
+   nfo:hasHash <md5_45cde266f2105dae7e94733acfa2b8a5_time_1316060270>;
+.
+<md5_45cde266f2105dae7e94733acfa2b8a5_time_1316060270>
+   a nfo:FileHash; 
+   dcterms:date      "2011-09-15T00:17:50-04:00"^^xsd:dateTime;
+   nfo:hashAlgorithm "md5";
+   nfo:hashValue     "45cde266f2105dae7e94733acfa2b8a5";
+.
+
+<nodeSet_74052750-d49d-419b-9f2f-e3c75419e940_content>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <csv>;
+   pmlj:isConsequentOf <inferenceStep_74052750-d49d-419b-9f2f-e3c75419e940_content>;
+.
+<inferenceStep_74052750-d49d-419b-9f2f-e3c75419e940_content>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_74052750-d49d-419b-9f2f-e3c75419e940_content>;
+   pmlj:hasInferenceEngine conv:curl_md5_1e49140eb1b32a1f32308199f0dde126;
+   pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+.
+
+<sourceUsage_74052750-d49d-419b-9f2f-e3c75419e940_content>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv>;
+   pmlp:hasUsageDateTime "2011-09-15T00:17:35-04:00"^^xsd:dateTime;
+.
+
+<wasControlledBy_74052750-d49d-419b-9f2f-e3c75419e940_content>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   oprov:effect <inferenceStep_74052750-d49d-419b-9f2f-e3c75419e940_content>;
+   oprov:endTime "2011-09-15T00:17:35-04:00"^^xsd:dateTime;
+.
+ 
+<info_74052750-d49d-419b-9f2f-e3c75419e940_url_header>
+   a pmlp:Information, conv:HTTPHeader;
+   pmlp:hasRawString """HTTP/1.1 302 Moved Temporarily
+Server: Microsoft-IIS/6.0
+X-Powered-By: PHP/5.2.9
+Location: http://explore.data.gov/datasets/external_download?id=http://www.data.gov/details/1554&type=csv
+Content-Type: text/html
+Date: Thu, 15 Sep 2011 04:17:33 GMT
+Connection: keep-alive
+""";
+   pmlp:hasReferenceSourceUsage <sourceUsage_74052750-d49d-419b-9f2f-e3c75419e940_url_header>;
+.
+ 
+<nodeSet_74052750-d49d-419b-9f2f-e3c75419e940_url_header>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <info_74052750-d49d-419b-9f2f-e3c75419e940_url_header>;
+   pmlj:isConsequentOf <inferenceStep_74052750-d49d-419b-9f2f-e3c75419e940_url_header>;
+.
+<inferenceStep_74052750-d49d-419b-9f2f-e3c75419e940_url_header>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_74052750-d49d-419b-9f2f-e3c75419e940_url_header>;
+   pmlj:hasInferenceEngine conv:curl_md5_1e49140eb1b32a1f32308199f0dde126;
+   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+.
+
+<sourceUsage_74052750-d49d-419b-9f2f-e3c75419e940_url_header>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://www.data.gov/download/1554/csv>;
+   pmlp:hasUsageDateTime "2011-09-15T00:17:35-04:00"^^xsd:dateTime;
+.
+<wasControlledBy_74052750-d49d-419b-9f2f-e3c75419e940_url_header>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   oprov:effect <nodeSet_74052750-d49d-419b-9f2f-e3c75419e940_url_header>;
+   oprov:endTime "2011-09-15T00:17:35-04:00"^^xsd:dateTime;
+.
+
+<info_74052750-d49d-419b-9f2f-e3c75419e940_redirected_url_header>
+   a pmlp:Information, conv:HTTPHeader;
+   pmlp:hasRawString """HTTP/1.1 200 OK
+Content-Length: 446436
+Content-Type: application/octet-stream
+Last-Modified: Wed, 12 Jan 2011 15:31:18 GMT
+Accept-Ranges: bytes
+ETag: "027a2c16db2cb1:1ba0"
+Server: Microsoft-IIS/6.0
+Date: Thu, 15 Sep 2011 03:52:38 GMT
+""";
+   pmlp:hasReferenceSourceUsage <sourceUsage_74052750-d49d-419b-9f2f-e3c75419e940_redirected_url_header>;
+.
+
+<nodeSet_74052750-d49d-419b-9f2f-e3c75419e940_redirected_url_header>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <info_74052750-d49d-419b-9f2f-e3c75419e940_redirected_url_header>;
+   pmlj:isConsequentOf <inferenceStep_74052750-d49d-419b-9f2f-e3c75419e940_redirected_url_header>;
+.
+<inferenceStep_74052750-d49d-419b-9f2f-e3c75419e940_redirected_url_header>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage_74052750-d49d-419b-9f2f-e3c75419e940_redirected_url_header>;
+   pmlj:hasInferenceEngine conv:curl_md5_1e49140eb1b32a1f32308199f0dde126;
+   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;
+   oboro:has_agent          <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   hartigprov:involvedActor <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+.
+
+<sourceUsage_74052750-d49d-419b-9f2f-e3c75419e940_redirected_url_header>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv>;
+   pmlp:hasUsageDateTime "2011-09-15T00:17:35-04:00"^^xsd:dateTime;
+.
+<wasControlledBy_74052750-d49d-419b-9f2f-e3c75419e940_redirected_url_header>
+   a oprov:WasControlledBy;
+   oprov:cause  <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+   oprov:effect <inferenceStep_74052750-d49d-419b-9f2f-e3c75419e940_redirected_url_header>;
+   oprov:endTime "2011-09-15T00:17:35-04:00"^^xsd:dateTime;
+.
+
+conv:curl_md5_1e49140eb1b32a1f32308199f0dde126
+   a pmlp:InferenceEngine, conv:Curl;
+   dcterms:identifier "md5_1e49140eb1b32a1f32308199f0dde126";
+   dcterms:description """curl 7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8r zlib/1.2.3
+Protocols: tftp ftp telnet dict ldap http file https ftps 
+Features: GSS-Negotiate IPv6 Largefile NTLM SSL libz """;
+.
+
+conv:Curl rdfs:subClassOf pmlp:InferenceEngine .
