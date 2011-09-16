@@ -43,6 +43,7 @@ connections = {'http':httplib.HTTPConnection,
 
 def getResponse(url):
     o = urlparse(str(url))
+    print o
     connection = connections[o.scheme](o.netloc)
     fullPath = urlunparse([None,None,o.path,o.params,o.query,o.fragment])
     connection.request('GET',fullPath)
@@ -76,10 +77,10 @@ def pcurl(url):
         work.irw_redirectsTo.append(newWork)
         work.save()
         work = newWork
-        response = getResponse(work)
+        response = getResponse(work.subject)
         content = response.read()
-        if response.status != 200:
-            raise Exception(response.reason)
+    if response.status != 200:
+        raise Exception(response.reason)
 
     work = originalWork
     workURI = str(work.subject)
