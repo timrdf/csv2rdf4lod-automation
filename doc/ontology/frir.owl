@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:frbr="http://purl.org/vocab/frbr/core#"
+   xmlns:frir="http://purl.org/twc/ontology/frir.owl"
+   xmlns:nfo="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <owl:Class rdf:about="http://purl.org/twc/ontology/frir.owlContentDigest">
+    <rdfs:label>ContentDigest</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#hasHash"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#hashValue"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash"/>
+  </owl:Class>
+  <rdf:Description rdf:about="http://purl.org/twc/ontology/frir.owlexactReproductionOf">
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/vocab/frbr/core#reproductionOf"/>
+  </rdf:Description>
+</rdf:RDF>
