@@ -1,28 +1,262 @@
-<?xml version="1.0" encoding="utf-8"?>
-<rdf:RDF
-   xmlns:frbr="http://purl.org/vocab/frbr/core#"
-   xmlns:frir="http://purl.org/twc/ontology/frir.owl"
-   xmlns:nfo="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#"
-   xmlns:owl="http://www.w3.org/2002/07/owl#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-  <owl:Class rdf:about="http://purl.org/twc/ontology/frir.owlContentDigest">
-    <rdfs:label>ContentDigest</rdfs:label>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</owl:minCardinality>
-        <owl:onProperty rdf:resource="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#hasHash"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</owl:minCardinality>
-        <owl:onProperty rdf:resource="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#hashValue"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <owl:disjointWith rdf:resource="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash"/>
-  </owl:Class>
-  <rdf:Description rdf:about="http://purl.org/twc/ontology/frir.owlexactReproductionOf">
-    <rdfs:subPropertyOf rdf:resource="http://purl.org/vocab/frbr/core#reproductionOf"/>
-  </rdf:Description>
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY core "http://purl.org/vocab/frbr/core#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY ProvenanceOntology "http://w3.org/ProvenanceOntology.owl#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY frir "http://purl.org/twc/ontology/frir.owl#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY time-entry "http://www.isi.edu/~pan/damltime/time-entry.owl#" >
+    <!ENTITY nfo "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" >
+]>
+
+
+<rdf:RDF xmlns="http://purl.org/twc/ontology/frir.owl#"
+     xml:base="http://purl.org/twc/ontology/frir.owl"
+     xmlns:time-entry="http://www.isi.edu/~pan/damltime/time-entry.owl#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:frir="http://purl.org/twc/ontology/frir.owl#"
+     xmlns:nfo="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#"
+     xmlns:ProvenanceOntology="http://w3.org/ProvenanceOntology.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:core="http://purl.org/vocab/frbr/core#">
+    <owl:Ontology rdf:about="http://purl.org/twc/ontology/frir.owl">
+        <owl:imports rdf:resource="http://purl.org/vocab/frbr/core"/>
+        <owl:imports rdf:resource="http://w3.org/ProvenanceOntology.owl"/>
+        <owl:imports rdf:resource="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/twc/ontology/frir.owl#exactCopy -->
+
+    <owl:ObjectProperty rdf:about="&frir;exactCopy">
+        <owl:inverseOf rdf:resource="&frir;exactCopyOf"/>
+        <rdfs:subPropertyOf rdf:resource="&core;reproduction"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/twc/ontology/frir.owl#exactCopyOf -->
+
+    <owl:ObjectProperty rdf:about="&frir;exactCopyOf">
+        <rdfs:subPropertyOf rdf:resource="&core;reproductionOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#abridgementOf -->
+
+    <rdf:Description rdf:about="&core;abridgementOf">
+        <rdfs:subPropertyOf rdf:resource="&ProvenanceOntology;wasDerivedFrom"/>
+    </rdf:Description>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#adaptionOf -->
+
+    <rdf:Description rdf:about="&core;adaptionOf">
+        <rdfs:subPropertyOf rdf:resource="&ProvenanceOntology;wasDerivedFrom"/>
+    </rdf:Description>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#arrangementOf -->
+
+    <rdf:Description rdf:about="&core;arrangementOf">
+        <rdfs:subPropertyOf rdf:resource="&ProvenanceOntology;wasDerivedFrom"/>
+    </rdf:Description>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#imitationOf -->
+
+    <rdf:Description rdf:about="&core;imitationOf">
+        <rdfs:subPropertyOf rdf:resource="&ProvenanceOntology;wasDerivedFrom"/>
+    </rdf:Description>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#reconfigurationOf -->
+
+    <rdf:Description rdf:about="&core;reconfigurationOf">
+        <rdfs:subPropertyOf rdf:resource="&ProvenanceOntology;wasDerivedFrom"/>
+    </rdf:Description>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#reproductionOf -->
+
+    <rdf:Description rdf:about="&core;reproductionOf">
+        <rdfs:subPropertyOf rdf:resource="&ProvenanceOntology;wasDerivedFrom"/>
+    </rdf:Description>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#revisionOf -->
+
+    <rdf:Description rdf:about="&core;revisionOf">
+        <rdfs:subPropertyOf rdf:resource="&ProvenanceOntology;wasDerivedFrom"/>
+    </rdf:Description>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#summarizationOf -->
+
+    <rdf:Description rdf:about="&core;summarizationOf">
+        <rdfs:subPropertyOf rdf:resource="&ProvenanceOntology;wasDerivedFrom"/>
+    </rdf:Description>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#transformationOf -->
+
+    <rdf:Description rdf:about="&core;transformationOf">
+        <rdfs:subPropertyOf rdf:resource="&ProvenanceOntology;wasDerivedFrom"/>
+    </rdf:Description>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#translationOf -->
+
+    <rdf:Description rdf:about="&core;translationOf">
+        <rdfs:subPropertyOf rdf:resource="&ProvenanceOntology;wasDerivedFrom"/>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/twc/ontology/frir.owl#hasHTTPHeader -->
+
+    <owl:DatatypeProperty rdf:about="&frir;hasHTTPHeader">
+        <rdfs:domain rdf:resource="&frir;HTTP1.1Transaction"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/twc/ontology/frir.owl#ContentDigest -->
+
+    <owl:Class rdf:about="&frir;ContentDigest">
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&nfo;hasHash"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&nfo;hashValue"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/twc/ontology/frir.owl#HTTP1.1Transaction -->
+
+    <owl:Class rdf:about="&frir;HTTP1.1Transaction">
+        <rdfs:subClassOf rdf:resource="&core;Item"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&frir;hasHTTPHeader"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/twc/ontology/frir.owl#HTTP_1.1_GET -->
+
+    <owl:Class rdf:about="&frir;HTTP_1.1_GET">
+        <rdfs:subClassOf rdf:resource="&ProvenanceOntology;ProcessExecution"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#Endeavour -->
+
+    <rdf:Description rdf:about="&core;Endeavour">
+        <rdfs:subClassOf rdf:resource="&ProvenanceOntology;Entity"/>
+    </rdf:Description>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#Person -->
+
+    <rdf:Description rdf:about="&core;Person">
+        <rdfs:subClassOf rdf:resource="&ProvenanceOntology;Agent"/>
+    </rdf:Description>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#ResponsibleEntity -->
+
+    <rdf:Description rdf:about="&core;ResponsibleEntity">
+        <rdfs:subClassOf rdf:resource="&ProvenanceOntology;Agent"/>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.isi.edu/~pan/damltime/time-entry.owl#Event -->
+
+    <rdf:Description rdf:about="&time-entry;Event">
+        <rdfs:subClassOf rdf:resource="&ProvenanceOntology;ProcessExecution"/>
+    </rdf:Description>
 </rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.2.1789) http://owlapi.sourceforge.net -->
+
