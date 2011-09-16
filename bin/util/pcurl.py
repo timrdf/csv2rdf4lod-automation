@@ -12,6 +12,11 @@ from urlparse import urlparse, urlunparse
 import dateutil.parser
 
 import subprocess
+import platform
+
+from serializer import *
+
+from StringIO import StringIO
 
 # These are the namespaces we are using.  They need to be added in
 # order for the Object RDF Mapping tool to work.
@@ -24,6 +29,7 @@ ns.register(irw='http://www.ontologydesignpatterns.org/ont/web/irw.owl#')
 ns.register(hash="hash:")
 ns.register(prov="http://w3.org/ProvenanceOntology.owl#")
 
+
 def call(command):
     p = subprocess.Popen(command,shell=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     result = p.communicate()
@@ -35,7 +41,7 @@ def getController(Agent):
 connections = {'http':httplib.HTTPConnection,
                'https':httplib.HTTPSConnection}
 
-def getResponse(self, url):
+def getResponse(url):
     o = urlparse(str(url))
     connection = connections[o.scheme](o.netloc)
     fullPath = urlunparse([None,None,o.path,o.params,o.query,o.fragment])
@@ -56,7 +62,7 @@ def pcurl(url):
     
     work = Work(url)
     works = set([url])
-    response = getResponse(work)
+    response = getResponse(url)
     content = response.read()
     originalWork = work
 
@@ -70,7 +76,7 @@ def pcurl(url):
         work.irw_redirectsTo.append(newWork)
         work.save()
         work = newWork
-        response = self.getResponse(work)
+        response = getResponse(work)
         content = response.read()
         if response.status != 200:
             raise Exception(response.reason)
@@ -84,9 +90,9 @@ def pcurl(url):
     ProcessExecution = work.session.get_class(ns.PROV['ProcessExecution'])
     httpGetURI = "http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.3"
 
-    itemHashValue = self.createItemHash(workURI, response,content)
+    itemHashValue = createItemHash(workURI, response,content)
     item = Item(ns.WORKURL['item-'.join(itemHashValue)])
-    item.nfo_hasHash.append(self.createHashInstance(itemHashValue,FileHash))
+    item.nfo_hasHash.append(createHashInstance(itemHashValue,FileHash))
     item.dc_date = dateutil.parser.parse(response.msg.dict['date'])
 
     o = urlparse(str(url))
@@ -94,8 +100,8 @@ def pcurl(url):
     dirname = os.getcwd()
     absFileName = dirname+os.sep+filename
 
-    f = open(absFileName,"rb+")
-    provF = open(absFileName+".prov.ttl","rb+")
+    f = open(absFileName,"wb+")
+    provF = open(absFileName+".prov.ttl","wb+")
     f.write(content)
     f.close()
     
@@ -105,15 +111,15 @@ def pcurl(url):
         path = '/'+absFileName.replace('\\','/').replace(':','|')
     localURI = 'file://'+hostname+path
     
-    manifestationHashValue = self.createManifestationHash(workURI, response,content)
+    manifestationHashValue = createManifestationHash(workURI, response,content)
 
     localItemHashValue = manifestationHashValue
-    localItem = Item(localURI+"#item-"+localItemHashValue)
-    localItem.nfo_hasHash.append(self.createHashInstance(localItemHashValue,FileHash))
+    localItem = Item(localURI+"#item-"+'-'.join(localItemHashValue))
+    localItem.nfo_hasHash.append(createHashInstance(localItemHashValue,FileHash))
     localItem.dc_date = dateutil.parser.parse(response.msg.dict['date'])
 
     manifestation = Manifestation(ns.WORKURL['manifestation-'.join(manifestationHashValue)])
-    manifestation.nfo_hasHash.append(self.createHashInstance(manifestationHashValue,FileHash))
+    manifestation.nfo_hasHash.append(createHashInstance(manifestationHashValue,FileHash))
         
     manifestation.frbr_exemplar.append(item)
     item.frbr_exemplarOf.append(manifestation)
@@ -124,9 +130,10 @@ def pcurl(url):
 
     getPE = ProcessExecution()
     getPE.dc_date = localItem.dc_date
-    getPE.rdf_type = URIref(httpGetURI)
+    getPE.rdf_type = URIRef(httpGetURI)
+    getPE.prov_used.append(URIRef(httpGetURI))
     getPE.prov_wasControlledBy = controller
-    getPE.prov_used = item
+    getPE.prov_used.append(item)
     localItem.prov_wasGeneratedBy = getPE
     
     manifestation.save()
@@ -148,7 +155,7 @@ def pcurl(url):
     expression.save()
     work.save()
     
-    provF.write(store.reader.graph.serialize("turtle"))
+    provF.write(pStore.reader.graph.serialize(format="turtle"))
     
 def createItemHash(workURI, response, content):
     m = hashlib.sha256()
@@ -172,9 +179,14 @@ def createExpressionHash(workURI, response, content):
         
     session = Session(store)
     try:
-        self.deserialize(store, content, response.msg.dict['content-type'])
+        deserialize(store, content, response.msg.dict['content-type'])
     except:
-        return self.createManifestationHash(workURI,response, content)
+        try:
+            extension = workURI.split('.')[-1]
+            store.reader.graph.parse(StringIO(content),
+                                     extensions[extension])
+        except:
+            return createManifestationHash(workURI,response, content)
     graph = store.reader.graph
 
     serializers = {Literal:lambda x: '"'+x+'"@'+str(x.language)+'^^'+str(x.datatype),
@@ -194,23 +206,6 @@ def createHashInstance(h, FileHash):
     hsh.nfo_hasValue = h[1]
     hsh.save()
     return hsh
-
-def test(url):
-    store = Store(reader='rdflib',
-                  writer='rdflib',
-                  rdflib_store = 'IOMemory')
-    session = Session(store)
-    Thing = session.get_class(ns.OWL['Thing'])
-    foo = Thing(url)
-    foo.save()
-    headers = {'Content-type':'application/rdf+xml',
-               'Accept':'application/x-turtle'}
-    con = HTTPConnection('localhost:9090')
-    con.request('POST','/services/frbr/frbrget',
-                store.reader.graph.serialize(),headers)
-    response = con.getresponse()
-    print response.status, response.reason
-    return response.read()
 
 if __name__ == "__main__":
     for arg in sys.argv[1:]:
