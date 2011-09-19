@@ -125,14 +125,17 @@ fi
 
 start=`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`
 ${isql_cmd} ${isql_pwd} << EOF &> $vload_log
+   log_enable(3,1);
    $sparql_delete
    $load_func
-   checkpoint;
    exit;
 EOF
 echo ""                                                                  >> $vload_log
 echo "# start time: $start"                                              >> $vload_log
 echo "# user: `whoami`"                                                  >> $vload_log
+echo "# log_enable(3,1);"                                                >> $vload_log
+echo "# $sparql_delete"                                                  >> $vload_log
+echo "# $load_func"                                                      >> $vload_log
 echo "# end   time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vload_log
 
 # Move the latest.log pointer to the log we just created.
