@@ -71,6 +71,13 @@ extensions = {
     "ntp":"nt"
     }
 
+typeExtensions = {
+    "xml":'rdf',
+    "turtle":'ttl',
+    "n3":"n3",
+    "nt":"ntp"
+    }
+
 def getFormat(contentType):
     if contentType == None: return [ "application/rdf+xml",serializeXML]
     type = mimeparse.best_match(contentTypes.keys(),contentType)
