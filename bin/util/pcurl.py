@@ -3,6 +3,7 @@
 from rdflib import *
 from surf import *
 
+from fstack import *
 import re, os
 
 import rdflib
@@ -21,9 +22,10 @@ from StringIO import StringIO
 # These are the namespaces we are using.  They need to be added in
 # order for the Object RDF Mapping tool to work.
 ns.register(frbr="http://purl.org/vocab/frbr/core#")
-ns.register(pexp="http://sparql.tw.rpi.edu/services/frbr/instances/Expression/")
-ns.register(pmanif="http://sparql.tw.rpi.edu/services/frbr/instances/Manifestation/")
-ns.register(pitem="http://sparql.tw.rpi.edu/services/frbr/instances/Item/")
+ns.register(frir="http://purl.org/twc/ontology/frir.owl#")
+ns.register(pexp="hash:Expression/")
+ns.register(pmanif="hash:Manifestation/")
+ns.register(pitem="hash:Item/")
 ns.register(nfo="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#")
 ns.register(irw='http://www.ontologydesignpatterns.org/ont/web/irw.owl#')
 ns.register(hash="hash:")
@@ -85,128 +87,49 @@ def pcurl(url):
     #work = originalWork
     workURI = str(work.subject)
     FileHash = work.session.get_class(ns.NFO['FileHash'])
+    ContentDigest = work.session.get_class(ns.FRIR['ContentDigest'])
     Item = work.session.get_class(ns.FRBR['Item'])
+    Txn = work.session.get_class(ns.FRIR['HTTP1.1Transaction'])
+    Get = work.session.get_class(ns.FRIR['HTTP1.1GET'])
     Manifestation = work.session.get_class(ns.FRBR['Manifestation'])
     Expression = work.session.get_class(ns.FRBR['Expression'])
     ProcessExecution = work.session.get_class(ns.PROV['ProcessExecution'])
-    httpGetURI = "http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.3"
+    #httpGetURI = "http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.3"
 
-    itemHashValue = createItemHash(workURI, response,content)
-    item = Item(ns.WORKURL['item-'.join(itemHashValue)])
-    item.nfo_hasHash.append(createHashInstance(itemHashValue,FileHash))
-    item.dc_date = dateutil.parser.parse(response.msg.dict['date'])
-
-    o = urlparse(str(url))
+    o = urlparse(str(workURI))
     filename = o.path.split("/")[-1]
-    dirname = os.getcwd()
-    absFileName = dirname+os.sep+filename
 
-    f = open(absFileName,"wb+")
-    provF = open(absFileName+".prov.ttl","wb+")
+    f = open(filename,"wb+")
     f.write(content)
     f.close()
-    
-    hostname = platform.uname()[1]
-    path = absFileName
-    if os.sep == '\\':
-        path = '/'+absFileName.replace('\\','/').replace(':','|')
-    localURI = 'file://'+hostname+path
-    
-    manifestationHashValue = createManifestationHash(workURI, response,content)
 
-    localItemHashValue = manifestationHashValue
-    localItem = Item(localURI+"#item-"+'-'.join(localItemHashValue))
-    localItem.nfo_hasHash.append(createHashInstance(localItemHashValue,FileHash))
-    localItem.dc_date = dateutil.parser.parse(response.msg.dict['date'])
+    pStore, localItem = fstack(open(filename,'rb+'),filename,url,pStore,response.msg.dict['content-type'])
+    #localItem = Item(localItem.subject)
 
-    manifestation = Manifestation(ns.WORKURL['manifestation-'.join(manifestationHashValue)])
-    manifestation.nfo_hasHash.append(createHashInstance(manifestationHashValue,FileHash))
-        
-    manifestation.frbr_exemplar.append(item)
-    item.frbr_exemplarOf.append(manifestation)
-    manifestation.frbr_exemplar.append(localItem)
-    localItem.frbr_exemplarOf.append(manifestation)
+    itemHashValue = createItemHash(url, response, content)
+
+    item = Txn(ns.PITEM['-'.join(itemHashValue)])
+    item.frir_hasHeader = ''.join(response.msg.headers)
+    item.nfo_hasHash.append(createHashInstance(itemHashValue,FileHash))
+    item.dc_date = dateutil.parser.parse(response.msg.dict['date'])
+    item.frbr_exemplarOf = localItem.frbr_exemplarOf
+
+    provF = open(filename+".prov.ttl","wb+")
 
     localItem.frbr_reproductionOf.append(item)
 
-    getPE = ProcessExecution()
+    getPE = Get()
     getPE.dc_date = localItem.dc_date
-    getPE.rdf_type = URIRef(httpGetURI)
-    getPE.prov_used.append(URIRef(httpGetURI))
+    getPE.prov_used.append(ns.FRIR['HTTP1.1GET'])
     getPE.prov_wasControlledBy = controller
     getPE.prov_used.append(item)
     localItem.prov_wasGeneratedBy = getPE
     
-    manifestation.save()
     item.save()
     localItem.save()
     getPE.save()
-        
-    expressionHashValue = createExpressionHash(workURI, response,content)
-    expression = Expression(ns.WORKURL['expression-'.join(expressionHashValue)])
-    expression.nfo_hasHash.append(createHashInstance(expressionHashValue,FileHash))
-
-    expression.frbr_embodiment.append(manifestation)
-    manifestation.frbr_embodimentOf.append(expression)
-    manifestation.save()
-    expression.save()
-
-    work.frbr_realization.append(expression)
-    expression.frbr_realizationOf.append(work)
-    expression.save()
-    work.save()
     
     provF.write(pStore.reader.graph.serialize(format="turtle"))
-    
-def createItemHash(workURI, response, content):
-    m = hashlib.sha256()
-    m.update(workURI+'\n')
-    m.update(''.join(response.msg.headers))
-    m.update(content)
-    return ['SHA256',m.hexdigest()]
-
-def createManifestationHash(workURI,response, content):
-    m = hashlib.sha256()
-    # TODO: should the hash include these elements?
-    #m.update(workURI+'\n')
-    #m.update('Content Type: '+response.msg.dict['content-type']+'\n')
-    m.update(content)
-    return ['SHA256',m.hexdigest()]
-
-def createExpressionHash(workURI, response, content):
-    store = Store(reader='rdflib',
-                  writer='rdflib',
-                  rdflib_store = 'IOMemory')
-        
-    session = Session(store)
-    try:
-        deserialize(store, content, response.msg.dict['content-type'])
-    except:
-        try:
-            extension = workURI.split('.')[-1]
-            store.reader.graph.parse(StringIO(content),
-                                     extensions[extension])
-        except:
-            return createManifestationHash(workURI,response, content)
-    graph = store.reader.graph
-
-    serializers = {Literal:lambda x: '"'+x+'"@'+str(x.language)+'^^'+str(x.datatype),
-                   URIRef:lambda x: '<'+str(x)+'>',
-                   BNode:lambda x: '['+str(x)+']'}
-    total = 0
-    for stmt in graph:
-        s = ' '.join([serializers[type(x)](x) for x in stmt])
-        m = hashlib.sha256()
-        m.update(s)
-        total += int(m.hexdigest(),16)
-    return ['GRAPH_SHA256','%x'%total]
-
-def createHashInstance(h, FileHash):
-    hsh = FileHash(ns.HASH['-'.join(h)])
-    hsh.nfo_hashAlgorithm = h[0]
-    hsh.nfo_hasValue = h[1]
-    hsh.save()
-    return hsh
 
 if __name__ == "__main__":
     for arg in sys.argv[1:]:
