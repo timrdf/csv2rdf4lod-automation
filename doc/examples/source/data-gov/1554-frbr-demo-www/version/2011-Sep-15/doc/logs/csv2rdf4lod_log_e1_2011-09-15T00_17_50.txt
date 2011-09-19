@@ -1,0 +1,476 @@
+2011-09-15T00:17:50-04:00
+NOTE: global parameters found; linking manual/csv.e1.params.ttl to ../csv.e1.params.ttl -- editing it edits the global parameters.
+constructing manual/csv.global.e1.params.ttl from file-independent global params ../e1.params.ttl
+2447 rows in source/csv
+convert-1554-frbr-demo-www.sh overriding conversion:base_uri in parameters file with http://localhost
+E1 CONVERSION
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Sep-08 initiated:
+fileName:                     source/csv
+sampleLimit:                  2
+enhancementParametersURL:     manual/csv.global.e1.params.ttl
+surrogateNS:                  http://localhost
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/csv.e1.sample.ttl
+converterIdentifier:          csv2rdf4lod_c32b54ba1c3ca59196145b9b607950fe
+==============================
+SourceIdentifierQuerylet(*) .data-gov.
+DatasetIdentifierQuerylet(*) .1554-frbr-demo-www.
+VersionIdentifierQuerylet(*) .2011-Sep-15.
+SubjectTypeQuerylet(*) .ForeignAid.
+SubClassOfQuerylet(*) .ForeignAid. -> ."[/]vocab/Transaction".
+ResourceAnnotationsQuerylet(0) .http://purl.oclc.org/NET/muo/muo#measuredIn. .http://dbpedia.org/resource/United_States_dollar.
+ResourceAnnotationsQuerylet(0) .[/]vocab/provider. .http://dbpedia.org/resource/United_States.
+WARNING: row's additional description predicate is not a URI; not applying a template: [/]vocab/provider
+SubpropertyOfQuerylet(1) .[/]vocab/recipient.
+TypedResourcePromotionQuerylet(1) .Country.
+SubpropertyOfQuerylet(2) .[/]vocab/purpose.
+TypedResourcePromotionQuerylet(2) .Program.
+SubpropertyOfQuerylet(3) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(3) .[/]instance-hub/financial/fiscal-year/united-states/FY_1946.
+SubpropertyOfQuerylet(4) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(4) .[/]instance-hub/financial/fiscal-year/united-states/FY_1947.
+SubpropertyOfQuerylet(5) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(5) .[/]instance-hub/financial/fiscal-year/united-states/FY_1948.
+SubpropertyOfQuerylet(6) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(6) .[/]instance-hub/financial/fiscal-year/united-states/FY_1949.
+SubpropertyOfQuerylet(7) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(7) .[/]instance-hub/financial/fiscal-year/united-states/FY_1950.
+SubpropertyOfQuerylet(8) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(8) .[/]instance-hub/financial/fiscal-year/united-states/FY_1951.
+SubpropertyOfQuerylet(9) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(9) .[/]instance-hub/financial/fiscal-year/united-states/FY_1952.
+SubpropertyOfQuerylet(10) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(10) .[/]instance-hub/financial/fiscal-year/united-states/FY_1953.
+SubpropertyOfQuerylet(11) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(11) .[/]instance-hub/financial/fiscal-year/united-states/FY_1954.
+SubpropertyOfQuerylet(12) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(12) .[/]instance-hub/financial/fiscal-year/united-states/FY_1955.
+SubpropertyOfQuerylet(13) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(13) .[/]instance-hub/financial/fiscal-year/united-states/FY_1956.
+SubpropertyOfQuerylet(14) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(14) .[/]instance-hub/financial/fiscal-year/united-states/FY_1957.
+SubpropertyOfQuerylet(15) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(15) .[/]instance-hub/financial/fiscal-year/united-states/FY_1958.
+SubpropertyOfQuerylet(17) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(17) .[/]instance-hub/financial/fiscal-year/united-states/FY_1960.
+SubpropertyOfQuerylet(16) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(16) .[/]instance-hub/financial/fiscal-year/united-states/FY_1959.
+SubpropertyOfQuerylet(19) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(19) .[/]instance-hub/financial/fiscal-year/united-states/FY_1962.
+SubpropertyOfQuerylet(18) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(18) .[/]instance-hub/financial/fiscal-year/united-states/FY_1961.
+CellBasedQuerylet(21) .[/]instance-hub/financial/fiscal-year/united-states/FY_1964.
+SubpropertyOfQuerylet(20) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(20) .[/]instance-hub/financial/fiscal-year/united-states/FY_1963.
+SubpropertyOfQuerylet(23) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(23) .[/]instance-hub/financial/fiscal-year/united-states/FY_1966.
+SubpropertyOfQuerylet(22) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(22) .[/]instance-hub/financial/fiscal-year/united-states/FY_1965.
+SubpropertyOfQuerylet(25) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(25) .[/]instance-hub/financial/fiscal-year/united-states/FY_1968.
+SubpropertyOfQuerylet(24) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(24) .[/]instance-hub/financial/fiscal-year/united-states/FY_1967.
+SubpropertyOfQuerylet(27) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(27) .[/]instance-hub/financial/fiscal-year/united-states/FY_1970.
+SubpropertyOfQuerylet(26) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(26) .[/]instance-hub/financial/fiscal-year/united-states/FY_1969.
+SubpropertyOfQuerylet(29) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(29) .[/]instance-hub/financial/fiscal-year/united-states/FY_1972.
+SubpropertyOfQuerylet(28) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(28) .[/]instance-hub/financial/fiscal-year/united-states/FY_1971.
+SubpropertyOfQuerylet(31) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(31) .[/]instance-hub/financial/fiscal-year/united-states/FY_1974.
+SubpropertyOfQuerylet(30) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(30) .[/]instance-hub/financial/fiscal-year/united-states/FY_1973.
+SubpropertyOfQuerylet(34) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(34) .[/]instance-hub/financial/fiscal-year/united-states/FY_1976.
+SubpropertyOfQuerylet(35) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(35) .[/]instance-hub/financial/fiscal-year/united-states/FY_1977.
+SubpropertyOfQuerylet(32) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(32) .[/]instance-hub/financial/fiscal-year/united-states/FY_1975.
+SubpropertyOfQuerylet(33) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(33) .[/]instance-hub/financial/fiscal-year/united-states/FY_1976.
+SubpropertyOfQuerylet(38) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(38) .[/]instance-hub/financial/fiscal-year/united-states/FY_1980.
+SubpropertyOfQuerylet(39) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(39) .[/]instance-hub/financial/fiscal-year/united-states/FY_1981.
+SubpropertyOfQuerylet(36) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(36) .[/]instance-hub/financial/fiscal-year/united-states/FY_1978.
+SubpropertyOfQuerylet(37) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(37) .[/]instance-hub/financial/fiscal-year/united-states/FY_1979.
+SubpropertyOfQuerylet(42) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(42) .[/]instance-hub/financial/fiscal-year/united-states/FY_1984.
+SubpropertyOfQuerylet(43) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(43) .[/]instance-hub/financial/fiscal-year/united-states/FY_1985.
+SubpropertyOfQuerylet(40) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(40) .[/]instance-hub/financial/fiscal-year/united-states/FY_1982.
+SubpropertyOfQuerylet(41) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(41) .[/]instance-hub/financial/fiscal-year/united-states/FY_1983.
+SubpropertyOfQuerylet(46) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(46) .[/]instance-hub/financial/fiscal-year/united-states/FY_1988.
+SubpropertyOfQuerylet(47) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(47) .[/]instance-hub/financial/fiscal-year/united-states/FY_1989.
+SubpropertyOfQuerylet(44) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(44) .[/]instance-hub/financial/fiscal-year/united-states/FY_1986.
+SubpropertyOfQuerylet(45) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(45) .[/]instance-hub/financial/fiscal-year/united-states/FY_1987.
+SubpropertyOfQuerylet(51) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(51) .[/]instance-hub/financial/fiscal-year/united-states/FY_1993.
+SubpropertyOfQuerylet(50) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(50) .[/]instance-hub/financial/fiscal-year/united-states/FY_1992.
+SubpropertyOfQuerylet(49) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(49) .[/]instance-hub/financial/fiscal-year/united-states/FY_1991.
+SubpropertyOfQuerylet(48) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(48) .[/]instance-hub/financial/fiscal-year/united-states/FY_1990.
+SubpropertyOfQuerylet(55) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(55) .[/]instance-hub/financial/fiscal-year/united-states/FY_1997.
+SubpropertyOfQuerylet(54) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(54) .[/]instance-hub/financial/fiscal-year/united-states/FY_1996.
+SubpropertyOfQuerylet(53) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(53) .[/]instance-hub/financial/fiscal-year/united-states/FY_1995.
+SubpropertyOfQuerylet(52) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(52) .[/]instance-hub/financial/fiscal-year/united-states/FY_1994.
+SubpropertyOfQuerylet(59) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(59) .[/]instance-hub/financial/fiscal-year/united-states/FY_2001.
+SubpropertyOfQuerylet(58) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(58) .[/]instance-hub/financial/fiscal-year/united-states/FY_2000.
+SubpropertyOfQuerylet(57) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(57) .[/]instance-hub/financial/fiscal-year/united-states/FY_1999.
+SubpropertyOfQuerylet(56) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(56) .[/]instance-hub/financial/fiscal-year/united-states/FY_1998.
+SubpropertyOfQuerylet(63) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(63) .[/]instance-hub/financial/fiscal-year/united-states/FY_2005.
+SubpropertyOfQuerylet(62) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(62) .[/]instance-hub/financial/fiscal-year/united-states/FY_2004.
+SubpropertyOfQuerylet(61) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(61) .[/]instance-hub/financial/fiscal-year/united-states/FY_2003.
+SubpropertyOfQuerylet(60) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(60) .[/]instance-hub/financial/fiscal-year/united-states/FY_2002.
+SubpropertyOfQuerylet(64) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(64) .[/]instance-hub/financial/fiscal-year/united-states/FY_2006.
+SubpropertyOfQuerylet(65) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(65) .[/]instance-hub/financial/fiscal-year/united-states/FY_2007.
+SubpropertyOfQuerylet(66) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(66) .[/]instance-hub/financial/fiscal-year/united-states/FY_2008.
+SubpropertyOfQuerylet(67) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(67) .[/]instance-hub/financial/fiscal-year/united-states/FY_2009.
+InterpretedAsNullQuerylet(*) ..
+
+subjectNS:   ds1554-frbr-demo-www:  http://localhost/source/data-gov/dataset/1554-frbr-demo-www/version/2011-Sep-15/
+predicateNS: e1:  http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/
+objectNS:    ds1554-frbr-demo-www_global_value:  http://localhost/source/data-gov/dataset/1554-frbr-demo-www/
+
+headers present at row 1: country_name,program_name,FY1946,FY1947,FY1948,FY1949,FY1950,FY1951,FY1952,FY1953,FY1954,FY1955,FY1956,FY1957,FY1958,FY1959,FY1960,FY1961,FY1962,FY1963,FY1964,FY1965,FY1966,FY1967,FY1968,FY1969,FY1970,FY1971,FY1972,FY1973,FY1974,FY1975,FY1976,FY1976tq,FY1977,FY1978,FY1979,FY1980,FY1981,FY1982,FY1983,FY1984,FY1985,FY1986,FY1987,FY1988,FY1989,FY1990,FY1991,FY1992,FY1993,FY1994,FY1995,FY1996,FY1997,FY1998,FY1999,FY2000,FY2001,FY2002,FY2003,FY2004,FY2005,FY2006,FY2007,FY2008,FY2009
+
+       ObjectSameAsLinksQuerylet(1): http://www.rpi.edu/~lebot/lod-links/countries/country-iso3166-1.ttl http://purl.org/dc/terms/identifier
+       collecting SOs from http://www.rpi.edu/~lebot/lod-links/countries/country-iso3166-1.ttl (size: 1032)
+1: "country_name" -> "Country" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/country (rdfs:Resource)
+2: "program_name" -> "Program" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/program (rdfs:Resource)
+3: "FY1946" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+4: "FY1947" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+5: "FY1948" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+6: "FY1949" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+7: "FY1950" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+8: "FY1951" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+9: "FY1952" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+10: "FY1953" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+11: "FY1954" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+12: "FY1955" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+13: "FY1956" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+14: "FY1957" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+15: "FY1958" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+16: "FY1959" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+17: "FY1960" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+18: "FY1961" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+19: "FY1962" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+20: "FY1963" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+21: "FY1964" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+22: "FY1965" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+23: "FY1966" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+24: "FY1967" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+25: "FY1968" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+26: "FY1969" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+27: "FY1970" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+28: "FY1971" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+29: "FY1972" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+30: "FY1973" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+31: "FY1974" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+32: "FY1975" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+33: "FY1976" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+34: "FY1976tq" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+35: "FY1977" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+36: "FY1978" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+37: "FY1979" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+38: "FY1980" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+39: "FY1981" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+40: "FY1982" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+41: "FY1983" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+42: "FY1984" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+43: "FY1985" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+44: "FY1986" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+45: "FY1987" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+46: "FY1988" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+47: "FY1989" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+48: "FY1990" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+49: "FY1991" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+50: "FY1992" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+51: "FY1993" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+52: "FY1994" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+53: "FY1995" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+54: "FY1996" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+55: "FY1997" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+56: "FY1998" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+57: "FY1999" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+58: "FY2000" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+59: "FY2001" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+60: "FY2002" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+61: "FY2003" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+62: "FY2004" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+63: "FY2005" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+64: "FY2006" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+65: "FY2007" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+66: "FY2008" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+67: "FY2009" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+
+
+Resulting size: 488 triples
+Sep 15, 2011 12:17:53 AM edu.rpi.tw.data.csv.CSVtoRDF toRDF
+INFO: writing metadata to same file as data automatic/csv.e1.sample.ttl
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+Finished converting -sample 2 sample rows.
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Sep-08 initiated:
+fileName:                     source/csv
+enhancementParametersURL:     manual/csv.global.e1.params.ttl
+surrogateNS:                  http://localhost
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/csv.e1.ttl
+metaOutputFileName:           automatic/csv.e1.void.ttl
+converterIdentifier:          csv2rdf4lod_c32b54ba1c3ca59196145b9b607950fe
+==============================
+SourceIdentifierQuerylet(*) .data-gov.
+DatasetIdentifierQuerylet(*) .1554-frbr-demo-www.
+VersionIdentifierQuerylet(*) .2011-Sep-15.
+SubjectTypeQuerylet(*) .ForeignAid.
+SubClassOfQuerylet(*) .ForeignAid. -> ."[/]vocab/Transaction".
+ResourceAnnotationsQuerylet(0) .http://purl.oclc.org/NET/muo/muo#measuredIn. .http://dbpedia.org/resource/United_States_dollar.
+ResourceAnnotationsQuerylet(0) .[/]vocab/provider. .http://dbpedia.org/resource/United_States.
+WARNING: row's additional description predicate is not a URI; not applying a template: [/]vocab/provider
+SubpropertyOfQuerylet(1) .[/]vocab/recipient.
+TypedResourcePromotionQuerylet(1) .Country.
+SubpropertyOfQuerylet(2) .[/]vocab/purpose.
+TypedResourcePromotionQuerylet(2) .Program.
+SubpropertyOfQuerylet(3) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(3) .[/]instance-hub/financial/fiscal-year/united-states/FY_1946.
+SubpropertyOfQuerylet(4) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(4) .[/]instance-hub/financial/fiscal-year/united-states/FY_1947.
+SubpropertyOfQuerylet(5) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(5) .[/]instance-hub/financial/fiscal-year/united-states/FY_1948.
+SubpropertyOfQuerylet(6) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(6) .[/]instance-hub/financial/fiscal-year/united-states/FY_1949.
+SubpropertyOfQuerylet(7) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(7) .[/]instance-hub/financial/fiscal-year/united-states/FY_1950.
+SubpropertyOfQuerylet(8) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(8) .[/]instance-hub/financial/fiscal-year/united-states/FY_1951.
+SubpropertyOfQuerylet(9) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(9) .[/]instance-hub/financial/fiscal-year/united-states/FY_1952.
+SubpropertyOfQuerylet(10) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(10) .[/]instance-hub/financial/fiscal-year/united-states/FY_1953.
+SubpropertyOfQuerylet(11) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(11) .[/]instance-hub/financial/fiscal-year/united-states/FY_1954.
+SubpropertyOfQuerylet(12) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(12) .[/]instance-hub/financial/fiscal-year/united-states/FY_1955.
+SubpropertyOfQuerylet(13) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(13) .[/]instance-hub/financial/fiscal-year/united-states/FY_1956.
+SubpropertyOfQuerylet(14) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(14) .[/]instance-hub/financial/fiscal-year/united-states/FY_1957.
+SubpropertyOfQuerylet(15) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(15) .[/]instance-hub/financial/fiscal-year/united-states/FY_1958.
+SubpropertyOfQuerylet(17) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(17) .[/]instance-hub/financial/fiscal-year/united-states/FY_1960.
+SubpropertyOfQuerylet(16) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(16) .[/]instance-hub/financial/fiscal-year/united-states/FY_1959.
+SubpropertyOfQuerylet(19) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(19) .[/]instance-hub/financial/fiscal-year/united-states/FY_1962.
+SubpropertyOfQuerylet(18) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(18) .[/]instance-hub/financial/fiscal-year/united-states/FY_1961.
+CellBasedQuerylet(21) .[/]instance-hub/financial/fiscal-year/united-states/FY_1964.
+SubpropertyOfQuerylet(20) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(20) .[/]instance-hub/financial/fiscal-year/united-states/FY_1963.
+SubpropertyOfQuerylet(23) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(23) .[/]instance-hub/financial/fiscal-year/united-states/FY_1966.
+SubpropertyOfQuerylet(22) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(22) .[/]instance-hub/financial/fiscal-year/united-states/FY_1965.
+SubpropertyOfQuerylet(25) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(25) .[/]instance-hub/financial/fiscal-year/united-states/FY_1968.
+SubpropertyOfQuerylet(24) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(24) .[/]instance-hub/financial/fiscal-year/united-states/FY_1967.
+SubpropertyOfQuerylet(27) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(27) .[/]instance-hub/financial/fiscal-year/united-states/FY_1970.
+SubpropertyOfQuerylet(26) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(26) .[/]instance-hub/financial/fiscal-year/united-states/FY_1969.
+SubpropertyOfQuerylet(29) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(29) .[/]instance-hub/financial/fiscal-year/united-states/FY_1972.
+SubpropertyOfQuerylet(28) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(28) .[/]instance-hub/financial/fiscal-year/united-states/FY_1971.
+SubpropertyOfQuerylet(31) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(31) .[/]instance-hub/financial/fiscal-year/united-states/FY_1974.
+SubpropertyOfQuerylet(30) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(30) .[/]instance-hub/financial/fiscal-year/united-states/FY_1973.
+SubpropertyOfQuerylet(34) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(34) .[/]instance-hub/financial/fiscal-year/united-states/FY_1976.
+SubpropertyOfQuerylet(35) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(35) .[/]instance-hub/financial/fiscal-year/united-states/FY_1977.
+SubpropertyOfQuerylet(32) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(32) .[/]instance-hub/financial/fiscal-year/united-states/FY_1975.
+SubpropertyOfQuerylet(33) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(33) .[/]instance-hub/financial/fiscal-year/united-states/FY_1976.
+SubpropertyOfQuerylet(38) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(38) .[/]instance-hub/financial/fiscal-year/united-states/FY_1980.
+SubpropertyOfQuerylet(39) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(39) .[/]instance-hub/financial/fiscal-year/united-states/FY_1981.
+SubpropertyOfQuerylet(36) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(36) .[/]instance-hub/financial/fiscal-year/united-states/FY_1978.
+SubpropertyOfQuerylet(37) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(37) .[/]instance-hub/financial/fiscal-year/united-states/FY_1979.
+SubpropertyOfQuerylet(42) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(42) .[/]instance-hub/financial/fiscal-year/united-states/FY_1984.
+SubpropertyOfQuerylet(43) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(43) .[/]instance-hub/financial/fiscal-year/united-states/FY_1985.
+SubpropertyOfQuerylet(40) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(40) .[/]instance-hub/financial/fiscal-year/united-states/FY_1982.
+SubpropertyOfQuerylet(41) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(41) .[/]instance-hub/financial/fiscal-year/united-states/FY_1983.
+SubpropertyOfQuerylet(46) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(46) .[/]instance-hub/financial/fiscal-year/united-states/FY_1988.
+SubpropertyOfQuerylet(47) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(47) .[/]instance-hub/financial/fiscal-year/united-states/FY_1989.
+SubpropertyOfQuerylet(44) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(44) .[/]instance-hub/financial/fiscal-year/united-states/FY_1986.
+SubpropertyOfQuerylet(45) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(45) .[/]instance-hub/financial/fiscal-year/united-states/FY_1987.
+SubpropertyOfQuerylet(51) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(51) .[/]instance-hub/financial/fiscal-year/united-states/FY_1993.
+SubpropertyOfQuerylet(50) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(50) .[/]instance-hub/financial/fiscal-year/united-states/FY_1992.
+SubpropertyOfQuerylet(49) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(49) .[/]instance-hub/financial/fiscal-year/united-states/FY_1991.
+SubpropertyOfQuerylet(48) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(48) .[/]instance-hub/financial/fiscal-year/united-states/FY_1990.
+SubpropertyOfQuerylet(55) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(55) .[/]instance-hub/financial/fiscal-year/united-states/FY_1997.
+SubpropertyOfQuerylet(54) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(54) .[/]instance-hub/financial/fiscal-year/united-states/FY_1996.
+SubpropertyOfQuerylet(53) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(53) .[/]instance-hub/financial/fiscal-year/united-states/FY_1995.
+SubpropertyOfQuerylet(52) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(52) .[/]instance-hub/financial/fiscal-year/united-states/FY_1994.
+SubpropertyOfQuerylet(59) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(59) .[/]instance-hub/financial/fiscal-year/united-states/FY_2001.
+SubpropertyOfQuerylet(58) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(58) .[/]instance-hub/financial/fiscal-year/united-states/FY_2000.
+SubpropertyOfQuerylet(57) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(57) .[/]instance-hub/financial/fiscal-year/united-states/FY_1999.
+SubpropertyOfQuerylet(56) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(56) .[/]instance-hub/financial/fiscal-year/united-states/FY_1998.
+SubpropertyOfQuerylet(63) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(63) .[/]instance-hub/financial/fiscal-year/united-states/FY_2005.
+SubpropertyOfQuerylet(62) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(62) .[/]instance-hub/financial/fiscal-year/united-states/FY_2004.
+SubpropertyOfQuerylet(61) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(61) .[/]instance-hub/financial/fiscal-year/united-states/FY_2003.
+SubpropertyOfQuerylet(60) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(60) .[/]instance-hub/financial/fiscal-year/united-states/FY_2002.
+SubpropertyOfQuerylet(64) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(64) .[/]instance-hub/financial/fiscal-year/united-states/FY_2006.
+SubpropertyOfQuerylet(65) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(65) .[/]instance-hub/financial/fiscal-year/united-states/FY_2007.
+SubpropertyOfQuerylet(66) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(66) .[/]instance-hub/financial/fiscal-year/united-states/FY_2008.
+SubpropertyOfQuerylet(67) .http://purl.org/dc/terms/temporal.
+CellBasedQuerylet(67) .[/]instance-hub/financial/fiscal-year/united-states/FY_2009.
+InterpretedAsNullQuerylet(*) ..
+
+subjectNS:   ds1554-frbr-demo-www:  http://localhost/source/data-gov/dataset/1554-frbr-demo-www/version/2011-Sep-15/
+predicateNS: e1:  http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/
+objectNS:    ds1554-frbr-demo-www_global_value:  http://localhost/source/data-gov/dataset/1554-frbr-demo-www/
+
+headers present at row 1: country_name,program_name,FY1946,FY1947,FY1948,FY1949,FY1950,FY1951,FY1952,FY1953,FY1954,FY1955,FY1956,FY1957,FY1958,FY1959,FY1960,FY1961,FY1962,FY1963,FY1964,FY1965,FY1966,FY1967,FY1968,FY1969,FY1970,FY1971,FY1972,FY1973,FY1974,FY1975,FY1976,FY1976tq,FY1977,FY1978,FY1979,FY1980,FY1981,FY1982,FY1983,FY1984,FY1985,FY1986,FY1987,FY1988,FY1989,FY1990,FY1991,FY1992,FY1993,FY1994,FY1995,FY1996,FY1997,FY1998,FY1999,FY2000,FY2001,FY2002,FY2003,FY2004,FY2005,FY2006,FY2007,FY2008,FY2009
+
+       ObjectSameAsLinksQuerylet(1): http://www.rpi.edu/~lebot/lod-links/countries/country-iso3166-1.ttl http://purl.org/dc/terms/identifier
+       collecting SOs from http://www.rpi.edu/~lebot/lod-links/countries/country-iso3166-1.ttl (size: 1032)
+1: "country_name" -> "Country" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/country (rdfs:Resource)
+2: "program_name" -> "Program" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/program (rdfs:Resource)
+3: "FY1946" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+4: "FY1947" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+5: "FY1948" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+6: "FY1949" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+7: "FY1950" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+8: "FY1951" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+9: "FY1952" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+10: "FY1953" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+11: "FY1954" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+12: "FY1955" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+13: "FY1956" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+14: "FY1957" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+15: "FY1958" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+16: "FY1959" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+17: "FY1960" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+18: "FY1961" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+19: "FY1962" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+20: "FY1963" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+21: "FY1964" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+22: "FY1965" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+23: "FY1966" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+24: "FY1967" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+25: "FY1968" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+26: "FY1969" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+27: "FY1970" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+28: "FY1971" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+29: "FY1972" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+30: "FY1973" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+31: "FY1974" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+32: "FY1975" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+33: "FY1976" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+34: "FY1976tq" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+35: "FY1977" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+36: "FY1978" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+37: "FY1979" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+38: "FY1980" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+39: "FY1981" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+40: "FY1982" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+41: "FY1983" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+42: "FY1984" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+43: "FY1985" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+44: "FY1986" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+45: "FY1987" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+46: "FY1988" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+47: "FY1989" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+48: "FY1990" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+49: "FY1991" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+50: "FY1992" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+51: "FY1993" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+52: "FY1994" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+53: "FY1995" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+54: "FY1996" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+55: "FY1997" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+56: "FY1998" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+57: "FY1999" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+58: "FY2000" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+59: "FY2001" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+60: "FY2002" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+61: "FY2003" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+62: "FY2004" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+63: "FY2005" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+64: "FY2006" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+65: "FY2007" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+66: "FY2008" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+67: "FY2009" -> "Year" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/enhancement/1/year (xsd:decimal)
+
+
+Resulting size: 413976 triples
+Sep 15, 2011 12:18:23 AM edu.rpi.tw.data.csv.CSVtoRDF toRDF
+INFO: writing metadata to separate file from data automatic/csv.e1.void.ttl
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+   convert.sh done
+convert-aggregate.sh not publishing b/c $CSV2RDF4LOD_PUBLISH=false.
+===========================================================================================

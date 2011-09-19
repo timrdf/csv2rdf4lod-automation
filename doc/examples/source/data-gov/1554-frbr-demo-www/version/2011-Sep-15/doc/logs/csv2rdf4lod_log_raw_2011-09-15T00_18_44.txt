@@ -1,0 +1,200 @@
+2011-09-15T00:18:44-04:00
+2447 rows in source/csv
+convert-1554-frbr-demo-www.sh overriding conversion:base_uri in parameters file with http://localhost
+RAW CONVERSION
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Sep-08 initiated:
+fileName:                     source/csv
+sampleLimit:                  2
+enhancementParametersURL:     automatic/csv.raw.params.ttl
+surrogateNS:                  http://localhost
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/csv.raw.sample.ttl
+converterIdentifier:          csv2rdf4lod_c32b54ba1c3ca59196145b9b607950fe
+==============================
+SourceIdentifierQuerylet(*) .data-gov.
+DatasetIdentifierQuerylet(*) .1554-frbr-demo-www.
+VersionIdentifierQuerylet(*) .2011-Sep-15.
+
+subjectNS:   ds1554-frbr-demo-www:  http://localhost/source/data-gov/dataset/1554-frbr-demo-www/version/2011-Sep-15/
+predicateNS: raw:  http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/
+objectNS:    ds1554-frbr-demo-www_global_value:  http://localhost/source/data-gov/dataset/1554-frbr-demo-www/
+
+CellDelimiterQuerylet(*) .,.
+HeaderRowQuerylet(*) .1.
+headers present at row 1: country_name,program_name,FY1946,FY1947,FY1948,FY1949,FY1950,FY1951,FY1952,FY1953,FY1954,FY1955,FY1956,FY1957,FY1958,FY1959,FY1960,FY1961,FY1962,FY1963,FY1964,FY1965,FY1966,FY1967,FY1968,FY1969,FY1970,FY1971,FY1972,FY1973,FY1974,FY1975,FY1976,FY1976tq,FY1977,FY1978,FY1979,FY1980,FY1981,FY1982,FY1983,FY1984,FY1985,FY1986,FY1987,FY1988,FY1989,FY1990,FY1991,FY1992,FY1993,FY1994,FY1995,FY1996,FY1997,FY1998,FY1999,FY2000,FY2001,FY2002,FY2003,FY2004,FY2005,FY2006,FY2007,FY2008,FY2009
+
+1: "country_name" -> "country_name" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/country_name (rdfs:Literal)
+2: "program_name" -> "program_name" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/program_name (rdfs:Literal)
+3: "FY1946" -> "FY1946" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1946 (rdfs:Literal)
+4: "FY1947" -> "FY1947" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1947 (rdfs:Literal)
+5: "FY1948" -> "FY1948" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1948 (rdfs:Literal)
+6: "FY1949" -> "FY1949" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1949 (rdfs:Literal)
+7: "FY1950" -> "FY1950" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1950 (rdfs:Literal)
+8: "FY1951" -> "FY1951" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1951 (rdfs:Literal)
+9: "FY1952" -> "FY1952" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1952 (rdfs:Literal)
+10: "FY1953" -> "FY1953" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1953 (rdfs:Literal)
+11: "FY1954" -> "FY1954" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1954 (rdfs:Literal)
+12: "FY1955" -> "FY1955" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1955 (rdfs:Literal)
+13: "FY1956" -> "FY1956" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1956 (rdfs:Literal)
+14: "FY1957" -> "FY1957" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1957 (rdfs:Literal)
+15: "FY1958" -> "FY1958" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1958 (rdfs:Literal)
+16: "FY1959" -> "FY1959" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1959 (rdfs:Literal)
+17: "FY1960" -> "FY1960" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1960 (rdfs:Literal)
+18: "FY1961" -> "FY1961" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1961 (rdfs:Literal)
+19: "FY1962" -> "FY1962" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1962 (rdfs:Literal)
+20: "FY1963" -> "FY1963" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1963 (rdfs:Literal)
+21: "FY1964" -> "FY1964" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1964 (rdfs:Literal)
+22: "FY1965" -> "FY1965" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1965 (rdfs:Literal)
+23: "FY1966" -> "FY1966" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1966 (rdfs:Literal)
+24: "FY1967" -> "FY1967" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1967 (rdfs:Literal)
+25: "FY1968" -> "FY1968" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1968 (rdfs:Literal)
+26: "FY1969" -> "FY1969" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1969 (rdfs:Literal)
+27: "FY1970" -> "FY1970" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1970 (rdfs:Literal)
+28: "FY1971" -> "FY1971" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1971 (rdfs:Literal)
+29: "FY1972" -> "FY1972" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1972 (rdfs:Literal)
+30: "FY1973" -> "FY1973" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1973 (rdfs:Literal)
+31: "FY1974" -> "FY1974" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1974 (rdfs:Literal)
+32: "FY1975" -> "FY1975" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1975 (rdfs:Literal)
+33: "FY1976" -> "FY1976" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1976 (rdfs:Literal)
+34: "FY1976tq" -> "FY1976tq" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1976tq (rdfs:Literal)
+35: "FY1977" -> "FY1977" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1977 (rdfs:Literal)
+36: "FY1978" -> "FY1978" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1978 (rdfs:Literal)
+37: "FY1979" -> "FY1979" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1979 (rdfs:Literal)
+38: "FY1980" -> "FY1980" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1980 (rdfs:Literal)
+39: "FY1981" -> "FY1981" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1981 (rdfs:Literal)
+40: "FY1982" -> "FY1982" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1982 (rdfs:Literal)
+41: "FY1983" -> "FY1983" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1983 (rdfs:Literal)
+42: "FY1984" -> "FY1984" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1984 (rdfs:Literal)
+43: "FY1985" -> "FY1985" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1985 (rdfs:Literal)
+44: "FY1986" -> "FY1986" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1986 (rdfs:Literal)
+45: "FY1987" -> "FY1987" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1987 (rdfs:Literal)
+46: "FY1988" -> "FY1988" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1988 (rdfs:Literal)
+47: "FY1989" -> "FY1989" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1989 (rdfs:Literal)
+48: "FY1990" -> "FY1990" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1990 (rdfs:Literal)
+49: "FY1991" -> "FY1991" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1991 (rdfs:Literal)
+50: "FY1992" -> "FY1992" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1992 (rdfs:Literal)
+51: "FY1993" -> "FY1993" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1993 (rdfs:Literal)
+52: "FY1994" -> "FY1994" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1994 (rdfs:Literal)
+53: "FY1995" -> "FY1995" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1995 (rdfs:Literal)
+54: "FY1996" -> "FY1996" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1996 (rdfs:Literal)
+55: "FY1997" -> "FY1997" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1997 (rdfs:Literal)
+56: "FY1998" -> "FY1998" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1998 (rdfs:Literal)
+57: "FY1999" -> "FY1999" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1999 (rdfs:Literal)
+58: "FY2000" -> "FY2000" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2000 (rdfs:Literal)
+59: "FY2001" -> "FY2001" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2001 (rdfs:Literal)
+60: "FY2002" -> "FY2002" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2002 (rdfs:Literal)
+61: "FY2003" -> "FY2003" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2003 (rdfs:Literal)
+62: "FY2004" -> "FY2004" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2004 (rdfs:Literal)
+63: "FY2005" -> "FY2005" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2005 (rdfs:Literal)
+64: "FY2006" -> "FY2006" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2006 (rdfs:Literal)
+65: "FY2007" -> "FY2007" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2007 (rdfs:Literal)
+66: "FY2008" -> "FY2008" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2008 (rdfs:Literal)
+67: "FY2009" -> "FY2009" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2009 (rdfs:Literal)
+
+
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 546 triples
+Sep 15, 2011 12:18:47 AM edu.rpi.tw.data.csv.CSVtoRDF toRDF
+INFO: writing metadata to same file as data automatic/csv.raw.sample.ttl
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+Finished converting -sample 2 sample rows.
+========== edu.rpi.tw.data.csv.CSVtoRDF version 2011-Sep-08 initiated:
+fileName:                     source/csv
+enhancementParametersURL:     automatic/csv.raw.params.ttl
+surrogateNS:                  http://localhost
+VoIDDumpExtensions:           ttl.gz
+outputFileName:               automatic/csv.raw.ttl
+metaOutputFileName:           automatic/csv.raw.void.ttl
+converterIdentifier:          csv2rdf4lod_c32b54ba1c3ca59196145b9b607950fe
+==============================
+SourceIdentifierQuerylet(*) .data-gov.
+DatasetIdentifierQuerylet(*) .1554-frbr-demo-www.
+VersionIdentifierQuerylet(*) .2011-Sep-15.
+
+subjectNS:   ds1554-frbr-demo-www:  http://localhost/source/data-gov/dataset/1554-frbr-demo-www/version/2011-Sep-15/
+predicateNS: raw:  http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/
+objectNS:    ds1554-frbr-demo-www_global_value:  http://localhost/source/data-gov/dataset/1554-frbr-demo-www/
+
+CellDelimiterQuerylet(*) .,.
+HeaderRowQuerylet(*) .1.
+headers present at row 1: country_name,program_name,FY1946,FY1947,FY1948,FY1949,FY1950,FY1951,FY1952,FY1953,FY1954,FY1955,FY1956,FY1957,FY1958,FY1959,FY1960,FY1961,FY1962,FY1963,FY1964,FY1965,FY1966,FY1967,FY1968,FY1969,FY1970,FY1971,FY1972,FY1973,FY1974,FY1975,FY1976,FY1976tq,FY1977,FY1978,FY1979,FY1980,FY1981,FY1982,FY1983,FY1984,FY1985,FY1986,FY1987,FY1988,FY1989,FY1990,FY1991,FY1992,FY1993,FY1994,FY1995,FY1996,FY1997,FY1998,FY1999,FY2000,FY2001,FY2002,FY2003,FY2004,FY2005,FY2006,FY2007,FY2008,FY2009
+
+1: "country_name" -> "country_name" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/country_name (rdfs:Literal)
+2: "program_name" -> "program_name" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/program_name (rdfs:Literal)
+3: "FY1946" -> "FY1946" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1946 (rdfs:Literal)
+4: "FY1947" -> "FY1947" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1947 (rdfs:Literal)
+5: "FY1948" -> "FY1948" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1948 (rdfs:Literal)
+6: "FY1949" -> "FY1949" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1949 (rdfs:Literal)
+7: "FY1950" -> "FY1950" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1950 (rdfs:Literal)
+8: "FY1951" -> "FY1951" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1951 (rdfs:Literal)
+9: "FY1952" -> "FY1952" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1952 (rdfs:Literal)
+10: "FY1953" -> "FY1953" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1953 (rdfs:Literal)
+11: "FY1954" -> "FY1954" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1954 (rdfs:Literal)
+12: "FY1955" -> "FY1955" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1955 (rdfs:Literal)
+13: "FY1956" -> "FY1956" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1956 (rdfs:Literal)
+14: "FY1957" -> "FY1957" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1957 (rdfs:Literal)
+15: "FY1958" -> "FY1958" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1958 (rdfs:Literal)
+16: "FY1959" -> "FY1959" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1959 (rdfs:Literal)
+17: "FY1960" -> "FY1960" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1960 (rdfs:Literal)
+18: "FY1961" -> "FY1961" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1961 (rdfs:Literal)
+19: "FY1962" -> "FY1962" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1962 (rdfs:Literal)
+20: "FY1963" -> "FY1963" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1963 (rdfs:Literal)
+21: "FY1964" -> "FY1964" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1964 (rdfs:Literal)
+22: "FY1965" -> "FY1965" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1965 (rdfs:Literal)
+23: "FY1966" -> "FY1966" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1966 (rdfs:Literal)
+24: "FY1967" -> "FY1967" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1967 (rdfs:Literal)
+25: "FY1968" -> "FY1968" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1968 (rdfs:Literal)
+26: "FY1969" -> "FY1969" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1969 (rdfs:Literal)
+27: "FY1970" -> "FY1970" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1970 (rdfs:Literal)
+28: "FY1971" -> "FY1971" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1971 (rdfs:Literal)
+29: "FY1972" -> "FY1972" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1972 (rdfs:Literal)
+30: "FY1973" -> "FY1973" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1973 (rdfs:Literal)
+31: "FY1974" -> "FY1974" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1974 (rdfs:Literal)
+32: "FY1975" -> "FY1975" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1975 (rdfs:Literal)
+33: "FY1976" -> "FY1976" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1976 (rdfs:Literal)
+34: "FY1976tq" -> "FY1976tq" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1976tq (rdfs:Literal)
+35: "FY1977" -> "FY1977" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1977 (rdfs:Literal)
+36: "FY1978" -> "FY1978" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1978 (rdfs:Literal)
+37: "FY1979" -> "FY1979" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1979 (rdfs:Literal)
+38: "FY1980" -> "FY1980" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1980 (rdfs:Literal)
+39: "FY1981" -> "FY1981" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1981 (rdfs:Literal)
+40: "FY1982" -> "FY1982" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1982 (rdfs:Literal)
+41: "FY1983" -> "FY1983" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1983 (rdfs:Literal)
+42: "FY1984" -> "FY1984" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1984 (rdfs:Literal)
+43: "FY1985" -> "FY1985" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1985 (rdfs:Literal)
+44: "FY1986" -> "FY1986" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1986 (rdfs:Literal)
+45: "FY1987" -> "FY1987" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1987 (rdfs:Literal)
+46: "FY1988" -> "FY1988" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1988 (rdfs:Literal)
+47: "FY1989" -> "FY1989" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1989 (rdfs:Literal)
+48: "FY1990" -> "FY1990" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1990 (rdfs:Literal)
+49: "FY1991" -> "FY1991" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1991 (rdfs:Literal)
+50: "FY1992" -> "FY1992" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1992 (rdfs:Literal)
+51: "FY1993" -> "FY1993" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1993 (rdfs:Literal)
+52: "FY1994" -> "FY1994" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1994 (rdfs:Literal)
+53: "FY1995" -> "FY1995" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1995 (rdfs:Literal)
+54: "FY1996" -> "FY1996" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1996 (rdfs:Literal)
+55: "FY1997" -> "FY1997" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1997 (rdfs:Literal)
+56: "FY1998" -> "FY1998" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1998 (rdfs:Literal)
+57: "FY1999" -> "FY1999" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy1999 (rdfs:Literal)
+58: "FY2000" -> "FY2000" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2000 (rdfs:Literal)
+59: "FY2001" -> "FY2001" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2001 (rdfs:Literal)
+60: "FY2002" -> "FY2002" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2002 (rdfs:Literal)
+61: "FY2003" -> "FY2003" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2003 (rdfs:Literal)
+62: "FY2004" -> "FY2004" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2004 (rdfs:Literal)
+63: "FY2005" -> "FY2005" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2005 (rdfs:Literal)
+64: "FY2006" -> "FY2006" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2006 (rdfs:Literal)
+65: "FY2007" -> "FY2007" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2007 (rdfs:Literal)
+66: "FY2008" -> "FY2008" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2008 (rdfs:Literal)
+67: "FY2009" -> "FY2009" -> http://localhost/source/data-gov/dataset/1554-frbr-demo-www/vocab/raw/fy2009 (rdfs:Literal)
+
+
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://purl.org/twc/vocab/conversion/LayerDataset.
+LayerDatasetDescriptionsQuerylet(D) .http://www.w3.org/1999/02/22-rdf-syntax-ns#type. .http://rdfs.org/ns/void#Dataset.
+Resulting size: 171626 triples
+Sep 15, 2011 12:18:54 AM edu.rpi.tw.data.csv.CSVtoRDF toRDF
+INFO: writing metadata to separate file from data automatic/csv.raw.void.ttl
+========== edu.rpi.tw.data.csv.CSVtoRDF complete. ==========
+   convert.sh done
+convert-aggregate.sh not publishing b/c $CSV2RDF4LOD_PUBLISH=false.
+===========================================================================================
