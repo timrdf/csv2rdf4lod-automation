@@ -11,6 +11,7 @@
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
     <!ENTITY time-entry "http://www.isi.edu/~pan/damltime/time-entry.owl#" >
     <!ENTITY nfo "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" >
+    <!ENTITY irw "http://www.ontologydesignpatterns.org/ont/web/irw.owl#" >
 ]>
 
 
@@ -149,6 +150,14 @@
     <rdf:Description rdf:about="&core;translationOf">
         <rdfs:subPropertyOf rdf:resource="&ProvenanceOntology;wasDerivedFrom"/>
     </rdf:Description>
+    
+
+    <owl:ObjectProperty rdf:about="&irw;redirectsTo">
+        <rdfs:subPropertyOf rdf:resource="&frir;redirectsToTransitive"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="&frir;redirectsToTransitive">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+    </owl:ObjectProperty>
     
 
 
