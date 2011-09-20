@@ -37,9 +37,6 @@ ns.register(irw='http://www.ontologydesignpatterns.org/ont/web/irw.owl#')
 ns.register(hash="hash:")
 ns.register(uuid="uuid:")
 ns.register(file="file://"+str(uuid.uuid1()))
-ns.register(prov="http://w3.org/ProvenanceOntology.owl#")
-
-
 
 def createItemURI(filename):
     hostAndModTime = '-'.join(str(uuid.uuid1(clock_seq=os.stat(filename)[ST_MTIME])).split('-')[1:])
@@ -115,6 +112,8 @@ def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None, addPat
     expression.save()
     work.save()
 
+    pSession.commit()
+    
     return pStore, item
 
 def createItemHash(workURI, response, content):
