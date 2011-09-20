@@ -5,6 +5,13 @@
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/pwd-not-a.sh
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Directory-Conventions
 
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source my-csv2rdf4lod-source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+
+if [[ "$1" == "--types" ]]; then
+   ${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh --types
+   exit 1
+fi
+
 VALIDS=`cr-pwd-type.sh --types`
 if [ $# -lt 1 ]; then
    echo "usage: `basename $0` {$VALIDS}+"
