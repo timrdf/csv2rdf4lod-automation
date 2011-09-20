@@ -166,7 +166,7 @@
     <!-- http://purl.org/twc/ontology/frir.owl#hasHTTPHeader -->
 
     <owl:DatatypeProperty rdf:about="&frir;hasHTTPHeader">
-        <rdfs:domain rdf:resource="&frir;HTTP_1_1_Result"/>
+        <rdfs:domain rdf:resource="&frir;HTTP_1_1_Response"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
     
@@ -210,9 +210,9 @@
         <rdfs:subClassOf rdf:resource="&core;ContentDigest"/>
     </owl:Class>
  
-    <!-- http://purl.org/twc/ontology/frir.owl#HTTP_1_1_Result -->
+    <!-- http://purl.org/twc/ontology/frir.owl#HTTP_1_1_Response -->
 
-    <owl:Class rdf:about="&frir;HTTP_1_1_Result">
+    <owl:Class rdf:about="&frir;HTTP_1_1_Response">
         <rdfs:subClassOf rdf:resource="&core;Item"/>
         <rdfs:subClassOf>
             <owl:Restriction>
