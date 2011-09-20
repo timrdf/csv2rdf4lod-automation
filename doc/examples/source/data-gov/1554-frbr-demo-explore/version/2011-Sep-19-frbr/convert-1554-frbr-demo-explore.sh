@@ -10,6 +10,7 @@
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
+CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR=true # We want to demonstrate FRBR
 CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER=false # We want to do this for the demonstration; in reality we'd want to skip it b/c we have an enhanced version.
                                          # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/frbr:mccusker2012parallel
 
