@@ -90,7 +90,8 @@ def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None, addPat
     item = Item(fileURI)
     item.nfo_hasHash.append(createHashInstance(itemHashValue,FileHash))
     if addPaths and filename != None:
-        item.nfo_fileUrl.append('file:///'+os.path.abspath(filename))
+        item.nfo_fileUrl.append(URIRef('file:///'+os.path.abspath(filename)))
+        item.nfo_fileUrl.append(URIRef(filename))
     item.dcterms_date = timestamp
 
     manifestation = Manifestation(ns.PMANIF['-'.join(manifestationHashValue)])
@@ -221,4 +222,4 @@ if __name__ == "__main__":
             if stdout:
                 print store[0].reader.graph.serialize(format=fileFormat)
             else:
-                store[0].reader.graph.serialize(open(f+".prov."+extension,'ab+'),format=fileFormat)
+                store[0].reader.graph.serialize(open(f+".prov."+extension,'wb+'),format=fileFormat)
