@@ -166,7 +166,7 @@
     <!-- http://purl.org/twc/ontology/frir.owl#hasHTTPHeader -->
 
     <owl:DatatypeProperty rdf:about="&frir;hasHTTPHeader">
-        <rdfs:domain rdf:resource="&frir;HTTP1.1Transaction"/>
+        <rdfs:domain rdf:resource="&frir;HTTP_1_1_Result"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
     
@@ -203,9 +203,9 @@
     
 
 
-    <!-- http://purl.org/twc/ontology/frir.owl#HTTP1.1Transaction -->
+    <!-- http://purl.org/twc/ontology/frir.owl#HTTP_1_1_Result -->
 
-    <owl:Class rdf:about="&frir;HTTP1.1Transaction">
+    <owl:Class rdf:about="&frir;HTTP_1_1_Result">
         <rdfs:subClassOf rdf:resource="&core;Item"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -217,9 +217,9 @@
     
 
 
-    <!-- http://purl.org/twc/ontology/frir.owl#HTTP_1.1_GET -->
+    <!-- http://purl.org/twc/ontology/frir.owl#HTTP_1_1_GET -->
 
-    <owl:Class rdf:about="&frir;HTTP_1.1_GET">
+    <owl:Class rdf:about="&frir;HTTP_1_1_GET">
         <rdfs:subClassOf rdf:resource="&ProvenanceOntology;ProcessExecution"/>
     </owl:Class>
     
