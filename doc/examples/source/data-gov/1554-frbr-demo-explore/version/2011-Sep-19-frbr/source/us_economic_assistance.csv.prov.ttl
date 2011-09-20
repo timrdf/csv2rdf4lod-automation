@@ -1,52 +1,50 @@
-@prefix ns1: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
-@prefix ns2: <http://purl.org/vocab/frbr/core#> .
-@prefix ns3: <http://purl.org/dc/elements/1.1/> .
-@prefix ns4: <http://purl.org/twc/ontology/frir.owl#> .
-@prefix ns5: <http://w3.org/ProvenanceOntology.owl#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix frir: <http://purl.org/twc/ontology/frir.owl#> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix prov: <http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#> .
 
-<file://be830d90-e30f-11e0-b02f-60334b06e210/Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/source/us_economic_assistance.csv> a <http://purl.org/vocab/frbr/core#Item>;
-    ns3:date "2011-09-19T22:36:15.654417"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
-    ns2:exemplarOf <hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57>;
-    ns2:reproductionOf <hash:Item/SHA256-28266cf7cc950029b9e547eb757e56f5070feae08d0ee93cba58a55d1b71864b>;
-    ns5:wasGeneratedBy <http://code.google.com/p/surfrdf/924d8f9d-8294-4760-8b7a-1bee492823ca>;
-    ns1:hasHash <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> .
+<file://25884492-e32e-11e0-91c1-60334b06e210/Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/source/us_economic_assistance.csv> a <http://purl.org/vocab/frbr/core#Item>;
+    prov:wasGeneratedBy <http://code.google.com/p/surfrdf/2d58190a-1ee2-4f46-b5d8-34d21e1499d3>;
+    dc:date "2011-09-20T02:13:37.133301"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    frbr:exemplarOf <hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57>;
+    frbr:reproductionOf <hash:Item/SHA256-11844c499521f65bf9bf211f8dd188010d5dae6a7c2f4243d0ebba890a8ab13b>;
+    nfo:hasHash <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> .
+
+<hash:Expression/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> a <http://purl.org/vocab/frbr/core#Expression>;
+    frbr:realizationOf <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv>;
+    nfo:hasHash <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> .
+
+<hash:SHA256-11844c499521f65bf9bf211f8dd188010d5dae6a7c2f4243d0ebba890a8ab13b> a <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash>;
+    nfo:hashAlgorithm "SHA256";
+    nfo:hashValue "11844c499521f65bf9bf211f8dd188010d5dae6a7c2f4243d0ebba890a8ab13b" .
+
+<http://code.google.com/p/surfrdf/2d58190a-1ee2-4f46-b5d8-34d21e1499d3> a <http://purl.org/twc/ontology/frir.owl#HTTP_1_1_GET>;
+    prov:used <hash:Item/SHA256-11844c499521f65bf9bf211f8dd188010d5dae6a7c2f4243d0ebba890a8ab13b>,
+        <http://purl.org/twc/ontology/frir.owl#HTTP_1_1_GET>;
+    prov:wasControlledBy <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+    dc:date "2011-09-20T02:13:37.133301"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
 
 <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv> a <http://purl.org/vocab/frbr/core#Work> .
 
-<hash:Expression/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> a <http://purl.org/vocab/frbr/core#Expression>;
-    ns2:realizationOf <http://explore.data.gov/download/5gah-bvex/CSV>;
-    ns1:hasHash <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> .
-
-<hash:SHA256-28266cf7cc950029b9e547eb757e56f5070feae08d0ee93cba58a55d1b71864b> a <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash>;
-    ns1:hashAlgorithm "SHA256";
-    ns1:hashValue "28266cf7cc950029b9e547eb757e56f5070feae08d0ee93cba58a55d1b71864b" .
-
-<http://code.google.com/p/surfrdf/924d8f9d-8294-4760-8b7a-1bee492823ca> a <http://purl.org/twc/ontology/frir.owl#HTTP1.1GET>;
-    ns3:date "2011-09-19T22:36:15.654417"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
-    ns5:used <hash:Item/SHA256-28266cf7cc950029b9e547eb757e56f5070feae08d0ee93cba58a55d1b71864b>,
-        <http://purl.org/twc/ontology/frir.owl#HTTP1.1GET>;
-    ns5:wasControlledBy <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
-
-<http://explore.data.gov/download/5gah-bvex/CSV> a <http://purl.org/vocab/frbr/core#Work> .
-
-<hash:Item/SHA256-28266cf7cc950029b9e547eb757e56f5070feae08d0ee93cba58a55d1b71864b> a <http://purl.org/twc/ontology/frir.owl#HTTP1.1Transaction>;
-    ns3:date "2011-09-19T22:10:57+00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
-    ns4:hasHeader """Content-Length: 446436
+<hash:Item/SHA256-11844c499521f65bf9bf211f8dd188010d5dae6a7c2f4243d0ebba890a8ab13b> a <http://purl.org/twc/ontology/frir.owl#HTTP_1_1_Result>;
+    dc:date "2011-09-20T01:48:34+00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    frir:hasHeader """Content-Length: 446436
 Content-Type: application/octet-stream
 Last-Modified: Wed, 12 Jan 2011 15:31:18 GMT
 Accept-Ranges: bytes
 ETag: "027a2c16db2cb1:1ba0"
 Server: Microsoft-IIS/6.0
-Date: Mon, 19 Sep 2011 22:10:57 GMT
+Date: Tue, 20 Sep 2011 01:48:34 GMT
 """;
-    ns2:exemplarOf <hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57>;
-    ns1:hasHash <hash:SHA256-28266cf7cc950029b9e547eb757e56f5070feae08d0ee93cba58a55d1b71864b> .
+    frbr:exemplarOf <hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57>;
+    nfo:hasHash <hash:SHA256-11844c499521f65bf9bf211f8dd188010d5dae6a7c2f4243d0ebba890a8ab13b> .
 
 <hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> a <http://purl.org/vocab/frbr/core#Manifestation>;
-    ns2:embodimentOf <hash:Expression/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57>;
-    ns1:hasHash <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> .
+    frbr:embodimentOf <hash:Expression/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57>;
+    nfo:hasHash <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> .
 
 <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> a <http://purl.org/twc/ontology/frir.owl#ContentDigest>;
-    ns1:hashAlgorithm "SHA256";
-    ns1:hashValue "d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57" .
+    nfo:hashAlgorithm "SHA256";
+    nfo:hashValue "d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57" .
 
