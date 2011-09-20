@@ -83,6 +83,7 @@ def pcurl(url):
         content = response.read()
     if response.status != 200:
         raise Exception(response.reason)
+    pSession.commit()
 
     #work = originalWork
     workURI = str(work.subject)
@@ -103,7 +104,7 @@ def pcurl(url):
     f.write(content)
     f.close()
 
-    pStore, localItem = fstack(open(filename,'rb+'),filename,url,pStore,response.msg.dict['content-type'])
+    pStore, localItem = fstack(open(filename,'rb+'),filename,workURI,pStore,response.msg.dict['content-type'])
     #localItem = Item(localItem.subject)
 
     itemHashValue = createItemHash(url, response, content)
@@ -128,7 +129,8 @@ def pcurl(url):
     item.save()
     localItem.save()
     getPE.save()
-    
+
+    pSession.commit()
     bindPrefixes(pStore.reader.graph)
     provF.write(pStore.reader.graph.serialize(format="turtle"))
 
