@@ -144,7 +144,7 @@ while [ $# -gt 0 ]; do
       #echo curl $prefRDF -L $url 
       if [ ${downloadFile:-"."} == "true" ]; then
          echo curl -L --globoff $url $formFields REDIRECT_ANGLE $file
-         curl -L --globoff $url $formFields > $file
+         curl -L --globoff --insecure $url $formFields > $file
          downloadedFileMD5=`md5.sh $file`
       fi
 
