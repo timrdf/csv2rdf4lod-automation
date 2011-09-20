@@ -202,7 +202,14 @@
     </owl:Class>
     
 
-
+    <owl:Class rdf:about="&frir;TabularDigest">
+        <rdfs:subClassOf rdf:resource="&core;ContentDigest"/>
+    </owl:Class>
+ 
+    <owl:Class rdf:about="&frir;RDFGraphDigest">
+        <rdfs:subClassOf rdf:resource="&core;ContentDigest"/>
+    </owl:Class>
+ 
     <!-- http://purl.org/twc/ontology/frir.owl#HTTP_1_1_Result -->
 
     <owl:Class rdf:about="&frir;HTTP_1_1_Result">
