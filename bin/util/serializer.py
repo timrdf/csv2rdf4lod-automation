@@ -4,11 +4,26 @@ import mimeparse
 from surf.serializer import to_json
 import simplejson as json
 import mimeparse
+from rdflib import *
+
+def bindPrefixes(graph):
+    graph.bind('frbr', URIRef('http://purl.org/vocab/frbr/core#'))
+    graph.bind('frir', URIRef('http://purl.org/twc/ontology/frir.owl#'))
+    graph.bind('pexp', URIRef('hash:Expression/'))
+    graph.bind('pmanif', URIRef('hash:Manifestation/'))
+    graph.bind('pitem', URIRef('hash:Item/'))
+    graph.bind('nfo', URIRef('http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#'))
+    graph.bind('irw', URIRef('http://www.ontologydesignpatterns.org/ont/web/irw.owl#'))
+    graph.bind('hash', URIRef('hash:'))
+    graph.bind('dc', URIRef('http://purl.org/dc/elements/1.1/'))
+    graph.bind('prov', URIRef('http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#'))
+
 
 class DefaultSerializer:
     def __init__(self,format):
         self.format = format
     def serialize(self,graph):
+        bindPrefixes(graph)
         return graph.serialize(format=format)
     def deserialize(self,graph, content):
         graph.parse(StringIO(content),format)
