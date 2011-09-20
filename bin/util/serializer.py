@@ -15,8 +15,9 @@ def bindPrefixes(graph):
     graph.bind('nfo', URIRef('http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#'))
     graph.bind('irw', URIRef('http://www.ontologydesignpatterns.org/ont/web/irw.owl#'))
     graph.bind('hash', URIRef('hash:'))
-    graph.bind('dc', URIRef('http://purl.org/dc/elements/1.1/'))
+    graph.bind('dc', URIRef('http://purl.org/dc/terms/'))
     graph.bind('prov', URIRef('http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#'))
+    graph.bind('xsd', URIRef('http://www.w3.org/2001/XMLSchema#'))
 
 
 class DefaultSerializer:
