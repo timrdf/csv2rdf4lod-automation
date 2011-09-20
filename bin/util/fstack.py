@@ -165,17 +165,22 @@ def createHashInstance(h, Hash):
     return hsh
 
 def usage():
-    print '''usage: fstack.py [--help|-h] [--stdout|-c] [--format|-f xml|turtle|n3|nt] [-] [file ...]
+    print '''usage: fstack.py [--help|-h] [--stdout|-c] [--format|-f xml|turtle|n3|nt] [--print-item] [--print-manifesation] [--print-expression] [--print-work] [-] [file ...]
 
-Compute Functional Requirements for Bibliographic Resources (FRBR) stacks using cryptograhic digests.
+Compute Functional Requirements for Bibliographic Resources (FRBR)
+stacks using cryptograhic digests.
 
 optional arguments:
- file           file to compute a FRBR stack for.
- -              read content from stdin and print FRBR stack to stdout.
- -h, --help     Show this help message and exit,
- -c, --stdout   Print frbr stacks to stdout.
- --no-paths     Only output path hashes, not actual paths (for security purposes).
- -f, --format   File format for FRBR stacks. One of xml, turtle, n3, or nt.
+ file                  File to compute a FRBR stack for.
+ -                     Read content from stdin and print FRBR stack to stdout.
+ -h, --help            Show this help message and exit,
+ -c, --stdout          Print frbr stacks to stdout.
+ --no-paths            Only output path hashes, not actual paths.
+ -f, --format          File format for FRBR stacks. xml, turtle, n3, or nt.
+--print-item           Print URI of the Item and quit.
+--print-manifestation  Print URI of the Manifestation and quit.
+--print-expression     Print URI of the Expression and quit.
+--print-work           Print URI of the Work and quit.
 '''
 
 if __name__ == "__main__":
@@ -185,6 +190,10 @@ if __name__ == "__main__":
     fileFormat = 'turtle'
     extension = 'ttl'
     addPaths = True
+    printItems = False
+    printManifestations = False
+    printExpressions = False
+    printWorks = False
 
     if '-h' in sys.argv or '--help' in sys.argv:
         usage()
@@ -202,6 +211,14 @@ if __name__ == "__main__":
             i += 1
         elif sys.argv[i] == '--no-paths':
             addPaths = False
+        elif sys.argv[i] == '--print-item':
+            printItems = True
+        elif sys.argv[i] == '--print-manifestation':
+            printManifestations = True
+        elif sys.argv[i] == '--print-expression':
+            printExpressions = True
+        elif sys.argv[i] == '--print-work':
+            printWorks = True
         else:
             files.add(sys.argv[i])
 
@@ -215,11 +232,49 @@ if __name__ == "__main__":
         if f == '-':
             store = fstack(sys.stdin,addPaths=addPaths)
             bindPrefixes(store[0].reader.graph)
-            print store[0].reader.graph.serialize(format=fileFormat)
+            if printItems or printManifestations or printExpressions or printWorks:
+                session = Session(store[0])
+                if printItems:
+                    Item = session.get_class(ns.FRBR['Item'])
+                    for i in Item.all():
+                        print i.subject
+                if printManifestations:
+                    Manifestation = session.get_class(ns.FRBR['Manifestation'])
+                    for i in Manifestation.all():
+                        print i.subject
+                if printExpressions:
+                    Expression = session.get_class(ns.FRBR['Expression'])
+                    for i in Expression.all():
+                        print i.subject
+                if printWorks:
+                    Work = session.get_class(ns.FRBR['Work'])
+                    for i in Work.all():
+                        print i.subject
+            else:
+                print store[0].reader.graph.serialize(format=fileFormat)
         else:
             store = fstack(open(f,'rb+'),f,addPaths=addPaths)
             bindPrefixes(store[0].reader.graph)
-            if stdout:
-                print store[0].reader.graph.serialize(format=fileFormat)
+            if printItems or printManifestations or printExpressions or printWorks:
+                session = Session(store[0])
+                if printItems:
+                    Item = session.get_class(ns.FRBR['Item'])
+                    for i in Item.all():
+                        print i.subject
+                if printManifestations:
+                    Manifestation = session.get_class(ns.FRBR['Manifestation'])
+                    for i in Manifestation.all():
+                        print i.subject
+                if printExpressions:
+                    Expression = session.get_class(ns.FRBR['Expression'])
+                    for i in Expression.all():
+                        print i.subject
+                if printWorks:
+                    Work = session.get_class(ns.FRBR['Work'])
+                    for i in Work.all():
+                        print i.subject
             else:
-                store[0].reader.graph.serialize(open(f+".prov."+extension,'wb+'),format=fileFormat)
+                if stdout:
+                    print store[0].reader.graph.serialize(format=fileFormat)
+                else:
+                    store[0].reader.graph.serialize(open(f+".prov."+extension,'wb+'),format=fileFormat)
