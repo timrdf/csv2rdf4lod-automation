@@ -1,0 +1,11 @@
+prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>
+prefix void:       <http://rdfs.org/ns/void#>
+prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#>
+prefix conversion: <http://purl.org/twc/vocab/conversion/>
+
+ASK
+WHERE {
+   GRAPH ?g {
+      <http://explore.data.gov/download/5gah-bvex/CSV> irw:redirectsTo <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv> .
+   }
+}
