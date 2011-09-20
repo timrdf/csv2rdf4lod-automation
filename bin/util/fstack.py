@@ -38,6 +38,56 @@ ns.register(hash="hash:")
 ns.register(uuid="uuid:")
 ns.register(file="file://"+str(uuid.uuid1()))
 
+serializers = {Literal:lambda x: '"'+x+'"@'+str(x.language)+'^^'+str(x.datatype),
+               URIRef:lambda x: '<'+str(x)+'>',
+               BNode:lambda x: '['+str(x)+']'}
+
+class RDFGraphDigest:
+
+    def __init__(self):
+        self.total = 0
+        self.algorithm = 'GRAPH_SHA256'
+        self.type = ns.FRIR['RDFGraphDigest']
+        
+    def loadAndUpdate(self,content, filename = None, mimetype = None):
+        store = Store(reader='rdflib',
+                      writer='rdflib',
+                      rdflib_store = 'IOMemory')
+        
+        session = Session(store)
+        try:
+            t = deserialize(store, content, mimetype)
+            if t != None:
+                self.type = t
+        except:
+            try:
+                if filename != None:
+                    extension = filename.split('.')[-1]
+                    serializer = contentTypes[extensions[extension]]
+                    t = serializer.deserialize(store.reader.graph, content)
+                    if t != None:
+                        self.type = t
+            except:
+                manifHash =  createManifestationHash(content)
+                self.algorithm = manifHash[0]
+                self.total = int(manifHash[1],16)
+                self.type = manifHash[2]
+                return
+
+        graph = store.reader.graph
+        self.update(graph)
+
+    def update(self, graph):
+        for stmt in graph:
+            s = ' '.join([serializers[type(x)](x) for x in stmt])
+            m = hashlib.sha256()
+            m.update(s.encode('utf-8'))
+            self.total += int(m.hexdigest(),16)
+
+    def getDigest(self):
+        return [self.algorithm,'%x'%self.total,self.type]
+
+
 def createItemURI(filename):
     hostAndModTime = '-'.join(str(uuid.uuid1(clock_seq=os.stat(filename)[ST_MTIME])).split('-')[1:])
     absolutePath = os.path.abspath(filename)
@@ -62,14 +112,12 @@ def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None, addPat
     work = Work(workuri)
     workURI = str(work.subject)
 
-    FileHash = work.session.get_class(ns.NFO['FileHash'])
+    Thing = work.session.get_class(ns.OWL['Thing'])
     ContentDigest = work.session.get_class(ns.FRIR['ContentDigest'])
     Item = work.session.get_class(ns.FRBR['Item'])
     Manifestation = work.session.get_class(ns.FRBR['Manifestation'])
     Expression = work.session.get_class(ns.FRBR['Expression'])
 
-    #modTime = os.stat(filename)[ST_MTIME]
-    #ns.register(file="file://"+str(uuid.uuid1))#(uuid.getnode()modTime) )))
     fileURI = None
     if filename != None:
         fileURI = createItemURI(filename)
@@ -85,15 +133,15 @@ def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None, addPat
 
     itemHashValue = manifestationHashValue
     item = Item(fileURI)
-    item.nfo_hasHash.append(createHashInstance(itemHashValue,FileHash))
+    item.nfo_hasHash.append(createHashInstance(itemHashValue,Thing))
     if addPaths and filename != None:
         item.nfo_fileUrl.append(URIRef('file:///'+os.path.abspath(filename)))
         item.nfo_fileUrl.append(URIRef(filename))
     item.dcterms_modified = datetime.fromtimestamp(os.stat(filename)[ST_MTIME])
     item.dcterms_date = timestamp
 
-    manifestation = Manifestation(ns.PMANIF['-'.join(manifestationHashValue)])
-    manifestation.nfo_hasHash.append(createHashInstance(manifestationHashValue,FileHash))
+    manifestation = Manifestation(ns.PMANIF['-'.join(manifestationHashValue[:-1])])
+    manifestation.nfo_hasHash.append(createHashInstance(manifestationHashValue,Thing))
         
     item.frbr_exemplarOf.append(manifestation)
 
@@ -101,7 +149,7 @@ def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None, addPat
     item.save()
     
     expressionHashValue = createExpressionHash(filename, content, mimetype)
-    expression = Expression(ns.PEXP['-'.join(expressionHashValue)])
+    expression = Expression(ns.PEXP['-'.join(expressionHashValue[:-1])])
     expression.nfo_hasHash.append(createHashInstance(expressionHashValue,ContentDigest))
 
     manifestation.frbr_embodimentOf.append(expression)
@@ -121,46 +169,24 @@ def createItemHash(workURI, response, content):
     m.update(workURI+'\n')
     m.update(''.join(response.msg.headers))
     m.update(content)
-    return ['SHA256',m.hexdigest()]
+    return ['SHA256',m.hexdigest(), ns.NFO['FileHash']]
 
 def createManifestationHash(content):
     m = hashlib.sha256()
     m.update(content)
-    return ['SHA256',m.hexdigest()]
+    return ['SHA256',m.hexdigest(), ns.NFO['FileHash']]
 
 def createExpressionHash(filename, content, mimetype=None):
-    store = Store(reader='rdflib',
-                  writer='rdflib',
-                  rdflib_store = 'IOMemory')
-        
-    session = Session(store)
-    try:
-        deserialize(store, content, mimetype)
-    except:
-        try:
-            if filename != None:
-                extension = filename.split('.')[-1]
-                store.reader.graph.parse(StringIO(content),
-                                         extensions[extension])
-        except:
-            return createManifestationHash(content)
-    graph = store.reader.graph
-
-    serializers = {Literal:lambda x: '"'+x+'"@'+str(x.language)+'^^'+str(x.datatype),
-                   URIRef:lambda x: '<'+str(x)+'>',
-                   BNode:lambda x: '['+str(x)+']'}
-    total = 0
-    for stmt in graph:
-        s = ' '.join([serializers[type(x)](x) for x in stmt])
-        m = hashlib.sha256()
-        m.update(s.encode('utf-8'))
-        total += int(m.hexdigest(),16)
-    return ['GRAPH_SHA256','%x'%total]
+    digest = RDFGraphDigest()
+    digest.loadAndUpdate(content,filename,mimetype)
+    return digest.getDigest()
 
 def createHashInstance(h, Hash):
-    hsh = Hash(ns.HASH['-'.join(h)])
+    hsh = Hash(ns.HASH['-'.join(h[:-1])])
     hsh.nfo_hashAlgorithm = h[0]
     hsh.nfo_hashValue = h[1]
+    if len(h) > 2:
+        hsh.rdf_type.append(h[2])
     hsh.save()
     return hsh
 

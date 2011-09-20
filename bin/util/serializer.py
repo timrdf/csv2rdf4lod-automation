@@ -5,6 +5,9 @@ from surf.serializer import to_json
 import simplejson as json
 import mimeparse
 from rdflib import *
+import csv
+from StringIO import StringIO
+from surf import *
 
 def bindPrefixes(graph):
     graph.bind('frbr', URIRef('http://purl.org/vocab/frbr/core#'))
@@ -19,6 +22,24 @@ def bindPrefixes(graph):
     graph.bind('prov', URIRef('http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#'))
     graph.bind('xsd', URIRef('http://www.w3.org/2001/XMLSchema#'))
 
+class CSVSerializer:
+    def __init__(self,delimiter=","):
+        self.delimiter = delimiter
+    def serialize(self,graph):
+        return None # Not implemented
+    def deserialize(self, graph, content):
+        reader = csv.reader(StringIO(content),delimiter=self.delimiter)
+        rowNum = 1
+        for row in reader:
+            rowURI = URIRef('row:'+str(rowNum))
+            colNum = 1
+            for value in row:
+                colURI = URIRef('column:'+str(colNum))
+                if len(value) > 0:
+                    graph.add((rowURI,colURI,Literal(value)))
+                colNum += 1
+            rowNum += 1
+        return ns.FRIR['TabularDigest']
 
 class DefaultSerializer:
     def __init__(self,format):
@@ -76,15 +97,20 @@ contentTypes = {
     'text/plain':DefaultSerializer('nt'),
     'text/n3':DefaultSerializer('n3'),
     'text/rdf+n3':DefaultSerializer('n3'),
+    'text/csv':CSVSerializer(','),
+    'text/comma-separated-values':CSVSerializer(','),
+    'text/tab-separated-values':CSVSerializer('\t'),
     'application/json':JSONSerializer()
 }
 
 extensions = {
-    "owl":"xml",
-    "rdf":"xml",
-    "ttl":"turtle",
-    "n3":"n3",
-    "ntp":"nt"
+    "owl":"application/rdf+xml",
+    "rdf":"application/rdf+xml",
+    "ttl":"text/turtle",
+    "n3":"text/n3",
+    "ntp":"text/plain",
+    'csv':'text/csv',
+    'tsv':'text/tab-separated-values'
     }
 
 typeExtensions = {
