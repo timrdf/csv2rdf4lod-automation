@@ -39,7 +39,19 @@ ns.register(uuid="uuid:")
 ns.register(file="file://"+str(uuid.uuid1()))
 ns.register(prov="http://w3.org/ProvenanceOntology.owl#")
 
-def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None):
+
+
+def createItemURI(filename):
+    hostAndModTime = '-'.join(str(uuid.uuid1(clock_seq=os.stat(filename)[ST_MTIME])).split('-')[1:])
+    absolutePath = os.path.abspath(filename)
+    dirname = os.path.dirname(absolutePath)
+    basename = os.path.basename(absolutePath)
+    m = hashlib.sha256()
+    m.update(dirname)
+    pathDigest = '-'.join(['SHA256',m.hexdigest()])
+    return "filed://"+hostAndModTime+'/'+pathDigest+'/'+basename
+
+def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None, addPaths=True):
     if workuri == None:
         workuri = ns.UUID[str(uuid.uuid4())]
     else:
@@ -63,7 +75,7 @@ def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None):
     #ns.register(file="file://"+str(uuid.uuid1))#(uuid.getnode()modTime) )))
     fileURI = None
     if filename != None:
-        fileURI = ns.FILE[os.path.abspath(filename)]
+        fileURI = createItemURI(filename)
 
     content = fd.read()
     
@@ -77,6 +89,8 @@ def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None):
     itemHashValue = manifestationHashValue
     item = Item(fileURI)
     item.nfo_hasHash.append(createHashInstance(itemHashValue,FileHash))
+    if addPaths and filename != None:
+        item.nfo_fileUrl.append('file:///'+os.path.abspath(filename))
     item.dcterms_date = timestamp
 
     manifestation = Manifestation(ns.PMANIF['-'.join(manifestationHashValue)])
@@ -159,6 +173,7 @@ optional arguments:
  -              read content from stdin and print FRBR stack to stdout.
  -h, --help     Show this help message and exit,
  -c, --stdout   Print frbr stacks to stdout.
+ --no-paths     Only output path hashes, not actual paths (for security purposes).
  -f, --format   File format for FRBR stacks. One of xml, turtle, n3, or nt.
 '''
 
@@ -168,6 +183,7 @@ if __name__ == "__main__":
     stdout = False
     fileFormat = 'turtle'
     extension = 'ttl'
+    addPaths = True
 
     if '-h' in sys.argv or '--help' in sys.argv:
         usage()
@@ -183,6 +199,8 @@ if __name__ == "__main__":
                 usage()
                 quit(1)
             i += 1
+        elif sys.argv[i] == '--no-paths':
+            addPaths = False
         else:
             files.add(sys.argv[i])
 
@@ -194,11 +212,11 @@ if __name__ == "__main__":
     for f in files:
         store = None
         if f == '-':
-            store = fstack(sys.stdin)
+            store = fstack(sys.stdin,addPaths=addPaths)
             bindPrefixes(store[0].reader.graph)
             print store[0].reader.graph.serialize(format=fileFormat)
         else:
-            store = fstack(open(f,'rb+'),f)
+            store = fstack(open(f,'rb+'),f,addPaths=addPaths)
             bindPrefixes(store[0].reader.graph)
             if stdout:
                 print store[0].reader.graph.serialize(format=fileFormat)
