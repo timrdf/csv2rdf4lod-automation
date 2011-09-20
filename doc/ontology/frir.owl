@@ -5,7 +5,7 @@
     <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
     <!ENTITY core "http://purl.org/vocab/frbr/core#" >
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
-    <!ENTITY ProvenanceOntology "http://w3.org/ProvenanceOntology.owl#" >
+    <!ENTITY ProvenanceOntology "http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
     <!ENTITY frir "http://purl.org/twc/ontology/frir.owl#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
@@ -20,7 +20,7 @@
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:frir="http://purl.org/twc/ontology/frir.owl#"
      xmlns:nfo="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#"
-     xmlns:ProvenanceOntology="http://w3.org/ProvenanceOntology.owl#"
+     xmlns:ProvenanceOntology="http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
