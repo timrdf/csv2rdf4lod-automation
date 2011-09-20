@@ -92,6 +92,7 @@ def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None, addPat
     if addPaths and filename != None:
         item.nfo_fileUrl.append(URIRef('file:///'+os.path.abspath(filename)))
         item.nfo_fileUrl.append(URIRef(filename))
+    item.dcterms_modified = datetime.fromtimestamp(os.stat(filename)[ST_MTIME])
     item.dcterms_date = timestamp
 
     manifestation = Manifestation(ns.PMANIF['-'.join(manifestationHashValue)])
