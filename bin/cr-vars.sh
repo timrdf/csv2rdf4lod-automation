@@ -24,6 +24,7 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY                  ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:="(will default to: false)"}"
    echo "CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS                 ${CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS:="(no extension will be used)"}"
    echo "CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR                  ${CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR:="(will default to: false)"}"
+   echo "CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR                      ${CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR:="(will default to: false)"}"
    echo "CSV2RDF4LOD_CONVERT_DEBUG_LEVEL                          ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:="(will default to: none \{none,fine,finer,finest\})"}"
 
    echo "  "
@@ -126,6 +127,7 @@ else
    export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=""
    export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS=""
    export CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR=""
+   export CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR=""
    export CSV2RDF4LOD_CONVERT_DEBUG_LEVEL=""
    # "  "
 

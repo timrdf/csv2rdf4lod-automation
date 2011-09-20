@@ -205,6 +205,20 @@ export CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR="true"
 export CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR="false"
 
 #
+# Customize: Capture FRBR stacks as part of the provenance.
+# NOTE: This slows things down b/c it computs digests.
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# Produces (e.g.) automatic/$datafile.e1.pml.ttl
+#
+# (used in convert.sh)
+#
+# a conversion:ProjectLevelEnvironmentVariable
+export CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR="true"
+export CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR="false"
+
+#
 # Customize: Enable debugging within the Java CSVtoRDF
 # Variable type: Machine ? Project ? User ? Activity ?
 # (used in convert.sh)
