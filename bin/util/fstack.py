@@ -189,7 +189,9 @@ if __name__ == "__main__":
         store = None
         if fileinput.isstdin():
             store = fstack(StringIO(line))
+            bindPrefixes(store[0].reader.graph)
             print store[0].reader.graph.serialize(format=fileFormat)
         else:
             store = fstack(StringIO(line),fileinput.filename())
+            bindPrefixes(store[0].reader.graph)
             store[0].reader.graph.serialize(open(fileinput.filename()+".prov."+extension,'wb+'),format=fileFormat)
