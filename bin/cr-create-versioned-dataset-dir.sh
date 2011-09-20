@@ -24,7 +24,7 @@ if [ "$1" == "cr:auto" ]; then
    version=`urldate.sh $url`
    echo "Attempting to use URL modification date to name version: $version"
 fi
-if [ ${#version} -ne 11 -a "$1" == "cr:auto" ]; then
+if [ ${#version} -ne 11 -a "$1" == "cr:auto" ]; then # 11!?
    version=`cr-make-today-version.sh 2>&1 | head -1`
    echo "Using today's date to name version: $version"
 fi
