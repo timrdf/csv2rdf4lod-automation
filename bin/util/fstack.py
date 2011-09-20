@@ -3,7 +3,8 @@
 from rdflib import *
 from surf import *
 
-import re, os
+import re, os, sys
+from stat import *
 
 import rdflib
 import hashlib
@@ -58,6 +59,8 @@ def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None):
     Manifestation = work.session.get_class(ns.FRBR['Manifestation'])
     Expression = work.session.get_class(ns.FRBR['Expression'])
 
+    #modTime = os.stat(filename)[ST_MTIME]
+    #ns.register(file="file://"+str(uuid.uuid1))#(uuid.getnode()modTime) )))
     fileURI = None
     if filename != None:
         fileURI = ns.FILE[os.path.abspath(filename)]
@@ -74,7 +77,7 @@ def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None):
     itemHashValue = manifestationHashValue
     item = Item(fileURI)
     item.nfo_hasHash.append(createHashInstance(itemHashValue,FileHash))
-    item.dc_date = timestamp
+    item.dcterms_date = timestamp
 
     manifestation = Manifestation(ns.PMANIF['-'.join(manifestationHashValue)])
     manifestation.nfo_hasHash.append(createHashInstance(manifestationHashValue,FileHash))
@@ -160,7 +163,7 @@ optional arguments:
 '''
 
 if __name__ == "__main__":
-    files = []
+    files = set([])
     i = 1
     stdout = False
     fileFormat = 'turtle'
@@ -181,17 +184,23 @@ if __name__ == "__main__":
                 quit(1)
             i += 1
         else:
-            files.append(sys.argv[i])
+            files.add(sys.argv[i])
 
         i += 1
 
-    for line in fileinput.input(files):
+    if len(files) == 0:
+        files.add('-')
+        
+    for f in files:
         store = None
-        if fileinput.isstdin():
-            store = fstack(StringIO(line))
+        if f == '-':
+            store = fstack(sys.stdin)
             bindPrefixes(store[0].reader.graph)
             print store[0].reader.graph.serialize(format=fileFormat)
         else:
-            store = fstack(StringIO(line),fileinput.filename())
+            store = fstack(open(f,'rb+'),f)
             bindPrefixes(store[0].reader.graph)
-            store[0].reader.graph.serialize(open(fileinput.filename()+".prov."+extension,'wb+'),format=fileFormat)
+            if stdout:
+                print store[0].reader.graph.serialize(format=fileFormat)
+            else:
+                store[0].reader.graph.serialize(open(f+".prov."+extension,'ab+'),format=fileFormat)

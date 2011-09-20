@@ -111,7 +111,7 @@ def pcurl(url):
     item = Result(ns.PITEM['-'.join(itemHashValue)])
     item.frir_hasHeader = ''.join(response.msg.headers)
     item.nfo_hasHash.append(createHashInstance(itemHashValue,FileHash))
-    item.dc_date = dateutil.parser.parse(response.msg.dict['date'])
+    item.dcterms_date = dateutil.parser.parse(response.msg.dict['date'])
     item.frbr_exemplarOf = localItem.frbr_exemplarOf
 
     provF = open(filename+".prov.ttl","wb+")
@@ -119,7 +119,7 @@ def pcurl(url):
     localItem.frbr_reproductionOf.append(item)
 
     getPE = Get()
-    getPE.dc_date = localItem.dc_date
+    getPE.dcterms_date = localItem.dcterms_date
     getPE.prov_used.append(ns.FRIR['HTTP_1_1_GET'])
     getPE.prov_wasControlledBy = controller
     getPE.prov_used.append(item)
