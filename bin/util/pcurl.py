@@ -29,8 +29,8 @@ ns.register(pitem="hash:Item/")
 ns.register(nfo="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#")
 ns.register(irw='http://www.ontologydesignpatterns.org/ont/web/irw.owl#')
 ns.register(hash="hash:")
-ns.register(prov="http://w3.org/ProvenanceOntology.owl#")
-
+ns.register(prov="http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#")
+    
 
 def call(command):
     p = subprocess.Popen(command,shell=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -89,8 +89,8 @@ def pcurl(url):
     FileHash = work.session.get_class(ns.NFO['FileHash'])
     ContentDigest = work.session.get_class(ns.FRIR['ContentDigest'])
     Item = work.session.get_class(ns.FRBR['Item'])
-    Txn = work.session.get_class(ns.FRIR['HTTP1.1Transaction'])
-    Get = work.session.get_class(ns.FRIR['HTTP1.1GET'])
+    Result = work.session.get_class(ns.FRIR['HTTP_1_1_Result'])
+    Get = work.session.get_class(ns.FRIR['HTTP_1_1_GET'])
     Manifestation = work.session.get_class(ns.FRBR['Manifestation'])
     Expression = work.session.get_class(ns.FRBR['Expression'])
     ProcessExecution = work.session.get_class(ns.PROV['ProcessExecution'])
@@ -108,7 +108,7 @@ def pcurl(url):
 
     itemHashValue = createItemHash(url, response, content)
 
-    item = Txn(ns.PITEM['-'.join(itemHashValue)])
+    item = Result(ns.PITEM['-'.join(itemHashValue)])
     item.frir_hasHeader = ''.join(response.msg.headers)
     item.nfo_hasHash.append(createHashInstance(itemHashValue,FileHash))
     item.dc_date = dateutil.parser.parse(response.msg.dict['date'])
@@ -120,7 +120,7 @@ def pcurl(url):
 
     getPE = Get()
     getPE.dc_date = localItem.dc_date
-    getPE.prov_used.append(ns.FRIR['HTTP1.1GET'])
+    getPE.prov_used.append(ns.FRIR['HTTP_1_1_GET'])
     getPE.prov_wasControlledBy = controller
     getPE.prov_used.append(item)
     localItem.prov_wasGeneratedBy = getPE
@@ -129,8 +129,48 @@ def pcurl(url):
     localItem.save()
     getPE.save()
     
+    bindPrefixes(pStore.reader.graph)
     provF.write(pStore.reader.graph.serialize(format="turtle"))
 
+def usage():
+    print '''usage: pcurl.py [--help|-h] [--format|-f xml|turtle|n3|nt] [url ...]
+
+Download a URL and compute Functional Requirements for Bibliographic Resources
+(FRBR) stacks using cryptograhic digests for the resulting content.
+
+optional arguments:
+ url            url to compute a FRBR stack for.
+ -h, --help     Show this help message and exit,
+ -f, --format   File format for FRBR stacks. One of xml, turtle, n3, or nt.
+'''
+
 if __name__ == "__main__":
-    for arg in sys.argv[1:]:
+    urls = []
+    i = 1
+    fileFormat = 'turtle'
+    extension = 'ttl'
+
+    if '-h' in sys.argv or '--help' in sys.argv:
+        usage()
+        quit()
+    while i < len(sys.argv):
+        if sys.argv[i] == '-f' or sys.argv[i] == '--format':
+            fileFormat = sys.argv[i+1]
+            try:
+                extension = typeExtensions[fileFormat]
+            except:
+                usage()
+                quit(1)
+            i += 1
+        else:
+            try:
+                o = urlparse(str(sys.argv[i]))
+                urls.append(sys.argv[i])
+            except:
+                usage()
+                quit(1)
+                
+        i += 1
+
+    for arg in urls:
         pcurl(arg)
