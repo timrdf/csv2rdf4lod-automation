@@ -10,6 +10,9 @@
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
+CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER=false # We want to do this for the demonstration; in reality we'd want to skip it b/c we have an enhanced version.
+                                         # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/frbr:mccusker2012parallel
+
 # The identifiers used to name the dataset that will be converted.
 #            (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-process-phase:-name)
 surrogate="http://logd.tw.rpi.edu" # Came from $CSV2RDF4LOD_BASE_URI when cr-create-convert-sh.sh created this script.
