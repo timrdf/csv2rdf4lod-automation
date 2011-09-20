@@ -90,7 +90,7 @@ def pcurl(url):
     FileHash = work.session.get_class(ns.NFO['FileHash'])
     ContentDigest = work.session.get_class(ns.FRIR['ContentDigest'])
     Item = work.session.get_class(ns.FRBR['Item'])
-    Result = work.session.get_class(ns.FRIR['HTTP_1_1_Result'])
+    Response = work.session.get_class(ns.FRIR['HTTP_1_1_Response'])
     Get = work.session.get_class(ns.FRIR['HTTP_1_1_GET'])
     Manifestation = work.session.get_class(ns.FRBR['Manifestation'])
     Expression = work.session.get_class(ns.FRBR['Expression'])
@@ -109,7 +109,7 @@ def pcurl(url):
 
     itemHashValue = createItemHash(url, response, content)
 
-    item = Result(ns.PITEM['-'.join(itemHashValue)])
+    item = Response(ns.PITEM['-'.join(itemHashValue)])
     item.frir_hasHeader = ''.join(response.msg.headers)
     item.nfo_hasHash.append(createHashInstance(itemHashValue,FileHash))
     item.dcterms_date = dateutil.parser.parse(response.msg.dict['date'])
