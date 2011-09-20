@@ -221,4 +221,4 @@ if __name__ == "__main__":
             if stdout:
                 print store[0].reader.graph.serialize(format=fileFormat)
             else:
-                store[0].reader.graph.serialize(open(f+".prov."+extension,'ab+'),format=fileFormat)
+                store[0].reader.graph.serialize(open(f+".prov."+extension,'wb+'),format=fileFormat)
