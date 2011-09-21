@@ -36,6 +36,8 @@ ns.register(nfo="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#")
 ns.register(irw='http://www.ontologydesignpatterns.org/ont/web/irw.owl#')
 ns.register(hash="hash:")
 ns.register(uuid="uuid:")
+ns.register(void="http://rdfs.org/ns/void#")
+ns.register(ov="http://open.vocab.org/terms/")
 ns.register(file="file://"+str(uuid.uuid1()))
 
 serializers = {Literal:lambda x: '"'+x+'"@'+str(x.language)+'^^'+str(x.datatype),
@@ -44,11 +46,74 @@ serializers = {Literal:lambda x: '"'+x+'"@'+str(x.language)+'^^'+str(x.datatype)
 
 class RDFGraphDigest:
 
+    rawAllowedProps = set([
+        ns.DCTERMS['isReferencedBy'],
+        ns.VOID['inDataset'],
+        ns.RDFS['label'],
+        ns.RDF['type'],
+        ns.RDFS['range'],
+        ns.OV['csvCol'],
+        ns.OV['csvHeader'],
+        ns.OV['csvRow']
+        ])
+
+    rawRequiredColAnnotations = set([
+        ns.OV['csvCol'],
+        ns.OV['csvHeader'],
+    ])
+
+    rawRequiredRowAnnotations = set([
+        ns.OV['csvRow']
+    ])
+
+    csvCol = ns.OV['csvCol']
+    csvHeader = ns.OV['csvHeader']
+    csvRow = ns.OV['csvRow']
+
     def __init__(self):
         self.total = 0
+        self.rawtotal = 0
+        self.isRaw = True
         self.algorithm = 'GRAPH_SHA256'
         self.type = ns.FRIR['RDFGraphDigest']
-        
+
+    def hashPredicates(self, graph):
+        predicates = graph.predicates()
+        result = set([])
+        row = URIRef("row:1")
+        for p in predicates:
+            if p in RDFGraphDigest.rawAllowedProps:
+                continue
+            a = set(graph.predicates(subject=p))
+            if a >= RDFGraphDigest.rawRequiredColAnnotations and a <= RDFGraphDigest.rawAllowedProps:
+                col = URIRef("column:"+str(graph.value(p,RDFGraphDigest.csvCol)))
+                value = graph.value(p, RDFGraphDigest.csvHeader)
+                self.updateStatement((row,col,value),'raw')
+                result.add(p)
+            else:
+                self.isRaw = False
+                return None
+        return result
+
+    def hashSubjects(self, graph, predicates):
+        predicates = graph.predicates()
+        result = set([])
+        for stmt in graph:
+            if stmt[1] in RDFGraphDigest.rawAllowedProps or stmt[0] in RDFGraphDigest.rawAllowedProps:
+                continue
+            if stmt[1] in predicates:
+                row = graph.value(stmt[0],RDFGraphDigest.csvRow)
+                if row == None:
+                    self.isRaw = False
+                    return
+                row = URIRef("row:"+str(row))
+                col = URIRef("column:"+str(graph.value(stmt[1],RDFGraphDigest.csvCol)))
+                value = stmt[2]
+                self.updateStatement((row,col,value), 'raw')
+            else:
+                self.isRaw = False
+                return
+
     def loadAndUpdate(self,content, filename = None, mimetype = None):
         store = Store(reader='rdflib',
                       writer='rdflib',
@@ -78,18 +143,37 @@ class RDFGraphDigest:
         self.update(graph)
 
     def update(self, graph):
+        if self.isRaw:
+            predicates = self.hashPredicates(graph)
+            if self.isRaw:
+                self.hashSubjects(graph,predicates)
+                if self.isRaw:
+                    return
         for stmt in graph:
-            s = ' '.join([serializers[type(x)](x) for x in stmt])
-            m = hashlib.sha256()
-            m.update(s.encode('utf-8'))
-            self.total += int(m.hexdigest(),16)
+            self.updateStatement(stmt)
+
+    def updateStatement(self, stmt, hashType="graph"):
+        s = ' '.join([serializers[type(x)](x) for x in stmt])
+        m = hashlib.sha256()
+        m.update(s.encode('utf-8'))
+        stmtDigest = int(m.hexdigest(),16)
+        if hashType == 'graph':
+            self.total += stmtDigest
+        else:
+            self.rawtotal += stmtDigest
 
     def getDigest(self):
-        return [self.algorithm,'%x'%self.total,self.type]
+        if self.isRaw:
+            return [self.algorithm,'%x'%self.rawtotal,ns.FRIR['TabularDigest']]
+        else:
+            return [self.algorithm,'%x'%self.total,self.type]
 
 
 def createItemURI(filename):
-    hostAndModTime = '-'.join(str(uuid.uuid1(clock_seq=os.stat(filename)[ST_MTIME])).split('-')[1:])
+    m = hashlib.sha256()
+    m.update(str(uuid.getnode()))
+    m.update(str(os.stat(filename)[ST_MTIME]))
+    hostAndModTime = m.hexdigest()
     absolutePath = os.path.abspath(filename)
     dirname = os.path.dirname(absolutePath)
     basename = os.path.basename(absolutePath)
@@ -195,6 +279,9 @@ def usage():
 
 Compute Functional Requirements for Bibliographic Resources (FRBR)
 stacks using cryptograhic digests.
+
+Refer to http://purl.org/twc/pub/mccusker2012parallel
+for more information and examples.
 
 optional arguments:
  file                  File to compute a FRBR stack for.

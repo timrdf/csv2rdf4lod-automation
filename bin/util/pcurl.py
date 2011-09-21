@@ -140,6 +140,9 @@ def usage():
 Download a URL and compute Functional Requirements for Bibliographic Resources
 (FRBR) stacks using cryptograhic digests for the resulting content.
 
+Refer to http://purl.org/twc/pub/mccusker2012parallel
+for more information and examples.
+
 optional arguments:
  url            url to compute a FRBR stack for.
  -h, --help     Show this help message and exit,

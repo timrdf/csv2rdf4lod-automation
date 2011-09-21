@@ -46,9 +46,12 @@ class DefaultSerializer:
         self.format = format
     def serialize(self,graph):
         bindPrefixes(graph)
-        return graph.serialize(format=format)
+        return graph.serialize(format=self.format)
     def deserialize(self,graph, content):
-        graph.parse(StringIO(content),format)
+        f = self.format
+        if f == 'turtle':
+            f = 'n3'
+        graph.parse(StringIO(content),format=f)
 
 class JSONSerializer:
     def serialize(self,graph):
