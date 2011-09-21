@@ -28,9 +28,24 @@ if [ ! -d $virtuoso_allowed_dir ]; then
    sudo chmod a+w $virtuoso_allowed_dir
 fi
 
+#
+# Check usage
+if [ $# -ne 3 ]; then
+	echo "usage: `basename $0` {rdf, ttl, nt, nq} <data_file> [--replace] <graph_uri>"
+   exit 1
+fi
 
 input_format="$1"
 data_file="$2"
+
+replace="no"
+operation="Loading"
+if [ $3 == "--replace" ]; then
+	replace="yes"
+	operation="Replacing"
+	shift
+fi
+
 graph_uri="$3"
 
 # Check if file exists
@@ -39,7 +54,7 @@ if [ ! -e $data_file ]; then
    exit 1
 fi
 
-echo "Loading triples into graph <$graph_uri> ..."
+echo "${operation} triples into graph <$graph_uri> ..."
 
 # Check to see if file is within a directory Virtuoso can read from directly.
 load_in_place="false"
@@ -74,19 +89,19 @@ isql_pwd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin pass
 load_func=""
 case "$input_format" in
    "rdf")
-   load_func="DB.DBA.RDF_LOAD_RDFXML_MT(file_to_string_output('$file_name_full'), '', '$graph_uri');"
+   load_func="DB.DBA.RDF_LOAD_RDFXML_MT(file_to_string_output('$file_name_full'), '', '$graph_uri', 2, $CSV2RDF4LOD_CONCURRENCY);"
    # echo $load_func
    ;;
    "ttl")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255);"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, $CSV2RDF4LOD_CONCURRENCY);"
    # echo $load_func
    ;;
    "nt")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255);"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, $CSV2RDF4LOD_CONCURRENCY);"
    # echo $load_func
    ;;
    "nq")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 512);"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 512, 2, $CSV2RDF4LOD_CONCURRENCY);"
    # echo $load_func
    ;;
    *)
@@ -103,15 +118,24 @@ esac
 
 vload_log=$virtuoso_allowed_dir/load_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
 
+sparql_delete=""
+if [ $replace == "yes" ]; then
+	sparql_delete="SPARQL CLEAR GRAPH <$graph_uri>;"
+fi
+
 start=`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`
 ${isql_cmd} ${isql_pwd} << EOF &> $vload_log
+   log_enable(3,1);
+   $sparql_delete
    $load_func
-   checkpoint;
    exit;
 EOF
 echo ""                                                                  >> $vload_log
 echo "# start time: $start"                                              >> $vload_log
 echo "# user: `whoami`"                                                  >> $vload_log
+echo "# log_enable(3,1);"                                                >> $vload_log
+echo "# $sparql_delete"                                                  >> $vload_log
+echo "# $load_func"                                                      >> $vload_log
 echo "# end   time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vload_log
 
 # Move the latest.log pointer to the log we just created.

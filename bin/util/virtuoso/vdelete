@@ -37,13 +37,15 @@ vdelete_log=$log_dir/delete_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh c
 start=`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`
 sparql_delete="SPARQL CLEAR GRAPH <$graph_uri>;"
 ${isql_cmd} ${isql_pass} << EOF &> $vdelete_log
+   log_enable(3,1);
    $sparql_delete
-   checkpoint;
    exit;
 EOF
 echo ""                                                                  >> $vdelete_log
 echo "# start time: $start"                                              >> $vdelete_log
 echo "# user: `whoami`"                                                  >> $vdelete_log
+echo "# log_enable(3,1);"                                                >> $vdelete_log
+echo "# $sparql_delete"                                                  >> $vdelete_log
 echo "# end   time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vdelete_log
 
 # Move the latest.log pointer to the log we just created.
