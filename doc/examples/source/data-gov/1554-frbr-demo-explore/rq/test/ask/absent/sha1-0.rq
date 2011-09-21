@@ -2,6 +2,7 @@ prefix xsd:        <http://www.w3.org/2001/XMLSchema#>
 prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>
 prefix dcterms:    <http://purl.org/dc/terms/>
 prefix void:       <http://rdfs.org/ns/void#>
+prefix nfo:        <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#>
 prefix frbr:       <http://purl.org/vocab/frbr/core#>
 prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#>
 prefix conversion: <http://purl.org/twc/vocab/conversion/>
@@ -11,12 +12,6 @@ prefix prov:       <http://dvcs.w3.org/hg/prov/file/tip/ontology/ProvenanceOntol
 ASK
 WHERE {
    GRAPH ?g {
-      ?httpget 
-         a frir:HTTP1.1GET;
-         dcterms:date ?date;
-         prov:used [ ?p ?url ]; # This is not here, but should be.
-         prov:wasControlledBy <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
-      .
-      ?url a frbr:Work .
+      ?anything nfo:hasHash <hash:SHA256-0> .
    }
 }

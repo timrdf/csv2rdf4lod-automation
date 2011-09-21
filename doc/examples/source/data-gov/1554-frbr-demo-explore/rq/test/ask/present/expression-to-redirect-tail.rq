@@ -1,0 +1,18 @@
+prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>
+prefix void:       <http://rdfs.org/ns/void#>
+prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#>
+prefix frbr:       <http://purl.org/vocab/frbr/core#>
+prefix conversion: <http://purl.org/twc/vocab/conversion/>
+
+ASK
+WHERE {
+   GRAPH ?g {
+      ?expression
+         a frbr:Expression;
+         frbr:realizationOf <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv>;
+      .
+      <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv> 
+         a frbr:Work;
+      .
+   }
+}

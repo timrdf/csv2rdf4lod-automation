@@ -2,21 +2,28 @@ prefix xsd:        <http://www.w3.org/2001/XMLSchema#>
 prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>
 prefix dcterms:    <http://purl.org/dc/terms/>
 prefix void:       <http://rdfs.org/ns/void#>
-prefix frbr:       <http://purl.org/vocab/frbr/core#>
 prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#>
 prefix conversion: <http://purl.org/twc/vocab/conversion/>
 prefix frir:       <http://purl.org/twc/ontology/frir.owl#>
 prefix prov:       <http://dvcs.w3.org/hg/prov/file/tip/ontology/ProvenanceOntology.owl#>
+prefix frbrcore:   <http://purl.org/vocab/frbr/core#>
 
 ASK
 WHERE {
    GRAPH ?g {
-      ?httpget 
-         a frir:HTTP1.1GET;
-         dcterms:date ?date;
-         prov:used [ ?p ?url ]; # This is not here, but should be.
-         prov:wasControlledBy <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+      ?input a frbrcore:Item;
+         frbrcore:exemplarof ?csv;
       .
-      ?url a frbr:Work .
+      ?output a frbrcore:Item;
+         prov:wasDerivedFrom ?input;
+         frbrcore:exemplarof ?raw;
+      .
+      filter(regex(?output,'raw.ttl$'))
+      ?csv a frbrcore:Manifestation;
+         frbrcore:embodimentOf ?table; # This
+      .
+      ?raw a frbrcore:Manifestation;
+         frbrcore:embodimentOf ?table; # should be this.
+      .
    }
 }

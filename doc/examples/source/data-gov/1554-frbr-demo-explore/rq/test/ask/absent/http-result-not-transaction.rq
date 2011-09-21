@@ -6,14 +6,13 @@ prefix frbr:       <http://purl.org/vocab/frbr/core#>
 prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#>
 prefix conversion: <http://purl.org/twc/vocab/conversion/>
 prefix frir:       <http://purl.org/twc/ontology/frir.owl#>
-prefix prov:       <http://w3.org/ProvenanceOntology.owl#>
-# prefix prov:       <http://dvcs.w3.org/hg/prov/file/tip/ontology/ProvenanceOntology.owl#>
+prefix prov:       <http://dvcs.w3.org/hg/prov/file/tip/ontology/ProvenanceOntology.owl#>
 
 ASK
 WHERE {
    GRAPH ?g {
       ?file 
-         prov:wasGeneratedBy [ prov:used ?httpresult ]; # TODO: need new prov: namespace.
+         prov:wasGeneratedBy [ prov:used ?httpresult ];
       .
       ?httpresult
          a frir:HTTP1.1Transaction; # This should be Result, not Transaction (The GET is the Transaction).
