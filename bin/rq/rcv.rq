@@ -1,0 +1,15 @@
+PREFIX ov: <http://open.vocab.org/terms/>
+
+SELECT ?r ?c ?cell
+WHERE {
+   {
+      ?p ov:csvRow    ?r;
+         ov:csvCol    ?c;
+         ov:csvHeader ?cell;
+      .
+   }union {
+      ?row ov:csvRow    ?r; 
+           ?p           ?cell .
+           ?p ov:csvCol ?c . 
+   }
+} ORDER BY ?r ?c
