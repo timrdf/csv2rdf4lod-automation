@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "@prefix foaf:    <http://xmlns.com/foaf/0.1/> ."
+echo "@prefix sioc:    <http://rdfs.org/sioc/ns#> ."
+echo "@prefix dcterms: <http://purl.org/dc/terms/> ."
+
 if [ ${1-"."} != "--cite" ]; then
 
    #
