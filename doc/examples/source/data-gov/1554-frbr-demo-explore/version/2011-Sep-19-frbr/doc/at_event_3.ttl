@@ -1,18 +1,18 @@
-#-fstack raw yes enhancement no source/us_economic_assistance.csv 2011-09-21T11:47:54-04:00
+#-fstack raw yes enhancement no source/us_economic_assistance.csv 2011-09-21T13:18:45-04:00
 @prefix dc: <http://purl.org/dc/terms/> .
 @prefix frbr: <http://purl.org/vocab/frbr/core#> .
 @prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
 
-<filed://aaea345c86d63d3e5a55bab0144ea3795536ec3882b7e11751d5d565f7cc843c/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv> a <http://purl.org/vocab/frbr/core#Item>;
-    dc:date "2011-09-21T15:47:54.412992"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
-    dc:modified "2011-09-21T11:47:39"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+<filed://dd8096ac81173454dfb8eb3e7181c79582148b629b3871c20f2f1af3635847ce/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv> a <http://purl.org/vocab/frbr/core#Item>;
+    dc:date "2011-09-21T17:18:46.015302"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    dc:modified "2011-09-21T13:17:53"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
     frbr:exemplarOf <hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57>;
     nfo:fileUrl <file:////Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/source/us_economic_assistance.csv>,
         <source/us_economic_assistance.csv>;
     nfo:hasHash <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> .
 
 <hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> a <http://purl.org/vocab/frbr/core#Expression>;
-    frbr:realizationOf <uuid:86d2ab72-ba11-49b5-a712-ade480a653a6>;
+    frbr:realizationOf <uuid:0878c4bf-a774-4ea4-b5ae-54cd1e7bb46c>;
     nfo:hasHash <hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> .
 
 <hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> a <http://purl.org/twc/ontology/frir.owl#TabularDigest>;
@@ -23,45 +23,46 @@
     frbr:embodimentOf <hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4>;
     nfo:hasHash <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> .
 
-<uuid:86d2ab72-ba11-49b5-a712-ade480a653a6> a <http://purl.org/vocab/frbr/core#Work> .
+<uuid:0878c4bf-a774-4ea4-b5ae-54cd1e7bb46c> a <http://purl.org/vocab/frbr/core#Work> .
 
 <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> a <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash>;
     nfo:hashAlgorithm "SHA256";
     nfo:hashValue "d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57" .
 
 
-#-fstack raw yes automatic/us_economic_assistance.csv.raw.ttl @ 2011-09-21T11:49:33-04:00
+#-fstack raw yes automatic/us_economic_assistance.csv.raw.ttl @ 2011-09-21T13:20:34-04:00
 @prefix dc: <http://purl.org/dc/terms/> .
 @prefix frbr: <http://purl.org/vocab/frbr/core#> .
 @prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
 
-<filed://6228dbb6bc3ba5f31cb4284ad9ba94f8bf9bc244493121071268e6ff1f74621a/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl> a <http://purl.org/vocab/frbr/core#Item>;
-    dc:date "2011-09-21T15:49:34.204823"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
-    dc:modified "2011-09-21T11:48:20"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
-    frbr:exemplarOf <hash:Manifestation/SHA256-f7aaacc15df4388dec783949b7c6aeb0abfa6fa42c7f2347ed0a2b5a82b32800>;
+<filed://b9eb3e8c3c630bb3011293dca705b3a19e9d9019a47cb7166722cc09428f255b/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl> a <http://purl.org/vocab/frbr/core#Item>;
+    dc:date "2011-09-21T17:20:35.037163"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    dc:modified "2011-09-21T13:19:10"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    frbr:exemplarOf <hash:Manifestation/SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4>;
     nfo:fileUrl <automatic/us_economic_assistance.csv.raw.ttl>,
         <file:////Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/automatic/us_economic_assistance.csv.raw.ttl>;
-    nfo:hasHash <hash:SHA256-f7aaacc15df4388dec783949b7c6aeb0abfa6fa42c7f2347ed0a2b5a82b32800> .
+    nfo:hasHash <hash:SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4> .
 
 <hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> a <http://purl.org/vocab/frbr/core#Expression>;
-    frbr:realizationOf <uuid:781ca953-1367-4e58-b59c-7bfa03935fda>;
+    frbr:realizationOf <uuid:6b7ef1e2-908d-4570-9e31-77b935c58a8c>;
     nfo:hasHash <hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> .
 
 <hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> a <http://purl.org/twc/ontology/frir.owl#TabularDigest>;
     nfo:hashAlgorithm "GRAPH_SHA256";
     nfo:hashValue "13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4" .
 
-<hash:Manifestation/SHA256-f7aaacc15df4388dec783949b7c6aeb0abfa6fa42c7f2347ed0a2b5a82b32800> a <http://purl.org/vocab/frbr/core#Manifestation>;
+<hash:Manifestation/SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4> a <http://purl.org/vocab/frbr/core#Manifestation>;
     frbr:embodimentOf <hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4>;
-    nfo:hasHash <hash:SHA256-f7aaacc15df4388dec783949b7c6aeb0abfa6fa42c7f2347ed0a2b5a82b32800> .
+    nfo:hasHash <hash:SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4> .
 
-<uuid:781ca953-1367-4e58-b59c-7bfa03935fda> a <http://purl.org/vocab/frbr/core#Work> .
+<uuid:6b7ef1e2-908d-4570-9e31-77b935c58a8c> a <http://purl.org/vocab/frbr/core#Work> .
 
-<hash:SHA256-f7aaacc15df4388dec783949b7c6aeb0abfa6fa42c7f2347ed0a2b5a82b32800> a <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash>;
+<hash:SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4> a <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash>;
     nfo:hashAlgorithm "SHA256";
-    nfo:hashValue "f7aaacc15df4388dec783949b7c6aeb0abfa6fa42c7f2347ed0a2b5a82b32800" .
+    nfo:hashValue "466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4" .
 
 
+@prefix prov: <http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#> .
 
-<filed://6228dbb6bc3ba5f31cb4284ad9ba94f8bf9bc244493121071268e6ff1f74621a/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl> prov:wasDerivedFrom <filed://aaea345c86d63d3e5a55bab0144ea3795536ec3882b7e11751d5d565f7cc843c/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv> .
+<filed://b9eb3e8c3c630bb3011293dca705b3a19e9d9019a47cb7166722cc09428f255b/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl> prov:wasDerivedFrom <filed://dd8096ac81173454dfb8eb3e7181c79582148b629b3871c20f2f1af3635847ce/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv> .
 
