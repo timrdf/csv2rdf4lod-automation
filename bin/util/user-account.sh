@@ -3,6 +3,10 @@
 
 if [ ${1-"."} != "--cite" ]; then
 
+   echo "@prefix foaf:    <http://xmlns.com/foaf/0.1/> ."
+   echo "@prefix sioc:    <http://rdfs.org/sioc/ns#> ."
+   echo "@prefix dcterms: <http://purl.org/dc/terms/> ."
+
    #
    # NOTE: implemented in bin/util/header2params2.awk, too.
    #
@@ -28,10 +32,6 @@ else
    #
    # NOTE: implemented in bin/util/header2params2.awk, too.
    #
-
-   echo "@prefix foaf:    <http://xmlns.com/foaf/0.1/> ."
-   echo "@prefix sioc:    <http://rdfs.org/sioc/ns#> ."
-   echo "@prefix dcterms: <http://purl.org/dc/terms/> ."
 
    if [ ${#CSV2RDF4LOD_CONVERT_PERSON_URI} -gt 0 -a ${#CSV2RDF4LOD_CONVERT_MACHINE_URI} -gt 0 ]; then
 
