@@ -1,0 +1,1480 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd2: <http://www.w3.org/TR/xmlschema-2/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix tw_service: <http://localhost/source/tw-rpi-edu/service/> .
+@prefix tw_converter: <http://localhost/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Sep-19/> .
+@prefix provenance_1: <http://localhost/source/data-gov/provenance/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix ov: <http://open.vocab.org/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix sdmx: <http://purl.org/linked-data/cube#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix frbrcore: <http://purl.org/vocab/frbr/core#> .
+@prefix coin: <http://purl.org/court/def/2009/coin#> .
+@prefix data-gov_vocab: <http://localhost/source/data-gov/vocab/> .
+@prefix base_vocab: <http://localhost/vocab/> .
+@prefix local_vocab: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/vocab/> .
+@prefix raw: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/vocab/raw/> .
+@prefix e1: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/vocab/enhancement/1/> .
+@prefix : <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/> .
+@prefix ns1: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/> .
+@prefix typed_program: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/typed/program/> .
+@prefix typed_country: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/typed/country/> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix frir: <http://purl.org/twc/ontology/frir.owl#> .
+@prefix irw: <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix prov: <http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix value_of_country: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/value-of/country/> .
+@prefix value_of_program: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/value-of/program/> .
+
+local_vocab:ForeignAid a rdfs:Class , owl:Class ;
+	rdfs:label "ForeignAid" ;
+	rdfs:subClassOf base_vocab:Transaction .
+
+base_vocab:Transaction a rdfs:Class , owl:Class .
+
+e1:country a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
+	ov:csvCol "1"^^xsd:integer ;
+	ov:csvHeader "country_name" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1> ;
+	rdfs:label "Country" ;
+	rdfs:range rdfs:Resource ;
+	conversion:enhances raw:country_name , raw:country ;
+	rdfs:subPropertyOf base_vocab:recipient .
+
+base_vocab:recipient a rdf:Property , owl:ObjectProperty .
+
+local_vocab:Country a rdfs:Class , owl:Class ;
+	rdfs:label "Country" .
+
+local_vocab:Program a rdfs:Class , owl:Class ;
+	rdfs:label "Program" .
+
+e1:program a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
+	ov:csvCol "2"^^xsd:integer ;
+	ov:csvHeader "program_name" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1> ;
+	rdfs:label "Program" ;
+	rdfs:range rdfs:Resource ;
+	conversion:enhances raw:program_name , raw:program ;
+	rdfs:subPropertyOf base_vocab:purpose .
+
+base_vocab:purpose a rdf:Property , owl:ObjectProperty .
+
+e1:year a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
+	ov:csvCol "3"^^xsd:integer ;
+	ov:csvHeader "FY1946" ;
+	conversion:enhancement_layer "1" ;
+	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1> ;
+	rdfs:label "Year" ;
+	rdfs:range xsd:decimal ;
+	conversion:enhances raw:fy1946 , raw:year ;
+	rdfs:subPropertyOf dcterms:temporal .
+
+dcterms:temporal a rdf:Property , owl:DatatypeProperty .
+
+e1:year a sdmx:DimensionProperty ;
+	ov:csvCol "4"^^xsd:integer ;
+	ov:csvHeader "FY1947" ;
+	conversion:enhances raw:fy1947 ;
+	ov:csvCol "5"^^xsd:integer ;
+	ov:csvHeader "FY1948" ;
+	conversion:enhances raw:fy1948 ;
+	ov:csvCol "6"^^xsd:integer ;
+	ov:csvHeader "FY1949" ;
+	conversion:enhances raw:fy1949 ;
+	ov:csvCol "7"^^xsd:integer ;
+	ov:csvHeader "FY1950" ;
+	conversion:enhances raw:fy1950 ;
+	ov:csvCol "8"^^xsd:integer ;
+	ov:csvHeader "FY1951" ;
+	conversion:enhances raw:fy1951 ;
+	ov:csvCol "9"^^xsd:integer ;
+	ov:csvHeader "FY1952" ;
+	conversion:enhances raw:fy1952 ;
+	ov:csvCol "10"^^xsd:integer ;
+	ov:csvHeader "FY1953" ;
+	conversion:enhances raw:fy1953 ;
+	ov:csvCol "11"^^xsd:integer ;
+	ov:csvHeader "FY1954" ;
+	conversion:enhances raw:fy1954 ;
+	ov:csvCol "12"^^xsd:integer ;
+	ov:csvHeader "FY1955" ;
+	conversion:enhances raw:fy1955 ;
+	ov:csvCol "13"^^xsd:integer ;
+	ov:csvHeader "FY1956" ;
+	conversion:enhances raw:fy1956 ;
+	ov:csvCol "14"^^xsd:integer ;
+	ov:csvHeader "FY1957" ;
+	conversion:enhances raw:fy1957 ;
+	ov:csvCol "15"^^xsd:integer ;
+	ov:csvHeader "FY1958" ;
+	conversion:enhances raw:fy1958 ;
+	ov:csvCol "16"^^xsd:integer ;
+	ov:csvHeader "FY1959" ;
+	conversion:enhances raw:fy1959 ;
+	ov:csvCol "17"^^xsd:integer ;
+	ov:csvHeader "FY1960" ;
+	conversion:enhances raw:fy1960 ;
+	ov:csvCol "18"^^xsd:integer ;
+	ov:csvHeader "FY1961" ;
+	conversion:enhances raw:fy1961 ;
+	ov:csvCol "19"^^xsd:integer ;
+	ov:csvHeader "FY1962" ;
+	conversion:enhances raw:fy1962 ;
+	ov:csvCol "20"^^xsd:integer ;
+	ov:csvHeader "FY1963" ;
+	conversion:enhances raw:fy1963 ;
+	ov:csvCol "21"^^xsd:integer ;
+	ov:csvHeader "FY1964" ;
+	conversion:enhances raw:fy1964 ;
+	ov:csvCol "22"^^xsd:integer ;
+	ov:csvHeader "FY1965" ;
+	conversion:enhances raw:fy1965 ;
+	ov:csvCol "23"^^xsd:integer ;
+	ov:csvHeader "FY1966" ;
+	conversion:enhances raw:fy1966 ;
+	ov:csvCol "24"^^xsd:integer ;
+	ov:csvHeader "FY1967" ;
+	conversion:enhances raw:fy1967 ;
+	ov:csvCol "25"^^xsd:integer ;
+	ov:csvHeader "FY1968" ;
+	conversion:enhances raw:fy1968 ;
+	ov:csvCol "26"^^xsd:integer ;
+	ov:csvHeader "FY1969" ;
+	conversion:enhances raw:fy1969 ;
+	ov:csvCol "27"^^xsd:integer ;
+	ov:csvHeader "FY1970" ;
+	conversion:enhances raw:fy1970 ;
+	ov:csvCol "28"^^xsd:integer ;
+	ov:csvHeader "FY1971" ;
+	conversion:enhances raw:fy1971 ;
+	ov:csvCol "29"^^xsd:integer ;
+	ov:csvHeader "FY1972" ;
+	conversion:enhances raw:fy1972 ;
+	ov:csvCol "30"^^xsd:integer ;
+	ov:csvHeader "FY1973" ;
+	conversion:enhances raw:fy1973 ;
+	ov:csvCol "31"^^xsd:integer ;
+	ov:csvHeader "FY1974" ;
+	conversion:enhances raw:fy1974 ;
+	ov:csvCol "32"^^xsd:integer ;
+	ov:csvHeader "FY1975" ;
+	conversion:enhances raw:fy1975 ;
+	ov:csvCol "33"^^xsd:integer ;
+	ov:csvHeader "FY1976" ;
+	conversion:enhances raw:fy1976 ;
+	ov:csvCol "34"^^xsd:integer ;
+	ov:csvHeader "FY1976tq" ;
+	conversion:enhances raw:fy1976tq ;
+	ov:csvCol "35"^^xsd:integer ;
+	ov:csvHeader "FY1977" ;
+	conversion:enhances raw:fy1977 ;
+	ov:csvCol "36"^^xsd:integer ;
+	ov:csvHeader "FY1978" ;
+	conversion:enhances raw:fy1978 ;
+	ov:csvCol "37"^^xsd:integer ;
+	ov:csvHeader "FY1979" ;
+	conversion:enhances raw:fy1979 ;
+	ov:csvCol "38"^^xsd:integer ;
+	ov:csvHeader "FY1980" ;
+	conversion:enhances raw:fy1980 ;
+	ov:csvCol "39"^^xsd:integer ;
+	ov:csvHeader "FY1981" ;
+	conversion:enhances raw:fy1981 ;
+	ov:csvCol "40"^^xsd:integer ;
+	ov:csvHeader "FY1982" ;
+	conversion:enhances raw:fy1982 ;
+	ov:csvCol "41"^^xsd:integer ;
+	ov:csvHeader "FY1983" ;
+	conversion:enhances raw:fy1983 ;
+	ov:csvCol "42"^^xsd:integer ;
+	ov:csvHeader "FY1984" ;
+	conversion:enhances raw:fy1984 ;
+	ov:csvCol "43"^^xsd:integer ;
+	ov:csvHeader "FY1985" ;
+	conversion:enhances raw:fy1985 ;
+	ov:csvCol "44"^^xsd:integer ;
+	ov:csvHeader "FY1986" ;
+	conversion:enhances raw:fy1986 ;
+	ov:csvCol "45"^^xsd:integer ;
+	ov:csvHeader "FY1987" ;
+	conversion:enhances raw:fy1987 ;
+	ov:csvCol "46"^^xsd:integer ;
+	ov:csvHeader "FY1988" ;
+	conversion:enhances raw:fy1988 ;
+	ov:csvCol "47"^^xsd:integer ;
+	ov:csvHeader "FY1989" ;
+	conversion:enhances raw:fy1989 ;
+	ov:csvCol "48"^^xsd:integer ;
+	ov:csvHeader "FY1990" ;
+	conversion:enhances raw:fy1990 ;
+	ov:csvCol "49"^^xsd:integer ;
+	ov:csvHeader "FY1991" ;
+	conversion:enhances raw:fy1991 ;
+	ov:csvCol "50"^^xsd:integer ;
+	ov:csvHeader "FY1992" ;
+	conversion:enhances raw:fy1992 ;
+	ov:csvCol "51"^^xsd:integer ;
+	ov:csvHeader "FY1993" ;
+	conversion:enhances raw:fy1993 ;
+	ov:csvCol "52"^^xsd:integer ;
+	ov:csvHeader "FY1994" ;
+	conversion:enhances raw:fy1994 ;
+	ov:csvCol "53"^^xsd:integer ;
+	ov:csvHeader "FY1995" ;
+	conversion:enhances raw:fy1995 ;
+	ov:csvCol "54"^^xsd:integer ;
+	ov:csvHeader "FY1996" ;
+	conversion:enhances raw:fy1996 ;
+	ov:csvCol "55"^^xsd:integer ;
+	ov:csvHeader "FY1997" ;
+	conversion:enhances raw:fy1997 ;
+	ov:csvCol "56"^^xsd:integer ;
+	ov:csvHeader "FY1998" ;
+	conversion:enhances raw:fy1998 ;
+	ov:csvCol "57"^^xsd:integer ;
+	ov:csvHeader "FY1999" ;
+	conversion:enhances raw:fy1999 ;
+	ov:csvCol "58"^^xsd:integer ;
+	ov:csvHeader "FY2000" ;
+	conversion:enhances raw:fy2000 ;
+	ov:csvCol "59"^^xsd:integer ;
+	ov:csvHeader "FY2001" ;
+	conversion:enhances raw:fy2001 ;
+	ov:csvCol "60"^^xsd:integer ;
+	ov:csvHeader "FY2002" ;
+	conversion:enhances raw:fy2002 ;
+	ov:csvCol "61"^^xsd:integer ;
+	ov:csvHeader "FY2003" ;
+	conversion:enhances raw:fy2003 ;
+	ov:csvCol "62"^^xsd:integer ;
+	ov:csvHeader "FY2004" ;
+	conversion:enhances raw:fy2004 ;
+	ov:csvCol "63"^^xsd:integer ;
+	ov:csvHeader "FY2005" ;
+	conversion:enhances raw:fy2005 ;
+	ov:csvCol "64"^^xsd:integer ;
+	ov:csvHeader "FY2006" ;
+	conversion:enhances raw:fy2006 ;
+	ov:csvCol "65"^^xsd:integer ;
+	ov:csvHeader "FY2007" ;
+	conversion:enhances raw:fy2007 ;
+	ov:csvCol "66"^^xsd:integer ;
+	ov:csvHeader "FY2008" ;
+	conversion:enhances raw:fy2008 ;
+	ov:csvCol "67"^^xsd:integer ;
+	ov:csvHeader "FY2009" ;
+	conversion:enhances raw:fy2009 .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd2: <http://www.w3.org/TR/xmlschema-2/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmlp: <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix tw_service: <http://localhost/source/tw-rpi-edu/service/> .
+@prefix tw_converter: <http://localhost/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Sep-19/> .
+@prefix provenance_1: <http://localhost/source/data-gov/provenance/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1/> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix ov: <http://open.vocab.org/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix sdmx: <http://purl.org/linked-data/cube#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix frbrcore: <http://purl.org/vocab/frbr/core#> .
+@prefix coin: <http://purl.org/court/def/2009/coin#> .
+@prefix data-gov_vocab: <http://localhost/source/data-gov/vocab/> .
+@prefix base_vocab: <http://localhost/vocab/> .
+@prefix local_vocab: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/vocab/> .
+@prefix raw: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/vocab/raw/> .
+@prefix e1: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/vocab/enhancement/1/> .
+@prefix : <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/> .
+@prefix ns1: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/> .
+@prefix typed_program: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/typed/program/> .
+@prefix typed_country: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/typed/country/> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix frir: <http://purl.org/twc/ontology/frir.owl#> .
+@prefix irw: <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix prov: <http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix value_of_country: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/value-of/country/> .
+@prefix value_of_program: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/value-of/program/> .
+
+<http://localhost/source/data-gov/dataset/1554-frbr-demo-explore> a data-gov_vocab:Dataset , conversion:Dataset , conversion:AbstractDataset , void:Dataset ;
+	conversion:base_uri "http://localhost" ;
+	conversion:source_identifier "data-gov" ;
+	conversion:dataset_identifier "1554-frbr-demo-explore" ;
+	dcterms:contributor <http://localhost/source/data-gov> ;
+	dcterms:identifier "data-gov 1554-frbr-demo-explore" ;
+	foaf:isPrimaryTopicOf <http://localhost/source/data-gov/dataset_page/1554-frbr-demo-explore> ;
+	void:subset <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr> , <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/subset/meta> , <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/subset/sameas> ;
+	dcterms:modified "2011-09-21T11:51:20.117-05:00"^^xsd:dateTime .
+
+<http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr> a data-gov_vocab:Dataset , conversion:Dataset , conversion:VersionedDataset , void:Dataset ;
+	conversion:base_uri "http://localhost" ;
+	conversion:source_identifier "data-gov" ;
+	conversion:dataset_identifier "1554-frbr-demo-explore" ;
+	conversion:version_identifier "2011-Sep-19-frbr" ;
+	conversion:dataset_version "2011-Sep-19-frbr" ;
+	dcterms:contributor <http://localhost/source/data-gov> ;
+	dcterms:identifier "data-gov 1554-frbr-demo-explore 2011-Sep-19-frbr" ;
+	dcterms:modified "2011-09-21T11:51:20.117-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://localhost/source/data-gov/dataset_page/1554-frbr-demo-explore/version/2011-Sep-19-frbr> ;
+	void:dataDump <http://localhost/source/data-gov/file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/data-gov-1554-frbr-demo-explore-2011-Sep-19-frbr.ttl.gz> ;
+	void:subset <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1> .
+
+<http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1> a data-gov_vocab:Dataset , conversion:Dataset , conversion:LayerDataset , void:Dataset ;
+	dcterms:modified "2011-09-21T11:51:20.117-05:00"^^xsd:dateTime ;
+	conversion:base_uri "http://localhost" ;
+	conversion:source_identifier "data-gov" ;
+	conversion:dataset_identifier "1554-frbr-demo-explore" ;
+	conversion:version_identifier "2011-Sep-19-frbr" ;
+	conversion:dataset_version "2011-Sep-19-frbr" ;
+	conversion:conversion_identifier "enhancement/1" ;
+	foaf:isPrimaryTopicOf <http://localhost/source/data-gov/dataset_page/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1> ;
+	void:dataDump <http://localhost/source/data-gov/file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/data-gov-1554-frbr-demo-explore-2011-Sep-19-frbr.e1.ttl.gz> ;
+	void:subset <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1/subset/sample> ;
+	dcterms:created "2011-09-21T11:50:53.439-05:00"^^xsd:dateTime ;
+	dcterms:contributor <http://localhost/source/data-gov> ;
+	dcterms:identifier "data-gov 1554-frbr-demo-explore 2011-Sep-19-frbr e1" ;
+	conversion:uses_predicate e1:year , e1:program , e1:country ;
+	conversion:uses_class local_vocab:Country , local_vocab:Program , local_vocab:ForeignAid , base_vocab:Transaction ;
+	void:exampleResource :foreignAid_2_60 , :foreignAid_2447_67 .
+
+<http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/subset/sameas> a data-gov_vocab:Dataset , conversion:Dataset , conversion:SameAsDataset , void:Dataset ;
+	conversion:base_uri "http://localhost" ;
+	conversion:source_identifier "data-gov" ;
+	conversion:dataset_identifier "1554-frbr-demo-explore" ;
+	dcterms:modified "2011-09-21T11:51:20.117-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://localhost/source/data-gov/dataset_page/1554-frbr-demo-explore/subset/sameas> ;
+	void:vocabulary <http://www.w3.org/2002/07/owl#> ;
+	void:dataDump <http://localhost/source/data-gov/file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/data-gov-1554-frbr-demo-explore-2011-Sep-19-frbr.sameas.ttl.gz> .
+
+<http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/subset/meta> a data-gov_vocab:Dataset , conversion:Dataset , conversion:MetaDataset , void:Dataset ;
+	conversion:base_uri "http://localhost" ;
+	conversion:source_identifier "data-gov" ;
+	conversion:dataset_identifier "1554-frbr-demo-explore" ;
+	dcterms:modified "2011-09-21T11:51:20.117-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://localhost/source/data-gov/dataset_page/1554-frbr-demo-explore/subset/meta> ;
+	void:vocabulary <http://rdfs.org/ns/void#> , <http://inference-web.org/2.0/pml-provenance.owl#> , <http://inference-web.org/2.0/pml-justification.owl#> , <http://xmlns.com/foaf/0.1/> , <http://purl.org/dc/terms/> , <http://purl.org/NET/scovo#> ;
+	void:dataDump <http://localhost/source/data-gov/file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/data-gov-1554-frbr-demo-explore-2011-Sep-19-frbr.void.ttl.gz> .
+
+<http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1/subset/sample> a data-gov_vocab:Dataset , conversion:Dataset , conversion:DatasetSample , void:Dataset ;
+	conversion:base_uri "http://localhost" ;
+	conversion:source_identifier "data-gov" ;
+	conversion:dataset_identifier "1554-frbr-demo-explore" ;
+	conversion:version_identifier "2011-Sep-19-frbr" ;
+	conversion:dataset_version "2011-Sep-19-frbr" ;
+	conversion:conversion_identifier "enhancement/1" ;
+	dcterms:modified "2011-09-21T11:51:20.117-05:00"^^xsd:dateTime ;
+	foaf:isPrimaryTopicOf <http://localhost/source/data-gov/dataset_page/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1/subset/sample> ;
+	void:dataDump <http://localhost/source/data-gov/file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/data-gov-1554-frbr-demo-explore-2011-Sep-19-frbr.e1.sample> .
+
+<http://localhost/source/data-gov> a foaf:Agent ;
+	dcterms:identifier "data-gov" ;
+	foaf:isPrimaryTopicOf <http://localhost/source_page/data-gov> .
+
+_:node16a6atcsmx2 vann:preferredNamespacePrefix "rdf" ;
+	vann:preferredNamespaceUri "http://www.w3.org/1999/02/22-rdf-syntax-ns#" .
+
+_:node16a6atcsmx3 vann:preferredNamespacePrefix "rdfs" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2000/01/rdf-schema#" .
+
+_:node16a6atcsmx4 vann:preferredNamespacePrefix "xsd" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2001/XMLSchema#" .
+
+_:node16a6atcsmx5 vann:preferredNamespacePrefix "xsd2" ;
+	vann:preferredNamespaceUri "http://www.w3.org/TR/xmlschema-2/#" .
+
+_:node16a6atcsmx6 vann:preferredNamespacePrefix "owl" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2002/07/owl#" .
+
+_:node16a6atcsmx7 vann:preferredNamespacePrefix "pmlp" ;
+	vann:preferredNamespaceUri "http://inference-web.org/2.0/pml-provenance.owl#" .
+
+_:node16a6atcsmx8 vann:preferredNamespacePrefix "pmlj" ;
+	vann:preferredNamespaceUri "http://inference-web.org/2.0/pml-justification.owl#" .
+
+_:node16a6atcsmx9 vann:preferredNamespacePrefix "tw_service" ;
+	vann:preferredNamespaceUri "http://localhost/source/tw-rpi-edu/service/" .
+
+_:node16a6atcsmx10 vann:preferredNamespacePrefix "tw_converter" ;
+	vann:preferredNamespaceUri "http://localhost/source/tw-rpi-edu/service/csv2rdf4lod/version/2011-Sep-19/" .
+
+_:node16a6atcsmx11 vann:preferredNamespacePrefix "provenance_1" ;
+	vann:preferredNamespaceUri "http://localhost/source/data-gov/provenance/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1/" .
+
+_:node16a6atcsmx12 vann:preferredNamespacePrefix "conversion" ;
+	vann:preferredNamespaceUri "http://purl.org/twc/vocab/conversion/" .
+
+_:node16a6atcsmx13 vann:preferredNamespacePrefix "ov" ;
+	vann:preferredNamespaceUri "http://open.vocab.org/terms/" .
+
+_:node16a6atcsmx14 vann:preferredNamespacePrefix "dcterms" ;
+	vann:preferredNamespaceUri "http://purl.org/dc/terms/" .
+
+_:node16a6atcsmx15 vann:preferredNamespacePrefix "foaf" ;
+	vann:preferredNamespaceUri "http://xmlns.com/foaf/0.1/" .
+
+_:node16a6atcsmx16 vann:preferredNamespacePrefix "void" ;
+	vann:preferredNamespaceUri "http://rdfs.org/ns/void#" .
+
+_:node16a6atcsmx17 vann:preferredNamespacePrefix "doap" ;
+	vann:preferredNamespaceUri "http://usefulinc.com/ns/doap#" .
+
+_:node16a6atcsmx18 vann:preferredNamespacePrefix "scovo" ;
+	vann:preferredNamespaceUri "http://purl.org/NET/scovo#" .
+
+_:node16a6atcsmx19 vann:preferredNamespacePrefix "sdmx" ;
+	vann:preferredNamespaceUri "http://purl.org/linked-data/cube#" .
+
+_:node16a6atcsmx20 vann:preferredNamespacePrefix "vann" ;
+	vann:preferredNamespaceUri "http://purl.org/vocab/vann/" .
+
+_:node16a6atcsmx21 vann:preferredNamespacePrefix "frbrcore" ;
+	vann:preferredNamespaceUri "http://purl.org/vocab/frbr/core#" .
+
+_:node16a6atcsmx22 vann:preferredNamespacePrefix "coin" ;
+	vann:preferredNamespaceUri "http://purl.org/court/def/2009/coin#" .
+
+_:node16a6atcsmx23 vann:preferredNamespacePrefix "data-gov_vocab" ;
+	vann:preferredNamespaceUri "http://localhost/source/data-gov/vocab/" .
+
+_:node16a6atcsmx24 vann:preferredNamespacePrefix "base_vocab" ;
+	vann:preferredNamespaceUri "http://localhost/vocab/" .
+
+_:node16a6atcsmx25 vann:preferredNamespacePrefix "local_vocab" ;
+	vann:preferredNamespaceUri "http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/vocab/" .
+
+_:node16a6atcsmx26 vann:preferredNamespacePrefix "raw" ;
+	vann:preferredNamespaceUri "http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/vocab/raw/" .
+
+_:node16a6atcsmx27 vann:preferredNamespacePrefix "e1" ;
+	vann:preferredNamespaceUri "http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/vocab/enhancement/1/" .
+
+_:node16a6atcsmx28 vann:preferredNamespacePrefix "" ;
+	vann:preferredNamespaceUri "http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/" .
+
+_:node16a6atcsmx29 vann:preferredNamespacePrefix "_global_value" ;
+	vann:preferredNamespaceUri "http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/" .
+
+_:node16a6atcsmx30 vann:preferredNamespacePrefix "typed_program" ;
+	vann:preferredNamespaceUri "http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/typed/program/" .
+
+_:node16a6atcsmx31 vann:preferredNamespacePrefix "typed_country" ;
+	vann:preferredNamespaceUri "http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/typed/country/" .
+
+_:node16a6atcsmx32 vann:preferredNamespacePrefix "geonames" ;
+	vann:preferredNamespaceUri "http://www.geonames.org/ontology#" .
+
+_:node16a6atcsmx33 vann:preferredNamespacePrefix "wgs" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2003/01/geo/wgs84_pos#" .
+
+_:node16a6atcsmx34 vann:preferredNamespacePrefix "skos" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2004/02/skos/core#" .
+
+_:node16a6atcsmx35 vann:preferredNamespacePrefix "todo" ;
+	vann:preferredNamespaceUri "http://www.w3.org/2000/01/rdf-schema#" .
+
+_:node16a6atcsmx36 vann:preferredNamespacePrefix "muo" ;
+	vann:preferredNamespaceUri "http://purl.oclc.org/NET/muo/muo#" .
+
+_:node16a6atcsmx37 vann:preferredNamespacePrefix "frbr" ;
+	vann:preferredNamespaceUri "http://purl.org/vocab/frbr/core#" .
+
+_:node16a6atcsmx38 vann:preferredNamespacePrefix "frir" ;
+	vann:preferredNamespaceUri "http://purl.org/twc/ontology/frir.owl#" .
+
+_:node16a6atcsmx39 vann:preferredNamespacePrefix "irw" ;
+	vann:preferredNamespaceUri "http://www.ontologydesignpatterns.org/ont/web/irw.owl#" .
+
+_:node16a6atcsmx40 vann:preferredNamespacePrefix "prov" ;
+	vann:preferredNamespaceUri "http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#" .
+
+_:node16a6atcsmx41 vann:preferredNamespacePrefix "dc" ;
+	vann:preferredNamespaceUri "http://purl.org/dc/terms/" .
+
+_:node16a6atcsmx42 vann:preferredNamespacePrefix "nfo" ;
+	vann:preferredNamespaceUri "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" .
+
+_:node16a6atcsmx43 vann:preferredNamespacePrefix "value_of_country" ;
+	vann:preferredNamespaceUri "http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/value-of/country/" .
+
+_:node16a6atcsmx44 vann:preferredNamespacePrefix "value_of_program" ;
+	vann:preferredNamespaceUri "http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/value-of/program/" .
+
+_:node16a6atcsmx1 rdfs:seeAlso _:node16a6atcsmx2 , _:node16a6atcsmx3 , _:node16a6atcsmx4 , _:node16a6atcsmx5 , _:node16a6atcsmx6 , _:node16a6atcsmx7 , _:node16a6atcsmx8 , _:node16a6atcsmx9 , _:node16a6atcsmx10 , _:node16a6atcsmx11 , _:node16a6atcsmx12 , _:node16a6atcsmx13 , _:node16a6atcsmx14 , _:node16a6atcsmx15 , _:node16a6atcsmx16 , _:node16a6atcsmx17 , _:node16a6atcsmx18 , _:node16a6atcsmx19 , _:node16a6atcsmx20 , _:node16a6atcsmx21 , _:node16a6atcsmx22 , _:node16a6atcsmx23 , _:node16a6atcsmx24 , _:node16a6atcsmx25 , _:node16a6atcsmx26 , _:node16a6atcsmx27 , _:node16a6atcsmx28 , _:node16a6atcsmx29 , _:node16a6atcsmx30 , _:node16a6atcsmx31 , _:node16a6atcsmx32 , _:node16a6atcsmx33 , _:node16a6atcsmx34 , _:node16a6atcsmx35 , _:node16a6atcsmx36 , _:node16a6atcsmx37 , _:node16a6atcsmx38 , _:node16a6atcsmx39 , _:node16a6atcsmx40 , _:node16a6atcsmx41 , _:node16a6atcsmx42 , _:node16a6atcsmx43 , _:node16a6atcsmx44 .
+
+provenance_1:nodeset_1 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://localhost/source/data-gov/file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/data-gov-1554-frbr-demo-explore-2011-Sep-19-frbr.e1.ttl.gz> ;
+	pmlj:isConsequentOf provenance_1:infstep_1 .
+
+provenance_1:nodeset_2 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://localhost/source/data-gov/file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/data-gov-1554-frbr-demo-explore-2011-Sep-19-frbr.e1.sample> ;
+	pmlj:isConsequentOf provenance_1:infstep_1 .
+
+provenance_1:nodeset_3 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://localhost/source/data-gov/file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/data-gov-1554-frbr-demo-explore-2011-Sep-19-frbr.sameas.ttl.gz> ;
+	pmlj:isConsequentOf provenance_1:infstep_1 .
+
+provenance_1:nodeset_4 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://localhost/source/data-gov/file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/data-gov-1554-frbr-demo-explore-2011-Sep-19-frbr.ttl.gz> ;
+	pmlj:isConsequentOf provenance_1:infstep_1 .
+
+provenance_1:nodeset_5 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://localhost/source/data-gov/file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/data-gov-1554-frbr-demo-explore-2011-Sep-19-frbr.void.ttl.gz> ;
+	pmlj:isConsequentOf provenance_1:infstep_1 .
+
+provenance_1:infstep_1 a pmlj:InferenceStep ;
+	pmlj:hasInferenceEngine tw_converter:csv2rdf4lod_87b94fe35177a72fbb83135028f71fd8 ;
+	pmlj:hasAntecedentList _:node16a6atcsmx45 ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedentRole> _:node16a6atcsmx46 , _:node16a6atcsmx47 .
+
+<http://purl.org/twc/id/software/csv2rdf4lod> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> tw_converter:csv2rdf4lod_87b94fe35177a72fbb83135028f71fd8 .
+
+<http://data.lod2.eu/2011/tools/CSV2RDF4LOD> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> tw_converter:csv2rdf4lod_87b94fe35177a72fbb83135028f71fd8 .
+
+<http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/csv2rdf4lod> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> tw_converter:csv2rdf4lod_87b94fe35177a72fbb83135028f71fd8 .
+
+tw_converter:csv2rdf4lod_87b94fe35177a72fbb83135028f71fd8 a pmlp:InferenceEngine , doap:Version ;
+	dcterms:identifier "csv2rdf4lod_87b94fe35177a72fbb83135028f71fd8" ;
+	dcterms:version "2011-Sep-19" ;
+	doap:revision "2011-Sep-19" ;
+	doap:platform "Java" .
+
+<http://purl.org/twc/id/software/csv2rdf4lod> rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki> .
+
+<http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/csv2rdf4lod> a doap:Project ;
+	doap:revision tw_converter:csv2rdf4lod_87b94fe35177a72fbb83135028f71fd8 ;
+	doap:implements <http://data-gov.tw.rpi.edu/wiki/Special:URIResolver/URI_design_for_RDF_conversion_of_CSV-based_data> , <http://purl.org/twc/vocab/conversion/> ;
+	dcterms:author <http://tw.rpi.edu/instances/TimLebo> ;
+	doap:developer <http://tw.rpi.edu/instances/TimLebo> , <http://tw.rpi.edu/instances/GregoryToddWilliams> , <http://kasei.us/about/foaf.xrdf#greg> , <http://tw.rpi.edu/instances/JamesMcCusker> , <http://tw.rpi.edu/instances/ZhenningShangguan> ;
+	doap:maintainer <http://tw.rpi.edu/instances/TimLebo> ;
+	doap:documenter <http://tw.rpi.edu/instances/TimLebo> , <http://tw.rpi.edu/instances/JohannaFlores> , <http://tw.rpi.edu/instances/LiDing> , <http://tw.rpi.edu/instances/GinoGervasio> ;
+	doap:helper <http://tw.rpi.edu/instances/AlvaroGraves> , <http://tw.rpi.edu/instances/DominicDiFranzo> , <http://tw.rpi.edu/instances/GinoGervasio> , <http://tw.rpi.edu/instances/PingWang> , <http://tw.rpi.edu/instances/XianLi> , <http://tw.rpi.edu/instances/JamesMcCusker> , <http://www.w3.org/People/Eric/ericP-foaf#ericP> , <http://tw.rpi.edu/instances/AnkitSrivastava> , <http://purl.org/twc/id/person/Maryam_Fazel-Zarandi> , <http://tw.rpi.edu/instances/AlexanderLahuerta> ;
+	doap:homepage <https://github.com/timrdf/csv2rdf4lod-automation/wiki> ;
+	doap:audience "Data modelers and architects that need (potentially non-RDB) tabular data encoded within the Resource Description Framework." ;
+	doap:shortdesc "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/" ;
+	doap:description "Converts CSV files to RDF using parameters specified by http://purl.org/twc/vocab/conversion/. Organizes datasets using 'source', 'dataset', and 'version' identifiers to allow for third-party aggregation, refinement, and integration of third-party data. Uses predicate 'layers' to allow backward-compatible refinements of Resources' descriptions. Minimizes human error and increases transparancy of conversion by using RDF-encoded interpretation parameters to control all processing." .
+
+_:node16a6atcsmx48 a doap:GitRepository ;
+	foaf:isPrimaryTopicOf <https://github.com/timrdf/csv2rdf4lod-automation> ;
+	doap:browse <https://github.com/timrdf/csv2rdf4lod-automation> .
+
+<http://tw.rpi.edu/instances/GregoryToddWilliams> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://kasei.us/about/foaf.xrdf#greg> .
+
+<http://tw.rpi.edu/instances/AlvaroGraves> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://alvaro.graves.cl> .
+
+<http://purl.org/twc/id/person/TimLebo> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://tw.rpi.edu/wiki/Special:URIResolver/Tim_Lebo> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://www.cs.rpi.edu/~weavej3/r/Tim_Lebo> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://tw.rpi.edu/instances/TimLebo> .
+
+<http://purl.org/twc/id/person/Maryam_Fazel-Zarandi> <http://www.w3.org/2000/10/swap/pim/contact#preferredURI> <http://tw.rpi.edu/instances/MaryamFazel-Zarandi> .
+
+_:node16a6atcsmx45 a rdf:List ;
+	rdf:first provenance_1:nodeset_6 .
+
+provenance_1:nodeset_6 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://localhost/source/data-gov/provenance_file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/source/us_economic_assistance.csv> .
+
+_:node16a6atcsmx45 rdf:rest _:node16a6atcsmx49 .
+
+_:node16a6atcsmx49 a rdf:List ;
+	rdf:first provenance_1:nodeset_7 .
+
+provenance_1:nodeset_7 a pmlj:NodeSet ;
+	pmlj:hasConclusion <http://localhost/source/data-gov/provenance_file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/manual/us_economic_assistance.csv.global.e1.params.ttl> .
+
+_:node16a6atcsmx46 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> .
+
+_:node16a6atcsmx49 rdf:rest rdf:nil .
+
+_:node16a6atcsmx46 <http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://localhost/source/data-gov/provenance_file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/source/us_economic_assistance.csv> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Input.owl#Input> .
+
+_:node16a6atcsmx47 a <http://inference-web.org/2.1exper/pml-provenance.owl#AntecedentRole> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasAntecedent> <http://localhost/source/data-gov/provenance_file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/manual/us_economic_assistance.csv.global.e1.params.ttl> ;
+	<http://inference-web.org/2.1exper/pml-provenance.owl#hasRole> <http://inference-web.org/registry/ROLE/Parameters.owl#Parameters> .
+
+<http://localhost/source/data-gov/provenance_file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/source/us_economic_assistance.csv> a pmlp:Information ;
+	pmlp:hasFormat <http://iw.cs.utep.edu/registry/FMT/text/CSV.owl#CSV> .
+
+<http://localhost/source/data-gov/provenance_file/1554-frbr-demo-explore/version/2011-Sep-19-frbr/manual/us_economic_assistance.csv.global.e1.params.ttl> a pmlp:Information ;
+	pmlp:hasFormat <http://inference-web.org/registry/FMT/RDFAbstractSyntax.owl#RDFAbstractSyntax> .
+
+conversion:SameAsDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:uses_class rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:has_version rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:MetaDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:num_triples rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:enhances rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:enhancement_layer rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:DatasetSample rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:source_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:VersionedDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:LayerDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:base_uri rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:uses_predicate rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:interpretation rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:symbol rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:dataset_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:conversion_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:AbstractDataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:null rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:subject_discriminator rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:Dataset rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+conversion:version_identifier rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/> .
+
+<http://logd.tw.rpi.edu/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1> conversion:base_uri "http://logd.tw.rpi.edu"^^xsd:anyURI ;
+	conversion:source_identifier "data-gov" ;
+	conversion:dataset_identifier "1554-frbr-demo-explore" ;
+	conversion:dataset_version "2011-Sep-19-frbr" .
+
+_:node16a6atcvlx1 a conversion:RawConversionProcess ;
+	conversion:enhancement_identifier "1" .
+
+_:node16a6atcvlx2 conversion:symbol "" ;
+	conversion:interpretation conversion:null .
+
+_:node16a6atcvlx1 conversion:interpret _:node16a6atcvlx2 .
+
+_:node16a6atcvlx3 a conversion:SubjectAnnotation ;
+	conversion:predicate muo:measuredIn ;
+	conversion:object <http://dbpedia.org/resource/United_States_dollar> .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx3 .
+
+_:node16a6atcvlx4 a conversion:SubjectAnnotation ;
+	conversion:predicate "[/]vocab/provider" ;
+	conversion:object <http://dbpedia.org/resource/United_States> .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx4 .
+
+_:node16a6atcvlx5 ov:csvCol "1"^^xsd:integer ;
+	ov:csvHeader "country_name" ;
+	conversion:domain_name "ForeignAid" ;
+	conversion:label "Country" ;
+	conversion:subproperty_of "[/]vocab/recipient" ;
+	conversion:links_via <http://www.rpi.edu/~lebot/lod-links/countries/country-iso3166-1.ttl> ;
+	conversion:subject_of dcterms:identifier ;
+	conversion:range rdfs:Resource ;
+	conversion:range_name "Country" .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx5 .
+
+_:node16a6atcvlx6 conversion:class_name "ForeignAid" ;
+	conversion:subclass_of "[/]vocab/Transaction" .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx6 .
+
+_:node16a6atcvlx7 ov:csvCol "2"^^xsd:integer ;
+	ov:csvHeader "program_name" ;
+	conversion:label "Program" ;
+	conversion:subproperty_of "[/]vocab/purpose" ;
+	conversion:range rdfs:Resource ;
+	conversion:range_name "Program" .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx7 .
+
+_:node16a6atcvlx8 ov:csvCol "3"^^xsd:integer ;
+	ov:csvHeader "FY1946" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1946" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx8 .
+
+_:node16a6atcvlx9 ov:csvCol "4"^^xsd:integer ;
+	ov:csvHeader "FY1947" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1947" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx9 .
+
+_:node16a6atcvlx10 ov:csvCol "5"^^xsd:integer ;
+	ov:csvHeader "FY1948" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1948" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx10 .
+
+_:node16a6atcvlx11 ov:csvCol "6"^^xsd:integer ;
+	ov:csvHeader "FY1949" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1949" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx11 .
+
+_:node16a6atcvlx12 ov:csvCol "7"^^xsd:integer ;
+	ov:csvHeader "FY1950" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1950" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx12 .
+
+_:node16a6atcvlx13 ov:csvCol "8"^^xsd:integer ;
+	ov:csvHeader "FY1951" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1951" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx13 .
+
+_:node16a6atcvlx14 ov:csvCol "9"^^xsd:integer ;
+	ov:csvHeader "FY1952" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1952" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx14 .
+
+_:node16a6atcvlx15 ov:csvCol "10"^^xsd:integer ;
+	ov:csvHeader "FY1953" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1953" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx15 .
+
+_:node16a6atcvlx16 ov:csvCol "11"^^xsd:integer ;
+	ov:csvHeader "FY1954" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1954" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx16 .
+
+_:node16a6atcvlx17 ov:csvCol "12"^^xsd:integer ;
+	ov:csvHeader "FY1955" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1955" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx17 .
+
+_:node16a6atcvlx18 ov:csvCol "13"^^xsd:integer ;
+	ov:csvHeader "FY1956" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1956" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx18 .
+
+_:node16a6atcvlx19 ov:csvCol "14"^^xsd:integer ;
+	ov:csvHeader "FY1957" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1957" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx19 .
+
+_:node16a6atcvlx20 ov:csvCol "15"^^xsd:integer ;
+	ov:csvHeader "FY1958" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1958" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx20 .
+
+_:node16a6atcvlx21 ov:csvCol "16"^^xsd:integer ;
+	ov:csvHeader "FY1959" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1959" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx21 .
+
+_:node16a6atcvlx22 ov:csvCol "17"^^xsd:integer ;
+	ov:csvHeader "FY1960" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1960" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx22 .
+
+_:node16a6atcvlx23 ov:csvCol "18"^^xsd:integer ;
+	ov:csvHeader "FY1961" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1961" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx23 .
+
+_:node16a6atcvlx24 ov:csvCol "19"^^xsd:integer ;
+	ov:csvHeader "FY1962" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1962" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx24 .
+
+_:node16a6atcvlx25 ov:csvCol "20"^^xsd:integer ;
+	ov:csvHeader "FY1963" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1963" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx25 .
+
+_:node16a6atcvlx26 ov:csvCol "21"^^xsd:integer ;
+	ov:csvHeader "FY1964" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1964" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx26 .
+
+_:node16a6atcvlx27 ov:csvCol "22"^^xsd:integer ;
+	ov:csvHeader "FY1965" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1965" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx27 .
+
+_:node16a6atcvlx28 ov:csvCol "23"^^xsd:integer ;
+	ov:csvHeader "FY1966" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1966" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx28 .
+
+_:node16a6atcvlx29 ov:csvCol "24"^^xsd:integer ;
+	ov:csvHeader "FY1967" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1967" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx29 .
+
+_:node16a6atcvlx30 ov:csvCol "25"^^xsd:integer ;
+	ov:csvHeader "FY1968" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1968" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx30 .
+
+_:node16a6atcvlx31 ov:csvCol "26"^^xsd:integer ;
+	ov:csvHeader "FY1969" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1969" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx31 .
+
+_:node16a6atcvlx32 ov:csvCol "27"^^xsd:integer ;
+	ov:csvHeader "FY1970" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1970" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx32 .
+
+_:node16a6atcvlx33 ov:csvCol "28"^^xsd:integer ;
+	ov:csvHeader "FY1971" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1971" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx33 .
+
+_:node16a6atcvlx34 ov:csvCol "29"^^xsd:integer ;
+	ov:csvHeader "FY1972" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1972" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx34 .
+
+_:node16a6atcvlx35 ov:csvCol "30"^^xsd:integer ;
+	ov:csvHeader "FY1973" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1973" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx35 .
+
+_:node16a6atcvlx36 ov:csvCol "31"^^xsd:integer ;
+	ov:csvHeader "FY1974" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1974" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx36 .
+
+_:node16a6atcvlx37 ov:csvCol "32"^^xsd:integer ;
+	ov:csvHeader "FY1975" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1975" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx37 .
+
+_:node16a6atcvlx38 ov:csvCol "33"^^xsd:integer ;
+	ov:csvHeader "FY1976" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1976" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx38 .
+
+_:node16a6atcvlx39 ov:csvCol "34"^^xsd:integer ;
+	ov:csvHeader "FY1976tq" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1976" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx39 .
+
+_:node16a6atcvlx40 ov:csvCol "35"^^xsd:integer ;
+	ov:csvHeader "FY1977" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1977" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx40 .
+
+_:node16a6atcvlx41 ov:csvCol "36"^^xsd:integer ;
+	ov:csvHeader "FY1978" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1978" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx41 .
+
+_:node16a6atcvlx42 ov:csvCol "37"^^xsd:integer ;
+	ov:csvHeader "FY1979" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1979" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx42 .
+
+_:node16a6atcvlx43 ov:csvCol "38"^^xsd:integer ;
+	ov:csvHeader "FY1980" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1980" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx43 .
+
+_:node16a6atcvlx44 ov:csvCol "39"^^xsd:integer ;
+	ov:csvHeader "FY1981" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1981" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx44 .
+
+_:node16a6atcvlx45 ov:csvCol "40"^^xsd:integer ;
+	ov:csvHeader "FY1982" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1982" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx45 .
+
+_:node16a6atcvlx46 ov:csvCol "41"^^xsd:integer ;
+	ov:csvHeader "FY1983" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1983" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx46 .
+
+_:node16a6atcvlx47 ov:csvCol "42"^^xsd:integer ;
+	ov:csvHeader "FY1984" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1984" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx47 .
+
+_:node16a6atcvlx48 ov:csvCol "43"^^xsd:integer ;
+	ov:csvHeader "FY1985" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1985" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx48 .
+
+_:node16a6atcvlx49 ov:csvCol "44"^^xsd:integer ;
+	ov:csvHeader "FY1986" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1986" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx49 .
+
+_:node16a6atcvlx50 ov:csvCol "45"^^xsd:integer ;
+	ov:csvHeader "FY1987" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1987" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx50 .
+
+_:node16a6atcvlx51 ov:csvCol "46"^^xsd:integer ;
+	ov:csvHeader "FY1988" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1988" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx51 .
+
+_:node16a6atcvlx52 ov:csvCol "47"^^xsd:integer ;
+	ov:csvHeader "FY1989" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1989" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx52 .
+
+_:node16a6atcvlx53 ov:csvCol "48"^^xsd:integer ;
+	ov:csvHeader "FY1990" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1990" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx53 .
+
+_:node16a6atcvlx54 ov:csvCol "49"^^xsd:integer ;
+	ov:csvHeader "FY1991" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1991" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx54 .
+
+_:node16a6atcvlx55 ov:csvCol "50"^^xsd:integer ;
+	ov:csvHeader "FY1992" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1992" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx55 .
+
+_:node16a6atcvlx56 ov:csvCol "51"^^xsd:integer ;
+	ov:csvHeader "FY1993" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1993" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx56 .
+
+_:node16a6atcvlx57 ov:csvCol "52"^^xsd:integer ;
+	ov:csvHeader "FY1994" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1994" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx57 .
+
+_:node16a6atcvlx58 ov:csvCol "53"^^xsd:integer ;
+	ov:csvHeader "FY1995" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1995" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx58 .
+
+_:node16a6atcvlx59 ov:csvCol "54"^^xsd:integer ;
+	ov:csvHeader "FY1996" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1996" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx59 .
+
+_:node16a6atcvlx60 ov:csvCol "55"^^xsd:integer ;
+	ov:csvHeader "FY1997" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1997" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx60 .
+
+_:node16a6atcvlx61 ov:csvCol "56"^^xsd:integer ;
+	ov:csvHeader "FY1998" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1998" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx61 .
+
+_:node16a6atcvlx62 ov:csvCol "57"^^xsd:integer ;
+	ov:csvHeader "FY1999" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_1999" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx62 .
+
+_:node16a6atcvlx63 ov:csvCol "58"^^xsd:integer ;
+	ov:csvHeader "FY2000" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_2000" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx63 .
+
+_:node16a6atcvlx64 ov:csvCol "59"^^xsd:integer ;
+	ov:csvHeader "FY2001" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_2001" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx64 .
+
+_:node16a6atcvlx65 ov:csvCol "60"^^xsd:integer ;
+	ov:csvHeader "FY2002" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_2002" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx65 .
+
+_:node16a6atcvlx66 ov:csvCol "61"^^xsd:integer ;
+	ov:csvHeader "FY2003" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_2003" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx66 .
+
+_:node16a6atcvlx67 ov:csvCol "62"^^xsd:integer ;
+	ov:csvHeader "FY2004" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_2004" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx67 .
+
+_:node16a6atcvlx68 ov:csvCol "63"^^xsd:integer ;
+	ov:csvHeader "FY2005" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_2005" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx68 .
+
+_:node16a6atcvlx69 ov:csvCol "64"^^xsd:integer ;
+	ov:csvHeader "FY2006" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_2006" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx69 .
+
+_:node16a6atcvlx70 ov:csvCol "65"^^xsd:integer ;
+	ov:csvHeader "FY2007" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_2007" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx70 .
+
+_:node16a6atcvlx71 ov:csvCol "66"^^xsd:integer ;
+	ov:csvHeader "FY2008" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_2008" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx71 .
+
+_:node16a6atcvlx72 ov:csvCol "67"^^xsd:integer ;
+	ov:csvHeader "FY2009" ;
+	a scovo:Item ;
+	conversion:label "Year" ;
+	conversion:subproperty_of dcterms:temporal ;
+	conversion:object "[/]instance-hub/financial/fiscal-year/united-states/FY_2009" ;
+	conversion:range xsd:decimal .
+
+_:node16a6atcvlx1 conversion:enhance _:node16a6atcvlx72 .
+
+<http://logd.tw.rpi.edu/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1> conversion:conversion_process _:node16a6atcvlx1 .
+
+<filed://aaea345c86d63d3e5a55bab0144ea3795536ec3882b7e11751d5d565f7cc843c/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv> a frbrcore:Item ;
+	prov:wasGeneratedBy <http://code.google.com/p/surfrdf/273cb534-bd43-400f-a214-2b3609372991> ;
+	dcterms:date "2011-09-21T15:47:39.063072"^^xsd:dateTime ;
+	dcterms:modified "2011-09-21T11:47:39"^^xsd:dateTime ;
+	frbrcore:exemplarOf <hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> ;
+	frbrcore:reproductionOf <hash:Item/SHA256-e52119459c08cf173d004d2c19e8c70dd76ab2b451369b6986aec14907136bf2-http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash> ;
+	nfo:fileUrl <file:////Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/source/us_economic_assistance.csv> , <file:/Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/source/us_economic_assistance.csv> ;
+	nfo:hasHash <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> .
+
+<http://explore.data.gov/download/5gah-bvex/CSV> a frbrcore:Work ;
+	irw:redirectsTo <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv> .
+
+<hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> a frbrcore:Expression ;
+	frbrcore:realizationOf <http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv> ;
+	nfo:hasHash <hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> .
+
+<hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> a frir:TabularDigest ;
+	nfo:hashAlgorithm "GRAPH_SHA256" ;
+	nfo:hashValue "13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4" .
+
+<hash:SHA256-e52119459c08cf173d004d2c19e8c70dd76ab2b451369b6986aec14907136bf2> a nfo:FileHash ;
+	nfo:hashAlgorithm "SHA256" ;
+	nfo:hashValue "e52119459c08cf173d004d2c19e8c70dd76ab2b451369b6986aec14907136bf2" .
+
+<http://code.google.com/p/surfrdf/273cb534-bd43-400f-a214-2b3609372991> a frir:HTTP_1_1_GET ;
+	prov:used <hash:Item/SHA256-e52119459c08cf173d004d2c19e8c70dd76ab2b451369b6986aec14907136bf2-http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash> , frir:HTTP_1_1_GET ;
+	prov:wasControlledBy <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> ;
+	dcterms:date "2011-09-21T15:47:39.063072"^^xsd:dateTime .
+
+<hash:Item/SHA256-e52119459c08cf173d004d2c19e8c70dd76ab2b451369b6986aec14907136bf2-http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash> a frir:HTTP_1_1_Response ;
+	dcterms:date "2011-09-21T15:22:34+00:00"^^xsd:dateTime ;
+	frir:hasHeader """Content-Length: 446436
+Content-Type: application/octet-stream
+Last-Modified: Wed, 12 Jan 2011 15:31:18 GMT
+Accept-Ranges: bytes
+ETag: \"027a2c16db2cb1:1ba0\"
+Server: Microsoft-IIS/6.0
+Date: Wed, 21 Sep 2011 15:22:34 GMT
+""" ;
+	frbrcore:exemplarOf <hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> ;
+	nfo:hasHash <hash:SHA256-e52119459c08cf173d004d2c19e8c70dd76ab2b451369b6986aec14907136bf2> .
+
+<hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> a frbrcore:Manifestation ;
+	frbrcore:embodimentOf <hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> ;
+	nfo:hasHash <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> .
+
+<hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> a nfo:FileHash ;
+	nfo:hashAlgorithm "SHA256" ;
+	nfo:hashValue "d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57" .
+
+<http://gbk.eads.usaidallnet.gov/data/files/us_economic_assistance.csv> a frbrcore:Work .
+
+<filed://aaea345c86d63d3e5a55bab0144ea3795536ec3882b7e11751d5d565f7cc843c/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv> dcterms:date "2011-09-21T15:47:54.412992"^^xsd:dateTime ;
+	nfo:fileUrl <file:/Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/source/source/us_economic_assistance.csv> .
+
+<hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> frbrcore:realizationOf <uuid:86d2ab72-ba11-49b5-a712-ade480a653a6> .
+
+<uuid:86d2ab72-ba11-49b5-a712-ade480a653a6> a frbrcore:Work .
+
+<filed://aaea345c86d63d3e5a55bab0144ea3795536ec3882b7e11751d5d565f7cc843c/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv> dcterms:date "2011-09-21T15:50:33.563522"^^xsd:dateTime .
+
+<hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> frbrcore:realizationOf <uuid:2e56a576-c1a5-4e4e-85b2-b3d6efa8b544> .
+
+<uuid:2e56a576-c1a5-4e4e-85b2-b3d6efa8b544> a frbrcore:Work .
+
+<http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1> void:statItem _:node16a6atcsmx51 .
+
+_:node16a6atcsmx51 scovo:dimension void:numberOfTriples ;
+	rdf:value "413979"^^xsd:integer .
+
+<http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/enhancement/1> conversion:num_triples "413979"^^xsd:integer ;
+	rdfs:comment "hash: 3273da8f61846207ca48df7886e741b4a507ac1433bef" .
+#-fstack enhancement yes 2011-09-21T11:51:24-04:00
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+
+<filed://44965a3f6fe76193416b91e7b569615d5ec3840072a7497791c7dcc8ca3c1b8a/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.e1.ttl> a <http://purl.org/vocab/frbr/core#Item>;
+    dc:date "2011-09-21T15:51:24.766054"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    dc:modified "2011-09-21T11:51:24"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    frbr:exemplarOf <hash:Manifestation/SHA256-568cb63e83987047f75f2a7f067d6c57caf302bda89403ca448ba562b45239ad>;
+    nfo:fileUrl <automatic/us_economic_assistance.csv.e1.ttl>,
+        <file:////Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/automatic/us_economic_assistance.csv.e1.ttl>;
+    nfo:hasHash <hash:SHA256-568cb63e83987047f75f2a7f067d6c57caf302bda89403ca448ba562b45239ad> .
+
+<hash:Expression/GRAPH_SHA256-3287bc5b016ad9857e87fa95c1663927196735fafff604900d7c311359fdc33c7b2a1> a <http://purl.org/vocab/frbr/core#Expression>;
+    frbr:realizationOf <uuid:9efd077f-7411-47a0-ab85-d72b330d21c6>;
+    nfo:hasHash <hash:GRAPH_SHA256-3287bc5b016ad9857e87fa95c1663927196735fafff604900d7c311359fdc33c7b2a1> .
+
+<hash:GRAPH_SHA256-3287bc5b016ad9857e87fa95c1663927196735fafff604900d7c311359fdc33c7b2a1> a <http://purl.org/twc/ontology/frir.owl#RDFGraphDigest>;
+    nfo:hashAlgorithm "GRAPH_SHA256";
+    nfo:hashValue "3287bc5b016ad9857e87fa95c1663927196735fafff604900d7c311359fdc33c7b2a1" .
+
+<hash:Manifestation/SHA256-568cb63e83987047f75f2a7f067d6c57caf302bda89403ca448ba562b45239ad> a <http://purl.org/vocab/frbr/core#Manifestation>;
+    frbr:embodimentOf <hash:Expression/GRAPH_SHA256-3287bc5b016ad9857e87fa95c1663927196735fafff604900d7c311359fdc33c7b2a1>;
+    nfo:hasHash <hash:SHA256-568cb63e83987047f75f2a7f067d6c57caf302bda89403ca448ba562b45239ad> .
+
+<uuid:9efd077f-7411-47a0-ab85-d72b330d21c6> a <http://purl.org/vocab/frbr/core#Work> .
+
+<hash:SHA256-568cb63e83987047f75f2a7f067d6c57caf302bda89403ca448ba562b45239ad> a <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash>;
+    nfo:hashAlgorithm "SHA256";
+    nfo:hashValue "568cb63e83987047f75f2a7f067d6c57caf302bda89403ca448ba562b45239ad" .
+
+
