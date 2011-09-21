@@ -97,7 +97,7 @@ class RDFGraphDigest:
 
     def hashSubjects(self, graph, predicates):
         predicates = graph.predicates()
-        result = set([])
+        triples = set([])
         for stmt in graph:
             if stmt[1] in RDFGraphDigest.rawAllowedProps or stmt[0] in RDFGraphDigest.rawAllowedProps:
                 continue
@@ -113,6 +113,7 @@ class RDFGraphDigest:
             else:
                 self.isRaw = False
                 return
+
 
     def loadAndUpdate(self,content, filename = None, mimetype = None):
         store = Store(reader='rdflib',
@@ -143,6 +144,7 @@ class RDFGraphDigest:
         self.update(graph)
 
     def update(self, graph):
+        self.triples = set([])
         if self.isRaw:
             predicates = self.hashPredicates(graph)
             if self.isRaw:
@@ -157,10 +159,15 @@ class RDFGraphDigest:
         m = hashlib.sha256()
         m.update(s.encode('utf-8'))
         stmtDigest = int(m.hexdigest(),16)
+        if stmtDigest in self.triples:
+            return
+        self.triples.add(stmtDigest)
         if hashType == 'graph':
             self.total += stmtDigest
+            #print "total", self.total
         else:
             self.rawtotal += stmtDigest
+            #print "raw total", stmtDigest
 
     def getDigest(self):
         if self.isRaw:
