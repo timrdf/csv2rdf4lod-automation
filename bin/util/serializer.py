@@ -35,8 +35,8 @@ class CSVSerializer:
             colNum = 1
             for value in row:
                 colURI = URIRef('column:'+str(colNum))
-                if len(value) > 0:
-                    graph.add((rowURI,colURI,Literal(value)))
+                #if len(value) > 0:
+                graph.add((rowURI,colURI,Literal(value)))
                 colNum += 1
             rowNum += 1
         return ns.FRIR['TabularDigest']
