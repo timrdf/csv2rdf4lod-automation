@@ -1,0 +1,32 @@
+#-fstack raw no enhancement yes source/us_economic_assistance.csv 2011-09-21T11:50:33-04:00
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+
+<filed://aaea345c86d63d3e5a55bab0144ea3795536ec3882b7e11751d5d565f7cc843c/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv> a <http://purl.org/vocab/frbr/core#Item>;
+    dc:date "2011-09-21T15:50:33.563522"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    dc:modified "2011-09-21T11:47:39"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    frbr:exemplarOf <hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57>;
+    nfo:fileUrl <file:////Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/source/us_economic_assistance.csv>,
+        <source/us_economic_assistance.csv>;
+    nfo:hasHash <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> .
+
+<hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> a <http://purl.org/vocab/frbr/core#Expression>;
+    frbr:realizationOf <uuid:2e56a576-c1a5-4e4e-85b2-b3d6efa8b544>;
+    nfo:hasHash <hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> .
+
+<hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4> a <http://purl.org/twc/ontology/frir.owl#TabularDigest>;
+    nfo:hashAlgorithm "GRAPH_SHA256";
+    nfo:hashValue "13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4" .
+
+<hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> a <http://purl.org/vocab/frbr/core#Manifestation>;
+    frbr:embodimentOf <hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4>;
+    nfo:hasHash <hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> .
+
+<uuid:2e56a576-c1a5-4e4e-85b2-b3d6efa8b544> a <http://purl.org/vocab/frbr/core#Work> .
+
+<hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57> a <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash>;
+    nfo:hashAlgorithm "SHA256";
+    nfo:hashValue "d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57" .
+
+
