@@ -318,10 +318,12 @@ dumpExtensions="-VoIDDumpExtensions ${CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS}"
 if [ ${#CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS} -eq 0 ]; then
    dumpExtensions=""
 fi
-# FRBR-stacks. Takes a while. Could be optimized.
+# FRBR-stacks. Takes a while. Could be optimized to not do when no change.
 if [[ ( $runRaw == "yes" || $runEnhancement == "yes" ) && \
       ${CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR:-"."} == "true" && `which fstack.py` ]]; then
-   fstack.py --stdout $data >> $data.prov.ttl
+   echo "Calculating FRBR Stack of tabular input; set CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR=='false' to prevent FRBR stacks." 2>&1 | tee -a $CSV2RDF4LOD_LOG
+   echo "#-fstack `dateInXSDDateTime.sh`" >> $data.prov.ttl
+   fstack.py --stdout $data               >> $data.prov.ttl
    prov="-prov `pwd`/$data.prov.ttl"
 else
    prov=""
@@ -348,6 +350,26 @@ if [ $runRaw == "yes" ]; then
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY=='true'"                                                                        2>&1 | tee -a $CSV2RDF4LOD_LOG
    else
       $csv2rdf $data $prov -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl -wm $destDir/$datafile.raw.void.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      if [[ ${CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR:-"."} == "true" && `which fstack.py` ]]; then
+         echo "Calculating FRBR Stack of output RDF; set CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR=='false' to prevent FRBR stacks."                                                           2>&1 | tee -a $CSV2RDF4LOD_LOG
+         item_i=`fstack.py --print-item $data`
+         item_p=`fstack.py --print-item $destDir/$datafile.raw.params.ttl`
+         item_o=`fstack.py --print-item $destDir/$datafile.raw.ttl`
+         echo "#-fstack $destDir/$datafile.raw.ttl raw @ `dateInXSDDateTime.sh`" >> $destDir/$datafile.raw.void.ttl
+         fstack.py --stdout $destDir/$datafile.raw.ttl                           >> $destDir/$datafile.raw.void.ttl # TODO: incorporate into java directly.
+         echo "<#csv2rdf4lod_invocation`java edu.rpi.tw.string.NameFactory`>"    >> $destDir/$datafile.raw.void.ttl
+         echo "   a prov:ProcessExecution;"                                      >> $destDir/$datafile.raw.void.ttl
+         echo "   prov:used      <$item_i>;"                                     >> $destDir/$datafile.raw.void.ttl
+         echo "   prov:used      <$item_p>;"                                     >> $destDir/$datafile.raw.void.ttl
+         echo "   prov:generated <$item_o>;"                                     >> $destDir/$datafile.raw.void.ttl
+         echo "   prov:wasControlledBy `user-account.sh --cite`;"                >> $destDir/$datafile.raw.void.ttl
+         echo "   prov:used      <#$converterJarMD5>;"                           >> $destDir/$datafile.raw.void.ttl
+         echo "."                                                                >> $destDir/$datafile.raw.void.ttl
+         echo                                                                    >> $destDir/$datafile.raw.void.ttl
+         echo "<$item_o> prov:wasDerivedFrom <$item_i> ."                        >> $destDir/$datafile.raw.void.ttl
+         echo                                                                    >> $destDir/$datafile.raw.void.ttl
+         user-account.sh                                                         >> $destDir/$datafile.raw.void.ttl
+      fi
    fi
 fi
 
@@ -372,8 +394,14 @@ if [ $runEnhancement == "yes" ]; then
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'"                                                                               2>&1 | tee -a $CSV2RDF4LOD_LOG
    else
       $csv2rdf $data $prov -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl -wm $destDir/$datafile.e$eID.void.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      if [[ ${CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR:-"."} == "true" && `which fstack.py` ]]; then
+         echo "Calculating FRBR Stack of output RDF; set CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR=='false' to prevent FRBR stacks."                                          2>&1 | tee -a $CSV2RDF4LOD_LOG
+         echo "#-fstack `dateInXSDDateTime.sh`"          >> $destDir/$datafile.e$eID.void.ttl
+         fstack.py --stdout $destDir/$datafile.e$eID.ttl >> $destDir/$datafile.e$eID.void.ttl # TODO: incorporate into java directly.
+         item_i=`fstack.py --print-item $data`
+         item_o=`fstack.py --print-item $destDir/$datafile.e$eID.ttl`
+      fi
    fi
-
 fi
 
 #
