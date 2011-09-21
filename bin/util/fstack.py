@@ -190,24 +190,20 @@ def createItemURI(filename):
     return "filed://"+hostAndModTime+'/'+pathDigest+'/'+basename
 
 def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None, addPaths=True):
-    if workuri == None:
-        workuri = ns.UUID[str(uuid.uuid4())]
-    else:
+    if workuri != None:
         workuri = URIRef(workuri)
+
     if pStore == None:
         pStore = Store(reader="rdflib", writer="rdflib",
                        rdflib_store='IOMemory')
     pSession = Session(pStore)
-    Work = pSession.get_class(ns.FRBR['Work'])
-    
-    work = Work(workuri)
-    workURI = str(work.subject)
 
-    Thing = work.session.get_class(ns.OWL['Thing'])
-    ContentDigest = work.session.get_class(ns.FRIR['ContentDigest'])
-    Item = work.session.get_class(ns.FRBR['Item'])
-    Manifestation = work.session.get_class(ns.FRBR['Manifestation'])
-    Expression = work.session.get_class(ns.FRBR['Expression'])
+    Thing = pSession.get_class(ns.OWL['Thing'])
+    ContentDigest = pSession.get_class(ns.FRIR['ContentDigest'])
+    Item = pSession.get_class(ns.FRBR['Item'])
+    Manifestation = pSession.get_class(ns.FRBR['Manifestation'])
+    Expression = pSession.get_class(ns.FRBR['Expression'])
+    Work = pSession.get_class(ns.FRBR['Work'])
 
     fileURI = None
     if filename != None:
@@ -246,6 +242,11 @@ def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None, addPat
     manifestation.frbr_embodimentOf.append(expression)
     manifestation.save()
     expression.save()
+
+    if workuri != None:
+        work = Work(workuri)
+    else:
+        work = Work(ns.PWORK['-'.join(expressionHashValue[:-1])])
 
     expression.frbr_realizationOf.append(work)
     expression.save()
