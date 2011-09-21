@@ -1,6 +1,6 @@
 PREFIX ov: <http://open.vocab.org/terms/>
 
-SELECT ?r ?c ?cell
+SELECT DISTINCT ?r ?c ?cell
 WHERE {
    {
       ?p ov:csvRow    ?r;
