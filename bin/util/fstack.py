@@ -29,6 +29,7 @@ import fileinput
 # order for the Object RDF Mapping tool to work.
 ns.register(frbr="http://purl.org/vocab/frbr/core#")
 ns.register(frir="http://purl.org/twc/ontology/frir.owl#")
+ns.register(pwork="hash:Work/")
 ns.register(pexp="hash:Expression/")
 ns.register(pmanif="hash:Manifestation/")
 ns.register(pitem="hash:Item/")
