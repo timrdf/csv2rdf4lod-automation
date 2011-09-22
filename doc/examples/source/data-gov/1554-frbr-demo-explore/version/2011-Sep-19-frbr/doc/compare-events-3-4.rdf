@@ -1,43 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-  <rdf:Description rdf:about="filed://dd8096ac81173454dfb8eb3e7181c79582148b629b3871c20f2f1af3635847ce/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv">
+  <rdf:Description rdf:about="filed://9be55524c178c57f18be8faddfe6236ebd7f32dc0cda873f5dc3cd53c7392ac4/SHA256-10a8e470764759a35ab8c7ea9ac53f7fd96d3a376f9a25d0d40637e200ef50c1/us_economic_assistance.csv">
     <rdf:type rdf:resource="http://purl.org/vocab/frbr/core#Item"/>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://dd8096ac81173454dfb8eb3e7181c79582148b629b3871c20f2f1af3635847ce/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv">
-    <ns0:date xmlns:ns0="http://purl.org/dc/terms/" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-09-21T17:18:46.015302</ns0:date>
+  <rdf:Description rdf:about="filed://9be55524c178c57f18be8faddfe6236ebd7f32dc0cda873f5dc3cd53c7392ac4/SHA256-10a8e470764759a35ab8c7ea9ac53f7fd96d3a376f9a25d0d40637e200ef50c1/us_economic_assistance.csv">
+    <ns0:date xmlns:ns0="http://purl.org/dc/terms/" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-09-22T00:53:01.101734</ns0:date>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://dd8096ac81173454dfb8eb3e7181c79582148b629b3871c20f2f1af3635847ce/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv">
-    <ns0:modified xmlns:ns0="http://purl.org/dc/terms/" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-09-21T13:17:53</ns0:modified>
+  <rdf:Description rdf:about="filed://9be55524c178c57f18be8faddfe6236ebd7f32dc0cda873f5dc3cd53c7392ac4/SHA256-10a8e470764759a35ab8c7ea9ac53f7fd96d3a376f9a25d0d40637e200ef50c1/us_economic_assistance.csv">
+    <ns0:modified xmlns:ns0="http://purl.org/dc/terms/" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-09-21T20:52:25</ns0:modified>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://dd8096ac81173454dfb8eb3e7181c79582148b629b3871c20f2f1af3635847ce/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv">
+  <rdf:Description rdf:about="filed://9be55524c178c57f18be8faddfe6236ebd7f32dc0cda873f5dc3cd53c7392ac4/SHA256-10a8e470764759a35ab8c7ea9ac53f7fd96d3a376f9a25d0d40637e200ef50c1/us_economic_assistance.csv">
     <ns0:exemplarOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57"/>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://dd8096ac81173454dfb8eb3e7181c79582148b629b3871c20f2f1af3635847ce/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv">
-    <ns0:fileUrl xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="file:////Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/source/us_economic_assistance.csv"/>
+  <rdf:Description rdf:about="filed://9be55524c178c57f18be8faddfe6236ebd7f32dc0cda873f5dc3cd53c7392ac4/SHA256-10a8e470764759a35ab8c7ea9ac53f7fd96d3a376f9a25d0d40637e200ef50c1/us_economic_assistance.csv">
+    <ns0:fileUrl xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="file:////Users/lebot/Desktop/csv2rdf4lod-automation/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/source/us_economic_assistance.csv"/>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://dd8096ac81173454dfb8eb3e7181c79582148b629b3871c20f2f1af3635847ce/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv">
-    <ns0:fileUrl xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="file:///Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/doc/source/us_economic_assistance.csv"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="filed://dd8096ac81173454dfb8eb3e7181c79582148b629b3871c20f2f1af3635847ce/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv">
-    <ns0:hasHash xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57"/>
+  <rdf:Description rdf:about="filed://9be55524c178c57f18be8faddfe6236ebd7f32dc0cda873f5dc3cd53c7392ac4/SHA256-10a8e470764759a35ab8c7ea9ac53f7fd96d3a376f9a25d0d40637e200ef50c1/us_economic_assistance.csv">
+    <ns0:fileUrl xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="file:///Users/lebot/Desktop/csv2rdf4lod-automation/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/doc/source/us_economic_assistance.csv"/>
   </rdf:Description>
   <rdf:Description rdf:about="hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
     <rdf:type rdf:resource="http://purl.org/vocab/frbr/core#Expression"/>
   </rdf:Description>
   <rdf:Description rdf:about="hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
-    <ns0:realizationOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="uuid:0878c4bf-a774-4ea4-b5ae-54cd1e7bb46c"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
-    <ns0:hasHash xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
-    <rdf:type rdf:resource="http://purl.org/twc/ontology/frir.owl#TabularDigest"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
-    <ns0:hashAlgorithm xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#">GRAPH_SHA256</ns0:hashAlgorithm>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
-    <ns0:hashValue xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#">13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4</ns0:hashValue>
+    <ns0:realizationOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="hash:Work/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4"/>
   </rdf:Description>
   <rdf:Description rdf:about="hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57">
     <rdf:type rdf:resource="http://purl.org/vocab/frbr/core#Manifestation"/>
@@ -45,142 +30,85 @@
   <rdf:Description rdf:about="hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57">
     <ns0:embodimentOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4"/>
   </rdf:Description>
-  <rdf:Description rdf:about="hash:Manifestation/SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57">
-    <ns0:hasHash xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="uuid:0878c4bf-a774-4ea4-b5ae-54cd1e7bb46c">
+  <rdf:Description rdf:about="hash:Work/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
     <rdf:type rdf:resource="http://purl.org/vocab/frbr/core#Work"/>
   </rdf:Description>
   <rdf:Description rdf:about="hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57">
     <rdf:type rdf:resource="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash"/>
   </rdf:Description>
-  <rdf:Description rdf:about="hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57">
-    <ns0:hashAlgorithm xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#">SHA256</ns0:hashAlgorithm>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:SHA256-d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57">
-    <ns0:hashValue xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#">d7a4442f613aa3a4a8e4a1527a917c4cfa23501ee87e0514a0f10300736b0f57</ns0:hashValue>
-  </rdf:Description>
-  <rdf:Description rdf:about="filed://b9eb3e8c3c630bb3011293dca705b3a19e9d9019a47cb7166722cc09428f255b/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl">
+  <rdf:Description rdf:about="filed://ef57e98897d83bd9e00129a44957e55e6842911c43b753c2e93b6786d5927e3b/SHA256-7faf22e99f61c9135dbf727404b2754f48d2e2aded79c8d3cdd0ea864cd6d7f5/us_economic_assistance.csv.raw.ttl">
     <rdf:type rdf:resource="http://purl.org/vocab/frbr/core#Item"/>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://b9eb3e8c3c630bb3011293dca705b3a19e9d9019a47cb7166722cc09428f255b/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl">
-    <ns0:date xmlns:ns0="http://purl.org/dc/terms/" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-09-21T17:20:35.037163</ns0:date>
+  <rdf:Description rdf:about="filed://ef57e98897d83bd9e00129a44957e55e6842911c43b753c2e93b6786d5927e3b/SHA256-7faf22e99f61c9135dbf727404b2754f48d2e2aded79c8d3cdd0ea864cd6d7f5/us_economic_assistance.csv.raw.ttl">
+    <ns0:date xmlns:ns0="http://purl.org/dc/terms/" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-09-22T00:54:52.845048</ns0:date>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://b9eb3e8c3c630bb3011293dca705b3a19e9d9019a47cb7166722cc09428f255b/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl">
-    <ns0:modified xmlns:ns0="http://purl.org/dc/terms/" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-09-21T13:19:10</ns0:modified>
+  <rdf:Description rdf:about="filed://ef57e98897d83bd9e00129a44957e55e6842911c43b753c2e93b6786d5927e3b/SHA256-7faf22e99f61c9135dbf727404b2754f48d2e2aded79c8d3cdd0ea864cd6d7f5/us_economic_assistance.csv.raw.ttl">
+    <ns0:modified xmlns:ns0="http://purl.org/dc/terms/" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-09-21T20:53:33</ns0:modified>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://b9eb3e8c3c630bb3011293dca705b3a19e9d9019a47cb7166722cc09428f255b/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl">
-    <ns0:exemplarOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="hash:Manifestation/SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4"/>
+  <rdf:Description rdf:about="filed://ef57e98897d83bd9e00129a44957e55e6842911c43b753c2e93b6786d5927e3b/SHA256-7faf22e99f61c9135dbf727404b2754f48d2e2aded79c8d3cdd0ea864cd6d7f5/us_economic_assistance.csv.raw.ttl">
+    <ns0:exemplarOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="hash:Manifestation/SHA256-7042ca6fdca47bb1f52b7ec50ff89e41eb92c31e8792e5254c127614fda6e321"/>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://b9eb3e8c3c630bb3011293dca705b3a19e9d9019a47cb7166722cc09428f255b/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl">
-    <ns0:fileUrl xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="file:///Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/doc/automatic/us_economic_assistance.csv.raw.ttl"/>
+  <rdf:Description rdf:about="filed://ef57e98897d83bd9e00129a44957e55e6842911c43b753c2e93b6786d5927e3b/SHA256-7faf22e99f61c9135dbf727404b2754f48d2e2aded79c8d3cdd0ea864cd6d7f5/us_economic_assistance.csv.raw.ttl">
+    <ns0:fileUrl xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="file:///Users/lebot/Desktop/csv2rdf4lod-automation/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/doc/automatic/us_economic_assistance.csv.raw.ttl"/>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://b9eb3e8c3c630bb3011293dca705b3a19e9d9019a47cb7166722cc09428f255b/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl">
-    <ns0:fileUrl xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="file:////Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/automatic/us_economic_assistance.csv.raw.ttl"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="filed://b9eb3e8c3c630bb3011293dca705b3a19e9d9019a47cb7166722cc09428f255b/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl">
-    <ns0:hasHash xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="hash:SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4"/>
+  <rdf:Description rdf:about="filed://ef57e98897d83bd9e00129a44957e55e6842911c43b753c2e93b6786d5927e3b/SHA256-7faf22e99f61c9135dbf727404b2754f48d2e2aded79c8d3cdd0ea864cd6d7f5/us_economic_assistance.csv.raw.ttl">
+    <ns0:fileUrl xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="file:////Users/lebot/Desktop/csv2rdf4lod-automation/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/automatic/us_economic_assistance.csv.raw.ttl"/>
   </rdf:Description>
   <rdf:Description rdf:about="hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
     <rdf:type rdf:resource="http://purl.org/vocab/frbr/core#Expression"/>
   </rdf:Description>
   <rdf:Description rdf:about="hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
-    <ns0:realizationOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="uuid:6b7ef1e2-908d-4570-9e31-77b935c58a8c"/>
+    <ns0:realizationOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="hash:Work/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4"/>
   </rdf:Description>
-  <rdf:Description rdf:about="hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
-    <ns0:hasHash xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
-    <rdf:type rdf:resource="http://purl.org/twc/ontology/frir.owl#TabularDigest"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
-    <ns0:hashAlgorithm xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#">GRAPH_SHA256</ns0:hashAlgorithm>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
-    <ns0:hashValue xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#">13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4</ns0:hashValue>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:Manifestation/SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4">
+  <rdf:Description rdf:about="hash:Manifestation/SHA256-7042ca6fdca47bb1f52b7ec50ff89e41eb92c31e8792e5254c127614fda6e321">
     <rdf:type rdf:resource="http://purl.org/vocab/frbr/core#Manifestation"/>
   </rdf:Description>
-  <rdf:Description rdf:about="hash:Manifestation/SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4">
+  <rdf:Description rdf:about="hash:Manifestation/SHA256-7042ca6fdca47bb1f52b7ec50ff89e41eb92c31e8792e5254c127614fda6e321">
     <ns0:embodimentOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4"/>
   </rdf:Description>
-  <rdf:Description rdf:about="hash:Manifestation/SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4">
-    <ns0:hasHash xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="hash:SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="uuid:6b7ef1e2-908d-4570-9e31-77b935c58a8c">
+  <rdf:Description rdf:about="hash:Work/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
     <rdf:type rdf:resource="http://purl.org/vocab/frbr/core#Work"/>
   </rdf:Description>
-  <rdf:Description rdf:about="hash:SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4">
+  <rdf:Description rdf:about="hash:SHA256-7042ca6fdca47bb1f52b7ec50ff89e41eb92c31e8792e5254c127614fda6e321">
     <rdf:type rdf:resource="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash"/>
   </rdf:Description>
-  <rdf:Description rdf:about="hash:SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4">
-    <ns0:hashAlgorithm xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#">SHA256</ns0:hashAlgorithm>
+  <rdf:Description rdf:about="filed://ef57e98897d83bd9e00129a44957e55e6842911c43b753c2e93b6786d5927e3b/SHA256-7faf22e99f61c9135dbf727404b2754f48d2e2aded79c8d3cdd0ea864cd6d7f5/us_economic_assistance.csv.raw.ttl">
+    <ns0:wasDerivedFrom xmlns:ns0="http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#" rdf:resource="filed://9be55524c178c57f18be8faddfe6236ebd7f32dc0cda873f5dc3cd53c7392ac4/SHA256-10a8e470764759a35ab8c7ea9ac53f7fd96d3a376f9a25d0d40637e200ef50c1/us_economic_assistance.csv"/>
   </rdf:Description>
-  <rdf:Description rdf:about="hash:SHA256-466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4">
-    <ns0:hashValue xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#">466aa0eae5095736c2f7925e07ddc3ce4fadc12ef36757cbe3f1022ad05c4cd4</ns0:hashValue>
-  </rdf:Description>
-  <rdf:Description rdf:about="filed://b9eb3e8c3c630bb3011293dca705b3a19e9d9019a47cb7166722cc09428f255b/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl">
-    <ns0:wasDerivedFrom xmlns:ns0="http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#" rdf:resource="filed://dd8096ac81173454dfb8eb3e7181c79582148b629b3871c20f2f1af3635847ce/SHA256-d9fb29cab9ac1ea6c15ec4ec29ac1565e6db0fdae63aba1dd6dcef921b7ad1e9/us_economic_assistance.csv"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="filed://93ebed32fe825c3f7e78744c525a490676b9a5d8f4c21ad122926b9a880262c4/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl.nt">
+  <rdf:Description rdf:about="filed://246fb14566bf0ab45d0ac894160c168db766d63d19eacf702d4c1fc0c71432a0/SHA256-7faf22e99f61c9135dbf727404b2754f48d2e2aded79c8d3cdd0ea864cd6d7f5/us_economic_assistance.csv.raw.ttl.rdf">
     <rdf:type rdf:resource="http://purl.org/vocab/frbr/core#Item"/>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://93ebed32fe825c3f7e78744c525a490676b9a5d8f4c21ad122926b9a880262c4/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl.nt">
-    <ns0:date xmlns:ns0="http://purl.org/dc/terms/" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-09-21T17:21:42.394554</ns0:date>
+  <rdf:Description rdf:about="filed://246fb14566bf0ab45d0ac894160c168db766d63d19eacf702d4c1fc0c71432a0/SHA256-7faf22e99f61c9135dbf727404b2754f48d2e2aded79c8d3cdd0ea864cd6d7f5/us_economic_assistance.csv.raw.ttl.rdf">
+    <ns0:date xmlns:ns0="http://purl.org/dc/terms/" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-09-22T00:55:56.283208</ns0:date>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://93ebed32fe825c3f7e78744c525a490676b9a5d8f4c21ad122926b9a880262c4/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl.nt">
-    <ns0:modified xmlns:ns0="http://purl.org/dc/terms/" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-09-21T13:21:41</ns0:modified>
+  <rdf:Description rdf:about="filed://246fb14566bf0ab45d0ac894160c168db766d63d19eacf702d4c1fc0c71432a0/SHA256-7faf22e99f61c9135dbf727404b2754f48d2e2aded79c8d3cdd0ea864cd6d7f5/us_economic_assistance.csv.raw.ttl.rdf">
+    <ns0:modified xmlns:ns0="http://purl.org/dc/terms/" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-09-21T20:55:55</ns0:modified>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://93ebed32fe825c3f7e78744c525a490676b9a5d8f4c21ad122926b9a880262c4/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl.nt">
-    <ns0:exemplarOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="hash:Manifestation/SHA256-b6fa0ac8432bdfcfa19c2e8308eaf2c19ff3be2c454aaaca439937699a15bde2"/>
+  <rdf:Description rdf:about="filed://246fb14566bf0ab45d0ac894160c168db766d63d19eacf702d4c1fc0c71432a0/SHA256-7faf22e99f61c9135dbf727404b2754f48d2e2aded79c8d3cdd0ea864cd6d7f5/us_economic_assistance.csv.raw.ttl.rdf">
+    <ns0:exemplarOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="hash:Manifestation/SHA256-0386dad1c99942ca3dbec555e2f7d4fa80ae1ddcfd622aaab178947907754ac2"/>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://93ebed32fe825c3f7e78744c525a490676b9a5d8f4c21ad122926b9a880262c4/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl.nt">
-    <ns0:fileUrl xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="file:///Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/doc/automatic/us_economic_assistance.csv.raw.ttl.nt"/>
+  <rdf:Description rdf:about="filed://246fb14566bf0ab45d0ac894160c168db766d63d19eacf702d4c1fc0c71432a0/SHA256-7faf22e99f61c9135dbf727404b2754f48d2e2aded79c8d3cdd0ea864cd6d7f5/us_economic_assistance.csv.raw.ttl.rdf">
+    <ns0:fileUrl xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="file:///Users/lebot/Desktop/csv2rdf4lod-automation/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/doc/automatic/us_economic_assistance.csv.raw.ttl.rdf"/>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://93ebed32fe825c3f7e78744c525a490676b9a5d8f4c21ad122926b9a880262c4/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl.nt">
-    <ns0:fileUrl xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="file:////Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/automatic/us_economic_assistance.csv.raw.ttl.nt"/>
+  <rdf:Description rdf:about="filed://246fb14566bf0ab45d0ac894160c168db766d63d19eacf702d4c1fc0c71432a0/SHA256-7faf22e99f61c9135dbf727404b2754f48d2e2aded79c8d3cdd0ea864cd6d7f5/us_economic_assistance.csv.raw.ttl.rdf">
+    <ns0:fileUrl xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="file:////Users/lebot/Desktop/csv2rdf4lod-automation/doc/examples/source/data-gov/1554-frbr-demo-explore/version/2011-Sep-19-frbr/automatic/us_economic_assistance.csv.raw.ttl.rdf"/>
   </rdf:Description>
-  <rdf:Description rdf:about="filed://93ebed32fe825c3f7e78744c525a490676b9a5d8f4c21ad122926b9a880262c4/SHA256-d7dbc507380a7587fa5a9a5f569a51e63dd0690774669ebc5e9e88709d3617ec/us_economic_assistance.csv.raw.ttl.nt">
-    <ns0:hasHash xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="hash:SHA256-b6fa0ac8432bdfcfa19c2e8308eaf2c19ff3be2c454aaaca439937699a15bde2"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:Expression/SHA256-0">
+  <rdf:Description rdf:about="hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
     <rdf:type rdf:resource="http://purl.org/vocab/frbr/core#Expression"/>
   </rdf:Description>
-  <rdf:Description rdf:about="hash:Expression/SHA256-0">
-    <ns0:realizationOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="uuid:8d986457-e784-464d-b929-01373664a5ca"/>
+  <rdf:Description rdf:about="hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
+    <ns0:realizationOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="hash:Work/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4"/>
   </rdf:Description>
-  <rdf:Description rdf:about="hash:Expression/SHA256-0">
-    <ns0:hasHash xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="hash:SHA256-0"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:Manifestation/SHA256-b6fa0ac8432bdfcfa19c2e8308eaf2c19ff3be2c454aaaca439937699a15bde2">
+  <rdf:Description rdf:about="hash:Manifestation/SHA256-0386dad1c99942ca3dbec555e2f7d4fa80ae1ddcfd622aaab178947907754ac2">
     <rdf:type rdf:resource="http://purl.org/vocab/frbr/core#Manifestation"/>
   </rdf:Description>
-  <rdf:Description rdf:about="hash:Manifestation/SHA256-b6fa0ac8432bdfcfa19c2e8308eaf2c19ff3be2c454aaaca439937699a15bde2">
-    <ns0:embodimentOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="hash:Expression/SHA256-0"/>
+  <rdf:Description rdf:about="hash:Manifestation/SHA256-0386dad1c99942ca3dbec555e2f7d4fa80ae1ddcfd622aaab178947907754ac2">
+    <ns0:embodimentOf xmlns:ns0="http://purl.org/vocab/frbr/core#" rdf:resource="hash:Expression/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4"/>
   </rdf:Description>
-  <rdf:Description rdf:about="hash:Manifestation/SHA256-b6fa0ac8432bdfcfa19c2e8308eaf2c19ff3be2c454aaaca439937699a15bde2">
-    <ns0:hasHash xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" rdf:resource="hash:SHA256-b6fa0ac8432bdfcfa19c2e8308eaf2c19ff3be2c454aaaca439937699a15bde2"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:SHA256-0">
-    <rdf:type rdf:resource="http://purl.org/twc/ontology/frir.owl#TabularDigest"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:SHA256-0">
-    <ns0:hashAlgorithm xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#">SHA256</ns0:hashAlgorithm>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:SHA256-0">
-    <ns0:hashValue xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#">0</ns0:hashValue>
-  </rdf:Description>
-  <rdf:Description rdf:about="uuid:8d986457-e784-464d-b929-01373664a5ca">
+  <rdf:Description rdf:about="hash:Work/GRAPH_SHA256-13fa34154217f3e431742bb4e5eacaf2595aca66a2899a9db16dbd5a4df1c636d3fb4">
     <rdf:type rdf:resource="http://purl.org/vocab/frbr/core#Work"/>
   </rdf:Description>
-  <rdf:Description rdf:about="hash:SHA256-b6fa0ac8432bdfcfa19c2e8308eaf2c19ff3be2c454aaaca439937699a15bde2">
+  <rdf:Description rdf:about="hash:SHA256-0386dad1c99942ca3dbec555e2f7d4fa80ae1ddcfd622aaab178947907754ac2">
     <rdf:type rdf:resource="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:SHA256-b6fa0ac8432bdfcfa19c2e8308eaf2c19ff3be2c454aaaca439937699a15bde2">
-    <ns0:hashAlgorithm xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#">SHA256</ns0:hashAlgorithm>
-  </rdf:Description>
-  <rdf:Description rdf:about="hash:SHA256-b6fa0ac8432bdfcfa19c2e8308eaf2c19ff3be2c454aaaca439937699a15bde2">
-    <ns0:hashValue xmlns:ns0="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#">b6fa0ac8432bdfcfa19c2e8308eaf2c19ff3be2c454aaaca439937699a15bde2</ns0:hashValue>
   </rdf:Description>
 </rdf:RDF>
