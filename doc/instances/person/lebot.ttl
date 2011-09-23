@@ -10,7 +10,8 @@
    owl:sameAs <http://tw.rpi.edu/instances/TimLebo>,
               <http://inference-web.org/registry/PER/TimLebo.owl#TimLebo>,
               <http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo>,
-              <http://rio.cs.utep.edu/ciserver/person/Timothy_Lebo.owl#Timothy_Lebo>;
+              <http://rio.cs.utep.edu/ciserver/person/Timothy_Lebo.owl#Timothy_Lebo>,
+              <http://graph.facebook.com/24407945#>;
 
    con:preferredURI <http://purl.org/twc/id/person/TimLebo>;
 

@@ -6,6 +6,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <foaf:Person rdf:about="http://purl.org/twc/id/person/TimLebo">
     <con:preferredURI rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
+    <owl:sameAs rdf:resource="http://graph.facebook.com/24407945#"/>
     <owl:sameAs rdf:resource="http://inference-web.org/registry/PER/TimLebo.owl#TimLebo"/>
     <owl:sameAs rdf:resource="http://rio.cs.utep.edu/ciserver/person/Timothy_Lebo.owl#Timothy_Lebo"/>
     <owl:sameAs rdf:resource="http://tw.rpi.edu/instances/TimLebo"/>
