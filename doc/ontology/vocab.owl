@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF
+   xmlns:cdm="http://purl.org/twc/ontology/cdm.owl#"
    xmlns:coin="http://purl.org/court/def/2009/coin#"
    xmlns:conv="http://purl.org/twc/vocab/conversion/"
    xmlns:d2rq="http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#"
@@ -694,6 +695,10 @@
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:comment"/>
   </rdf:Property>
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/conceptual_depth">
+    <rdfs:label>A measure of conceptual depth using the URI's 'depth' within the source/dataset/version contextualization scheme used by csv2rdf4lod's data aggretation naming scheme.</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/twc/ontology/cdm.owl#conceptual_depth"/>
+  </owl:DatatypeProperty>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/conversion_process">
     <rdfs:comment>A conversion process that led to the creation or modification of an RDF dataset.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/LayerDataset"/>
