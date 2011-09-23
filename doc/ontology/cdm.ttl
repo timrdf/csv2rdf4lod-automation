@@ -1,0 +1,49 @@
+@prefix rdf:      	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	      <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:	      <http://www.w3.org/2002/07/owl#> .
+@prefix foaf:	      <http://xmlns.com/foaf/0.1/> .
+@prefix xsd:	      <http://www.w3.org/2001/XMLSchema#> .
+@prefix w3test:      <http://www.w3.org/2006/03/test-description#> .
+@prefix dct:         <http://purl.org/dc/terms/> .
+@prefix doap:        <http://usefulinc.com/ns/doap#> .
+@prefix void:	      <http://rdfs.org/ns/void#> .
+@prefix ov:		      <http://open.vocab.org/terms/> .
+@prefix conv:	      <http://purl.org/twc/vocab/conversion/> .
+@prefix conversion:	<http://purl.org/twc/vocab/conversion/> .
+@prefix pmlp:        <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:        <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix d2rq:        <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix vs:          <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix coin:        <http://purl.org/court/def/2009/coin#> .
+@prefix vann:        <http://purl.org/vocab/vann/> .
+@prefix cdm:         <http://purl.org/twc/ontology/cdm.owl#> .
+
+@base <http://purl.org/twc/ontology/cdm.owl#> .
+
+<> a owl:Ontology ;
+    dct:title "Conceptual Depth and Momentum";
+    dct:description "";
+	rdfs:comment "" ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki> ;
+#   rdfs:seeAlso <http://owl.cs.manchester.ac.uk/browser/ontologies/?action=load&clear=true&uri=http://purl.org/twc/vocab/conversion/> ;
+    dct:creator <http://tw.rpi.edu/instances/TimLebo> ;
+    dct:date "2011-09-23";
+   vann:preferredNamespacePrefix "cdm";
+   vann:preferredNamespaceUri    "http://purl.org/twc/ontology/cdm.owl#";
+   rdfs:seeAlso <http://prefix.cc/cdm>;
+.
+
+<conceptual_depth>
+   a owl:DatatypeProperty;
+   rdfs:label "Conceptual Depth";
+   rdfs:comment "A measure of how universal/accepted/popular a URI is.";
+   rdfs:range xsd:decimal;
+   rdfs:seeAlso conv:conceptual_depth;
+.
+
+<uri_length>
+   a owl:DatatypeProperty;
+   rdfs:label "URI Length";
+   rdfs:comment "A naive measure of conceptual depth: the length of the URI.";
+   rdfs:subPropertyOf <conceptual_depth>;
+.
