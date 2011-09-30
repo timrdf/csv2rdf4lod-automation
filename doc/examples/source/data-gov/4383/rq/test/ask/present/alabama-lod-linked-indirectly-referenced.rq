@@ -2,6 +2,8 @@ prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#>
 prefix con:         <http://www.w3.org/2000/10/swap/pim/contact#>
 prefix owl:         <http://www.w3.org/2002/07/owl#>
 prefix dcterms:     <http://purl.org/dc/terms/>
+prefix dbpedia:     <http://dbpedia.org/resource/> 
+prefix govtrackus:  <http://www.rdfabout.com/rdf/usgov/geo/us/>
 prefix void:        <http://rdfs.org/ns/void#>
 prefix conversion:  <http://purl.org/twc/vocab/conversion/>
 prefix typed_state: <http://http://logd.tw.rpi.edu/source/data-gov/dataset/4383/typed/state/>
@@ -16,7 +18,7 @@ WHERE {
       typed_state:Alabama 
          dcterms:identifier "Alabama";
          rdfs:label         "Alabama";
-         owl:sameAs dbpedia:Alabama , govtrackusgov:AL , <http://sws.geonames.org/4829764/> 
+         owl:sameAs dbpedia:Alabama , govtrackus:AL , <http://sws.geonames.org/4829764/> 
       .
    }
 }
