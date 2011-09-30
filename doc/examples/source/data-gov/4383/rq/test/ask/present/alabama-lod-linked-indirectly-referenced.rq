@@ -1,0 +1,20 @@
+prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#>
+prefix con:         <http://www.w3.org/2000/10/swap/pim/contact#>
+prefix void:        <http://rdfs.org/ns/void#>
+prefix conversion:  <http://purl.org/twc/vocab/conversion/>
+prefix typed_state: <http://http://logd.tw.rpi.edu/source/data-gov/dataset/4383/typed/state/>
+
+ASK
+WHERE {
+   GRAPH ?g {
+      ?address 
+         con:stateOrProvince typed_state:Alabama;
+         con:zip "36420";
+      .
+      typed_state:Alabama 
+         dcterms:identifier "Alabama";
+         rdfs:label         "Alabama";
+         owl:sameAs dbpedia:Alabama , govtrackusgov:AL , <http://sws.geonames.org/4829764/> 
+      .
+   }
+}
