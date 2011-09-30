@@ -20,17 +20,17 @@
 
 @base <http://purl.org/twc/vocab/conversion/> .
 
-<> a owl:Ontology ;
+<> a owl:Ontology;
     dct:description "Ontology used to describe interpretations of tabular literals to produce RDF.";
-	rdfs:comment "This ontology is used by the csv2rdf4lod project." ;
+	rdfs:comment "This ontology is used by the csv2rdf4lod project.";
    rdfs:seeAlso <http://purl.org/twc/id/software/csv2rdf4lod>;
-   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki> ;
-	rdfs:seeAlso <http://data-gov.tw.rpi.edu/wiki/Csv2rdf4lod> ;
-	rdfs:seeAlso <http://data-gov.tw.rpi.edu/wiki/URI_design_for_RDF_conversion_of_CSV-based_data> ;
-   rdfs:seeAlso <http://doi.acm.org/10.1145/1839707.1839755> ;
-#   rdfs:seeAlso <http://owl.cs.manchester.ac.uk/browser/ontologies/?action=load&clear=true&uri=http://purl.org/twc/vocab/conversion/> ;
-    dct:creator <http://tw.rpi.edu/instances/TimLebo> ;
-    dct:creator <http://kasei.us/about/foaf.xrdf#greg> ;
+   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki>;
+	rdfs:seeAlso <http://data-gov.tw.rpi.edu/wiki/Csv2rdf4lod>;
+	rdfs:seeAlso <http://data-gov.tw.rpi.edu/wiki/URI_design_for_RDF_conversion_of_CSV-based_data>;
+   rdfs:seeAlso <http://doi.acm.org/10.1145/1839707.1839755>;
+#   rdfs:seeAlso <http://owl.cs.manchester.ac.uk/browser/ontologies/?action=load&clear=true&uri=http://purl.org/twc/vocab/conversion/>;
+    dct:creator <http://tw.rpi.edu/instances/TimLebo>;
+    dct:creator <http://kasei.us/about/foaf.xrdf#greg>;
     dct:date "2011-02-09";
    vann:preferredNamespacePrefix "conversion";
    vann:preferredNamespaceUri    "http://purl.org/twc/vocab/conversion/";
@@ -40,65 +40,76 @@
 ### Classes
 
 conversion:ConversionProcess
-	a owl:Class ;
-	rdfs:label "Superclass for different conversion processes." ;
+	a owl:Class;
+	rdfs:label "Superclass for different conversion processes.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:RawConversionProcess
-	a owl:Class ;
-	rdfs:subClassOf conversion:ConversionProcess ;
-	rdfs:label "A raw conversion process from CSV to RDF" ;
+	a owl:Class;
+	rdfs:subClassOf conversion:ConversionProcess;
+	rdfs:label "A raw conversion process from CSV to RDF";
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:enhancement_identifier ;
-		owl:maxCardinality "0"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:enhancement_identifier;
+		owl:maxCardinality "0"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
 conversion:EnhancementProcess
-	a owl:Class ;
-	rdfs:subClassOf conversion:ConversionProcess ;
-	rdfs:label "An enhancement of an RDF dataset that adds new RDF triples" ;
+	a owl:Class;
+	rdfs:subClassOf conversion:ConversionProcess;
+	rdfs:label "An enhancement of an RDF dataset that adds new RDF triples";
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:enhancement_identifier ;
-		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:enhancement_identifier;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:enhance ;
-		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:enhance;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:DocumentState
-	a owl:Class ;
-	rdfs:label "The state of a document at a point in time." ;
+	a owl:Class;
+	rdfs:label "The state of a document at a point in time.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 ### Structural Enhancements
 
+conversion:RowEnhancement
+	rdfs:subClassOf [
+		a owl:Restriction;
+		owl:onProperty ov:csvRow;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
+.
+
 conversion:HeaderRow
-   a owl:Class ;
+   a owl:Class;
    rdfs:label "HeaderRow";
+   rdfs:subClassOf conversion:RowEnhancement;
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:HeaderRow>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
 conversion:DataStartRow
-   a owl:Class ;
+   a owl:Class;
    rdfs:label "DataStartRow";
+   rdfs:subClassOf conversion:RowEnhancement;
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:DataStartRow>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
 conversion:DataEndRow
-   a owl:Class ;
+   a owl:Class;
    rdfs:label "DataEndRow";
+   rdfs:subClassOf conversion:RowEnhancement;
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:DataEndRow>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
@@ -113,7 +124,7 @@ conversion:delimits_cell
 .
 
 conversion:delimits_object
-   a owl:DatatypeProperty ;
+   a owl:DatatypeProperty;
    rdfs:label "delimits_object";
    rdfs:comment "A regular expression specifiying how the object literal should be delimited to produce multiple object values.";
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:delimits_object>;
@@ -121,16 +132,16 @@ conversion:delimits_object
 .
 
 conversion:Omitted
-   a owl:Class ;
-   rdfs:subClassOf conversion:Enhancement ;
+   a owl:Class;
+   rdfs:subClassOf conversion:Enhancement;
    rdfs:comment "Omit all triples from this column.";
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:Omitted>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
 conversion:Only_if_column
-   a owl:Class ;
-   rdfs:subClassOf conversion:Enhancement ;
+   a owl:Class;
+   rdfs:subClassOf conversion:Enhancement;
    rdfs:comment "Omit triple if there is no value in the cell of the given column.";
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:Only_if_column>,
                 d2rq:condition;
@@ -140,18 +151,23 @@ conversion:Only_if_column
 ###
 
 conversion:Enhancement
-	a owl:Class ;
-	rdfs:label "The superclass of all enhancements. When the enhancement is referring to a particular property, the property's local name or originating column number may be used (using conversion:property_name and ov:csvCol, respectively)." ;
+	a owl:Class;
+	rdfs:label "The superclass of all enhancements. When the enhancement is referring to a particular property, the property's local name or originating column number may be used (using conversion:property_name and ov:csvCol, respectively).";
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:property_name ;
-		owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty ov:csvCol;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger;
+	];
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty ov:csvCol ;
-		owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:property_name;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger;
+   ];
+	rdfs:subClassOf [
+		a owl:Restriction;
+		owl:onProperty conversion:predicate_identifier;
+		owl:maxCardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
@@ -160,7 +176,7 @@ conversion:Enhancement
 conversion:SubjectEnhancement
    a owl:Class;
    rdfs:label "SubjectEnhancement";
-   rdfs:comment "Enhancement modifies the subject of the resulting triple.";
+   rdfs:comment "An Enhancement that modifies the subject of the resulting triple.";
    rdfs:subClassOf conversion:Enhancement;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
@@ -168,7 +184,7 @@ conversion:SubjectEnhancement
 conversion:PredicateEnhancement
    a owl:Class;
    rdfs:label "PredicateEnhancement";
-   rdfs:comment "Enhancement modifies the predicate of the resulting triple.";
+   rdfs:comment "An Enhancement that modifies the predicate of the resulting triple.";
    rdfs:subClassOf conversion:Enhancement;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
@@ -176,86 +192,92 @@ conversion:PredicateEnhancement
 conversion:ObjectEnhancement
    a owl:Class;
    rdfs:label "ObjectEnhancement";
-   rdfs:comment "Enhancement modifies the object of the resulting triple.";
+   rdfs:comment "An Enhancement that modifies the object of the resulting triple.";
+	rdfs:comment "Superclass of enhancements which promote values from a plain literal to more complex terms (resources or typed literals).";
    rdfs:subClassOf conversion:Enhancement;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
+	rdfs:subClassOf [
+		a owl:Restriction;
+		owl:onProperty conversion:interpret;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
 .
 
 ### Subject Enhancements
 
 conversion:ImplicitBundleEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:SubjectEnhancement ;
-	rdfs:label "Implicit bundle enhancement" ;
-	rdfs:comment "Reasserts the property-value pair to belong to a new resource specified by the conversion:bundled_by property. An example of this enhancement would be the introduction of a geo:Point instance based on latitude and longitude properties." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:SubjectEnhancement;
+	rdfs:label "Implicit bundle enhancement";
+	rdfs:comment "Reasserts the property-value pair to belong to a new resource specified by the conversion:bundled_by property. An example of this enhancement would be the introduction of a geo:Point instance based on latitude and longitude properties.";
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:bundled_by ;
-		owl:cardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:bundled_by;
+		owl:cardinality "1"^^xsd:nonNegativeInteger;
+	];
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:bundled_by ;
-		owl:someValuesFrom conversion:ImplicitBundle ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:bundled_by;
+		owl:someValuesFrom conversion:ImplicitBundle;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:ImplicitBundle
-	a owl:Class ;
-	rdfs:label "Implicit Bundle" ;
-	rdfs:comment "Represents the structural template for an implicit bundle enhancement. The conversion:property_name specifies the property name by which a bundle is attached to an instance. An optional conversion:type_name may be specified for the bundle to indicate the rdf:type of the new resource." ;
-   owl:disjointWith conversion:ImplicitBundleEnhancement ;
+	a owl:Class;
+	rdfs:label "Implicit Bundle";
+	rdfs:comment "Represents the structural template for an implicit bundle enhancement. The conversion:property_name specifies the property name by which a bundle is attached to an instance. An optional conversion:type_name may be specified for the bundle to indicate the rdf:type of the new resource.";
+   owl:disjointWith conversion:ImplicitBundleEnhancement;
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:property_name ;
-		owl:cardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:property_name;
+		owl:cardinality "1"^^xsd:nonNegativeInteger;
+	];
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:type_name ;
-		owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:type_name;
+		owl:maxCardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:ExistingBundleEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:SubjectEnhancement ;
-	rdfs:label "Existing bundle enhancement" ;
-	rdfs:comment "Reasserts the property-value pair to belong to the existing resource specified by the conversion:bundled_by property." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:SubjectEnhancement;
+	rdfs:label "Existing bundle enhancement";
+	rdfs:comment "Reasserts the property-value pair to belong to the existing resource specified by the conversion:bundled_by property.";
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:bundled_by ;
-		owl:cardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:bundled_by;
+		owl:cardinality "1"^^xsd:nonNegativeInteger;
+	];
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:bundled_by ;
-		owl:allValuesFrom conversion:ResourcePromotionEnhancement ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:bundled_by;
+		owl:allValuesFrom conversion:ResourcePromotionEnhancement;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:bundled_by
-   a owl:ObjectProperty ;
-#   rdfs:domain conversion:BundleEnhancement ;
-#   rdfs:range conversion:Bundle ;
-   rdfs:range rdfs:Resource ;
+   a owl:ObjectProperty;
+#   rdfs:domain conversion:BundleEnhancement;
+#   rdfs:range conversion:Bundle;
+   rdfs:range rdfs:Resource;
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:bundled_by>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
-conversion:PrimaryKeyEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:SubjectEnhancement ;
-	rdfs:label "Primary key enhancement" ;
-	rdfs:comment "Uses the property identified by name with conversion:primary_key in generating instance URIs. For example, a conversion:primary_key of 'user_id' would result in a URI like </source/SSS/dataset/DDD/version/VVV/user_id/UUU> instead of </source/SSS/dataset/DDD/version/VVV/thing_1>." ;
-   rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
-	.
+#conversion:PrimaryKeyEnhancement
+#	a owl:Class;
+#	rdfs:subClassOf conversion:SubjectEnhancement;
+#	rdfs:label "Primary key enhancement";
+#	rdfs:comment "Uses the property identified by name with conversion:primary_key in generating instance URIs. For example, a conversion:primary_key of 'user_id' would result in a URI like </source/SSS/dataset/DDD/version/VVV/user_id/UUU> instead of </source/SSS/dataset/DDD/version/VVV/thing_1>.";
+#   rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
+#	.
 
 conversion:domain_template 
-	a owl:DatatypeProperty ;
+	a owl:DatatypeProperty;
    rdfs:domain conversion:SubjectEnhancement;
    rdfs:comment "Template to name the subject of the triple produced.";
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:domain_template>;
@@ -264,23 +286,23 @@ conversion:domain_template
 .
 
 conversion:SubjectTypeEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:SubjectEnhancement ;
-	rdfs:label "Subject type enhancement" ;
-	rdfs:comment "Asserts that the subject instance is of a specific type, specified by name with conversion:domain_name. Also asserts that the type is a owl:Class." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:SubjectEnhancement;
+	rdfs:label "Subject type enhancement";
+	rdfs:comment "Asserts that the subject instance is of a specific type, specified by name with conversion:domain_name. Also asserts that the type is a owl:Class.";
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:domain_name ;
-		owl:cardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:domain_name;
+		owl:cardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:domain_name 
-	a owl:DatatypeProperty ;
-	rdfs:domain conversion:SubjectTypeEnhancement ;
-	rdfs:range rdfs:Literal ;
-	rdfs:comment "The local type that should be asserted for the subjects of raw triples." ;
+	a owl:DatatypeProperty;
+	rdfs:domain conversion:SubjectTypeEnhancement;
+	rdfs:range rdfs:Literal;
+	rdfs:comment "The local type that should be asserted for the subjects of raw triples.";
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:domain_name>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
@@ -289,67 +311,67 @@ conversion:domain_name
 
 conversion:equivalent_property
    a owl:Class;
-	rdfs:subClassOf conversion:PredicateEnhancement ;
+	rdfs:subClassOf conversion:PredicateEnhancement;
    rdfs:label "equivalent_property";
    rdfs:coment "The URI of a predicate that the current property should be replaced with.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
 conversion:LabelRenameEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:PredicateEnhancement ;
-	rdfs:label "Label Rename Enhancement" ;
-	rdfs:comment "Renames an existing property in the dataset." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:PredicateEnhancement;
+	rdfs:label "Label Rename Enhancement";
+	rdfs:comment "Renames an existing property in the dataset.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:label
-	a owl:DatatypeProperty ;
-	rdfs:domain conversion:LabelRenameEnhancement ;
-	rdfs:range rdfs:Literal ;
-	rdfs:comment "A human-friendly label (like rdfs:label) that will be used to create the property local name when creating the property URI. The exact value of conversion:label will also be used for the rdfs:label of the property created." ;
+	a owl:DatatypeProperty;
+	rdfs:domain conversion:LabelRenameEnhancement;
+	rdfs:range rdfs:Literal;
+	rdfs:comment "A human-friendly label (like rdfs:label) that will be used to create the property local name when creating the property URI. The exact value of conversion:label will also be used for the rdfs:label of the property created.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:PropertyCommentEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:PredicateEnhancement ;
-	rdfs:label "Property comment enhancement" ;
-	rdfs:comment "Uses the object of the conversion:comment property and asserts it as the value of rdfs:comment on the property definition. The value of conversion:comment typically comes from the original csv header (that was too long), or from an ancillary file accompanying the csv file." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:PredicateEnhancement;
+	rdfs:label "Property comment enhancement";
+	rdfs:comment "Uses the object of the conversion:comment property and asserts it as the value of rdfs:comment on the property definition. The value of conversion:comment typically comes from the original csv header (that was too long), or from an ancillary file accompanying the csv file.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:comment
-	a rdf:Property ;
-	rdfs:domain conversion:PropertyCommentEnhancement ;
-	rdfs:range rdfs:Literal ;
-	rdfs:comment "A comment (like rdfs:comment) that will be applied to the property created during conversion." ;
+	a owl:DatatypeProperty;
+	rdfs:domain conversion:PropertyCommentEnhancement;
+	rdfs:range rdfs:Literal;
+	rdfs:comment "A comment (like rdfs:comment) that will be applied to the property created during conversion.";
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:comment>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:SubPropertyEnhancement 
-	a owl:Class ; 
-	rdfs:subClassOf conversion:PredicateEnhancement ;
-	rdfs:label "Subproperty enhancement" ;
-	rdfs:comment "Asserts that an existing property in the dataset is a subproperty of an external property specified by conversion:subproperty_of. This enhancement will materialize the subproperty entailments for all instances." ;
+	a owl:Class; 
+	rdfs:subClassOf conversion:PredicateEnhancement;
+	rdfs:label "Subproperty enhancement";
+	rdfs:comment "Asserts that an existing property in the dataset is a subproperty of an external property specified by conversion:subproperty_of. This enhancement will materialize the subproperty entailments for all instances.";
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty	   conversion:property_name ;
-		owl:cardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty	   conversion:property_name;
+		owl:cardinality "1"^^xsd:nonNegativeInteger;
+	];
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty	   conversion:subproperty_of ;
-		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty	   conversion:subproperty_of;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 ### ObjectEnhancements
 
 conversion:eg
-	a rdf:Property, owl:AnnotationProperty ;
+	a rdf:Property, owl:AnnotationProperty;
    rdfs:domain conversion:ObjectEnhancement;
    rdfs:comment "Example value from a cell in the column for this ColumnEnhancement.";
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:eg>;
@@ -357,264 +379,268 @@ conversion:eg
 .
 
 conversion:Repeat_previous_if_empty_column
-   a owl:Class ;
-   rdfs:subClassOf conversion:Enhancement ;
+   a owl:Class;
+   rdfs:subClassOf conversion:Enhancement;
    rdfs:comment "Repeat value of last non-empty cell in this column for the current cell.";
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:Repeat_previous_if_empty_column>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 .
 
 conversion:InterpretedAsNullEnhancement
-   a owl:Class ;
-   rdfs:subClassOf conversion:Enhancement ;
-   rdfs:comment "Prevents triples with objects of a certain value. Prevents values specified by rdf:value." ;
+   a owl:Class;
+   rdfs:subClassOf conversion:Enhancement;
+   rdfs:comment "Prevents triples with objects of a certain value. Prevents values specified by rdf:value.";
    rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty rdf:value ;
-		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
-   rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
-	.
-
-conversion:PromotionEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:ObjectEnhancement ;
-	rdfs:label "Value promotion enhancement" ;
-	rdfs:comment "Superclass of enhancements which promote values from a plain literal to more complex terms (resources or typed literals)." ;
+		a owl:Restriction;
+		owl:onProperty rdf:value;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:DatatypePromotionEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:ObjectEnhancement, conversion:PromotionEnhancement ;
-	owl:disjointWith conversion:ResourcePromotionEnhancement ;
-	rdfs:label "Literal datatype promotion enhancement" ;
-	rdfs:comment "Promotes the raw literal value to a datatyped literal using the datatype specified with the conversion:range property." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:ObjectEnhancement, conversion:ObjectEnhancement;
+	owl:disjointWith conversion:ResourcePromotionEnhancement;
+	rdfs:label "Literal datatype promotion enhancement";
+	rdfs:comment "Promotes the raw literal value to a datatyped literal using the datatype specified with the conversion:range property.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:DateTimePromotionEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:ObjectEnhancement, conversion:DatatypePromotionEnhancement ;
-	rdfs:label "DateTime promotion enhancement" ;
-	rdfs:comment "Casts raw literal values into W3CDTF values typed as xsd:dateTime based on a strftime pattern specified with the conversion:datetime_pattern. If the property values follow different patterns, multiple conversion:datetime_pattern values may specified. The first matching pattern (of a nondeterministic ordering) will be applied. An optional conversion:datetime_timezone may be specified if no timezone information is present in the datetime pattern." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:DatatypePromotionEnhancement;
+	rdfs:label "DateTime promotion enhancement";
+	rdfs:comment "Casts raw literal values into W3CDTF values typed as xsd:dateTime based on a strftime pattern specified with the conversion:datetime_pattern. If the property values follow different patterns, multiple conversion:datetime_pattern values may specified. The first matching pattern (of a nondeterministic ordering) will be applied. An optional conversion:datetime_timezone may be specified if no timezone information is present in the datetime pattern.";
 	owl:equivalentClass [
-		a owl:Restriction ;
-		owl:onProperty conversion:range ;
-		owl:hasValue   xsd:dateTime ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:range;
+		owl:hasValue   xsd:dateTime;
+	];
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:datetime_timezone ;
-		owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:datetime_timezone;
+		owl:maxCardinality "1"^^xsd:nonNegativeInteger;
+	];
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:datetime_pattern ;
-		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:datetime_pattern;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:DatePromotionEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:ObjectEnhancement, conversion:DatatypePromotionEnhancement ;
-	rdfs:label "Date promotion enhancement" ;
-	rdfs:comment "Casts raw literal values into W3CDTF values typed as xsd:date based on a strftime pattern specified with the conversion:date_pattern. If the property values follow different patterns, multiple conversion:date_pattern values may specified." ;
-	rdfs:comment "For each value, all DateTimePromotionEnhancement patterns are attempted before attempting any DatePromotionEnhancement patterns specified for the same property." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:DatatypePromotionEnhancement;
+	rdfs:label "Date promotion enhancement";
+	rdfs:comment "Casts raw literal values into W3CDTF values typed as xsd:date based on a strftime pattern specified with the conversion:date_pattern. If the property values follow different patterns, multiple conversion:date_pattern values may specified.";
+	rdfs:comment "For each value, all DateTimePromotionEnhancement patterns are attempted before attempting any DatePromotionEnhancement patterns specified for the same property.";
 	owl:equivalentClass [
-		a owl:Restriction ;
-		owl:onProperty conversion:range ;
-		owl:hasValue   xsd:date ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:range;
+		owl:hasValue   xsd:date;
+	];
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:date_pattern ;
-		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:date_pattern;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:MultiplierEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:ObjectEnhancement, conversion:DatatypePromotionEnhancement ;
-	rdfs:label "Multiplier enhancement" ;
-	rdfs:comment "After datatype promotion to an XSD numeric type, multiplies the value by the multiplicand specified with the conversion:multiplier property." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:DatatypePromotionEnhancement;
+	rdfs:label "Multiplier enhancement";
+	rdfs:comment "After datatype promotion to an XSD numeric type, multiplies the value by the multiplicand specified with the conversion:multiplier property.";
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty	   conversion:multiplier ;
-		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty	   conversion:multiplier;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:BooleanPromotionEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:DatatypePromotionEnhancement ;
-	rdfs:label "Boolean promotion enhancement" ;
-	rdfs:comment "Casts raw literal values into xsd:boolean datatyped values. The default recognized lexical representations are (case insensitive): 'yes', 'no', 'true', 'false', '0', and '1'. The conversion:boolean_true and conversion:boolean_false properties may be used to add additional lexical forms." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:DatatypePromotionEnhancement;
+	rdfs:label "Boolean promotion enhancement";
+	rdfs:comment "Casts raw literal values into xsd:boolean datatyped values. The default recognized lexical representations are (case insensitive): 'yes', 'no', 'true', 'false', '0', and '1'. The conversion:boolean_true and conversion:boolean_false properties may be used to add additional lexical forms.";
 	owl:equivalentClass [
-		a owl:Restriction ;
-		owl:onProperty conversion:range ;
-		owl:hasValue   xsd:boolean ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:range;
+		owl:hasValue   xsd:boolean;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:ResourcePromotionEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:PromotionEnhancement ;
-	rdfs:label "Resource promotion enhancement" ;
-	rdfs:comment "Superclass of enhancements which promote values from a plain literal to a resource." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:ObjectEnhancement;
+	rdfs:label "Resource promotion enhancement";
+	rdfs:comment "Superclass of enhancements which promote values from a plain literal to a resource.";
 	owl:equivalentClass [
-		a owl:Restriction ;
-		owl:onProperty conversion:range ;
-		owl:hasValue   rdfs:Resource ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:range;
+		owl:hasValue   rdfs:Resource;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:ResourceCastEnhancement
-	a owl:Class ; 
-	rdfs:subClassOf conversion:ResourcePromotionEnhancement ;
-	rdfs:label "Resource cast enhancement" ;
-	rdfs:comment "Casts raw literal values directly into a URI." ;
+	a owl:Class; 
+	rdfs:subClassOf conversion:ResourcePromotionEnhancement;
+	rdfs:label "Resource cast enhancement";
+	rdfs:comment "Casts raw literal values directly into a URI.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 	
 conversion:TemplateResourcePromotionEnhancement 
-	a owl:Class ; 
-	rdfs:subClassOf conversion:ResourcePromotionEnhancement ;
-	rdfs:label "Template resource promotion enhancement" ;
-	rdfs:comment "Converts raw literal values into URIs by replacing in the template (specified by the conversion:template_pattern property) the substring '[value]'." ;
+	a owl:Class; 
+	rdfs:subClassOf conversion:ResourcePromotionEnhancement;
+	rdfs:label "Template resource promotion enhancement";
+	rdfs:comment "Converts raw literal values into URIs by replacing in the template (specified by the conversion:template_pattern property) the substring '[value]'.";
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty	   conversion:template_pattern ;
-		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty	   conversion:template_pattern;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 	
 conversion:PropertyScopedResourcePromotionEnhancement 
-	a owl:Class ; 
-	rdfs:subClassOf conversion:ResourcePromotionEnhancement ;
-	rdfs:label "Property-scoped resource promotion enhancement" ;
-	rdfs:comment "Appends raw literal values to the dataset-property-specific value space URI. For example, the value 'AK' for property 'origin_state' would be promoted to </source/SSS/dataset/DDD/value/origin_state/AK>." ;
+	a owl:Class; 
+	rdfs:subClassOf conversion:ResourcePromotionEnhancement;
+	rdfs:label "Property-scoped resource promotion enhancement";
+	rdfs:comment "Appends raw literal values to the dataset-property-specific value space URI. For example, the value 'AK' for property 'origin_state' would be promoted to </source/SSS/dataset/DDD/value/origin_state/AK>.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:TypedResourcePromotionEnhancement 
-	a owl:Class ; 
-	rdfs:subClassOf conversion:ResourcePromotionEnhancement ;
-	rdfs:label "Typed resource promotion enhancement" ;
-	rdfs:comment "Constructs a URI from the concatenation of a dataset-specific URI, a type token specified with conversion:range_name, and the raw literal value. Additionally asserts an rdf:type for the new resource with the class named with conversion:range_name. The type name will be lowercased for use in the URI and have the first letter uppercased for use as the class name. For example, the value 'AK' with conversion:range_name 'state' would be promoted to </source/SSS/dataset/DDD/type/state/AK> with an rdf:type of </source/SSS/dataset/DDD/vocab/State>." ;
+	a owl:Class; 
+	rdfs:subClassOf conversion:ResourcePromotionEnhancement;
+	rdfs:label "Typed resource promotion enhancement";
+	rdfs:comment "Constructs a URI from the concatenation of a dataset-specific URI, a type token specified with conversion:range_name, and the raw literal value. Additionally asserts an rdf:type for the new resource with the class named with conversion:range_name. The type name will be lowercased for use in the URI and have the first letter uppercased for use as the class name. For example, the value 'AK' with conversion:range_name 'state' would be promoted to </source/SSS/dataset/DDD/type/state/AK> with an rdf:type of </source/SSS/dataset/DDD/vocab/State>.";
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty conversion:range_name ;
-		owl:cardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty conversion:range_name;
+		owl:cardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:SubClassEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:Enhancement ;
-	rdfs:label "Subclass enhancement" ;
-	rdfs:comment "Asserts that an existing class in the dataset, specified by name with conversion:class_name,  is a subclass of an external class specified by conversion:subclass_of. This enhancement will materialize the rdf:type entailments for all instances." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:Enhancement;
+	rdfs:label "Subclass enhancement";
+	rdfs:comment "Asserts that an existing class in the dataset, specified by name with conversion:class_name,  is a subclass of an external class specified by conversion:subclass_of. This enhancement will materialize the rdf:type entailments for all instances.";
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty	   conversion:class_name ;
-		owl:cardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty	   conversion:class_name;
+		owl:cardinality "1"^^xsd:nonNegativeInteger;
+	];
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty	   conversion:subclass_of ;
-		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty	   conversion:subclass_of;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:SameAsEnhancement 
-	a owl:Class ;
-	rdfs:subClassOf conversion:Enhancement ;
-	rdfs:label "Superclass for sameAs enahncements" ;
+	a owl:Class;
+	rdfs:subClassOf conversion:Enhancement;
+   owl:disjointUnionOf ( conversion:SubjectSameAsEnhancement conversion:ObjectSameAsEnhancement );
+   owl:disjointUnionOf ( conversion:DirectSameAsEnhancement conversion:IndirectSameAsEnhancement );
+	rdfs:label "Superclass for sameAs enahncements";
 	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty	   conversion:links_via ;
-		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty	   conversion:links_via;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:SubjectSameAsEnhancement
-	a owl:Class ;
-	rdfs:subClassOf conversion:SameAsEnhancement ;
-	rdfs:label "Subject sameAs enahncements" ;
-	rdfs:comment "Asserts owl:sameAs relationships between instances and external URIs based on the instances' values of a specific property and their interpretation by a mapping specified by conversion:linksVia. How this mapping is performed based on this value is unspecified, but may be based on aligning with (e.g. SKOS) labels or the edit distance between the property value and instances in a known ontology." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:SameAsEnhancement;
+	rdfs:label "Subject sameAs enahncements";
+	rdfs:comment "Asserts owl:sameAs relationships between instances and external URIs based on the instances' values of a specific property and their interpretation by a mapping specified by conversion:linksVia. How this mapping is performed based on this value is unspecified, but may be based on aligning with (e.g. SKOS) labels or the edit distance between the property value and instances in a known ontology.";
 
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:SubjectSameAsEnhancementViaLookup
-	a owl:Class ;
-	rdfs:subClassOf conversion:SubjectSameAsEnhancement ;
-	rdfs:label "Subject sameAs enahncements via Lookup" ;
-	rdfs:comment "Asserts owl:sameAs relationships based on the values in the mapping of the property specified by conversion:subject_of." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:SubjectSameAsEnhancement;
+	rdfs:label "Subject sameAs enahncements via Lookup";
+	rdfs:comment "Asserts owl:sameAs relationships based on the values in the mapping of the property specified by conversion:subject_of.";
   	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty	   conversion:subject_of ;
-		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty	   conversion:subject_of;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
  .
 
 conversion:ObjectSameAsEnhancement
-	a owl:Class ;
+	a owl:Class;
 	rdfs:subClassOf conversion:SameAsEnhancement, 
                    conversion:ResourcePromotionEnhancement; # The Object must have been promoted to a URI to assert an owl:sameAs on it.
-	rdfs:label "Object sameAs enahncements" ;
-	rdfs:comment "Asserts owl:sameAs relationships between resources and external URIs based on the instances' values of a specific property and their interpretation by a mapping specified by conversion:linksVia. How this mapping is performed based on this value is unspecified, but may be based on aligning with (e.g. SKOS) labels or the edit distance between the property value and instances in a known ontology." ;
+	rdfs:label "Object sameAs enahncements";
+	rdfs:comment "Asserts owl:sameAs relationships between resources and external URIs based on the instances' values of a specific property and their interpretation by a mapping specified by conversion:linksVia. How this mapping is performed based on this value is unspecified, but may be based on aligning with (e.g. SKOS) labels or the edit distance between the property value and instances in a known ontology.";
 
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:ObjectSameAsEnhancementViaLookup
-	a owl:Class ;
-	rdfs:subClassOf conversion:ObjectSameAsEnhancement ;
-	rdfs:label "Object sameAs enahncements via Lookup" ;
-	rdfs:comment "Asserts owl:sameAs relationships based on the values in the mapping of the property specified by conversion:subject_of." ;
+	a owl:Class;
+	rdfs:subClassOf conversion:ObjectSameAsEnhancement;
+	rdfs:label "Object sameAs enahncements via Lookup";
+	rdfs:comment "Asserts owl:sameAs relationships based on the values in the mapping of the property specified by conversion:subject_of.";
   	rdfs:subClassOf [
-		a owl:Restriction ;
-		owl:onProperty	   conversion:subject_of ;
-		owl:minCardinality "1"^^xsd:nonNegativeInteger ;
-	] ;
+		a owl:Restriction;
+		owl:onProperty	   conversion:subject_of;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger;
+	];
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
+conversion:DirectSameAsEnhancement 
+   a owl:Class;
+   rdfs:label "IndirectSameAsEnhancement";
+   rdfs:comment "For any Resource that became owl:sameAs another Resource in an external LOD bubble, use ALL external URIs instead of the local resource.";
+.
 
+conversion:IndirectSameAsEnhancement
+   a owl:Class;
+   rdfs:label "IndirectSameAsEnhancement";
+   rdfs:comment "Refer to a local URI, which then has a single owl:sameAs triple pointing to external LOD bubbles. Depends on owl:sameAs inference OR extra graph patterns in SPARQL queries.";
+.
 
 ### Properties
 
 conversion:dataset_file 
-	a owl:ObjectProperty ;
-	rdfs:domain conversion:DocumentState ;
-	rdfs:range foaf:Document ;
-	rdfs:comment "The URL of a dataset document." ;
+	a owl:ObjectProperty;
+	rdfs:domain conversion:DocumentState;
+	rdfs:range foaf:Document;
+	rdfs:comment "The URL of a dataset document.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 	
 conversion:encoding 
-	a owl:DatatypeProperty ;
-	rdfs:domain conversion:DocumentState ;
-	rdfs:comment "The character encoding of a dataset document." ;
+	a owl:DatatypeProperty;
+	rdfs:domain conversion:DocumentState;
+	rdfs:comment "The character encoding of a dataset document.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:source_data 
-	a owl:ObjectProperty ;
-	rdfs:domain conversion:ConversionProcess ;
-	rdfs:range conversion:DocumentState ;
-	rdfs:comment "The source of data for a conversion process." ;
+	a owl:ObjectProperty;
+	rdfs:domain conversion:ConversionProcess;
+	rdfs:range conversion:DocumentState;
+	rdfs:comment "The source of data for a conversion process.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
@@ -622,34 +648,34 @@ conversion:source_data
 ### Dataset naming properties.
 
 conversion:base_uri 
-	a rdf:Property ;
-	rdfs:domain conversion:ConversionProcess ;
-	rdfs:comment "The base URI used in constructing identifying URIs for instances in the converted dataset." ;
+	a rdf:Property;
+	rdfs:domain conversion:Dataset;
+	rdfs:comment "The base URI used in constructing identifying URIs for instances in the converted dataset.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:source_identifier 
-	a owl:DatatypeProperty ;
-	rdfs:domain conversion:ConversionProcess ;
-	rdfs:range rdfs:Literal ;
-	rdfs:comment "The name of the organization to which the dataset being converted belongs." ;
+	a owl:DatatypeProperty;
+	rdfs:domain conversion:Dataset;
+	rdfs:range rdfs:Literal;
+	rdfs:comment "The name of the organization to which the dataset being converted belongs.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:dataset_identifier 
-	a owl:DatatypeProperty ;
-	rdfs:domain conversion:ConversionProcess ;
-	rdfs:range rdfs:Literal ;
-	rdfs:comment "The identifier of the dataset being converted. Ideally provided by source_identifier." ;
+	a owl:DatatypeProperty;
+	rdfs:domain conversion:Dataset;
+	rdfs:range rdfs:Literal;
+	rdfs:comment "The identifier of the dataset being converted. Ideally provided by source_identifier.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:version_identifier 
-	a owl:DatatypeProperty ;
-	rdfs:domain conversion:ConversionProcess ;
-	rdfs:range rdfs:Literal ;
-	rdfs:label "The version of conversion being performed per dataset." ;
-	rdfs:comment "The version_identifier should only change during a 'raw' conversion when the underlying dataset has changed." ;
+	a owl:DatatypeProperty;
+	rdfs:domain conversion:Dataset;
+	rdfs:range rdfs:Literal;
+	rdfs:label "The version of conversion being performed per dataset.";
+	rdfs:comment "The version_identifier should only change during a 'raw' conversion when the underlying dataset has changed.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
@@ -662,164 +688,192 @@ conversion:dataset_version
 ### basic connectivity.
 
 conversion:conversion_process 
-	a owl:ObjectProperty ;
-	rdfs:domain conversion:LayerDataset ;
-	rdfs:range conversion:ConversionProcess ;
-	rdfs:comment "A conversion process that led to the creation or modification of an RDF dataset." ;
+	a owl:ObjectProperty;
+	rdfs:domain conversion:LayerDataset;
+	rdfs:range conversion:ConversionProcess;
+	rdfs:comment "A conversion process that led to the creation or modification of an RDF dataset.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:enhance
-   a owl:ObjectProperty ;
-   rdfs:domain conversion:EnhancementProcess ;
-   rdfs:range conversion:Enhancement ;
+   a owl:ObjectProperty;
+   rdfs:domain conversion:EnhancementProcess;
+   rdfs:range conversion:Enhancement;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
 ### Referencing properties.
 
+conversion:predicate_identifier
+   a owl:DatatypeProperty;
+   rdfs:comment "ov:csvCol OR conversion:property_name should be used to refer to the property being enhanced - NOT BOTH.";
+.
+
 conversion:property_name
-	a owl:DatatypeProperty ;
+	a owl:DatatypeProperty;
 	rdfs:domain [ owl:unionOf ( conversion:Enhancement conversion:ImplicitBundle ) ];
-	rdfs:range rdfs:Literal ;
-	rdfs:comment "The property name on which an enhancement takes place." ;
-	rdfs:comment "The local name of a property within this dataset-specific namespace." ;
+	rdfs:range rdfs:Literal;
+	rdfs:comment "The property name on which an enhancement takes place.";
+	rdfs:comment "The local name of a property within this dataset-specific namespace.";
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:ImplicitBundle>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
+   rdfs:subPropertyOf conversion:predicate_identifier;
 	.
 
+ov:csvCol
+	a owl:DatatypeProperty;
+   rdfs:subPropertyOf conversion:predicate_identifier;
+	rdfs:range xsd:positiveInteger;
+   rdfs:comment "First column is column 1; i.e., human-based indexing.";
+.
+   
 ### Describing resulting properties.
 
 conversion:range_name 
-	a owl:DatatypeProperty ;
-	rdfs:range rdfs:Literal ;
-	rdfs:comment "The local name of an internal class." ;
+	a owl:DatatypeProperty;
+	rdfs:range rdfs:Literal;
+	rdfs:comment "The local name of an internal class.";
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:range_name>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 # Remomved by TL 19 May 2010. ResourceSetEnhancment is now TypedResourcePromotionEnhancement. Does set_pattern need to go somewhere?
 #conversion:set_pattern 
-#	a rdf:Property ;
-#	rdfs:domain conversion:ResourceSetEnhancement ;
-#	rdfs:label "" ;
+#	a rdf:Property;
+#	rdfs:domain conversion:ResourceSetEnhancement;
+#	rdfs:label "";
 #	.
 
 conversion:template_pattern
-	a rdf:Property ;
-	rdfs:domain conversion:TemplateResourcePromotionEnhancement ;
-	rdfs:range rdfs:Literal ;
-	rdfs:comment "String representing a templated URI. Placeholders in the template are replaced by values of the row in the specified columns. Columns are cited by local name or column number. For example, http://some.other.org/instances/[value]. http://some.other.org/instances/[state]-[county], http://some.other.org/instances/[#4]-[#6]" ;
+	a rdf:Property;
+	rdfs:domain conversion:TemplateResourcePromotionEnhancement;
+	rdfs:range rdfs:Literal;
+	rdfs:comment "String representing a templated URI. Placeholders in the template are replaced by values of the row in the specified columns. Columns are cited by local name or column number. For example, http://some.other.org/instances/[value]. http://some.other.org/instances/[state]-[county], http://some.other.org/instances/[#4]-[#6]";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:range
-	a owl:ObjectProperty ;
-	rdfs:domain conversion:PromotionEnhancement ;
-	rdfs:range rdfs:Resource ;
-	rdfs:comment "The rdfs:range of the property after enhancement." ;
+	a owl:ObjectProperty;
+	rdfs:domain conversion:Enhancement;
+	rdfs:range rdfs:Resource;
+	rdfs:comment "The rdfs:range of the property after enhancement. For raw conversions, it is always rdfs:Literal. More interesting things happen during enhancements.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:multiplier
-   a owl:DatatypeProperty ;
-   rdfs:domain conversion:MultiplierEnhancement ;
-   rdfs:range rdfs:Literal ;
-   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:multiplier> ;
+   a owl:DatatypeProperty;
+   rdfs:domain conversion:MultiplierEnhancement;
+   rdfs:range rdfs:Literal;
+   vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:multiplier>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
-conversion:boolean_true
-	a rdf:Property ;
-	rdfs:domain conversion:BooleanPromotionEnhancement ;
-	rdfs:range rdfs:Literal ;
-	rdfs:comment "A value that should be interpreted as true in addition to the standard lexical forms. For example, 'Y', '+', etc." ;
-   rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
-	.
-conversion:boolean_false
-	a rdf:Property ;
-	rdfs:domain conversion:BooleanPromotionEnhancement ;
-	rdfs:range rdfs:Literal ;
-	rdfs:comment "A value that should be interpreted as false in addition to the standard lexical forms. For example, 'N', '-', etc." ;
-   rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
-	.
+conversion:BooleanSymbolInterpretation
+   a owl:Class;
+   rdfs:subClassOf conversion:SymbolInterpretation;
+   rdfs:comment "Any SymbolInterpretation that interprets to true or false is a BooleanSymbolInterpretation.";
+   owl:unionOf ( [
+      a owl:Restriction;
+      owl:onProperty conversion:interpretation;
+      owl:hasValue   true;
+   ] [
+      a owl:Restriction;
+      owl:onProperty conversion:interpretation;
+      owl:hasValue   false;
+   ] );
+.
+
+#conversion:boolean_true
+#	a rdf:Property;
+#	rdfs:domain conversion:BooleanPromotionEnhancement;
+#	rdfs:range rdfs:Literal;
+#	rdfs:comment "A value that should be interpreted as true in addition to the standard lexical forms. For example, 'Y', '+', etc.";
+#   rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
+#	.
+#conversion:boolean_false
+#	a rdf:Property;
+#	rdfs:domain conversion:BooleanPromotionEnhancement;
+#	rdfs:range rdfs:Literal;
+#	rdfs:comment "A value that should be interpreted as false in addition to the standard lexical forms. For example, 'N', '-', etc.";
+#   rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
+#	.
 
 conversion:type_name
-	a rdf:Property ;
-	rdfs:domain conversion:ImplicitBundle ;
-	rdfs:range  rdfs:Literal ;
-	rdfs:comment "The local name of a class within this dataset-specific namespace." ;
+	a rdf:Property;
+	rdfs:domain conversion:ImplicitBundle;
+	rdfs:range  rdfs:Literal;
+	rdfs:comment "The local name of a class within this dataset-specific namespace.";
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
 conversion:class_name
-   a rdf:Property ;
+   a rdf:Property;
    rdfs:domain conversion:SubClassEnhancement; 
-   rdfs:range rdfs:Literal ;
+   rdfs:range rdfs:Literal;
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subclass_of>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
-conversion:primary_key
-	a rdf:Property, owl:DeprecatedClass ;
-	rdfs:subPropertyOf conversion:property_name ;
-	rdfs:domain conversion:PrimaryKeyEnhancement ;
-	rdfs:range rdfs:Literal ;
-	rdfs:comment "The property name used during primary key enhancement to identify the primary key values." ;
-   rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
-	.
+#conversion:primary_key
+#	a rdf:Property, owl:DeprecatedClass;
+#	rdfs:subPropertyOf conversion:property_name;
+#	rdfs:domain conversion:PrimaryKeyEnhancement;
+#	rdfs:range rdfs:Literal;
+#	rdfs:comment "The property name used during primary key enhancement to identify the primary key values.";
+#   rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
+#	.
 
 conversion:subproperty_of
-   a rdf:Property ;
-   rdfs:domain conversion:SubPropertyEnhancement ;
-   rdfs:comment "The external property that is a super property of the local property named by :property_name" ;
+   a rdf:Property;
+   rdfs:domain conversion:SubPropertyEnhancement;
+   rdfs:comment "The external property that is a super property of the local property named by :property_name";
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subproperty_of>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .	
 
 conversion:subclass_of
-   a rdf:Property ;
+   a rdf:Property;
    rdfs:domain conversion:SubClassEnhancement; 
-   rdfs:range owl:Class ;
+   rdfs:range owl:Class;
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subclass_of>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
 conversion:links_via
-   a owl:ObjectProperty ;
-   rdfs:range rdfs:Resource ;
+   a owl:ObjectProperty;
+   rdfs:range rdfs:Resource;
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:links_via>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
 conversion:subject_of
-   a owl:ObjectProperty ;
-   rdfs:range rdfs:Resource ;
+   a owl:ObjectProperty;
+   rdfs:range rdfs:Resource;
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subject_of>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
 conversion:date_pattern
-   a owl:DatatypeProperty ;
-   rdfs:domain conversion:DatePromotionEnhancement ;
-   rdfs:domain [ owl:onProperty conversion:range; owl:hasValue xsd:date; a owl:Restriction ] ;
-   rdfs:range rdfs:Literal ;
+   a owl:DatatypeProperty;
+   rdfs:domain conversion:DatePromotionEnhancement;
+   rdfs:domain [ owl:onProperty conversion:range; owl:hasValue xsd:date; a owl:Restriction ];
+   rdfs:range rdfs:Literal;
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:date_pattern>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
 conversion:datetime_pattern
-   a owl:DatatypeProperty ;
-   rdfs:domain conversion:DateTimePromotionEnhancement ;
-   rdfs:range rdfs:Literal ;
+   a owl:DatatypeProperty;
+   rdfs:domain conversion:DateTimePromotionEnhancement;
+   rdfs:range rdfs:Literal;
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:datetime_pattern>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    .
 
 conversion:datetime_timezone
-   a owl:DatatypeProperty ;
-   rdfs:domain conversion:DateTimePromotionEnhancement ;
-   rdfs:range rdfs:Literal ;
+   a owl:DatatypeProperty;
+   rdfs:domain conversion:DateTimePromotionEnhancement;
+   rdfs:range rdfs:Literal;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
    . 
 
@@ -931,10 +985,9 @@ conversion:SameAsDataset
 
 conversion:VersionControlledDataset
    a owl:Class;
-   rdfs:subClassOf conversion:Dataset, doap:Project;
+   rdfs:subClassOf void:Dataset, doap:Project;
    rdfs:label "VersionControlledDataset";
-   rdfs:comment "A conversion:Dataset whose skeleton is available from a version control system.";
-   rdfs:comment "VersionControlledDatasets should cite locations their csv2rdf4lod skeleton.";
+   rdfs:comment "A conversion:Dataset whose data skeleton is available from a version control system.";
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Version-control-strategies:-only-the-essential-minimum-is-needed>;
    rdfs:subClassOf [
       a owl:Restriction;
@@ -990,8 +1043,9 @@ conversion:num_invocation_logs
 
 conversion:ExampleResource
    a owl:Class;
+   rdfs:subClassOf conversion:RowEnhancement;
    rdfs:label "ExampleResource";
-   rdfs:comment "";
+   rdfs:comment "Cites a row that contains an exemplary resource or structure; 'highlighting' it for increased attention. e.g., Jim Hendler or Bill O'Reilly in a White House Visitor Record.";
    rdfs:seeAlso void:exampleResource;
 .
 
@@ -1038,13 +1092,13 @@ conversion:interpret
    a owl:ObjectProperty;
    rdfs:label "interpret";
    rdfs:comment "";
-   rdfs:range conversion:SymbolInterpretationEnhancement;
+   rdfs:range conversion:SymbolInterpretation;
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion%3Ainterpret>;
 .
 
-conversion:SymbolInterpretationEnhancement
+conversion:SymbolInterpretation
    a owl:Class;
-   rdfs:label "SymbolInterpretationEnhancement";
+   rdfs:label "SymbolInterpretation";
    rdfs:comment "Pairs a collection of symbols with how they should be interpreted. For example, 'S' should be interpreted as http://dbpedia.org/resource/United_States_Senate.";
    rdfs:subClassOf conversion:Enhancement;
    rdfs:subClassOf [
@@ -1064,7 +1118,7 @@ conversion:symbol
    a owl:DatatypeProperty;
    rdfs:label "symbol";
    rdfs:comment "";
-   rdfs:domain conversion:SymbolInterpretationEnhancement;
+   rdfs:domain conversion:SymbolInterpretation;
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion%3Ainterpret>;
 .
 
@@ -1072,7 +1126,7 @@ conversion:interpretation
    a rdf:Property;
    rdfs:label "interpretation";
    rdfs:comment "";
-   rdfs:domain conversion:SymbolInterpretationEnhancement;
+   rdfs:domain conversion:SymbolInterpretation;
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion%3Ainterpret>;
 .
 
@@ -1121,12 +1175,12 @@ conversion:subseT a owl:TransitiveProperty;
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/issues/173>
 .
 
-conversion:AtomicInputDataset
-   a owl:Class;
-   rdfs:label "AtomicInputDataset";
-   rdfs:comment "An RDF dataset produced by the conversion of a single tabular file. When handling datasets with multiple files, a fourth level in the VoID hierarchy is needed. As opposed to datasets with a single input file, which has three levels. In both cases, the lowest level is an AtomicInputDataset. This, in combination with conversion:subsetT allows you to use inference to not concern yourself with these details.";
-   rdfs:subClassOf conversion:Dataset;
-.
+#conversion:AtomicInputDataset
+#   a owl:Class;
+#   rdfs:label "AtomicInputDataset";
+#   rdfs:comment "An RDF dataset produced by the conversion of a single tabular file. When handling datasets with multiple files, a fourth level in the VoID hierarchy is needed. As opposed to datasets with a single input file, which has three levels. In both cases, the lowest level is an AtomicInputDataset. This, in combination with conversion:subsetT allows you to use inference to not concern yourself with these details.";
+#   rdfs:subClassOf conversion:Dataset;
+#.
 
 conversion:CSV2RDF4LOD_environment_variables
    a owl:Class;
