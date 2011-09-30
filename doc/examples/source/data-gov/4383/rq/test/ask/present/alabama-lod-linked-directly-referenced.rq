@@ -12,7 +12,7 @@ ASK
 WHERE {
    GRAPH ?g {
       ?address 
-         con:stateOrProvince typed_state:Alabama, dbpedia:Alabama , govtrackusv:AL , <http://sws.geonames.org/4829764/> ;
+         con:stateOrProvince typed_state:Alabama, dbpedia:Alabama , govtrackus:AL , <http://sws.geonames.org/4829764/> ;
          con:zip "36420";
       .
       typed_state:Alabama 
