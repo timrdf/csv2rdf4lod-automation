@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-trim-logs.sh
 
 if [ "$1" == "--help" || "$1" == "-h" ]; then
    echo "usage: `basename $0` [-w]"
