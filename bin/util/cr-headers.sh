@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-headers.sh
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
@@ -7,6 +9,11 @@ ACCEPTABLE_PWDs="cr:directory-of-versions cr:conversion-cockpit"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
+fi
+
+write="no"
+if [[ "$1" == "-w" || "$1" == "--write" ]]; then
+   write="yes"
 fi
 
 if [ `$CSV2RDF4LOD_HOME/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]; then
@@ -22,7 +29,7 @@ elif [ `$CSV2RDF4LOD_HOME/bin/util/is-pwd-a.sh cr:directory-of-versions` == "yes
             header_filename="$version/manual/headers.$count.txt"
          fi
          echo "$csv -> $header_filename"
-         if [ "$1" == "-w" ]; then
+         if [ "$write" == "yes" ]; then
             java edu.rpi.tw.data.csv.impl.CSVHeaders $csv --number | grep "^[^\s]" > $header_filename
          fi
       done
@@ -31,4 +38,8 @@ else
    echo "huh"
 fi
 
+if [[ "$write" != "yes" ]]; then
+   echo 
+   echo "(use '`basename $0` -w' to write files.)"
+fi
 
