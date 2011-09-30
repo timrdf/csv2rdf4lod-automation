@@ -6,7 +6,7 @@ prefix dbpedia:     <http://dbpedia.org/resource/>
 prefix govtrackus:  <http://www.rdfabout.com/rdf/usgov/geo/us/>
 prefix void:        <http://rdfs.org/ns/void#>
 prefix conversion:  <http://purl.org/twc/vocab/conversion/>
-prefix typed_state: <http://http://logd.tw.rpi.edu/source/data-gov/dataset/4383/typed/state/>
+prefix typed_state: <http://logd.tw.rpi.edu/source/data-gov/dataset/4383/typed/state/>
 
 ASK
 WHERE {
