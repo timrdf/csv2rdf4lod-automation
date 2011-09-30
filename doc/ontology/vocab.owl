@@ -760,7 +760,6 @@
   </rdf:Property>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/domain_name">
     <rdfs:comment>The local type that should be asserted for the subjects of raw triples.</rdfs:comment>
-    <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/SubjectEnhancement"/>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/SubjectTypeEnhancement"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>

@@ -278,7 +278,7 @@ conversion:SubjectTypeEnhancement
 
 conversion:domain_name 
 	a rdf:Property ;
-	rdfs:domain conversion:SubjectEnhancement, conversion:SubjectTypeEnhancement ;
+	rdfs:domain conversion:SubjectTypeEnhancement ;
 	rdfs:range rdfs:Literal ;
 	rdfs:comment "The local type that should be asserted for the subjects of raw triples." ;
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:domain_name>;
