@@ -28,7 +28,7 @@
     <dct:description>Ontology used to describe interpretations of tabular literals to produce RDF.</dct:description>
     <vann:preferredNamespacePrefix>conversion</vann:preferredNamespacePrefix>
     <vann:preferredNamespaceUri>http://purl.org/twc/vocab/conversion/</vann:preferredNamespaceUri>
-    <rdfs:comment>This ontology used by the csv2rdf4lod project.</rdfs:comment>
+    <rdfs:comment>This ontology is used by the csv2rdf4lod project.</rdfs:comment>
     <rdfs:seeAlso rdf:resource="http://data-gov.tw.rpi.edu/wiki/Csv2rdf4lod"/>
     <rdfs:seeAlso rdf:resource="http://data-gov.tw.rpi.edu/wiki/URI_design_for_RDF_conversion_of_CSV-based_data"/>
     <rdfs:seeAlso rdf:resource="http://doi.acm.org/10.1145/1839707.1839755"/>
@@ -36,7 +36,7 @@
     <rdfs:seeAlso rdf:resource="http://purl.org/twc/id/software/csv2rdf4lod"/>
     <rdfs:seeAlso rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki"/>
   </owl:Ontology>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/AbstractDataset">
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/AbstractDataset">
     <rdfs:comment>Dataset with source and dataset identifiers, but not version. Before any version is materialized (captured in time), and the union of all VersionedDatasets.</rdfs:comment>
     <rdfs:label>Abstract Dataset</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Dataset"/>
@@ -49,13 +49,13 @@
     </rdfs:subClassOf>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/LayerDataset"/>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/VersionedDataset"/>
-  </rdfs:Class>
+  </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/AtomicInputDataset">
     <rdfs:comment>An RDF dataset produced by the conversion of a single tabular file. When handling datasets with multiple files, a fourth level in the VoID hierarchy is needed. As opposed to datasets with a single input file, which has three levels. In both cases, the lowest level is an AtomicInputDataset. This, in combination with conversion:subsetT allows you to use inference to not concern yourself with these details.</rdfs:comment>
     <rdfs:label>AtomicInputDataset</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Dataset"/>
   </owl:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/AuxiliaryDataset">
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/AuxiliaryDataset">
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Dataset"/>
     <owl:disjointWith>
       <rdf:Description>
@@ -77,8 +77,8 @@
         </owl:unionOf>
       </rdf:Description>
     </owl:disjointWith>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/BooleanPromotionEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/BooleanPromotionEnhancement">
     <rdfs:comment>Casts raw literal values into xsd:boolean datatyped values. The default recognized lexical representations are (case insensitive): 'yes', 'no', 'true', 'false', '0', and '1'. The conversion:boolean_true and conversion:boolean_false properties may be used to add additional lexical forms.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Boolean promotion enhancement</rdfs:label>
@@ -89,7 +89,7 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/range"/>
       </owl:Restriction>
     </owl:equivalentClass>
-  </rdfs:Class>
+  </owl:Class>
   <rdfs:Property rdf:about="http://purl.org/twc/vocab/conversion/Bundle">
     <rdfs:comment></rdfs:comment>
     <rdfs:label>Bundle</rdfs:label>
@@ -98,15 +98,15 @@
     <rdfs:comment>A shell script that sets https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables to control the behavior of csv2rdf4lod-automation.</rdfs:comment>
     <rdfs:label>CSV2RDF4LOD_environment_variables</rdfs:label>
   </owl:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/ConversionMetaDataset">
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ConversionMetaDataset">
     <rdfs:comment>Metadata for a dataset that is created during the dataset's conversion invocation.</rdfs:comment>
     <rdfs:label>ConversionMetaDataset</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/MetaDataset"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/ConversionProcess">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ConversionProcess">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Superclass for different conversion processes.</rdfs:label>
-  </rdfs:Class>
+  </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ConversionTrigger">
     <rdfs:comment>In csv2rdf4lod-automation, the conversion trigger is a shell script situated within the conversion cockpit that initiates conversion of source data to RDF.</rdfs:comment>
     <rdfs:label>ConversionTrigger</rdfs:label>
@@ -115,22 +115,22 @@
     <rdfs:subClassOf rdf:resource="http://inference-web.org/2.0/pml-provenance.owl#InferenceEngine"/>
     <foaf:page rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-trigger"/>
   </owl:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/Curl">
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/Curl">
     <rdfs:comment>Asserted by pcurl.sh</rdfs:comment>
     <rdfs:label>Curl</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://inference-web.org/2.0/pml-provenance.owl#InferenceEngine"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/DataEndRow">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/DataEndRow">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>DataEndRow</rdfs:label>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:DataEndRow"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/DataStartRow">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/DataStartRow">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>DataStartRow</rdfs:label>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:DataStartRow"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/Dataset">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/Dataset">
     <rdfs:comment>Asserted by the converter.</rdfs:comment>
     <rdfs:label>Dataset</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://rdfs.org/ns/void#Dataset"/>
@@ -141,26 +141,26 @@
         <owl:onProperty rdf:resource="http://purl.org/dc/terms/contributor"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/DatasetCatalog">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/DatasetCatalog">
     <rdfs:comment>A dataset that lists other datasets as its entries.</rdfs:comment>
     <rdfs:label>Dataset Catalog</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/MetaDataset"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/DatasetSample">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/DatasetSample">
     <rdfs:comment>A potentially incomplete subset of a void:Dataset</rdfs:comment>
     <rdfs:label>Dataset Sample</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Dataset"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/DatatypePromotionEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/DatatypePromotionEnhancement">
     <rdfs:comment>Promotes the raw literal value to a datatyped literal using the datatype specified with the conversion:range property.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Literal datatype promotion enhancement</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/ObjectEnhancement"/>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/PromotionEnhancement"/>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/ResourcePromotionEnhancement"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/DatePromotionEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/DatePromotionEnhancement">
     <rdfs:comment>Casts raw literal values into W3CDTF values typed as xsd:date based on a strftime pattern specified with the conversion:date_pattern. If the property values follow different patterns, multiple conversion:date_pattern values may specified.</rdfs:comment>
     <rdfs:comment>For each value, all DateTimePromotionEnhancement patterns are attempted before attempting any DatePromotionEnhancement patterns specified for the same property.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
@@ -179,8 +179,8 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/range"/>
       </owl:Restriction>
     </owl:equivalentClass>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/DateTimePromotionEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/DateTimePromotionEnhancement">
     <rdfs:comment>Casts raw literal values into W3CDTF values typed as xsd:dateTime based on a strftime pattern specified with the conversion:datetime_pattern. If the property values follow different patterns, multiple conversion:datetime_pattern values may specified. The first matching pattern (of a nondeterministic ordering) will be applied. An optional conversion:datetime_timezone may be specified if no timezone information is present in the datetime pattern.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>DateTime promotion enhancement</rdfs:label>
@@ -204,12 +204,12 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/range"/>
       </owl:Restriction>
     </owl:equivalentClass>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/DocumentState">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/DocumentState">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>The state of a document at a point in time.</rdfs:label>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/Enhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/Enhancement">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>The superclass of all enhancements. When the enhancement is referring to a particular property, the property's local name or originating column number may be used (using conversion:property_name and ov:csvCol, respectively).</rdfs:label>
     <rdfs:subClassOf>
@@ -224,8 +224,8 @@
         <owl:onProperty rdf:resource="http://open.vocab.org/terms/csvCol"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/EnhancementProcess">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/EnhancementProcess">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>An enhancement of an RDF dataset that adds new RDF triples</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/ConversionProcess"/>
@@ -241,13 +241,13 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/enhance"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/ExampleResource">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ExampleResource">
     <rdfs:comment></rdfs:comment>
     <rdfs:label>ExampleResource</rdfs:label>
     <rdfs:seeAlso rdf:resource="http://rdfs.org/ns/void#exampleResource"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/ExistingBundleEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ExistingBundleEnhancement">
     <rdfs:comment>Reasserts the property-value pair to belong to the existing resource specified by the conversion:bundled_by property.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Existing bundle enhancement</rdfs:label>
@@ -264,17 +264,17 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/bundled_by"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/HTTPHeader">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/HTTPHeader">
     <rdfs:comment>Done by pcurl.sh</rdfs:comment>
     <rdfs:subClassOf rdf:resource="http://inference-web.org/2.0/pml-provenance.owl#Information"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/HeaderRow">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/HeaderRow">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>HeaderRow</rdfs:label>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:HeaderRow"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/ImplicitBundle">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ImplicitBundle">
     <rdfs:comment>Represents the structural template for an implicit bundle enhancement. The conversion:property_name specifies the property name by which a bundle is attached to an instance. An optional conversion:type_name may be specified for the bundle to indicate the rdf:type of the new resource.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Implicit Bundle</rdfs:label>
@@ -291,8 +291,8 @@
       </owl:Restriction>
     </rdfs:subClassOf>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/ImplicitBundleEnhancement"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/ImplicitBundleEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ImplicitBundleEnhancement">
     <rdfs:comment>Reasserts the property-value pair to belong to a new resource specified by the conversion:bundled_by property. An example of this enhancement would be the introduction of a geo:Point instance based on latitude and longitude properties.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Implicit bundle enhancement</rdfs:label>
@@ -309,8 +309,8 @@
         <owl:someValuesFrom rdf:resource="http://purl.org/twc/vocab/conversion/ImplicitBundle"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/InterpretedAsNullEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/InterpretedAsNullEnhancement">
     <rdfs:comment>Prevents triples with objects of a certain value. Prevents values specified by rdf:value.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Enhancement"/>
@@ -320,18 +320,18 @@
         <owl:onProperty rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#value"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/LabelRenameEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/LabelRenameEnhancement">
     <rdfs:comment>Renames an existing property in the dataset.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Label Rename Enhancement</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/PredicateEnhancement"/>
-  </rdfs:Class>
+  </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/LargeValue">
     <rdfs:comment>Used to denote that the value of a cell is 'large', where 'large' is loosely defined by the implementing system. For example, javacsv thinks 100,000 characters is Large and requires a setting to permit more than that.</rdfs:comment>
     <rdfs:label>LargeValue</rdfs:label>
   </owl:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/LayerDataset">
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/LayerDataset">
     <rdfs:comment>A conversion of a VersionedDataset using a particular set of conversion parameters.</rdfs:comment>
     <rdfs:label>Layer Dataset</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Dataset"/>
@@ -344,14 +344,14 @@
     </rdfs:subClassOf>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/AbstractDataset"/>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/VersionedDataset"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/MetaDataset">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/MetaDataset">
     <rdfs:comment></rdfs:comment>
     <rdfs:label>Meta Dataset</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/AuxiliaryDataset"/>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/SameAsDataset"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/MultiplierEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/MultiplierEnhancement">
     <rdfs:comment>After datatype promotion to an XSD numeric type, multiplies the value by the multiplicand specified with the conversion:multiplier property.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Multiplier enhancement</rdfs:label>
@@ -363,21 +363,21 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/multiplier"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/ObjectEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ObjectEnhancement">
     <rdfs:comment>Enhancement modifies the object of the resulting triple.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>ObjectEnhancement</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Enhancement"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/ObjectSameAsEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ObjectSameAsEnhancement">
     <rdfs:comment>Asserts owl:sameAs relationships between resources and external URIs based on the instances' values of a specific property and their interpretation by a mapping specified by conversion:linksVia. How this mapping is performed based on this value is unspecified, but may be based on aligning with (e.g. SKOS) labels or the edit distance between the property value and instances in a known ontology.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Object sameAs enahncements</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/ResourcePromotionEnhancement"/>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/SameAsEnhancement"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/ObjectSameAsEnhancementViaLookup">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ObjectSameAsEnhancementViaLookup">
     <rdfs:comment>Asserts owl:sameAs relationships based on the values in the mapping of the property specified by conversion:subject_of.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Object sameAs enahncements via Lookup</rdfs:label>
@@ -388,51 +388,51 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/subject_of"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/Omitted">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/Omitted">
     <rdfs:comment>Omit all triples from this column.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Enhancement"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:Omitted"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/Only_if_column">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/Only_if_column">
     <rdfs:comment>Omit triple if there is no value in the cell of the given column.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:seeAlso rdf:resource="http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#condition"/>
     <rdfs:seeAlso rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:Only_if_column"/>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Enhancement"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/PredicateEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/PredicateEnhancement">
     <rdfs:comment>Enhancement modifies the predicate of the resulting triple.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>PredicateEnhancement</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Enhancement"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/PrimaryKeyEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/PrimaryKeyEnhancement">
     <rdfs:comment>Uses the property identified by name with conversion:primary_key in generating instance URIs. For example, a conversion:primary_key of 'user_id' would result in a URI like &lt;/source/SSS/dataset/DDD/version/VVV/user_id/UUU&gt; instead of &lt;/source/SSS/dataset/DDD/version/VVV/thing_1&gt;.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Primary key enhancement</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/SubjectEnhancement"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/PromotionEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/PromotionEnhancement">
     <rdfs:comment>Superclass of enhancements which promote values from a plain literal to more complex terms (resources or typed literals).</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Value promotion enhancement</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/ObjectEnhancement"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/PropertyCommentEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/PropertyCommentEnhancement">
     <rdfs:comment>Uses the object of the conversion:comment property and asserts it as the value of rdfs:comment on the property definition. The value of conversion:comment typically comes from the original csv header (that was too long), or from an ancillary file accompanying the csv file.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Property comment enhancement</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/PredicateEnhancement"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/PropertyScopedResourcePromotionEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/PropertyScopedResourcePromotionEnhancement">
     <rdfs:comment>Appends raw literal values to the dataset-property-specific value space URI. For example, the value 'AK' for property 'origin_state' would be promoted to &lt;/source/SSS/dataset/DDD/value/origin_state/AK&gt;.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Property-scoped resource promotion enhancement</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/ResourcePromotionEnhancement"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/RawConversionProcess">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/RawConversionProcess">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>A raw conversion process from CSV to RDF</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/ConversionProcess"/>
@@ -442,20 +442,20 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/enhancement_identifier"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/Repeat_previous_if_empty_column">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/Repeat_previous_if_empty_column">
     <rdfs:comment>Repeat value of last non-empty cell in this column for the current cell.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Enhancement"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:Repeat_previous_if_empty_column"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/ResourceCastEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ResourceCastEnhancement">
     <rdfs:comment>Casts raw literal values directly into a URI.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Resource cast enhancement</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/ResourcePromotionEnhancement"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/ResourcePromotionEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ResourcePromotionEnhancement">
     <rdfs:comment>Superclass of enhancements which promote values from a plain literal to a resource.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Resource promotion enhancement</rdfs:label>
@@ -466,15 +466,15 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/range"/>
       </owl:Restriction>
     </owl:equivalentClass>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/SameAsDataset">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/SameAsDataset">
     <rdfs:comment></rdfs:comment>
     <rdfs:label>SameAs Dataset</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/AuxiliaryDataset"/>
     <rdfs:subClassOf rdf:resource="http://rdfs.org/ns/void#LinkSet"/>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/MetaDataset"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/SameAsEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/SameAsEnhancement">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Superclass for sameAs enahncements</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Enhancement"/>
@@ -484,14 +484,14 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/links_via"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/Source">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/Source">
     <rdfs:comment>A person, organization, or agent from which a dataset is retrieved.</rdfs:comment>
     <rdfs:label>Source</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/Dataset"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/SubClassEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/SubClassEnhancement">
     <rdfs:comment>Asserts that an existing class in the dataset, specified by name with conversion:class_name,  is a subclass of an external class specified by conversion:subclass_of. This enhancement will materialize the rdf:type entailments for all instances.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Subclass enhancement</rdfs:label>
@@ -508,8 +508,8 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/subclass_of"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/SubPropertyEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/SubPropertyEnhancement">
     <rdfs:comment>Asserts that an existing property in the dataset is a subproperty of an external property specified by conversion:subproperty_of. This enhancement will materialize the subproperty entailments for all instances.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Subproperty enhancement</rdfs:label>
@@ -526,25 +526,25 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/subproperty_of"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
+  </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/SubjectAnnotation">
     <rdfs:comment>add a predicate-object description to the subject of a triple created.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>SubjectAnnotation</rdfs:label>
   </owl:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/SubjectEnhancement">
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/SubjectEnhancement">
     <rdfs:comment>Enhancement modifies the subject of the resulting triple.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>SubjectEnhancement</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Enhancement"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/SubjectSameAsEnhancement">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/SubjectSameAsEnhancement">
     <rdfs:comment>Asserts owl:sameAs relationships between instances and external URIs based on the instances' values of a specific property and their interpretation by a mapping specified by conversion:linksVia. How this mapping is performed based on this value is unspecified, but may be based on aligning with (e.g. SKOS) labels or the edit distance between the property value and instances in a known ontology.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Subject sameAs enahncements</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/SameAsEnhancement"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/SubjectSameAsEnhancementViaLookup">
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/SubjectSameAsEnhancementViaLookup">
     <rdfs:comment>Asserts owl:sameAs relationships based on the values in the mapping of the property specified by conversion:subject_of.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Subject sameAs enahncements via Lookup</rdfs:label>
@@ -555,9 +555,9 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/subject_of"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/SubjectTypeEnhancement">
-    <rdfs:comment>Asserts that the subject instance is of a specific type, specified by name with conversion:domain_name. Also asserts that the type is a rdfs:Class.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/SubjectTypeEnhancement">
+    <rdfs:comment>Asserts that the subject instance is of a specific type, specified by name with conversion:domain_name. Also asserts that the type is a owl:Class.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Subject type enhancement</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/SubjectEnhancement"/>
@@ -567,7 +567,7 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/domain_name"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
+  </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/SymbolInterpretationEnhancement">
     <rdfs:comment>Pairs a collection of symbols with how they should be interpreted. For example, 'S' should be interpreted as http://dbpedia.org/resource/United_States_Senate.</rdfs:comment>
     <rdfs:label>SymbolInterpretationEnhancement</rdfs:label>
@@ -586,7 +586,7 @@
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/TemplateResourcePromotionEnhancement">
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/TemplateResourcePromotionEnhancement">
     <rdfs:comment>Converts raw literal values into URIs by replacing in the template (specified by the conversion:template_pattern property) the substring '[value]'.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Template resource promotion enhancement</rdfs:label>
@@ -597,7 +597,7 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/template_pattern"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
+  </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/TripleStore">
     <rdfs:comment></rdfs:comment>
     <rdfs:label>TripleStore</rdfs:label>
@@ -607,7 +607,7 @@
     <rdfs:comment></rdfs:comment>
     <rdfs:label>TypedResourcePromotion</rdfs:label>
   </rdfs:Property>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/TypedResourcePromotionEnhancement">
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/TypedResourcePromotionEnhancement">
     <rdfs:comment>Constructs a URI from the concatenation of a dataset-specific URI, a type token specified with conversion:range_name, and the raw literal value. Additionally asserts an rdf:type for the new resource with the class named with conversion:range_name. The type name will be lowercased for use in the URI and have the first letter uppercased for use as the class name. For example, the value 'AK' with conversion:range_name 'state' would be promoted to &lt;/source/SSS/dataset/DDD/type/state/AK&gt; with an rdf:type of &lt;/source/SSS/dataset/DDD/vocab/State&gt;.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>Typed resource promotion enhancement</rdfs:label>
@@ -618,7 +618,7 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/range_name"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-  </rdfs:Class>
+  </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/UnitTestedDataset">
     <rdfs:comment>An RDF dataset tested with SPARQL queries verifying the presense or absence of particular triples.</rdfs:comment>
     <rdfs:comment>UnitTestedDatasets should cite locations for their unit tests.</rdfs:comment>
@@ -646,7 +646,7 @@
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/VersionedDataset">
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/VersionedDataset">
     <rdfs:comment>A materialized (captured in time) dataset -- something is now on disk. Union of all LayerDatasets created by different conversion parameters.</rdfs:comment>
     <rdfs:label>Versioned Dataset</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Dataset"/>
@@ -659,7 +659,7 @@
     </rdfs:subClassOf>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/AbstractDataset"/>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/LayerDataset"/>
-  </rdfs:Class>
+  </owl:Class>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/base_uri">
     <rdfs:comment>The base URI used in constructing identifying URIs for instances in the converted dataset.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/ConversionProcess"/>
@@ -677,11 +677,11 @@
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
   </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/bundled_by">
+  <owl:ObjectProperty rdf:about="http://purl.org/twc/vocab/conversion/bundled_by">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:bundled_by"/>
-  </rdf:Property>
+  </owl:ObjectProperty>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/class_name">
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/SubClassEnhancement"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
@@ -699,30 +699,30 @@
     <rdfs:label>A measure of conceptual depth using the URI's 'depth' within the source/dataset/version contextualization scheme used by csv2rdf4lod's data aggretation naming scheme.</rdfs:label>
     <rdfs:subPropertyOf rdf:resource="http://purl.org/twc/ontology/cdm.owl#conceptual_depth"/>
   </owl:DatatypeProperty>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/conversion_process">
+  <owl:ObjectProperty rdf:about="http://purl.org/twc/vocab/conversion/conversion_process">
     <rdfs:comment>A conversion process that led to the creation or modification of an RDF dataset.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/LayerDataset"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://purl.org/twc/vocab/conversion/ConversionProcess"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/dataset_file">
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://purl.org/twc/vocab/conversion/dataset_file">
     <rdfs:comment>The URL of a dataset document.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/DocumentState"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Document"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/dataset_identifier">
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/dataset_identifier">
     <rdfs:comment>The identifier of the dataset being converted. Ideally provided by source_identifier.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/ConversionProcess"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
-  </rdf:Property>
+  </owl:DatatypeProperty>
   <rdf:Description rdf:about="http://purl.org/twc/vocab/conversion/dataset_version">
     <rdfs:seeAlso rdf:resource="http://purl.org/twc/vocab/conversion/version_identifier"/>
     <vs:moreinfo rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/DEPRECATING:-conversion:dataset_version"/>
     <vs:term_status>archaic</vs:term_status>
   </rdf:Description>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/date_pattern">
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/date_pattern">
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/DatePromotionEnhancement"/>
     <rdfs:domain>
       <owl:Restriction>
@@ -733,45 +733,45 @@
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:date_pattern"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/datetime_pattern">
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/datetime_pattern">
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/DateTimePromotionEnhancement"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:datetime_pattern"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/datetime_timezone">
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/datetime_timezone">
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/DateTimePromotionEnhancement"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/delimits_cell">
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/delimits_cell">
     <rdfs:comment>The delimiter that should be used to separate cells in a row.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/ConversionProcess"/>
     <rdfs:label>delimits_cell</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:delimits_cell"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/delimits_object">
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/delimits_object">
     <rdfs:comment>A regular expression specifiying how the object literal should be delimited to produce multiple object values.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>delimits_object</rdfs:label>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:delimits_object"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/domain_name">
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/domain_name">
     <rdfs:comment>The local type that should be asserted for the subjects of raw triples.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/SubjectTypeEnhancement"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:domain_name"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/domain_template">
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/domain_template">
     <rdfs:comment>TODO, cannot happen: :cp a conversion:EnhancementConversionProcess; conversion:enhance [ ov:csvCol 1; conversion:domain_template 'a' ], [ ov:csvCol 2; conversion:domain_template 'b' ] (col 1 and col 2 make the enhancements distinct, and an EnhancementConversionProcess can only have one domain_templated enhancement.)</rdfs:comment>
     <rdfs:comment>Template to name the subject of the triple produced.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/SubjectEnhancement"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:domain_template"/>
-  </rdf:Property>
+  </owl:DatatypeProperty>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/eg">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
     <rdfs:comment>Example value from a cell in the column for this ColumnEnhancement.</rdfs:comment>
@@ -779,56 +779,51 @@
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:eg"/>
   </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/encoding">
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/encoding">
     <rdfs:comment>The character encoding of a dataset document.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/DocumentState"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/enhance">
+  </owl:DatatypeProperty>
+  <owl:ObjectProperty rdf:about="http://purl.org/twc/vocab/conversion/enhance">
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/EnhancementProcess"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://purl.org/twc/vocab/conversion/Enhancement"/>
-  </rdf:Property>
-  <rdfs:Class rdf:about="http://purl.org/twc/vocab/conversion/equivalent_property">
+  </owl:ObjectProperty>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/equivalent_property">
     <rdfs:coment>The URI of a predicate that the current property should be replaced with.</rdfs:coment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>equivalent_property</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/PredicateEnhancement"/>
-  </rdfs:Class>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/interpret">
+  </owl:Class>
+  <owl:ObjectProperty rdf:about="http://purl.org/twc/vocab/conversion/interpret">
     <rdfs:comment></rdfs:comment>
     <rdfs:label>interpret</rdfs:label>
     <rdfs:range rdf:resource="http://purl.org/twc/vocab/conversion/SymbolInterpretationEnhancement"/>
     <rdfs:seeAlso rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion%3Ainterpret"/>
-  </rdf:Property>
+  </owl:ObjectProperty>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/interpretation">
     <rdfs:comment></rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/SymbolInterpretationEnhancement"/>
     <rdfs:label>interpretation</rdfs:label>
     <rdfs:seeAlso rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion%3Ainterpret"/>
   </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/key_template">
-    <rdfs:comment>deprecated; use conversion:domain_template</rdfs:comment>
-    <rdfs:label>key template</rdfs:label>
-    <vs:term_status>archaic</vs:term_status>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/label">
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/label">
     <rdfs:comment>A human-friendly label (like rdfs:label) that will be used to create the property local name when creating the property URI. The exact value of conversion:label will also be used for the rdfs:label of the property created.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/LabelRenameEnhancement"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/links_via">
+  </owl:DatatypeProperty>
+  <owl:ObjectProperty rdf:about="http://purl.org/twc/vocab/conversion/links_via">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:links_via"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/multiplier">
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/multiplier">
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/MultiplierEnhancement"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:multiplier"/>
-  </rdf:Property>
+  </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/num_invocation_logs">
     <rdfs:comment>Number of docs/logs/* captured by convert-aggregate.sh</rdfs:comment>
     <rdfs:label>Number of invocation logs</rdfs:label>
@@ -851,7 +846,7 @@
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
     <rdfs:subPropertyOf rdf:resource="http://purl.org/twc/vocab/conversion/property_name"/>
   </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/property_name">
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/property_name">
     <rdfs:comment>The local name of a property within this dataset-specific namespace.</rdfs:comment>
     <rdfs:comment>The property name on which an enhancement takes place.</rdfs:comment>
     <rdfs:domain>
@@ -872,46 +867,46 @@
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
     <rdfs:seeAlso rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:ImplicitBundle"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/range">
+  </owl:DatatypeProperty>
+  <owl:ObjectProperty rdf:about="http://purl.org/twc/vocab/conversion/range">
     <rdfs:comment>The rdfs:range of the property after enhancement.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/PromotionEnhancement"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/range_name">
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/range_name">
     <rdfs:comment>The local name of an internal class.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:range_name"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/range_template">
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/range_template">
     <rdfs:comment></rdfs:comment>
     <rdfs:label>range template</rdfs:label>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/source_data">
+  </owl:DatatypeProperty>
+  <owl:ObjectProperty rdf:about="http://purl.org/twc/vocab/conversion/source_data">
     <rdfs:comment>The source of data for a conversion process.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/ConversionProcess"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://purl.org/twc/vocab/conversion/DocumentState"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/source_identifier">
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/source_identifier">
     <rdfs:comment>The name of the organization to which the dataset being converted belongs.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/ConversionProcess"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
-  </rdf:Property>
+  </owl:DatatypeProperty>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/subclass_of">
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/SubClassEnhancement"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subclass_of"/>
   </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/subject_of">
+  <owl:ObjectProperty rdf:about="http://purl.org/twc/vocab/conversion/subject_of">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:subject_of"/>
-  </rdf:Property>
+  </owl:ObjectProperty>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/subproperty_of">
     <rdfs:comment>The external property that is a super property of the local property named by :property_name</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/SubPropertyEnhancement"/>
@@ -924,40 +919,40 @@
     <rdfs:label>subsetT</rdfs:label>
     <rdfs:seeAlso rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/issues/173"/>
   </owl:TransitiveProperty>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/symbol">
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/symbol">
     <rdfs:comment></rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/SymbolInterpretationEnhancement"/>
     <rdfs:label>symbol</rdfs:label>
     <rdfs:seeAlso rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion%3Ainterpret"/>
-  </rdf:Property>
+  </owl:DatatypeProperty>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/template_pattern">
     <rdfs:comment>String representing a templated URI. Placeholders in the template are replaced by values of the row in the specified columns. Columns are cited by local name or column number. For example, http://some.other.org/instances/[value]. http://some.other.org/instances/[state]-[county], http://some.other.org/instances/[#4]-[#6]</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/TemplateResourcePromotionEnhancement"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
   </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/testable_by">
+  <owl:ObjectProperty rdf:about="http://purl.org/twc/vocab/conversion/testable_by">
     <rdfs:seeAlso rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"/>
     <owl:inverseOf rdf:resource="http://purl.org/dc/terms/subject"/>
     <owl:inverseOf rdf:resource="http://www.w3.org/2006/03/test-description#informationResourceInput"/>
-  </rdf:Property>
+  </owl:ObjectProperty>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/type_name">
     <rdfs:comment>The local name of a class within this dataset-specific namespace.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/ImplicitBundle"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
   </rdf:Property>
-  <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/version_identifier">
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/version_identifier">
     <rdfs:comment>The version_identifier should only change during a 'raw' conversion when the underlying dataset has changed.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/ConversionProcess"/>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
     <rdfs:label>The version of conversion being performed per dataset.</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://rdfs.org/ns/void#subset">
+  </owl:DatatypeProperty>
+  <owl:ObjectProperty rdf:about="http://rdfs.org/ns/void#subset">
     <rdfs:subPropertyOf rdf:resource="http://purl.org/twc/vocab/conversion/subseT"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="http://www.w3.org/2006/03/test-description#informationResourceInput">
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.w3.org/2006/03/test-description#informationResourceInput">
     <rdfs:comment>Information Resource (e.g. a file) used as input for the test case</rdfs:comment>
-  </rdf:Property>
+  </owl:ObjectProperty>
 </rdf:RDF>
