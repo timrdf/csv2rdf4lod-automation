@@ -24,6 +24,7 @@ fi
 list="no"
 if [[ "$1" != "--list" ]]; then
    list="yes"
+   shift
 fi
 
 var="CSV2RDF4LOD_HOME"
