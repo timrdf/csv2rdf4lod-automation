@@ -10,6 +10,7 @@ if [[ "$1" == "--help" || "$1" == "-h" ]]; then
    echo "                      If not specified, defaults to CSV2RDF4LOD_HOME"
    echo 
    echo "see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables"
+   echo "    https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-source-me.sh"
    exit 1
 fi
 
