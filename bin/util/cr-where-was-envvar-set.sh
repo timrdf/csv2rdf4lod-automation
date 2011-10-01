@@ -20,8 +20,7 @@ if [[ $# -gt 0 ]]; then
 fi
 
 if [[ ! -e $rc ]]; then
-   echo "`basename $0`: $rc does not exist; try -rc option"
-   echo
+   echo "`basename $0`: $rc does not exist; try -rc option:"
    echo
    $0 -h
    exit
