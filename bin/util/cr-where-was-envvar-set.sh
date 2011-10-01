@@ -4,10 +4,11 @@
 
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
    echo "usage: `basename $0` [-rc ~/.bashrc] [ [--list] | [CSV2RDF4LOD_var] [--only] ]"
-   echo "                -rc : the rc (.bashrc, .login, etc.) file used to source all csv2rdf4lod-source-mes"
+   echo "                -rc : the rc (.bashrc, .login, etc.) file used to source all csv2rdf4lod-source-mes."
+   echo "              -list : show the source-mes that are used to set up the environment."
    echo "  [CSV2RDF4LOD_var] : a CSV2RDF4LOD_ environment variable name."
-   echo "                      All variables are listed by running cr-vars.sh"
-   echo "                      If not specified, defaults to CSV2RDF4LOD_HOME"
+   echo "                      All variables are listed by running cr-vars.sh."
+   echo "                      If not specified, defaults to CSV2RDF4LOD_HOME."
    echo "             --only : omit the CSV2RDF4LOD_ variables that are more specific than the one specified."
    echo 
    echo "see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables"
