@@ -41,10 +41,12 @@ ${isql_cmd} ${isql_pass} << EOF &> $vdelete_log
    checkpoint;
    exit;
 EOF
-echo ""                                                                  >> $vdelete_log
-echo "# start time: $start"                                              >> $vdelete_log
-echo "# user: `whoami`"                                                  >> $vdelete_log
-echo "# end   time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vdelete_log
+echo ""                                                                                  >> $vdelete_log
+echo "# start time: $start"                                                              >> $vdelete_log
+echo "# user  name: $SUDO_USER as `whoami`"                                              >> $vdelete_log
+echo "# isql      : ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virt_home/bin/isql"}"    >> $vdelete_log
+echo "# CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT: ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"}" >> $vdelete_log
+echo "# end   time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`"                 >> $vdelete_log
 
 # Move the latest.log pointer to the log we just created.
 rm $log_dir/latest.log &> /dev/null

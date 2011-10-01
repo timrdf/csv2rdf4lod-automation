@@ -109,10 +109,12 @@ ${isql_cmd} ${isql_pwd} << EOF &> $vload_log
    checkpoint;
    exit;
 EOF
-echo ""                                                                  >> $vload_log
-echo "# start time: $start"                                              >> $vload_log
-echo "# user: `whoami`"                                                  >> $vload_log
-echo "# end   time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`" >> $vload_log
+echo ""                                                                                  >> $vload_log
+echo "# start time: $start"                                                              >> $vload_log
+echo "# user  name: $SUDO_USER as "`whoami`                                              >> $vload_log
+echo "# isq: ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virt_home/bin/isql"}"           >> $vload_log
+echo "# CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT: ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"}" >> $vload_log
+echo "# end   time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`"                 >> $vload_log
 
 # Move the latest.log pointer to the log we just created.
 rm $virtuoso_allowed_dir/latest.log &> /dev/null
