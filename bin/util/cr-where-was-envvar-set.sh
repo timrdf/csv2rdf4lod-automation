@@ -19,9 +19,12 @@ if [[ $# -gt 0 ]]; then
    shift
 fi
 
-ls -lt $rc
+if [[ ! -e $rc ]]; then
+   echo "`basename $0`: $rc does not exist; try -rc option"
+   $0 -h
+fi
 
 for sourceme in `grep "^source .*csv2rdf4lod-source-me*" $rc | awk '{print $2}'`; do 
-   echo grep -H $var $sourceme
-   grep -H $var $sourceme
+   echo grep -H "^export $var" $sourceme
+   grep -H "^export $var" $sourceme
 done
