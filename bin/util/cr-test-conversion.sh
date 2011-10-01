@@ -169,7 +169,8 @@ if [ "$1" == "--setup" ]; then
       fi
       # Make sure conversions are published.
       published="no"
-      for ttl in `find publish -depth 0 -name "*.ttl"`; do echo $ttl; published="yes"; done
+      # error on other OS: "find: paths must precede expression: 0": for ttl in `find publish -depth 0 -name "*.ttl"`; do echo $ttl; published="yes"; done
+      for ttl in `find publish -maxdepth 1 -name "*.ttl"`; do echo $ttl; published="yes"; done
       if [[ "$published" == "no" ]]; then
          echo "`basename $0` rerunning publish/bin/publish.sh b/c no publish/*.ttl"
          publish/bin/publish.sh
