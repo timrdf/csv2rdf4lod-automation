@@ -3,8 +3,11 @@
    xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
    xmlns:foaf="http://xmlns.com/foaf/0.1/"
    xmlns:owl="http://www.w3.org/2002/07/owl#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:swrc="http://swrc.ontoware.org/ontology#">
   <foaf:Person rdf:about="http://purl.org/twc/id/person/TimLebo">
+    <swrc:supervisor rdf:resource="http://data.semanticweb.org/person/deborah-mcguinness"/>
+    <swrc:supervisor rdf:resource="http://tw.rpi.edu/instances/Deborah_L_McGuinness"/>
     <con:preferredURI rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
     <owl:sameAs rdf:resource="http://data.semanticweb.org/person/timothy-lebo"/>
     <owl:sameAs rdf:resource="http://graph.facebook.com/24407945#"/>
