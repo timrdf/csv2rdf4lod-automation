@@ -3,7 +3,7 @@
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-where-was-envvar-set.sh
 
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
-   echo "usage: `basename $0` [-rc ~/.bashrc] [CSV2RDF4LOD_var] [--only]"
+   echo "usage: `basename $0` [-rc ~/.bashrc] [ [--list] | [CSV2RDF4LOD_var] [--only] ]"
    echo "                -rc : the rc (.bashrc, .login, etc.) file used to source all csv2rdf4lod-source-mes"
    echo "  [CSV2RDF4LOD_var] : a CSV2RDF4LOD_ environment variable name."
    echo "                      All variables are listed by running cr-vars.sh"
@@ -19,6 +19,11 @@ rc="~/.bashrc"
 if [[ "$1" == "-rc" && $# -ge 2 ]]; then
    rc="$2"
    shift 2
+fi
+
+list="no"
+if [[ "$1" != "--list" ]]; then
+   list="yes"
 fi
 
 var="CSV2RDF4LOD_HOME"
@@ -40,7 +45,9 @@ if [[ ! -e $rc ]]; then
 fi
 
 for sourceme in `grep "^source .*csv2rdf4lod-source-me*" $rc | awk '{print $2}'`; do 
-   if [[ ${#omit} -eq 0 ]]; then
+   if [[ $list == "yes" ]]; then
+      echo $sourceme
+   elif [[ ${#omit} -eq 0 ]]; then
       grep -H "^export $var" $sourceme | sed 's/:export /:export      /'
    else
       grep -H "^export $var" $sourceme | grep -v "$omit" | sed 's/:export /:     export /'
