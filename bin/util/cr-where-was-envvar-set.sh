@@ -45,6 +45,6 @@ for sourceme in `grep "^source .*csv2rdf4lod-source-me*" $rc | awk '{print $2}'`
       grep -H "\"^export $var\"" $sourceme
    else
       echo "grep -H "\"^export $var\"" $sourceme | grep -v $omit"
-      grep -H "\"^export $var\"" $sourceme | grep -v $omit
+      grep -H "\"^export $var\"" $sourceme | grep -v "$omit"
    fi
 done
