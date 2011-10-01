@@ -21,6 +21,8 @@ fi
 
 if [[ ! -e $rc ]]; then
    echo "`basename $0`: $rc does not exist; try -rc option"
+   echo
+   echo
    $0 -h
    exit
 fi
