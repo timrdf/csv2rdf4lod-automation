@@ -3,7 +3,11 @@
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-where-was-envvar-set.sh
 
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
-   echo "usage: `basename $0` [-rc ~/.bashrc] <CSV2RDF4LOD_var>"
+   echo "usage: `basename $0` [-rc ~/.bashrc] [CSV2RDF4LOD_var]"
+   echo "  -rc - the rc file used to source all csv2rdf4lod-source-mes"
+   echo "  [CSV2RDF4LOD_var] - a CSV2RDF4LOD_ environment variable name (defaults to CSV2RDF4LOD_HOME)"
+   echo 
+   echo "see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables"
    exit 1
 fi
 
