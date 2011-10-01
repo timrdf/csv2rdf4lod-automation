@@ -11,7 +11,9 @@
               <http://inference-web.org/registry/PER/TimLebo.owl#TimLebo>,
               <http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo>,
               <http://rio.cs.utep.edu/ciserver/person/Timothy_Lebo.owl#Timothy_Lebo>,
-              <http://graph.facebook.com/24407945#>;
+              <http://graph.facebook.com/24407945#>,
+              <http://iswc.mobi/2011/person/timothy-lebo>,
+              <http://data.semanticweb.org/person/timothy-lebo>;
 
    con:preferredURI <http://purl.org/twc/id/person/TimLebo>;
 
