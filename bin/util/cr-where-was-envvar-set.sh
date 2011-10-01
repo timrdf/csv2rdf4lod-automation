@@ -29,7 +29,7 @@ fi
 
 omit=""
 if [[ "$1" == "--only" ]]; then
-   omit=`echo $var | awk '{print "\""substr($0,length($0)-2,3)"_\""}'` 
+   omit=`echo $var | awk '{print substr($0,length($0)-2,3)"_"}'` 
 fi
 
 if [[ ! -e $rc ]]; then
