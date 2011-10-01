@@ -22,9 +22,9 @@ fi
 if [[ ! -e $rc ]]; then
    echo "`basename $0`: $rc does not exist; try -rc option"
    $0 -h
+   exit
 fi
 
 for sourceme in `grep "^source .*csv2rdf4lod-source-me*" $rc | awk '{print $2}'`; do 
-   echo grep -H "^export $var" $sourceme
    grep -H "^export $var" $sourceme
 done
