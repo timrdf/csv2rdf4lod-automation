@@ -23,6 +23,7 @@ fi
 var="CSV2RDF4LOD_HOME"
 if [[ $# -gt 0 ]]; then
    var="$2"
+   echo switching to $var
    shift
 fi
 
