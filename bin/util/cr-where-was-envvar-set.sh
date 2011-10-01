@@ -28,7 +28,7 @@ if [[ $# -gt 0 && "$1" != "--only" ]]; then
 fi
 
 if [[ "$1" == "--only" ]]; then
-   omit=`echo $var | awk '{print "| grep -v "substr($0,length($0)-2,3)"_"}'` 
+   omit=`echo $var | awk '{print "| grep -v \""substr($0,length($0)-2,3)"_\""}'` 
 fi
 
 if [[ ! -e $rc ]]; then
@@ -40,5 +40,5 @@ fi
 
 for sourceme in `grep "^source .*csv2rdf4lod-source-me*" $rc | awk '{print $2}'`; do 
    echo grep -H "^export $var" $sourceme $omit
-   grep -H "^export $var" $sourceme $omit
+   grep -H "\"^export $var\"" $sourceme $omit
 done
