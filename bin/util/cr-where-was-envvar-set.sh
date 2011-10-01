@@ -28,7 +28,7 @@ if [[ $# -gt 0 && "$1" != "--only" ]]; then
 fi
 
 if [[ "$1" == "--only" ]]; then
-   omit=`echo $var | awk '{print "| grep -v"substr($0,length($0)-2,3)"_"}'` 
+   omit=`echo $var | awk '{print "| grep -v "substr($0,length($0)-2,3)"_"}'` 
 fi
 
 if [[ ! -e $rc ]]; then
