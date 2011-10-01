@@ -20,5 +20,6 @@ if [[ $# -gt 0 ]]; then
 fi
 
 for sourceme in `grep "^source .*csv2rdf4lod-source-me*" $rc | awk '{print $2}'`; do 
+   echo grep -H $var $sourceme
    grep -H $var $sourceme
 done
