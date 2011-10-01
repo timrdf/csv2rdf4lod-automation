@@ -22,7 +22,7 @@ if [[ "$1" == "-rc" && $# -ge 2 ]]; then
 fi
 
 list="no"
-if [[ "$1" != "--list" ]]; then
+if [[ "$1" == "--list" ]]; then
    list="yes"
    shift
 fi
