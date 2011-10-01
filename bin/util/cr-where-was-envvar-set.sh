@@ -19,6 +19,8 @@ if [[ $# -gt 0 ]]; then
    shift
 fi
 
+ls -lt $rc
+
 for sourceme in `grep "^source .*csv2rdf4lod-source-me*" $rc | awk '{print $2}'`; do 
    echo grep -H $var $sourceme
    grep -H $var $sourceme
