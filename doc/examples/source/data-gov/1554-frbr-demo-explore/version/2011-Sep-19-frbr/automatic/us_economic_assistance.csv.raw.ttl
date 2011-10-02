@@ -25,13 +25,14 @@
 @prefix raw: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/vocab/raw/> .
 @prefix : <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/> .
 @prefix ns1: <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/> .
-@prefix sioc: <http://rdfs.org/sioc/ns#> .
-@prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
-@prefix irw: <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
 @prefix frir: <http://purl.org/twc/ontology/frir.owl#> .
+@prefix irw: <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
 @prefix prov: <http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
 
 raw:country_name a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "1"^^xsd:integer ;
 	ov:csvHeader "country_name" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -39,6 +40,7 @@ raw:country_name a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:program_name a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "2"^^xsd:integer ;
 	ov:csvHeader "program_name" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -46,6 +48,7 @@ raw:program_name a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1946 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "3"^^xsd:integer ;
 	ov:csvHeader "FY1946" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -53,6 +56,7 @@ raw:fy1946 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1947 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "4"^^xsd:integer ;
 	ov:csvHeader "FY1947" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -60,6 +64,7 @@ raw:fy1947 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1948 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "5"^^xsd:integer ;
 	ov:csvHeader "FY1948" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -67,6 +72,7 @@ raw:fy1948 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1949 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "6"^^xsd:integer ;
 	ov:csvHeader "FY1949" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -74,6 +80,7 @@ raw:fy1949 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1950 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "7"^^xsd:integer ;
 	ov:csvHeader "FY1950" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -81,6 +88,7 @@ raw:fy1950 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1951 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "8"^^xsd:integer ;
 	ov:csvHeader "FY1951" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -88,6 +96,7 @@ raw:fy1951 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1952 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "9"^^xsd:integer ;
 	ov:csvHeader "FY1952" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -95,6 +104,7 @@ raw:fy1952 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1953 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "10"^^xsd:integer ;
 	ov:csvHeader "FY1953" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -102,6 +112,7 @@ raw:fy1953 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1954 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "11"^^xsd:integer ;
 	ov:csvHeader "FY1954" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -109,6 +120,7 @@ raw:fy1954 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1955 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "12"^^xsd:integer ;
 	ov:csvHeader "FY1955" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -116,6 +128,7 @@ raw:fy1955 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1956 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "13"^^xsd:integer ;
 	ov:csvHeader "FY1956" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -123,6 +136,7 @@ raw:fy1956 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1957 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "14"^^xsd:integer ;
 	ov:csvHeader "FY1957" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -130,6 +144,7 @@ raw:fy1957 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1958 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "15"^^xsd:integer ;
 	ov:csvHeader "FY1958" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -137,6 +152,7 @@ raw:fy1958 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1959 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "16"^^xsd:integer ;
 	ov:csvHeader "FY1959" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -144,6 +160,7 @@ raw:fy1959 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1960 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "17"^^xsd:integer ;
 	ov:csvHeader "FY1960" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -151,6 +168,7 @@ raw:fy1960 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1961 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "18"^^xsd:integer ;
 	ov:csvHeader "FY1961" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -158,6 +176,7 @@ raw:fy1961 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1962 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "19"^^xsd:integer ;
 	ov:csvHeader "FY1962" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -165,6 +184,7 @@ raw:fy1962 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1963 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "20"^^xsd:integer ;
 	ov:csvHeader "FY1963" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -172,6 +192,7 @@ raw:fy1963 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1964 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "21"^^xsd:integer ;
 	ov:csvHeader "FY1964" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -179,6 +200,7 @@ raw:fy1964 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1965 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "22"^^xsd:integer ;
 	ov:csvHeader "FY1965" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -186,6 +208,7 @@ raw:fy1965 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1966 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "23"^^xsd:integer ;
 	ov:csvHeader "FY1966" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -193,6 +216,7 @@ raw:fy1966 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1967 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "24"^^xsd:integer ;
 	ov:csvHeader "FY1967" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -200,6 +224,7 @@ raw:fy1967 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1968 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "25"^^xsd:integer ;
 	ov:csvHeader "FY1968" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -207,6 +232,7 @@ raw:fy1968 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1969 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "26"^^xsd:integer ;
 	ov:csvHeader "FY1969" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -214,6 +240,7 @@ raw:fy1969 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1970 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "27"^^xsd:integer ;
 	ov:csvHeader "FY1970" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -221,6 +248,7 @@ raw:fy1970 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1971 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "28"^^xsd:integer ;
 	ov:csvHeader "FY1971" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -228,6 +256,7 @@ raw:fy1971 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1972 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "29"^^xsd:integer ;
 	ov:csvHeader "FY1972" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -235,6 +264,7 @@ raw:fy1972 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1973 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "30"^^xsd:integer ;
 	ov:csvHeader "FY1973" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -242,6 +272,7 @@ raw:fy1973 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1974 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "31"^^xsd:integer ;
 	ov:csvHeader "FY1974" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -249,6 +280,7 @@ raw:fy1974 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1975 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "32"^^xsd:integer ;
 	ov:csvHeader "FY1975" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -256,6 +288,7 @@ raw:fy1975 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1976 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "33"^^xsd:integer ;
 	ov:csvHeader "FY1976" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -263,6 +296,7 @@ raw:fy1976 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1976tq a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "34"^^xsd:integer ;
 	ov:csvHeader "FY1976tq" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -270,6 +304,7 @@ raw:fy1976tq a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1977 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "35"^^xsd:integer ;
 	ov:csvHeader "FY1977" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -277,6 +312,7 @@ raw:fy1977 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1978 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "36"^^xsd:integer ;
 	ov:csvHeader "FY1978" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -284,6 +320,7 @@ raw:fy1978 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1979 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "37"^^xsd:integer ;
 	ov:csvHeader "FY1979" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -291,6 +328,7 @@ raw:fy1979 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1980 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "38"^^xsd:integer ;
 	ov:csvHeader "FY1980" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -298,6 +336,7 @@ raw:fy1980 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1981 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "39"^^xsd:integer ;
 	ov:csvHeader "FY1981" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -305,6 +344,7 @@ raw:fy1981 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1982 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "40"^^xsd:integer ;
 	ov:csvHeader "FY1982" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -312,6 +352,7 @@ raw:fy1982 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1983 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "41"^^xsd:integer ;
 	ov:csvHeader "FY1983" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -319,6 +360,7 @@ raw:fy1983 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1984 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "42"^^xsd:integer ;
 	ov:csvHeader "FY1984" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -326,6 +368,7 @@ raw:fy1984 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1985 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "43"^^xsd:integer ;
 	ov:csvHeader "FY1985" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -333,6 +376,7 @@ raw:fy1985 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1986 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "44"^^xsd:integer ;
 	ov:csvHeader "FY1986" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -340,6 +384,7 @@ raw:fy1986 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1987 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "45"^^xsd:integer ;
 	ov:csvHeader "FY1987" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -347,6 +392,7 @@ raw:fy1987 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1988 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "46"^^xsd:integer ;
 	ov:csvHeader "FY1988" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -354,6 +400,7 @@ raw:fy1988 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1989 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "47"^^xsd:integer ;
 	ov:csvHeader "FY1989" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -361,6 +408,7 @@ raw:fy1989 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1990 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "48"^^xsd:integer ;
 	ov:csvHeader "FY1990" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -368,6 +416,7 @@ raw:fy1990 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1991 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "49"^^xsd:integer ;
 	ov:csvHeader "FY1991" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -375,6 +424,7 @@ raw:fy1991 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1992 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "50"^^xsd:integer ;
 	ov:csvHeader "FY1992" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -382,6 +432,7 @@ raw:fy1992 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1993 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "51"^^xsd:integer ;
 	ov:csvHeader "FY1993" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -389,6 +440,7 @@ raw:fy1993 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1994 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "52"^^xsd:integer ;
 	ov:csvHeader "FY1994" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -396,6 +448,7 @@ raw:fy1994 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1995 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "53"^^xsd:integer ;
 	ov:csvHeader "FY1995" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -403,6 +456,7 @@ raw:fy1995 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1996 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "54"^^xsd:integer ;
 	ov:csvHeader "FY1996" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -410,6 +464,7 @@ raw:fy1996 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1997 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "55"^^xsd:integer ;
 	ov:csvHeader "FY1997" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -417,6 +472,7 @@ raw:fy1997 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1998 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "56"^^xsd:integer ;
 	ov:csvHeader "FY1998" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -424,6 +480,7 @@ raw:fy1998 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy1999 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "57"^^xsd:integer ;
 	ov:csvHeader "FY1999" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -431,6 +488,7 @@ raw:fy1999 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy2000 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "58"^^xsd:integer ;
 	ov:csvHeader "FY2000" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -438,6 +496,7 @@ raw:fy2000 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy2001 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "59"^^xsd:integer ;
 	ov:csvHeader "FY2001" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -445,6 +504,7 @@ raw:fy2001 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy2002 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "60"^^xsd:integer ;
 	ov:csvHeader "FY2002" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -452,6 +512,7 @@ raw:fy2002 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy2003 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "61"^^xsd:integer ;
 	ov:csvHeader "FY2003" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -459,6 +520,7 @@ raw:fy2003 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy2004 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "62"^^xsd:integer ;
 	ov:csvHeader "FY2004" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -466,6 +528,7 @@ raw:fy2004 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy2005 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "63"^^xsd:integer ;
 	ov:csvHeader "FY2005" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -473,6 +536,7 @@ raw:fy2005 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy2006 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "64"^^xsd:integer ;
 	ov:csvHeader "FY2006" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -480,6 +544,7 @@ raw:fy2006 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy2007 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "65"^^xsd:integer ;
 	ov:csvHeader "FY2007" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -487,6 +552,7 @@ raw:fy2007 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy2008 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "66"^^xsd:integer ;
 	ov:csvHeader "FY2008" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
@@ -494,6 +560,7 @@ raw:fy2008 a rdf:Property ;
 	rdfs:range rdfs:Literal .
 
 raw:fy2009 a rdf:Property ;
+	ov:csvRow "1"^^xsd:integer ;
 	ov:csvCol "67"^^xsd:integer ;
 	ov:csvHeader "FY2009" ;
 	dcterms:isReferencedBy <http://localhost/source/data-gov/dataset/1554-frbr-demo-explore/version/2011-Sep-19-frbr/conversion/raw> ;
