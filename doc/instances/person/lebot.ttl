@@ -44,10 +44,15 @@
    foaf:pastProject [ foaf:page <https://ritdml.rit.edu/bitstream/handle/1850/993/TLeboThesis07-2005.pdf>,
                                 <https://ritdml.rit.edu/handle/1850/993>,
                                 <http://www.actapress.com/Abstract.aspx?paperId=27881> ];
-   foaf:holdsAccount <http://twitlogic.fortytwo.net/user/twitter/140428623>;
+   foaf:holdsAccount <http://twitlogic.fortytwo.net/user/twitter/140428623>,
+                     <http://semantictweet.com/timrdf#me>;
 .
 
 <http://twitlogic.fortytwo.net/user/twitter/140428623> a sioc:UserAccount;
    rdfs:seeAlso        <http://twitlogic.fortytwo.net/person/twitter/timrdf>;
-   foaf:primaryTopicOf <http://flux.franz.com/catalogs/demos/repositories/iswc2010#node/%3Chttp://twitlogic.fortytwo.net/user/twitter/140428623%3E>;
+   foaf:isPrimaryTopicOf <http://flux.franz.com/catalogs/demos/repositories/iswc2010#node/%3Chttp://twitlogic.fortytwo.net/user/twitter/140428623%3E>;
+.
+<http://semantictweet.com/timrdf#me> a sioc:UserAccount;
+   foaf:isPrimaryTopicOf <http://pegasus.chem.soton.ac.uk/search?q=timrdf>;
+                         <http://pegasus.chem.soton.ac.uk/search.rdf?q=timrdf>;
 .
