@@ -4,6 +4,7 @@
    xmlns:foaf="http://xmlns.com/foaf/0.1/"
    xmlns:owl="http://www.w3.org/2002/07/owl#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:sioc="http://rdfs.org/sioc/ns#"
    xmlns:swrc="http://swrc.ontoware.org/ontology#">
   <foaf:Person rdf:about="http://purl.org/twc/id/person/TimLebo">
     <swrc:supervisor rdf:resource="http://data.semanticweb.org/person/deborah-mcguinness"/>
@@ -17,6 +18,7 @@
     <owl:sameAs rdf:resource="http://tw.rpi.edu/instances/TimLebo"/>
     <owl:sameAs rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo"/>
     <foaf:currentProject rdf:resource="http://purl.org/twc/id/software/csv2rdf4lod"/>
+    <foaf:holdsAccount rdf:resource="http://twitlogic.fortytwo.net/user/twitter/140428623"/>
     <foaf:knows rdf:resource="http://data.lirmm.fr/ontologies/vdpp#fran%C3%A7ois"/>
     <foaf:knows rdf:resource="http://data.semanticweb.org/person/satya-s-sahoo"/>
     <foaf:knows rdf:resource="http://purl.org/twc/id/person/NicholasDelRio"/>
@@ -43,4 +45,5 @@
       </rdf:Description>
     </foaf:pastProject>
   </foaf:Person>
+  <sioc:UserAccount rdf:about="http://twitlogic.fortytwo.net/user/twitter/140428623"/>
 </rdf:RDF>

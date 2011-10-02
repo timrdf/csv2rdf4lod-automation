@@ -1,6 +1,7 @@
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix con:  <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
 @prefix swrc: <http://swrc.ontoware.org/ontology#> .
 
 <http://purl.org/twc/id/person/TimLebo>
@@ -41,4 +42,10 @@
    foaf:pastProject [ foaf:page <https://ritdml.rit.edu/bitstream/handle/1850/993/TLeboThesis07-2005.pdf>,
                                 <https://ritdml.rit.edu/handle/1850/993>,
                                 <http://www.actapress.com/Abstract.aspx?paperId=27881> ];
+   foaf:holdsAccount <http://twitlogic.fortytwo.net/user/twitter/140428623>;
+.
+
+<http://twitlogic.fortytwo.net/user/twitter/140428623> a sioc:UserAccount;
+   rdfs:seeAlso        <http://twitlogic.fortytwo.net/person/twitter/timrdf>;
+   foaf:primaryTopicOf <http://flux.franz.com/catalogs/demos/repositories/iswc2010#node/%3Chttp://twitlogic.fortytwo.net/user/twitter/140428623%3E>;
 .
