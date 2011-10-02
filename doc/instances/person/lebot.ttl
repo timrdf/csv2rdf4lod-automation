@@ -16,7 +16,8 @@
               <http://rio.cs.utep.edu/ciserver/person/Timothy_Lebo.owl#Timothy_Lebo>,
               <http://graph.facebook.com/24407945#>,
               <http://iswc.mobi/2011/person/timothy-lebo>,
-              <http://data.semanticweb.org/person/timothy-lebo>;
+              <http://data.semanticweb.org/person/timothy-lebo>,
+              <http://twitlogic.fortytwo.net/person/twitter/140428623>;
 
    con:preferredURI <http://purl.org/twc/id/person/TimLebo>;
 
