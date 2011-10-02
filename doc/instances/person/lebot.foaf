@@ -20,6 +20,7 @@
     <foaf:knows rdf:resource="http://data.lirmm.fr/ontologies/vdpp#fran%C3%A7ois"/>
     <foaf:knows rdf:resource="http://data.semanticweb.org/person/satya-s-sahoo"/>
     <foaf:knows rdf:resource="http://purl.org/twc/id/person/NicholasDelRio"/>
+    <foaf:knows rdf:resource="http://tw.rpi.edu/instances/XianLi"/>
     <foaf:knows rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdf#me"/>
     <foaf:knows rdf:resource="http://www.deri.ie/about/team/member/Lin_Clark#me"/>
     <foaf:knows rdf:resource="http://www.w3.org/People/Eric/ericP-foaf#ericP"/>

@@ -18,7 +18,8 @@
 
    con:preferredURI <http://purl.org/twc/id/person/TimLebo>;
 
-   foaf:knows <http://www.deri.ie/about/team/member/Lin_Clark#me>,
+   foaf:knows <http://tw.rpi.edu/instances/XianLi>,
+              <http://www.deri.ie/about/team/member/Lin_Clark#me>,
               <http://www.cs.rpi.edu/~weavej3/foaf.rdf#me>,
               [ a foaf:Person;
                 foaf:givenname    "Leonardo";
