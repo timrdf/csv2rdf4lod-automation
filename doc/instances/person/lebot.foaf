@@ -4,6 +4,7 @@
    xmlns:foaf="http://xmlns.com/foaf/0.1/"
    xmlns:owl="http://www.w3.org/2002/07/owl#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
    xmlns:sioc="http://rdfs.org/sioc/ns#"
    xmlns:swrc="http://swrc.ontoware.org/ontology#">
   <foaf:Person rdf:about="http://purl.org/twc/id/person/TimLebo">
@@ -45,5 +46,8 @@
       </rdf:Description>
     </foaf:pastProject>
   </foaf:Person>
-  <sioc:UserAccount rdf:about="http://twitlogic.fortytwo.net/user/twitter/140428623"/>
+  <sioc:UserAccount rdf:about="http://twitlogic.fortytwo.net/user/twitter/140428623">
+    <rdfs:seeAlso rdf:resource="http://twitlogic.fortytwo.net/person/twitter/timrdf"/>
+    <foaf:primaryTopicOf rdf:resource="http://flux.franz.com/catalogs/demos/repositories/iswc2010#node/%3Chttp://twitlogic.fortytwo.net/user/twitter/140428623%3E"/>
+  </sioc:UserAccount>
 </rdf:RDF>
