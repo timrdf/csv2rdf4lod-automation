@@ -48,6 +48,10 @@
       </rdf:Description>
     </foaf:pastProject>
   </foaf:Person>
+  <sioc:UserAccount rdf:about="http://semantictweet.com/timrdf#me">
+    <foaf:isPrimaryTopicOf rdf:resource="http://pegasus.chem.soton.ac.uk/search.rdf?q=timrdf"/>
+    <foaf:isPrimaryTopicOf rdf:resource="http://pegasus.chem.soton.ac.uk/search?q=timrdf"/>
+  </sioc:UserAccount>
   <sioc:UserAccount rdf:about="http://twitlogic.fortytwo.net/user/twitter/140428623">
     <rdfs:seeAlso rdf:resource="http://twitlogic.fortytwo.net/person/twitter/timrdf"/>
     <foaf:isPrimaryTopicOf rdf:resource="http://flux.franz.com/catalogs/demos/repositories/iswc2010#node/%3Chttp://twitlogic.fortytwo.net/user/twitter/140428623%3E"/>
