@@ -1,10 +1,10 @@
-@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix con:    <http://www.w3.org/2000/10/swap/pim/contact#> .
-@prefix owl:    <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms <http://purl.org/dc/terms/> .
-@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
-@prefix sioc:   <http://rdfs.org/sioc/ns#> .
-@prefix swrc:   <http://swrc.ontoware.org/ontology#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix con:     <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix sioc:    <http://rdfs.org/sioc/ns#> .
+@prefix swrc:    <http://swrc.ontoware.org/ontology#> .
 
 <http://purl.org/twc/id/person/TimLebo>
    a foaf:Person;

@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF
    xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
    xmlns:owl="http://www.w3.org/2002/07/owl#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"/>
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:sioc="http://rdfs.org/sioc/ns#"
+   xmlns:swrc="http://swrc.ontoware.org/ontology#">
+  <foaf:Person rdf:about="http://purl.org/twc/id/person/TimLebo">
+    <swrc:supervisor rdf:resource="http://data.semanticweb.org/person/deborah-mcguinness"/>
+    <swrc:supervisor rdf:resource="http://tw.rpi.edu/instances/Deborah_L_McGuinness"/>
+    <con:preferredURI rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
+    <owl:sameAs rdf:resource="http://data.semanticweb.org/person/timothy-lebo"/>
+    <owl:sameAs rdf:resource="http://graph.facebook.com/24407945#"/>
+    <owl:sameAs rdf:resource="http://inference-web.org/registry/PER/TimLebo.owl#TimLebo"/>
+    <owl:sameAs rdf:resource="http://iswc.mobi/2011/person/timothy-lebo"/>
+    <owl:sameAs rdf:resource="http://rio.cs.utep.edu/ciserver/person/Timothy_Lebo.owl#Timothy_Lebo"/>
+    <owl:sameAs rdf:resource="http://tw.rpi.edu/instances/TimLebo"/>
+    <owl:sameAs rdf:resource="http://twitlogic.fortytwo.net/person/twitter/140428623"/>
+    <owl:sameAs rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo"/>
+    <foaf:currentProject rdf:resource="http://purl.org/twc/id/software/csv2rdf4lod"/>
+    <foaf:holdsAccount rdf:resource="http://semantictweet.com/timrdf#me"/>
+    <foaf:holdsAccount rdf:resource="http://twitlogic.fortytwo.net/user/twitter/140428623"/>
+    <foaf:interest>
+      <rdf:Description>
+        <foaf:homepage rdf:resource="http://sadiframework.org/content/about-sadi/"/>
+      </rdf:Description>
+    </foaf:interest>
+    <foaf:knows rdf:resource="http://data.lirmm.fr/ontologies/vdpp#fran%C3%A7ois"/>
+    <foaf:knows rdf:resource="http://data.semanticweb.org/person/satya-s-sahoo"/>
+    <foaf:knows rdf:resource="http://purl.org/twc/id/person/NicholasDelRio"/>
+    <foaf:knows rdf:resource="http://tw.rpi.edu/instances/XianLi"/>
+    <foaf:knows rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdf#me"/>
+    <foaf:knows rdf:resource="http://www.deri.ie/about/team/member/Lin_Clark#me"/>
+    <foaf:knows rdf:resource="http://www.w3.org/People/Eric/ericP-foaf#ericP"/>
+    <foaf:knows>
+      <foaf:Person>
+        <owl:sameAs rdf:resource="http://purl.org/twc/id/person/LeonardoSalayandia"/>
+        <foaf:depiction rdf:resource="http://www.cs.utep.edu/leonardo/salayandia.jpg"/>
+        <foaf:family_name>Salayandia</foaf:family_name>
+        <foaf:givenname>Leonardo</foaf:givenname>
+        <foaf:homepage rdf:resource="http://www.cs.utep.edu/leonardo"/>
+        <foaf:nick>Leo</foaf:nick>
+      </foaf:Person>
+    </foaf:knows>
+    <foaf:page rdf:resource="http://tw.rpi.edu/web/person/TimLebo"/>
+    <foaf:pastProject>
+      <rdf:Description>
+        <foaf:page rdf:resource="http://www.actapress.com/Abstract.aspx?paperId=27881"/>
+        <foaf:page rdf:resource="https://ritdml.rit.edu/bitstream/handle/1850/993/TLeboThesis07-2005.pdf"/>
+        <foaf:page rdf:resource="https://ritdml.rit.edu/handle/1850/993"/>
+      </rdf:Description>
+    </foaf:pastProject>
+  </foaf:Person>
+  <sioc:UserAccount rdf:about="http://semantictweet.com/timrdf#me">
+    <foaf:depiction rdf:resource="http://www.cogsci.rpi.edu/pl/issues-cognitive-science-video-archive?vid=163&amp;egid=&amp;pageid=509&amp;siteid=26"/>
+    <foaf:isPrimaryTopicOf rdf:resource="http://pegasus.chem.soton.ac.uk/search.rdf?q=timrdf"/>
+    <foaf:isPrimaryTopicOf rdf:resource="http://pegasus.chem.soton.ac.uk/search?q=timrdf"/>
+  </sioc:UserAccount>
+  <rdf:Description rdf:about="http://semanticweb.com/heads-up-to-computational-biologists-go-semantic-and-go-further-with-your-data_b21463#more-21463">
+    <dcterms:subject rdf:resource="http://purl.org/twc/id/software/csv2rdf4lod"/>
+    <dcterms:subject rdf:resource="http://tw.rpi.edu/instances/JamesMcCusker"/>
+    <dcterms:subject rdf:resource="http://tw.rpi.edu/instances/TimLebo"/>
+    <dcterms:subject>
+      <rdf:Description>
+        <foaf:homepage rdf:resource="http://code.google.com/p/twc-lobd/"/>
+      </rdf:Description>
+    </dcterms:subject>
+  </rdf:Description>
+  <sioc:UserAccount rdf:about="http://twitlogic.fortytwo.net/user/twitter/140428623">
+    <rdfs:seeAlso rdf:resource="http://twitlogic.fortytwo.net/person/twitter/timrdf"/>
+    <foaf:isPrimaryTopicOf rdf:resource="http://flux.franz.com/catalogs/demos/repositories/iswc2010#node/%3Chttp://twitlogic.fortytwo.net/user/twitter/140428623%3E"/>
+  </sioc:UserAccount>
+</rdf:RDF>
