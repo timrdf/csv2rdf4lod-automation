@@ -22,6 +22,11 @@
     <foaf:currentProject rdf:resource="http://purl.org/twc/id/software/csv2rdf4lod"/>
     <foaf:holdsAccount rdf:resource="http://semantictweet.com/timrdf#me"/>
     <foaf:holdsAccount rdf:resource="http://twitlogic.fortytwo.net/user/twitter/140428623"/>
+    <foaf:interest>
+      <rdf:Description>
+        <foaf:homepage rdf:resource="http://sadiframework.org/content/about-sadi/"/>
+      </rdf:Description>
+    </foaf:interest>
     <foaf:knows rdf:resource="http://data.lirmm.fr/ontologies/vdpp#fran%C3%A7ois"/>
     <foaf:knows rdf:resource="http://data.semanticweb.org/person/satya-s-sahoo"/>
     <foaf:knows rdf:resource="http://purl.org/twc/id/person/NicholasDelRio"/>
@@ -49,6 +54,7 @@
     </foaf:pastProject>
   </foaf:Person>
   <sioc:UserAccount rdf:about="http://semantictweet.com/timrdf#me">
+    <foaf:depiction rdf:resource="http://www.cogsci.rpi.edu/pl/issues-cognitive-science-video-archive?vid=163&amp;egid=&amp;pageid=509&amp;siteid=26"/>
     <foaf:isPrimaryTopicOf rdf:resource="http://pegasus.chem.soton.ac.uk/search.rdf?q=timrdf"/>
     <foaf:isPrimaryTopicOf rdf:resource="http://pegasus.chem.soton.ac.uk/search?q=timrdf"/>
   </sioc:UserAccount>

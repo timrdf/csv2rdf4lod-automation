@@ -46,6 +46,7 @@
                                 <http://www.actapress.com/Abstract.aspx?paperId=27881> ];
    foaf:holdsAccount <http://twitlogic.fortytwo.net/user/twitter/140428623>,
                      <http://semantictweet.com/timrdf#me>;
+   foaf:interest [ foaf:homepage <http://sadiframework.org/content/about-sadi/> ];
 .
 
 <http://twitlogic.fortytwo.net/user/twitter/140428623> a sioc:UserAccount;
@@ -55,4 +56,12 @@
 <http://semantictweet.com/timrdf#me> a sioc:UserAccount;
    foaf:isPrimaryTopicOf <http://pegasus.chem.soton.ac.uk/search?q=timrdf>,
                          <http://pegasus.chem.soton.ac.uk/search.rdf?q=timrdf>;
+   foaf:depiction <http://www.cogsci.rpi.edu/pl/issues-cognitive-science-video-archive?vid=163&egid=&pageid=509&siteid=26>;
+.
+
+<http://semanticweb.com/heads-up-to-computational-biologists-go-semantic-and-go-further-with-your-data_b21463#more-21463>
+   dcterms:subject <http://tw.rpi.edu/instances/JamesMcCusker>, 
+                   <http://tw.rpi.edu/instances/TimLebo>, 
+                   <http://purl.org/twc/id/software/csv2rdf4lod>, 
+                  [ foaf:homepage <http://code.google.com/p/twc-lobd/> ];
 .
