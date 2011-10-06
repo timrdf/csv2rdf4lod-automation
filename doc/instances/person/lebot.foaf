@@ -45,6 +45,12 @@
         <foaf:nick>Leo</foaf:nick>
       </foaf:Person>
     </foaf:knows>
+    <foaf:member rdf:resource="http://tw.rpi.edu/instances/TetherlessWorldConstellation"/>
+    <foaf:member>
+      <foaf:Organization>
+        <foaf:homepage rdf:resource="http://www.w3.org/2011/prov/wiki/Main_Page"/>
+      </foaf:Organization>
+    </foaf:member>
     <foaf:page rdf:resource="http://tw.rpi.edu/web/person/TimLebo"/>
     <foaf:pastProject>
       <rdf:Description>
