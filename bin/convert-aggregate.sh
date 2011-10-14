@@ -753,6 +753,9 @@ echo 'CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/
 #echo "  dump=$allNT.\$serialization"                                                           >> $vloadSH
 #echo "done"                                                                                    >> $vloadSH
 echo ""                                                                                         >> $vloadSH
+echo "if [ -e $lnwwwrootSH ]; then # Make sure the file we will load from the web is published" >> $vloadSH
+echo "  $lnwwwrootSH"                                                                           >> $vloadSH
+echo "fi"                                                                                       >> $vloadSH
 echo "allNT=$allNT # to cite graph"                                                             >> $vloadSH
 echo "graph=\"\`cat \$allNT.graph\`\""                                                          >> $vloadSH
 echo "if [ \"\$1\" == \"--sample\" ]; then"                                                     >> $vloadSH
