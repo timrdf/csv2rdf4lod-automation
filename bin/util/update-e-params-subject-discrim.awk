@@ -16,16 +16,16 @@
       # Change subject to name of layer dataset itself.
       printf("<%s/source/%s/dataset/%s/version/%s/conversion/enhancement/%s>\n",baseURI,sourceID,dataset_identifier,datasetVersion,layerID);
 
-   }else if( $0~"conversion:subject_discriminator" ) {
+   }else if( $0~"conversion:subject_discriminator *\"" ) {
       printf("      conversion:subject_discriminator \"%s\";\n",subjectDiscriminator)
 
-   }else if( $0~"conversion:dataset_version" ) {                          # TODO: DEPRECATED (but converter not recognizing it)
+   }else if( $0~"conversion:dataset_version *\"" ) {                          # TODO: DEPRECATED (but converter not recognizing it)
       printf("   conversion:dataset_version    \"%s\";\n",datasetVersion)
 
-   }else if( $0~"conversion:version_identifier" ) {
+   }else if( $0~"conversion:version_identifier *\"" ) {
       printf("   conversion:version_identifier \"%s\";\n",datasetVersion)
 
-   }else if( $0~"conversion:dataset_identifier" && length(dataset_identifier) > 0) {
+   }else if( $0~"conversion:dataset_identifier *\"" && length(dataset_identifier) > 0) {
       printf("   conversion:dataset_identifier \"%s\";\n",dataset_identifier)
 
    }else {
