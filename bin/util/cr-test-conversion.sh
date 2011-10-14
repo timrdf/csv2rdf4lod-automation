@@ -32,19 +32,33 @@
 
 #CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
+
+# # # # # # --rq # # # # # #
+
 if [ "$1" == "--rq" ]; then
 
-   if [[ `is-pwd-a.sh cr:dataset`            == "no" && \
-         `is-pwd-a.sh cr:conversion-cockpit` == "no"      ]]; then
-      echo "  Working directory does not appear to be a 'DATASET' directory."
-      echo "  Run `basename $0` from a SOURCE directory (e.g. source/SOURCE/DATASET/)"
-      echo ""
-      echo "  Working directory does not appear to be a conversion cockpit."
-      echo "  Run `basename $0` from a SOURCE directory (e.g. source/SOURCE/DATASET/version/VERSION/)"
+   # replaced by is-pwd-a; pwd-not-a.sh below
+   #if [[ `is-pwd-a.sh cr:dataset`            == "no" && \
+   #      `is-pwd-a.sh cr:conversion-cockpit` == "no"      ]]; then
+   #   echo "  Working directory does not appear to be a 'DATASET' directory."
+   #   echo "  Run `basename $0` from a SOURCE directory (e.g. source/SOURCE/DATASET/)"
+   #   echo ""
+   #   echo "  Working directory does not appear to be a conversion cockpit."
+   #   echo "  Run `basename $0` from a SOURCE directory (e.g. source/SOURCE/DATASET/version/VERSION/)"
+   #   exit 1
+   #fi
+   #sourceID=`basename \`cd ../ 2>/dev/null && pwd\``
+   #datasetID=`basename \`pwd\``
+
+   # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
+   ACCEPTABLE_PWDs="cr:dataset cr:conversion-cockpit"
+   if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+      ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
       exit 1
    fi
-   sourceID=`basename \`cd ../ 2>/dev/null && pwd\``
-   datasetID=`basename \`pwd\``
+
+   sourceID=`is-pwd-a.sh cr:bone --id-of source`
+   datasetID=`is-pwd-a.sh cr:bone --id-of dataset`
 
    echo "Creating rq/test for dataset $sourceID $datasetID"
 
@@ -59,7 +73,7 @@ if [ "$1" == "--rq" ]; then
    present="rq/test/ask/present/a-dataset-exists.rq"
    if [ ! -e $present ]; then
       echo $present
-      echo "prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>" > $present
+      echo "prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>"  > $present
       echo "prefix void:       <http://rdfs.org/ns/void#>"              >> $present
       echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>" >> $present
       echo ""                                                           >> $present
@@ -95,8 +109,7 @@ if [ "$1" == "--rq" ]; then
 fi
 
 
-# # # # # # End of --rq # # # # # #
-
+# # # # # # --catalog # # # # # #
 
 if [ "$1" == "--catalog" ]; then
 
@@ -108,27 +121,38 @@ if [ "$1" == "--catalog" ]; then
             popd &> /dev/null
          fi
       done
+      exit
    elif [[ -d rq/test ]]; then
-      echo `cr-pwd.sh`/rq/test/list.ttl
-      pushd rq/test &> /dev/null
-         if [[ "$2" == "-w" ]]; then
-            echo "@prefix earl: <http://www.w3.org/ns/earl#> ."  > list.ttl
-            echo ""                                             >> list.ttl
-         fi
-         for test in `find . -name "*.rq" | sed 's/^\.\///'`; do
-            if [[ "$2" == "-w" ]]; then
-               echo "<$test> a earl:TestCase ." >> list.ttl
-            else
-               echo "    $test"
-            fi
-         done 
-      popd &> /dev/null
+      rq="."
+      list="rq/test/list"
+      echo `cr-pwd.sh`/$list.ttl
+   elif [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" && -d ../../rq/test ]]; then
+      rq="../../rq/test"
+      list="../../rq/test/list"
+      echo `pushd ../../ &>/dev/null; cr-pwd.sh; popd &>/dev/null`/rq/test/list.ttl
    else
       echo $0 $* 
       pwd-not-a.sh cr:data-root cr:dataset cr:conversion-cockpit 
+      exit
    fi
+
+   if [[ "$2" == "-w" ]]; then
+      echo "@prefix earl: <http://www.w3.org/ns/earl#> ."  > $list.ttl
+      echo ""                                             >> $list.ttl
+   fi
+   for test in `find $rq -name "*.rq" | sed 's/^\.\///'`; do
+      if [[ "$2" == "-w" ]]; then
+         echo "<$test> a earl:TestCase ."                 >> $list.ttl
+      else
+         echo "    $test"
+      fi
+   done 
    exit
 fi
+
+
+
+# # # # # # --show-catalog # # # # # #
 
 if [ "$1" == "--show-catalog" ]; then
    for list in `cr-test-conversion.sh --catalog | grep "^s"`; do 
@@ -152,8 +176,8 @@ fi
 #   exit
 #fi
 
-# # # # # # End of --catalog # # # # # #
 
+# # # # # #  --setup # # # # # #
 
 if [ "$1" == "--setup" ]; then
    shift
@@ -189,8 +213,7 @@ if [ "$1" == "--setup" ]; then
 fi
 
 
-# # # # # # End of --setup # # # # # #
-
+# # # # # # --help # # # # # #
 
 if [ ${1-"."} == "--help" ]; then
    echo "usage: `basename $0`" # TODO: parameterize the rq directory.
@@ -204,6 +227,10 @@ if [ ${1-"."} == "--help" ]; then
    echo " --show-catalog         : Show all rq/test/list.ttl"
    exit
 fi
+
+
+
+# # # # # # no parameters; run the tests # # # # # #
 
 CSV2RDF4LOD_PUBLISH=true
 
@@ -248,16 +275,17 @@ for rq in `find $rq_dir -name "*.rq"`; do
 
    response=`tdbquery --loc publish/tdb --query $rq 2>&1 | grep -v WARN` # TODO: parameterize the tdb directory
 
-   if [[ $rq =~ rq/test/ask/present.* && $response =~ .*Yes.*   ||   $rq =~ rq/test/ask/absent.* && $response =~ .*No.* ]]; then
-      passedB="true"
+   if [[ $rq =~ rq/test/ask/present.* && $response =~ .*Yes.* || \
+         $rq =~ rq/test/ask/absent.*  && $response =~ .*No.*  ]]; then
+      result="passed"
       let "passed = passed + 1"
    else
-      passedB="false"
+      result="FAILED"
    fi
 
    if [ $verbose == "true" ]; then
 
-      if [ $passedB = "true" ]; then
+      if [ $result = "passed" ]; then
          fail=""
          echo "................................................................................"
       else
@@ -272,7 +300,11 @@ for rq in `find $rq_dir -name "*.rq"`; do
       echo
 
    else
-      echo $rq $response
+      report="                 "
+      if [ $result != "passed" ]; then
+         report=" ~ ~ ~ FAIL ~ ~ ~"
+      fi
+      echo "$report $rq $response"
    fi
 
 done

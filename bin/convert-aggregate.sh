@@ -248,7 +248,7 @@ rm $TEMP_pml 2> /dev/null
 #
 if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:-"true"} == "true" ]; then
    echo $allVOID | tee -a $CSV2RDF4LOD_LOG
-   rm $allVOID.TEMP 2> /dev/null
+   rm -f $allVOID.TEMP 2> /dev/null
    for void in `find $destDir -name "*.void.ttl" 2> /dev/null`; do
       echo "  (including $void)" | tee -a $CSV2RDF4LOD_LOG
       cat $void >> $allVOID.TEMP
@@ -256,7 +256,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:-"true"} == "true" ]; then
    #if [ -e $allVOID.TEMP ]; then # VoID should aways be there.
       if [ `which rapper` ]; then
          rapper -i turtle -o turtle $allVOID.TEMP > $allVOID 2> /dev/null
-         rm $allVOID.TEMP
+         rm -f $allVOID.TEMP
       else
          mv $allVOID.TEMP $allVOID
       fi
