@@ -389,7 +389,7 @@
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/VersionedDataset"/>
   </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/MetaDataset">
-    <rdfs:comment></rdfs:comment>
+    <rdfs:comment>Data about another Dataset. Can contain VoID, PML, OPM, provenance, Dublin Core, etc.</rdfs:comment>
     <rdfs:label>Meta Dataset</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/AuxiliaryDataset"/>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/SameAsDataset"/>

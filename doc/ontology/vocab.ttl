@@ -961,7 +961,7 @@ conversion:AuxiliaryDataset
 conversion:MetaDataset
    a owl:Class;
    rdfs:label "Meta Dataset";
-   rdfs:comment "";
+   rdfs:comment "Data about another Dataset. Can contain VoID, PML, OPM, provenance, Dublin Core, etc.";
    rdfs:subClassOf conversion:AuxiliaryDataset;
    owl:disjointWith conversion:SameAsDataset;
 .
