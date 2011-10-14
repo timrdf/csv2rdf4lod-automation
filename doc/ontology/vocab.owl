@@ -123,6 +123,9 @@
     <rdfs:comment>A shell script that sets https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables to control the behavior of csv2rdf4lod-automation.</rdfs:comment>
     <rdfs:label>CSV2RDF4LOD_environment_variables</rdfs:label>
   </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/CatalogedDataset">
+    <rdfs:comment>A CatalogedDataset is any kind of dataset, in the most general sense and regardless of how it is encoded (RDF, Relational, Tabular, XML, SPS, etc.). If someone says to you, 'yea, NASA has a Mars imagery dataset, talk to Joe about it and visit its homepage', you just instantiated a CatalogedDataset. There are MANY CatalogedDatasets that are NOT conversion:Datasets and NOT void:Datasets, since both of these are RDF-based datasets. The purpose of CatalogedDataset is to maintain a list of 'TODO' items that could be explored, converted, and published as RDF. Once a CatalogedDataset IS investigated, named, and converted, it also becomes a conversion:Dataset (and thus a void:Datast).</rdfs:comment>
+  </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ConversionMetaDataset">
     <rdfs:comment>Metadata for a dataset that is created during the dataset's conversion invocation.</rdfs:comment>
     <rdfs:label>ConversionMetaDataset</rdfs:label>
