@@ -180,6 +180,8 @@ export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="false"
 #   becomes
 #   http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Dec-01/conversion/data-gov-1008-2010-Dec-01.e1.ttl.tgz
 # 
+# (update) Use 'cr:auto' to dynamically determine the file extensions based on the requested serializations.
+#
 # To find file extensions that you don't like, SPARQL: 
 #   [] void:dataDump ?dump_file .
 #   filter(!regex(?dump_file,'.ttl.gz$'))
@@ -190,6 +192,7 @@ export CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY="false"
 # a conversion:ProjectLevelEnvironmentVariable
 export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS="ttl.gz,nt.gz"
 export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS="ttl.gz"
+export CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS="cr:auto"
 
 #
 # Customize: Invoke the converter for granular (row/column) provenance.

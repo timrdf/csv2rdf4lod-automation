@@ -314,9 +314,9 @@ fi
 #
 
 sampleN="-sample ${CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS:-"2"}"
-dumpExtensions="-VoIDDumpExtensions ${CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS}"
-if [ ${#CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS} -eq 0 ]; then
-   dumpExtensions=""
+dumpExtensions=`dump-file-extensions.sh`
+if [ ${#dumpExtensions} -gt 0 ]; then
+   dumpExtensions="-VoIDDumpExtensions $dumpExtensions"
 fi
 # FRBR-stacks. Takes a while. Could be optimized to not do when no change.
 if [[ ( $runRaw == "yes" || $runEnhancement == "yes" ) && \

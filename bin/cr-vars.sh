@@ -22,7 +22,8 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS                ${CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS:="(will default to: 2)"}"
    echo "CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY                   ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:="(will default to: false)"}"
    echo "CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY                  ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:="(will default to: false)"}"
-   echo "CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS                 ${CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS:="(no extension will be used)"}"
+   extensions=`dump-file-extensions.sh`
+   echo "CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS                 \"${CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS}\" => ${extensions:="(void:dataDump URLs will not have file extensions)"}"
    echo "CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR                  ${CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR:="(will default to: false)"}"
    echo "CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR                      ${CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR:="(will default to: false)"}"
    echo "CSV2RDF4LOD_CONVERT_DEBUG_LEVEL                          ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:="(will default to: none \{none,fine,finer,finest\})"}"

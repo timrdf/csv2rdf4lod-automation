@@ -134,70 +134,6 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
    layerSlugs="$layerSlugs enhancement/$eIDD"
 done
 
-
-
-#
-# All ttl (since current was updated, concat all)
-#
-willDeleteMsg=""
-if [ ${CSV2RDF4LOD_PUBLISH_TTL:-"."} != "true" ]; then
-   willDeleteMsg=" (will delete at end of processing because \$CSV2RDF4LOD_PUBLISH_TTL=.)"
-else
-   filesToCompress="$filesToCompress $allTTL"
-fi
-
-echo $allTTL $willDeleteMsg | tee -a $CSV2RDF4LOD_LOG
-anyEsDone="no"
-for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
-   eTTL=$publishDir/$sourceID-$datasetID-$datasetVersion.e$eIDD.ttl
-
-   echo "  (including $eTTL)" | tee -a $CSV2RDF4LOD_LOG
-
-   if [ $anyEsDone == "no" ]; then
-      echo "# BEGIN: $eTTL:"  > $allTTL
-      cat $eTTL              >> $allTTL
-      anyEsDone="yes"
-   else
-      echo "# BEGIN: $eTTL:" >> $allTTL
-      cat $eTTL              >> $allTTL
-   fi
-   #cat $destDir/*.e$eID.ttl | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" >  $allE1   2> /dev/null
-   #cat $allE1 $allRaw        | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" > $allTTL   2> /dev/null
-done
-if [ $convertedRaw == "yes" ]; then
-   echo "  (including $allRaw)" | tee -a $CSV2RDF4LOD_LOG
-   echo "# BEGIN: $allRaw:"     >> $allTTL
-   cat $allRaw                  >> $allTTL
-fi
-#grep "^@prefix" $allTTL | sort -u > $destDir/prefixes-$sourceID-$datasetID-$datasetVersion.ttl
-#rapper -i turtle $allTTL -o turtle   > $allTTL.ttl 2> /dev/null # Sorts conversion-ordered TTL into lexiographical order.
-
-
-#
-# All nt
-#
-if [ ${CSV2RDF4LOD_PUBLISH_NT:-"."} == "true" -o ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION:-"."} == "true" ]; then
-   willDeleteMsg=""
-   if [ ${CSV2RDF4LOD_PUBLISH_NT:-"."} != "true" ]; then
-      willDeleteMsg=" (will delete at end of processing because \$CSV2RDF4LOD_PUBLISH_NT=true)"
-   else
-      filesToCompress="$filesToCompress $allNT"
-   fi
-   echo "$allNT $willDeleteMsg" | tee -a $CSV2RDF4LOD_LOG
-   if [ `find $publishDir -size +1900M -name $sourceID-$datasetID-$datasetVersion.ttl | wc -l` -gt 0 ]; then # +1900M, +10M for debugging
-      # Rapper can't handle a turtle file bigger than ~2GB (1900M to be safe). Split it up and feed it.
-      $CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT 2> /dev/null
-   else
-      # Process the entire file at once; it's small enough.
-      rapper -i turtle $allTTL -o ntriples > $allNT 2> /dev/null
-      # NT does not need to be saved, but we need to parse it for the sameAs triples.
-   fi
-else
-   echo "$allNT - skipping; set CSV2RDF4LOD_PUBLISH_NT=true in source-me.sh to publish N-Triples." | tee -a $CSV2RDF4LOD_LOG
-fi
-echo $graph > $allNT.graph
-
-
 #
 # Provenance - PML
 #
@@ -276,6 +212,75 @@ cat $allPML 2> /dev/null >> $allVOID
 if [ -e $allVOID.DO_NOT_LIST ]; then
    mv $allVOID $allVOID.DO_NOT_LIST
 fi
+
+
+
+#
+# All ttl (since current was updated, concat all)
+#
+willDeleteMsg=""
+if [ ${CSV2RDF4LOD_PUBLISH_TTL:-"."} != "true" ]; then
+   willDeleteMsg=" (will delete at end of processing because \$CSV2RDF4LOD_PUBLISH_TTL=.)"
+else
+   filesToCompress="$filesToCompress $allTTL"
+fi
+
+echo $allTTL $willDeleteMsg | tee -a $CSV2RDF4LOD_LOG
+anyEsDone="no"
+for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
+   eTTL=$publishDir/$sourceID-$datasetID-$datasetVersion.e$eIDD.ttl
+
+   echo "  (including $eTTL)" | tee -a $CSV2RDF4LOD_LOG
+
+   if [ $anyEsDone == "no" ]; then
+      echo "# BEGIN: $eTTL:"  > $allTTL
+      cat $eTTL              >> $allTTL
+      anyEsDone="yes"
+   else
+      echo "# BEGIN: $eTTL:" >> $allTTL
+      cat $eTTL              >> $allTTL
+   fi
+   #cat $destDir/*.e$eID.ttl | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" >  $allE1   2> /dev/null
+   #cat $allE1 $allRaw        | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" > $allTTL   2> /dev/null
+done
+if [ $convertedRaw == "yes" ]; then
+   echo "  (including $allRaw)" | tee -a $CSV2RDF4LOD_LOG
+   echo "# BEGIN: $allRaw:"     >> $allTTL
+   cat $allRaw                  >> $allTTL
+fi
+if [ -e $allVOID ]; then
+   echo "  (including $allVOID)" | tee -a $CSV2RDF4LOD_LOG
+   echo "# BEGIN: $allVOID:"    >> $allTTL
+   cat $allVOID                 >> $allTTL
+fi
+#grep "^@prefix" $allTTL | sort -u > $destDir/prefixes-$sourceID-$datasetID-$datasetVersion.ttl
+#rapper -i turtle $allTTL -o turtle   > $allTTL.ttl 2> /dev/null # Sorts conversion-ordered TTL into lexiographical order.
+
+
+#
+# All nt
+#
+if [ ${CSV2RDF4LOD_PUBLISH_NT:-"."} == "true" -o ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION:-"."} == "true" ]; then
+   willDeleteMsg=""
+   if [ ${CSV2RDF4LOD_PUBLISH_NT:-"."} != "true" ]; then
+      willDeleteMsg=" (will delete at end of processing because \$CSV2RDF4LOD_PUBLISH_NT=true)"
+   else
+      filesToCompress="$filesToCompress $allNT"
+   fi
+   echo "$allNT $willDeleteMsg" | tee -a $CSV2RDF4LOD_LOG
+   if [ `find $publishDir -size +1900M -name $sourceID-$datasetID-$datasetVersion.ttl | wc -l` -gt 0 ]; then # +1900M, +10M for debugging
+      # Rapper can't handle a turtle file bigger than ~2GB (1900M to be safe). Split it up and feed it.
+      $CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT 2> /dev/null
+   else
+      # Process the entire file at once; it's small enough.
+      rapper -i turtle $allTTL -o ntriples > $allNT 2> /dev/null
+      # NT does not need to be saved, but we need to parse it for the sameAs triples.
+   fi
+else
+   echo "$allNT - skipping; set CSV2RDF4LOD_PUBLISH_NT=true in source-me.sh to publish N-Triples." | tee -a $CSV2RDF4LOD_LOG
+fi
+echo $graph > $allNT.graph
+
 
 #
 # sameas subset
