@@ -338,6 +338,7 @@ if [ $runRaw == "yes" ]; then
    # Sample ------------------------------
    if [ ${CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS:-"2"} -gt 0 ]; then
       $csv2rdf $data $prov $sampleN -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.sample.ttl  -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
       echo "Finished converting $sampleN sample rows."                                                                                                          2>&1 | tee -a $CSV2RDF4LOD_LOG
    fi
 
@@ -350,6 +351,7 @@ if [ $runRaw == "yes" ]; then
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY=='true'"                                                                        2>&1 | tee -a $CSV2RDF4LOD_LOG
    else
       $csv2rdf $data $prov -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl -wm $destDir/$datafile.raw.void.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
       if [[ ${CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR:-"."} == "true" && `which fstack.py` ]]; then
          echo "Calculating FRBR Stack of output RDF; set CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR=='false' to prevent FRBR stacks."                                                           2>&1 | tee -a $CSV2RDF4LOD_LOG
          item_i=`fstack.py --print-item $data`
@@ -383,6 +385,7 @@ if [ $runEnhancement == "yes" ]; then
    # Sample ------------------------------
    if [ ${CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS:-"2"} -gt 0 -a ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} != 'true' ]; then
       $csv2rdf $data $prov $sampleN -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.sample.ttl  -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
       echo "Finished converting $sampleN sample rows."                                                                                                                          2>&1 | tee -a $CSV2RDF4LOD_LOG
    fi
 
@@ -390,11 +393,13 @@ if [ $runEnhancement == "yes" ]; then
    if [ ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
       # TODO: add .example back in. took out so it'd get into the publish/tdb/ for testing.
       $csv2rdf $data    -ego  -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY=='true'"                                                                                2>&1 | tee -a $CSV2RDF4LOD_LOG
    elif [ ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'"                                                                               2>&1 | tee -a $CSV2RDF4LOD_LOG
    else
       $csv2rdf $data $prov -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl -wm $destDir/$datafile.e$eID.void.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
+      if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
       if [[ ${CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR:-"."} == "true" && `which fstack.py` ]]; then
          echo "Calculating FRBR Stack of output RDF; set CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR=='false' to prevent FRBR stacks."                                          2>&1 | tee -a $CSV2RDF4LOD_LOG
          echo "#-fstack  no enhancement $runEnhancement $destDir/$datafile.e$eID.ttl @ `dateInXSDDateTime.sh`" >> $destDir/$datafile.e$eID.void.ttl
@@ -419,10 +424,13 @@ if [ -f $data.pml.ttl -a ${CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR:-"."} == "tru
    prov="-prov `pwd`/$data.pml.ttl"
    echo "E$eID (PROV) $prov" | tee -a $CSV2RDF4LOD_LOG
    #$csv2rdf `pwd`/$data -ep `pwd`/$eParamsDir/$datafile.e$eID.params.ttl $prov > $destDir/$extensionlessFilename.e$eID.pml.ttl
+   #   if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
    # LATEST, but makes a semi-verbatim copy of e1... 
    #$csv2rdf `pwd`/$data -ep `pwd`/$eParamsDir/$datafile.e$eID.params.ttl $prov $overrideBaseURI -id $converterJarMD5 > $destDir/$datafile.e$eID.pml.ttl
+   #if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
    echo $destDir/$datafile.e$eID.ttl.pml.ttl
    $csv2rdf $data        -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $prov $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl.pml.ttl -id $converterJarMD5 > $destDir/$datafile.e$eID.ttl.pml.ttl # 2>&1 | tee -a $CSV2RDF4LOD_LOG
+   if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
 #else
 #   echo "Skipping provenance pass. ($data.pml.ttl and CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR=$CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR)"
 fi
