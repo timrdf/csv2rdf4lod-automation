@@ -107,6 +107,7 @@ while [ $# -gt 0 ]; do
       rm cHuNk*
    done
    if [ $too_big == "no" ]; then
+      echo "here TL"
       rapper -q $syntax -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt
    fi
 
