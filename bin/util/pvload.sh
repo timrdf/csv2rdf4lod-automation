@@ -77,7 +77,8 @@ while [ $# -gt 0 ]; do
    else
       named_graph="$url"                          # Default to a named graph name of the URL source.
    fi
-   echo "PVLOAD: (URL) $url -> (Named Graph) $named_graph"
+   echo "PVLOAD: (URL) $url"
+   echo "         --> (Named Graph) $named_graph"
 
    #
    # Normalize into ntriples (note, this step is not worth describing in the provenance).
@@ -86,11 +87,11 @@ while [ $# -gt 0 ]; do
    syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper`
    liked_guess=$? # 0 : liked its guess, 1: did NOT like its guess
    if [[ $liked_guess == 1 ]]; then
-      echo "DIDN'T LIKED SYNTAX GUESS $syntax: $liked_syntax"
+      echo "DIDN'T LIKED SYNTAX GUESS $syntax: $liked_guess"
       syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect ${TEMP}${unzipped} rapper`
       echo "GUESS BY INSPECTION: $syntax"
    else
-      echo "Liked syntax guess $syntax: $liked_syntax ($url)"
+      echo "Liked syntax guess $syntax: $liked_guess ($url)"
    fi
 
    # Turtle to N-TRIPLES (b/c Virtuoso chokes on some Turtle and we need to spoon feed).
