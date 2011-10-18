@@ -12,6 +12,11 @@
 # @param datafile       - the local filename of the csv.
 #
 
+if [ -f ../csv2rdf4lod-source-me.sh ]; then
+   # Include dataset-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
+   source ../csv2rdf4lod-source-me.sh
+fi
+
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
 # Java dependencies; relative to $CSV2RDF4LOD_HOME
