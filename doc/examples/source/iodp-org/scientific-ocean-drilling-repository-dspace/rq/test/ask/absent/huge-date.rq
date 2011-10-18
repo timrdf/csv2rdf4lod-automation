@@ -1,0 +1,9 @@
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix e1: <http://localhost/source/iodp-org/dataset/scientific-ocean-drilling-repository-dspace/vocab/enhancement/1/>
+
+ASK
+WHERE {
+   GRAPH ?g {
+      ?item e1:dc_date_issued "2189-07-09"^^xsd:date
+   }
+}

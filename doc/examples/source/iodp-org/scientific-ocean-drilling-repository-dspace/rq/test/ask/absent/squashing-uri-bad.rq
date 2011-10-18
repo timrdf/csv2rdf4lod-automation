@@ -1,0 +1,8 @@
+prefix e1: <http://localhost/source/iodp-org/dataset/scientific-ocean-drilling-repository-dspace/vocab/enhancement/1/>
+
+ASK
+WHERE {
+   GRAPH ?g {
+      ?item e1:in_collection <http://hdl.handle.net/123456789_3> # should be http://hdl.handle.net/123456789/3
+   }
+}

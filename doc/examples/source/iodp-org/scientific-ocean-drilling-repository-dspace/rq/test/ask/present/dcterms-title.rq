@@ -1,0 +1,14 @@
+prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>
+prefix void:       <http://rdfs.org/ns/void#>
+prefix conversion: <http://purl.org/twc/vocab/conversion/>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix e1: <http://localhost/source/iodp-org/dataset/scientific-ocean-drilling-repository-dspace/vocab/enhancement/1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+ASK
+WHERE {
+   GRAPH ?g {
+      ?item e1:dc_title_en_us "JR Cross Section"; # Default predicate
+            dcterms:title     "JR Cross Section"  # More commonly recognized predicate
+   }
+}
