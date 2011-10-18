@@ -185,3 +185,5 @@ else
    echo "...cleared."
    $0 # Run this script again to show that they were cleared.
 fi
+
+rm -f _pvload.sh*
