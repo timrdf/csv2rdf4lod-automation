@@ -101,13 +101,13 @@ while [ $# -gt 0 ]; do
       rm cHuNk* &> /dev/null
       $CSV2RDF4LOD_HOME/bin/split_ttl.pl ${TEMP}${unzipped}
       for chunk in cHuNk*; do
-         rapper $syntax -o ntriples $chunk >> ${TEMP}${unzipped}.nt
+         rapper -q $syntax -o ntriples $chunk >> ${TEMP}${unzipped}.nt
          #debug wc -l ${TEMP}${unzipped}.nt
       done
       rm cHuNk*
    done
    if [ $too_big == "no" ]; then
-      rapper $syntax -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt
+      rapper -q $syntax -o ntriples ${TEMP}${unzipped} > ${TEMP}${unzipped}.nt
    fi
 
    if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
@@ -210,13 +210,13 @@ while [ $# -gt 0 ]; do
       fi
       echo $assudo $vload ttl ${TEMP}.pml.ttl      $named_graph
       if [ ${dryrun-"."} != "true" ]; then # Provenance of response (SourceUsage created by pcurl.sh).
-         rapper -g -o ntriples ${TEMP}.pml.ttl > ${TEMP}.pml.ttl.nt
+         rapper -q -g -o ntriples ${TEMP}.pml.ttl > ${TEMP}.pml.ttl.nt
          $assudo $vload nt ${TEMP}.pml.ttl.nt     $named_graph 2>&1 | grep -v "Loading triples into graph"
          #cat /tmp/virtuoso-tmp/vload.log
       fi
       echo $assudo $vload ttl ${TEMP}.load.pml.ttl  $named_graph
       if [ ${dryrun-"."} != "true" ]; then # Provenance of loading file into the store. TODO: cat ${TEMP}${unzipped}.load.pml.ttl into a pmlp:hasRawString?
-         rapper -g -o ntriples ${TEMP}${unzipped}.load.pml.ttl > ${TEMP}${unzipped}.load.pml.ttl.nt
+         rapper -q -g -o ntriples ${TEMP}${unzipped}.load.pml.ttl > ${TEMP}${unzipped}.load.pml.ttl.nt
          $assudo $vload nt ${TEMP}${unzipped}.load.pml.ttl.nt   $named_graph 2>&1 | grep -v "Loading triples into graph"             
          #cat /tmp/virtuoso-tmp/vload.log
       fi
