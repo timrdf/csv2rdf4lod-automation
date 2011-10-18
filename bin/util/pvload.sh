@@ -82,6 +82,7 @@ while [ $# -gt 0 ]; do
 
    #
    # Normalize into ntriples (note, this step is not worth describing in the provenance).
+   # (because Virtuoso chokes on some well-formatted Turtle, and they don't respond to bugs).
    #
    #echo guessing `$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper`
    syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper`
