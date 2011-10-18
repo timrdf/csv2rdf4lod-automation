@@ -4,5 +4,6 @@ ASK
 WHERE {
    GRAPH ?g {
       ?item e1:in_collection <http://hdl.handle.net/123456789_3> # should be http://hdl.handle.net/123456789/3
+      # see https://github.com/timrdf/csv2rdf4lod-automation/issues/246
    }
 }

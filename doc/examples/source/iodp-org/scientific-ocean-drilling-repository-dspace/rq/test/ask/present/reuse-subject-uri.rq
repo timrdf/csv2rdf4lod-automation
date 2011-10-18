@@ -1,0 +1,13 @@
+prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>
+prefix void:       <http://rdfs.org/ns/void#>
+prefix conversion: <http://purl.org/twc/vocab/conversion/>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix e1: <http://localhost/source/iodp-org/dataset/scientific-ocean-drilling-repository-dspace/vocab/enhancement/1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+ASK
+WHERE {
+   GRAPH ?g {
+      <http://hdl.handle.net/123456789/4> e1:dc_identifier_uri <http://hdl.handle.net/123456789/4>
+   }
+}
