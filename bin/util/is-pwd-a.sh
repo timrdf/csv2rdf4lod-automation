@@ -91,7 +91,7 @@ while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
       #
       # see https://github.com/timrdf/csv2rdf4lod-automation/issues/248
       #
-      if [[ `pwd` == */dev/[^/]/source* ]]; then
+      if [[ `pwd` == */dev/[^/]*/source/* ]]; then
          is_a="yes"
       else
          is_a="no"
