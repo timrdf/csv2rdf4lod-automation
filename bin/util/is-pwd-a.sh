@@ -3,7 +3,7 @@
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/is-pwd-a.sh
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Directory-Conventions
 
-VALIDS="cr:data-root, cr:source, cr:directory-of-datasets, cr:dataset, cr:directory-of-versions, cr:conversion-cockpit"
+VALIDS="cr:dev cr:data-root, cr:source, cr:directory-of-datasets, cr:dataset, cr:directory-of-versions, cr:conversion-cockpit"
 
 if [ "$1" == "--types" ]; then
    echo $VALIDS | sed 's/^.*{//;s/}//;s/,//g'
@@ -82,6 +82,20 @@ while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
             v=`${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $pwd_type --id-of v`
          fi
       done
+   elif [[ "$1" == "cr:dev" ]]; then
+      #
+      # Distinguish between "production" data root (e.g. /srv/logd/data/source)
+      #                 and "development" data root (e.g. /srv/logd/data/source)
+      #
+      # One _should_ not publish from "development" data roots.
+      #
+      # see https://github.com/timrdf/csv2rdf4lod-automation/issues/248
+      #
+      if [[ `pwd` == */dev/[^/]/source/* ]]; then
+         is_a="yes"
+      else
+         is_a="no"
+      fi
    else
       echo "usage: `basename $0` {$VALIDS}"
       exit 1
