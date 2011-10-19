@@ -84,8 +84,8 @@ while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
       done
    elif [[ "$1" == "cr:dev" ]]; then
       #
-      # Distinguish between "production" data root (e.g. /srv/logd/data/source)
-      #                 and "development" data root (e.g. /srv/logd/data/source)
+      # Distinguish between "production"  data root (e.g. /srv/logd/data/source)
+      #                 and "development" data root (e.g. /srv/logd/data/dev/lebot/source)
       #
       # One _should_ not publish from "development" data roots.
       #
