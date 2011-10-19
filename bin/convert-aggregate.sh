@@ -734,22 +734,22 @@ chmod +x                                                                        
 vloadSH=$publishDir/bin/virtuoso-load-${sourceID}-${datasetID}-${datasetVersion}.sh
 vloadvoidSH=$publishDir/bin/virtuoso-load-${sourceID}-${datasetID}-${datasetVersion}-void.sh
 vdeleteSH=$publishDir/bin/virtuoso-delete-${sourceID}-${datasetID}-${datasetVersion}.sh
-echo "#!/bin/bash"                                                                                 > $vloadSH
-echo "#"                                                                                        >> $vloadSH
-echo "# run $vloadSH"                                                                           >> $vloadSH
-echo "# from `pwd | sed 's/^.*source/source/'`/"                                                >> $vloadSH
-echo "#"                                                                                        >> $vloadSH
-echo "# graph was $graph during conversion"                                                     >> $vloadSH
-echo "#"                                                                                        >> $vloadSH
-echo "#"                                                                                        >> $vloadSH
-echo "#                         (unversioned) Dataset       # <---- Loads this with param --unversioned" >> $vloadSH
-echo "#                                 |          \   "                                                 >> $vloadSH
-echo "# Loads this by default -> VersionedDataset   meta    # <---- Loads this with param --meta"        >> $vloadSH
-echo "#                                 |         "                                                      >> $vloadSH
-echo "#                             DatasetLayer"                                                        >> $vloadSH
-echo "#                               /    \ "                                                           >> $vloadSH
-echo "# Never loads this ----> [table]   DatasetLayerSample # <---- Loads this with param --sample"      >> $vloadSH
-echo ""                                                                                                  >> $vloadSH
+echo "#!/bin/bash"                                                                                     > $vloadSH
+echo "#"                                                                                              >> $vloadSH
+echo "# run $vloadSH"                                                                                 >> $vloadSH
+echo "# from `pwd | sed 's/^.*source/source/'`/"                                                      >> $vloadSH
+echo "#"                                                                                              >> $vloadSH
+echo "# graph was $graph during conversion"                                                           >> $vloadSH
+echo "#"                                                                                              >> $vloadSH
+echo "#"                                                                                              >> $vloadSH
+echo "#                              AbstractDataset        # <---- Loads this with param --abstract" >> $vloadSH
+echo "#                                 |          \ "                                                >> $vloadSH
+echo "# Loads this by default -> VersionedDataset   meta    # <---- Loads this with param --meta"     >> $vloadSH
+echo "#                                 |            "                                                >> $vloadSH
+echo "#                            LayerDataset"                                                      >> $vloadSH
+echo "#                               /    \ "                                                        >> $vloadSH
+echo "# Never loads this ----> [table]   DatasetSample # <---- Loads this with param --sample"        >> $vloadSH
+echo ""                                                                                               >> $vloadSH
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}'         >> $vloadSH
 echo 'CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $vloadSH
 # deviates from orig design, but more concise by making (reasonable?) assumptions:
@@ -781,18 +781,18 @@ done
 echo "   exit 1"                                                                                >> $vloadSH
 echo "elif [ \"\${1:-'.'}\" == \"--meta\" -a -e $allVOID ]; then"                               >> $vloadSH
 echo "   metaURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.void.ttl\"" >> $vloadSH
-echo "   metaGraph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\"/vocab/Dataset" >> $vloadSH
-#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                           >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                >> $vloadSH
-echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                     >> $vloadSH
-echo "   exit 1"                                                                                >> $vloadSH
-echo "fi"                                                                                       >> $vloadSH
-echo ""                                                                                         >> $vloadSH
-echo "# Modify the graph before continuing to load everything"                                  >> $vloadSH
-echo "if [[ \${1:-'.'} == \"--unversioned\" || \${1:-'.'} == \"--abstract\" ]]; then"           >> $vloadSH
-echo "   # strip off version"                                                                   >> $vloadSH
-echo "   graph=\"\`echo \$graph\ | perl -pe 's|/version/[^/]*$||'\`\""                          >> $vloadSH
+echo "   metaGraph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\"/vocab/Dataset"                       >> $vloadSH
+#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                                 >> $vloadSH
+#echo "   #sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                                      >> $vloadSH
+echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                      >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                           >> $vloadSH
+echo "   exit 1"                                                                                                      >> $vloadSH
+echo "fi"                                                                                                             >> $vloadSH
+echo ""                                                                                                               >> $vloadSH
+echo "# Modify the graph before continuing to load everything"                                                        >> $vloadSH
+echo "if [[ \${1:-'.'} == \"--unversioned\" || \${1:-'.'} == \"--abstract\" ]]; then"                                 >> $vloadSH
+echo "   # strip off version"                                                                                         >> $vloadSH
+echo "   graph=\"\`echo \$graph\ | perl -pe 's|/version/[^/]*$||'\`\""                                                >> $vloadSH
 echo "   graph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/dataset/${datasetID}\"" >> $vloadSH
 echo "   echo populating abstract named graph \(\$graph\) instead of versioned named graph."    >> $vloadSH
 echo "elif [ \$# -gt 0 ]; then"                                                                 >> $vloadSH
