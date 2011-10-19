@@ -761,6 +761,11 @@ echo 'CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/
 #echo "  dump=$allNT.\$serialization"                                                                        >> $vloadSH
 #echo "done"                                                                                                 >> $vloadSH
 echo ""                                                                                                      >> $vloadSH
+echo "if [ \`is-pwd-a.sh cr:dev\` == 'yes' ]; then"                                                          >> $vloadSH
+echo "  echo SHOULD NOT BE PUBLISHING"                                                                       >> $vloadSH
+echo "else"                                                                                                  >> $vloadSH
+echo "  echo OK TO PUBLISH"                                                                                  >> $vloadSH
+echo "fi"                                                                                                    >> $vloadSH
 echo "if [ -e $lnwwwrootSH ]; then # Make sure the file we will load from the web is published"              >> $vloadSH
 echo "  $lnwwwrootSH"                                                                                        >> $vloadSH
 echo "fi"                                                                                                    >> $vloadSH
