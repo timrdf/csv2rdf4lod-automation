@@ -131,12 +131,15 @@ in_cell_enhancement == "true" {
    }
 
    if( $1 == "ov:csvHeader" ) {
-      current_header=$2;
+      current_header=$2; # Old approach missed header after first space.
+      current_header=$0; gsub(/^[^"]*"/,"",current_header);
+                         gsub(/".*$/,   "",current_header);
       gsub(/"/,"",current_header);
       gsub(/;/,"",current_header);
       print annotate("         a scovo:Item;",PADDING,"");
+      print annotate("         a qb:Observation;",PADDING,"");
    }
-   if( length(label_up) > 0 && $1 == "conversion:label" ) {
+   if( length(label_up) > 0 && ( $1 == "conversion:label" || $1 == "#conversion:label" ) ) {
       datatype = length(up_range) > 0 ? "^^"up_range : "";
       if( up_object == ":" ) {
          print annotate("         conversion:object :"current_header";",PADDING,"");
