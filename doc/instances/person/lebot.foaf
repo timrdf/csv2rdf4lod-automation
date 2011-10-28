@@ -6,9 +6,13 @@
    xmlns:owl="http://www.w3.org/2002/07/owl#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:rel="http://purl.org/vocab/relationship/"
    xmlns:sioc="http://rdfs.org/sioc/ns#"
    xmlns:swrc="http://swrc.ontoware.org/ontology#">
   <foaf:Person rdf:about="http://purl.org/twc/id/person/TimLebo">
+    <rel:collaboratesWith rdf:resource="http://purl.org/twc/id/person/NicholasDelRio"/>
+    <rel:hasMet rdf:resource="http://richard.cyganiak.de/foaf.rdf#cygri"/>
+    <rel:knowsByReputation rdf:resource="http://www.w3.org/People/Berners-Lee/card#i"/>
     <swrc:supervisor rdf:resource="http://data.semanticweb.org/person/deborah-mcguinness"/>
     <swrc:supervisor rdf:resource="http://tw.rpi.edu/instances/Deborah_L_McGuinness"/>
     <con:preferredURI rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
