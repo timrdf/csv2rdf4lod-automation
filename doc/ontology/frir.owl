@@ -65,6 +65,20 @@
     
 
 
+    <owl:ObjectProperty rdf:about="&frir;hasAbstract">
+        <owl:inverseOf rdf:resource="&frir;hasConcrete"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="&core;exemplarOf">
+        <rdfs:subPropertyOf rdf:resource="&frir;hasAbstract"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="&core;embodimentOf">
+        <rdfs:subPropertyOf rdf:resource="&frir;hasAbstract"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="&core;realizationOf">
+        <rdfs:subPropertyOf rdf:resource="&frir;hasAbstract"/>
+    </owl:ObjectProperty>
+ 
+
     <!-- http://purl.org/twc/ontology/frir.owl#exactCopyOf -->
 
     <owl:ObjectProperty rdf:about="&frir;exactCopyOf">
