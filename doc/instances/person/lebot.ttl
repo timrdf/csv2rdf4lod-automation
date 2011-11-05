@@ -19,7 +19,8 @@
               <http://graph.facebook.com/24407945#>,
               <http://iswc.mobi/2011/person/timothy-lebo>,
               <http://data.semanticweb.org/person/timothy-lebo>,
-              <http://twitlogic.fortytwo.net/person/twitter/140428623>;
+              <http://twitlogic.fortytwo.net/person/twitter/140428623>,
+              <http://semantictweet.com/timrdf#me>;
 
    con:preferredURI <http://purl.org/twc/id/person/TimLebo>;
 
@@ -55,8 +56,7 @@
    foaf:pastProject [ foaf:page <https://ritdml.rit.edu/bitstream/handle/1850/993/TLeboThesis07-2005.pdf>,
                                 <https://ritdml.rit.edu/handle/1850/993>,
                                 <http://www.actapress.com/Abstract.aspx?paperId=27881> ];
-   foaf:holdsAccount <http://twitlogic.fortytwo.net/user/twitter/140428623>,
-                     <http://semantictweet.com/timrdf#me>;
+   foaf:holdsAccount <http://twitlogic.fortytwo.net/user/twitter/140428623>;
    foaf:interest [ foaf:homepage <http://sadiframework.org/content/about-sadi/> ];
 .
 
