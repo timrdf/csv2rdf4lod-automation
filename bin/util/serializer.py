@@ -21,6 +21,10 @@ def bindPrefixes(graph):
     graph.bind('dc', URIRef('http://purl.org/dc/terms/'))
     graph.bind('prov', URIRef('http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#'))
     graph.bind('xsd', URIRef('http://www.w3.org/2001/XMLSchema#'))
+    graph.bind('http', URIRef("http://www.w3.org/2011/http#"))
+    graph.bind('header', URIRef("http://www.w3.org/2011/http-headers#"))
+    graph.bind('method', URIRef("http://www.w3.org/2011/http-methods#"))
+    graph.bind('status', URIRef("http://www.w3.org/2011/http-statusCodes#"))
 
 class CSVSerializer:
     def __init__(self,delimiter=","):

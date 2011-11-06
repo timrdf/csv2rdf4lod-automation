@@ -30,7 +30,10 @@ ns.register(nfo="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#")
 ns.register(irw='http://www.ontologydesignpatterns.org/ont/web/irw.owl#')
 ns.register(hash="hash:")
 ns.register(prov="http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#")
-    
+ns.register(http="http://www.w3.org/2011/http#")
+ns.register(header="http://www.w3.org/2011/http-headers#")
+ns.register(method="http://www.w3.org/2011/http-methods#")
+ns.register(status="http://www.w3.org/2011/http-statusCodes#")
 
 def call(command):
     p = subprocess.Popen(command,shell=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -90,16 +93,20 @@ def pcurl(url):
     FileHash = work.session.get_class(ns.NFO['FileHash'])
     ContentDigest = work.session.get_class(ns.FRIR['ContentDigest'])
     Item = work.session.get_class(ns.FRBR['Item'])
-    Response = work.session.get_class(ns.FRIR['HTTP_1_1_Response'])
-    Get = work.session.get_class(ns.FRIR['HTTP_1_1_GET'])
+    Request = work.session.get_class(ns.HTTP['Request'])
+    RequestHeader = work.session.get_class(ns.HTTP['RequestHeader'])
+    Response = work.session.get_class(ns.HTTP['Response'])
+    ResponseHeader = work.session.get_class(ns.HTTP['ResponseHeader'])
+    Method = work.session.get_class(ns.HTTP["Method"])
+    GET = Method(ns.METHOD["GET"])
     Manifestation = work.session.get_class(ns.FRBR['Manifestation'])
     Expression = work.session.get_class(ns.FRBR['Expression'])
     ProcessExecution = work.session.get_class(ns.PROV['ProcessExecution'])
-    #httpGetURI = "http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.3"
 
     o = urlparse(str(workURI))
-    filename = o.path.split("/")[-1]
-
+    filename = [f for f in o.path.split("/") if len(f) > 0][-1]
+    print filename
+    
     f = open(filename,"wb+")
     f.write(content)
     f.close()
@@ -110,7 +117,14 @@ def pcurl(url):
     itemHashValue = createItemHash(url, response, content)
 
     item = Response(ns.PITEM['-'.join(itemHashValue)])
-    item.frir_hasHeader = ''.join(response.msg.headers)
+    item.http_httpVersion = '1.1'
+    for field in response.msg.dict.keys():
+        header = ResponseHeader()
+        header.http_fieldName = field
+        header.http_fieldValue = response.msg.dict[field]
+        header.http_hdrName = ns.HEADER[field.lower()]
+        header.save()
+        item.http_headers.append(header)
     item.nfo_hasHash.append(createHashInstance(itemHashValue,FileHash))
     item.dcterms_date = dateutil.parser.parse(response.msg.dict['date'])
     item.frbr_exemplarOf = localItem.frbr_exemplarOf
@@ -119,11 +133,13 @@ def pcurl(url):
 
     localItem.frbr_reproductionOf.append(item)
 
-    getPE = Get()
+    getPE = Request()
+    getPE.http_methd = GET
     getPE.dcterms_date = localItem.dcterms_date
-    getPE.prov_used.append(ns.FRIR['HTTP_1_1_GET'])
+    getPE.prov_used.append(GET)
     getPE.prov_wasControlledBy = controller
     getPE.prov_used.append(item)
+    getPE.http_resp = item
     localItem.prov_wasGeneratedBy = getPE
     
     item.save()
