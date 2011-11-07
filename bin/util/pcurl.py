@@ -136,8 +136,9 @@ def pcurl(url):
 
     getPE = Request()
     getPE.http_methd = GET
+    getPE.http_requestURI = workURI
     getPE.dcterms_date = localItem.dcterms_date
-    getPE.prov_used.append(GET)
+    getPE.prov_hadRecipe.append(GET)
     getPE.prov_wasControlledBy = controller
     getPE.prov_used.append(item)
     getPE.http_resp = item
