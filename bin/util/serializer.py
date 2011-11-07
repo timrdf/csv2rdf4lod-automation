@@ -129,7 +129,7 @@ typeExtensions = {
 
 def getFormat(contentType):
     if contentType == None: return [ "application/rdf+xml",serializeXML]
-    type = mimeparse.best_match(contentTypes.keys(),contentType)
+    type = mimeparse.best_match([x for x in contentTypes.keys() if x != None],contentType)
     if type != None: return [type,contentTypes[type]]
     else: return [ "application/rdf+xml",serializeXML]
 
@@ -139,6 +139,7 @@ def serialize(graph, accept):
 
 def deserialize(graph, content, mimetype):
     format = getFormat(mimetype)
-    print format
+    #print 'Foo'
+    #print format
     format[1].deserialize(graph,content)
 

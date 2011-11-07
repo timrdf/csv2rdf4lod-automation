@@ -120,25 +120,30 @@ class RDFGraphDigest:
         store = Store(reader='rdflib',
                       writer='rdflib',
                       rdflib_store = 'IOMemory')
-        
+        #print mimetype
         session = Session(store)
         try:
-            t = deserialize(store, content, mimetype)
+            t = deserialize(store.reader.graph, content, mimetype)
             if t != None:
                 self.type = t
         except:
             try:
                 if filename != None:
                     extension = filename.split('.')[-1]
+                    #print extension
                     serializer = contentTypes[extensions[extension]]
                     t = serializer.deserialize(store.reader.graph, content)
+                    if len(store.reader.graph) == 0:
+                        raise Exception()
                     if t != None:
                         self.type = t
             except:
+                #print "Using Manifestation"
                 manifHash =  createManifestationHash(content)
                 self.algorithm = manifHash[0]
                 self.total = int(manifHash[1],16)
                 self.type = manifHash[2]
+                self.isRaw = False
                 return
 
         graph = store.reader.graph

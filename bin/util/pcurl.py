@@ -105,13 +105,14 @@ def pcurl(url):
 
     o = urlparse(str(workURI))
     filename = [f for f in o.path.split("/") if len(f) > 0][-1]
-    print filename
+    #print filename
     
     f = open(filename,"wb+")
     f.write(content)
     f.close()
 
-    pStore, localItem = fstack(open(filename,'rb+'),filename,workURI,pStore,response.msg.dict['content-type'])
+    mimetype = response.msg.dict['content-type']
+    pStore, localItem = fstack(open(filename,'rb+'),filename,workURI,pStore,mimetype)
     #localItem = Item(localItem.subject)
 
     itemHashValue = createItemHash(url, response, content)
