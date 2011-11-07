@@ -21,6 +21,10 @@ def bindPrefixes(graph):
     graph.bind('dc', URIRef('http://purl.org/dc/terms/'))
     graph.bind('prov', URIRef('http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#'))
     graph.bind('xsd', URIRef('http://www.w3.org/2001/XMLSchema#'))
+    graph.bind('http', URIRef("http://www.w3.org/2011/http#"))
+    graph.bind('header', URIRef("http://www.w3.org/2011/http-headers#"))
+    graph.bind('method', URIRef("http://www.w3.org/2011/http-methods#"))
+    graph.bind('status', URIRef("http://www.w3.org/2011/http-statusCodes#"))
 
 class CSVSerializer:
     def __init__(self,delimiter=","):
@@ -125,7 +129,7 @@ typeExtensions = {
 
 def getFormat(contentType):
     if contentType == None: return [ "application/rdf+xml",serializeXML]
-    type = mimeparse.best_match(contentTypes.keys(),contentType)
+    type = mimeparse.best_match([x for x in contentTypes.keys() if x != None],contentType)
     if type != None: return [type,contentTypes[type]]
     else: return [ "application/rdf+xml",serializeXML]
 
@@ -135,6 +139,7 @@ def serialize(graph, accept):
 
 def deserialize(graph, content, mimetype):
     format = getFormat(mimetype)
-    print format
+    #print 'Foo'
+    #print format
     format[1].deserialize(graph,content)
 
