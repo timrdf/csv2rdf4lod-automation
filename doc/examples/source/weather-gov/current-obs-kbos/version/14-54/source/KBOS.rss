@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version='2.0' xmlns:dc='http://purl.org/dc/elements/1.1/'> 
+     <channel>
+<title>Weather at Boston, Logan International Airport, MA - via NOAA's National Weather Service</title>
+<link>http://www.weather.gov/xml/current_obs/</link>
+     <lastBuildDate>Mon, 07 Nov 2011 14:54:00 -0500</lastBuildDate>
+     <ttl>60</ttl>
+     <description>Weather conditions from NOAA's National Weather Service. </description>
+     <language>en-us</language>
+     <managingEditor>robert.bunge@noaa.gov</managingEditor>
+     <webMaster>w-nws.webmaster@noaa.gov</webMaster>
+     <image>
+     <url>http://www.weather.gov/images/xml_logo.gif</url>
+     <title>NOAA - National Weather Service</title>
+     <link>http://www.weather.gov/xml/current_obs/</link>
+     </image> 
+    
+     <item>
+<title>
+A Few Clouds and 65 F at Boston, Logan International Airport, MA</title>
+<link>http://weather.noaa.gov/weather/current/KBOS.html</link> 
+<description>
+<![CDATA[<img src="/images/fcicons/few.jpg" class="noaaWeatherIcon"  width="55" height="58" alt="A Few Clouds" style="float:left;" /><br />]]>
+Winds are West at 6.9 MPH (6 KT). The pressure is 1021.8 mb and the humidity is 34%.
+ Last Updated on Nov 7 2011, 2:54 pm EST.  
+      </description>
+      <guid isPermaLink="false">Mon, 07 Nov 2011 14:54:00 -0500</guid>
+      </item>
+      </channel>
+      </rss>

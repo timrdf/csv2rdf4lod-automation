@@ -1,0 +1,58 @@
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix frir: <http://purl.org/twc/ontology/frir.owl#> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix prov: <http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#> .
+
+<filed://6c7e1fad47f97cf0af01108ee8bed8404e9f882f0d6b736416bdfeb277927ceb/SHA256-c2532e274eeddd7864fd63bc33e8abee0e8b605e6a0f761a691719b20b613a12/KBOS.xml> a <http://purl.org/vocab/frbr/core#Item>;
+    prov:wasGeneratedBy <http://code.google.com/p/surfrdf/ba2cea7a-84bd-4671-8704-2798dd6b8cbc>;
+    dc:date "2011-11-07T20:35:35.840680"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    dc:modified "2011-11-07T15:35:35"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    frbr:exemplarOf <hash:Manifestation/SHA256-a974977866e281018f96a2b0be259761447c2eee3bfeb71318eebbf25f95dd23>;
+    frbr:reproductionOf <hash:Item/SHA256-f6df5a6d5c04ccce557e26a305fec22d8b97407c2a8b8406757db31e32db9d5a-http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash>;
+    nfo:fileUrl <KBOS.xml>,
+        <file:////Users/lebot/afrl/information_management/m4rker/domain_instances/tw-data-gov/csv2rdf4lod/doc/examples/source/weather-gov/current-obs-kbos/version/2-54/KBOS.xml>;
+    nfo:hasHash <hash:SHA256-a974977866e281018f96a2b0be259761447c2eee3bfeb71318eebbf25f95dd23> .
+
+<hash:Expression/SHA256-0> a <http://purl.org/vocab/frbr/core#Expression>;
+    frbr:realizationOf <http://www.weather.gov/xml/current_obs/KBOS.xml>;
+    nfo:hasHash <hash:SHA256-0> .
+
+<hash:SHA256-0> a <http://purl.org/twc/ontology/frir.owl#TabularDigest>;
+    nfo:hashAlgorithm "SHA256";
+    nfo:hashValue "0" .
+
+<hash:SHA256-f6df5a6d5c04ccce557e26a305fec22d8b97407c2a8b8406757db31e32db9d5a> a <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash>;
+    nfo:hashAlgorithm "SHA256";
+    nfo:hashValue "f6df5a6d5c04ccce557e26a305fec22d8b97407c2a8b8406757db31e32db9d5a" .
+
+<http://code.google.com/p/surfrdf/ba2cea7a-84bd-4671-8704-2798dd6b8cbc> a <http://purl.org/twc/ontology/frir.owl#HTTP_1_1_GET>;
+    prov:used <hash:Item/SHA256-f6df5a6d5c04ccce557e26a305fec22d8b97407c2a8b8406757db31e32db9d5a-http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash>,
+        <http://purl.org/twc/ontology/frir.owl#HTTP_1_1_GET>;
+    prov:wasControlledBy <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+    dc:date "2011-11-07T20:35:35.840680"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+
+<http://www.weather.gov/xml/current_obs/KBOS.xml> a <http://purl.org/vocab/frbr/core#Work> .
+
+<hash:Item/SHA256-f6df5a6d5c04ccce557e26a305fec22d8b97407c2a8b8406757db31e32db9d5a-http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash> a <http://purl.org/twc/ontology/frir.owl#HTTP_1_1_Response>;
+    dc:date "2011-11-07T20:35:36+00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    frir:hasHeader """Date: Mon, 07 Nov 2011 20:35:36 GMT
+Server: Apache/2.2.15 (Red Hat)
+Last-Modified: Mon, 07 Nov 2011 20:02:08 GMT
+ETag: "650b50-889-4b12a879fe5f6"
+Accept-Ranges: bytes
+Content-Length: 2185
+Connection: close
+Content-Type: application/xml
+""";
+    frbr:exemplarOf <hash:Manifestation/SHA256-a974977866e281018f96a2b0be259761447c2eee3bfeb71318eebbf25f95dd23>;
+    nfo:hasHash <hash:SHA256-f6df5a6d5c04ccce557e26a305fec22d8b97407c2a8b8406757db31e32db9d5a> .
+
+<hash:Manifestation/SHA256-a974977866e281018f96a2b0be259761447c2eee3bfeb71318eebbf25f95dd23> a <http://purl.org/vocab/frbr/core#Manifestation>;
+    frbr:embodimentOf <hash:Expression/SHA256-0>;
+    nfo:hasHash <hash:SHA256-a974977866e281018f96a2b0be259761447c2eee3bfeb71318eebbf25f95dd23> .
+
+<hash:SHA256-a974977866e281018f96a2b0be259761447c2eee3bfeb71318eebbf25f95dd23> a <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileHash>;
+    nfo:hashAlgorithm "SHA256";
+    nfo:hashValue "a974977866e281018f96a2b0be259761447c2eee3bfeb71318eebbf25f95dd23" .
+
