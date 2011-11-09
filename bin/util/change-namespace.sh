@@ -1,9 +1,24 @@
 #!/bin/bash
+#
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/change-namespace.sh
+# 
+# e.g.
+#   change-namespace.sh http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl# http://www.w3.org/ns/prov-o/ -w
+
+if [[ $# -lt 2 || $# -gt 3 ]]; then
+   echo "usage: `basename $0` old-namespace new-namespace [-w]"
+   echo "  Nothing is modified unless -w is specified."
+   exit 1
+fi
 
 OLD_NAMESPACE="http://data-gov.tw.rpi.edu/vocab/conversion/"
-NEW_NAMESPACE="http://purl.org/twc/vocab/conversion/"
+OLD_NAMESPACE="$1"
 
-if [ ${1:-""} == "-w" ]; then
+NEW_NAMESPACE="http://purl.org/twc/vocab/conversion/"
+NEW_NAMESPACE="$2"
+shift 2
+
+if [ "$1" == "-w" ]; then
    shift 1
    if [ $# -gt 0 ]; then
       while [ $# -gt 0 ]; do
