@@ -11,3 +11,5 @@ else
    date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'
 fi
 # note was used at one time: date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'
+
+# Could be used: date +%Y-%m-%dT%H:%M:%S%z | sed 's/\(..\)$/:\1/'
