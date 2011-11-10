@@ -104,9 +104,12 @@ fi
 if [ ! -e "$eParamsDir/$datafile.e$eID.params.ttl" ]; then
    runEnhancement=no
 fi
-if [ "$destDir/$datafile.e$eID.ttl" -nt $CSV2RDF4LOD_HOME/bin/dup/csv2rdf4lod.jar ]; then                                       # Converter jar
-   if [ "$destDir/$datafile.e$eID.ttl" -nt "$eParamsDir/$datafile.e$eID.params.ttl" ]; then                                     # File, version specific params
-      echo "E$eID output newer than converter and params. skipping" | tee -a $CSV2RDF4LOD_LOG
+if [[ "$destDir/$datafile.e$eID.ttl" -nt "$eParamsDir/$datafile.e$eID.params.ttl"        ]]; then             # File, version specific params
+   if [[ "0" == "1" && "$destDir/$datafile.e$eID.ttl" -nt $CSV2RDF4LOD_HOME/bin/dup/csv2rdf4lod.jar ]]; then  # Converter jar TODO
+      echo "E$eID output newer than converter and enhancement parameters; skipping." | tee -a $CSV2RDF4LOD_LOG
+      runEnhancement=no
+   else 
+      echo "E$eID output newer than enhancement parameters; skipping." | tee -a $CSV2RDF4LOD_LOG
       runEnhancement=no
    fi
 fi
@@ -547,6 +550,7 @@ echo "export CSV2RDF4LOD_FORCE_PUBLISH=\"false\""                               
 chmod +x                                                                                   $publishDir/bin/publish.sh
 
 echo "   convert.sh done" | tee -a $CSV2RDF4LOD_LOG
+
 
 # NOTE: this script (convert.sh) does NOT call convert-aggregate.sh directly.
 #       convert-aggregate.sh is called by convert-DDD.sh /after/ it has called convert.sh (potentially) several times.
