@@ -16,6 +16,7 @@ else
    if [ ${CSV2RDF4LOD_PUBLISH:-"."} == "false" ]; then
          echo "convert-aggregate.sh not publishing b/c \$CSV2RDF4LOD_PUBLISH=false."                        | tee -a $CSV2RDF4LOD_LOG
          echo "===========================================================================================" | tee -a $CSV2RDF4LOD_LOG
+         rm $CSV2RDF4LOD_LOG
          CSV2RDF4LOD_LOG=""
          exit 1
    fi
@@ -34,6 +35,7 @@ else
          echo "  To publish raw with enhanced, add enhancement to $eParamsDir/$datafile.e$eID.params.ttl and rerun convert-$datasetID.sh" | tee -a $CSV2RDF4LOD_LOG
          echo "  To force publishing now, run publish/bin/publish.sh"                                                                     | tee -a $CSV2RDF4LOD_LOG
          echo "==========================================================================================="                               | tee -a $CSV2RDF4LOD_LOG
+         rm $CSV2RDF4LOD_LOG
          CSV2RDF4LOD_LOG=""
          exit 1
       fi
