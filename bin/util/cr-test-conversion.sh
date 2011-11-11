@@ -62,21 +62,16 @@ if [ "$1" == "--rq" ]; then
 
    echo "Creating rq/test for dataset $sourceID $datasetID"
 
-   # Convention:
+   # # # # #
    echo rq/test/ask/present
    mkdir -p rq/test/ask/present &> /dev/null
-
-   #
-   # Sample queries:
-   #
 
    present="rq/test/ask/present/a-dataset-exists.rq"
    if [ ! -e $present ]; then
       echo $present
-      echo "prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>"  > $present
-      echo "prefix void:       <http://rdfs.org/ns/void#>"              >> $present
-      echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>" >> $present
-      echo ""                                                           >> $present
+      echo `cr-default-prefixes.sh --sparql`                            >> $present
+      perl -pi -e 's/.prefix/\nprefix/g'                                   $present
+      echo                                                              >> $present
       echo "ASK"                                                        >> $present
       echo "WHERE {"                                                    >> $present
       echo "   GRAPH ?g {"                                              >> $present
@@ -87,15 +82,16 @@ if [ "$1" == "--rq" ]; then
       echo $present already exists. Not modifying.
    fi
 
+   # # # # #
    echo rq/test/ask/absent
    mkdir -p rq/test/ask/absent  &> /dev/null
 
    absent="rq/test/ask/absent/impossible.rq"
    if [ ! -e $absent ]; then
       echo $absent
-      echo "prefix owl: <http://www.w3.org/2002/07/owl#>"   > $absent
-      echo "prefix twi: <http://tw.rpi.edu/instances/>"    >> $absent
-      echo ""                                              >> $absent
+      echo `cr-default-prefixes.sh --sparql`               >> $absent
+      perl -pi -e 's/.prefix/\nprefix/g'                      $absent
+      echo                                                 >> $absent
       echo "ASK"                                           >> $absent
       echo "WHERE {"                                       >> $absent
       echo "   GRAPH ?g {"                                 >> $absent
@@ -104,6 +100,26 @@ if [ "$1" == "--rq" ]; then
       echo "}"                                             >> $absent
    else
       echo $absent already exists. Not modifying.
+   fi
+
+   # # # # #
+   echo rq/test/count/greater-than-or-equal/1
+   mkdir -p rq/test/count/greater-than-or-equal-to/1  &> /dev/null
+
+   count=rq/test/count/greater-than-or-equal-to/1/datasets.rq
+   if [ ! -e $count ]; then
+      echo $count
+      echo `cr-default-prefixes.sh --sparql`                     >> $count
+      perl -pi -e 's/.prefix/\nprefix/g'                            $count
+      echo                                                       >> $count
+      echo "SELECT ?dataset"                                     >> $count
+      echo "WHERE {"                                             >> $count
+      echo "   GRAPH ?g {"                                       >> $count
+      echo "      ?dataset a conversion:Dataset, void:Dataset ." >> $count
+      echo "   }"                                                >> $count
+      echo "}"                                                   >> $count
+   else
+      echo $count already exists. Not modifying.
    fi
    exit
 fi
@@ -273,12 +289,28 @@ for rq in `find $rq_dir -name "*.rq"`; do
 
    let "total = total + 1"
 
-   response=`tdbquery --loc publish/tdb --query $rq 2>&1 | grep -v WARN` # TODO: parameterize the tdb directory
+   # TODO: parameterize the tdb directory
+   if [[ $rq =~ rq/test/ask/present.* || \
+         $rq =~ rq/test/ask/absent.*  ]]; then
+      response=`tdbquery --loc publish/tdb --query $rq 2>&1 | grep -v WARN`
+   else
+      response=`tdbquery --loc publish/tdb --query=$rq 2>&1 --results=XML | grep -v WARN | grep "binding name" | wc -l | sed 's/^[^0-9]*//'`
+   fi
 
    if [[ $rq =~ rq/test/ask/present.* && $response =~ .*Yes.* || \
          $rq =~ rq/test/ask/absent.*  && $response =~ .*No.*  ]]; then
       result="passed"
       let "passed = passed + 1"
+   elif [[ $rq =~ ../../rq/test/count/greater-than-or-equal-to.* ]]; then
+      #           e.g. rq/test/count/greater-than-or-equal-to/1/datasets.rq
+      threshold=`echo $rq | sed 's/^.*greater-than-or-equal-to\///; s/\/.*$//'` # Get the number
+      response="$response >= $threshold"
+      if [[ $response -ge $threshold ]]; then
+         result="passed"
+         let "passed = passed + 1"
+      else
+         result="FAILED"
+      fi
    else
       result="FAILED"
    fi
