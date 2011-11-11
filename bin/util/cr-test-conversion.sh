@@ -304,19 +304,13 @@ for rq in `find $rq_dir -name "*.rq"`; do
    elif [[ $rq =~ ../../rq/test/count/greater-than-or-equal-to.* ]]; then
       #           e.g. rq/test/count/greater-than-or-equal-to/1/datasets.rq
       threshold=`echo $rq | sed 's/^.*greater-than-or-equal-to\///; s/\/.*$//'` # Get the number
-      response="$response >= $threshold"
-      if [[ "10" > "2" ]]; then
-         print 10 2
-      fi
-      if [[ 10 > 4 ]]; then
-         print 10 4
-      fi
-      if [[ ${response:-"0"} -ge "$threshold" || "`echo ${response:-"0"} $threshold | awk '{if($1>=$2){print "yes"}}'`" == "yes" ]]; then
+      if (( $response >= $threshold )); then
          result="passed"
          let "passed = passed + 1"
       else
          result="FAILED"
       fi
+      response="$response >= $threshold"
    else
       result="FAILED"
    fi
