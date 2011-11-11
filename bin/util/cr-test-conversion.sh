@@ -305,10 +305,10 @@ for rq in `find $rq_dir -name "*.rq"`; do
       #           e.g. rq/test/count/greater-than-or-equal-to/1/datasets.rq
       threshold=`echo $rq | sed 's/^.*greater-than-or-equal-to\///; s/\/.*$//'` # Get the number
       response="$response >= $threshold"
-      if [[ "10" -gt "2" ]]; then
+      if [[ "10" > "2" ]]; then
          print 10 2
       fi
-      if [[ 10 -gt 4 ]]; then
+      if [[ 10 > 4 ]]; then
          print 10 4
       fi
       if [[ ${response:-"0"} -ge "$threshold" || "`echo ${response:-"0"} $threshold | awk '{if($1>=$2){print "yes"}'`" == "yes" ]]; then
