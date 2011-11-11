@@ -305,7 +305,7 @@ for rq in `find $rq_dir -name "*.rq"`; do
       #           e.g. rq/test/count/greater-than-or-equal-to/1/datasets.rq
       threshold=`echo $rq | sed 's/^.*greater-than-or-equal-to\///; s/\/.*$//'` # Get the number
       response="$response >= $threshold"
-      if [[ $response -ge $threshold ]]; then
+      if [ $response -ge $threshold ]; then
          result="passed"
          let "passed = passed + 1"
       else
