@@ -311,7 +311,7 @@ for rq in `find $rq_dir -name "*.rq"`; do
       if [[ 10 > 4 ]]; then
          print 10 4
       fi
-      if [[ ${response:-"0"} -ge "$threshold" || "`echo ${response:-"0"} $threshold | awk '{if($1>=$2){print "yes"}'`" == "yes" ]]; then
+      if [[ ${response:-"0"} -ge "$threshold" || "`echo ${response:-"0"} $threshold | awk '{if($1>=$2){print "yes"}}'`" == "yes" ]]; then
          result="passed"
          let "passed = passed + 1"
       else
