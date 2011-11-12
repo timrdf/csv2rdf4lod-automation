@@ -63,16 +63,11 @@ if [ $# -gt 0 -a "$1" != "auto" ]; then
    shift 
 fi
 
-assudo="sudo"
-if [ `whoami` == "root" ]; then
-   assudo=""
-fi
-
 echo "Finding all csv2rdf4lod-params in `pwd`. Will populate into $namedGraph" >&2
 if [ `is-pwd-a.sh cr:data-root` == "yes" ]; then
-   params=`$assudo find */*/version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
+   params=`find */*/version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
 elif [ `is-pwd-a.sh cr:source` == "yes" ]; then
-   params=`$assudo find */version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
+   params=`find */version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
 fi
 
 for param in $params; do
@@ -88,14 +83,14 @@ done
 
 echo ""
 echo "Deleting $namedGraph"                                                 >&2
-echo  "  $assudo ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph" >&2
+echo  "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph" >&2
 if [ ${dryRun:-"."} != "true" -a $namedGraph != "." ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph 
 fi
 
 echo ""
 echo "Loading params into $namedGraph"                                                   >&2
-echo "  $assudo ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $namedGraph" >&2
+echo "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $namedGraph" >&2
 if [ "$dryRun" != "true" -a $namedGraph != "." ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $namedGraph
 fi
