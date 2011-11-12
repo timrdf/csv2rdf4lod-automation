@@ -24,32 +24,15 @@
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-#ACCEPTABLE_PWDs="cr:data-root"
-#if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
-#   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
-#   exit 1
-#fi
+ACCEPTABLE_PWDs="cr:data-root cr:source"
+if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
+   exit 1
+fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
-back_one=`cd .. 2>/dev/null && pwd`
-back_zero=`pwd`
-ANCHOR_SHOULD_BE_SOURCE=`basename $back_one`
-if [ $ANCHOR_SHOULD_BE_SOURCE != "source" ]; then
-   if [ `is-pwd-a.sh cr:data-root` == "yes" ]; then
-      numDatasets="all"      
-      namedGraph="http://purl.org/twc/vocab/conversion/ConversionProcess"
-   else
-      echo "  Working directory does not appear to be a SOURCE directory."
-      echo "  Run `basename $0` from a SOURCE directory (e.g. csv2rdf4lod/data/source/SOURCE/)"
-      exit 1
-   fi
-else
-   numDatasets="one"      
-   namedGraph="http://purl.org/twc/vocab/conversion/ConversionProcess"
-fi
-
-echo $numDatasets
+namedGraph="http://purl.org/twc/vocab/conversion/ConversionProcess"
 
 if [ $# -lt 1 ]; then
    echo "usage: `basename $0` [-n] <named_graph_URI | auto | .>"
@@ -80,32 +63,26 @@ if [ $# -gt 0 -a "$1" != "auto" ]; then
    shift 
 fi
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"must be set. source csv2rdf4lod/source-me.sh."}
-CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"must be set. source csv2rdf4lod/source-me.sh."}
-
-TEMP_params="_"`basename $0``date +%s`_$$.tmp
-
 assudo="sudo"
 if [ `whoami` == "root" ]; then
    assudo=""
 fi
 
 echo "Finding all csv2rdf4lod-params in `pwd`. Will populate into $namedGraph" >&2
-if [ $numDatasets == "one" ]; then
-   params=`$assudo find */version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
-else
+if [ `is-pwd-a.sh cr:data-root` == "yes" ]; then
    params=`$assudo find */*/version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
+elif [ `is-pwd-a.sh cr:source` == "yes" ]; then
+   params=`$assudo find */version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
 fi
 
-for param in $params
-do
+for param in $params; do
    count=`wc $param | awk '{print $1}'`
    echo "$count . $param" >&2
-   cat $param >> $TEMP_params
-   echo ""    >> $TEMP_params
-   echo ""    >> $TEMP_params
+   cat $param >> $TEMP
+   echo ""    >> $TEMP
+   echo ""    >> $TEMP
    #if [ ${dryRun:-"."} != "true" ]; then
-   #   rapper -i turtle -o ntriples $param >> $TEMP_params
+   #   rapper -i turtle -o ntriples $param >> $TEMP
    #fi
 done
 
@@ -113,22 +90,20 @@ echo ""
 echo "Deleting $namedGraph"                                                 >&2
 echo  "  $assudo ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph" >&2
 if [ ${dryRun:-"."} != "true" -a $namedGraph != "." ]; then
-   # @deprecated: $assudo /opt/virtuoso/scripts/vdelete               $namedGraph 
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph 
 fi
 
 echo ""
 echo "Loading params into $namedGraph"                                                   >&2
-echo "  $assudo ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP_params $namedGraph" >&2
-if [ ${dryRun:-"."} != "true" -a $namedGraph != "." ]; then
-   # @deprecated: $assudo /opt/virtuoso/scripts/vload   nt $TEMP_params $namedGraph
-   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP_params $namedGraph
+echo "  $assudo ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $namedGraph" >&2
+if [ "$dryRun" != "true" -a $namedGraph != "." ]; then
+   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $namedGraph
 fi
 
-if [ -e $TEMP_params ]; then
+if [ -e $TEMP ]; then
    if [ $namedGraph == "." ]; then
       echo "dumping to stdout" >&2      
-      cat $TEMP_params
+      cat $TEMP
    fi
-   rm $TEMP_params 
+   rm $TEMP 
 fi
