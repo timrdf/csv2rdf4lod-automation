@@ -36,7 +36,7 @@ back_one=`cd .. 2>/dev/null && pwd`
 back_zero=`pwd`
 ANCHOR_SHOULD_BE_SOURCE=`basename $back_one`
 if [ $ANCHOR_SHOULD_BE_SOURCE != "source" ]; then
-   if [ `basename $back_zero` == "source" ]; then
+   if [ `is-pwd-a.sh cr:data-root` == "yes" ]; then
       numDatasets="all"      
       namedGraph="http://purl.org/twc/vocab/conversion/ConversionProcess"
    else
