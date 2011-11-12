@@ -36,6 +36,7 @@ namedGraph="http://purl.org/twc/vocab/conversion/ConversionProcess"
 
 if [[ "$1" == "--target" ]]; then
    echo $namedGraph 
+   exit 0
 fi
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
