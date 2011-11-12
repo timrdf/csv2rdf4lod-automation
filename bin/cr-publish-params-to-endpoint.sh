@@ -34,21 +34,31 @@ TEMP="_"`basename $0``date +%s`_$$.tmp
 
 namedGraph="http://purl.org/twc/vocab/conversion/ConversionProcess"
 
+if [[ $# -lt 1 || "$1" == "--help" ]]; then
+   echo "usage: `basename $0` [--target] [--clear-graph] [-n] <named_graph_URI | auto | .>"
+   echo ""
+   echo "Find all csv2rdf4lod params ttl files and put them into a named graph on a virtuoso sparql endpoint."
+   echo ""
+   echo "       --target: return the name of graph that will be loaded."
+   echo "  --clear-graph: clear the named graph."
+   echo "             -n: perform dry run only; do not load named graph."
+   echo "  auto - use named graph $namedGraph"
+   echo "  .    - print to stdout"
+   exit 1
+fi
+
 if [[ "$1" == "--target" ]]; then
    echo $namedGraph 
    exit 0
 fi
 
-if [[ $# -lt 1 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [--target] [-n] <named_graph_URI | auto | .>"
+if [[ "$1" == "--clear-graph" ]]; then
    echo ""
-   echo "Find all csv2rdf4lod params ttl files and put them into a named graph on a virtuoso sparql endpoint."
-   echo ""
-   echo "  --target: return the name of graph that will be loaded."
-   echo "        -n: perform dry run only; do not load named graph."
-   echo "  auto - use named graph $namedGraph"
-   echo "  .    - print to stdout"
-   exit 1
+   echo "Deleting $namedGraph"                                                 >&2
+   echo  "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph" >&2
+   if [ ${dryRun:-"."} != "true" -a $namedGraph != "." ]; then
+      ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph 
+   fi
 fi
 
 dryRun="false"
@@ -89,14 +99,7 @@ for param in $params; do
 done
 
 echo ""
-echo "Deleting $namedGraph"                                                 >&2
-echo  "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph" >&2
-if [ ${dryRun:-"."} != "true" -a $namedGraph != "." ]; then
-   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph 
-fi
-
-echo ""
-echo "Loading params into $namedGraph"                                                   >&2
+echo "Loading params into $namedGraph"                                    >&2
 echo "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $namedGraph" >&2
 if [ "$dryRun" != "true" -a $namedGraph != "." ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $namedGraph
