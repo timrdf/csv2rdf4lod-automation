@@ -63,7 +63,7 @@ if [[ "$1" == "--clear-graph" ]]; then
    shift
 fi
 
-if [ "$1" != "auto" ]; then
+if [ "$1" != "cr:auto" ]; then
    namedGraph="$1"
    shift 
 fi
