@@ -33,9 +33,9 @@ fi
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
 if [ `is-pwd-a.sh cr:data-root` == "yes" ]; then
-   namedGraph="$CSV2RDF4LOD_BASE_URI/vocab/Dataset"
+   graphName="$CSV2RDF4LOD_BASE_URI/vocab/Dataset"
 elif [ `is-pwd-a.sh cr:source` == "yes" ]; then
-   namedGraph=$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/vocab/Dataset
+   graphName=$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/vocab/Dataset
 fi
 
 if [ $# -lt 1 ]; then
@@ -48,9 +48,14 @@ if [ $# -lt 1 ]; then
    echo "    --clear-graph : clear the named graph."
    echo
    echo "  named_graph_URI : use graph name given"
-   echo "          cr:auto : use named graph $namedGraph"
+   echo "          cr:auto : use named graph $graphName"
    echo "                . : print to stdout"
    exit 1
+fi
+
+if [ "$1" == "--target" ]; then
+   echo $graphName
+   exit 0
 fi
 
 dryRun="false"
@@ -70,22 +75,22 @@ fi
 
 if [ "$1" == "--clear-graph" ]; then
    echo ""
-   echo "Deleting $namedGraph"                                         >&2
-   echo  "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph" >&2
-   if [ "$dryRun" != "true" -a $namedGraph != "." ]; then
-      ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete             $namedGraph
+   echo "Deleting $graphName"                                         >&2
+   echo  "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $graphName" >&2
+   if [ "$dryRun" != "true" -a $graphName != "." ]; then
+      ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete             $graphName
    fi
    shift
 fi
 
 if [ "$1" != "cr:auto" ]; then
-   namedGraph="$1"
+   graphName="$1"
    shift 
 fi
 
 ARCHIVED_void=""
 
-echo "Finding all VoIDs from `pwd`. Will populate into $namedGraph" >&2
+echo "Finding all VoIDs from `pwd`. Will populate into $graphName" >&2
 echo ""
 if [ `is-pwd-a.sh cr:source` == "yes" ]; then
    voids=`find   */version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
@@ -115,14 +120,14 @@ for void in $voids; do
 done
 
 echo ""
-echo "Loading void into $namedGraph"                                           >&2
-echo "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $namedGraph" >&2
-if [ "$dryRun" != "true" -a $namedGraph != "." ]; then
-   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $namedGraph
+echo "Loading void into $graphName"                                           >&2
+echo "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $graphName" >&2
+if [ "$dryRun" != "true" -a $graphName != "." ]; then
+   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $graphName
 fi
 
 if [ -e $TEMP ]; then
-   if [ $namedGraph == "." ]; then
+   if [ $graphName == "." ]; then
       echo "dumping to stdout" >&2      
       cat $TEMP
    fi
@@ -135,7 +140,7 @@ fi
 if [ "$dryRun" == "true" ]; then
    echo "" 
    echo "" 
-   echo "       (NOTE: only performed dryrun; remove -n parameter to actually load triple store's <$namedGraph>)"
+   echo "       (NOTE: only performed dryrun; remove -n parameter to actually load triple store's <$graphName>)"
    echo ""
    echo ""
    shift 
