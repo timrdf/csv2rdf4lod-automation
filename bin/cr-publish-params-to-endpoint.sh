@@ -21,15 +21,17 @@ TEMP="_"`basename $0``date +%s`_$$.tmp
 namedGraph="http://purl.org/twc/vocab/conversion/ConversionProcess"
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [--target] [-n] [--clear-graph] <named_graph_URI | auto | .>"
+   echo "usage: `basename $0` [--target] [-n] [--clear-graph] <named_graph_URI | cr:auto | .>"
    echo ""
    echo "Find all csv2rdf4lod params ttl files and put them into a named graph on a virtuoso sparql endpoint."
    echo ""
-   echo "       --target: return the name of graph that will be loaded."
-   echo "             -n: perform dry run only; do not load named graph."
-   echo "  --clear-graph: clear the named graph."
-   echo "  auto - use named graph $namedGraph"
-   echo "  .    - print to stdout"
+   echo "         --target : return the name of graph that will be loaded."
+   echo "               -n : perform dry run only; do not load named graph."
+   echo "    --clear-graph : clear the named graph."
+   echo
+   echo "  named_graph_URI : use graph name given"
+   echo "          cr:auto : use graph name $namedGraph"
+   echo "                . : print to stdout (to not put in graph)"
    exit 1
 fi
 
