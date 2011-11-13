@@ -85,19 +85,12 @@ fi
 
 ARCHIVED_void=""
 
-assudo="sudo"
-if [ `whoami` == "root" ]; then
-   if [ ${dryRun:-"."} != "true" ]; then
-      assudo="" # Only needed when not doing a dry run.
-   fi
-fi
-
 echo "Finding all VoIDs from `pwd`. Will populate into $namedGraph" >&2
 echo ""
 if [ `is-pwd-a.sh cr:source` == "yes" ]; then
-   voids=`$assudo find   */version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
+   voids=`find   */version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
 elif [ `is-pwd-a.sh cr:data-root` == "yes" ]; then
-   voids=`$assudo find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
+   voids=`find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
 
    if [ ${#CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID} -gt 0 -a ${#CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID} -gt 0 ]; then
       ARCHIVED_void=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID/$CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID-metadata/version/`date +%Y-%b-%d`/source/conversion-metadata.nt
