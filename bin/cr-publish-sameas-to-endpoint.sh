@@ -51,6 +51,11 @@ if [[ "$1" == "--help" || $# -lt 1 ]]; then
    exit 1
 fi
 
+if [ "$1" == "--target" ]; then
+   echo $graphName
+   exit 0
+fi
+
 dryRun="false"
 if [ "$1" == "-n" ]; then
    dryRun="true"
