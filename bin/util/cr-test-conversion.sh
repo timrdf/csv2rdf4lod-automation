@@ -315,7 +315,7 @@ for rq in `find $rq_dir -name "*.rq"`; do
       response=`tdbquery --loc publish/tdb --query $rq 2>&1 | grep -v WARN`
    elif [[ $rq =~ rq/test/count/greater-than-or-equal-to.* || \
            $rq =~ rq/test/count/equal-to.*                 ]]; then
-      response=`tdbquery --loc publish/tdb --query=$rq --results=XML 2>&1 | grep -v WARN | grep "binding name" | wc -l | sed 's/^[^0-9]*//'`
+      response=`tdbquery --loc publish/tdb --query=$rq --results=XML 2>&1 | grep -v WARN | grep "<result>" | wc -l | sed 's/^[^0-9]*//'`
    fi
 
    if [[ $rq =~ rq/test/ask/present.* && $response =~ .*Yes.* || \
