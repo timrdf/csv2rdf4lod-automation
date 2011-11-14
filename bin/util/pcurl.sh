@@ -77,48 +77,48 @@ while [ $# -gt 0 ]; do
    while [ "$2" == "-F" -a $# -ge 3 ]; do
       HTTP_TYPE="POST"
       formFields="$formFields -F $3"
-      echo "PCURL: POST fields:$formFields"
+      echo "INFO: POST fields:$formFields"
       shift 2 
    done
 
-   echo "PCURL: url                $url"
+   #echo "PCURL: url                $url"
    localName=""
    urlBaseName=`basename $url`
-   echo "PCURL: url basename       $urlBaseName"
+   #echo "PCURL: url basename       $urlBaseName"
    flag=$2
    if [ $# -ge 3 -a ${flag:=""} == "-n" ]; then
       localName="$3"
-      echo "PCURL: -n localname       $localName"
+      #echo "PCURL: -n localname       $localName"
       shift 2
    else
       localName=$urlBaseName
-      echo "PCURL: basename localname $localName"
+      #echo "PCURL: basename localname $localName"
    fi
 
    flag=$2
    if [ $# -ge 3 -a ${flag:=""} == "-e" ]; then
       extension=".$3"
-      echo "PCURL: -e localname       $localName$extension"
+      #echo "PCURL: -e localname       $localName$extension"
       shift 2
    else
       extension=""
-      echo "PCURL: basename localname $localName"
+      #echo "PCURL: basename localname $localName"
    fi
 
    #echo getting last mod xsddatetime
    urlINFO=`curl -I --globoff $url 2> /dev/null`
    urlModDateTime=`urldate.sh -field Last-Modified: -format dateTime $url`
-   echo "PCURL: URL modification date:  $urlModDateTime"
+   #echo "PCURL: URL modification date:  $urlModDateTime"
 
    #echo getting redirect name
    redirectedURL=`filename-v3.pl $url`
    redirectedURLINFO=`curl -I --globoff $redirectedURL 2> /dev/null`
    redirectedModDate=`urldate.sh -field Last-Modified: -format dateTime $redirectedURL`
-   echo "PCURL: http redirect basename `basename $redirectedURL`"
+   #echo "PCURL: http redirect basename `basename $redirectedURL`"
 
    #echo getting last mod
    documentVersion=`urldate.sh -field Last-Modified: $url`
-   echo "PCURL: URL mod date: $documentVersion"
+   #echo "PCURL: URL mod date: $documentVersion"
    if [ ${#documentVersion} -le 3 ]; then
       documentVersion="undated"
       echo "version: $documentVersion"
@@ -127,24 +127,24 @@ while [ $# -gt 0 ]; do
    file=`basename $redirectedURL`$extension
    if [ ${#localName} -gt 0 ]; then
       file=$localName$extension
-      echo "PCURL: local name overriding redirected name"
+      #echo "PCURL: local name overriding redirected name"
    fi
    #file=${localName}-$documentVersion${extension}
-   echo "PCURL: local file name will be $file"
+   echo "INFO `basename $0`: local file name will be $file"
 
    if [ ! -e $file -a ${#documentVersion} -gt 0 ]; then 
       requestID=`java edu.rpi.tw.string.NameFactory`
       usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'`
 
-      echo "$url (mod $urlModDateTime)"
+      #echo "$url (mod $urlModDateTime)"
       echo "$redirectedURL (mod $redirectedModDate) to $file (@ $usageDateTime)"
       # TODO: curl -H "Accept: application/rdf+xml, */*; q=0.1", but 406
       # http://dowhatimean.net/2008/03/what-is-your-rdf-browsers-accept-header
       prefRDF="" #"-H 'Accept: application/rdf+xml, */*; q=0.1'"
       #echo curl $prefRDF -L $url 
       if [ ${downloadFile:-"."} == "true" ]; then
-         echo curl -L --globoff $url $formFields REDIRECT_ANGLE $file
-         curl -L --globoff --insecure $url $formFields > $file
+         echo "curl -L --globoff --insecure $url $formFields ($file)"
+               curl -L --globoff --insecure $url $formFields > $file
          downloadedFileMD5=`md5.sh $file`
       fi
 
