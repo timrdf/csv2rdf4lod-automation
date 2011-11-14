@@ -103,9 +103,9 @@ elif [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       echo ""
    fi
 
-   source=`is-pwd-a.sh  cr:bone --id-of source`
-   datasetID=`is-pwd-a.sh cr:bone --id-of dataset`
-   version=`is-pwd-a.sh cr:bone --id-of version`
+   source=`cr-source-id.sh`
+   datasetID=`cr-dataset-id.sh`
+   version=`cr-list-versions.sh`
  
    echo "`cr-pwd.sh` ($source - $datasetID - $version)"
    echo
