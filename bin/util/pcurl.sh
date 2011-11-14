@@ -121,7 +121,7 @@ while [ $# -gt 0 ]; do
    #echo "PCURL: URL mod date: $documentVersion"
    if [ ${#documentVersion} -le 3 ]; then
       documentVersion="undated"
-      echo "version: $documentVersion"
+      #echo "version: $documentVersion"
    fi
 
    file=`basename $redirectedURL`$extension
@@ -130,14 +130,14 @@ while [ $# -gt 0 ]; do
       #echo "PCURL: local name overriding redirected name"
    fi
    #file=${localName}-$documentVersion${extension}
-   echo "INFO `basename $0`: local file name will be $file"
+   #echo "INFO `basename $0`: local file name will be $file"
 
    if [ ! -e $file -a ${#documentVersion} -gt 0 ]; then 
       requestID=`java edu.rpi.tw.string.NameFactory`
       usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'`
 
       #echo "$url (mod $urlModDateTime)"
-      echo "$redirectedURL (mod $redirectedModDate) to $file (@ $usageDateTime)"
+      #echo "$redirectedURL (mod $redirectedModDate) to $file (@ $usageDateTime)"
       # TODO: curl -H "Accept: application/rdf+xml, */*; q=0.1", but 406
       # http://dowhatimean.net/2008/03/what-is-your-rdf-browsers-accept-header
       prefRDF="" #"-H 'Accept: application/rdf+xml, */*; q=0.1'"

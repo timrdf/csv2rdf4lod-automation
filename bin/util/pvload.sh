@@ -79,7 +79,7 @@ while [ $# -gt 0 ]; do
       named_graph="$url"                          # Default to a named graph name of the URL source.
    fi
    echo "INFO: `basename $0`: (URL) $url"
-   echo "            --> (Named Graph) $named_graph"
+   echo "                   --> (Named Graph) $named_graph"
 
    #
    # Normalize into ntriples (note, this step is not worth describing in the provenance).
