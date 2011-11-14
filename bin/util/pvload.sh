@@ -59,7 +59,7 @@ while [ $# -gt 0 ]; do
       gunzip -t $TEMP &> /dev/null
       if [ $? -eq 0 ]; then
          unzipped=".unzipped"
-         echo "`basename $0`: HTTP response was compressed; uncompressing."
+         echo "INFO: `basename $0`: HTTP response was compressed; uncompressing."
          gunzip -c $TEMP > ${TEMP}${unzipped}
       fi
    else
@@ -69,16 +69,16 @@ while [ $# -gt 0 ]; do
    usageDateTime=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`
    usageDateTimeSlug=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh coin:slug`
 
-   echo "PVLOAD: url                $url"
+   #echo "PVLOAD: url                $url"
    flag=$2
    if [ ${flag:="."} == "-ng" -a $# -ge 2 ]; then # Override the default named graph name (the URL of the source).
       named_graph="$3"
-      echo "PVLOAD: -ng             $named_graph"; shift 2
+      #echo "PVLOAD: -ng             $named_graph"; shift 2
    else
       named_graph="$url"                          # Default to a named graph name of the URL source.
    fi
-   echo "PVLOAD: (URL) $url"
-   echo "         --> (Named Graph) $named_graph"
+   echo "INFO: `basename $0`: (URL) $url"
+   echo "            --> (Named Graph) $named_graph"
 
    #
    # Normalize into ntriples (note, this step is not worth describing in the provenance).
@@ -88,11 +88,11 @@ while [ $# -gt 0 ]; do
    syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper`
    liked_guess=$? # 0 : liked its guess, 1: did NOT like its guess
    if [[ $liked_guess == 1 ]]; then
-      echo "DIDN'T LIKED SYNTAX GUESS $syntax: $liked_guess"
+      #echo "DIDN'T LIKED SYNTAX GUESS $syntax: $liked_guess"
       syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect ${TEMP}${unzipped} rapper`
-      echo "GUESS BY INSPECTION: $syntax"
+      echo "INFO: Guess by inspection: $syntax"
    else
-      echo "Liked syntax guess $syntax: $liked_guess ($url)"
+      echo "INFO: Liked syntax guess $syntax: $liked_guess ($url)"
    fi
 
    # Turtle to N-TRIPLES (b/c Virtuoso chokes on some Turtle and we need to spoon feed).
@@ -128,7 +128,7 @@ while [ $# -gt 0 ]; do
       #latest_NG_nodeset=`$java_saxon endpoint=http://logd.tw.rpi.edu:8890/sparql named-graph=${named_graph}` # pvload-latest-ng-load.xsl needs to call vsr:virtuoso b/c virtuoso isn't returning XML
       latest_NG_nodeset=`$java_saxon endpoint=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} named-graph=${named_graph}` # pvload-latest-ng-load.xsl can call vsr:endpoint for a generic call, but it needs to not be dumb about its caching.
       if [ ${#latest_NG_nodeset} -gt 0 ]; then
-         echo "PVLOAD: found provenance of previous named graph load: $latest_NG_nodeset"
+         echo "INFO: `basename $0` found provenance of previous named graph load: $latest_NG_nodeset"
          latest_NG_nodeset="<$latest_NG_nodeset>"
       fi
 
@@ -205,18 +205,18 @@ while [ $# -gt 0 ]; do
 
       #deprecated now that vload is part of csv2rdf4lod-automation: vload=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT______PATH:-"/opt/virtuoso/scripts/v_____load"}
       vload=$CSV2RDF4LOD_HOME/bin/util/virtuoso/vload
-      echo $assudo $vload nt ${TEMP}${unzipped}.nt $named_graph
+      #echo $assudo $vload nt ${TEMP}${unzipped}.nt $named_graph
       if [ ${dryrun-"."} != "true" ]; then #        Actual response (in ntriples syntax).
          $assudo $vload nt ${TEMP}${unzipped}.nt   $named_graph 2>&1 | grep -v "Loading triples into graph" 
          #cat /tmp/virtuoso-tmp/vload.log
       fi
-      echo $assudo $vload ttl ${TEMP}.pml.ttl      $named_graph
+      #echo $assudo $vload ttl ${TEMP}.pml.ttl      $named_graph
       if [ ${dryrun-"."} != "true" ]; then # Provenance of response (SourceUsage created by pcurl.sh).
          rapper -q -g -o ntriples ${TEMP}.pml.ttl > ${TEMP}.pml.ttl.nt
          $assudo $vload nt ${TEMP}.pml.ttl.nt     $named_graph 2>&1 | grep -v "Loading triples into graph"
          #cat /tmp/virtuoso-tmp/vload.log
       fi
-      echo $assudo $vload ttl ${TEMP}.load.pml.ttl  $named_graph
+      #echo $assudo $vload ttl ${TEMP}.load.pml.ttl  $named_graph
       if [ ${dryrun-"."} != "true" ]; then # Provenance of loading file into the store. TODO: cat ${TEMP}${unzipped}.load.pml.ttl into a pmlp:hasRawString?
          rapper -q -g -o ntriples ${TEMP}${unzipped}.load.pml.ttl > ${TEMP}${unzipped}.load.pml.ttl.nt
          $assudo $vload nt ${TEMP}${unzipped}.load.pml.ttl.nt   $named_graph 2>&1 | grep -v "Loading triples into graph"             
@@ -229,7 +229,7 @@ while [ $# -gt 0 ]; do
          rm -f ${TEMP}${unzipped} ${TEMP}.pml.ttl ${TEMP}.pml.ttl.nt ${TEMP}${unzipped}.nt ${TEMP}${unzipped}.load.pml.ttl ${TEMP}${unzipped}.load.pml.ttl.nt #
       fi
       else
-         echo "skipping b/c no triples returned."
+         echo "WARNING: `basename $0` skipping b/c no triples returned."
       fi
    shift
 done
