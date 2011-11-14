@@ -52,7 +52,7 @@ if [ ! -e $data_file ]; then
    exit 1
 fi
 
-echo "Loading triples into graph <$graph_uri> ..."
+echo "INFO: Loading triples into graph <$graph_uri> ..."
 
 # Check to see if file is within a directory Virtuoso can read from directly.
 load_in_place="false"
@@ -71,9 +71,9 @@ if [[ $load_in_place == "false" ]]; then
    cp ${data_file} ${virtuoso_allowed_dir}
    file_name_local=${data_file##*/}
    file_name_full=$virtuoso_allowed_dir/$file_name_local
-   echo COPYING ${data_file} $file_name_full
+   echo "WARNING: COPYING ${data_file} $file_name_full"
 else
-   echo "(no need to copy; file is within \$CSV2RDF4LOD_CONVERT_DATA_ROOT, a virtuoso-readable directory.)"
+   echo "INFO: No need to copy; file is within \$CSV2RDF4LOD_CONVERT_DATA_ROOT, a virtuoso-readable directory."
    file_name_full=$data_file
 fi
 
@@ -136,7 +136,6 @@ if [[ $load_in_place == "false" ]]; then
    rm $file_name_full
 fi
 
-# TODO: cat file if it contains /^... Error/
 if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
    echo "Loading finished. $vload_log:"	
    cat $vload_log
@@ -145,6 +144,7 @@ else
    echo "Loading finished. Check $vload_log for details."	
 fi
 
+# TODO: cat file if it contains /^... Error/
 if [[ "$4" == "-v" || "$4" == "--verbose" ]]; then
    cat $vload_log
 fi
