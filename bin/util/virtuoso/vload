@@ -137,11 +137,11 @@ if [[ $load_in_place == "false" ]]; then
 fi
 
 if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
-   echo "Loading finished. $vload_log:"	
+   echo "INFO: Loading finished. $vload_log:"	
    cat $vload_log
 else
    #echo "Loading finished. Check $virtuoso_allowed_dir/latest.log for details (currently $vload_log)."	
-   echo "Loading finished. Check $vload_log for details."	
+   echo "INFO: Loading finished. Check $vload_log for details."	
 fi
 
 # TODO: cat file if it contains /^... Error/
