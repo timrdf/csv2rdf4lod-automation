@@ -73,7 +73,8 @@ while [ $# -gt 0 ]; do
    flag=$2
    if [ ${flag:="."} == "-ng" -a $# -ge 2 ]; then # Override the default named graph name (the URL of the source).
       named_graph="$3"
-      #echo "PVLOAD: -ng             $named_graph"; shift 2
+      #echo "PVLOAD: -ng             $named_graph"; 
+      shift 2
    else
       named_graph="$url"                          # Default to a named graph name of the URL source.
    fi
