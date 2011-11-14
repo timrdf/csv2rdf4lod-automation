@@ -1,7 +1,9 @@
 #!/bin/bash
+# 
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/modification-date.sh
 
 if [[ "`uname -a`" =~ Darwin ]]; then
-   echo Darwin
+   stat -f "%m" $1
 elif [[ "`uname -a`" =~ Ubuntu ]]; then
-   echo Ubuntu
+   stat -c "%Y" $1
 fi

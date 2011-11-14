@@ -39,11 +39,11 @@ if   [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:dataset`                   
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh            cr:directory-of-versions`                       == "yes" ]]; then
    #find .       -mindepth 1 -maxdepth 1 -type d | grep -v "/\." | sed 's/^\.\///'
    # List directories and when they were modified, bring to one line, sort so oldest is first, get rid of hidden directories.
-   find . -mindepth 1 -maxdepth 1                           \
-          -type d                                           \
-          -exec stat -f "%m" '{}' \; -exec echo '{}' \;     \
-        | awk '{if(NR%2==1){printf("%s ",$0)}else{print}}'  \
-        | sort -n                                           \
+   find . -mindepth 1 -maxdepth 1                               \
+          -type d                                               \
+          -exec modification-date.sh '{}' \; -exec echo '{}' \; \
+        | awk '{if(NR%2==1){printf("%s ",$0)}else{print}}'      \
+        | sort -n                                               \
         | sed 's/\.\///g' | grep -v " \." | awk '{print $2}'
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh                                     cr:conversion-cockpit` == "yes" ]]; then
    echo `pwd | awk -F\/ '{print $NF}'`
