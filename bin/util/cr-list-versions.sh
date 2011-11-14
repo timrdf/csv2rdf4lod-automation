@@ -48,4 +48,3 @@ elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh            cr:directory-of-ver
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh                                     cr:conversion-cockpit` == "yes" ]]; then
    echo `pwd | awk -F\/ '{print $NF}'`
 fi
-
