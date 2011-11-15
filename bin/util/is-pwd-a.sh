@@ -3,7 +3,7 @@
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/is-pwd-a.sh
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Directory-Conventions
 
-VALIDS="cr:dev cr:data-root, cr:source, cr:directory-of-datasets, cr:dataset, cr:directory-of-versions, cr:conversion-cockpit"
+VALIDS="cr:dev, cr:data-root, cr:source, cr:directory-of-datasets, cr:dataset, cr:directory-of-versions, cr:conversion-cockpit"
 
 if [ "$1" == "--types" ]; then
    echo $VALIDS | sed 's/^.*{//;s/}//;s/,//g'

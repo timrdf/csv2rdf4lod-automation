@@ -25,7 +25,7 @@ if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo ""
    echo "Find all csv2rdf4lod params ttl files and put them into a named graph on a virtuoso sparql endpoint."
    echo ""
-   echo "         --target : return the name of graph that will be loaded."
+   echo "         --target : return the name of graph that will be loaded; then quit."
    echo "               -n : perform dry run only; do not load named graph."
    echo "    --clear-graph : clear the named graph."
    echo
