@@ -1,6 +1,10 @@
 #!/bin/bash
 #
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/too-big-for-rapper.sh
+#
+# Return "yes" if any of the files listed are too big for rapper's 2GB limit.
+# Otherwise, return "no".
+#
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Dealing-with-rapper%27s-2GB-limitation
 
 if [ $# -lt 1 ]; then
