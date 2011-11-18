@@ -1,10 +1,28 @@
 #!/bin/bash
 #
-# cr-create-versioned-dataset-dir.sh
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-create-versioned-dataset-dir.sh
+#
+# This script sets up a new version of a dataset when given a URL to a tabular file and some options
+# describing its structure (comment character, header line, and delimter).
+#
+# If you have a non-tabular file, or custom software to retrieve data, then this script can be 
+# used as a template for the retrieve.sh that is placed in the version directory.
 #
 # See:
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset
 #
+
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+
+# cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
+ACCEPTABLE_PWDs="cr:directory-of-versions"
+if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
+   exit 1
+fi
+
+TEMP="_"`basename $0``date +%s`_$$.tmp
+
 
 if [ $# -lt 2 ]; then
    echo "usage: `basename $0` version-identifier URL [--comment-character char]"
@@ -15,7 +33,6 @@ if [ $# -lt 2 ]; then
    exit 1
 fi
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
 #-#-#-#-#-#-#-#-#
 version="$1"
@@ -65,21 +82,30 @@ echo "header    : $headerLine"
 echo "comment   : $commentCharacter"
 echo "delimiter : $delimiter"
 
+#
+# This script is invoked from a cr:directory-of-versions, e.g. source/contactingthecongress/directory-for-the-112th-congress/version
+#
 if [ ! -d $version ]; then
 
+   # Create the directory for the new version if it didn't exist already.
    mkdir -p $version/source
 
+   # Go into the directory that stores the original data obtained from the source organization.
    pushd $version/source &> /dev/null
-      touch .__CSV2RDF4LOD_retrieval
-      pcurl.sh $url
-      if [ `ls *.gz *.zip 2> /dev/null | wc -l` -gt 0 ]; then
-         touch .__CSV2RDF4LOD_retrieval
-         for zip in `ls *.gz *.zip 2> /dev/null`; do
-            punzip.sh $zip
-         done
-      fi
+      touch .__CSV2RDF4LOD_retrieval # Make a timestamp so we know what files were created during retrieval.
+      # - - - - - - - - - - - - - - - - - - - - Replace below for custom retrieval  - - - \
+      pcurl.sh $url                                                                     # |
+      if [ `ls *.gz *.zip 2> /dev/null | wc -l` -gt 0 ]; then                           # |
+         # Uncompress anything that is compressed.                                      # |
+         touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
+         for zip in `ls *.gz *.zip 2> /dev/null`; do                                    # |
+            punzip.sh $zip              # We are capturing provenance of decompression. # |
+         done                                                                           # |
+      fi                                                                                # |
+      # - - - - - - - - - - - - - - - - - - - - Replace above for custom retrieval - - - -/
    popd &> /dev/null
 
+   # Go into the conversion cockpit of the new version.
    pushd $version &> /dev/null
 
       if [ -e ../2manual.sh ]; then
@@ -94,6 +120,7 @@ if [ ! -d $version ]; then
          files=`find source -newer source/.__CSV2RDF4LOD_retrieval -type f | grep -v "pml.ttl$"`
 
          echo files: $files
+         # Create a conversion trigger for the files obtained during retrieval.
          cr-create-convert-sh.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
       fi
 
