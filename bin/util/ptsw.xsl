@@ -33,7 +33,9 @@ rdfdocument has four attributes: url, created, updated and topics:
 
 <xsl:template match="rdfdocument">
    <xsl:value-of select="concat('&lt;',@url,'>',$NL)"/>
+   <xsl:value-of select="concat($indent,'a void:Dataset;',$NL)"/>
    <xsl:apply-templates select="@* except @url"/>
+   <xsl:value-of select="concat($indent,'void:dataDump &lt;',@url,'>;',$NL)"/>
    <xsl:value-of select="concat('.',$NL)"/>
 </xsl:template>
 
