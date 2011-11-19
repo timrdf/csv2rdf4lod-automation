@@ -1,6 +1,8 @@
 #
-# http://pingthesemanticweb.com/api.php
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/ptsw.sh
 #
+#
+# http://pingthesemanticweb.com/api.php:
 # Setting up a REST Client
 # PingtheSemanticWeb.com accepts form-based HTTP POST and GET requests for non-extended pings. For example, the following is a valid HTTP GET ping request:
 # 
