@@ -184,11 +184,11 @@ BEGIN {
                                     printf("      ];                          \n");
    }
                                     printf("      #conversion:enhance [\n");
-                                    printf("      #   conversion:domain_template \"tool_[r]\";\n");
-                                    printf("      #   conversion:domain_name     \"Tool\";\n");
+                                    printf("      #   conversion:domain_template \"thing_[r]\";\n");
+                                    printf("      #   conversion:domain_name     \"Thing\";\n");
                                     printf("      #];\n");
                                     printf("      #conversion:enhance [\n");
-                                    printf("      #   conversion:class_name \"Tool\";\n");
+                                    printf("      #   conversion:class_name \"Thing\";\n");
                                     printf("      #   conversion:subclass_of <http://purl.org/...>;\n");
                                     printf("      #];\n");
 }
