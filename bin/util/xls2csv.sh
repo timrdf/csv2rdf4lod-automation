@@ -7,12 +7,12 @@ CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh o
 # Java dependencies; relative to $CSV2RDF4LOD_HOME
 for jar in                                              \
            lib/javacsv2.0/javacsv.jar                   \
-           lib/poi-3.8-beta2-20110408.jar               \
-           lib/poi-examples-3.8-beta2-20110408.jar      \
-           lib/poi-excelant-3.8-beta2-20110408.jar      \
-           lib/poi-ooxml-3.8-beta2-20110408.jar         \
-           lib/poi-ooxml-schemas-3.8-beta2-20110408.jar \
-           lib/poi-scratchpad-3.8-beta2-20110408.jar    \
+           lib/poi/poi-3.8-beta2-20110408.jar               \
+           lib/poi/poi-examples-3.8-beta2-20110408.jar      \
+           lib/poi/poi-excelant-3.8-beta2-20110408.jar      \
+           lib/poi/poi-ooxml-3.8-beta2-20110408.jar         \
+           lib/poi/poi-ooxml-schemas-3.8-beta2-20110408.jar \
+           lib/poi/poi-scratchpad-3.8-beta2-20110408.jar    \
            bin/dup/csv2rdf4lod.jar ; do
    if [[ $CLASSPATH != *`basename $jar`* ]]; then
       if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:="."} == "fine" ]; then
@@ -26,8 +26,6 @@ if [ $# -lt 1 ]; then
    echo "usage: `basename $0` xls [xls...]"
    exit 1
 fi
-
-echo $CLASSPATH
 
 while [ $# -gt 0 ]; do
    xls="$1"
