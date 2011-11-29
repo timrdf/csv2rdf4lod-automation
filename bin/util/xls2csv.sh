@@ -30,9 +30,8 @@ if [ $# -lt 1 ]; then
    exit 1
 fi
 
-while [ $# -gt 0 ]; do
-   xls="$1"
-   echo $xls
-   java -cp $CLASSPATH edu.rpi.tw.data.excel.XLStoCSV $xls
-   shift
-done
+#while [ $# -gt 0 ]; do
+#   xls="$1"
+   java -cp $CLASSPATH edu.rpi.tw.data.excel.XLStoCSV $*
+#   shift
+#done
