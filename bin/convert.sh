@@ -24,7 +24,7 @@ CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh o
 
 # Java dependencies; relative to $CSV2RDF4LOD_HOME
 for jar in                                                             \
-           bin/lib/javacsv2.0/javacsv.jar                              \
+           lib/javacsv2.0/javacsv.jar                                  \
            bin/dup/openrdf-sesame-2.3.1-onejar.jar                     \
            bin/dup/slf4j-api-1.5.6.jar                                 \
            bin/dup/slf4j-nop-1.5.6.jar                                 \
