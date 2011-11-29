@@ -40,7 +40,7 @@ escapedEndpoint=`echo ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} | perl -e 
 logID=`java edu.rpi.tw.string.NameFactory`
 while [ $# -gt 0 ]; do
    echo
-   echo ---------------------------------- `basename $0` -----------------------------------
+   echo "/////------------------------------ `basename $0` ------------------------------\\\\\\\\\\"
 
    url="$1"
    requestID=`java edu.rpi.tw.string.NameFactory`
@@ -191,7 +191,7 @@ while [ $# -gt 0 ]; do
       echo "   dcterms:date \"`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`\"^^xsd:dateTime;"              >> ${TEMP}${unzipped}.load.pml.ttl
       echo "."                                                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
 
-      echo --------------------------------------------------------------------------------
+      echo "\\\\\\\\\\------------------------------ `basename $0` ------------------------------/////"
 
       #
       # Virtuoso can't handle files (even though rapper can):
