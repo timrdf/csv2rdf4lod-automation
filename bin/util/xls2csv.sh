@@ -24,6 +24,9 @@ done
 
 if [ $# -lt 1 ]; then
    echo "usage: `basename $0` xls [xls...]"
+   if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:="."} == "fine" ]; then
+      echo $CLASSPATH
+   fi
    exit 1
 fi
 
