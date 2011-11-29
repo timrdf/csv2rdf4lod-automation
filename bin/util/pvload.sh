@@ -40,7 +40,7 @@ escapedEndpoint=`echo ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} | perl -e 
 logID=`java edu.rpi.tw.string.NameFactory`
 while [ $# -gt 0 ]; do
    echo
-   echo ---------------------------------- pvload ---------------------------------------
+   echo ---------------------------------- `basename $0` -----------------------------------
 
    url="$1"
    requestID=`java edu.rpi.tw.string.NameFactory`
