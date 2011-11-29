@@ -191,15 +191,10 @@ while [ $# -gt 0 ]; do
       echo "   dcterms:date \"`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`\"^^xsd:dateTime;"              >> ${TEMP}${unzipped}.load.pml.ttl
       echo "."                                                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
 
-      echo "\\\\\\\\\\------------------------------ `basename $0` ------------------------------/////"
-
       #
-      # Virtuoso can't handle files (even though rapper can):
+      # Virtuoso can't handle all turtle files that rapper can.
       #
-      # _pvload.sh1311351506_22193.response.pml.ttl
-      # _pvload.sh1311351506_22193.response.unzipped.load.pml.ttl
 
-      #deprecated now that vload is part of csv2rdf4lod-automation: vload=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT______PATH:-"/opt/virtuoso/scripts/v_____load"}
       vload=$CSV2RDF4LOD_HOME/bin/util/virtuoso/vload
       #echo $vload nt ${TEMP}${unzipped}.nt $named_graph
       if [ ${dryrun-"."} != "true" ]; then #        Actual response (in ntriples syntax).
@@ -224,6 +219,8 @@ while [ $# -gt 0 ]; do
       if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
          rm -f ${TEMP}${unzipped} ${TEMP}.pml.ttl ${TEMP}.pml.ttl.nt ${TEMP}${unzipped}.nt ${TEMP}${unzipped}.load.pml.ttl ${TEMP}${unzipped}.load.pml.ttl.nt #
       fi
+
+      echo "\\\\\\\\\\------------------------------ `basename $0` ------------------------------/////"
    else
       echo "WARNING: `basename $0` skipping b/c no triples returned."
    fi
