@@ -52,7 +52,7 @@ if [ ! -e $data_file ]; then
    exit 1
 fi
 
-echo "INFO: Loading $2 into $graph_uri ..."
+echo "INFO (`basename $0`): Loading $2 into $graph_uri ..."
 
 # Check to see if file is within a directory Virtuoso can read from directly.
 load_in_place="false"
@@ -73,7 +73,7 @@ if [[ $load_in_place == "false" ]]; then
    file_name_full=$virtuoso_allowed_dir/$file_name_local
    echo "WARNING: COPYING ${data_file} $file_name_full"
 else
-   echo "INFO: Avoiding redundant file copy; file is within \$CSV2RDF4LOD_CONVERT_DATA_ROOT, a virtuoso-readable directory."
+   echo "INFO (`basename $0`): Avoiding redundant file copy; file is within \$CSV2RDF4LOD_CONVERT_DATA_ROOT, a virtuoso-readable directory."
    file_name_full=$data_file
 fi
 
@@ -137,11 +137,11 @@ if [[ $load_in_place == "false" ]]; then
 fi
 
 if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
-   echo "INFO: Loading finished. $vload_log:"	
+   echo "INFO (`basename $0`): Loading finished. $vload_log:"	
    cat $vload_log
 else
    #echo "Loading finished. Check $virtuoso_allowed_dir/latest.log for details (currently $vload_log)."	
-   echo "INFO: Loading finished. Check $vload_log for details."	
+   echo "INFO (`basename $0`): Loading finished. Check $vload_log for details."	
 fi
 
 # TODO: cat file if it contains /^... Error/
