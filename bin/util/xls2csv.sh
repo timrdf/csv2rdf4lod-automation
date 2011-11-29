@@ -31,4 +31,5 @@ while [ $# -gt 0 ]; do
    xls="$1"
    echo $xls
    java edu.rpi.tw.data.excel.XLStoCSV $xls
+   shift
 done
