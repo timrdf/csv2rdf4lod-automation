@@ -17,6 +17,7 @@ else
    echo "prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>"
    echo "prefix owl:        <http://www.w3.org/2002/07/owl#>"
    echo "prefix dcterms:    <http://purl.org/dc/terms/>"
+   echo "prefix doap:       <http://usefulinc.com/ns/doap#>"
    echo "prefix foaf:       <http://xmlns.com/foaf/0.1/>"
    echo "prefix skos:       <http://www.w3.org/2004/02/skos/core#>"
    echo "prefix sioc:       <http://rdfs.org/sioc/ns#>"
