@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/xls2csv.sh
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
@@ -20,5 +22,13 @@ for jar in                                              \
    fi
 done
 
+if [ $# -lt 1 ]; then
+   echo "usage: `basename $0` xls [xls...]"
+   exit 1
+fi
 
-
+while [ $# -gt 0 ]; do
+   xls="$1"
+   echo $xls
+   java edu.rpi.tw.data.excel.XLStoCSV $xls
+done
