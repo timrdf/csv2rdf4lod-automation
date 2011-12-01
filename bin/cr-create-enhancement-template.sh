@@ -6,9 +6,7 @@
 
 
 
-
-
-
+# Deprecated, use:
 # TODO: reconcile with bin/util/cr-create-eparams-template.sh
 
 
