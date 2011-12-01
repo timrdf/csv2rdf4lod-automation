@@ -56,6 +56,8 @@ BEGIN {
       print "@prefix geonamesid:    <http://sws.geonames.org/> ."
       print "@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> ."
       print "@prefix dbpedia:       <http://dbpedia.org/resource/> ."
+      print "@prefix dbpediaprop:   <http://dbpedia.org/property/> ."
+      print "@prefix dbpediaowl:    <http://dbpedia.org/ontology/> ."
       print "@prefix con:           <http://www.w3.org/2000/10/swap/pim/contact#> ."
       print "@prefix muo:           <http://purl.oclc.org/NET/muo/muo#> ."
       print "@prefix vs:            <http://www.w3.org/2003/06/sw-vocab-status/ns#> ."
