@@ -27,6 +27,7 @@
     <owl:sameAs rdf:resource="http://twitlogic.fortytwo.net/person/twitter/140428623"/>
     <owl:sameAs rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo"/>
     <foaf:currentProject rdf:resource="http://purl.org/twc/id/software/csv2rdf4lod"/>
+    <foaf:depiction rdf:resource="http://www.cogsci.rpi.edu/pl/issues-cognitive-science-video-archive?vid=163&amp;egid=&amp;pageid=509&amp;siteid=26"/>
     <foaf:holdsAccount rdf:resource="http://twitlogic.fortytwo.net/user/twitter/140428623"/>
     <foaf:interest>
       <rdf:Description>
@@ -65,11 +66,6 @@
       </rdf:Description>
     </foaf:pastProject>
   </foaf:Person>
-  <sioc:UserAccount rdf:about="http://semantictweet.com/timrdf#me">
-    <foaf:depiction rdf:resource="http://www.cogsci.rpi.edu/pl/issues-cognitive-science-video-archive?vid=163&amp;egid=&amp;pageid=509&amp;siteid=26"/>
-    <foaf:isPrimaryTopicOf rdf:resource="http://pegasus.chem.soton.ac.uk/search.rdf?q=timrdf"/>
-    <foaf:isPrimaryTopicOf rdf:resource="http://pegasus.chem.soton.ac.uk/search?q=timrdf"/>
-  </sioc:UserAccount>
   <rdf:Description rdf:about="http://semanticweb.com/heads-up-to-computational-biologists-go-semantic-and-go-further-with-your-data_b21463#more-21463">
     <dcterms:subject rdf:resource="http://purl.org/twc/id/software/csv2rdf4lod"/>
     <dcterms:subject rdf:resource="http://tw.rpi.edu/instances/JamesMcCusker"/>
@@ -83,6 +79,8 @@
   <sioc:UserAccount rdf:about="http://twitlogic.fortytwo.net/user/twitter/140428623">
     <rdfs:seeAlso rdf:resource="http://twitlogic.fortytwo.net/person/twitter/timrdf"/>
     <foaf:isPrimaryTopicOf rdf:resource="http://flux.franz.com/catalogs/demos/repositories/iswc2010#node/%3Chttp://twitlogic.fortytwo.net/user/twitter/140428623%3E"/>
+    <foaf:isPrimaryTopicOf rdf:resource="http://pegasus.chem.soton.ac.uk/search.rdf?q=timrdf"/>
+    <foaf:isPrimaryTopicOf rdf:resource="http://pegasus.chem.soton.ac.uk/search?q=timrdf"/>
   </sioc:UserAccount>
   <rdf:Description rdf:about="https://gist.github.com/934407">
     <sioc:topic rdf:resource="http://id.crossref.org/contributor/a-h-renear-1z0zrfd0bp2b7"/>
