@@ -23,6 +23,7 @@ else
    echo "prefix sioc:       <http://rdfs.org/sioc/ns#>"
    echo "prefix void:       <http://rdfs.org/ns/void#>"             
    echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>"
+   echo "prefix dbpedia:    <http://dbpedia.org/resource/>"
    echo "prefix twi:        <http://tw.rpi.edu/instances/>"
    echo
    # curl http://prefix.cc/rdfs,void,conversion.file.sparql | grep PREFIX
