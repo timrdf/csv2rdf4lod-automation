@@ -19,9 +19,14 @@
 
 {
    comma=index($0,",");
+   symbol=substr($0,1,comma-1);
    interpretation=substr($0,comma+1,length($0));
+   if( swap == "yes" ) {
+      symbol=substr($0,comma+1,length($0));
+      interpretation=substr($0,1,comma-1);
+   }
    printf("         conversion:interpret [\n");
-   printf("            conversion:symbol         \"%s\";\n",substr($0,1,comma-1));
+   printf("            conversion:symbol         \"%s\";\n",symbol);
    printf("            conversion:interpretation \"%s\";\n",interpretation);
    printf("         ];\n");
 }
