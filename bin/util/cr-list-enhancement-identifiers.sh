@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-list-enhancement-identifiers.sh
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
@@ -11,16 +13,15 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
-
-# e.g.
-# automatic/streams_all.csv.e1.ttl -> 1
+# Find "1" and "2" from files:
 #
-#find automatic -name  "*.e[!.].ttl"      | sed -e 's/^.*\.e\([^.]*\).ttl/\1/' | sort -u # WARNING: only handles e1 through e9
-
-
+# manual/some.csv.global.e1.params.ttl
+# manual/some.csv.e1.params.ttl
+# ../e1.params.ttl
+# ../e2.params.ttl
 
 # This would be great, except it might get a parameter that hasn't been modified yet:
-find manual          -name "*.params.ttl" | sed -e 's/^.*\.e\(.*\)\.params.ttl$/\1/'  > $TEMP
-find ../ -maxdepth 1 -name "*.params.ttl" | sed -e 's/^.*\.e\(.*\)\.params.ttl$/\1/' >> $TEMP
+find manual          -name "*.params.ttl" | sed -e 's/.*e\([^\.]\)\.params.ttl$/\1/' >  $TEMP
+find ../ -maxdepth 1 -name "*.params.ttl" | sed -e 's/.*e\([^\.]\)\.params.ttl$/\1/' >> $TEMP
 cat $TEMP | sort -ru
 rm $TEMP
