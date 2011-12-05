@@ -124,9 +124,14 @@ if [ ! -d $version ]; then
          cr-create-convert-sh.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
       fi
 
-      ./*.sh # produce raw layer 
-      ./*.sh # produce e1 layer (if global params are at ../*e1..params.ttl)
-      # TODO: handle more than just e1; for each $eparams in ../*.params.ttl
+      ./*.sh # Run raw conversion
+      for enhancementID in `cr-list-enhancement-identifiers.sh`; do
+         flag=""
+         if [ $enhancementID != "1" ]; then
+            flag="-e $enhancementID"
+         fi
+         ./*.sh $flag # Run enhancement (flag not used for first enhancement)
+      done
 
    popd &> /dev/null
 else
