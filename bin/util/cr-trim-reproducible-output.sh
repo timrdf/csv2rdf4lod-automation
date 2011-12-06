@@ -4,8 +4,9 @@
 
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
    echo "usage: `basename $0` [-w]"
-   echo "  "
+   echo "  remove all files in the 'automatic/' and 'publish/' directories in all conversion cockpits."
    echo "  -w : remove (if not provided, will only dry run)"
+   exit 1
 fi
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
