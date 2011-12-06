@@ -45,7 +45,9 @@
    rel:hasMet <http://richard.cyganiak.de/foaf.rdf#cygri>,
               <http://id.crossref.org/contributor/a-h-renear-1z0zrfd0bp2b7>;
 
-   rel:knowsByReputation <http://www.w3.org/People/Berners-Lee/card#i>;
+   rel:knowsByReputation <http://www.w3.org/People/Berners-Lee/card#i>,
+                         <http://data.semanticweb.org/person/keith-alexander>,
+                         <finger://river.styx.org/ww>;
 
    swrc:supervisor <http://data.semanticweb.org/person/deborah-mcguinness>,
                    <http://tw.rpi.edu/instances/Deborah_L_McGuinness>;
@@ -76,3 +78,8 @@
                   [ foaf:homepage <http://code.google.com/p/twc-lobd/> ];
 .
 <https://gist.github.com/934407>  sioc:topic <http://id.crossref.org/contributor/a-h-renear-1z0zrfd0bp2b7> .
+
+<finger://river.styx.org/ww> 
+   foaf:homepage         <http://river.styx.org/ww/>; 
+   foaf:isPrimaryTopicOf <http://river.styx.org/ww/foaf.n3>;
+.
