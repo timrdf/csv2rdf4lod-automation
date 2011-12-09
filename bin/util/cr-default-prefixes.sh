@@ -16,6 +16,7 @@ else
    echo "prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
    echo "prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>"
    echo "prefix owl:        <http://www.w3.org/2002/07/owl#>"
+   echo "prefix wgs:        <http://www.w3.org/2003/01/geo/wgs84_pos#>"
    echo "prefix dcterms:    <http://purl.org/dc/terms/>"
    echo "prefix doap:       <http://usefulinc.com/ns/doap#>"
    echo "prefix foaf:       <http://xmlns.com/foaf/0.1/>"

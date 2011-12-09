@@ -30,8 +30,9 @@ if [ $# -lt 1 ]; then
    exit 1
 fi
 
+memory="-Xmx3060m"
 #while [ $# -gt 0 ]; do
 #   xls="$1"
-   java -cp $CLASSPATH edu.rpi.tw.data.excel.XLStoCSV $*
+   java $memory -cp $CLASSPATH edu.rpi.tw.data.excel.XLStoCSV $*
 #   shift
 #done
