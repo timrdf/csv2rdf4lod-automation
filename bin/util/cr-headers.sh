@@ -1,6 +1,17 @@
 #!/bin/bash
 #
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-headers.sh
+#
+# Usage:
+#
+#    cr-headers.sh --number 2011-Nov-28/source/WhiteHouse-WAVES-Released-0611.csv 
+#    1 NAMELAST
+#    2 NAMEFIRST
+#    3 NAMEMID
+#    4 UIN
+#    5 BDGNBR
+#    6 ACCESS_TYPE
+
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
@@ -14,6 +25,24 @@ fi
 write="no"
 if [[ "$1" == "-w" || "$1" == "--write" ]]; then
    write="yes"
+   shift
+fi
+
+# If a file is given, print its headers
+if [ $# -gt 0 ]; then
+
+   number=""
+   if [[ "$1" == "-N" || "$1" == "--number" ]]; then
+      number="--number"
+      shift
+   fi
+
+   while [ $# -gt 0 ]; do
+      csv="$1"
+      java edu.rpi.tw.data.csv.impl.CSVHeaders $csv $number
+      shift
+   done
+   exit 0
 fi
 
 if [ `$CSV2RDF4LOD_HOME/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]; then
