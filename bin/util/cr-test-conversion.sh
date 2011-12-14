@@ -57,8 +57,8 @@ if [ "$1" == "--rq" ]; then
       exit 1
    fi
 
-   sourceID=`is-pwd-a.sh cr:bone --id-of source`
-   datasetID=`is-pwd-a.sh cr:bone --id-of dataset`
+   sourceID=`cr-source-id.sh`
+   datasetID=`cr-dataset-id.sh`
 
    echo "Creating rq/test for dataset $sourceID $datasetID"
 
@@ -141,6 +141,11 @@ if [ "$1" == "--rq" ]; then
    else
       echo $count already exists. Not modifying.
    fi
+
+   # # # # #
+   pushd rq/test/count/equal-to/1 &> /dev/null
+   cr-create-lodcloud-link-queries.py | awk '{print "rq/test/count/equal-to/1/"$0}'
+   popd &> /dev/null
    exit
 fi
 
