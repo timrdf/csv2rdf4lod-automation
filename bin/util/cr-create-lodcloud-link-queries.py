@@ -1,4 +1,6 @@
 #!/usr/bin/python
+#
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-create-lodcloud-link-queries.py
 
 import os
 

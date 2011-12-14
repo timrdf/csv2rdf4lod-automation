@@ -106,21 +106,27 @@ if [ "$1" == "--rq" ]; then
    echo rq/test/count/greater-than-or-equal-to/1
    mkdir -p rq/test/count/greater-than-or-equal-to/1  &> /dev/null
 
-   count=rq/test/count/greater-than-or-equal-to/1/datasets.rq
-   if [ ! -e $count ]; then
-      echo $count
-      echo `cr-default-prefixes.sh --sparql`                     >> $count
-      perl -pi -e 's/.prefix/\nprefix/g'                            $count
-      echo                                                       >> $count
-      echo "SELECT ?dataset"                                     >> $count
-      echo "WHERE {"                                             >> $count
-      echo "   GRAPH ?g {"                                       >> $count
-      echo "      ?dataset a conversion:Dataset, void:Dataset ." >> $count
-      echo "   }"                                                >> $count
-      echo "}"                                                   >> $count
-   else
-      echo $count already exists. Not modifying.
-   fi
+   # OBE by links-*.rq defaults
+   #count=rq/test/count/greater-than-or-equal-to/1/datasets.rq
+   #if [ ! -e $count ]; then
+   #   echo $count
+   #   echo `cr-default-prefixes.sh --sparql`                     >> $count
+   #   perl -pi -e 's/.prefix/\nprefix/g'                            $count
+   #   echo                                                       >> $count
+   #   echo "SELECT ?dataset"                                     >> $count
+   #   echo "WHERE {"                                             >> $count
+   #   echo "   GRAPH ?g {"                                       >> $count
+   #   echo "      ?dataset a conversion:Dataset, void:Dataset ." >> $count
+   #   echo "   }"                                                >> $count
+   #   echo "}"                                                   >> $count
+   #else
+   #   echo $count already exists. Not modifying.
+   #fi
+
+   # # # # #
+   pushd rq/test/count/greater-than-or-equal-to/1 &> /dev/null
+   cr-create-lodcloud-link-queries.py | awk '{print "rq/test/count/greater-than-or-equal-to/1/"$0}'
+   popd &> /dev/null
 
    # # # # #
    echo rq/test/count/equal-to/1
@@ -142,10 +148,6 @@ if [ "$1" == "--rq" ]; then
       echo $count already exists. Not modifying.
    fi
 
-   # # # # #
-   pushd rq/test/count/equal-to/1 &> /dev/null
-   cr-create-lodcloud-link-queries.py | awk '{print "rq/test/count/equal-to/1/"$0}'
-   popd &> /dev/null
    exit
 fi
 
