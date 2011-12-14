@@ -35,7 +35,7 @@ guess=""
 
 if   [[ $url =~ \\.nt$  || $url =~ \\.nt\\.  || $url =~ \\.nt#  || $url == *nt ]]; then # Replaced \. with \\. b/c other OSes were recognizing them as regex.
    guess="-i ntriples"
-elif [[ $url =~ \\.ttl$ || $url =~ \\.ttl\\. || $url =~ \\.ttl# || $url == *ttl ]]; then
+elif [[ $url =~ \\.ttl$ || $url =~ \\.ttl\\. || $url =~ \\.ttl# || $url == *ttl || $url == *.ttl.gz ]]; then # TODO special case should be handled in general.
    guess="-i turtle"
 elif [[ $url =~ \\.rdf$ || $url =~ \\.rdf\\. || $url =~ \\.rdf# || $url == *rdf ]]; then
    guess="-i rdfxml"
