@@ -23,12 +23,12 @@ from StringIO import StringIO
 # order for the Object RDF Mapping tool to work.
 ns.register(frbr="http://purl.org/vocab/frbr/core#")
 ns.register(frir="http://purl.org/twc/ontology/frir.owl#")
-ns.register(pexp="hash:Expression/")
-ns.register(pmanif="hash:Manifestation/")
-ns.register(pitem="hash:Item/")
+ns.register(pexp="tag:tw.rpi.edu,2011:expression:")
+ns.register(pmanif="tag:tw.rpi.edu,2011:manifestation:")
+ns.register(pitem="tag:tw.rpi.edu,2011:item:")
 ns.register(nfo="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#")
 ns.register(irw='http://www.ontologydesignpatterns.org/ont/web/irw.owl#')
-ns.register(hash="hash:")
+ns.register(hash="di:")
 ns.register(prov="http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#")
 ns.register(http="http://www.w3.org/2011/http#")
 ns.register(header="http://www.w3.org/2011/http-headers#")
@@ -117,7 +117,7 @@ def pcurl(url):
 
     itemHashValue = createItemHash(url, response, content)
 
-    item = Response(ns.PITEM['-'.join(itemHashValue)])
+    item = Response(ns.PITEM['-'.join(itemHashValue[:2])])
     item.http_httpVersion = '1.1'
     for field in response.msg.dict.keys():
         header = ResponseHeader()

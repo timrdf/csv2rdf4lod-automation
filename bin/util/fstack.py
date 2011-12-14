@@ -15,6 +15,7 @@ from datetime import datetime
 
 import subprocess
 import platform
+from base64 import *
 
 import uuid
 
@@ -23,19 +24,41 @@ from serializer import *
 from StringIO import StringIO
 
 import fileinput
+import binascii
 
+def packl(lnum, padmultiple=1):
+    """Packs the lnum (which must be convertable to a long) into a
+       byte string 0 padded to a multiple of padmultiple bytes in size. 0
+       means no padding whatsoever, so that packing 0 result in an empty
+       string.  The resulting byte string is the big-endian two's
+       complement representation of the passed in long."""
+
+    if lnum == 0:
+        return b'\0' * padmultiple
+    elif lnum < 0:
+        raise ValueError("Can only convert non-negative numbers.")
+    s = hex(lnum)[2:]
+    s = s.rstrip('L')
+    if len(s) & 1:
+        s = '0' + s
+    s = binascii.unhexlify(s)
+    if (padmultiple != 1) and (padmultiple != 0):
+        filled_so_far = len(s) % padmultiple
+        if filled_so_far != 0:
+            s = b'\0' * (padmultiple - filled_so_far) + s
+    return s
 
 # These are the namespaces we are using.  They need to be added in
 # order for the Object RDF Mapping tool to work.
 ns.register(frbr="http://purl.org/vocab/frbr/core#")
 ns.register(frir="http://purl.org/twc/ontology/frir.owl#")
-ns.register(pwork="hash:Work/")
-ns.register(pexp="hash:Expression/")
-ns.register(pmanif="hash:Manifestation/")
-ns.register(pitem="hash:Item/")
+ns.register(pwork="tag:tw.rpi.edu,2011:Work:")
+ns.register(pexp="tag:tw.rpi.edu,2011:Expression:")
+ns.register(pmanif="tag:tw.rpi.edu,2011:Manifestation:")
+ns.register(pitem="tag:Item:")
 ns.register(nfo="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#")
 ns.register(irw='http://www.ontologydesignpatterns.org/ont/web/irw.owl#')
-ns.register(hash="hash:")
+ns.register(hash="di:")
 ns.register(uuid="uuid:")
 ns.register(void="http://rdfs.org/ns/void#")
 ns.register(ov="http://open.vocab.org/terms/")
@@ -75,7 +98,7 @@ class RDFGraphDigest:
         self.total = 0
         self.rawtotal = 0
         self.isRaw = True
-        self.algorithm = 'GRAPH_SHA256'
+        self.algorithm = 'graph-sha-256'
         self.type = ns.FRIR['RDFGraphDigest']
 
     def hashPredicates(self, graph):
@@ -141,7 +164,7 @@ class RDFGraphDigest:
                 #print "Using Manifestation"
                 manifHash =  createManifestationHash(content)
                 self.algorithm = manifHash[0]
-                self.total = int(manifHash[1],16)
+                self.total = manifHash[1]
                 self.type = manifHash[2]
                 self.isRaw = False
                 return
@@ -177,23 +200,30 @@ class RDFGraphDigest:
 
     def getDigest(self):
         if self.isRaw:
-            return [self.algorithm,'%x'%self.rawtotal,ns.FRIR['TabularDigest']]
+            return [self.algorithm,
+                    base64.urlsafe_b64encode(buffer(packl(self.rawtotal))),
+                    ns.FRIR['TabularDigest']]
         else:
-            return [self.algorithm,'%x'%self.total,self.type]
+            value = self.total
+            if type(value) == long:
+                value = base64.urlsafe_b64encode(buffer(packl(value)))
+            return [self.algorithm,
+                    value,
+                    self.type]
 
 
 def createItemURI(filename):
     m = hashlib.sha256()
     m.update(str(uuid.getnode()))
     m.update(str(os.stat(filename)[ST_MTIME]))
-    hostAndModTime = m.hexdigest()
+    hostAndModTime = urlsafe_b64encode(buffer(m.digest()))
     absolutePath = os.path.abspath(filename)
     dirname = os.path.dirname(absolutePath)
     basename = os.path.basename(absolutePath)
     m = hashlib.sha256()
     m.update(dirname)
-    pathDigest = '-'.join(['SHA256',m.hexdigest()])
-    return "filed://"+hostAndModTime+'/'+pathDigest+'/'+basename
+    pathDigest = '-'.join(['sha-256',urlsafe_b64encode(buffer(m.digest()))])
+    return "tag:tw.rpi.edu,2011:filed:"+hostAndModTime+'/'+pathDigest+'/'+basename
 
 def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None, addPaths=True):
     if workuri != None:
@@ -220,7 +250,7 @@ def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None, addPat
     manifestationHashValue = createManifestationHash(content)
 
     if fileURI == None:
-        fileURI = ns.PITEM['-'.join(manifestationHashValue)]
+        fileURI = ns.PITEM['-'.join(manifestationHashValue[:2])]
 
     timestamp = datetime.utcnow()
 
@@ -267,12 +297,12 @@ def createItemHash(workURI, response, content):
     m.update(workURI+'\n')
     m.update(''.join(response.msg.headers))
     m.update(content)
-    return ['SHA256',m.hexdigest(), ns.NFO['FileHash']]
+    return ['sha-256',urlsafe_b64encode(buffer(m.digest())), ns.NFO['FileHash']]
 
 def createManifestationHash(content):
     m = hashlib.sha256()
     m.update(content)
-    return ['SHA256',m.hexdigest(), ns.NFO['FileHash']]
+    return ['sha-256',urlsafe_b64encode(buffer(m.digest())), ns.NFO['FileHash']]
 
 def createExpressionHash(filename, content, mimetype=None):
     digest = RDFGraphDigest()
@@ -280,7 +310,7 @@ def createExpressionHash(filename, content, mimetype=None):
     return digest.getDigest()
 
 def createHashInstance(h, Hash):
-    hsh = Hash(ns.HASH['-'.join(h[:-1])])
+    hsh = Hash(ns.HASH[';'.join(h[:-1])])
     hsh.nfo_hashAlgorithm = h[0]
     hsh.nfo_hashValue = h[1]
     if len(h) > 2:
