@@ -1199,3 +1199,7 @@ conv:conceptual_depth
    rdfs:subPropertyOf cdm:conceptual_depth;
 .
 
+conversion:num_triples
+   a owl:DatatypeProperty;
+   owl:equivalentProperty void:triples;
+.

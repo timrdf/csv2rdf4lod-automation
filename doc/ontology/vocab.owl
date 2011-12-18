@@ -882,6 +882,9 @@
     <rdfs:comment>Number of docs/logs/* captured by convert-aggregate.sh</rdfs:comment>
     <rdfs:label>Number of invocation logs</rdfs:label>
   </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://purl.org/twc/vocab/conversion/num_triples">
+    <owl:equivalentProperty rdf:resource="http://rdfs.org/ns/void#triples"/>
+  </owl:DatatypeProperty>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/object">
     <rdfs:comment></rdfs:comment>
     <rdfs:label>object</rdfs:label>
