@@ -108,6 +108,10 @@ if [ ! -d $version ]; then
    # Go into the conversion cockpit of the new version.
    pushd $version &> /dev/null
 
+      if [ ! -e manual ]; then
+         mkdir manual
+      fi
+
       if [ -e ../2manual.sh ]; then
          # Leave it up to the global 2manual.sh to populate manual/ from any of the source/
          # 2manual.sh should also create the cr-create-convert.sh.
