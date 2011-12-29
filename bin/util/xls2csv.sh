@@ -22,7 +22,7 @@ for jar in                                              \
    fi
 done
 
-if [ $# -lt 1 ]; then
+if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` xls [xls...]"
    if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:="."} == "fine" ]; then
       echo $CLASSPATH
