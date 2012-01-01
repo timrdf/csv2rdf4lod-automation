@@ -1,32 +1,36 @@
 #!/bin/bash
+#
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/google2source.sh
 
-ANCHOR_SHOULD_BE_VERSION=`basename \`pwd\``
-if [ $ANCHOR_SHOULD_BE_VERSION != "version" ]; then
-   echo "  Working directory does not appear to be a directory 'version'."
-   echo "  Run `basename $0` from a 'version/' directory (e.g. csv2rdf4lod/data/source/SOURCE/DDD/version/)"
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+
+# cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
+ACCEPTABLE_PWDs="cr:directory-of-versions"
+if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
 fi
 
-if [ $# -lt 2 ]; then
+TEMP="_"`basename $0``date +%s`_$$.tmp
+
+if [[ $# -lt 2 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [-{w,f}] google-key local-name [google-key]*"
    echo "    -w            - write instead of doing a dry run (dry run is default)."
    echo "    -f            - force another version, even though there is already one for today."
    echo "    google-key    - key from google spreadsheet URL"
-   echo "    local-name    - local name within source/ (use 'cr:auto' to default to dataset identifier)"
+   echo "    local-name    - filename to use for files retrieved and saved in source/ (use 'cr:auto' to use dataset identifier)"
    echo "    [google-key]* - more keys from google spreadsheet URLs"
    exit 1
 fi
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"must be set. source csv2rdf4lod/source-me.sh."}
-
 dryRun="true"
-versionID=`$CSV2RDF4LOD_HOME/bin/util/date.sh | sed 's/_.*$//'`
+versionID=`date +%Y-%b-%d`
 if [ "$1" == "-w" ]; then
    dryRun="false"
    shift
 elif [ "$1" == "-f" ]; then
    dryRun="false"
-   versionID=`$CSV2RDF4LOD_HOME/bin/util/date.sh`
+   versionID=`date +%Y-%b-%d_%H_%M_%S`
    shift
 else
    echo ""
@@ -34,61 +38,57 @@ else
    echo ""
 fi
 
-if [ $# -lt 2 ]; then
-   echo "usage: `basename $0` [-{w,f}] google-key local-name [google-key]*"
-   echo "    -w            - write instead of doing a dry run (dry run is default)."
-   echo "    -f            - force another version, even though there is already one for today."
-   echo "    google-key    - key from google spreadsheet URL"
-   echo "    local-name    - local name within source/ (use 'cr:auto' to default to dataset identifier)"
-   echo "    [google-key]* - more keys from google spreadsheet URLs"
-   echo "."
-   exit 1
-fi
-
 if [ -d $versionID ]; then
    echo "version/$versionID already exists. Wait until tomorrow or use -f"
    exit 1
 fi
 
-LOCAL="$2"
-if [ $LOCAL == "auto" -o $LOCAL == "cr:auto" ]; then
-   LOCAL=`basename \`cd .. 2>/dev/null && pwd\``
-   echo "using dataset identifer for local name in source/$LOCAL"
+if [ $# -lt 2 ]; then
+   $0 --help
+   exit
 fi
+
+GOOGLE_SPREADSHEET_IDs="$1"
+
+local_filename="$2"
+if [ $local_filename == "auto" -o $local_filename == "cr:auto" ]; then
+   local_filename=`cr-dataset-id.sh`
+   echo "using dataset identifer for local name in source/$local_filename"
+fi
+
+shift 2
+
+let num_spreadsheets="1 + $#"
+while [ $# -gt 0 ]; do
+   GOOGLE_SPREADSHEET_IDs="$GOOGLE_SPREADSHEET_IDs $1"
+   shift
+done
 
 mkdir -p $versionID/source
 
-GOOGLE_SPREADSHEET_ID="$1"
-shift
-
-googletoggle="head -1"
+googletoggle="head -1" # get the first URL from google-spreadsheet-url.sh - second does not work.
 pushd $versionID/source &> /dev/null
 
    let count=0
-   while [ $# -gt 0 ]; do
-
-      echo 
-
-      echo "(in $versionID/source)"
-      echo `basename $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh` $GOOGLE_SPREADSHEET_ID
-      echo retrieving:
-      echo `basename $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh` $GOOGLE_SPREADSHEET_ID | $googletoggle
+   for GOOGLE_SPREADSHEET_ID in $GOOGLE_SPREADSHEET_IDs; do
       let "count= $count + 1"
-      if [ $# -ne $count ]; then # pretty neat!
-         LOCALc="$LOCAL-$count"
+      echo 
+      echo "$count of $num_spreadsheets in $versionID/source"
+      #echo `basename $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh` $GOOGLE_SPREADSHEET_ID
+      #echo retrieving:
+      #echo `basename $CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh` $GOOGLE_SPREADSHEET_ID | $googletoggle
+      if [ $num_spreadsheets -gt 1 ]; then
+         local_filenameC="$local_filename-$count"
       else
-         LOCALc=$LOCAL
+         local_filenameC=$local_filename
       fi
       if [ ${dryRun-"."} == "true" ]; then
-         echo pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $LOCALc -e csv
+         echo pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $local_filenameC -e csv
       else
-         pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $LOCALc -e csv
+         pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $local_filenameC -e csv
          # Edit in place and kill the stupid randomly occurring (or not occuring) first line (e.g. "","","","","","","")
-         perl -ni -e 'print if ($l || !/""(?:,""){3,4}/); ++$l;' $LOCALc.csv # Thanks to Eric Prud'hommeaux for this! 2011 Jul 09
+         perl -ni -e 'print if ($l || !/""(?:,""){3,4}/); ++$l;' $local_filenameC.csv # Thanks to Eric Prud'hommeaux for this! 2011 Jul 09
       fi
-
-      shift
-      GOOGLE_SPREADSHEET_ID="$1"
    done
 
 popd &> /dev/null
@@ -96,13 +96,19 @@ popd &> /dev/null
 pushd $versionID &> /dev/null
    if [ ${dryRun-"."} == "true" ]; then
       echo "(in $versionID)"
-      #echo `basename $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh` -w --header-line 2 source/$LOCALc.csv
+      #echo `basename $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh` -w --header-line 2 source/$local_filenameC.csv
       echo `basename $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh` -w source/*.csv
       echo ./*.sh
    else
-      #$CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w --header-line 2 source/$LOCALc.csv
+      #$CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w --header-line 2 source/$local_filenameC.csv
       $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w source/*.csv
-      ./*.sh
-      ./*.sh # Run the enhancement, too. It will no-op if none to be done.
+      ./*.sh # Run raw conversion
+      for enhancementID in `cr-list-enhancement-identifiers.sh`; do
+         flag=""
+         if [ $enhancementID != "1" ]; then
+            flag="-e $enhancementID"
+         fi
+         ./*.sh $flag # Run enhancement (flag not used for first enhancement)
+      done
    fi
 popd &> /dev/null
