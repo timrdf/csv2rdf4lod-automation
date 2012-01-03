@@ -1,4 +1,13 @@
 #!/usr/bin/env python
+#
+#3> <> rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/tic-turtle-in-comments> .
+#3>
+#3> <#> a doap:Project;
+#3>   dcterms:description "Download a URL and compute Functional Requirements for Bibliographic Resources (FRBR) stacks using cryptograhic digests for the resulting content.";
+#3>   doap:developer <http://tw.rpi.edu/instances/JamesMcCusker>;
+#3>   doap:helper    <http://purl.org/twc/id/person/TimLebo>;
+#3>   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-pcurl.py>;
+#3> .
 
 from rdflib import *
 from surf import *
