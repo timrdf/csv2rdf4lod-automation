@@ -23,7 +23,6 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
-
 if [ $# -lt 2 ]; then
    echo "usage: `basename $0` version-identifier URL [--comment-character char]"
    echo "                                                                 [--header-line        row]"

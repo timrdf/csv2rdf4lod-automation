@@ -16,6 +16,7 @@ from datetime import datetime
 import subprocess
 import platform
 from base64 import *
+import base64
 
 import uuid
 
