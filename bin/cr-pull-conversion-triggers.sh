@@ -82,7 +82,7 @@ fi
 if [[ `is-pwd-a.sh cr:data-root` == "yes" ]]; then
    echo "root given $#"
    if [ $# -gt 0 ]; then
-      echo "  Rerunning conversions for the $# source identifiers provided."
+      echo "  Rerunning conversions for the $# source identifier(s) provided."
       source_ids="$*"
    else
       echo "  Rerunning conversions for all `cr-list-sources.sh | wc -l` sources."
