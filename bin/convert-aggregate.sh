@@ -667,6 +667,10 @@ echo ""                                                                         
 echo "mkdir $TDB_DIR                         &> /dev/null"                                    >> $loadtdbSH
 echo "rm    $TDB_DIR/*.dat $TDB_DIR/*.idn &> /dev/null"                                       >> $loadtdbSH
 echo ""                                                                                       >> $loadtdbSH
+echo "if [[ \${#load_file} -eq 0 ]]; then"                                                    >> $loadtdbSH
+echo "   echo \"ERROR: could not find dump file to load.\""                                   >> $loadtdbSH
+echo "   exit 1"                                                                              >> $loadtdbSH
+echo "fi"                                                                                     >> $loadtdbSH
 echo "echo \`basename \$load_file\` into $TDB_DIR as $graph >> $publishDir/ng.info"           >> $loadtdbSH
 echo ""                                                                                       >> $loadtdbSH
 #                                                                             billion="000000000"
