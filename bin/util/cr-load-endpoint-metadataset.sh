@@ -1,8 +1,6 @@
 #!/bin/bash
 # 
-# This script is a one-off;
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-load-endpoint-metadataset.sh
-# is the intended home after this script gets generalized.
 #
 # Usage: logd-load-metadata-graph.sh [-w] [-ng http://named-graph-for-endpoint] [source-id dataset-id]*
 #
@@ -34,14 +32,14 @@ fi
 if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0` [-w] [--target] [--clear-graph] [-ng graph-name] (cr:auto | cr:hard | [source-id dataset-id]*)"
    echo
-   echo "         -w or --write : prevent dryrun and load endpoint."
-   echo "              --target : return the name of graph that will be loaded; then quit."
-   echo "         --clear-graph : clear the named graph (only if there is something to replace it)."
-   echo "            graph-name : named graph in triple store to load MetaDatasets."
+   echo "         -w or --write : Prevent dryrun and load endpoint."
+   echo "              --target : Return the name of graph that will be loaded; then quit."
+   echo "         --clear-graph : Clear the named graph (only if there is something to replace it)."
+   echo "            graph-name : Named graph in triple store to load MetaDatasets."
    echo
-   echo "               cr:auto : obtain the source-id and dataset-id pairs by SPARQL-querying the endpoint."
-   echo "               cr:hard : use a hard-coded list of source-id and dataset-id."
-   echo "  source-id dataset-id : identifiers for the dataset to load."
+   echo "               cr:auto : Obtain the source-id and dataset-id pairs by SPARQL-querying the endpoint."
+   echo "               cr:hard : Use a hard-coded list of source-id and dataset-id."
+   echo "  source-id dataset-id : Identifiers for the dataset to load."
    exit 1
 fi
 
@@ -55,6 +53,7 @@ graphName='http://purl.org/twc/vocab/conversion/MetaDataset'
 
 if [ "$1" == "--target" ]; then
    echo $graphName
+   $CSV2RDF4LOD_HOME/bin/util/virtuoso/vload --target
    exit 0
 fi
 
