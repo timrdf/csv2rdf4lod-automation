@@ -23,6 +23,7 @@ else
    echo "prefix skos:       <http://www.w3.org/2004/02/skos/core#>"
    echo "prefix sioc:       <http://rdfs.org/sioc/ns#>"
    echo "prefix void:       <http://rdfs.org/ns/void#>"             
+   echo "prefix ov:         <http://open.vocab.org/terms/>"
    echo "prefix qb:         <http://purl.org/linked-data/cube#>"             
    echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>"
    echo "prefix dbpedia:    <http://dbpedia.org/resource/>"
