@@ -2,12 +2,14 @@
 
 if [ "$1" == "--check" ]; then
    if [ ! `which tdbloader` ]; then
+      echo
       echo "[WARNING]: rapper not found on path. publishing and many other things will fail."
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
    else
       echo "[INFO]: rapper found"
    fi
    if [[ ! `which tdbloader` || ! `which tdbquery` ]]; then
+      echo
       echo "[WARNING]: tdbloader not found on path. cr-test-conversion.sh will fail."
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
