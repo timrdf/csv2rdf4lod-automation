@@ -25,3 +25,5 @@ for jar in                                                             \
       missing=$missing:$CSV2RDF4LOD_HOME/$jar # TODO: export? : vs ; cygwin
    fi
 done
+
+echo $missing
