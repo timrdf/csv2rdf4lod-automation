@@ -11,7 +11,7 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
-TEMP="_"`basename $0``date +%s`_$$.tmp
+TEMP="../_"`basename $0``date +%s`_$$.tmp
 
 # Find "1" and "2" from files:
 #
