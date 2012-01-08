@@ -265,45 +265,6 @@ elif [[ "$1" == "cr:hard" || $# == 0 ]]; then
    get_dump_file "toronto-ca" "catalog"
    get_dump_file "utah-gov" "catalog"
    get_dump_file "zaragoza-es" "catalog"
-
-   # This was commented out by Tim with Greg, Dominic, and John during LOGD meeting.
-   # \/
-
-   # International dataset catalog initiative:
-   #get_dump_file "data-baltimorecity-gov"   "catalog"
-   #get_dump_file "data-cityofchicago-org"   "catalog"
-   #get_dump_file "data-gc-ca"               "catalog"
-   #get_dump_file "data-gov-au"              "catalog"
-   #get_dump_file "data-govt-nz"             "catalog"
-   #get_dump_file "data-gov-uk"              "catalog"
-   #get_dump_file "data-london-gov-uk"       "catalog"
-   #get_dump_file "data-nsw-gov-au"          "catalog"
-   #get_dump_file "data-octo-dc-gov"         "catalog"
-   #get_dump_file "data-ok-gov"              "catalog"
-   #get_dump_file "data-oregon-gov"          "catalog"
-   #get_dump_file "data-seattle-gov"         "catalog"
-   #get_dump_file "data-vancouver-ca"        "catalog"
-   #get_dump_file "data-vic-gov-au"          "catalog"
-   #get_dump_file "data-wa-gov"              "catalog"
-   #get_dump_file "data-worldbank-org"       "catalog"
-   #get_dump_file "nysenate-gov"             "catalog"
-   #get_dump_file "ottawa-ca"                "catalog"
-   #get_dump_file "toronto-ca"               "catalog"
-
-
-   #get_dump_file "aporta-es"                "catalog"
-   #get_dump_file "consejotransparencia-cl"  "catalog"
-   #get_dump_file "data-rennes-metropole-fr" "catalog"
-   #get_dump_file "datakc-org"	              "catalog"
-   #get_dump_file "dati-piemonte-it"	        "catalog"
-   #get_dump_file "montevideo-gub-uy"	     "catalog"
-   #get_dump_file "navarra-es"               "catalog"
-   #get_dump_file "portalu-de"               "catalog"
-
-   #special
-   #get_dump_file "data-gov"                 "92"
-   #get_dump_file "twc-rpi-edu"              "dataset-catalog"
-   #get_dump_file "geodata-gov"              "catalog"
 fi
 
 echo "-----------------------------------------" 
@@ -321,32 +282,34 @@ if [ $files_to_load == "yes" -a ${dryRun:-"false"} == "false" ]; then
    
    echo "-----------------------------------------------------------"
    # Uncompress dump files.
-   cd $TODAY
-   for zip in `find . -name "*.gz"`; do
-      gunzip $zip
-      #ttl=`echo $zip | sed 's/^\.\/// ; s/.gz$//'`
-      $assudo rm $zip 2> /dev/null
-   done
+   pushd $TODAY &> /dev/null
+      for zip in `find . -name "*.gz"`; do
+         gunzip $zip
+         #ttl=`echo $zip | sed 's/^\.\/// ; s/.gz$//'`
+         $assudo rm $zip 2> /dev/null
+      done
 
-   softness="-s"; if [ "$CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE" == "hard" ]; then softness=""; fi
+      softness="-s"; if [ "$CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE" == "hard" ]; then softness=""; fi
 
-   # Load data into triple store named graph.
-   rm -f $WEB_TODAY/publish/metadatasets.*
-   for ttl in `find . -name "*.ttl"`; do
-      ttl=`echo $ttl | sed 's/^\.\///'`
-      echo "INFO: Loading `pwd`/$ttl into $graphName"
-      ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload ttl $ttl $graphName | grep -v " into "
+      # Load data into triple store named graph.
+      rm -f $WEB_TODAY/publish/metadatasets.*
+      for ttl in `find . -name "*.ttl"`; do
+         ttl=`echo $ttl | sed 's/^\.\///'`
+         echo "INFO: Loading `pwd`/$ttl into $graphName"
+         ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload ttl $ttl $graphName | grep -v " into "
 
-      # and link to web.
-      echo "INFO: Linking $ttl to $WEB_TODAY/source/"
-      ln $softness `pwd`/$ttl $WEB_TODAY/source
-   
-      # and plop into a single monolith
-      echo "INFO: Adding to monolith Turtle"
-      cat $ttl                             >> $WEB_TODAY/publish/metadatasets.ttl
-      echo "INFO: Adding to monolith N-TRIPLES"
-      rapper -q -i turtle -o ntriples $ttl >> $WEB_TODAY/publish/metadatasets.nt
-   done
+         # and link to web.
+         echo "INFO: Linking $ttl to $WEB_TODAY/source/"
+         ln $softness `pwd`/$ttl $WEB_TODAY/source
+      
+         # and plop into a single monolith
+         echo "INFO: Adding to monolith Turtle"
+         cat $ttl                             >> $WEB_TODAY/publish/metadatasets.ttl
+         echo "INFO: Adding to monolith N-TRIPLES"
+         rapper -q -i turtle -o ntriples $ttl >> $WEB_TODAY/publish/metadatasets.nt
+      done
+   popd &> /dev/null
+
    echo "INFO: Creating monolith RDF/XML"
    rapper -q -i ntriples -o rdfxml $WEB_TODAY/publish/metadatasets.nt >> $WEB_TODAY/publish/metadatasets.rdf
    #rm $WEB_TODAY/publish/metadatasets.nt
