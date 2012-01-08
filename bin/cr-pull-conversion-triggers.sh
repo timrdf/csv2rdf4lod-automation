@@ -49,6 +49,8 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
+orig_params="$*"
+
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
 if [[ `is-pwd-a.sh cr:data-root` == "yes" ]]; then
@@ -97,11 +99,13 @@ elif [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       shift 2
    fi
 
-   if [ ${dryRun:-"."} == "true" ]; then
+   if [ "$dryRun" == "true" ]; then
       echo ""
       echo "WARNING: Only performing dryrun; add -w parameter to actually convert.)"
       echo ""
    fi
+
+   echo "orig params: $orig_params"
 
    source=`cr-source-id.sh`
    datasetID=`cr-dataset-id.sh`
