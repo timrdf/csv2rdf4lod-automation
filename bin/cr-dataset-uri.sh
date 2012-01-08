@@ -18,6 +18,12 @@ q2=""  # Quote
 a1=""  # Angle
 a2=""  # Angle
 end="" # Period
+
+CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+sourceID=`is-pwd-a.sh  cr:bone --id-of source`
+datasetID=`is-pwd-a.sh cr:bone --id-of dataset`
+versionID=`is-pwd-a.sh cr:bone --id-of version`
+
 if [ "$1" == 'void' ]; then
    prefixDef="@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
    isabstract="    a conversion:AbstractDataset;"
@@ -36,11 +42,6 @@ elif [ "$1" == "uri" ]; then
 fi
 base_uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
 
-sourceID=`is-pwd-a.sh  cr:bone --id-of source`
-datasetID=`is-pwd-a.sh cr:bone --id-of dataset`
-versionID=`is-pwd-a.sh cr:bone --id-of version`
-
-CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
 echo "#   base_uri              $CSV2RDF4LOD_BASE_URI # (env)"
 echo "#   base_uri              $CSV2RDF4LOD_BASE_URI_OVERRIDE # (override)"
