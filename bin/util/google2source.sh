@@ -105,7 +105,7 @@ pushd $versionID &> /dev/null
       #$CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w --header-line 2 source/$local_filenameC.csv
       $CSV2RDF4LOD_HOME/bin/cr-create-convert-sh.sh -w source/*.csv
       ./*.sh # Run raw conversion
-      for enhancementID in `cr-list-enhancement-identifiers.sh`; do
+      for enhancementID in `$CSV2RDF4LOD_HOME/bin/util/cr-list-enhancement-identifiers.sh`; do
          flag=""
          if [ $enhancementID != "1" ]; then
             flag="-e $enhancementID"
