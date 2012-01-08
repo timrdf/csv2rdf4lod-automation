@@ -251,6 +251,7 @@ if [ "$1" == "--setup" ]; then
       fi
       echo "[INFO] `basename $0` --setup with $tdbloader"
       $tdbloader
+      echo "[INFO] `basename $0` --setup done with $tdbloader"
    else
       echo "https://github.com/timrdf/csv2rdf4lod-automation/issues/171"
    fi
