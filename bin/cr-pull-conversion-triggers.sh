@@ -75,7 +75,7 @@ fi
 
 if [ "$dryRun" == "true" ]; then
    echo ""
-   echo "WARNING: Only performing dryrun; add -w parameter to actually convert.)"
+   echo "WARNING: Only performing dryrun; add -w parameter to actually convert."
    echo ""
 fi
 
