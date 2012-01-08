@@ -5,9 +5,7 @@
 missing=""
 
 if [ ! `which cr-vars.sh` ]; then
-   if [ ${#missing} -gt 0 ]; then
-      missing=$missing":"
-   fi
+   missing=":"
    missing=$CSV2RDF4LOD_HOME/bin
 fi
 
