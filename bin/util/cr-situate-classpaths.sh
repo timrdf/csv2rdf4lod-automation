@@ -3,7 +3,7 @@
 #
 #
 # Usage:
-#   export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
+#   export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
 #   (can be repeated indefinately, once paths are in PATH, nothing is returned.)
 
 missing=""
