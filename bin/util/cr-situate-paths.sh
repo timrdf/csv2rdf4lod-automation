@@ -1,5 +1,6 @@
 #!/bin/bash
 #
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-situate-paths.sh
 #
 # Usage:
 #   export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
