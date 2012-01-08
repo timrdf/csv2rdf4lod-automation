@@ -66,9 +66,9 @@ if [ "$1" == "--layer" ]; then
    shift 2
 fi
 
-latest_version_only=""
+latest_version_only="no"
 if [ "$1" == "--latest-version-only" ]; then
-   latest_version_only="| tail -1"
+   latest_version_only="yes"
    shift
 fi
 
@@ -106,7 +106,12 @@ elif [[ `is-pwd-a.sh cr:source` == "yes" ]]; then
       popd &>/dev/null
    done
 elif [[ `is-pwd-a.sh cr:dataset` == "yes" ]]; then
-   for version in `cr-list-versions.sh $latest_version_only`; do
+   if [ "$latest_version_only" == "yes" ]; then
+      versions=`cr-list-versions.sh | tail -1`
+   else
+      versions=`cr-list-versions.sh`
+   fi
+   for version in $versions; do
       pushd version/$version &>/dev/null
          $0 $orig_params # Run this same script with the same params we were given.
       popd &>/dev/null
