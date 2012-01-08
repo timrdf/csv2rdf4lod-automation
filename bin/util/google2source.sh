@@ -54,7 +54,7 @@ GOOGLE_SPREADSHEET_IDs="$1"
 
 local_filename="$2"
 if [ $local_filename == "auto" -o $local_filename == "cr:auto" ]; then
-   local_filename=`cr-dataset-id.sh`
+   local_filename=`$CSV2RDF4LOD_HOME/bin/util/cr-dataset-id.sh`
    echo "using dataset identifer for local name in source/$local_filename"
 fi
 
