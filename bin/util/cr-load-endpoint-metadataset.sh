@@ -34,7 +34,7 @@ fi
 if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0` [-w] [--target] [--clear-graph] [-ng graph-name] (cr:auto | cr:hard | [source-id dataset-id]*)"
    echo
-   echo "                    -w : prevent dryrun and load endpoint."
+   echo "         -w or --write : prevent dryrun and load endpoint."
    echo "              --target : return the name of graph that will be loaded; then quit."
    echo "         --clear-graph : clear the named graph (only if there is something to replace it)."
    echo "            graph-name : named graph in triple store to load MetaDatasets."
@@ -46,7 +46,7 @@ if [[ "$1" == "--help" ]]; then
 fi
 
 dryRun="true"
-if [ "$1" == "-w" ]; then
+if [[ "$1" == "-w" || "$1" == "--write" ]]; then
    dryRun="false"
    shift
 fi
