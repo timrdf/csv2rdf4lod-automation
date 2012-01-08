@@ -17,8 +17,8 @@ TEMP="_"`basename $0``date +%s`_$$.tmp
 
 if [[ $# -lt 2 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [-{w,f}] google-key local-name [google-key]*"
-   echo "    -w            - write instead of doing a dry run (dry run is default)."
-   echo "    -f            - force another version, even though there is already one for today."
+   echo "    -w or --write - write instead of doing a dry run (dry run is default)."
+   echo "    -f or --force - force another version, even though there is already one for today."
    echo "    google-key    - key from google spreadsheet URL"
    echo "    local-name    - filename to use for files retrieved and saved in source/ (use 'cr:auto' to use dataset identifier)"
    echo "    [google-key]* - more keys from google spreadsheet URLs"
@@ -27,10 +27,10 @@ fi
 
 dryRun="true"
 versionID=`date +%Y-%b-%d`
-if [ "$1" == "-w" ]; then
+if [[ "$1" == "-w" || "$1" == "--write" ]]; then
    dryRun="false"
    shift
-elif [ "$1" == "-f" ]; then
+elif [[ "$1" == "-f" || "$1" == "--force" ]]; then
    dryRun="false"
    versionID=`date +%Y-%b-%d_%H_%M_%S`
    shift
