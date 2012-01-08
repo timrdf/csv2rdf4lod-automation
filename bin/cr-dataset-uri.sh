@@ -18,7 +18,7 @@ q2=""  # Quote
 a1=""  # Angle
 a2=""  # Angle
 end="" # Period
-if [ ${1:-"."} == 'void' ]; then
+if [ "$1" == 'void' ]; then
    prefixDef="@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
    isabstract="    a conversion:AbstractDataset;"
    if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]; then
@@ -30,6 +30,9 @@ if [ ${1:-"."} == 'void' ]; then
    q1="\""
    q2="\";"
    end="."
+elif [ "$1" == "uri" ]; then
+   echo $CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID
+   exit 0
 fi
 base_uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
 
