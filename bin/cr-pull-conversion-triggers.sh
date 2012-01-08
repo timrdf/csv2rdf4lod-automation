@@ -74,7 +74,6 @@ if [ "$1" == "-sourceDir" ]; then
 fi
 
 if [[ `is-pwd-a.sh cr:data-root` == "yes" ]]; then
-   echo "root given $#"
    if [ $# -gt 0 ]; then
       echo "  Rerunning conversions for the $# source identifier(s) provided."
       source_ids="$*"
