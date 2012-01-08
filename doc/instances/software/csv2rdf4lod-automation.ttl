@@ -1,8 +1,10 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
 <http://purl.org/twc/id/software/csv2rdf4lod-automation> 
    owl:differentFrom <http://purl.org/twc/id/software/csv2rdf4lod>;
    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki>,
                 <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/instances/software/csv2rdf4lod-automation.ttl>;
+   foaf:isPrimaryTopicOf <http://www.delicious.com/url/16182464df4de470077d6d9db8457cf8>;
 .
