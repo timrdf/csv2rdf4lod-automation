@@ -249,6 +249,7 @@ if [ "$1" == "--setup" ]; then
          echo "`basename $0` rerunning publish/bin/publish.sh b/c publish/*.ttl older than automatic/*.ttl"
          publish/bin/publish.sh
       fi
+      echo "[INFO] `basename $0` --setup with $tdbloader"
       $tdbloader
    else
       echo "https://github.com/timrdf/csv2rdf4lod-automation/issues/171"
