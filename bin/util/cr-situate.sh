@@ -6,7 +6,7 @@ missing=""
 
 if [ ! `which cr-vars.sh` ]; then
    missing=":"
-   missing=$CSV2RDF4LOD_HOME/bin
+   missing=$missing$CSV2RDF4LOD_HOME/bin
 fi
 
 if [ ! `which prefixes2flags.sh` ]; then
@@ -27,7 +27,7 @@ if [ ! `which vload` ]; then
    if [ ${#missing} -gt 0 ]; then
       missing=$missing":"
    fi
-   missing=$missing$CSV2RDF4LOD_HOME/bin//util/virtuoso
+   missing=$missing$CSV2RDF4LOD_HOME/bin/util/virtuoso
 fi
 
 echo $missing
