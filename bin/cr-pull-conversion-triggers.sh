@@ -28,7 +28,7 @@ if [ "$1" == "--help" ]; then
    echo "Rerun raw and all enhancement conversions using"
    echo " source/SSS/DDD/version/VVV/automatic/convert-DDD.sh if it is present."
    echo ""
-   echo "   -w:                    prevent dry run; actually run scripts."
+   echo "   -w or --write:         prevent dry run; actually run scripts."
    echo "   --latest-version-only: only convert the latest version for each dataset (uses directory modification date)."
    echo "   --layer:               conversion identifier to publish (raw, e1, e2, ...) (if not specified, converts all layers.)"
    echo "   -sourceDir:            if specified, replace source/SSS/DDD/version/VVV/automatic/convert-DDD.sh "
@@ -55,7 +55,7 @@ TEMP="_"`basename $0``date +%s`_$$.tmp
 orig_params="$*"
 
 dryRun="true"
-if [ "$1" == "-w" ]; then
+if [[ "$1" == "-w" || "$1" == "--write" ]]; then
    dryRun="false"
    shift 
 fi
