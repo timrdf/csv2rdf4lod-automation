@@ -87,7 +87,7 @@ pushd $versionID/source &> /dev/null
       if [ ${dryRun-"."} == "true" ]; then
          echo pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $local_filenameC -e csv
       else
-         pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $local_filenameC -e csv
+         $CSV2RDF4LOD_HOME/bin/util/pcurl.sh `$CSV2RDF4LOD_HOME/bin/util/google-spreadsheet-url.sh $GOOGLE_SPREADSHEET_ID | $googletoggle` -n $local_filenameC -e csv
          # Edit in place and kill the stupid randomly occurring (or not occuring) first line (e.g. "","","","","","","")
          perl -ni -e 'print if ($l || !/""(?:,""){3,4}/); ++$l;' $local_filenameC.csv # Thanks to Eric Prud'hommeaux for this! 2011 Jul 09
       fi
