@@ -21,10 +21,10 @@
 if [ "$1" == "--help" ]; then
    echo "usage: `basename $0` [-w] [--layer {raw,e1,e2,...,cr:ALL}] [-sourceDir {source,manual}] <cr:ALL | datasetID [datasetID]*>"
    echo ""
-   echo "Remove everything in:"
-   echo " source/SSS/DDD/version/VVV/automatic/* and"
-   echo " source/SSS/DDD/version/VVV/publish/* "
-   echo ""
+#   echo "Remove everything in:"
+#   echo " source/SSS/DDD/version/VVV/automatic/* and"
+#   echo " source/SSS/DDD/version/VVV/publish/* "
+#   echo ""
    echo "Rerun raw and all enhancement conversions using"
    echo " source/SSS/DDD/version/VVV/automatic/convert-DDD.sh if it is present."
    echo ""
@@ -49,9 +49,35 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
+TEMP="_"`basename $0``date +%s`_$$.tmp
+
 orig_params="$*"
 
-TEMP="_"`basename $0``date +%s`_$$.tmp
+dryRun="true"
+if [ "$1" == "-w" ]; then
+   dryRun="false"
+   shift 
+fi
+
+focusLayer="cr:ALL"
+if [ "$1" == "--layer" ]; then
+   focusLayer="$2"
+   shift 2
+fi
+
+# This was needed when first transitioning to the csv2rdf4lod file organization,
+# when the CSVs were in place but no conversion triggers (convert-*.sh) existed.
+csvLoc=""
+if [ "$1" == "-sourceDir" ]; then
+   csvLoc="$2"
+   shift 2
+fi
+
+if [ "$dryRun" == "true" ]; then
+   echo ""
+   echo "WARNING: Only performing dryrun; add -w parameter to actually convert.)"
+   echo ""
+fi
 
 if [[ `is-pwd-a.sh cr:data-root` == "yes" ]]; then
    echo "  Rerunning conversions for all `cr-list-sources.sh | wc -l` sources."
@@ -62,50 +88,22 @@ if [[ `is-pwd-a.sh cr:data-root` == "yes" ]]; then
          echo "############################################# $source #############################################"
          echo "############################################# `echo $source | sed 's/./ /g'` #############################################"
          echo "############################################# `echo $source | sed 's/./ /g'` #############################################"
-         $0 $* # Run this same script now that we are in the source/ directory, using the same params we were given.
+         $0 $orig_params # Run this same script now that we are in the source/ directory, using the same params we were given.
       popd &>/dev/null
    done
 elif [[ `is-pwd-a.sh cr:source` == "yes" ]]; then
    for dataset in `cr-list-sources-datasets.sh -s`; do
       pushd $dataset &>/dev/null
-         $0 $* # Run this same script with the same params we were given.
+         $0 $orig_params # Run this same script with the same params we were given.
       popd &>/dev/null
    done
 elif [[ `is-pwd-a.sh cr:dataset` == "yes" ]]; then
    for version in `cr-list-versions.sh`; do
       pushd version/$version &>/dev/null
-         $0 $* # Run this same script with the same params we were given.
+         $0 $orig_params # Run this same script with the same params we were given.
       popd &>/dev/null
    done
 elif [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
-
-   dryRun="true"
-   if [ "$1" == "-w" ]; then
-      dryRun="false"
-      shift 
-   fi
-
-   focusLayer="cr:ALL"
-   if [ "$1" == "--layer" ]; then
-      focusLayer="$2"
-      shift 2
-   fi
-
-   # This was needed when first transitioning to the csv2rdf4lod file organization,
-   # when the CSVs were in place but no conversion triggers (convert-*.sh) existed.
-   csvLoc=""
-   if [ "$1" == "-sourceDir" ]; then
-      csvLoc="$2"
-      shift 2
-   fi
-
-   if [ "$dryRun" == "true" ]; then
-      echo ""
-      echo "WARNING: Only performing dryrun; add -w parameter to actually convert.)"
-      echo ""
-   fi
-
-   echo "orig params: $orig_params"
 
    source=`cr-source-id.sh`
    datasetID=`cr-dataset-id.sh`
