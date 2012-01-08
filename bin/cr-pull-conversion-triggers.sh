@@ -99,7 +99,7 @@ elif [[ `is-pwd-a.sh cr:source` == "yes" ]]; then
       popd &>/dev/null
    done
 elif [[ `is-pwd-a.sh cr:dataset` == "yes" ]]; then
-   for version in `cr-list-versions.sh`; do
+   for version in `cr-list-versions.sh | tail -1`; do
       pushd version/$version &>/dev/null
          $0 $orig_params # Run this same script with the same params we were given.
       popd &>/dev/null
