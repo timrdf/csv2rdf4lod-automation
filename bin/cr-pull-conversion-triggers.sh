@@ -80,6 +80,7 @@ if [ "$dryRun" == "true" ]; then
 fi
 
 if [[ `is-pwd-a.sh cr:data-root` == "yes" ]]; then
+   echo "root given $#"
    echo "  Rerunning conversions for all `cr-list-sources.sh | wc -l` sources."
    for source in `cr-list-sources.sh`; do
       pushd $source &>/dev/null
