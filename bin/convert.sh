@@ -21,8 +21,11 @@ if [ -f ../../csv2rdf4lod-source-me.sh ]; then
 fi
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
+export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
 
 # Java dependencies; relative to $CSV2RDF4LOD_HOME
+# DEPRECATED. Changes should migrate to bin/util/cr-situate-classpaths.sh
 for jar in                                                             \
            lib/javacsv2.0/javacsv.jar                                  \
            bin/dup/openrdf-sesame-2.3.1-onejar.jar                     \
