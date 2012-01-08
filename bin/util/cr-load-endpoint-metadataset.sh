@@ -309,7 +309,7 @@ fi
 echo "-----------------------------------------" 
 
 files_to_load="no"
-for file in `find $TODAY -name "*gz"`; do files_to_load="yes"; done
+for file in `find $TODAY -name "*.ttl[.gz]"`; do files_to_load="yes"; done
 
 if [ $files_to_load == "yes" -a ${dryRun:-"false"} == "false" ]; then
    echo "-----------------------------------------------------------"
