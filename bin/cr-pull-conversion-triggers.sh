@@ -81,8 +81,15 @@ fi
 
 if [[ `is-pwd-a.sh cr:data-root` == "yes" ]]; then
    echo "root given $#"
-   echo "  Rerunning conversions for all `cr-list-sources.sh | wc -l` sources."
-   for source in `cr-list-sources.sh`; do
+   if [ $# -gt 0 ]; then
+      echo "  Rerunning conversions for the $# source identifiers provided."
+      source_ids="$*"
+   else
+      echo "  Rerunning conversions for all `cr-list-sources.sh | wc -l` sources."
+      source_ids=`cr-list-sources.sh`
+   fi
+
+   for source in $source_ids; do
       pushd $source &>/dev/null
          echo "##############################################`echo $source | sed 's/./#/g'`##############################################"
          echo "##############################################`echo $source | sed 's/./#/g'`##############################################"
