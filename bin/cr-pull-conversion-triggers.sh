@@ -73,12 +73,6 @@ if [ "$1" == "-sourceDir" ]; then
    shift 2
 fi
 
-if [ "$dryRun" == "true" ]; then
-   echo ""
-   echo "WARNING: Only performing dryrun; add -w parameter to actually convert."
-   echo ""
-fi
-
 if [[ `is-pwd-a.sh cr:data-root` == "yes" ]]; then
    echo "root given $#"
    if [ $# -gt 0 ]; then
@@ -112,6 +106,12 @@ elif [[ `is-pwd-a.sh cr:dataset` == "yes" ]]; then
       popd &>/dev/null
    done
 elif [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
+
+   if [ "$dryRun" == "true" ]; then
+      echo ""
+      echo "WARNING: Only performing dryrun; add -w parameter to actually convert."
+      echo ""
+   fi
 
    source=`cr-source-id.sh`
    datasetID=`cr-dataset-id.sh`
