@@ -1,30 +1,42 @@
-#!/bin/bash
+#!bin/bash
 #
-# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-virtuoso-load-metadata.sh
+# This script is a one-off;
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-load-endpoint-metadata.sh
+# is the intended home after this script gets generalized.
 #
-# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets
+# See also:
+#     https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets
+#
+# Environment variables used:
+#
+#     CSV2RDF4LOD_HOME
+#     CSV2RDF4LOD_CONVERT_DATA_ROOT
+#     CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT
+#     CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT
+#
+#     (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables)
 
-# TODO: When running cron as root, need to make sure all vars are set: source /work/data-gov/v2010/csv2rdf4lod/config/csv2rdf4lod-source-me-logd.sh # replaces the above; now in svn. -lebot 2011 July 29
+# NOTE: This is called by su's crontab.
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
-CSV2RDF4LOD_CONVERT_DATA_ROOT=${CSV2RDF4LOD_CONVERT_DATA_ROOT:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
-CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT=${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
-CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
-if [ ! `which rapper` ]; then
-   echo "need rapper on path."
-   exit 1
-fi
 
-sudo="sudo"
-if [ `whoami` == "root" ]; then
-   sudo=""
-fi
+
+
+
+
+
+
+PATH=$PATH:/usr/local/bin/                                        # to get rapper on
+#source /work/data-gov/v2010/csv2rdf4lod/source-me-bulk-convert.sh # to set environment variables.
+#source /work/data-gov/v2010/csv2rdf4lod/source-me-bulk-compress-convert.sh # to set environment variables.
+#source /work/data-gov/v2010/csv2rdf4lod/config/csv2rdf4lod-source-me-logd.sh # replaces the above; now in svn. -lebot 2011 July 29
+echo Using CSV2RDF4LOD_HOME $CSV2RDF4LOD_HOME
+
 
 # Log the invocation of this script.
 log_dir="${CSV2RDF4LOD_HOME}/log/`basename $0`"
 if [ ! -d $log_dir ]; then
-   $sudo mkdir -p $log_dir
-   $sudo chmod a+w $log_dir
+   mkdir -p $log_dir
+   chmod a+w $log_dir
 fi
 log_file=$log_dir/`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_`whoami`_pid$$.log
 echo "start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` > $log_file
@@ -36,89 +48,85 @@ rm $log_dir/latest.log &> /dev/null
 ln -s $log_file $log_dir/latest.log
 
 
-if [ ! -d "${CSV2RDF4LOD_CONVERT_DATA_ROOT}" ]; then
-   echo "[WARNING] CSV2RDF4LOD_CONVERT_DATA_ROOT: $CSV2RDF4LOD_CONVERT_DATA_ROOT does not exist; cannot load metadata."
-   exit 1
-fi
-pushd ${CSV2RDF4LOD_CONVERT_DATA_ROOT}
 
-   echo "cr-publish-void-to-endpoint.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`   | tee -a $log_file
-         datasetGraph=`cr-publish-void-to-endpoint.sh   -n auto 2>&1 | awk '/Will populate into/{print $9}'`
-   cr-publish-void-to-endpoint.sh   auto # http://logd.tw.rpi.edu/vocab/Dataset
-   echo "cr-publish-void-to-endpoint.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`     | tee -a $log_file
 
-   #echo "cr-publish-sameas-to-endpoint.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
-   #sameAsDatasetGraph=`cr-publish-sameas-to-endpoint.sh -n auto 2>&1 | awk '/Will populate into/{print $9}'`
-   #cr-publish-sameas-to-endpoint.sh auto # http://purl.org/twc/vocab/conversion/SameAsDataset
-   #echo "cr-publish-sameas-to-endpoint.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`   | tee -a $log_file
 
-   echo "cr-publish-params-to-endpoint.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
-   paramsDatasetGraph=`cr-publish-params-to-endpoint.sh -n auto 2>&1 | awk '/Will populate into/{print $9}'`
-   cr-publish-params-to-endpoint.sh auto # http://purl.org/twc/vocab/conversion/ConversionProcess
-   echo "cr-publish-params-to-endpoint.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`   | tee -a $log_file
 
+
+# TODO: move this to a separate cron job. This is a TRIAL! -lebot 2011 July 29
+#pushd /work/data-gov/v2010/csv2rdf4lod/data/source/data-gov/92/version &> /dev/null
+#./2source.sh
+#popd &> /dev/null
+# TODO: move this to a separate cron job.
+
+
+
+
+
+pushd $CSV2RDF4LOD_CONVERT_DATA_ROOT
+
+   echo cr-publish-void-to-endpoint.sh
+   echo "cr-publish-void-to-endpoint.sh   start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` >> $log_file
+   datasetGraph=`cr-publish-void-to-endpoint.sh --target` 
+   cr-publish-void-to-endpoint.sh $datasetGraph                    # http://logd.tw.rpi.edu/vocab/Dataset
+   echo "cr-publish-void-to-endpoint.sh     end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` >> $log_file
+
+   echo cr-publish-sameas-to-endpoint.sh
+   echo "cr-publish-sameas-to-endpoint.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` >> $log_file
+   sameAsDatasetGraph=`cr-publish-sameas-to-endpoint.sh --target` 
+   cr-publish-sameas-to-endpoint.sh $sameAsDatasetGraph            # http://purl.org/twc/vocab/conversion/SameAsDataset
+   echo "cr-publish-sameas-to-endpoint.sh   end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` >> $log_file
+
+   echo cr-publish-params-to-endpoint.sh
+   echo "cr-publish-params-to-endpoint.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` >> $log_file
+   paramsDatasetGraph=`cr-publish-params-to-endpoint.sh --target`
+   cr-publish-params-to-endpoint.sh $paramsDatasetGraph            # http://purl.org/twc/vocab/conversion/ConversionProcess
+   echo "cr-publish-params-to-endpoint.sh   end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` >> $log_file
+
+   # Populate the MetaDataset named graph.
+# This is done separately now. lebot 2012-Jan-08
+#   metaDatasetGraph=`$CSV2RDF4LOD_HOME/bin/util/cr-load-endpoint-metadataset.sh --target`      # http://purl.org/twc/vocab/conversion/MetaDataset
+#   echo "./load-endpoint-metadataset.sh   start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` >> $log_file
+#   $assudo ./load-endpoint-metadataset.sh -w -ng $metaDatasetGraph
+#   echo "./load-endpoint-metadataset.sh     end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` >> $log_file
 popd
 
-
-if [ ! -d "${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}" ]; then 
-   echo "[WARNING] CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT: $CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT does not exist; cannot cache queries."
-   exit 1
-fi
-if [ ! -d "${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query/results" ]; then 
-   $sudo mkdir -p ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query/results
-fi
-pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}/query 
+pushd ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:-"/var/www/html/logd.tw.rpi.edu"}/query 
+   assudo="sudo"
+   if [ `whoami` == "root" ]; then
+      assudo=""
+   fi
 
    asOf=`dateInXSDDateTime.sh`
-   echo
-   echo "--- $datasetGraph $asOf"
-   $sudo echo $asOf                                                                                                                > results/dataset-as-of.txt
-   $sudo echo "<$datasetGraph>       <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-as-of.nt
-   # @deprecated: $sudo /opt/virtuoso/scripts/vload nt results/dataset-as-of.nt        $datasetGraph
-   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-as-of.nt        $datasetGraph
+   echo $datasetGraph $asOf
+   echo $asOf                                                                                                          > results/dataset-as-of.txt
+   echo "<$datasetGraph> <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-as-of.nt
+   $assudo ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-as-of.nt        $datasetGraph
 
-   #echo
-   #echo "--- $sameAsDatasetGraph $asOf"
-   #$sudo echo $asOf                                                                                                                > results/dataset-sameas-as-of.txt
-   #$sudo echo "<$sameAsDatasetGraph> <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-sameas-as-of.nt
-   ## @deprecated: $sudo /opt/virtuoso/scripts/vload nt results/dataset-sameas-as-of.nt $sameAsDatasetGraph
-   #${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-sameas-as-of.nt $sameAsDatasetGraph
+   echo $sameAsDatasetGraph $asOf
+   echo $asOf                                                                                                                > results/dataset-sameas-as-of.txt
+   echo "<$sameAsDatasetGraph> <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-sameas-as-of.nt
+   $assudo ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-sameas-as-of.nt $sameAsDatasetGraph
 
-   echo
-   echo "--- $paramsDatasetGraph $asOf"
-   $sudo echo $asOf                                                                                                                > results/dataset-params-as-of.txt
-   $sudo echo "<$paramsDatasetGraph> <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-params-as-of.nt
-   # @deprecated: $sudo /opt/virtuoso/scripts/vload nt results/dataset-params-as-of.nt $paramsDatasetGraph
-   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-params-as-of.nt $paramsDatasetGraph
+   echo $paramsDatasetGraph $asOf
+   echo $asOf                                                                                                                > results/dataset-params-as-of.txt
+   echo "<$paramsDatasetGraph> <http://purl.org/dc/terms/modified> \"$asOf\"^^<http://www.w3.org/2001/XMLSchema#dateTime> ." > results/dataset-params-as-of.nt
+   $assudo ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt results/dataset-params-as-of.nt $paramsDatasetGraph
 
    #
    # Cache the dataset summary SPARQL queries
    #
-   $sudo perl -pe "s|\?:graph|<$datasetGraph>|" $CSV2RDF4LOD_HOME/bin/util/cr-load-endpoint-metadataset.trq > cr-load-endpoint-metadataset.rq
-   echo
-   echo "cache-queries.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
-   find . -name "*.rq" -o -name "*.sparql"
-   echo FIND
-   for query in `find . -name "*.rq" -o -name "*.sparql"`; do
-      echo $query
-      $sudo cache-queries.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} -o sparql gvds xml csv -q $query
-   done
+   echo "cache-queries.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` >> $log_file
+   $assudo cache-queries.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT:-"http://logd.tw.rpi.edu/sparql"} -o sparql gvds xml csv -q logd-stat-*.sparql
    # -o sparql gvds xml
-   echo "cache-queries.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
+   echo "cache-queries.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` >> $log_file
 
    # For grabbing from the stats web page using php's include():
    for results in `find results -name "*.sparql.csv"`; do 
-      $sudo perl $CSV2RDF4LOD_HOME/bin/util/sparql-csv2plain.pl $results
+      perl $CSV2RDF4LOD_HOME/bin/util/sparql-csv2plain.pl $results
    done
 popd
 
-pushd ${CSV2RDF4LOD_CONVERT_DATA_ROOT}
-   # Populate the MetaDataset named graph.
-   metaDatasetGraph='http://purl.org/twc/vocab/conversion/MetaDataset'
-   echo "cr-load-endpoint-metadataset.sh start date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`  | tee -a $log_file
-                                                    # @deprecated: $sudo ./logd-load-metadata-graph.sh -w -ng $metaDatasetGraph
-   $CSV2RDF4LOD_HOME/bin/util/cr-load-endpoint-metadataset.sh -w -ng $metaDatasetGraph
-   echo "cr-load-endpoint-metadataset.sh end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`    | tee -a $log_file
-popd
+$assudo ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vcheckpoint
 
-echo "end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` | tee -a $log_file
+echo "end date time:"`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh` >> $log_file
