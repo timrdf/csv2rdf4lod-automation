@@ -73,13 +73,13 @@ if [ $dryRun == "true" ]; then
    echo
    echo
    echo
-   echo "WARNING: This is a dry run; triple store will NOT be modified. Use -w to load MetaDatasets into endpoint."
+   echo "WARNING `basename $0`: This is a dry run; triple store will NOT be modified. Use -w to load MetaDatasets into endpoint."
    echo
    echo
    echo
 fi
 
-echo "INFO: Will load MetaDataset(s) into named graph: $graphName "
+echo "INFO `basename $0`: Will load MetaDataset(s) into named graph: $graphName "
 
 # We can run as root or as a normal user.
 assudo="sudo"
@@ -94,9 +94,9 @@ SOURCE="$CSV2RDF4LOD_CONVERT_DATA_ROOT"
                                                        TODAY="${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:-"$me"}/$me/version/`date +%Y-%b-%d`/source"
  WEB_TODAY="$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:-"$me"}/$me/version/`date +%Y-%b-%d`"
 WEB_LATEST="$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:-"$me"}/$me/version/latest"
-echo "Accumulating MetaDataset dump files:"
-echo "  into local $TODAY"
-echo "  and web $WEB_TODAY"
+echo "INFO `basename $0`: Accumulating MetaDataset dump files:"
+echo "INFO `basename $0`:   into local $TODAY"
+echo "INFO `basename $0`:   and web $WEB_TODAY"
 if [ "$dryRun" == "false" ];then
    $assudo rm    -rf $TODAY 2> /dev/null
    $assudo mkdir -p  $TODAY 2> /dev/null
@@ -122,23 +122,23 @@ get_dump_file() {
          echo "   $dump_ttl"
          $assudo cp $dump_ttl $TODAY
       else 
-         echo "WARNING: $source_id $dataset_id - $SOURCE/$source_id/$dataset_id/version/$latest_version_id/publish/*-$latest_version_id.ttl[.gz] not found."
+         echo "WARNING `basename $0`: $source_id $dataset_id - $SOURCE/$source_id/$dataset_id/version/$latest_version_id/publish/*-$latest_version_id.ttl[.gz] not found."
       fi
    else
-      echo "WARNING: $source_id $dataset_id - $SOURCE/$source_id/$dataset_id/version not found."
+      echo "WARNING `basename $0`: $source_id $dataset_id - $SOURCE/$source_id/$dataset_id/version not found."
    fi
 }
 
 echo "-----------------------------------------" 
-echo "INFO: Will accumulate MetaDataset dump files to directory: $TODAY "
+echo "INFO `basename $0`: Will accumulate MetaDataset dump files to directory: $TODAY "
 
 if [ "$1" == "cr:auto" ]; then
 
-   echo "INFO: cr:auto: Querying $CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT for source-ids and dataset-ids."
+   echo "INFO `basename $0`: cr:auto: Querying $CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT for source-ids and dataset-ids."
 
 elif [ $# -gt 1 ]; then
 
-   echo "INFO: MetaDataset source-ids and dataset-ids are provided as parameters. Including only those."
+   echo "INFO `basename $0`: MetaDataset source-ids and dataset-ids are provided as parameters. Including only those."
    while [ $# -gt 1 ]; do
       source_id="$1"
       dataset_id="$2"
@@ -148,7 +148,7 @@ elif [ $# -gt 1 ]; then
 
 elif [[ "$1" == "cr:hard" || $# == 0 ]]; then 
 
-   echo "INFO: MetaDataset source-ids and dataset-ids hard coded here."
+   echo "INFO `basename $0`: MetaDataset source-ids and dataset-ids hard coded here."
 
    # This list grabbed from https://docs.google.com/spreadsheet/ccc?key=0ArTeDpS4-nUDdFFpbW9uN2t1ZjAyeUc2U1ZJd0xTZ1E&hl=en_US#gid=0
    # 2011 Nov 13 lebot
@@ -297,22 +297,22 @@ if [ $files_to_load == "yes" -a "$dryRun" == "false" ]; then
       rm -f $WEB_TODAY/publish/metadatasets.*
       for ttl in `find . -name "*.ttl"`; do
          ttl=`echo $ttl | sed 's/^\.\///'`
-         echo "INFO: Loading `pwd`/$ttl into $graphName"
+         echo "INFO `basename $0`: Loading `pwd`/$ttl into $graphName"
          ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload ttl $ttl $graphName | grep -v " into "
 
          # and link to web.
-         echo "INFO: Linking $ttl to $WEB_TODAY/source/"
+         echo "INFO `basename $0`: Linking $ttl to $WEB_TODAY/source/"
          ln $softness `pwd`/$ttl $WEB_TODAY/source
       
          # and plop into a single monolith
-         echo "INFO: Adding to monolith Turtle"
+         echo "INFO `basename $0`: Adding to monolith Turtle"
          cat $ttl                             >> $WEB_TODAY/publish/metadatasets.ttl
-         echo "INFO: Adding to monolith N-TRIPLES"
+         echo "INFO `basename $0`: Adding to monolith N-TRIPLES"
          rapper -q -i turtle -o ntriples $ttl >> $WEB_TODAY/publish/metadatasets.nt
       done
    popd &> /dev/null
 
-   echo "INFO: Creating monolith RDF/XML"
+   echo "INFO `basename $0`: Creating monolith RDF/XML"
    rapper -q -i ntriples -o rdfxml $WEB_TODAY/publish/metadatasets.nt >> $WEB_TODAY/publish/metadatasets.rdf
    #rm $WEB_TODAY/publish/metadatasets.nt
    
@@ -321,21 +321,21 @@ if [ $files_to_load == "yes" -a "$dryRun" == "false" ]; then
 
 elif [ $files_to_load == "yes" ]; then
    echo ""
-   echo "INFO: MetaDataset dump files accumulated in $TODAY:"
+   echo "INFO `basename $0`: MetaDataset dump files accumulated in $TODAY:"
    echo ""
    ls -lt $TODAY | grep -v "^total"
 fi
 
 if [ $files_to_load == "no" ]; then
    echo ""
-   echo "WARNING: did not find any files to load into $graphName"
+   echo "WARNING `basename $0`: did not find any files to load into $graphName"
 fi
 
 if [ $dryRun == "true" ]; then
    echo
    echo
    echo
-   echo "WARNING: This was a dry run; triple store was NOT be modified. Use -w to load MetaDatasets into endpoint."
+   echo "WARNING `basename $0`: This was a dry run; triple store was NOT be modified. Use -w to load MetaDatasets into endpoint."
    echo
    echo
    echo
