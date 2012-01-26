@@ -12,7 +12,7 @@
 #      syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect ${TEMP}${unzipped} rapper`
 #   fi
 
-if [ $# -lt 1 ]; then
+if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--inspect] url-of.rdf [{mime,rapper,jena,extension}]"
    echo "  --inspect: look at the local file and guess (if not specified, guesses based on the file name)."
    exit 1
@@ -46,7 +46,9 @@ else
    guess="-g"
 fi
 if [ $inspect == "true" ]; then
-   if [[ `head -1000 $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` -gt 2 ]]; then
+   if [[ `head -10 $url | awk '$0 ~ /.*<html>.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
+      guess="-g"
+   elif [[ `head -1000 $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` -gt 2 ]]; then
       # @prefix
       guess="-i turtle"                   #      <     >     <     >     <     >      .
    elif [[   `head -1000 $url | awk '$0 ~ /^[^<]*<[^>]+>[^>]*<[^>]+>[^>]*<[^>]+>[^<]*\.[^<]*$/ && $0 !~ "rdf:about=" && $0 !~ "rdf:nodeID=" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
@@ -55,7 +57,7 @@ if [ $inspect == "true" ]; then
    elif [[ `head -1000 $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
       # rdf:about=
       guess="-i rdfxml"
-   elif [[ `head -1000 $url | awk '$0 ~ /> +a +</ {c++} $0 ~ /^ *a +</ {c++} END {printf("%s",c)}'` -gt 1 ]]; then
+   elif [[ `head -1000 $url | awk '$0 ~ /> +a +</ {c++} $0 ~ /^ *a +</ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
       # <http://> a <http://>,
       #           a <http://>,
       guess="-i turtle"
@@ -94,7 +96,6 @@ elif [ "$tool" == "jena" ]; then
    elif [[ $guess == "-i ntriples" || "$guess" == "text/plain" ]]; then
       guess="$guess"
    else
-      echo "rdf"
       exit 1
    fi
 
@@ -107,10 +108,8 @@ elif [ "$tool" == "vload" -o "$tool" == "extension" ]; then
    elif [[ $guess == "-i rdfxml" || "$guess" == "application/rdf+xml" ]]; then
       guess="rdf"
    elif [[ $guess == "-g" || "$guess" == "undetermined" ]]; then
-      echo "rdf"
       exit 1
    else
-      echo "rdf"
       exit 1
    fi
 
@@ -131,6 +130,23 @@ elif [ "$tool" == "mime" ]; then
    #guess=$guess # TODO: transition to mime-based logic.
 
 fi
+
+#    N3: http://www.w3.org/ns/formats/N3
+#    N-Triples: http://www.w3.org/ns/formats/N-Triples
+#    OWL XML Serialization: http://www.w3.org/ns/formats/OWL_XML
+#    OWL Functional Syntax: http://www.w3.org/ns/formats/OWL_Functional
+#    OWL Manchester Syntax: http://www.w3.org/ns/formats/OWL_Manchester
+#    POWDER: http://www.w3.org/ns/formats/POWDER
+#    POWDER-S: http://www.w3.org/ns/formats/POWDER-S
+#    RDFa: http://www.w3.org/ns/formats/RDFa
+#    RDF/XML: http://www.w3.org/ns/formats/RDF_XML
+#    RIF XML Syntax: http://www.w3.org/ns/formats/RIF_XML
+#    SPARQL Results in XML: http://www.w3.org/ns/formats/SPARQL_Results_XML
+#    SPARQL Results in JSON: http://www.w3.org/ns/formats/SPARQL_Results_JSON
+#    SPARQL Results in CSV: http://www.w3.org/ns/formats/SPARQL_Results_CSV
+##    SPARQL Results in TSV: http://www.w3.org/ns/formats/SPARQL_Results_TSV
+#    Turtle: http://www.w3.org/ns/formats/Turtle
+
 
 echo $guess
 if [[ $guess == "-g" || $guess == "" ]]; then
