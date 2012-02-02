@@ -80,12 +80,12 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES                    ${CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES:-"(will default to: false)"}"
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE                     ${CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE:-"(will default to: hard)"}"
    echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION                  ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION:-"(will default to: false)"}"
+   echo "CSV2RDF4LOD_CONCURRENCY                                  ${CSV2RDF4LOD_CONCURRENCY:-"(will default to: 1)"}"
    if [ "$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION" == "true" -o $show_all == "yes" ]; then
    echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WRITE_FREQUENCY  ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WRITE_FREQUENCY:-"(will default to: 1,000,000)"}"
 
    echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_REPORT_FREQUENCY ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_REPORT_FREQUENCY:-"(will default to: 1,000)"}"
 
-   echo "CSV2RDF4LOD_CONCURRENCY                                  ${CSV2RDF4LOD_CONCURRENCY:-"(will default to: 1)"}"
    else
       echo "   ..."
    fi
