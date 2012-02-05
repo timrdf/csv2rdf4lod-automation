@@ -57,7 +57,7 @@ echo "# start time: $start"                                                     
 echo "# user  name: $SUDO_USER as `whoami`"                                              >> $vdelete_log
 echo "# log_enable(3,1);"                                                                >> $vdelete_log
 echo "# sparql deleted: $sparql_delete"                                                  >> $vdelete_log
-echo "# isql      : ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virt_home/bin/isql"}"    >> $vdelete_log
+echo "# isql      : $isql"                                                               >> $vdelete_log
 echo "# CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT: ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"}" >> $vdelete_log
 echo "# end   time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`"                 >> $vdelete_log
 

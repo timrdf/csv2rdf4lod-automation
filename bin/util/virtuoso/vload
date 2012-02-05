@@ -91,19 +91,19 @@ fi
 load_func=""
 case "$input_format" in
    "rdf")
-   load_func="DB.DBA.RDF_LOAD_RDFXML_MT(file_to_string_output('$file_name_full'), '', '$graph_uri', 2, ${CSV2RDF4LOD_CONCURRENCY:-'1'});"
+   load_func="DB.DBA.RDF_LOAD_RDFXML_MT(file_to_string_output('$file_name_full'), '', '$graph_uri', 2, ${CSV2RDF4LOD_CONCURRENCY:-1});"
    # echo $load_func
    ;;
    "ttl")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, ${CSV2RDF4LOD_CONCURRENCY:-'1'});"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, ${CSV2RDF4LOD_CONCURRENCY:-1});"
    # echo $load_func
    ;;
    "nt")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, ${CSV2RDF4LOD_CONCURRENCY:-'1'});"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, ${CSV2RDF4LOD_CONCURRENCY:-1});"
    # echo $load_func
    ;;
    "nq")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 512, 2, ${CSV2RDF4LOD_CONCURRENCY:-'1'});"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 512, 2, ${CSV2RDF4LOD_CONCURRENCY:-1});"
    # echo $load_func
    ;;
    *)
@@ -131,7 +131,7 @@ EOF
 echo ""                                                                                  >> $vload_log
 echo "# start time: $start"                                                              >> $vload_log
 echo "# user  name: $SUDO_USER as "`whoami`                                              >> $vload_log
-echo "# isq: ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virt_home/bin/isql"}"           >> $vload_log
+echo "# isq: $isql"                                                                      >> $vload_log
 echo "# CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT: ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"}" >> $vload_log
 echo "# log_enable(3,1);"                                                                >> $vload_log
 echo "# load function: $load_func"                                                       >> $vload_log
