@@ -13,7 +13,17 @@
 # Log into Virtuoso isql env
 # USERNAME and PASSWORD (see http://docs.openlinksw.com/virtuoso/isql.html)
 virt_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
-isql_cmd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virt_home/bin/isql"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"dba"}"
+
+isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql"}
+if [ ! -e "$isql" ]; then
+   isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql-v"}
+fi
+if [ ! -e "$isql" ]; then
+   echo "[ERROR] $isql not found. Cannot load triples."
+   exit 1
+fi
+
+isql_cmd="$isql ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"dba"}"
 isql_pwd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin password, may neeed to change
 
 if [[ "$1" == "--target" ]]; then
@@ -81,19 +91,19 @@ fi
 load_func=""
 case "$input_format" in
    "rdf")
-   load_func="DB.DBA.RDF_LOAD_RDFXML_MT(file_to_string_output('$file_name_full'), '', '$graph_uri', 2, $CSV2RDF4LOD_CONCURRENCY);"
+   load_func="DB.DBA.RDF_LOAD_RDFXML_MT(file_to_string_output('$file_name_full'), '', '$graph_uri', 2, ${CSV2RDF4LOD_CONCURRENCY:-'1'});"
    # echo $load_func
    ;;
    "ttl")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, $CSV2RDF4LOD_CONCURRENCY);"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, ${CSV2RDF4LOD_CONCURRENCY:-'1'});"
    # echo $load_func
    ;;
    "nt")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, $CSV2RDF4LOD_CONCURRENCY);"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, ${CSV2RDF4LOD_CONCURRENCY:-'1'});"
    # echo $load_func
    ;;
    "nq")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 512, 2, $CSV2RDF4LOD_CONCURRENCY);"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 512, 2, ${CSV2RDF4LOD_CONCURRENCY:-'1'});"
    # echo $load_func
    ;;
    *)

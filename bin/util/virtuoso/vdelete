@@ -22,7 +22,16 @@ echo "Deleting triples from graph <$graph_uri> ..."
 # Log into Virtuoso isql env
 # PORT and PASSWORD (see http://docs.openlinksw.com/virtuoso/isql.html)
 virt_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
-isql_cmd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virt_home/bin/isql"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"dba"}"
+
+isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql"}
+if [ ! -e "$isql" ]; then
+   isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql-v"}
+fi 
+if [ ! -e "$isql" ]; then
+   echo "[ERROR] $isql not found. Cannot delete triples."
+   exit 1
+fi 
+isql_cmd="$isql ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"dba"}"
 isql_pass="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin password, may neeed to change
 
 log_dir=${CSV2RDF4LOD_HOME}/tmp/vdelete-tmp
@@ -56,7 +65,8 @@ echo "# end   time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`"        
 rm $log_dir/latest.log &> /dev/null
 ln -s $vdelete_log $log_dir/latest.log
 
-echo "Deleting finished. Check $log_dir/latest.log for details (currently $vdelete_log)."
+echo "Deleting finished. Check $log_dir/latest.log for details"
+echo "              (currently $vdelete_log)."
 
 if [[ "$2" == "-v" || "$2" == "--verbose" ]]; then
    cat $vdelete_log
