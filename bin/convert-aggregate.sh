@@ -784,7 +784,7 @@ echo "fi"                                                                       
 echo ""                                                                                                      >> $vloadSH
 echo ""                                                                                                      >> $vloadSH
 echo "graph=\`cat '$SDV.sd_name'\`"                                                                          >> $vloadSH
-echo "metaGraph=\"$graph\""                                                                                  >> $vloadSH
+echo "metaGraph=\"\$graph\""                                                                                 >> $vloadSH
 echo "if [ \"\$1\" == \"--sample\" ]; then"                                                                  >> $vloadSH
 http_allRawSample="\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.rdf"
 for layerSlug in $layerSlugs # <---- Add root-level subsets here.
