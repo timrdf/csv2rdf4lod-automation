@@ -210,6 +210,7 @@ if [ ${#numLogs} ]; then
    echo "<$versionedDatasetURI> <http://purl.org/twc/vocab/conversion/num_invocation_logs> $numLogs ." >> $allVOID # TODO: how to make sure it is an integer?
 fi
 echo "  (including $allPML)" | tee -a $CSV2RDF4LOD_LOG
+echo "# BEGIN: $allPML:" >> $allVOID
 cat $allPML 2> /dev/null >> $allVOID
 if [ -e $allVOID.DO_NOT_LIST ]; then
    mv $allVOID $allVOID.DO_NOT_LIST
@@ -753,11 +754,11 @@ echo "# graph was $graph during conversion"                                     
 echo "#"                                                                                                     >> $vloadSH
 echo "#"                                                                                                     >> $vloadSH
 echo "#                              AbstractDataset        # <---- Loads this with param --abstract"        >> $vloadSH
-echo "#                                 |          \ "                                                       >> $vloadSH
+echo "#                                 |          \                                            "            >> $vloadSH
 echo "# Loads this by default -> VersionedDataset   meta    # <---- Loads this with param --meta"            >> $vloadSH
-echo "#                                 |            "                                                       >> $vloadSH
-echo "#                            LayerDataset"                                                             >> $vloadSH
-echo "#                               /    \ "                                                               >> $vloadSH
+echo "#                                 |                                                       "            >> $vloadSH
+echo "#                            LayerDataset                                                 "            >> $vloadSH
+echo "#                               /    \                                                    "            >> $vloadSH
 echo "# Never loads this ----> [table]   DatasetSample # <---- Loads this with param --sample"               >> $vloadSH
 echo "#"                                                                                                     >> $vloadSH
 echo "# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets" >> $vloadSH
@@ -776,7 +777,7 @@ echo "  echo \"Refusing to publish; see 'cr:dev and refusing to publish' at\""  
 echo "  echo \"  https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-%28considerations-for-a-distributed-workflow%29\"" >> $vloadSH
 echo "  exit 1"                                                                                              >> $vloadSH
 echo "fi"                                                                                                    >> $vloadSH
-echo "if [ -e $lnwwwrootSH ]; then # Make sure the file we will load from the web is published"              >> $vloadSH
+echo "if [ -e $lnwwwrootSH ]; then # Make sure that the file we will load from the web is published"         >> $vloadSH
 echo "  $lnwwwrootSH"                                                                                        >> $vloadSH
 echo "fi"                                                                                                    >> $vloadSH
 echo "allNT=$allNT # to cite graph"                                                                          >> $vloadSH
@@ -797,7 +798,7 @@ do
    echo ""                                                                                                   >> $vloadSH
 done
 echo "   exit 1"                                                                                             >> $vloadSH
-echo "elif [ \"\${1:-'.'}\" == \"--meta\" -a -e $allVOID ]; then"                                            >> $vloadSH
+echo "elif [ \"\$1\" == \"--meta\" -a -e $allVOID ]; then"                                                   >> $vloadSH
 echo "   metaURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.void.ttl\"" >> $vloadSH
 echo "   metaGraph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\"/vocab/Dataset"              >> $vloadSH
 #echo "   #echo sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                                 >> $vloadSH
@@ -808,7 +809,7 @@ echo "   exit 1"                                                                
 echo "fi"                                                                                                    >> $vloadSH
 echo ""                                                                                                      >> $vloadSH
 echo "# Modify the graph before continuing to load everything"                                               >> $vloadSH
-echo "if [[ \${1:-'.'} == \"--unversioned\" || \${1:-'.'} == \"--abstract\" ]]; then"                        >> $vloadSH
+echo "if [[ \"\$1\" == \"--unversioned\" || \"\$1\" == \"--abstract\" ]]; then"                              >> $vloadSH
 echo "   # strip off version"                                                                                >> $vloadSH
 echo "   graph=\"\`echo \$graph\ | perl -pe 's|/version/[^/]*$||'\`\""                                       >> $vloadSH
 echo "   graph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/dataset/${datasetID}\"" >> $vloadSH
