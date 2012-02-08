@@ -283,7 +283,7 @@ else
    echo "$allNT - skipping; set CSV2RDF4LOD_PUBLISH_NT=true in source-me.sh to publish N-Triples." | tee -a $CSV2RDF4LOD_LOG
 fi
 echo $graph > $allNT.graph
-echo $graph > $allNT.sd_name
+echo $graph > $SDV.sd_name
 
 
 #
