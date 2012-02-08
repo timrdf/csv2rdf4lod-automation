@@ -781,6 +781,8 @@ echo "fi"                                                                       
 echo "if [ -e '$lnwwwrootSH' ]; then # Make sure that the file we will load from the web is published"       >> $vloadSH
 echo "  $lnwwwrootSH"                                                                                        >> $vloadSH
 echo "fi"                                                                                                    >> $vloadSH
+echo ""                                                                                                         >> $vloadSH
+echo ""                                                                                                         >> $vloadSH
 echo "graph=\`cat '$SDV.sd_name'\`"                                                                          >> $vloadSH
 echo "metaGraph=\`cat '$SDV.sd_name'\`"                                                                      >> $vloadSH
 echo "if [ \"\$1\" == \"--sample\" ]; then"                                                                  >> $vloadSH
