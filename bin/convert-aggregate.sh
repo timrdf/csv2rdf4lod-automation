@@ -283,6 +283,7 @@ else
    echo "$allNT - skipping; set CSV2RDF4LOD_PUBLISH_NT=true in source-me.sh to publish N-Triples." | tee -a $CSV2RDF4LOD_LOG
 fi
 echo $graph > $allNT.graph
+echo $graph > $allNT.sd_name
 
 
 #
@@ -823,52 +824,52 @@ echo "fi"                                                                       
 echo ""                                                                                                >> $vloadSH
 # http://logd.tw.rpi.edu/source/nitrd-gov/dataset/DDD/version/2011-Jan-27
 # http://logd.tw.rpi.edu/source/nitrd-gov/file/DDD/version/2011-Jan-27/conversion/nitrd-gov-DDD-2011-Jan-27.ttl.gz
-echo "dump=$allNT"                                                                                     >> $vloadSH
-#echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                                               >> $vloadSH
-echo "url=$http_allNT"                                                                                 >> $vloadSH
+echo "dump='$allNT'"                                                                                   >> $vloadSH
+#echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                                              >> $vloadSH
+echo "url='$http_allNT'"                                                                               >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                          >> $vloadSH
 echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                               >> $vloadSH
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                    >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload nt \$dump \$graph"                                          >> $vloadSH
+#echo "   #sudo /opt/virtuoso/scripts/vload nt \$dump \$graph"                                         >> $vloadSH
 echo "   exit 1"                                                                                       >> $vloadSH
 echo "elif [ -e \$dump.$zip ]; then"                                                                   >> $vloadSH 
 echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                          >> $vloadSH
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                               >> $vloadSH
-#echo "   #gunzip -c \$dump.$zip > \$TEMP"                                                              >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload nt \$TEMP \$graph"                                          >> $vloadSH
-#echo "   rm \$TEMP"                                                                                    >> $vloadSH
+#echo "   #gunzip -c \$dump.$zip > \$TEMP"                                                             >> $vloadSH
+#echo "   #sudo /opt/virtuoso/scripts/vload nt \$TEMP \$graph"                                         >> $vloadSH
+#echo "   rm \$TEMP"                                                                                   >> $vloadSH
 echo "   exit 1"                                                                                       >> $vloadSH
 echo "fi"                                                                                              >> $vloadSH
 echo ""                                                                                                >> $vloadSH
-echo "dump=$allTTL"                                                                                    >> $vloadSH
-echo "url=$http_allTTL"                                                                                >> $vloadSH
+echo "dump='$allTTL'"                                                                                  >> $vloadSH
+echo "url='$http_allTTL'"                                                                              >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                          >> $vloadSH
 echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                               >> $vloadSH
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                    >> $vloadSH
-#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                    >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                         >> $vloadSH
+#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                   >> $vloadSH
+#echo "   #sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                        >> $vloadSH
 echo "   exit 1"                                                                                       >> $vloadSH
 echo "elif [ -e \$dump.$zip ]; then"                                                                   >> $vloadSH 
 echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                          >> $vloadSH
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                               >> $vloadSH
-#echo "   #gunzip -c \$dump.$zip > \$TEMP"                                                              >> $vloadSH
-#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                    >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                         >> $vloadSH
-#echo "   #rm -f \$TEMP"                                                                                >> $vloadSH
+#echo "   #gunzip -c \$dump.$zip > \$TEMP"                                                             >> $vloadSH
+#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                   >> $vloadSH
+#echo "   #sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                        >> $vloadSH
+#echo "   #rm -f \$TEMP"                                                                               >> $vloadSH
 echo "   exit 1"                                                                                       >> $vloadSH
 echo "fi"                                                                                              >> $vloadSH
 echo ""                                                                                                >> $vloadSH
-echo "dump=$allRDFXML"                                                                                 >> $vloadSH
-echo "url=$http_allRDFXML"                                                                             >> $vloadSH
+echo "dump='$allRDFXML'"                                                                               >> $vloadSH
+echo "url='$http_allRDFXML'"                                                                           >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                          >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                   >> $vloadSH
-#echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                                          >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                    >> $vloadSH
+#echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                                         >> $vloadSH
 echo "   exit 1"                                                                                       >> $vloadSH
 echo "elif [ -e \$dump.$zip ]; then"                                                                   >> $vloadSH 
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                              >> $vloadSH
-#echo "   gunzip -c \$dump.$zip > \$TEMP"                                                               >> $vloadSH
-#echo "   sudo /opt/virtuoso/scripts/vload rdf \$TEMP \$graph"                                          >> $vloadSH
-#echo "   rm \$TEMP"                                                                                    >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                               >> $vloadSH
+#echo "   gunzip -c \$dump.$zip > \$TEMP"                                                              >> $vloadSH
+#echo "   sudo /opt/virtuoso/scripts/vload rdf \$TEMP \$graph"                                         >> $vloadSH
+#echo "   rm \$TEMP"                                                                                   >> $vloadSH
 echo "   exit 1"                                                                                       >> $vloadSH
 echo "fi"                                                                                              >> $vloadSH
 chmod +x $vloadSH
