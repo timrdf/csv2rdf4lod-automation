@@ -782,6 +782,7 @@ echo "if [ -e '$lnwwwrootSH' ]; then # Make sure that the file we will load from
 echo "  $lnwwwrootSH"                                                                                        >> $vloadSH
 echo "fi"                                                                                                    >> $vloadSH
 echo "graph=\`cat '$SDV.sd_name'\`"                                                                          >> $vloadSH
+echo "metaGraph=\`cat '$SDV.sd_name'\`"                                                                      >> $vloadSH
 echo "if [ \"\$1\" == \"--sample\" ]; then"                                                                  >> $vloadSH
 http_allRawSample="\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.rdf"
 for layerSlug in $layerSlugs # <---- Add root-level subsets here.
@@ -806,14 +807,16 @@ echo "   metaGraph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\"
 echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                             >> $vloadSH
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                  >> $vloadSH
 echo "   exit 1"                                                                                             >> $vloadSH
-echo "fi"                                                                                                    >> $vloadSH
-echo ""                                                                                                      >> $vloadSH
-echo "# Modify the graph before continuing to load everything"                                               >> $vloadSH
-echo "if [[ \"\$1\" == \"--unversioned\" || \"\$1\" == \"--abstract\" ]]; then"                              >> $vloadSH
-echo "   # strip off version"                                                                                >> $vloadSH
+echo "fi"                                                                                                             >> $vloadSH
+echo ""                                                                                                               >> $vloadSH
+echo "# Modify the graph before continuing to load everything"                                                        >> $vloadSH
+echo "if [[ \"\$1\" == \"--unversioned\" || \"\$1\" == \"--abstract\" ]]; then"                                       >> $vloadSH
+echo "   # strip off version"                                                                                         >> $vloadSH
 echo "   graph=\"\`echo \$graph\ | perl -pe 's|/version/[^/]*$||'\`\""                                                >> $vloadSH
 echo "   graph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/dataset/${datasetID}\"" >> $vloadSH
 echo "   echo populating abstract named graph \(\$graph\) instead of versioned named graph."                          >> $vloadSH
+echo "elif [[ \"\$1\" == \"--meta\" ]]; then"                                                                         >> $vloadSH
+echo "   metaGraph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\"/vocab/Dataset"                       >> $vloadSH
 echo "elif [ \$# -gt 0 ]; then"                                                                                       >> $vloadSH
 echo "   echo param not recognized: \$1"                                                                              >> $vloadSH
 echo "   echo usage: \`basename \$0\` with no parameters loads versioned dataset"                               >> $vloadSH
@@ -821,8 +824,18 @@ echo "   echo usage: \`basename \$0\` --{sample, meta, abstract}"               
 echo "   exit 1"                                                                                                >> $vloadSH
 echo "fi"                                                                                                       >> $vloadSH
 echo ""                                                                                                         >> $vloadSH
+echo "# Load the metadata, either in the same named graph as the data or into a more global one."               >> $vloadSH
+echo "metaURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.void.ttl\"" >> $vloadSH
+echo "echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                   >> $vloadSH
+echo "\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                        >> $vloadSH
+echo "if [[ \"\$1\" == \"--meta\" ]]; then"                                                                     >> $vloadSH
+echo "   exit 1"                                                                                                >> $vloadSH
+echo "fi"                                                                                                       >> $vloadSH
 # http://logd.tw.rpi.edu/source/nitrd-gov/dataset/DDD/version/2011-Jan-27
 # http://logd.tw.rpi.edu/source/nitrd-gov/file/DDD/version/2011-Jan-27/conversion/nitrd-gov-DDD-2011-Jan-27.ttl.gz
+echo ""                                                                                                         >> $vloadSH
+echo ""                                                                                                         >> $vloadSH
+echo ""                                                                                                         >> $vloadSH
 echo "dump='$allNT'"                                                                                            >> $vloadSH
 #echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                                                       >> $vloadSH
 echo "url='$http_allNT'"                                                                                        >> $vloadSH
