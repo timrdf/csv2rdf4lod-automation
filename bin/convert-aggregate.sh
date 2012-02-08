@@ -778,7 +778,7 @@ echo "  echo \"Refusing to publish; see 'cr:dev and refusing to publish' at\""  
 echo "  echo \"  https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-%28considerations-for-a-distributed-workflow%29\"" >> $vloadSH
 echo "  exit 1"                                                                                              >> $vloadSH
 echo "fi"                                                                                                    >> $vloadSH
-echo "if [ -e $lnwwwrootSH ]; then # Make sure that the file we will load from the web is published"         >> $vloadSH
+echo "if [ -e '$lnwwwrootSH' ]; then # Make sure that the file we will load from the web is published"       >> $vloadSH
 echo "  $lnwwwrootSH"                                                                                        >> $vloadSH
 echo "fi"                                                                                                    >> $vloadSH
 echo "allNT=$allNT # to cite graph"                                                                          >> $vloadSH
