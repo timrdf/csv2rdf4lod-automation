@@ -811,7 +811,7 @@ echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"     
 echo "   exit 1"                                                                                             >> $vloadSH
 echo "fi"                                                                                                             >> $vloadSH
 echo ""                                                                                                               >> $vloadSH
-echo "# Modify the graph before continuing to load everything"                                                        >> $vloadSH
+echo "# Change the target graph before continuing to load everything"                                                 >> $vloadSH
 echo "if [[ \"\$1\" == \"--unversioned\" || \"\$1\" == \"--abstract\" ]]; then"                                       >> $vloadSH
 echo "   # strip off version"                                                                                         >> $vloadSH
 echo "   graph=\"\`echo \$graph\ | perl -pe 's|/version/[^/]*$||'\`\""                                                >> $vloadSH
@@ -821,15 +821,15 @@ echo "elif [[ \"\$1\" == \"--meta\" ]]; then"                                   
 echo "   metaGraph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\"/vocab/Dataset"                       >> $vloadSH
 echo "elif [ \$# -gt 0 ]; then"                                                                                       >> $vloadSH
 echo "   echo param not recognized: \$1"                                                                              >> $vloadSH
-echo "   echo usage: \`basename \$0\` with no parameters loads versioned dataset"                               >> $vloadSH
-echo "   echo usage: \`basename \$0\` --{sample, meta, abstract}"                                               >> $vloadSH
-echo "   exit 1"                                                                                                >> $vloadSH
-echo "fi"                                                                                                       >> $vloadSH
-echo ""                                                                                                         >> $vloadSH
-echo "# Load the metadata, either in the same named graph as the data or into a more global one."               >> $vloadSH
+echo "   echo usage: \`basename \$0\` with no parameters loads versioned dataset"                                     >> $vloadSH
+echo "   echo usage: \`basename \$0\` --{sample, meta, abstract}"                                                     >> $vloadSH
+echo "   exit 1"                                                                                                      >> $vloadSH
+echo "fi"                                                                                                             >> $vloadSH
+echo ""                                                                                                               >> $vloadSH
+echo "# Load the metadata, either in the same named graph as the data or into a more global one."                     >> $vloadSH
 echo "metaURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.void.ttl\"" >> $vloadSH
-echo "echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                   >> $vloadSH
-echo "\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                        >> $vloadSH
+echo "echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                         >> $vloadSH
+echo "\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                              >> $vloadSH
 echo "if [[ \"\$1\" == \"--meta\" ]]; then"                                                                     >> $vloadSH
 echo "   exit 1"                                                                                                >> $vloadSH
 echo "fi"                                                                                                       >> $vloadSH
