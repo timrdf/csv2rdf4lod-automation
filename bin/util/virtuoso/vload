@@ -12,7 +12,7 @@
 
 # Log into Virtuoso isql env
 # USERNAME and PASSWORD (see http://docs.openlinksw.com/virtuoso/isql.html)
-virt_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
+virtuoso_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
 
 isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql"}
 if [ ! -e "$isql" ]; then
@@ -27,7 +27,7 @@ isql_cmd="$isql ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLI
 isql_pwd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin password, may neeed to change
 
 if [[ "$1" == "--target" ]]; then
-   echo $virt_home
+   echo $virtuoso_home
    echo $isql_cmd
    echo $isql_pwd
    exit 1

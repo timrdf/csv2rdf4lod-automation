@@ -21,7 +21,7 @@ echo "Deleting triples from graph <$graph_uri> ..."
 
 # Log into Virtuoso isql env
 # PORT and PASSWORD (see http://docs.openlinksw.com/virtuoso/isql.html)
-virt_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
+virtuoso_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
 
 isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql"}
 if [ ! -e "$isql" ]; then
