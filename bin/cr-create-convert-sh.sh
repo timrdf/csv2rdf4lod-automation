@@ -19,9 +19,11 @@
 #                                                      ^^ version  
 if [ $# -lt 1 ]; then
    echo "usage: `basename $0` [-w] [--comment-character char] [--header-line row] [--delimiter delimiter] a.csv [another.csv ...]"
+   echo
    echo " (run from conversion cockpit, e.g. csv2rdf4lod/data/source/SSS/version/VVV/)"
    echo " (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-cockpit)"
-   ecoh "parameters:"
+   echo
+   echo "parameters:"
    echo "   -w : write the conversion trigger to disk instead of printing to stdout"
    echo "   --comment-character : "
    echo "   --header-line : "
@@ -42,7 +44,7 @@ else
 fi
 
 commentCharacter=""
-if [ ${1:-"."} == "--comment-character" ]; then
+if [ "$1" == "--comment-character" ]; then
    if [ $# -gt 2 -a $2 != "--delimiter" ]; then
       commentCharacter="$2"
       shift 2
@@ -53,7 +55,7 @@ if [ ${1:-"."} == "--comment-character" ]; then
 fi
 
 headerRow=""
-if [ ${1:-"."} == "--header-line" ]; then
+if [ "$1" == "--header-line" ]; then
    if [ $# -gt 2 -a $2 != "--delimiter" ]; then
       headerRow="$2"
       shift 2
@@ -64,7 +66,7 @@ if [ ${1:-"."} == "--header-line" ]; then
 fi
 
 cellDelimiter=","
-if [ ${1:-"."} == "--delimiter" -a $# -gt 2 ]; then
+if [ "$1" == "--delimiter" -a $# -gt 2 ]; then
    cellDelimiter="$2"
    shift 2
 fi

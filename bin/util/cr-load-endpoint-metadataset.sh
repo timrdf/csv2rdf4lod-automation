@@ -119,7 +119,7 @@ get_dump_file() {
       fi
       if [[ -e "$dump_ttl" ]]; then
          # Try as uncompressed
-         echo "   $dump_ttl"
+         echo "INFO `basename $0`   $dump_ttl"
          $assudo cp $dump_ttl $TODAY
       else 
          echo "WARNING `basename $0`: $source_id $dataset_id - $SOURCE/$source_id/$dataset_id/version/$latest_version_id/publish/*-$latest_version_id.ttl[.gz] not found."

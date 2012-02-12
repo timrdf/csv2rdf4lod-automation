@@ -62,7 +62,7 @@ if [ "$1" == "--comment-character" -a $# -ge 2 ]; then
 fi
 
 #-#-#-#-#-#-#-#-#
-headerLine=0
+headerLine=1
 if [ "$1" == "--header-line" -a $# -ge 2 ]; then
    headerLine="$2"
    shift 2
@@ -70,6 +70,7 @@ fi
 
 #-#-#-#-#-#-#-#-#
 delimiter='\t'
+delimiter=','
 if [ "$1" == "--delimiter" -a $# -ge 2 ]; then
    delimiter="$2"
    shift 2
