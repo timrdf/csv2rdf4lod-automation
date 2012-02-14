@@ -27,12 +27,19 @@ if [ $# -lt 1 ]; then
 fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
+LOCAL="_"`basename $0``date +%s`_$$.local.tmp
 
 while [ $# -gt 0 ]; do
    file="$1"
-   
+
+   if [ ! -e "$file" ]; then   
+      curl $file > $LOCAL
+   else
+      LOCAL="$file"
+   fi
+
    # Strip out the turtle from comments.
-   grep "^#3>" $file | sed 's/^#3>//;s/^ //' > $TEMP
+   grep "^#3>" $LOCAL | sed 's/^#3>//;s/^ //' > $TEMP
 
    # Are prefixes defined?
    grep "@prefix"                              $TEMP &>/dev/null
