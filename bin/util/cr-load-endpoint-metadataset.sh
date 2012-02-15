@@ -122,7 +122,7 @@ get_dump_file() {
    source_id="$1"  # param 1: source_id
    dataset_id="$2" # param 2: dataset_id
    if [ -d $SOURCE/$source_id/$dataset_id/version ]; then
-      latest_version_id=`ls -lt $SOURCE/$source_id/$dataset_id/version | grep "^d" | awk '{print $8}' | head -1`
+      latest_version_id=`ls -lt $SOURCE/$source_id/$dataset_id/version | grep "^d" | awk '{print $NF}' | head -1`
       echo "-----------------------------------------" 
       echo "$source_id  $dataset_id  $latest_version_id "
 
