@@ -22,7 +22,7 @@
 # punzip.sh -n US-44-009-result        US-44-009-result.zip --> US-44-009-result     and US-44-009-result.pml.ttl
 
 usage_message="usage: `basename $0` [-n filename] [-e file_extension] .zip [.zip ...]" 
-if [ $# -lt 1 ]; then
+if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo $usage_message 
    echo "  -n: filename to name every file coming out of the zip."
    echo "  -e: extension to use for every file coming out of the zip."
