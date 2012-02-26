@@ -68,7 +68,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
       if [ "$write" == "no" ]; then
          echo
-         echo "Note: did not trim logs. Use `basename $0` -w to modify doc/logs/*.txt"
+         echo "Note: Performed dry run only; no changes occurred. Use `basename $0` -w to avoid dry run and make modifications."
          echo
       fi
    fi
