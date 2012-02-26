@@ -52,9 +52,9 @@ fi
 
 # These directory names have become canonical. 
 # The flexibility to change them is no longer desirable.
-   destDir=${destDir:-automatic}    #
-publishDir=${publishDir:-publish}   #
-# # # # # # # # # # # # # # # # # # #             
+convertDir=${convertDir:-automatic}   #
+publishDir=${publishDir:-publish}     #
+# # # # # # # # # # # # # # # # # # # #            
 
 
 # These variables are embedded in the directory conventions.
@@ -80,8 +80,8 @@ else
          exit 1
    fi
    if [ ${CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED:-"true"} == "true" ]; then
-      #if [[ $runEnhancement == "yes" && ( `ls $destDir/*.e$eID.ttl 2> /dev/null | wc -l` > 0 || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
-      dumps="no"; for dump in `find $destDir -name "*.e$eID.ttl"`; do dumps="yes"; done
+      #if [[ $runEnhancement == "yes" && ( `ls $convertDir/*.e$eID.ttl 2> /dev/null | wc -l` > 0 || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
+      dumps="no"; for dump in `find $convertDir -name "*.e$eID.ttl"`; do dumps="yes"; done
       if [[ $runEnhancement == "yes" && ( $dumps == "yes" || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
          echo "convert-aggregate.sh publishing raw and enhancements."                                                                     | tee -a $CSV2RDF4LOD_LOG
       else
@@ -147,10 +147,10 @@ or_see_github="or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2
 #
 conversionIDs="raw"
 layerSlugs="raw"
-convertedRaw="no"; for raw in `find $destDir -name "*.raw.ttl"`; do convertedRaw="yes"; done
+convertedRaw="no"; for raw in `find $convertDir -name "*.raw.ttl"`; do convertedRaw="yes"; done
 if [ $convertedRaw == "yes" ]; then
    echo $allRaw | tee -a $CSV2RDF4LOD_LOG
-   cat $destDir/*.raw.ttl > $allRaw
+   cat $convertDir/*.raw.ttl > $allRaw
    filesToCompress="$allRaw"
 else
    echo "$allRaw - omitted" | tee -a $CSV2RDF4LOD_LOG
@@ -159,20 +159,20 @@ fi
 #
 # Sample of raw (TODO: add sample of enhanced, too)
 #
-convertedRawSamples="no"; for raw in `find $destDir -name "*.raw.sample.ttl"`; do convertedRaw="yes"; done
+convertedRawSamples="no"; for raw in `find $convertDir -name "*.raw.sample.ttl"`; do convertedRaw="yes"; done
 if [ $convertedRawSamples == "yes" ]; then
    echo $pSDV.raw.sample.ttl | tee -a $CSV2RDF4LOD_LOG
    #$CSV2RDF4LOD_HOME/bin/util/grep-head.sh -p 'ov:csvRow "100' $allRaw > $pSDV.raw.sample.ttl # REPLACED by an extra call to the converter with the -samples param.
-   cat $destDir/*.raw.sample.ttl > $pSDV.raw.sample.ttl
+   cat $convertDir/*.raw.sample.ttl > $pSDV.raw.sample.ttl
 fi
 
 #
 # Individual enhancement ttl (any that are not aggregated)
 #
 # Got messed up when added sample.ttl: 
-#     enhancementLevels=`ls $destDir/*.e*.ttl 2> /dev/null | grep -v void.ttl | sed -e 's/^.*\.e\([^.]*\).ttl/\1/' | sort -u`
+#     enhancementLevels=`ls $convertDir/*.e*.ttl 2> /dev/null | grep -v void.ttl | sed -e 's/^.*\.e\([^.]*\).ttl/\1/' | sort -u`
 # This works, but moved to script: 
-#     enhancementLevels=`find $destDir -name "*.e[!.].ttl" | sed -e 's/^.*\.e\([^.]*\).ttl/\1/' | sort -u` # WARNING: only handles e1 through e9
+#     enhancementLevels=`find $convertDir -name "*.e[!.].ttl" | sed -e 's/^.*\.e\([^.]*\).ttl/\1/' | sort -u` # WARNING: only handles e1 through e9
 enhancementLevels=`cr-list-enhancement-identifiers.sh` # WARNING: only handles e1 through e9
 anyEsDone="no"
 for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
@@ -181,7 +181,7 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
 
    # Aggregate the enhancements.
    echo $eTTL | tee -a $CSV2RDF4LOD_LOG
-   cat $destDir/*.e$eIDD.ttl > $eTTL                  ; filesToCompress="$filesToCompress $eTTL"
+   cat $convertDir/*.e$eIDD.ttl > $eTTL                  ; filesToCompress="$filesToCompress $eTTL"
 
    # Sample the aggregated enhancements.
    # REPLACED by an extra call to the converter with the -samples param.
@@ -189,10 +189,10 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
    #$CSV2RDF4LOD_HOME/bin/util/grep-head.sh -p 'ov:csvRow "100' $eTTL > $eTTLsample
    echo $eTTLsample | tee -a $CSV2RDF4LOD_LOG
    if [ $anyEsDone == "no" ]; then
-      cat $destDir/*.e$eIDD.sample.ttl  > $eTTLsample
+      cat $convertDir/*.e$eIDD.sample.ttl  > $eTTLsample
       anyEsDone="yes"
    else
-      cat $destDir/*.e$eIDD.sample.ttl >> $eTTLsample
+      cat $convertDir/*.e$eIDD.sample.ttl >> $eTTLsample
    fi
 
    conversionIDs="$conversionIDs e$eIDD"
@@ -247,16 +247,16 @@ rm $TEMP_pml 2> /dev/null
 #
 # All void
 #
-if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:-"true"} == "true" ]; then
+if [ "$CSV2RDF4LOD_PUBLISH_SUBSET_VOID" != "false" ]; then
    echo $allVOID | tee -a $CSV2RDF4LOD_LOG
    rm -f $allVOID.TEMP 2> /dev/null
-   for void in `find $destDir -name "*.void.ttl" 2> /dev/null`; do
+   for void in `find $convertDir -name "*.void.ttl" 2> /dev/null`; do
       echo "  (including $void)" | tee -a $CSV2RDF4LOD_LOG
       cat $void >> $allVOID.TEMP
    done
    #if [ -e $allVOID.TEMP ]; then # VoID should aways be there.
       if [ `which rapper` ]; then
-         rapper -i turtle -o turtle $allVOID.TEMP > $allVOID 2> /dev/null
+         rapper -q -i turtle -o turtle $allVOID.TEMP > $allVOID
          rm -f $allVOID.TEMP
       else
          mv $allVOID.TEMP $allVOID
@@ -267,11 +267,12 @@ if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:-"true"} == "true" ]; then
 else
    echo "$allVOID - skipping; set CSV2RDF4LOD_PUBLISH_SUBSET_VOID=true in source-me.sh to publish Meta." | tee -a $CSV2RDF4LOD_LOG
 fi
-numLogs=`find doc/logs -name 'csv2rdf4lod_log_*' | wc -l`
-echo "# num logs: $numLogs" >> $allVOID
-if [ ${#numLogs} ]; then
-   echo "<$versionedDatasetURI> <http://purl.org/twc/vocab/conversion/num_invocation_logs> $numLogs ." >> $allVOID # TODO: how to make sure it is an integer?
+if [ -e doc/logs ]; then
+   numLogs=`find doc/logs -name 'csv2rdf4lod_log_*' | wc -l`
 fi
+echo "# num logs: $numLogs" >> $allVOID
+echo "<$versionedDatasetURI> <http://purl.org/twc/vocab/conversion/num_invocation_logs> ${numLogs:-0} ." >> $allVOID # TODO: how to make sure it is an integer?
+
 echo "  (including $allPML)" | tee -a $CSV2RDF4LOD_LOG
 echo "# BEGIN: $allPML:" >> $allVOID
 cat $allPML 2> /dev/null >> $allVOID
@@ -306,7 +307,7 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
       echo "# BEGIN: $eTTL:" >> $allTTL
       cat $eTTL              >> $allTTL
    fi
-   #cat $destDir/*.e$eID.ttl | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" >  $allE1   2> /dev/null
+   #cat $convertDir/*.e$eID.ttl | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" >  $allE1   2> /dev/null
    #cat $allE1 $allRaw        | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" > $allTTL   2> /dev/null
 done
 if [ $convertedRaw == "yes" ]; then
@@ -319,7 +320,7 @@ if [ -e $allVOID ]; then
    echo "# BEGIN: $allVOID:"    >> $allTTL
    cat $allVOID                 >> $allTTL
 fi
-#grep "^@prefix" $allTTL | sort -u > $destDir/prefixes-$sourceID-$datasetID-$versionID.ttl
+#grep "^@prefix" $allTTL | sort -u > $convertDir/prefixes-$sourceID-$datasetID-$versionID.ttl
 #rapper -i turtle $allTTL -o turtle   > $allTTL.ttl 2> /dev/null # Sorts conversion-ordered TTL into lexiographical order.
 
 
@@ -504,24 +505,24 @@ done
 echo "##################################################"                                            >> $lnwwwrootSH
 echo "# Link all INPUT CSV files from the provenance_file directory structure to the web directory." >> $lnwwwrootSH
 echo "# (this could be from manual/ or source/"                                                      >> $lnwwwrootSH
-for inputFile in `cat $destDir/_CSV2RDF4LOD_file_list.txt` # Sorry for the semi-hack. convert.sh builds this list b/c it knows what files were converted.
-do
-   echo "if [ -e \"$inputFile\" ]; then "                                                            >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$inputFile\"" >> $lnwwwrootSH
-   echo "   if [ -e \"\$wwwfile\" ]; then "                                                          >> $lnwwwrootSH
-   echo "      \$sudo rm -f \"\$wwwfile\""                                                           >> $lnwwwrootSH
-   echo "   else"                                                                                    >> $lnwwwrootSH
-   echo "      \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                            >> $lnwwwrootSH
-   echo "   fi"                                                                                      >> $lnwwwrootSH
-   echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-#   echo "   echo \$sudo ln \$symbolic \"\${pwd}$inputFile\" \"\$wwwfile\""                                >> $lnwwwrootSH # TODO
-   echo "   \$sudo ln \$symbolic \"\${pwd}$inputFile\" \"\$wwwfile\""                                >> $lnwwwrootSH
-   echo "else"                                                                                       >> $lnwwwrootSH
-   echo "   echo \"  -- $inputFile omitted --\""                                                     >> $lnwwwrootSH
-   echo "fi"                                                                                         >> $lnwwwrootSH
-   echo ""                                                                                           >> $lnwwwrootSH
-done
-
+if [ -e $convertDir/_CSV2RDF4LOD_file_list.txt ]; then
+   for inputFile in `cat $convertDir/_CSV2RDF4LOD_file_list.txt`; do # convert.sh builds this list b/c it knows what files were converted.
+      echo "if [ -e \"$inputFile\" ]; then "                                                            >> $lnwwwrootSH
+      echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$inputFile\"" >> $lnwwwrootSH
+      echo "   if [ -e \"\$wwwfile\" ]; then "                                                          >> $lnwwwrootSH
+      echo "      \$sudo rm -f \"\$wwwfile\""                                                           >> $lnwwwrootSH
+      echo "   else"                                                                                    >> $lnwwwrootSH
+      echo "      \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                            >> $lnwwwrootSH
+      echo "   fi"                                                                                      >> $lnwwwrootSH
+      echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
+      # echo "   echo \$sudo ln \$symbolic \"\${pwd}$inputFile\" \"\$wwwfile\""                         >> $lnwwwrootSH # TODO
+      echo "   \$sudo ln \$symbolic \"\${pwd}$inputFile\" \"\$wwwfile\""                                >> $lnwwwrootSH
+      echo "else"                                                                                       >> $lnwwwrootSH
+      echo "   echo \"  -- $inputFile omitted --\""                                                     >> $lnwwwrootSH
+      echo "fi"                                                                                         >> $lnwwwrootSH
+      echo ""                                                                                           >> $lnwwwrootSH
+   done
+fi
 TEMP_file_list="_"`basename $0``date +%s`_$$.tmp
 # automatic/STATE_SINGLE_PW.CSV.raw.params.ttl -> http://logd.tw.rpi.edu/source/data-gov/provenance_file/1008/version/1st-anniversary/automatic/STATE_SINGLE_PW.CSV.raw.params.ttl
 
@@ -530,8 +531,7 @@ find manual    -name '*.params.ttl' | sed 's/^\.\///' >> $TEMP_file_list
 echo "##################################################"                                            >> $lnwwwrootSH
 echo "# Link all raw and enhancement PARAMETERS from the provenance_file file directory structure to the web directory." >> $lnwwwrootSH
 echo "#"                                                                                             >> $lnwwwrootSH
-for paramFile in `cat $TEMP_file_list`
-do
+for paramFile in `cat $TEMP_file_list`; do
    echo "if [ -e \"$paramFile\" ]; then "                                                            >> $lnwwwrootSH
    echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$paramFile\"" >> $lnwwwrootSH
    echo "   if [ -e \"\$wwwfile\" ]; then "                                                          >> $lnwwwrootSH
@@ -540,7 +540,7 @@ do
    echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                             >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-#   echo "   echo \$sudo ln \$symbolic \"\${pwd}$paramFile\" \"\$wwwfile\""                                >> $lnwwwrootSH # TODO
+   # echo "   echo \$sudo ln \$symbolic \"\${pwd}$paramFile\" \"\$wwwfile\""                         >> $lnwwwrootSH # TODO
    echo "   \$sudo ln \$symbolic \"\${pwd}$paramFile\" \"\$wwwfile\""                                >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  -- $paramFile omitted --\""                                                     >> $lnwwwrootSH
@@ -979,7 +979,7 @@ MATERIALIZATION_DIR=${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:-$local_m
 lodmatSH=$publishDir/bin/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh
 echo "#!/bin/bash"                                                                                              > $lodmatSH
 echo "#"                                                                                                       >> $lodmatSH
-echo "# run $destDir/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh"                            >> $lodmatSH
+echo "# run $convertDir/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh"                            >> $lodmatSH
 echo "# from ${sourceID}/$datasetID/version/$versionID/"                                                  >> $lodmatSH
 echo ""                                                                                                        >> $lodmatSH
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}'                        >> $lodmatSH
@@ -1034,7 +1034,7 @@ chmod +x                                                                        
 lodmatvoidSH=$publishDir/bin/lod-materialize-${sourceID}-${datasetID}-${versionID}-void.sh
 echo "#!/bin/bash"                                                                                                > $lodmatvoidSH
 echo "#"                                                                                                       >> $lodmatvoidSH
-echo "# run $destDir/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh"                            >> $lodmatvoidSH
+echo "# run $convertDir/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh"                            >> $lodmatvoidSH
 echo "# from ${sourceID}/$datasetID/version/$versionID/"                                                  >> $lodmatvoidSH
 echo ""                                                                                                        >> $lodmatvoidSH
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}'                        >> $lodmatvoidSH
@@ -1075,7 +1075,7 @@ chmod +x                                                                        
 lodmatapacheSH=$publishDir/bin/lod-materialize-apache-${sourceID}-${datasetID}-${versionID}.sh
 echo "#!/bin/bash"                                                                                                > $lodmatapacheSH
 echo "#"                                                                                                       >> $lodmatapacheSH
-echo "# run $destDir/lod-materialize-apache-${sourceID}-${datasetID}-${versionID}.sh"                     >> $lodmatapacheSH
+echo "# run $convertDir/lod-materialize-apache-${sourceID}-${datasetID}-${versionID}.sh"                     >> $lodmatapacheSH
 echo "# from ${sourceID}/$datasetID/version/$versionID/"                                                  >> $lodmatapacheSH
 echo ""                                                                                                        >> $lodmatapacheSH
 echo "                # The newer C version of lod-mat is faster."                                             >> $lodmatapacheSH
@@ -1102,7 +1102,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION:-"."} == "true" ]; then # Produci
    $lodmatSH
 else
    echo "$MATERIALIZATION_DIR/ - skipping; set CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION=true in source-me.sh to load conversions into $MATERIALIZATION_DIR/," | tee -a $CSV2RDF4LOD_LOG
-   echo "`echo $MATERIALIZATION_DIR/ | sed 's/./ /g'` - or run $destDir/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh." | tee -a $CSV2RDF4LOD_LOG
+   echo "`echo $MATERIALIZATION_DIR/ | sed 's/./ /g'` - or run $convertDir/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh." | tee -a $CSV2RDF4LOD_LOG
 fi
 
 if [ -e $allTTL -a ${CSV2RDF4LOD_PUBLISH_TTL:-"."} != "true" ]; then
