@@ -16,6 +16,11 @@
 #
 # print out some information about the dataset in the current directory.
 
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+   echo "usage: `basename $0` {void, uri}"   
+   exit 1
+fi
+
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
@@ -38,7 +43,7 @@ sourceID=`is-pwd-a.sh  cr:bone --id-of source`
 datasetID=`is-pwd-a.sh cr:bone --id-of dataset`
 versionID=`is-pwd-a.sh cr:bone --id-of version`
 
-if [ "$1" == 'void' ]; then
+if [[ "$1" == 'void' || "$1" == "--void" ]]; then
    prefixDef="@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
    isabstract="    a conversion:AbstractDataset;"
    if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]; then
@@ -50,7 +55,7 @@ if [ "$1" == 'void' ]; then
    q1="\""
    q2="\";"
    end="."
-elif [ "$1" == "uri" ]; then
+elif [[ "$1" == "uri" || "$1" == "--uri" ]]; then
    echo $CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID
    exit 0
 fi
