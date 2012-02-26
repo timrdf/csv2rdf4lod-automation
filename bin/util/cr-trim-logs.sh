@@ -33,7 +33,7 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
 fi
 
 write="no"
-if [ "$1" == "-w" ]; then
+if [[ "$1" == "-w" || "$1" == "--write" ]]; then
    write="yes"
 fi
 
