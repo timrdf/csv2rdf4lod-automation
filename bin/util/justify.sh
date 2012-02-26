@@ -19,12 +19,11 @@
 #   justify.sh 
 
 if [ $# -lt 3 -o $# -gt 4 ]; then
-   echo "usage:   `basename $0` /path/to/source/a.xls /path/to/destination/a.xls.csv <engine-name>" 
+   echo "usage:   `basename $0` path/to/source/a.xls path/to/destination/a.xls.csv <engine-name>" 
    echo "or" 
-   echo "usage: . `basename $0` /path/to/source/a.xls /path/to/destination/a.xls.csv <engine-name> [-h | --history]" 
+   echo "usage: . `basename $0` path/to/source/a.xls path/to/destination/a.xls.csv <engine-name> [-h | --history]" 
    echo ""
    echo "   source      file: a file used to create 'destination file'."
-   echo ""
    echo "   destination file: a file derived from 'source file'."
    echo ""
    echo "   engine-name     : URI-friendly local name of method used to create destination from source:"
@@ -36,6 +35,7 @@ if [ $# -lt 3 -o $# -gt 4 ]; then
    echo "   --history: search command history for the command that created 'destination-file' "
    echo "              from 'source-file' and include it in the provenance."
    echo "              NOTE: a period (.) must precede the `basename $0` command to access history."
+   echo "              This option only works in interactive shells."
 else
 
    CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
