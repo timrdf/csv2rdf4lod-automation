@@ -92,4 +92,6 @@ elif [[ `is-pwd-a.sh                                                 cr:dataset 
    popd > /dev/null
 fi
 
-rm -f $TEMP
+if [ -e $TEMP ]; then
+   rm -f $TEMP
+fi
