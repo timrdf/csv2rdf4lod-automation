@@ -28,11 +28,20 @@ if [ "$1" == "--check" ]; then
       echo "[WARNING]: tdbloader not found on path. Unit testing with cr-test-conversion.sh will fail."
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
-   else
       echo
       echo "[INFO]: tdbloader and tdbquery found"
+   else
+      echo "[INFO]: tdb found"
    fi
+   if [[ ! `which curl` ]]; then
       echo
+      echo "[WARNING]: curl not found on path."
+      echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"
+      echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+   else
+      echo "[INFO]: curl found"
+   fi
+   echo
    exit 0
 fi
 
