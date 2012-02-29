@@ -50,7 +50,7 @@ fi
 #-#-#-#-#-#-#-#-#
 version="$1"
 url="$2"
-if [ "$1" == "cr:auto" ]; then
+if [[ "$1" == "cr:auto" && ${#url} -gt 0 ]]; then
    version=`urldate.sh $url`
    echo "Attempting to use URL modification date to name version: $version"
 fi
