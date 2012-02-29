@@ -171,7 +171,7 @@ csvHeadersParams="--header-line ${header:-'1'} --delimiter $cellDelimiter"
 #
 #
 
-if [ $runEnhancement == "yes" ]; then 
+if [[ $runEnhancement == "yes" && "" == "https://github.com/timrdf/csv2rdf4lod-automation/issues/267" ]]; then 
    TMP_ePARAMS="_"`basename $0``date +%s`_$$.tmp
 
    # NOTE: command done below, too.
