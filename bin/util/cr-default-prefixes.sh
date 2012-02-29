@@ -39,6 +39,7 @@ else
    echo "prefix void:       <http://rdfs.org/ns/void#>"             
    echo "prefix ov:         <http://open.vocab.org/terms/>"
    echo "prefix qb:         <http://purl.org/linked-data/cube#>"             
+   echo "prefix moby:       <http://www.mygrid.org.uk/mygrid-moby-service#>"
    echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>"
    echo "prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#>"
    echo "prefix dbpedia:    <http://dbpedia.org/resource/>"
