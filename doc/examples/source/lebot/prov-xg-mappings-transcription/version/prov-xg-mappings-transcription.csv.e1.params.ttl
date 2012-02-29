@@ -1,0 +1,222 @@
+@prefix rdf:           <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:          <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix todo:          <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:           <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:           <http://www.w3.org/2002/07/owl#> .
+@prefix vann:          <http://purl.org/vocab/vann/> .
+@prefix skos:          <http://www.w3.org/2004/02/skos/core#> .
+@prefix time:          <http://www.w3.org/2006/time#> .
+@prefix wgs:           <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geonames:      <http://www.geonames.org/ontology#> .
+@prefix geonamesid:    <http://sws.geonames.org/> .
+@prefix govtrackusgov: <http://www.rdfabout.com/rdf/usgov/geo/us/> .
+@prefix dbpedia:       <http://dbpedia.org/resource/> .
+@prefix con:           <http://www.w3.org/2000/10/swap/pim/contact#> .
+@prefix muo:           <http://purl.oclc.org/NET/muo/muo#> .
+@prefix vs:            <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix frbr:          <http://purl.org/vocab/frbr/core#> .
+@prefix dgtwc:         <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> .
+@prefix dcterms:       <http://purl.org/dc/terms/> .
+@prefix void:          <http://rdfs.org/ns/void#> .
+@prefix scovo:         <http://purl.org/NET/scovo#> .
+@prefix sioc:          <http://rdfs.org/sioc/ns#> .
+@prefix foaf:          <http://xmlns.com/foaf/0.1/> .
+@prefix ov:            <http://open.vocab.org/terms/> .
+@prefix conversion:    <http://purl.org/twc/vocab/conversion/> .
+@prefix :              <http://logd.tw.rpi.edu/source/lebot/dataset/prov-xg-mappings-transcription/version/2011-May-28/params/enhancement/1/> .
+
+<http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+<http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
+   a foaf:OnlineAccount;
+   foaf:accountName "lebot";
+   dcterms:isPartOf <http://purl.org/twc/id/machine/lebot/MacBookPro6_2>;
+   sioc:account_of  <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+#:a_bundle
+#   a conversion:ImplicitBundle;
+#   conversion:property_name "a_property"; # Can also be a URI, e.g. dcterms:title.
+#   #conversion:type_name     "My Class";   # Can also be a URI, e.g. foaf:Person.
+#.
+
+<http://logd.tw.rpi.edu/source/lebot/dataset/prov-xg-mappings-transcription/version/2011-May-28/conversion/enhancement/1>
+   a conversion:LayerDataset, void:Dataset;
+
+   conversion:base_uri           "http://logd.tw.rpi.edu"^^xsd:anyURI;
+   conversion:source_identifier  "lebot";
+   conversion:dataset_identifier "prov-xg-mappings-transcription";
+   conversion:version_identifier "2011-May-28";
+
+   conversion:conversion_process [
+      a conversion:EnhancementConversionProcess;
+      conversion:enhancement_identifier "1";
+
+      dcterms:creator <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>;
+      dcterms:created "2011-05-28T17:05:36-04:00"^^xsd:dateTime;
+
+      conversion:delimits_cell ",";
+      #conversion:delimits_cell "	"; # tab
+      #conversion:delimits_cell "|";   # pipe
+      #conversion:delimits_cell ",";   # comma
+
+      #conversion:interpret [          
+      #   conversion:symbol        "";
+      #   conversion:interpretation conversion:null; 
+      #];                            
+      conversion:enhance [
+         ov:csvCol          1;
+         ov:csvHeader       "VisR";
+         #conversion:label   "VisR";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          2;
+         ov:csvHeader       "Reference Term Curie";
+         #conversion:label   "Reference Term Curie";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          3;
+         ov:csvHeader       "skos:narrower";
+         #conversion:label   "skos:narrower";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          4;
+         ov:csvHeader       "skos:narrowMatch";
+         #conversion:label   "skos:narrowMatch";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          5;
+         ov:csvHeader       "skos:related";
+         #conversion:label   "skos:related";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          6;
+         ov:csvHeader       "skos:relatedMatch";
+         #conversion:label   "skos:relatedMatch";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          7;
+         ov:csvHeader       "skos:closeMatch";
+         #conversion:label   "skos:closeMatch";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          8;
+         ov:csvHeader       "skos:exactMatch";
+         #conversion:label   "skos:exactMatch";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          9;
+         ov:csvHeader       "equivalent";
+         #conversion:label   "equivalent";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          10;
+         ov:csvHeader       "skos:broadMatch";
+         #conversion:label   "skos:broadMatch";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          11;
+         ov:csvHeader       "skos:broader";
+         #conversion:label   "skos:broader";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          12;
+         ov:csvHeader       "Mapped Term Curie";
+         #conversion:label   "Mapped Term Curie";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          13;
+         ov:csvHeader       "VisM";
+         #conversion:label   "VisM";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          14;
+         ov:csvHeader       "Mapped Vocabulary";
+         conversion:equivalent_property owl:annotatedTarget;
+         #conversion:label   "Mapped Vocabulary";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          15;
+         ov:csvHeader       "Mapped Term";
+         #conversion:label   "Mapped Term";
+         conversion:comment "";
+         conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol          16;
+         ov:csvHeader       "Mapped Term Depiction";
+         conversion:bundled_by [ ov:csvCol 15 ];
+         conversion:equivalent_property foaf:depiction;
+         #conversion:label   "Mapped Term Depiction";
+         conversion:comment "";
+         conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol          17;
+         ov:csvHeader       "Mapped Vocabulary Ordinal";
+         #conversion:label   "Mapped Vocabulary Ordinal";
+         conversion:comment "";
+         conversion:range   xsd:integer;
+      ];
+      conversion:enhance [
+         ov:csvCol          18;
+         ov:csvHeader       "rdfs:seeAlso";
+         conversion:equivalent_property rdfs:seeAlso;
+         #conversion:label   "rdfs:seeAlso";
+         conversion:comment "";
+         conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol          19;
+         ov:csvHeader       "Reference Term";
+         #conversion:label   "Reference Term";
+         conversion:comment "";
+         conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         ov:csvCol          20;
+         ov:csvHeader       "Dublin Core Source - Transcribee";
+         #conversion:label   "Dublin Core Source - Transcribee";
+         conversion:comment "";
+         conversion:range   rdfs:Resource;
+      ];
+      conversion:enhance [
+         ov:csvCol          21;
+         ov:csvHeader       "Dublin Core Source - Google Spreadsheet Transcription";
+         #conversion:label   "Dublin Core Source - Google Spreadsheet Transcription";
+         conversion:comment "";
+         conversion:range   rdfs:Resource;
+      ];
+      #conversion:enhance [            
+      #   ov:csvRow 3,4,5;             
+      #   a conversion:ExampleResource;
+      #];                              
+   ];
+.
