@@ -44,7 +44,7 @@ else
    echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>"
    echo "prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#>"
    echo "prefix dbpedia:    <http://dbpedia.org/resource/>"
-   echo "prefix prov:       <http://www.w3.org/ns/prov3>"
+   echo "prefix prov:       <http://www.w3.org/ns/prov#>"
    echo "prefix twi:        <http://tw.rpi.edu/instances/>"
    echo
    # curl http://prefix.cc/rdfs,void,conversion.file.sparql | grep PREFIX
