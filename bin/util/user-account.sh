@@ -15,7 +15,7 @@
 #   limitations under the License.
 
 
-if [ ${1-"."} != "--cite" ]; then
+if [ "$1" != "--cite" ]; then
 
    echo "@prefix foaf:    <http://xmlns.com/foaf/0.1/> ."
    echo "@prefix sioc:    <http://rdfs.org/sioc/ns#> ."
@@ -53,17 +53,16 @@ else
 
    elif [ ${#CSV2RDF4LOD_CONVERT_MACHINE_URI} -gt 0 ]; then
 
-      echo "<${CSV2RDF4LOD_CONVERT_MACHINE_URI}#`whoami`>"; # TODO: same as above.
+      echo "<${CSV2RDF4LOD_CONVERT_MACHINE_URI}#`whoami`>" # TODO: same as above.
 
    elif [ ${#CSV2RDF4LOD_CONVERT_PERSON_URI} -gt 0 ]; then
 
       echo "[ a foaf:OnlineAccount; foaf:accountName \"`whoami`\";"
-      echo "                        sioc:account_of <$CSV2RDF4LOD_CONVERT_PERSON_URI> ];"
+      echo "                        sioc:account_of <$CSV2RDF4LOD_CONVERT_PERSON_URI> ]"
 
    else
 
-      echo "[ a foaf:OnlineAccount; foaf:accountName \"`whoami`\" ];"
+      echo "[ a foaf:OnlineAccount; foaf:accountName \"`whoami`\" ]"
 
    fi
-
 fi
