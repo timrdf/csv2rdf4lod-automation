@@ -10,7 +10,8 @@
 <http://purl.org/twc/id/person/TimLebo>
    a foaf:Person;
 
-   foaf:page <http://tw.rpi.edu/web/person/TimLebo>;
+   foaf:page <http://tw.rpi.edu/web/person/TimLebo>,
+             <http://academic.research.microsoft.com/Author/49398650/timothy-lebo>;
 
    owl:sameAs <http://tw.rpi.edu/instances/TimLebo>,
               <http://inference-web.org/registry/PER/TimLebo.owl#TimLebo>,

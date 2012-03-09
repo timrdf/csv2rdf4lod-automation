@@ -63,6 +63,7 @@
         <foaf:homepage rdf:resource="http://www.w3.org/2011/prov/wiki/Main_Page"/>
       </foaf:Organization>
     </foaf:member>
+    <foaf:page rdf:resource="http://academic.research.microsoft.com/Author/49398650/timothy-lebo"/>
     <foaf:page rdf:resource="http://tw.rpi.edu/web/person/TimLebo"/>
     <foaf:pastProject>
       <rdf:Description>
