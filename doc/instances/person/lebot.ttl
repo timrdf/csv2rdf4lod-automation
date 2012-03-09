@@ -11,7 +11,8 @@
    a foaf:Person;
 
    foaf:page <http://tw.rpi.edu/web/person/TimLebo>,
-             <http://academic.research.microsoft.com/Author/49398650/timothy-lebo>;
+             <http://academic.research.microsoft.com/Author/49398650/timothy-lebo>,
+             <http://www.dblp.org/db/indices/a-tree/l/Lebo:Timothy.html>;
 
    owl:sameAs <http://tw.rpi.edu/instances/TimLebo>,
               <http://inference-web.org/registry/PER/TimLebo.owl#TimLebo>,

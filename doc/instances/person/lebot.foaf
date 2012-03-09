@@ -65,6 +65,7 @@
     </foaf:member>
     <foaf:page rdf:resource="http://academic.research.microsoft.com/Author/49398650/timothy-lebo"/>
     <foaf:page rdf:resource="http://tw.rpi.edu/web/person/TimLebo"/>
+    <foaf:page rdf:resource="http://www.dblp.org/db/indices/a-tree/l/Lebo:Timothy.html"/>
     <foaf:pastProject>
       <rdf:Description>
         <foaf:page rdf:resource="http://www.actapress.com/Abstract.aspx?paperId=27881"/>
