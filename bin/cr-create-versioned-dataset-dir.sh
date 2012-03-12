@@ -131,7 +131,21 @@ if [ ! -d $version ]; then
          # 2manual.sh should also create the cr-create-convert.sh.
          chmod +x ../2manual.sh
          ../2manual.sh
+      elif [ `find source -name "*.xls" | wc -l` -gt 0 ]; then
+         # Tackle the xls files
+         for xls in `find source -name "*.xls"`; do
+            touch .__CSV2RDF4LOD_csvify
+            sleep 1
+            xls2csv.sh -w -od source $xls
+            for csv in `find source -type f -newer .__CSV2RDF4LOD_csvify`; do
+               justify.sh $xls $csv xls2csv_`md5.sh \`which justify.sh\``
+            done
+         done
+
+         files=`find source/ -name "*.csv"`
+         cr-create-convert-sh.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
       else
+
          # Take a best guess as to what data files should be converted.
          # Include source/* that is newer than source/.__CSV2RDF4LOD_retrieval and NOT *.pml.ttl
 
