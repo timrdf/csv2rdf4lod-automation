@@ -26,6 +26,7 @@ fi
 isql_cmd="$isql ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"dba"}"
 isql_pwd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin password, may neeed to change
 
+virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/`basename $0`/input-files"
 vload_log=$virtuoso_allowed_dir/load_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
 
 if [[ "$1" == "--target" ]]; then
@@ -46,7 +47,6 @@ fi
 
 # Virtuoso can read from directories listed in 'DirsAllowed' 
 # in /opt/virtuoso/var/lib/virtuoso/db/virtuoso.ini
-virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/`basename $0`/input-files"
 if [ ! -d $virtuoso_allowed_dir ]; then
    echo mkdir -p $virtuoso_allowed_dir
    sudo mkdir -p $virtuoso_allowed_dir
