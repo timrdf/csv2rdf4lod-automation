@@ -26,10 +26,13 @@ fi
 isql_cmd="$isql ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"dba"}"
 isql_pwd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin password, may neeed to change
 
+vload_log=$virtuoso_allowed_dir/load_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
+
 if [[ "$1" == "--target" ]]; then
    echo $virtuoso_home
    echo $isql_cmd
    echo $isql_pwd
+   $vload_log
    exit 1
 fi
 
@@ -117,8 +120,6 @@ case "$input_format" in
    exit 0
    ;;
 esac
-
-vload_log=$virtuoso_allowed_dir/load_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
 
 start=`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`
 ${isql_cmd} ${isql_pwd} << EOF &> $vload_log
