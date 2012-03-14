@@ -32,7 +32,7 @@ if [[ "$1" == "--target" ]]; then
    echo $virtuoso_home
    echo $isql_cmd
    echo $isql_pwd
-   $vload_log
+   echo $vload_log
    exit 1
 fi
 
