@@ -1,6 +1,10 @@
-# e-params-increment.awk
+# bin/util/e-params-increment.awk
 #
-# params: eID
+# used by convert.sh when -e flag is used to create a new layer, e.g., '-e 2'
+#
+# params: 
+#
+#   -v eID
 
 {
    if(/^@prefix : /){

@@ -5,25 +5,26 @@
 # Used by $CSV2RDF4LOD_HOME/bin/convert.sh
 #
 # Parameters:
-# -v surrogate
-# -v sourceID
-# -v datasetID
-# -v datasetVersion
-# -v subjectDiscriminator
-# -v conversionID
 #
-# -v cellDelimiter
-# -v header
-# -v dataStart
-# -v dataEnd
+#   -v surrogate
+#   -v sourceID
+#   -v datasetID
+#   -v datasetVersion
+#   -v subjectDiscriminator
+#   -v conversionID
 #
-# -v onlyIfCol
-# -v repeatAboveIfEmptyCol
-# -v interpretAsNull
+#   -v cellDelimiter
+#   -v header
+#   -v dataStart
+#   -v dataEnd
 #
-# -v whoami
-# -v machine_uri
-# -v person_uri
+#   -v onlyIfCol
+#   -v repeatAboveIfEmptyCol
+#   -v interpretAsNull
+#
+#   -v whoami
+#   -v machine_uri
+#   -v person_uri
 
 BEGIN { 
    ALWAYS_SHOW_CONVERSION_PROCESS = 1; # Added back in to gather empirical results quantifying "effort" to create e1 params. 

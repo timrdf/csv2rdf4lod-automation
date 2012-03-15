@@ -1,11 +1,13 @@
 # update-e-params-subject-discrim.awk
+#
 # params: 
-#    baseURI
-#    sourceID
-#    dataset_identifier
-#    datasetVersion
-#    layerID
-#    subjectDiscriminator
+#
+#   -v baseURI
+#   -v sourceID
+#   -v dataset_identifier
+#   -v datasetVersion
+#   -v layerID
+#   -v subjectDiscriminator
 
 {
    if( $1 == "@prefix" && $2 == ":" ) {
