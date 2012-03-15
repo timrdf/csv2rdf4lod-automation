@@ -125,7 +125,8 @@ BEGIN {
                                     printf("   conversion:source_identifier  \"%s\";\n",sourceID);
                                     printf("   conversion:dataset_identifier \"%s\";\n",datasetID);
                                     printf("   conversion:version_identifier \"%s\";\n",datasetVersion);
-                                    #printf("   conversion:dataset_version    \"%s\"; # DEPRECATED in favor of version_identifier\n",datasetVersion);
+   if(!length(conversionID))        printf("   conversion:conversion_identifier \"raw\";\n");
+   if( length(conversionID))        printf("   conversion:enhancement_identifier \"%s\";\n",conversionID);
                                      print ""
                                      print "   conversion:conversion_process ["
                                     printf("      a conversion:%sConversionProcess;\n",TYPE);

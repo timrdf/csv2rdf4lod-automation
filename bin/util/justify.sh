@@ -176,7 +176,7 @@ else
          echo $nodeSet                                                                           >> $consequent.pml.ttl
          echo "   a pmlj:NodeSet;"                                                               >> $consequent.pml.ttl
          echo "   pmlj:hasConclusion $consequentURI;"                                            >> $consequent.pml.ttl
-         echo "   pmlj:isConsequentOf <inferenceStep_$requestID>;"                               >> $consequent.pml.ttl
+         echo "   pmlj:isConsequentOf <inferenceStep$requestID>;"                                >> $consequent.pml.ttl
          echo "."                                                                                >> $consequent.pml.ttl
          echo "<inferenceStep$requestID>"                                                        >> $consequent.pml.ttl
          echo "   a pmlj:InferenceStep;"                                                         >> $consequent.pml.ttl
