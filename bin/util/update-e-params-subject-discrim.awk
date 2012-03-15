@@ -18,6 +18,12 @@
       # Change subject to name of layer dataset itself.
       printf("<%s/source/%s/dataset/%s/version/%s/conversion/enhancement/%s>\n",baseURI,sourceID,dataset_identifier,datasetVersion,layerID);
 
+   }else if( /^</ && /source\// && /dataset\// && /version\// && /conversion\// && /enhancement\/[^\/]*>/ ) {
+      # <http://logd.tw.rpi.edu/source/lebot/dataset/golfers/version/2012-Mar-11/conversion/enhancement/1>
+      # becomes
+      # <http://logd.tw.rpi.edu/source/lebot/dataset/golfers/version/2012-Mar-15/conversion/enhancement/1>
+      sub(/version\/[^\/]*/,"version/"datasetVersion);
+      print $0
    }else if( $0~"conversion:subject_discriminator *\"" ) {
       printf("      conversion:subject_discriminator \"%s\";\n",subjectDiscriminator)
 
