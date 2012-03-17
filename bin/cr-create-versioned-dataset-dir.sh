@@ -138,7 +138,9 @@ if [ ! -d $version ]; then
             sleep 1
             xls2csv.sh -w -od source $xls
             for csv in `find source -type f -newer .__CSV2RDF4LOD_csvify`; do
-               justify.sh $xls $csv xls2csv_`md5.sh \`which justify.sh\``
+               #justify.sh $xls $csv xls2csv_`md5.sh \`which justify.sh\`` # TODO: excessive? justify.sh needs to know the broad class rule/engine
+                                                             # TODO: shouldn't you be hashing the xls2csv.sh, not justify.sh?
+               justify.sh $xls $csv csv2rdf4lod_xls2csv_sh
             done
          done
 
