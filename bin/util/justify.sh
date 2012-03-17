@@ -200,7 +200,7 @@ else
          echo "."                                                                                >> $consequent.pml.ttl
          echo $antecedentNodeSet                                                                 >> $consequent.pml.ttl
          echo "   a pmlj:NodeSet;"                                                               >> $consequent.pml.ttl
-         echo "   pmlj:hasConclusion <$antecedent>;"                                             >> $consequent.pml.ttl
+         echo "   pmlj:hasConclusion <../$antecedent>;"                                          >> $consequent.pml.ttl
          echo "."                                                                                >> $consequent.pml.ttl
          echo ""                                                                                 >> $consequent.pml.ttl
          echo "<$engine_name>"                                                                   >> $consequent.pml.ttl
