@@ -25,7 +25,7 @@ fi
 
 tgz=""
 if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]; then
-   tgz=".tgz"
+   tgz=".tgz" # NOTE: needs to sync with bin/convert-aggregate.sh
 fi
 
 extensions="ttl$tgz"
