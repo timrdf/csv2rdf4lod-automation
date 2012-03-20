@@ -274,7 +274,7 @@ def fstack(fd, filename=None, workuri=None, pStore = None, mimetype=None, addPat
     
     expressionHashValue = createExpressionHash(filename, content, mimetype)
     expression = Expression(ns.PEXP['-'.join(expressionHashValue[:-1])])
-    expression.nfo_hasHash.append(createHashInstance(expressionHashValue,ContentDigest))
+    expression.frir_hasContentDigest.append(createHashInstance(expressionHashValue,ContentDigest))
 
     manifestation.frbr_embodimentOf.append(expression)
     manifestation.save()
