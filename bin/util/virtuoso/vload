@@ -12,14 +12,28 @@
 
 # Log into Virtuoso isql env
 # USERNAME and PASSWORD (see http://docs.openlinksw.com/virtuoso/isql.html)
-virt_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
-isql_cmd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virt_home/bin/isql"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"dba"}"
+virtuoso_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
+
+isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql"}
+if [ ! -e "$isql" ]; then
+   isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql-v"}
+fi
+if [ ! -e "$isql" ]; then
+   echo "[ERROR] $isql not found. Cannot load triples."
+   exit 1
+fi
+
+isql_cmd="$isql ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"dba"}"
 isql_pwd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin password, may neeed to change
 
+virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/`basename $0`/input-files"
+vload_log=$virtuoso_allowed_dir/load_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
+
 if [[ "$1" == "--target" ]]; then
-   echo $virt_home
+   echo $virtuoso_home
    echo $isql_cmd
    echo $isql_pwd
+   echo $vload_log
    exit 1
 fi
 
@@ -33,7 +47,6 @@ fi
 
 # Virtuoso can read from directories listed in 'DirsAllowed' 
 # in /opt/virtuoso/var/lib/virtuoso/db/virtuoso.ini
-virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/`basename $0`/input-files"
 if [ ! -d $virtuoso_allowed_dir ]; then
    echo mkdir -p $virtuoso_allowed_dir
    sudo mkdir -p $virtuoso_allowed_dir
@@ -81,19 +94,19 @@ fi
 load_func=""
 case "$input_format" in
    "rdf")
-   load_func="DB.DBA.RDF_LOAD_RDFXML_MT(file_to_string_output('$file_name_full'), '', '$graph_uri', 2, $CSV2RDF4LOD_CONCURRENCY);"
+   load_func="DB.DBA.RDF_LOAD_RDFXML_MT(file_to_string_output('$file_name_full'), '', '$graph_uri', 2, ${CSV2RDF4LOD_CONCURRENCY:-1});"
    # echo $load_func
    ;;
    "ttl")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, $CSV2RDF4LOD_CONCURRENCY);"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, ${CSV2RDF4LOD_CONCURRENCY:-1});"
    # echo $load_func
    ;;
    "nt")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, $CSV2RDF4LOD_CONCURRENCY);"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 255, 2, ${CSV2RDF4LOD_CONCURRENCY:-1});"
    # echo $load_func
    ;;
    "nq")
-   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 512, 2, $CSV2RDF4LOD_CONCURRENCY);"
+   load_func="DB.DBA.TTLP_MT(file_to_string_output('$file_name_full'),'','$graph_uri', 512, 2, ${CSV2RDF4LOD_CONCURRENCY:-1});"
    # echo $load_func
    ;;
    *)
@@ -108,8 +121,6 @@ case "$input_format" in
    ;;
 esac
 
-vload_log=$virtuoso_allowed_dir/load_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
-
 start=`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`
 ${isql_cmd} ${isql_pwd} << EOF &> $vload_log
    log_enable(3,1);
@@ -121,7 +132,7 @@ EOF
 echo ""                                                                                  >> $vload_log
 echo "# start time: $start"                                                              >> $vload_log
 echo "# user  name: $SUDO_USER as "`whoami`                                              >> $vload_log
-echo "# isq: ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virt_home/bin/isql"}"           >> $vload_log
+echo "# isq: $isql"                                                                      >> $vload_log
 echo "# CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT: ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"}" >> $vload_log
 echo "# log_enable(3,1);"                                                                >> $vload_log
 echo "# load function: $load_func"                                                       >> $vload_log

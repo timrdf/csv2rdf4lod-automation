@@ -5,25 +5,26 @@
 # Used by $CSV2RDF4LOD_HOME/bin/convert.sh
 #
 # Parameters:
-# -v surrogate
-# -v sourceID
-# -v datasetID
-# -v datasetVersion
-# -v subjectDiscriminator
-# -v conversionID
 #
-# -v cellDelimiter
-# -v header
-# -v dataStart
-# -v dataEnd
+#   -v surrogate
+#   -v sourceID
+#   -v datasetID
+#   -v datasetVersion
+#   -v subjectDiscriminator
+#   -v conversionID
 #
-# -v onlyIfCol
-# -v repeatAboveIfEmptyCol
-# -v interpretAsNull
+#   -v cellDelimiter
+#   -v header
+#   -v dataStart
+#   -v dataEnd
 #
-# -v whoami
-# -v machine_uri
-# -v person_uri
+#   -v onlyIfCol
+#   -v repeatAboveIfEmptyCol
+#   -v interpretAsNull
+#
+#   -v whoami
+#   -v machine_uri
+#   -v person_uri
 
 BEGIN { 
    ALWAYS_SHOW_CONVERSION_PROCESS = 1; # Added back in to gather empirical results quantifying "effort" to create e1 params. 
@@ -125,7 +126,8 @@ BEGIN {
                                     printf("   conversion:source_identifier  \"%s\";\n",sourceID);
                                     printf("   conversion:dataset_identifier \"%s\";\n",datasetID);
                                     printf("   conversion:version_identifier \"%s\";\n",datasetVersion);
-                                    #printf("   conversion:dataset_version    \"%s\"; # DEPRECATED in favor of version_identifier\n",datasetVersion);
+   if(!length(conversionID))        printf("   conversion:conversion_identifier \"raw\";\n");
+   if( length(conversionID))        printf("   conversion:enhancement_identifier \"%s\";\n",conversionID);
                                      print ""
                                      print "   conversion:conversion_process ["
                                     printf("      a conversion:%sConversionProcess;\n",TYPE);

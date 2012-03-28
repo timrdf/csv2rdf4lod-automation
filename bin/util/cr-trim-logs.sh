@@ -1,11 +1,25 @@
 #!/bin/bash
 #
+#   Copyright 2012 Timothy Lebo
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+#
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-trim-logs.sh
 
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
    echo "usage: `basename $0` [-w]"
    echo "  Trim logs in doc/logs/ so that they are no larger than 16kb"
-   echo "  -w : modify the logs (if not provided, will only dry run)"
+   echo "  -w : Avoid dryrun; do it. If not provided, will only dry run."
 fi
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
@@ -19,7 +33,7 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
 fi
 
 write="no"
-if [ "$1" == "-w" ]; then
+if [[ "$1" == "-w" || "$1" == "--write" ]]; then
    write="yes"
 fi
 
@@ -54,7 +68,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
       if [ "$write" == "no" ]; then
          echo
-         echo "Note: did not trim logs. Use `basename $0` -w to modify doc/logs/*.txt"
+         echo "Note: Performed dry run only; no changes occurred. Use `basename $0` -w to avoid dry run and make modifications."
          echo
       fi
    fi
@@ -78,4 +92,6 @@ elif [[ `is-pwd-a.sh                                                 cr:dataset 
    popd > /dev/null
 fi
 
-rm -f $TEMP
+if [ -e $TEMP ]; then
+   rm -f $TEMP
+fi

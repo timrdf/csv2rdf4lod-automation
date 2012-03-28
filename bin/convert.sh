@@ -1,3 +1,20 @@
+#3> <> prov:specializationOf <https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/convert.sh> .
+#
+#   Copyright 2012 Timothy Lebo
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+
 # source/SSS/DDD/version/VVV/convert-DDD.sh checks that CSV2RDF4LOD_HOME is set and exits if not.
 
 # 
@@ -21,8 +38,11 @@ if [ -f ../../csv2rdf4lod-source-me.sh ]; then
 fi
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
+export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
 
 # Java dependencies; relative to $CSV2RDF4LOD_HOME
+# DEPRECATED. Changes should migrate to bin/util/cr-situate-classpaths.sh
 for jar in                                                             \
            lib/javacsv2.0/javacsv.jar                                  \
            bin/dup/openrdf-sesame-2.3.1-onejar.jar                     \
@@ -151,7 +171,7 @@ csvHeadersParams="--header-line ${header:-'1'} --delimiter $cellDelimiter"
 #
 #
 
-if [ $runEnhancement == "yes" ]; then 
+if [[ $runEnhancement == "yes" && "" == "https://github.com/timrdf/csv2rdf4lod-automation/issues/267" ]]; then 
    TMP_ePARAMS="_"`basename $0``date +%s`_$$.tmp
 
    # NOTE: command done below, too.
@@ -536,18 +556,18 @@ fi
 
 echo '#!/bin/bash'                                                                       > $publishDir/bin/publish.sh
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $publishDir/bin/publish.sh
-echo "surrogate=\"$surrogate\""                                                         >> $publishDir/bin/publish.sh
+echo "#surrogate=\"$surrogate\""                                                        >> $publishDir/bin/publish.sh
 echo "sourceID=\"$sourceID\""                                                           >> $publishDir/bin/publish.sh
 echo "datasetID=\"$datasetID\""                                                         >> $publishDir/bin/publish.sh
-echo "datasetVersion=\"$datasetVersion\""                                               >> $publishDir/bin/publish.sh
+echo "#datasetVersion=\"$datasetVersion\""                                              >> $publishDir/bin/publish.sh
 echo "versionID=\"$datasetVersion\""                                                    >> $publishDir/bin/publish.sh # Note: this is replacing datasetVersion.
 echo "eID=\"$eID\""                                                                     >> $publishDir/bin/publish.sh
 echo ""                                                                                 >> $publishDir/bin/publish.sh
-echo "sourceDir=\"$sourceDir\""                                                         >> $publishDir/bin/publish.sh
-echo "destDir=\"$destDir\""                                                             >> $publishDir/bin/publish.sh
+echo "#sourceDir=\"$sourceDir\""                                                        >> $publishDir/bin/publish.sh
+echo "#destDir=\"$destDir\""                                                            >> $publishDir/bin/publish.sh
 echo ""                                                                                 >> $publishDir/bin/publish.sh
 echo "graph=\"$graph\""                                                                 >> $publishDir/bin/publish.sh
-echo "publishDir=\"$publishDir\""                                                       >> $publishDir/bin/publish.sh
+echo "#publishDir=\"$publishDir\""                                                      >> $publishDir/bin/publish.sh
 echo ""                                                                                 >> $publishDir/bin/publish.sh
 echo "export CSV2RDF4LOD_FORCE_PUBLISH=\"true\""                                        >> $publishDir/bin/publish.sh
 echo 'source $CSV2RDF4LOD_HOME/bin/convert-aggregate.sh'                                >> $publishDir/bin/publish.sh

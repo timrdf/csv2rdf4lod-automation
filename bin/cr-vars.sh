@@ -1,4 +1,49 @@
 #!/bin/bash
+#
+#   Copyright 2012 Timothy Lebo
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+if [ "$1" == "--check" ]; then
+   if [ ! `which tdbloader` ]; then
+      echo
+      echo "[WARNING]: rapper not found on path. Publishing and many other things will fail."
+      echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+   else
+      echo
+      echo "[INFO]: rapper found"
+   fi
+   if [[ ! `which tdbloader` || ! `which tdbquery` ]]; then
+      echo
+      echo "[WARNING]: tdbloader not found on path. Unit testing with cr-test-conversion.sh will fail."
+      echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"
+      echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+      echo
+      echo "[INFO]: tdbloader and tdbquery found"
+   else
+      echo "[INFO]: tdb found"
+   fi
+   if [[ ! `which curl` ]]; then
+      echo
+      echo "[WARNING]: curl not found on path."
+      echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"
+      echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+   else
+      echo "[INFO]: curl found"
+   fi
+   echo
+   exit 0
+fi
 
 if [ ${1:-"no"} != "CLEAR" ]; then
    show_all="no"
@@ -58,12 +103,12 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES                    ${CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES:-"(will default to: false)"}"
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE                     ${CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE:-"(will default to: hard)"}"
    echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION                  ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION:-"(will default to: false)"}"
+   echo "CSV2RDF4LOD_CONCURRENCY                                  ${CSV2RDF4LOD_CONCURRENCY:-"(will default to: 1)"}"
    if [ "$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION" == "true" -o $show_all == "yes" ]; then
    echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WRITE_FREQUENCY  ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WRITE_FREQUENCY:-"(will default to: 1,000,000)"}"
 
    echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_REPORT_FREQUENCY ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_REPORT_FREQUENCY:-"(will default to: 1,000)"}"
 
-   echo "CSV2RDF4LOD_CONCURRENCY                                  ${CSV2RDF4LOD_CONCURRENCY:-"(will default to: 1)"}"
    else
       echo "   ..."
    fi
@@ -88,7 +133,14 @@ if [ ${1:-"no"} != "CLEAR" ]; then
                                                     virtuoso_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
    if [ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" -o $show_all == "yes" ]; then
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME                        ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"(will default to: /opt/virtuoso)"}"
-   echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH                   ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"(will default to: $virtuoso_home/bin/isql)"}"
+   isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql"}
+   if [ ! -e "$isql" ]; then
+      isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql-v"}
+   fi 
+   if [ ! -e "$isql" ]; then
+      isqlERROR=" ERROR: not found"
+   fi 
+   echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH                   ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"(will default to: $virtuoso_home/bin/isql$isqlERROR)"}"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT                        ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"(will default to: 1111)"}"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME                    ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"(will default to: dba)"}"
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD                    ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"(will default to: dba)"}"

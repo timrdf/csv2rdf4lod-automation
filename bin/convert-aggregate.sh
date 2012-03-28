@@ -1,14 +1,73 @@
-# convert-aggregate.sh
+# <> prov:specializationOf <https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/convert-aggregate.sh> .
 #
+#   Copyright 2012 Timothy Lebo
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
 # Aggregate conversion outputs into publishable datafiles.
 #
 # Up to this point, all processing was done using filenames provided by the dataset source organization.
-# Put all data into $sourceID-$datasetID-$datasetVersion dump files and construct command appropriate 
+# Put all data into $sourceID-$datasetID-$versionID dump files and construct command appropriate 
 # for lod-materialization.
 #
 #
-# ___NOT___ to be called directly: called by convert-DATASET.sh (a script created using cr-create-convert-sh.sh)
-# can also be invoked running publish/bin/publish.sh
+# This script is ___NOT___ to be called directly: 
+# Called by conversion trigger (e.g. convert-DATASET.sh)
+# The conversion trigger is created by manually invoking cr-create-conversion-trigger.sh)
+# This script can also be invoked by running publish/bin/publish.sh (created by the conversion trigger)
+
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+
+if [ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "fine" ]; then
+   # The following variables are needed by this script
+   # They are set by publish/bin/publish.sh before calling this script.
+
+   #surrogate="http://logd.tw.rpi.edu" # REMOVED; not accessed anymore
+   echo $sourceID `cr-source-id.sh`
+   echo $datasetID `cr-dataset-id.sh`
+
+   #datasetVersion="release-24" # REMOVED; not accessed anymore
+   echo $versionID `cr-version-id.sh`
+
+   echo $eID TODO
+
+   #sourceDir="manual" # REMOVED; not accessed anymore
+   #destDir="automatic" # REMOVED; intentionally hard coded.
+
+   echo $graph `cr-dataset-uri.sh --uri`
+   #publishDir="publish" # REMOVED; intentionally hard coded.
+
+   CSV2RDF4LOD_FORCE_PUBLISH="true"
+fi
+
+# These directory names have become canonical. 
+# The flexibility to change them is no longer desirable.
+convertDir=${convertDir:-automatic}   #
+publishDir=${publishDir:-publish}     #
+# # # # # # # # # # # # # # # # # # # #            
+
+
+# These variables are embedded in the directory conventions.
+ sourceID=`cr-source-id.sh`     #
+datasetID=`cr-dataset-id.sh`    #
+versionID=`cr-version-id.sh`    #
+# see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Directory-Conventions
+
+# NOTE: eID is provided by conversion trigger, but the case where it is not provided should be handled 
+# (e.g. when cr-publish-cockpit.sh calls this script)
+
+graph=`cr-dataset-uri.sh --uri`
+
 if [ ${CSV2RDF4LOD_FORCE_PUBLISH:-"."} == "true" ]; then
    echo "convert-aggregate.sh publishing raw and enhancements (forced)." | tee -a $CSV2RDF4LOD_LOG
    echo "===========================================================================================" | tee -a $CSV2RDF4LOD_LOG
@@ -21,8 +80,8 @@ else
          exit 1
    fi
    if [ ${CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED:-"true"} == "true" ]; then
-      #if [[ $runEnhancement == "yes" && ( `ls $destDir/*.e$eID.ttl 2> /dev/null | wc -l` > 0 || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
-      dumps="no"; for dump in `find $destDir -name "*.e$eID.ttl"`; do dumps="yes"; done
+      #if [[ $runEnhancement == "yes" && ( `ls $convertDir/*.e$eID.ttl 2> /dev/null | wc -l` > 0 || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
+      dumps="no"; for dump in `find $convertDir -name "*.e$eID.ttl"`; do dumps="yes"; done
       if [[ $runEnhancement == "yes" && ( $dumps == "yes" || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
          echo "convert-aggregate.sh publishing raw and enhancements."                                                                     | tee -a $CSV2RDF4LOD_LOG
       else
@@ -42,36 +101,42 @@ else
    fi
 fi
 
-if [ ${#versionID} -le 0 ]; then
-   versionID=$datasetVersion # TEMP - until fully deprecated datasetVersion. versionID should be always set eventually.
+if [ ! -e $publishDir/bin ]; then
+   mkdir -p publish/bin
 fi
-
 touch $publishDir
 
-SDV=$publishDir/$sourceID-$datasetID-$datasetVersion
-S_D_V=$sourceID-$datasetID-$datasetVersion
-allRaw=$publishDir/$sourceID-$datasetID-$datasetVersion.raw.ttl
-allEX=$publishDir/$sourceID-$datasetID-$datasetVersion.e$eID.ttl # only the current enhancement.
-allTTL=$publishDir/$sourceID-$datasetID-$datasetVersion.ttl
-allNT=$publishDir/$sourceID-$datasetID-$datasetVersion.nt
-allRDFXML=$publishDir/$sourceID-$datasetID-$datasetVersion.rdf
-allVOID=$publishDir/$sourceID-$datasetID-$datasetVersion.void.ttl
-allVOIDNT=$publishDir/$sourceID-$datasetID-$datasetVersion.void.nt
-allPML=$publishDir/$sourceID-$datasetID-$datasetVersion.pml.ttl
-allSAMEAS=$publishDir/$sourceID-$datasetID-$datasetVersion.sameas.nt
-rawSAMPLE=$publishDir/$sourceID-$datasetID-$datasetVersion.raw.sample.ttl
-versionedDatasetURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$surrogate}/source/$sourceID/dataset/$datasetID/version/$datasetVersion"
-rawSampleGraph="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$surrogate}/source/$sourceID/dataset/$datasetID/version/$datasetVersion/conversion/raw/subset/sample"
-# TODO: use surrogate or BASE_URI? I'm leaning BASE_URI since it's not encoded in the directory structure.
-http_allNT="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.nt"
-http_allTTL="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.ttl"
-http_allRDFXML="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.rdf"
+if [ ${#versionID} -le 0 ]; then
+   # For legacy compatibility. datasetVersion was renamed to versionID.
+   versionID=$datasetVersion
+fi
+    S_D_V=$sourceID-$datasetID-$versionID
+     pSDV=$publishDir/$sourceID-$datasetID-$versionID
+   allRaw=$publishDir/$sourceID-$datasetID-$versionID.raw.ttl
+    allEX=$publishDir/$sourceID-$datasetID-$versionID.e$eID.ttl # only the current enhancement.
+   allTTL=$publishDir/$sourceID-$datasetID-$versionID.ttl
+    allNT=$publishDir/$sourceID-$datasetID-$versionID.nt
+allRDFXML=$publishDir/$sourceID-$datasetID-$versionID.rdf
+  allVOID=$publishDir/$sourceID-$datasetID-$versionID.void.ttl
+allVOIDNT=$publishDir/$sourceID-$datasetID-$versionID.void.nt
+   allPML=$publishDir/$sourceID-$datasetID-$versionID.pml.ttl
+allSAMEAS=$publishDir/$sourceID-$datasetID-$versionID.sameas.nt
+rawSAMPLE=$publishDir/$sourceID-$datasetID-$versionID.raw.sample.ttl
+versionedDatasetURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID"
+     rawSampleGraph="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID/conversion/raw/subset/sample"
+         http_allNT="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${versionID}.nt"
+        http_allTTL="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${versionID}.ttl"
+     http_allRDFXML="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${versionID}.rdf"
 
- allNT_L=$sourceID-$datasetID-$datasetVersion.nt # L: Local name (not including directory; for use when pushd'ing to cHuNk)
-allSAMEAS_L=$sourceID-$datasetID-$datasetVersion.sameas.nt
+# Special case needs:
+    allNT_L=$sourceID-$datasetID-$versionID.nt        # L: Local name (not including directory; for use when pushd'ing to cHuNk)
+allSAMEAS_L=$sourceID-$datasetID-$versionID.sameas.nt
+
 filesToCompress=""
 
-zip="gz"
+# TODO: align with CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS                 "cr:auto" => ttl.tgz 
+# bin/util/dump-file-extensions.sh defaults to tgz
+zip="tgz"
 if [ ! `which rapper` ]; then
    # check if rapper is on path, if not, report error.
    echo "NOTE: rapper not found. Some serializations will probably be empty." | tee -a $CSV2RDF4LOD_LOG
@@ -84,10 +149,10 @@ or_see_github="or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2
 #
 conversionIDs="raw"
 layerSlugs="raw"
-convertedRaw="no"; for raw in `find $destDir -name "*.raw.ttl"`; do convertedRaw="yes"; done
+convertedRaw="no"; for raw in `find $convertDir -name "*.raw.ttl"`; do convertedRaw="yes"; done
 if [ $convertedRaw == "yes" ]; then
    echo $allRaw | tee -a $CSV2RDF4LOD_LOG
-   cat $destDir/*.raw.ttl > $allRaw
+   cat $convertDir/*.raw.ttl > $allRaw
    filesToCompress="$allRaw"
 else
    echo "$allRaw - omitted" | tee -a $CSV2RDF4LOD_LOG
@@ -96,29 +161,29 @@ fi
 #
 # Sample of raw (TODO: add sample of enhanced, too)
 #
-convertedRawSamples="no"; for raw in `find $destDir -name "*.raw.sample.ttl"`; do convertedRaw="yes"; done
+convertedRawSamples="no"; for raw in `find $convertDir -name "*.raw.sample.ttl"`; do convertedRaw="yes"; done
 if [ $convertedRawSamples == "yes" ]; then
-   echo $SDV.raw.sample.ttl | tee -a $CSV2RDF4LOD_LOG
-   #$CSV2RDF4LOD_HOME/bin/util/grep-head.sh -p 'ov:csvRow "100' $allRaw > $SDV.raw.sample.ttl # REPLACED by an extra call to the converter with the -samples param.
-   cat $destDir/*.raw.sample.ttl > $SDV.raw.sample.ttl
+   echo $pSDV.raw.sample.ttl | tee -a $CSV2RDF4LOD_LOG
+   #$CSV2RDF4LOD_HOME/bin/util/grep-head.sh -p 'ov:csvRow "100' $allRaw > $pSDV.raw.sample.ttl # REPLACED by an extra call to the converter with the -samples param.
+   cat $convertDir/*.raw.sample.ttl > $pSDV.raw.sample.ttl
 fi
 
 #
 # Individual enhancement ttl (any that are not aggregated)
 #
 # Got messed up when added sample.ttl: 
-#     enhancementLevels=`ls $destDir/*.e*.ttl 2> /dev/null | grep -v void.ttl | sed -e 's/^.*\.e\([^.]*\).ttl/\1/' | sort -u`
+#     enhancementLevels=`ls $convertDir/*.e*.ttl 2> /dev/null | grep -v void.ttl | sed -e 's/^.*\.e\([^.]*\).ttl/\1/' | sort -u`
 # This works, but moved to script: 
-#     enhancementLevels=`find $destDir -name "*.e[!.].ttl" | sed -e 's/^.*\.e\([^.]*\).ttl/\1/' | sort -u` # WARNING: only handles e1 through e9
+#     enhancementLevels=`find $convertDir -name "*.e[!.].ttl" | sed -e 's/^.*\.e\([^.]*\).ttl/\1/' | sort -u` # WARNING: only handles e1 through e9
 enhancementLevels=`cr-list-enhancement-identifiers.sh` # WARNING: only handles e1 through e9
 anyEsDone="no"
 for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
-   eTTL=$publishDir/$sourceID-$datasetID-$datasetVersion.e$eIDD.ttl
+   eTTL=$publishDir/$sourceID-$datasetID-$versionID.e$eIDD.ttl
    eTTLsample=`echo $eTTL | sed 's/.ttl$/.sample.ttl/'` # Just insert sample to the next-to-last
 
    # Aggregate the enhancements.
    echo $eTTL | tee -a $CSV2RDF4LOD_LOG
-   cat $destDir/*.e$eIDD.ttl > $eTTL                  ; filesToCompress="$filesToCompress $eTTL"
+   cat $convertDir/*.e$eIDD.ttl > $eTTL                  ; filesToCompress="$filesToCompress $eTTL"
 
    # Sample the aggregated enhancements.
    # REPLACED by an extra call to the converter with the -samples param.
@@ -126,10 +191,10 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
    #$CSV2RDF4LOD_HOME/bin/util/grep-head.sh -p 'ov:csvRow "100' $eTTL > $eTTLsample
    echo $eTTLsample | tee -a $CSV2RDF4LOD_LOG
    if [ $anyEsDone == "no" ]; then
-      cat $destDir/*.e$eIDD.sample.ttl  > $eTTLsample
+      cat $convertDir/*.e$eIDD.sample.ttl  > $eTTLsample
       anyEsDone="yes"
    else
-      cat $destDir/*.e$eIDD.sample.ttl >> $eTTLsample
+      cat $convertDir/*.e$eIDD.sample.ttl >> $eTTLsample
    fi
 
    conversionIDs="$conversionIDs e$eIDD"
@@ -147,7 +212,7 @@ for dir in source manual automatic; do
       # http://logd.tw.rpi.edu/source/data-gov/provenance_file/1008/version/2010-Aug-30/source/STATE_SINGLE_PW.CSV
       # rapper -g -o turtle source/STATE_SINGLE_PW.CSV.pml.ttl  http://logd.tw.rpi.edu/source/data-gov/provenance_file/1008/version/2010-Aug-30/source/
       sourceFile=`echo $pml | sed 's/.pml.ttl$//'`
-      base4rapper="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/provenance_file/${datasetID}/version/${datasetVersion}/$dir/"
+      base4rapper="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/provenance_file/${datasetID}/version/${versionID}/$dir/"
       echo "  (including $pml)" | tee -a $CSV2RDF4LOD_LOG
       if [ `which rapper` ]; then
          rapper -g -o turtle $pml $base4rapper >> $allPML 2> /dev/null
@@ -184,16 +249,16 @@ rm $TEMP_pml 2> /dev/null
 #
 # All void
 #
-if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:-"true"} == "true" ]; then
+if [ "$CSV2RDF4LOD_PUBLISH_SUBSET_VOID" != "false" ]; then
    echo $allVOID | tee -a $CSV2RDF4LOD_LOG
    rm -f $allVOID.TEMP 2> /dev/null
-   for void in `find $destDir -name "*.void.ttl" 2> /dev/null`; do
+   for void in `find $convertDir -name "*.void.ttl" 2> /dev/null`; do
       echo "  (including $void)" | tee -a $CSV2RDF4LOD_LOG
       cat $void >> $allVOID.TEMP
    done
    #if [ -e $allVOID.TEMP ]; then # VoID should aways be there.
       if [ `which rapper` ]; then
-         rapper -i turtle -o turtle $allVOID.TEMP > $allVOID 2> /dev/null
+         rapper -q -i turtle -o turtle $allVOID.TEMP > $allVOID
          rm -f $allVOID.TEMP
       else
          mv $allVOID.TEMP $allVOID
@@ -204,12 +269,14 @@ if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:-"true"} == "true" ]; then
 else
    echo "$allVOID - skipping; set CSV2RDF4LOD_PUBLISH_SUBSET_VOID=true in source-me.sh to publish Meta." | tee -a $CSV2RDF4LOD_LOG
 fi
-numLogs=`find doc/logs -name 'csv2rdf4lod_log_*' | wc -l`
-echo "# num logs: $numLogs" >> $allVOID
-if [ ${#numLogs} ]; then
-   echo "<$versionedDatasetURI> <http://purl.org/twc/vocab/conversion/num_invocation_logs> $numLogs ." >> $allVOID # TODO: how to make sure it is an integer?
+if [ -e doc/logs ]; then
+   numLogs=`find doc/logs -name 'csv2rdf4lod_log_*' | wc -l`
 fi
+echo "# num logs: $numLogs" >> $allVOID
+echo "<$versionedDatasetURI> <http://purl.org/twc/vocab/conversion/num_invocation_logs> ${numLogs:-0} ." >> $allVOID # TODO: how to make sure it is an integer?
+
 echo "  (including $allPML)" | tee -a $CSV2RDF4LOD_LOG
+echo "# BEGIN: $allPML:" >> $allVOID
 cat $allPML 2> /dev/null >> $allVOID
 if [ -e $allVOID.DO_NOT_LIST ]; then
    mv $allVOID $allVOID.DO_NOT_LIST
@@ -230,7 +297,7 @@ fi
 echo $allTTL $willDeleteMsg | tee -a $CSV2RDF4LOD_LOG
 anyEsDone="no"
 for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
-   eTTL=$publishDir/$sourceID-$datasetID-$datasetVersion.e$eIDD.ttl
+   eTTL=$publishDir/$sourceID-$datasetID-$versionID.e$eIDD.ttl
 
    echo "  (including $eTTL)" | tee -a $CSV2RDF4LOD_LOG
 
@@ -242,7 +309,7 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
       echo "# BEGIN: $eTTL:" >> $allTTL
       cat $eTTL              >> $allTTL
    fi
-   #cat $destDir/*.e$eID.ttl | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" >  $allE1   2> /dev/null
+   #cat $convertDir/*.e$eID.ttl | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" >  $allE1   2> /dev/null
    #cat $allE1 $allRaw        | rapper -q -i turtle -o turtle - http://www.no.org | grep -v "http://www.no.org" > $allTTL   2> /dev/null
 done
 if [ $convertedRaw == "yes" ]; then
@@ -255,7 +322,7 @@ if [ -e $allVOID ]; then
    echo "# BEGIN: $allVOID:"    >> $allTTL
    cat $allVOID                 >> $allTTL
 fi
-#grep "^@prefix" $allTTL | sort -u > $destDir/prefixes-$sourceID-$datasetID-$datasetVersion.ttl
+#grep "^@prefix" $allTTL | sort -u > $convertDir/prefixes-$sourceID-$datasetID-$versionID.ttl
 #rapper -i turtle $allTTL -o turtle   > $allTTL.ttl 2> /dev/null # Sorts conversion-ordered TTL into lexiographical order.
 
 
@@ -270,7 +337,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_NT:-"."} == "true" -o ${CSV2RDF4LOD_PUBLISH_LOD_MATER
       filesToCompress="$filesToCompress $allNT"
    fi
    echo "$allNT $willDeleteMsg" | tee -a $CSV2RDF4LOD_LOG
-   if [ `find $publishDir -size +1900M -name $sourceID-$datasetID-$datasetVersion.ttl | wc -l` -gt 0 ]; then # +1900M, +10M for debugging
+   if [ `find $publishDir -size +1900M -name $sourceID-$datasetID-$versionID.ttl | wc -l` -gt 0 ]; then # +1900M, +10M for debugging
       # Rapper can't handle a turtle file bigger than ~2GB (1900M to be safe). Split it up and feed it.
       $CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT 2> /dev/null
    else
@@ -282,6 +349,7 @@ else
    echo "$allNT - skipping; set CSV2RDF4LOD_PUBLISH_NT=true in source-me.sh to publish N-Triples." | tee -a $CSV2RDF4LOD_LOG
 fi
 echo $graph > $allNT.graph
+echo $graph > $pSDV.sd_name
 
 
 #
@@ -294,7 +362,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS:-"."} == "true" ]; then
       if [ -e $allNT ];then
          # echo "   (cat'ing NT)" | tee -a $CSV2RDF4LOD_LOG
          cat $allNT | awk -f $CSV2RDF4LOD_HOME/bin/util/sameasInNT.awk > $allSAMEAS
-      elif [ `find $publishDir -size +1900M -name $sourceID-$datasetID-$datasetVersion.ttl | wc -l` -gt 0 ]; then # +1900M, +10M for debugging
+      elif [ `find $publishDir -size +1900M -name $sourceID-$datasetID-$versionID.ttl | wc -l` -gt 0 ]; then # +1900M, +10M for debugging
          # Rapper can't handle a turtle file bigger than ~2GB (1900M to be safe). Split it up and feed it.
          # echo "   (bigttl2nt.sh'ing NT)" | tee -a $CSV2RDF4LOD_LOG
          $CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL 2> /dev/null | awk -f $CSV2RDF4LOD_HOME/bin/util/sameasInNT.awk > $allSAMEAS
@@ -317,7 +385,7 @@ fi
 if [ ${CSV2RDF4LOD_PUBLISH_RDFXML:-"."} == "true" ]; then
    echo $allRDFXML | tee -a $CSV2RDF4LOD_LOG
    # Rapper can't handle a turtle file bigger than ~2GB (1900M to be safe).
-   if [ `find $publishDir -size +1900M -name $sourceID-$datasetID-$datasetVersion.ttl | wc -l` -gt 0 ]; then
+   if [ `find $publishDir -size +1900M -name $sourceID-$datasetID-$versionID.ttl | wc -l` -gt 0 ]; then
       # Use N-Triples (will be uglier).
       rapper -i ntriples $allNT  -o rdfxml > $allRDFXML 2> /dev/null
    else
@@ -366,7 +434,7 @@ fi
 #
 # WWWROOT/source/cordad-at-rpi-edu/file/transfer-coefficents/version/2010-Jul-14/conversion/cordad-at-rpi-edu-transfer-coefficents-2010-Jul-14.e1
 
-lnwwwrootSH="$publishDir/bin/ln-to-www-root-${sourceID}-${datasetID}-${datasetVersion}.sh"
+lnwwwrootSH="$publishDir/bin/ln-to-www-root-${sourceID}-${datasetID}-${versionID}.sh"
 echo $lnwwwrootSH | tee -a $CSV2RDF4LOD_LOG
 
 echo "#!/bin/bash"                                                                                    > $lnwwwrootSH
@@ -407,7 +475,7 @@ echo "# (these are from source/)"                                               
 for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    sourceFile=`echo $sourceFileProvenance | sed 's/.pml.ttl$//'` 
    echo "if [ -e \"$sourceFile\" ]; then "                                                           >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$sourceFile\"" >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$sourceFile\"" >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then "                                                              >> $lnwwwrootSH
    echo "     \$sudo rm -f \$wwwfile"                                                                >> $lnwwwrootSH
    echo "   else"                                                                                    >> $lnwwwrootSH
@@ -421,7 +489,7 @@ for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    echo "fi"                                                                                         >> $lnwwwrootSH
    echo ""                                                                                           >> $lnwwwrootSH
    echo "if [ -e \"$sourceFileProvenance\" ]; then"                                                  >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$sourceFileProvenance\"" >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$sourceFileProvenance\"" >> $lnwwwrootSH
    echo "   if [ -e \"\$wwwfile\" ]; then "                                                          >> $lnwwwrootSH
    echo "     \$sudo rm -f \$wwwfile"                                                                >> $lnwwwrootSH
    echo "   else"                                                                                    >> $lnwwwrootSH
@@ -439,24 +507,24 @@ done
 echo "##################################################"                                            >> $lnwwwrootSH
 echo "# Link all INPUT CSV files from the provenance_file directory structure to the web directory." >> $lnwwwrootSH
 echo "# (this could be from manual/ or source/"                                                      >> $lnwwwrootSH
-for inputFile in `cat $destDir/_CSV2RDF4LOD_file_list.txt` # Sorry for the semi-hack. convert.sh builds this list b/c it knows what files were converted.
-do
-   echo "if [ -e \"$inputFile\" ]; then "                                                            >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$inputFile\"" >> $lnwwwrootSH
-   echo "   if [ -e \"\$wwwfile\" ]; then "                                                          >> $lnwwwrootSH
-   echo "      \$sudo rm -f \"\$wwwfile\""                                                           >> $lnwwwrootSH
-   echo "   else"                                                                                    >> $lnwwwrootSH
-   echo "      \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                            >> $lnwwwrootSH
-   echo "   fi"                                                                                      >> $lnwwwrootSH
-   echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-#   echo "   echo \$sudo ln \$symbolic \"\${pwd}$inputFile\" \"\$wwwfile\""                                >> $lnwwwrootSH # TODO
-   echo "   \$sudo ln \$symbolic \"\${pwd}$inputFile\" \"\$wwwfile\""                                >> $lnwwwrootSH
-   echo "else"                                                                                       >> $lnwwwrootSH
-   echo "   echo \"  -- $inputFile omitted --\""                                                     >> $lnwwwrootSH
-   echo "fi"                                                                                         >> $lnwwwrootSH
-   echo ""                                                                                           >> $lnwwwrootSH
-done
-
+if [ -e $convertDir/_CSV2RDF4LOD_file_list.txt ]; then
+   for inputFile in `cat $convertDir/_CSV2RDF4LOD_file_list.txt`; do # convert.sh builds this list b/c it knows what files were converted.
+      echo "if [ -e \"$inputFile\" ]; then "                                                            >> $lnwwwrootSH
+      echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$inputFile\"" >> $lnwwwrootSH
+      echo "   if [ -e \"\$wwwfile\" ]; then "                                                          >> $lnwwwrootSH
+      echo "      \$sudo rm -f \"\$wwwfile\""                                                           >> $lnwwwrootSH
+      echo "   else"                                                                                    >> $lnwwwrootSH
+      echo "      \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                            >> $lnwwwrootSH
+      echo "   fi"                                                                                      >> $lnwwwrootSH
+      echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
+      # echo "   echo \$sudo ln \$symbolic \"\${pwd}$inputFile\" \"\$wwwfile\""                         >> $lnwwwrootSH # TODO
+      echo "   \$sudo ln \$symbolic \"\${pwd}$inputFile\" \"\$wwwfile\""                                >> $lnwwwrootSH
+      echo "else"                                                                                       >> $lnwwwrootSH
+      echo "   echo \"  -- $inputFile omitted --\""                                                     >> $lnwwwrootSH
+      echo "fi"                                                                                         >> $lnwwwrootSH
+      echo ""                                                                                           >> $lnwwwrootSH
+   done
+fi
 TEMP_file_list="_"`basename $0``date +%s`_$$.tmp
 # automatic/STATE_SINGLE_PW.CSV.raw.params.ttl -> http://logd.tw.rpi.edu/source/data-gov/provenance_file/1008/version/1st-anniversary/automatic/STATE_SINGLE_PW.CSV.raw.params.ttl
 
@@ -465,17 +533,16 @@ find manual    -name '*.params.ttl' | sed 's/^\.\///' >> $TEMP_file_list
 echo "##################################################"                                            >> $lnwwwrootSH
 echo "# Link all raw and enhancement PARAMETERS from the provenance_file file directory structure to the web directory." >> $lnwwwrootSH
 echo "#"                                                                                             >> $lnwwwrootSH
-for paramFile in `cat $TEMP_file_list`
-do
+for paramFile in `cat $TEMP_file_list`; do
    echo "if [ -e \"$paramFile\" ]; then "                                                            >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$paramFile\"" >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$paramFile\"" >> $lnwwwrootSH
    echo "   if [ -e \"\$wwwfile\" ]; then "                                                          >> $lnwwwrootSH
    echo "     \$sudo rm -f \"\$wwwfile\""                                                            >> $lnwwwrootSH
    echo "   else"                                                                                    >> $lnwwwrootSH
    echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                             >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-#   echo "   echo \$sudo ln \$symbolic \"\${pwd}$paramFile\" \"\$wwwfile\""                                >> $lnwwwrootSH # TODO
+   # echo "   echo \$sudo ln \$symbolic \"\${pwd}$paramFile\" \"\$wwwfile\""                         >> $lnwwwrootSH # TODO
    echo "   \$sudo ln \$symbolic \"\${pwd}$paramFile\" \"\$wwwfile\""                                >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  -- $paramFile omitted --\""                                                     >> $lnwwwrootSH
@@ -483,15 +550,17 @@ do
    echo ""                                                                                           >> $lnwwwrootSH
 done
 
-find $sourceDir -name '*.pml.ttl'                                     > $TEMP_file_list
-find $sourceDir -name '*.[Zz][Ii][Pp].pml.ttl' | sed 's/.pml.ttl$//' >> $TEMP_file_list
+find source -name '*.pml.ttl'                                     > $TEMP_file_list
+find source -name '*.[Zz][Ii][Pp].pml.ttl' | sed 's/.pml.ttl$//' >> $TEMP_file_list
+find manual -name '*.pml.ttl'                                    >> $TEMP_file_list
+find manual -name '*.[Zz][Ii][Pp].pml.ttl' | sed 's/.pml.ttl$//' >> $TEMP_file_list
 echo "##################################################"                                            >> $lnwwwrootSH
 echo "# Link all PROVENANCE files that describe how the input CSV files were obtained."              >> $lnwwwrootSH
 echo "#"                                                                                             >> $lnwwwrootSH
 for pmlFile in `cat $TEMP_file_list`
 do
    echo "if [ -e \"$pmlFile\" ]; then "                                                              >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$datasetVersion/$pmlFile\"" >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$pmlFile\"" >> $lnwwwrootSH
    echo "   if [ -e \"\$wwwfile\" ]; then"                                                           >> $lnwwwrootSH
    echo "     \$sudo rm -f \"\$wwwfile\""                                                            >> $lnwwwrootSH
    echo "   else"                                                                                    >> $lnwwwrootSH
@@ -513,8 +582,8 @@ echo "#"                                                                        
 # Version rollup of all layers (all serializations)
 for serialization in ttl nt rdf
 do
-   echo "dump=$sourceID-$datasetID-$datasetVersion.$serialization"                                                                              >> $lnwwwrootSH
-   echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$datasetVersion/conversion/\$dump" >> $lnwwwrootSH
+   echo "dump=$sourceID-$datasetID-$versionID.$serialization"                                                                              >> $lnwwwrootSH
+   echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump" >> $lnwwwrootSH
    echo "if [ -e $publishDir/\$dump.$zip ]; then "                                                   >> $lnwwwrootSH 
    echo "   if [ -e \$wwwfile.$zip ]; then"                                                          >> $lnwwwrootSH 
    echo "    \$sudo rm -f \$wwwfile.$zip"                                                            >> $lnwwwrootSH 
@@ -548,8 +617,8 @@ for conversionID in $conversionIDs sameas void # <---- Add root-level subsets he
 do
    for serialization in ttl nt rdf
    do
-      echo "dump=$sourceID-$datasetID-$datasetVersion.$conversionID.$serialization"                                                                >> $lnwwwrootSH
-      echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$datasetVersion/conversion/\$dump" >> $lnwwwrootSH
+      echo "dump=$sourceID-$datasetID-$versionID.$conversionID.$serialization"                                                                >> $lnwwwrootSH
+      echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump" >> $lnwwwrootSH
       echo "if [ -e $publishDir/\$dump.$zip ]; then "                                                >> $lnwwwrootSH 
       echo "   if [ -e \$wwwfile.$zip ]; then"                                                       >> $lnwwwrootSH 
       echo "      \$sudo rm -f \$wwwfile.$zip"                                                       >> $lnwwwrootSH 
@@ -583,8 +652,8 @@ do
          #    /var/www/html/logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Jul-21/conversion/data-gov-1008-2010-Jul-21.raw.sample
          # to get:
          #    http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Jul-21/conversion/data-gov-1008-2010-Jul-21.raw.sample
-         echo "dump=$sourceID-$datasetID-$datasetVersion.$conversionID.$subset.$serialization"                                                        >> $lnwwwrootSH
-         echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$datasetVersion/conversion/\$dump" >> $lnwwwrootSH
+         echo "dump=$sourceID-$datasetID-$versionID.$conversionID.$subset.$serialization"                                                        >> $lnwwwrootSH
+         echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump" >> $lnwwwrootSH
          echo "if [ -e $publishDir/\$dump ]; then "                                                  >> $lnwwwrootSH
          echo "   if [ -e \$wwwfile ]; then "                                                        >> $lnwwwrootSH
          echo "      \$sudo rm -f \$wwwfile"                                                         >> $lnwwwrootSH
@@ -621,11 +690,11 @@ fi
 #
 local_tdb_dir=$publishDir/tdb
 TDB_DIR=${CSV2RDF4LOD_PUBLISH_TDB_DIR:-$local_tdb_dir}
-josekiConfigFile=$publishDir/bin/joseki-config-anterior-${sourceID}-${datasetID}-${datasetVersion}.ttl
+josekiConfigFile=$publishDir/bin/joseki-config-anterior-${sourceID}-${datasetID}-${versionID}.ttl
 if [ ! -e $josekiConfigFile ]; then
    cat $CSV2RDF4LOD_HOME/bin/dup/joseki-config-ANTERIOR.ttl | awk '{gsub("__TDB__DIRECTORY__",dir);print $0}' dir=`pwd`/$TDB_DIR > $josekiConfigFile
 fi
-loadtdbSH="$publishDir/bin/tdbloader-${sourceID}-${datasetID}-${datasetVersion}.sh"
+loadtdbSH="$publishDir/bin/tdbloader-${sourceID}-${datasetID}-${versionID}.sh"
 echo "#!/bin/bash"                                                                             > $loadtdbSH
 echo ""                                                                                       >> $loadtdbSH
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $loadtdbSH
@@ -667,6 +736,10 @@ echo ""                                                                         
 echo "mkdir $TDB_DIR                         &> /dev/null"                                    >> $loadtdbSH
 echo "rm    $TDB_DIR/*.dat $TDB_DIR/*.idn &> /dev/null"                                       >> $loadtdbSH
 echo ""                                                                                       >> $loadtdbSH
+echo "if [[ \${#load_file} -eq 0 ]]; then"                                                    >> $loadtdbSH
+echo "   echo \"[ERROR] \`basename \$0 \`could not find dump file to load.\""                 >> $loadtdbSH
+echo "   exit 1"                                                                              >> $loadtdbSH
+echo "fi"                                                                                     >> $loadtdbSH
 echo "echo \`basename \$load_file\` into $TDB_DIR as $graph >> $publishDir/ng.info"           >> $loadtdbSH
 echo ""                                                                                       >> $loadtdbSH
 #                                                                             billion="000000000"
@@ -708,19 +781,19 @@ fi
 #
 # 4store
 #
-fourstoreSH=$publishDir/bin/4store-${sourceID}-${datasetID}-${datasetVersion}.sh
+fourstoreSH=$publishDir/bin/4store-${sourceID}-${datasetID}-${versionID}.sh
 fourstoreKB=${CSV2RDF4LOD_PUBLISH_4STORE_KB:-'csv2rdf4lod'}
 fourstoreKBDir=/var/lib/4store/$fourstoreKB
 echo "#!/bin/bash"                                                                         > $fourstoreSH
 echo "#"                                                                                >> $fourstoreSH
 echo "# run $fourstoreSH"                                                               >> $fourstoreSH
-echo "# from ${sourceID}/$datasetID/version/$datasetVersion/"                           >> $fourstoreSH
+echo "# from ${sourceID}/$datasetID/version/$versionID/"                           >> $fourstoreSH
 echo ""                                                                                 >> $fourstoreSH
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $fourstoreSH 
 echo ""                                                                                 >> $fourstoreSH
 echo "allNT=$allNT"                                                                     >> $fourstoreSH
 echo "if [ ! -e \$allNT ]; then"                                                        >> $fourstoreSH
-echo "   echo \"run from ${sourceID}/$datasetID/version/$datasetVersion/\""             >> $fourstoreSH
+echo "   echo \"run from ${sourceID}/$datasetID/version/$versionID/\""             >> $fourstoreSH
 echo "   exit 1"                                                                        >> $fourstoreSH
 echo "fi"                                                                               >> $fourstoreSH
 echo ""                                                                                 >> $fourstoreSH
@@ -737,9 +810,9 @@ chmod +x                                                                        
 #
 # Virtuoso
 #
-vloadSH=$publishDir/bin/virtuoso-load-${sourceID}-${datasetID}-${datasetVersion}.sh
-vloadvoidSH=$publishDir/bin/virtuoso-load-${sourceID}-${datasetID}-${datasetVersion}-void.sh
-vdeleteSH=$publishDir/bin/virtuoso-delete-${sourceID}-${datasetID}-${datasetVersion}.sh
+vloadSH=$publishDir/bin/virtuoso-load-${sourceID}-${datasetID}-${versionID}.sh
+vloadvoidSH=$publishDir/bin/virtuoso-load-${sourceID}-${datasetID}-${versionID}-void.sh
+vdeleteSH=$publishDir/bin/virtuoso-delete-${sourceID}-${datasetID}-${versionID}.sh
 echo "#!/bin/bash"                                                                                            > $vloadSH
 echo "#"                                                                                                     >> $vloadSH
 echo "# run $vloadSH"                                                                                        >> $vloadSH
@@ -749,11 +822,11 @@ echo "# graph was $graph during conversion"                                     
 echo "#"                                                                                                     >> $vloadSH
 echo "#"                                                                                                     >> $vloadSH
 echo "#                              AbstractDataset        # <---- Loads this with param --abstract"        >> $vloadSH
-echo "#                                 |          \ "                                                       >> $vloadSH
+echo "#                                 |          \                                            "            >> $vloadSH
 echo "# Loads this by default -> VersionedDataset   meta    # <---- Loads this with param --meta"            >> $vloadSH
-echo "#                                 |            "                                                       >> $vloadSH
-echo "#                            LayerDataset"                                                             >> $vloadSH
-echo "#                               /    \ "                                                               >> $vloadSH
+echo "#                                 |                                                       "            >> $vloadSH
+echo "#                            LayerDataset                                                 "            >> $vloadSH
+echo "#                               /    \                                                    "            >> $vloadSH
 echo "# Never loads this ----> [table]   DatasetSample # <---- Loads this with param --sample"               >> $vloadSH
 echo "#"                                                                                                     >> $vloadSH
 echo "# See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets" >> $vloadSH
@@ -772,20 +845,22 @@ echo "  echo \"Refusing to publish; see 'cr:dev and refusing to publish' at\""  
 echo "  echo \"  https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-%28considerations-for-a-distributed-workflow%29\"" >> $vloadSH
 echo "  exit 1"                                                                                              >> $vloadSH
 echo "fi"                                                                                                    >> $vloadSH
-echo "if [ -e $lnwwwrootSH ]; then # Make sure the file we will load from the web is published"              >> $vloadSH
+echo "if [ -e '$lnwwwrootSH' ]; then # Make sure that the file we will load from the web is published"       >> $vloadSH
 echo "  $lnwwwrootSH"                                                                                        >> $vloadSH
 echo "fi"                                                                                                    >> $vloadSH
-echo "allNT=$allNT # to cite graph"                                                                          >> $vloadSH
-echo "graph=\"\`cat \$allNT.graph\`\""                                                                       >> $vloadSH
+echo ""                                                                                                      >> $vloadSH
+echo ""                                                                                                      >> $vloadSH
+echo "graph=\`cat '$pSDV.sd_name'\`"                                                                          >> $vloadSH
+echo "metaGraph=\"\$graph\""                                                                                 >> $vloadSH
 echo "if [ \"\$1\" == \"--sample\" ]; then"                                                                  >> $vloadSH
-http_allRawSample="\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${datasetVersion}.rdf"
+http_allRawSample="\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${versionID}.rdf"
 for layerSlug in $layerSlugs # <---- Add root-level subsets here.
 do
    layerID=`echo $layerSlug | sed 's/^.*\//e/'` # enhancement/1 -> e1
    echo "   layerSlug=\"$layerSlug\""                                                                        >> $vloadSH # .-todo
    echo "   sampleGraph=\"\$graph/conversion/\$layerSlug/subset/sample\""                                    >> $vloadSH
-#   echo "   #sampleTTL=$SDV.`echo $layerSlug | sed 's/^.*\//e/'`.sample.ttl"                           >> $vloadSH # .-todo
-#   echo "   #sudo /opt/virtuoso/scripts/vload ttl \$sampleTTL \$sampleGraph"                           >> $vloadSH
+#   echo "   #sampleTTL=$pSDV.`echo $layerSlug | sed 's/^.*\//e/'`.sample.ttl"                                >> $vloadSH # .-todo
+#   echo "   #sudo /opt/virtuoso/scripts/vload ttl \$sampleTTL \$sampleGraph"                                >> $vloadSH
    echo "   sampleURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.${layerID}.sample.ttl\"" >> $vloadSH
    #                  http://logd.tw.rpi.edu/source/twc-rpi-edu/file/instance-hub-us-states-and-territories/version/2011-Mar-31_17-51-07/conversion/twc-rpi-edu-instance-hub-us-states-and-territories-2011-Mar-31_17-51-07.e1.sample
    echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"                      >> $vloadSH
@@ -793,79 +868,91 @@ do
    echo ""                                                                                                   >> $vloadSH
 done
 echo "   exit 1"                                                                                             >> $vloadSH
-echo "elif [ \"\${1:-'.'}\" == \"--meta\" -a -e $allVOID ]; then"                                            >> $vloadSH
+echo "elif [[ \"\$1\" == \"--meta\" && -e '$allVOID' ]]; then"                                               >> $vloadSH
 echo "   metaURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.void.ttl\"" >> $vloadSH
 echo "   metaGraph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\"/vocab/Dataset"              >> $vloadSH
-#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                                 >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                                      >> $vloadSH
+#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                       >> $vloadSH
+#echo "   #sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                            >> $vloadSH
 echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                             >> $vloadSH
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                  >> $vloadSH
 echo "   exit 1"                                                                                             >> $vloadSH
-echo "fi"                                                                                                    >> $vloadSH
-echo ""                                                                                                      >> $vloadSH
-echo "# Modify the graph before continuing to load everything"                                               >> $vloadSH
-echo "if [[ \${1:-'.'} == \"--unversioned\" || \${1:-'.'} == \"--abstract\" ]]; then"                        >> $vloadSH
-echo "   # strip off version"                                                                                >> $vloadSH
-echo "   graph=\"\`echo \$graph\ | perl -pe 's|/version/[^/]*$||'\`\""                                       >> $vloadSH
+echo "fi"                                                                                                             >> $vloadSH
+echo ""                                                                                                               >> $vloadSH
+echo "# Change the target graph before continuing to load everything"                                                 >> $vloadSH
+echo "if [[ \"\$1\" == \"--unversioned\" || \"\$1\" == \"--abstract\" ]]; then"                                       >> $vloadSH
+echo "   # strip off version"                                                                                         >> $vloadSH
+echo "   graph=\"\`echo \$graph\ | perl -pe 's|/version/[^/]*$||'\`\""                                                >> $vloadSH
 echo "   graph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/dataset/${datasetID}\"" >> $vloadSH
-echo "   echo populating abstract named graph \(\$graph\) instead of versioned named graph."                 >> $vloadSH
-echo "elif [ \$# -gt 0 ]; then"                                                                              >> $vloadSH
-echo "   echo param not recognized: \$1"                                                                     >> $vloadSH
-echo "   echo usage: \`basename \$0\` with no parameters loads versioned dataset"                      >> $vloadSH
-echo "   echo usage: \`basename \$0\` --{sample, meta, abstract}"                                      >> $vloadSH
-echo "   exit 1"                                                                                       >> $vloadSH
-echo "fi"                                                                                              >> $vloadSH
-echo ""                                                                                                >> $vloadSH
+echo "   echo populating abstract named graph \(\$graph\) instead of versioned named graph."                          >> $vloadSH
+echo "elif [[ \"\$1\" == \"--meta\" ]]; then"                                                                         >> $vloadSH
+echo "   metaGraph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\"/vocab/Dataset"                       >> $vloadSH
+echo "elif [ \$# -gt 0 ]; then"                                                                                       >> $vloadSH
+echo "   echo param not recognized: \$1"                                                                              >> $vloadSH
+echo "   echo usage: \`basename \$0\` with no parameters loads versioned dataset"                                     >> $vloadSH
+echo "   echo usage: \`basename \$0\` --{sample, meta, abstract}"                                                     >> $vloadSH
+echo "   exit 1"                                                                                                      >> $vloadSH
+echo "fi"                                                                                                             >> $vloadSH
+echo ""                                                                                                               >> $vloadSH
+echo "# Load the metadata, either in the same named graph as the data or into a more global one."                     >> $vloadSH
+echo "metaURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.void.ttl\"" >> $vloadSH
+echo "echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                         >> $vloadSH
+echo "\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                              >> $vloadSH
+echo "if [[ \"\$1\" == \"--meta\" ]]; then"                                                                     >> $vloadSH
+echo "   exit 1"                                                                                                >> $vloadSH
+echo "fi"                                                                                                       >> $vloadSH
 # http://logd.tw.rpi.edu/source/nitrd-gov/dataset/DDD/version/2011-Jan-27
 # http://logd.tw.rpi.edu/source/nitrd-gov/file/DDD/version/2011-Jan-27/conversion/nitrd-gov-DDD-2011-Jan-27.ttl.gz
-echo "dump=$allNT"                                                                                     >> $vloadSH
-#echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                                               >> $vloadSH
-echo "url=$http_allNT"                                                                                 >> $vloadSH
-echo "if [ -e \$dump ]; then"                                                                          >> $vloadSH
-echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                               >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                    >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload nt \$dump \$graph"                                          >> $vloadSH
-echo "   exit 1"                                                                                       >> $vloadSH
-echo "elif [ -e \$dump.$zip ]; then"                                                                   >> $vloadSH 
-echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                          >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                               >> $vloadSH
-#echo "   #gunzip -c \$dump.$zip > \$TEMP"                                                              >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload nt \$TEMP \$graph"                                          >> $vloadSH
-#echo "   rm \$TEMP"                                                                                    >> $vloadSH
-echo "   exit 1"                                                                                       >> $vloadSH
-echo "fi"                                                                                              >> $vloadSH
-echo ""                                                                                                >> $vloadSH
-echo "dump=$allTTL"                                                                                    >> $vloadSH
-echo "url=$http_allTTL"                                                                                >> $vloadSH
-echo "if [ -e \$dump ]; then"                                                                          >> $vloadSH
-echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                               >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                    >> $vloadSH
-#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                    >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                         >> $vloadSH
-echo "   exit 1"                                                                                       >> $vloadSH
-echo "elif [ -e \$dump.$zip ]; then"                                                                   >> $vloadSH 
-echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                          >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                               >> $vloadSH
-#echo "   #gunzip -c \$dump.$zip > \$TEMP"                                                              >> $vloadSH
-#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                    >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                         >> $vloadSH
-#echo "   #rm -f \$TEMP"                                                                                >> $vloadSH
-echo "   exit 1"                                                                                       >> $vloadSH
-echo "fi"                                                                                              >> $vloadSH
-echo ""                                                                                                >> $vloadSH
-echo "dump=$allRDFXML"                                                                                 >> $vloadSH
-echo "url=$http_allRDFXML"                                                                             >> $vloadSH
-echo "if [ -e \$dump ]; then"                                                                          >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                   >> $vloadSH
-#echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                                          >> $vloadSH
-echo "   exit 1"                                                                                       >> $vloadSH
-echo "elif [ -e \$dump.$zip ]; then"                                                                   >> $vloadSH 
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                              >> $vloadSH
-#echo "   gunzip -c \$dump.$zip > \$TEMP"                                                               >> $vloadSH
-#echo "   sudo /opt/virtuoso/scripts/vload rdf \$TEMP \$graph"                                          >> $vloadSH
-#echo "   rm \$TEMP"                                                                                    >> $vloadSH
-echo "   exit 1"                                                                                       >> $vloadSH
-echo "fi"                                                                                              >> $vloadSH
+echo ""                                                                                                         >> $vloadSH
+echo ""                                                                                                         >> $vloadSH
+echo ""                                                                                                         >> $vloadSH
+echo "dump='$allNT'"                                                                                            >> $vloadSH
+#echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                                                       >> $vloadSH
+echo "url='$http_allNT'"                                                                                        >> $vloadSH
+echo "if [ -e \$dump ]; then"                                                                                   >> $vloadSH
+echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                        >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                             >> $vloadSH
+#echo "   #sudo /opt/virtuoso/scripts/vload nt \$dump \$graph"                                                  >> $vloadSH
+echo "   exit 1"                                                                                                >> $vloadSH
+echo "elif [ -e \$dump.$zip ]; then"                                                                            >> $vloadSH 
+echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                                   >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                                        >> $vloadSH
+#echo "   #gunzip -c \$dump.$zip > \$TEMP"                                                                      >> $vloadSH
+#echo "   #sudo /opt/virtuoso/scripts/vload nt \$TEMP \$graph"                                                  >> $vloadSH
+#echo "   rm \$TEMP"                                                                                            >> $vloadSH
+echo "   exit 1"                                                                                                >> $vloadSH
+echo "fi"                                                                                                       >> $vloadSH
+echo ""                                                                                                         >> $vloadSH
+echo "dump='$allTTL'"                                                                                           >> $vloadSH
+echo "url='$http_allTTL'"                                                                                       >> $vloadSH
+echo "if [ -e \$dump ]; then"                                                                                   >> $vloadSH
+echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                        >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                             >> $vloadSH
+#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                            >> $vloadSH
+#echo "   #sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                                 >> $vloadSH
+echo "   exit 1"                                                                                                >> $vloadSH
+echo "elif [ -e \$dump.$zip ]; then"                                                                            >> $vloadSH 
+echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                                   >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                                        >> $vloadSH
+#echo "   #gunzip -c \$dump.$zip > \$TEMP"                                                                      >> $vloadSH
+#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                            >> $vloadSH
+#echo "   #sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                                 >> $vloadSH
+#echo "   #rm -f \$TEMP"                                                                                        >> $vloadSH
+echo "   exit 1"                                                                                                >> $vloadSH
+echo "fi"                                                                                                       >> $vloadSH
+echo ""                                                                                                         >> $vloadSH
+echo "dump='$allRDFXML'"                                                                                        >> $vloadSH
+echo "url='$http_allRDFXML'"                                                                                    >> $vloadSH
+echo "if [ -e \$dump ]; then"                                                                                   >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                             >> $vloadSH
+#echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                                                  >> $vloadSH
+echo "   exit 1"                                                                                                >> $vloadSH
+echo "elif [ -e \$dump.$zip ]; then"                                                                            >> $vloadSH 
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                                        >> $vloadSH
+#echo "   gunzip -c \$dump.$zip > \$TEMP"                                                                       >> $vloadSH
+#echo "   sudo /opt/virtuoso/scripts/vload rdf \$TEMP \$graph"                                                  >> $vloadSH
+#echo "   rm \$TEMP"                                                                                            >> $vloadSH
+echo "   exit 1"                                                                                                >> $vloadSH
+echo "fi"                                                                                                       >> $vloadSH
 chmod +x $vloadSH
 cat $vloadSH | sed 's/pvload.sh .*-ng/pvdelete.sh/g' | sed 's/vload [^ ]* [^^ ]* /vdelete /' | grep -v "tar xzf" | grep -v "unzip" | grep -v "rm " > $vdeleteSH # TODO:notar
 chmod +x $vdeleteSH
@@ -891,11 +978,11 @@ mappingPatternsProvenance='--uripattern="/source/([^/]+)/provenance/(.*)" --file
 CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 MATERIALIZATION_DIR=${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:-$local_materialization_dir}
 
-lodmatSH=$publishDir/bin/lod-materialize-${sourceID}-${datasetID}-${datasetVersion}.sh
+lodmatSH=$publishDir/bin/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh
 echo "#!/bin/bash"                                                                                              > $lodmatSH
 echo "#"                                                                                                       >> $lodmatSH
-echo "# run $destDir/lod-materialize-${sourceID}-${datasetID}-${datasetVersion}.sh"                            >> $lodmatSH
-echo "# from ${sourceID}/$datasetID/version/$datasetVersion/"                                                  >> $lodmatSH
+echo "# run $convertDir/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh"                            >> $lodmatSH
+echo "# from ${sourceID}/$datasetID/version/$versionID/"                                                  >> $lodmatSH
 echo ""                                                                                                        >> $lodmatSH
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}'                        >> $lodmatSH
 echo ""                                                                                                        >> $lodmatSH
@@ -946,11 +1033,11 @@ echo "   rm \$delete"                                                           
 echo "fi"                                                                                                      >> $lodmatSH
 chmod +x                                                                                                          $lodmatSH
 
-lodmatvoidSH=$publishDir/bin/lod-materialize-${sourceID}-${datasetID}-${datasetVersion}-void.sh
+lodmatvoidSH=$publishDir/bin/lod-materialize-${sourceID}-${datasetID}-${versionID}-void.sh
 echo "#!/bin/bash"                                                                                                > $lodmatvoidSH
 echo "#"                                                                                                       >> $lodmatvoidSH
-echo "# run $destDir/lod-materialize-${sourceID}-${datasetID}-${datasetVersion}.sh"                            >> $lodmatvoidSH
-echo "# from ${sourceID}/$datasetID/version/$datasetVersion/"                                                  >> $lodmatvoidSH
+echo "# run $convertDir/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh"                            >> $lodmatvoidSH
+echo "# from ${sourceID}/$datasetID/version/$versionID/"                                                  >> $lodmatvoidSH
 echo ""                                                                                                        >> $lodmatvoidSH
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}'                        >> $lodmatvoidSH
 echo ""                                                                                                        >> $lodmatvoidSH
@@ -987,11 +1074,11 @@ echo "   rm $allVOIDNT"                                                         
 echo "fi"                                                                                                      >> $lodmatvoidSH
 chmod +x                                                                                                          $lodmatvoidSH
 
-lodmatapacheSH=$publishDir/bin/lod-materialize-apache-${sourceID}-${datasetID}-${datasetVersion}.sh
+lodmatapacheSH=$publishDir/bin/lod-materialize-apache-${sourceID}-${datasetID}-${versionID}.sh
 echo "#!/bin/bash"                                                                                                > $lodmatapacheSH
 echo "#"                                                                                                       >> $lodmatapacheSH
-echo "# run $destDir/lod-materialize-apache-${sourceID}-${datasetID}-${datasetVersion}.sh"                     >> $lodmatapacheSH
-echo "# from ${sourceID}/$datasetID/version/$datasetVersion/"                                                  >> $lodmatapacheSH
+echo "# run $convertDir/lod-materialize-apache-${sourceID}-${datasetID}-${versionID}.sh"                     >> $lodmatapacheSH
+echo "# from ${sourceID}/$datasetID/version/$versionID/"                                                  >> $lodmatapacheSH
 echo ""                                                                                                        >> $lodmatapacheSH
 echo "                # The newer C version of lod-mat is faster."                                             >> $lodmatapacheSH
 echo "c_lod_mat=\"c/\"  # It is in the directory called 'c' within the lod-materialization project."           >> $lodmatapacheSH
@@ -1017,7 +1104,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION:-"."} == "true" ]; then # Produci
    $lodmatSH
 else
    echo "$MATERIALIZATION_DIR/ - skipping; set CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION=true in source-me.sh to load conversions into $MATERIALIZATION_DIR/," | tee -a $CSV2RDF4LOD_LOG
-   echo "`echo $MATERIALIZATION_DIR/ | sed 's/./ /g'` - or run $destDir/lod-materialize-${sourceID}-${datasetID}-${datasetVersion}.sh." | tee -a $CSV2RDF4LOD_LOG
+   echo "`echo $MATERIALIZATION_DIR/ | sed 's/./ /g'` - or run $convertDir/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh." | tee -a $CSV2RDF4LOD_LOG
 fi
 
 if [ -e $allTTL -a ${CSV2RDF4LOD_PUBLISH_TTL:-"."} != "true" ]; then

@@ -1,5 +1,19 @@
 #!/bin/bash
 #
+#   Copyright 2012 Timothy Lebo
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+#
 # Usage:
 #
 # punzip.sh                            US-44-009-result.zip --> data.csv             and data.csv.pml.ttl
@@ -8,7 +22,7 @@
 # punzip.sh -n US-44-009-result        US-44-009-result.zip --> US-44-009-result     and US-44-009-result.pml.ttl
 
 usage_message="usage: `basename $0` [-n filename] [-e file_extension] .zip [.zip ...]" 
-if [ $# -lt 1 ]; then
+if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo $usage_message 
    echo "  -n: filename to name every file coming out of the zip."
    echo "  -e: extension to use for every file coming out of the zip."

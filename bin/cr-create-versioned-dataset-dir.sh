@@ -2,6 +2,20 @@
 #
 # https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-create-versioned-dataset-dir.sh
 #
+#   Copyright 2012 Timothy Lebo
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+#
 # This script sets up a new version of a dataset when given a URL to a tabular file and some options
 # describing its structure (comment character, header line, and delimter).
 #
@@ -36,7 +50,7 @@ fi
 #-#-#-#-#-#-#-#-#
 version="$1"
 url="$2"
-if [ "$1" == "cr:auto" ]; then
+if [[ "$1" == "cr:auto" && ${#url} -gt 0 ]]; then
    version=`urldate.sh $url`
    echo "Attempting to use URL modification date to name version: $version"
 fi
@@ -62,7 +76,7 @@ if [ "$1" == "--comment-character" -a $# -ge 2 ]; then
 fi
 
 #-#-#-#-#-#-#-#-#
-headerLine=0
+headerLine=1
 if [ "$1" == "--header-line" -a $# -ge 2 ]; then
    headerLine="$2"
    shift 2
@@ -70,6 +84,7 @@ fi
 
 #-#-#-#-#-#-#-#-#
 delimiter='\t'
+delimiter=','
 if [ "$1" == "--delimiter" -a $# -ge 2 ]; then
    delimiter="$2"
    shift 2
@@ -116,7 +131,23 @@ if [ ! -d $version ]; then
          # 2manual.sh should also create the cr-create-convert.sh.
          chmod +x ../2manual.sh
          ../2manual.sh
+      elif [ `find source -name "*.xls" | wc -l` -gt 0 ]; then
+         # Tackle the xls files
+         for xls in `find source -name "*.xls"`; do
+            touch .__CSV2RDF4LOD_csvify
+            sleep 1
+            xls2csv.sh -w -od source $xls
+            for csv in `find source -type f -newer .__CSV2RDF4LOD_csvify`; do
+               #justify.sh $xls $csv xls2csv_`md5.sh \`which justify.sh\`` # TODO: excessive? justify.sh needs to know the broad class rule/engine
+                                                             # TODO: shouldn't you be hashing the xls2csv.sh, not justify.sh?
+               justify.sh $xls $csv csv2rdf4lod_xls2csv_sh
+            done
+         done
+
+         files=`find source/ -name "*.csv"`
+         cr-create-convert-sh.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
       else
+
          # Take a best guess as to what data files should be converted.
          # Include source/* that is newer than source/.__CSV2RDF4LOD_retrieval and NOT *.pml.ttl
 
