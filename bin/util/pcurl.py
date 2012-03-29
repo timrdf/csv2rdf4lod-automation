@@ -108,9 +108,10 @@ def pcurl(url):
     ResponseHeader = work.session.get_class(ns.HTTP['ResponseHeader'])
     Method = work.session.get_class(ns.HTTP["Method"])
     GET = Method(ns.METHOD["GET"])
+    GET.rdfs_label = "HTTP 1.1 GET"
     Manifestation = work.session.get_class(ns.FRBR['Manifestation'])
     Expression = work.session.get_class(ns.FRBR['Expression'])
-    ProcessExecution = work.session.get_class(ns.PROV['ProcessExecution'])
+    ProcessExecution = work.session.get_class(ns.PROV['Activity'])
 
     o = urlparse(str(workURI))
     filename = [f for f in o.path.split("/") if len(f) > 0][-1]
@@ -147,8 +148,8 @@ def pcurl(url):
     getPE.http_methd = GET
     getPE.http_requestURI = workURI
     getPE.dcterms_date = localItem.dcterms_date
-    getPE.prov_hadRecipe.append(GET)
-    getPE.prov_wasControlledBy = controller
+    getPE.prov_hadPlan.append(GET)
+    getPE.prov_wasAttributedTo = controller
     getPE.prov_used.append(item)
     getPE.http_resp = item
     localItem.prov_wasGeneratedBy = getPE
