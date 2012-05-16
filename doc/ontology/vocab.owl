@@ -123,6 +123,10 @@
     <rdfs:comment>A shell script that sets https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables to control the behavior of csv2rdf4lod-automation.</rdfs:comment>
     <rdfs:label>CSV2RDF4LOD_environment_variables</rdfs:label>
   </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/CaseInsensitiveLODLink">
+    <rdfs:comment>Ignore string case when attempting to match identifiers between the input table and the identifiers in the LODLinks graph</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Enhancement"/>
+  </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/CatalogedDataset">
     <rdfs:comment>A CatalogedDataset is any kind of dataset, in the most general sense and regardless of how it is encoded (RDF, Relational, Tabular, XML, SPS, etc.). If someone says to you, 'yea, NASA has a Mars imagery dataset, talk to Joe about it and visit its homepage', you just instantiated a CatalogedDataset. There are MANY CatalogedDatasets that are NOT conversion:Datasets and NOT void:Datasets, since both of these are RDF-based datasets. The purpose of CatalogedDataset is to maintain a list of 'TODO' items that could be explored, converted, and published as RDF. Once a CatalogedDataset IS investigated, named, and converted, it also becomes a conversion:Dataset (and thus a void:Datast).</rdfs:comment>
   </owl:Class>
@@ -231,6 +235,9 @@
         <owl:onProperty rdf:resource="http://purl.org/twc/vocab/conversion/range"/>
       </owl:Restriction>
     </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/Deprecated">
+    <rdfs:comment></rdfs:comment>
   </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/DirectSameAsEnhancement">
     <rdfs:comment>For any Resource that became owl:sameAs another Resource in an external LOD bubble, use ALL external URIs instead of the local resource.</rdfs:comment>
@@ -349,6 +356,11 @@
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/IncludesLODLinks">
+    <rdfs:comment>Any enhnacment with a conversion:links_via can also be a conversion:IncludesLODLinks. When so, include the LODLinks graph in the converted output.</rdfs:comment>
+    <rdfs:seeAlso rdf:resource="http://purl.org/twc/vocab/conversion/LODLinks"/>
+    <rdfs:subClassOf rdf:resource="http://purl.org/twc/vocab/conversion/Enhancement"/>
+  </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/IndirectSameAsEnhancement">
     <rdfs:comment>Refer to a local URI, which then has a single owl:sameAs triple pointing to external LOD bubbles. Depends on owl:sameAs inference OR extra graph patterns in SPARQL queries.</rdfs:comment>
     <rdfs:label>IndirectSameAsEnhancement</rdfs:label>
@@ -363,6 +375,10 @@
         <owl:onProperty rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#value"/>
       </owl:Restriction>
     </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/LODLinks">
+    <rdfs:comment>An RDF Graph of resources with identifiers (dcterms:identifer, etc) that is used to link to resources created during conversion.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://rdfs.org/ns/void#Dataset"/>
   </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/LabelRenameEnhancement">
     <rdfs:comment>Renames an existing property in the dataset.</rdfs:comment>
@@ -869,6 +885,7 @@
   </owl:DatatypeProperty>
   <owl:ObjectProperty rdf:about="http://purl.org/twc/vocab/conversion/links_via">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/twc/vocab/conversion/"/>
+    <rdfs:range rdf:resource="http://purl.org/twc/vocab/conversion/LODLinks"/>
     <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
     <vs:userdocs rdf:resource="https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:links_via"/>
   </owl:ObjectProperty>

@@ -171,6 +171,19 @@ conversion:Enhancement
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
 	.
 
+conversion:IncludesLODLinks
+   a owl:Class;
+   rdfs:subClassOf conversion:Enhancement;
+   rdfs:comment "Any enhnacment with a conversion:links_via can also be a conversion:IncludesLODLinks. When so, include the LODLinks graph in the converted output.";
+   rdfs:seeAlso    conversion:LODLinks;
+.
+
+conversion:CaseInsensitiveLODLink
+   a owl:Class;
+   rdfs:subClassOf conversion:Enhancement;
+   rdfs:comment "Ignore string case when attempting to match identifiers between the input table and the identifiers in the LODLinks graph";
+.
+
 ### S - P - O Enhancement
 
 conversion:SubjectEnhancement
@@ -844,7 +857,14 @@ conversion:links_via
    rdfs:range rdfs:Resource;
    vs:userdocs <https://github.com/timrdf/csv2rdf4lod-automation/wiki/conversion:links_via>;
    rdfs:isDefinedBy <http://purl.org/twc/vocab/conversion/>;
-   .
+   rdfs:range conversion:LODLinks;
+.
+
+conversion:LODLinks
+   a owl:Class;
+   rdfs:subClassOf void:Dataset;
+   rdfs:comment "An RDF Graph of resources with identifiers (dcterms:identifer, etc) that is used to link to resources created during conversion.";
+.
 
 conversion:subject_of
    a owl:ObjectProperty;
@@ -1202,4 +1222,9 @@ conv:conceptual_depth
 conversion:num_triples
    a owl:DatatypeProperty;
    owl:equivalentProperty void:triples;
+.
+
+conversion:Deprecated
+   a owl:Class;
+   rdfs:comment "";
 .
