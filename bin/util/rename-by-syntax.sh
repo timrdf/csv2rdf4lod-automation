@@ -44,8 +44,6 @@ while [ $# -gt 0 ]; do
          mv $file $file.$extension
          if [ "$verbose" == "true" ]; then
             echo $file.$extension
-         else
-            echo $file
          fi
       fi
    fi
