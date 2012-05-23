@@ -45,6 +45,10 @@ while [ $# -gt 0 ]; do
          if [ "$verbose" == "true" ]; then
             echo $file.$extension
          fi
+      else
+         if [ "$verbose" == "true" ]; then
+            echo $file
+         fi
       fi
    fi
    shift
