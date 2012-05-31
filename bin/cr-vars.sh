@@ -73,6 +73,10 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR                      ${CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR:="(will default to: false)"}"
    echo "CSV2RDF4LOD_CONVERT_DEBUG_LEVEL                          ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:="(will default to: none \{none,fine,finer,finest\})"}"
 
+   if [ ${#CSV2RDF4LOD_CONVERTER} -gt 0 ]; then
+      echo "CSV2RDF4LOD_CONVERTER                                 ${CSV2RDF4LOD_CONVERTER:="(will default to: java ... -Xmx3060m edu.rpi.tw.data.csv.CSVtoRDF"}"
+   fi
+
    echo "  "
    echo "CSV2RDF4LOD_PUBLISH                                      ${CSV2RDF4LOD_PUBLISH:-"(will default to: true)"}"
    echo "CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED                 ${CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED:-"(will default to: true)"}"
