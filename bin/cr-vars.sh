@@ -100,9 +100,9 @@ if [ ${1:-"no"} != "CLEAR" ]; then
    echo "CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID                        ${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:="(will not archive conversion metadata into versioned dataset.)"}"
    echo "CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID                       ${CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID:="(will not archive conversion metadata into versioned dataset.)"}"
    echo "CSV2RDF4LOD_PUBLISH_CONVERSION_PARAMS_NAMED_GRAPH        ${CSV2RDF4LOD_PUBLISH_CONVERSION_PARAMS_NAMED_GRAPH:="(will default to: auto)"}"
+   echo "CSV2RDF4LOD_PUBLISH_METADATASET_GRAPH_NAME               ${CSV2RDF4LOD_PUBLISH_METADATASET_GRAPH_NAME:="(will default to: http://purl.org/twc/vocab/conversion/MetaDataset)"}"
 
    echo "  "
-
    echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT         ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:-"(will default to: VVV/publish/lod-mat/)"}"
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES                    ${CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES:-"(will default to: false)"}"
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE                     ${CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE:-"(will default to: hard)"}"
@@ -205,6 +205,7 @@ else
    export CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID=""
    export CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID=""
    export CSV2RDF4LOD_PUBLISH_CONVERSION_PARAMS_NAMED_GRAPH=""
+   export CSV2RDF4LOD_PUBLISH_METADATA_GRAPH_NAME=""
    export CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES=""
    export CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE=""
    # "  "

@@ -387,6 +387,17 @@ export CSV2RDF4LOD_PUBLISH_SUBSET_VOID_NAMED_GRAPH="http://logd.tw.rpi.edu/vocab
 export CSV2RDF4LOD_PUBLISH_SUBSET_VOID_NAMED_GRAPH="auto"
 
 #
+# Customize: The named graph to place all datasets whose contents describe datasets.
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# 'auto' will expand to http://purl.org/twc/vocab/conversion/MetaDataset
+#
+# (done in convert-aggregate.sh)
+#
+export CSV2RDF4LOD_PUBLISH_METADATASET_GRAPH_NAME="http://purl.org/twc/vocab/conversion/MetaDataset"
+export CSV2RDF4LOD_PUBLISH_METADATASET_GRAPH_NAME="auto"
+
+#
 # Customize: TODO
 # Variable type: Machine ? Project ? User ? Activity ?
 #
