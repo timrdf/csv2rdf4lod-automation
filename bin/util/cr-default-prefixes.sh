@@ -29,6 +29,7 @@ if [[ "$1" == "--turtle" ]]; then
 else
    echo "prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
    echo "prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>"
+   echo "prefix xsd:        <http://www.w3.org/2001/XMLSchema#>"
    echo "prefix owl:        <http://www.w3.org/2002/07/owl#>"
    echo "prefix wgs:        <http://www.w3.org/2003/01/geo/wgs84_pos#>"
    echo "prefix dcterms:    <http://purl.org/dc/terms/>"
