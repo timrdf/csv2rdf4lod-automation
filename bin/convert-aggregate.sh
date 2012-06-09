@@ -964,6 +964,7 @@ echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"        
 echo "   exit 1"                                                                                                            >> $vloadSH
 echo "fi"                                                                                                                   >> $vloadSH
 echo "#3> <> prov:wasAttributedTo <${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/csv2rdf4lod/$myMD5> ."        >> $vloadSH
+echo "#3> <> prov:generatedAtTime \"`dateInXSDDateTime.sh`\"^^xsd:dateTime ."                                               >> $vloadSH
 echo "#3> <${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/csv2rdf4lod/$myMD5> foaf:name \"`basename $0`\" ."    >> $vloadSH
 chmod +x $vloadSH
 cat $vloadSH | sed 's/pvload.sh .*-ng/pvdelete.sh/g' | sed 's/vload [^ ]* [^^ ]* /vdelete /' | grep -v "tar xzf" | grep -v "unzip" | grep -v "rm " > $vdeleteSH # TODO:notar
