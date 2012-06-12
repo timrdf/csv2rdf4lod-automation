@@ -39,6 +39,7 @@ else
    echo "prefix sioc:       <http://rdfs.org/sioc/ns#>"
    echo "prefix void:       <http://rdfs.org/ns/void#>"             
    echo "prefix ov:         <http://open.vocab.org/terms/>"
+   echo "prefix frbr:       <http://purl.org/vocab/frbr/core#>"
    echo "prefix qb:         <http://purl.org/linked-data/cube#>"             
    echo "prefix sd:         <http://www.w3.org/ns/sparql-service-description#>"
    echo "prefix moby:       <http://www.mygrid.org.uk/mygrid-moby-service#>"
