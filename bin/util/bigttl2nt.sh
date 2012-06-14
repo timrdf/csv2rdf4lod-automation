@@ -26,7 +26,7 @@ if [ $# -lt 1 ]; then
 fi
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
-
+# TODO: fold too-big-for-rapper.sh into this with flag --is-too-big
 # For each Turtle file
 while [ $# -gt 0 ]; do
    ttl2chunk="$1"

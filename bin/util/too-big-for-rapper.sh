@@ -25,7 +25,7 @@ if [ $# -lt 1 ]; then
    echo "usage: `basename $0` a.ttl b.ttl ..."
    exit 1
 fi
-
+# TODO: This should have been done directly in bigttl2nt.sh with a flag like --is-too-big
 too_big="no"
 while [ $# -gt 0 ];do
    ttl="$1"
