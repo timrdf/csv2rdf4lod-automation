@@ -134,6 +134,7 @@ get_dump_file() {
       if [[ -e "$dump_ttl" ]]; then
          # Try as uncompressed
          echo "INFO `basename $0`   $dump_ttl"
+         echo "INFO       to $TODAY"
          $assudo cp $dump_ttl $TODAY
       else 
          echo "WARNING `basename $0`: $source_id $dataset_id - $SOURCE/$source_id/$dataset_id/version/$latest_version_id/publish/*-$latest_version_id.ttl[.gz] not found."
@@ -284,8 +285,9 @@ fi
 echo "-----------------------------------------" 
 
 files_to_load="no"
-for file in `find $TODAY -name "*.ttl"`;    do files_to_load="yes"; done
-for file in `find $TODAY -name "*.ttl.gz"`; do files_to_load="yes"; done
+for file in `find $TODAY -name "*.ttl"`;     do files_to_load="yes"; done
+for file in `find $TODAY -name "*.ttl.gz"`;  do files_to_load="yes"; done
+for file in `find $TODAY -name "*.ttl.tgz"`; do files_to_load="yes"; done
 
 if [ $files_to_load == "yes" -a "$dryRun" == "false" ]; then
    echo "-----------------------------------------------------------"
@@ -321,9 +323,10 @@ if [ $files_to_load == "yes" -a "$dryRun" == "false" ]; then
          # and plop into a single monolith
          echo "INFO `basename $0`: Adding to monolith Turtle"
          cat $ttl                             >> $WEB_TODAY/publish/metadatasets.ttl
-         echo "INFO `basename $0`: Adding to monolith N-TRIPLES"
-         rapper -q -i turtle -o ntriples $ttl >> $WEB_TODAY/publish/metadatasets.nt
+         #echo "INFO `basename $0`: Adding to monolith N-TRIPLES"
+         #rapper -q -i turtle -o ntriples $ttl >> $WEB_TODAY/publish/metadatasets.nt # BUG; do all at once later.
       done
+      bigttl2nt.sh metadatasets.ttl > $WEB_TODAY/publish/metadatasets.nt
    popd &> /dev/null
 
    echo "INFO `basename $0`: Creating monolith RDF/XML"
