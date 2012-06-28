@@ -301,7 +301,16 @@ if [ $files_to_load == "yes" -a "$dryRun" == "false" ]; then
    # Uncompress dump files.
    # TODO: check working dirctories, this was cd.
    pushd $TODAY &> /dev/null
+
+      for zip in `find . -name "*.tgz"`; do # NOTE: the file extension might be lying. It could be just a zip
+         ttl=`echo $zip | sed 's/^\.\/// ; s/.tgz$//'`
+         echo "[INFO]: uncompressing $zip to $ttl"
+         gunzip -c $zip > $ttl
+         $assudo rm $zip 2> /dev/null
+      done
+
       for zip in `find . -name "*.gz"`; do
+         echo "[INFO]: uncompressing $zip"
          gunzip $zip
          #ttl=`echo $zip | sed 's/^\.\/// ; s/.gz$//'`
          $assudo rm $zip 2> /dev/null
