@@ -42,6 +42,15 @@ if [ "$1" == "--check" ]; then
       echo "[INFO]: curl found"
    fi
    echo
+   if [[ ! `which serdi` ]]; then
+      echo
+      echo "[WARNING]: serdi not found on path."
+      echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"
+      echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+   else
+      echo "[INFO]: serdi found"
+   fi
+   echo
    exit 0
 fi
 
