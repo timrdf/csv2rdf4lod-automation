@@ -15,12 +15,12 @@
 #   limitations under the License.
 
 if [ "$1" == "--check" ]; then
+   echo
    if [ ! `which tdbloader` ]; then
       echo
       echo "[WARNING]: rapper not found on path. Publishing and many other things will fail."
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
    else
-      echo
       echo "[INFO]: rapper found"
    fi
    if [[ ! `which tdbloader` || ! `which tdbquery` ]]; then
@@ -41,7 +41,6 @@ if [ "$1" == "--check" ]; then
    else
       echo "[INFO]: curl found"
    fi
-   echo
    if [[ ! `which serdi` ]]; then
       echo
       echo "[WARNING]: serdi not found on path."
@@ -50,6 +49,7 @@ if [ "$1" == "--check" ]; then
    else
       echo "[INFO]: serdi found"
    fi
+   echo
    echo
    exit 0
 fi
