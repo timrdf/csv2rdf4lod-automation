@@ -40,8 +40,8 @@ if [ $# -lt 1 ]; then
    echo "parameters:"
    echo "   -w : write the conversion trigger to disk instead of printing to stdout"
    echo "   --comment-character : "
-   echo "   --header-line : "
-   echo "   --delimiter : "
+   echo "   --header-line       : "
+   echo '   --delimiter         : , or tab or \\t'
    echo ""
    echo "   deprecated params:"
    echo "   -s sourceIdentifier  : override the source-identifier."
@@ -82,6 +82,9 @@ fi
 cellDelimiter=","
 if [ "$1" == "--delimiter" -a $# -gt 2 ]; then
    cellDelimiter="$2"
+   if [ $cellDelimiter == 'tab' ]; then
+      cellDelimiter='\\t'
+   fi
    shift 2
 fi
 
