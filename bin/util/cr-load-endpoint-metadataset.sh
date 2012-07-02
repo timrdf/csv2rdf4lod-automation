@@ -335,7 +335,10 @@ if [ $files_to_load == "yes" -a "$dryRun" == "false" ]; then
          #echo "INFO `basename $0`: Adding to monolith N-TRIPLES"
          #rapper -q -i turtle -o ntriples $ttl >> $WEB_TODAY/publish/metadatasets.nt # BUG; do all at once later.
       done
-      bigttl2nt.sh metadatasets.ttl > $WEB_TODAY/publish/metadatasets.nt
+      if [ `which serdi` ]; then
+         echo "[INFO] metadatasets.ttl -> metadatasets.nt from `pwd` to $WEB_TODAY"
+         serdi metadatasets.ttl > $WEB_TODAY/publish/metadatasets.nt
+      fi
    popd &> /dev/null
 
    echo "INFO `basename $0`: Creating monolith RDF/XML"
