@@ -50,7 +50,6 @@ if [ "$1" == "--check" ]; then
       echo "[INFO]: serdi found"
    fi
    echo
-   echo
    exit 0
 fi
 
