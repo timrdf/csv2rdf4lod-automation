@@ -338,6 +338,8 @@ if [ $files_to_load == "yes" -a "$dryRun" == "false" ]; then
       if [ `which serdi` ]; then
          echo "[INFO] metadatasets.ttl -> metadatasets.nt from `pwd` to $WEB_TODAY"
          serdi metadatasets.ttl > $WEB_TODAY/publish/metadatasets.nt
+      else
+         echo "[WARNING] cannot convert ttl to nt with serdi from `pwd` to $WEB_TODAY"
       fi
    popd &> /dev/null
 
