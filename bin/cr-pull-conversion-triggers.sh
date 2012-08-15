@@ -173,7 +173,8 @@ elif [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
             fi
          fi
 
-         if [ $conversionIdentifier == "raw" -o $conversionIdentifier == "1" ]; then
+         #if [ $conversionIdentifier == "raw" -o $conversionIdentifier == "1" ]; then
+         if [ $conversionIdentifier == "raw" ]; then
             eFlag=""
          else
             eFlag="-e $conversionIdentifier"
