@@ -43,6 +43,7 @@ if [ "$1" == "--help" ]; then
    echo " source/SSS/DDD/version/VVV/automatic/convert-DDD.sh if it is present."
    echo ""
    echo "   -w or --write:         prevent dry run; actually run scripts."
+   echo "   -r or --replace:       replace all conversions in automatic/."
    echo "   --latest-version-only: only convert the latest version for each dataset (uses directory modification date)."
    echo "   --layer:               conversion identifier to publish (raw, e1, e2, ...) (if not specified, converts all layers.)"
    echo "   -sourceDir:            if specified, replace source/SSS/DDD/version/VVV/automatic/convert-DDD.sh "
@@ -71,6 +72,12 @@ orig_params="$*"
 dryRun="true"
 if [[ "$1" == "-w" || "$1" == "--write" ]]; then
    dryRun="false"
+   shift 
+fi
+
+replace="true"
+if [[ "$1" == "-r" || "$1" == "--replace" ]]; then
+   replace="false"
    shift 
 fi
 
@@ -159,6 +166,10 @@ elif [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
    if [ -e convert-$datasetID.sh ]; then
       for conversionIdentifier in `cr-list-enhancement-identifiers.sh`; do  # e.g. "1", "2" (not "e1", "e2")
+         if [ "$replace" == "true" ]; then
+            echo "should replace automatic/*.${conversionIdentifier}.*"
+         fi
+
          if [ $conversionIdentifier == "raw" -o $conversionIdentifier == "1" ]; then
             eFlag=""
          else
