@@ -170,6 +170,7 @@ elif [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
             echo "    `basename $0` deleting `pwd`/automatic/*.e${conversionIdentifier}.*"
             if [ ${dryRun:-"."} != "true" ]; then
                echo "    `basename $0` rm `pwd`/automatic/*.e${conversionIdentifier}.*"
+               rm automatic/*.e${conversionIdentifier}.*
             fi
          fi
 
