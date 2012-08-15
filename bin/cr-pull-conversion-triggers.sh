@@ -75,9 +75,9 @@ if [[ "$1" == "-w" || "$1" == "--write" ]]; then
    shift 
 fi
 
-replace="true"
+replace="false"
 if [[ "$1" == "-r" || "$1" == "--replace" ]]; then
-   replace="false"
+   replace="true"
    shift 
 fi
 
