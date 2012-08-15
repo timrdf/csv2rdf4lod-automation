@@ -141,7 +141,7 @@ elif [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
    if [ "$dryRun" == "true" ]; then
       echo ""
-      echo "WARNING: Only performing dryrun; add -w parameter to actually convert."
+      echo "WARNING: Only performing dryrun; add -w (or --write) parameter to actually convert."
       echo ""
    fi
 
