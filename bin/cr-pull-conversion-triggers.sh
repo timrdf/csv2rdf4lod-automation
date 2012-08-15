@@ -14,6 +14,11 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+# Synopsis:
+#    Pull the conversion triggers in many conversion cockpits.
+#    Source identifiers and layer identifiers can be specified for which conversion triggers to pull.
+#    All datasets within the specified sources will apply (a shortcoming of this script).
+#
 # Usage:
 #    (pwd: source/DDD, e.g. source/data-gov):
 #
@@ -155,7 +160,7 @@ elif [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 #   if [ ${focusLayer:-"."} == "raw" -o ${focusLayer:-"."} == "cr:ALL" ]; then
 #      echo "`basename $0` removing $automaticDir/*"
 #      if [ ${dryRun:-"."} != "true" ]; then
-#         rm automatic/* &> /dev/null
+#         rm automatic/* &> /dev/null # NOTE: This is now done below with $replace
 #      fi
 #   fi
 #   echo "`basename $0` removing publish/*"
