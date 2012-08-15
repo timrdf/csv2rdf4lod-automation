@@ -167,9 +167,9 @@ elif [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    if [ -e convert-$datasetID.sh ]; then
       for conversionIdentifier in `cr-list-enhancement-identifiers.sh`; do  # e.g. "1", "2" (not "e1", "e2")
          if [ "$replace" == "true" ]; then
-            echo "    should replace automatic/*.${conversionIdentifier}.*"
+            echo "    should replace automatic/*.e${conversionIdentifier}.*"
             if [ ${dryRun:-"."} != "true" ]; then
-               echo "    deleting automatic/*.${conversionIdentifier}.*"
+               echo "    deleting automatic/*.e${conversionIdentifier}.*"
             fi
          fi
 
