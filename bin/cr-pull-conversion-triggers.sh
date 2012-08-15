@@ -33,7 +33,7 @@
 #       deletes publish/* (not automatic/*) and runs ./convert-1263.sh in all version directories.
 
 if [ "$1" == "--help" ]; then
-   echo "usage: `basename $0` [-w] [--layer {raw,e1,e2,...,cr:ALL}] [--latest-version-only] [-sourceDir {source,manual}] <cr:ALL | datasetID [datasetID]*>"
+   echo "usage: `basename $0` [--write] [--replace] [--layer {raw,e1,e2,...,cr:ALL}] [--latest-version-only] [-sourceDir {source,manual}] <cr:ALL | datasetID [datasetID]*>"
    echo ""
 #   echo "Remove everything in:"
 #   echo " source/SSS/DDD/version/VVV/automatic/* and"
