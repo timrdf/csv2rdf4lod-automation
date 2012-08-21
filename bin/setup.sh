@@ -807,13 +807,13 @@ PATH="${PATH}:/usr/local/bin/" # This is for rapper
 export PATH
 #
 # TODO: NOTE: cygwin needs formatting with quotes and semicolons such as:  CLASSPATH="$CLASSPATH;$CSV2RDF4LOD_HOME/bin/dup/csv2rdf4lod.jar"
-CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/csv2rdf4lod.jar"                                     # DEPRECATED: moved to bin/convert.sh
-CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/openrdf-sesame-2.3.1-onejar.jar"                     # DEPRECATED: moved to bin/convert.sh
-CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/slf4j-api-1.5.6.jar"                                 # DEPRECATED: moved to bin/convert.sh
-CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/slf4j-nop-1.5.6.jar"                                 # DEPRECATED: moved to bin/convert.sh
-CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/datadigest-1.0-SNAPSHOT.jar"                         # DEPRECATED: moved to bin/convert.sh
-CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/lib/javacsv2.0/javacsv.jar"                              # DEPRECATED: moved to bin/convert.sh
-CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/lib/commons-validator-1.3.1/commons-validator-1.3.1.jar" # DEPRECATED: moved to bin/convert.sh
+#CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/csv2rdf4lod.jar"                                     # DEPRECATED: moved to bin/convert.sh
+#CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/openrdf-sesame-2.3.1-onejar.jar"                     # DEPRECATED: moved to bin/convert.sh
+#CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/slf4j-api-1.5.6.jar"                                 # DEPRECATED: moved to bin/convert.sh
+#CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/slf4j-nop-1.5.6.jar"                                 # DEPRECATED: moved to bin/convert.sh
+#CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/dup/datadigest-1.0-SNAPSHOT.jar"                         # DEPRECATED: moved to bin/convert.sh
+#CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/lib/javacsv2.0/javacsv.jar"                              # DEPRECATED: moved to bin/convert.sh
+#CLASSPATH="${CLASSPATH}:${CSV2RDF4LOD_HOME}/bin/lib/commons-validator-1.3.1/commons-validator-1.3.1.jar" # DEPRECATED: moved to bin/convert.sh
 export CLASSPATH
 #
 export saxon9="${CSV2RDF4LOD_HOME}/bin/dup/saxonb9-1-0-8j.jar"
