@@ -37,6 +37,7 @@ else
    echo "prefix foaf:       <http://xmlns.com/foaf/0.1/>"
    echo "prefix skos:       <http://www.w3.org/2004/02/skos/core#>"
    echo "prefix sioc:       <http://rdfs.org/sioc/ns#>"
+   echo "prefix dcat:       <http://www.w3.org/ns/dcat#>"             
    echo "prefix void:       <http://rdfs.org/ns/void#>"             
    echo "prefix ov:         <http://open.vocab.org/terms/>"
    echo "prefix frbr:       <http://purl.org/vocab/frbr/core#>"
