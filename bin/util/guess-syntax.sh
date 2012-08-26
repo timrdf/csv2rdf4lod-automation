@@ -68,7 +68,7 @@ if [ $inspect == "true" ]; then
    elif [[   `head -1000 $url | awk '$0 ~ /^[^<]*<[^>]+>[^>]*<[^>]+>[^>]*<[^>]+>[^<]*\.[^<]*$/ && $0 !~ "rdf:about=" && $0 !~ "rdf:nodeID=" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
       # <> <> <>
       guess="-i ntriples"
-   elif [[ `head -1000 $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
+   elif [[ `head -1000 $url | awk '$0 ~ "rdf:about=" || $0 ~ "rdf:resource" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
       # rdf:about=
       guess="-i rdfxml"
    elif [[ `head -1000 $url | awk '$0 ~ /> +a +</ {c++} $0 ~ /^ *a +</ {c++} END {printf("%s",c)}'` -gt 0 ]]; then

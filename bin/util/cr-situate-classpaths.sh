@@ -25,7 +25,7 @@ if [ "$1" == "--help" ]; then
    echo
    echo "Put them there by executing:"
    echo
-   echo "    export CLASSPATH=\$CLASSPATH\`\$CSV2RDF4LOD_HOME/bin/${0##*/}\`"
+   echo "    export CLASSPATH=\$CLASSPATH\`\$CSV2RDF4LOD_HOME/bin/util/${0##*/}\`"
    exit
 fi
 
