@@ -46,7 +46,7 @@ while [ $# -gt 0 ]; do
    url="$1"
    
    #dateFromHTTP=`curl -s -I -L $url | grep $FIELD` # Follow redirects
-   dateFromHTTP=`curl -s -I -L $url | grep $FIELD`
+   dateFromHTTP=`curl -s -I -L $url | grep $FIELD | tail -1`
    dateInSimple=`echo $dateFromHTTP | awk '{printf("%s-%s-%s\n",$5,$4,$3)}' 2> /dev/null`
    dateInXSD=`echo $dateFromHTTP | awk -f $CSV2RDF4LOD_HOME/bin/util/http2xsddatetime.awk 2> /dev/null`
 
