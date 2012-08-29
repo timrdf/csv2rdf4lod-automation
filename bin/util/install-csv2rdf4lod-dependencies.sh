@@ -25,11 +25,12 @@ function offer_install_with_apt {
    return $?
 }
 
-echo
-echo -n "Try to install dependencies? (y/N) "
-read -u 1 install_it
-if [ "$install_it" == "y" ]; then
-   offer_install_with_apt 'curl'         'curl'
-   offer_install_with_apt 'rapper'       'raptor-utils'
-   offer_install_with_apt 'unzip'        'unzip'
-fi
+offer_install_with_apt 'curl'         'curl'
+offer_install_with_apt 'rapper'       'raptor-utils'
+offer_install_with_apt 'unzip'        'unzip'
+
+#echo
+#echo -n "Try to install dependencies? (y/N) "
+#read -u 1 install_it
+#if [ "$install_it" == "y" ]; then
+#fi
