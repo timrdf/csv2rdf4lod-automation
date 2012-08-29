@@ -54,6 +54,6 @@ echo "    run cr-vars.${ext} to see the environment variables that CSV2RDF4LOD u
 echo "    see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation"
 echo
 echo "    run 'cr-vars.${ext} --check' to check for dependencies."
-echo "    run bin/util/install-csv2rdf4lod-automation.sh to install dependencies."
+echo "    run bin/util/install-csv2rdf4lod-dependencies.sh to install dependencies."
 mv install.sh bin/
 source created my-csv2rdf4lod-source-me.${ext} &> /dev/null
