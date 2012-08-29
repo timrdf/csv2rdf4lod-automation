@@ -17,7 +17,7 @@
 if [ "$1" == "--check" ]; then
    warnings=""
    echo
-   if [ ! `which tdbloader` ]; then
+   if [ ! `which rapper` ]; then
       echo
       echo "[WARNING]: rapper not found on path. Publishing and many other things will fail."
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"

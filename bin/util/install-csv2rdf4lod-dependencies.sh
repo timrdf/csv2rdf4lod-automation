@@ -15,11 +15,11 @@ function offer_install_with_apt {
                sudo apt-get install $package
             fi
          else
-            echo "$command available at `which $command`"
+            echo "[INFO] $command available at `which $command`"
          fi
       fi
    else
-      echo "Sorry, we need apt-get to install $command / $package for you."
+      echo "[WARNING] Sorry, we need apt-get to install $command / $package for you."
    fi
    which $command >& /dev/null
    return $?
