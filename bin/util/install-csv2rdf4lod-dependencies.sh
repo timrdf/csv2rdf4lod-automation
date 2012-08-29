@@ -32,24 +32,52 @@ offer_install_with_apt 'unzip'        'unzip'
 this=$(cd ${0%/*} && echo $PWD/${0##*/})
 base=${this%/bin/util/install-csv2rdf4lod-dependencies.sh}
 base=${base%/*}
-echo $base
 
 if [ ! `which serdi` ]; then
    echo
-   echo -n "Try to install serdi? (y/N) "
+   echo -n "Try to install serdi at $base? (y/N) "
    read -u 1 install_it
    if [ "$install_it" == "y" ]; then
       bz2='http://download.drobilla.net/serd-0.18.0.tar.bz2'
       pushd $base &> /dev/null
          curl -O $bz2
          bz2=`basename $bz2`
-         tar -xjf $bz2
-         rm $bz2
-         pushd ${bz2%.tar.bz2} &> /dev/null
-            ./waf configure
-            ./waf
-            sudo ./waf install
+         if [ ! -e ${bz2%.tar.bz2} ]; then
+            tar -xjf $bz2
+            rm $bz2
+            pushd ${bz2%.tar.bz2} &> /dev/null
+               ./waf configure
+               ./waf
+               sudo ./waf install
+            popd &> /dev/null
+         fi
+      popd &> /dev/null
+   fi
+fi
+
+if [ ! `which tdbloader` ]; then
+   echo
+   echo -n "Try to install jena at $base? (y/N) "
+   read -u 1 install_it
+   if [ "$install_it" == "y" ]; then
+      tarball='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.3.tar.gz'
+      pushd $base &> /dev/null
+         curl -O $tarball
+         tarball=`basename $tarball`
+         tar xzf $tarball
+         rm $tarball
+         pushd ${tarball%.tar.bz2} &> /dev/null
+            jenaroot=`pwd`
          popd &> /dev/null
       popd &> /dev/null
+      if [ -e my-csv2rdf4lod-source-me.sh ]; then
+         echo -n "Append JENAROOT to my-csv2rdf4lod-source-me.sh? (y/N) "
+         read -u 1 install_it
+         if [ "$install_it" == "y" ]; then
+            echo JENAROOT=$jenaroot >> my-csv2rdf4lod-source-me.sh
+            echo "done:"
+            tail -1 my-csv2rdf4lod-source-me.sh
+         fi
+      fi
    fi
 fi
