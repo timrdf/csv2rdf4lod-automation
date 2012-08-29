@@ -29,8 +29,27 @@ offer_install_with_apt 'curl'         'curl'
 offer_install_with_apt 'rapper'       'raptor-utils'
 offer_install_with_apt 'unzip'        'unzip'
 
-#echo
-#echo -n "Try to install dependencies? (y/N) "
-#read -u 1 install_it
-#if [ "$install_it" == "y" ]; then
-#fi
+this=$(cd ${0%/*} && echo $PWD/${0##*/})
+base=${this%/bin/util/install-csv2rdf4lod-dependencies.sh}
+base=${base%/*}
+echo $base
+
+if [ ! `which serdi` ]; then
+   echo
+   echo -n "Try to install serdi? (y/N) "
+   read -u 1 install_it
+   if [ "$install_it" == "y" ]; then
+      bz2='http://download.drobilla.net/serd-0.18.0.tar.bz2'
+      pushd $base &> /dev/null
+         curl -O $bz2
+         bz2=`basename $bz2`
+         tar -xjf $bz2
+         rm $bz2
+         pushd ${bz2%.tar.bz2} &> /dev/null
+            ./waf configure
+            ./waf
+            sudo ./waf install
+         popd &> /dev/null
+      popd &> /dev/null
+   fi
+fi
