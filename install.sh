@@ -56,3 +56,4 @@ echo
 echo "    run 'cr-vars.${ext} --check' to check for dependencies."
 echo "    run bin/util/install-csv2rdf4lod-automation.sh to install dependencies."
 mv install.sh bin/
+source created my-csv2rdf4lod-source-me.${ext} &> /dev/null
