@@ -66,7 +66,7 @@ if [ ! `which tdbloader` ]; then
          tarball=`basename $tarball`
          tar xzf $tarball
          rm $tarball
-         jenaroot=$base/${tarball%.tar.bz2}
+         jenaroot=$base/${tarball%.tar.gz}
       popd &> /dev/null
       if [ -e my-csv2rdf4lod-source-me.sh ]; then
          echo -n "Append JENAROOT to my-csv2rdf4lod-source-me.sh? (y/N) "
