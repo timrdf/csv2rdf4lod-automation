@@ -21,7 +21,8 @@ function offer_install_with_apt {
    else
       echo "Sorry, we need apt-get to install $command / $package for you."
    fi
-   return `which $command`
+   which $command >& /dev/null
+   return $?
 }
 
 
