@@ -21,6 +21,7 @@ if [ "$1" == "--check" ]; then
       echo
       echo "[WARNING]: rapper not found on path. Publishing and many other things will fail."
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+      echo
       warnings="true"
    else
       echo "[INFO]: rapper found"
@@ -30,6 +31,7 @@ if [ "$1" == "--check" ]; then
       echo "[WARNING]: tdbloader/tdbquery not found on path. Unit testing with cr-test-conversion.sh will fail."
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+      echo
       warnings="true"
    else
       echo "[INFO]: tdb found"
@@ -39,6 +41,7 @@ if [ "$1" == "--check" ]; then
       echo "[WARNING]: curl not found on path."
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+      echo
       warnings="true"
    else
       echo "[INFO]: curl found"
@@ -48,6 +51,7 @@ if [ "$1" == "--check" ]; then
       echo "[WARNING]: serdi not found on path."
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+      echo
       warnings="true"
    else
       echo "[INFO]: serdi found"
