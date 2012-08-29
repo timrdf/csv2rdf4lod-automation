@@ -15,21 +15,22 @@
 #   limitations under the License.
 
 if [ "$1" == "--check" ]; then
+   warnings=""
    echo
    if [ ! `which tdbloader` ]; then
       echo
       echo "[WARNING]: rapper not found on path. Publishing and many other things will fail."
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+      warnings="true"
    else
       echo "[INFO]: rapper found"
    fi
-   if [[ ! `which tdbloader` || ! `which tdbquery` ]]; then
+   if [[ ! (`which tdbloader` && `which tdbquery`) ]]; then
       echo
-      echo "[WARNING]: tdbloader not found on path. Unit testing with cr-test-conversion.sh will fail."
+      echo "[WARNING]: tdbloader/tdbquery not found on path. Unit testing with cr-test-conversion.sh will fail."
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
-      echo
-      echo "[INFO]: tdbloader and tdbquery found"
+      warnings="true"
    else
       echo "[INFO]: tdb found"
    fi
@@ -38,6 +39,7 @@ if [ "$1" == "--check" ]; then
       echo "[WARNING]: curl not found on path."
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+      warnings="true"
    else
       echo "[INFO]: curl found"
    fi
@@ -46,10 +48,14 @@ if [ "$1" == "--check" ]; then
       echo "[WARNING]: serdi not found on path."
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cr-test-conversion.sh"
       echo "           see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+      warnings="true"
    else
       echo "[INFO]: serdi found"
    fi
    echo
+   if [ $warnings == "true" ]; then
+      echo "Use install-csv2rdf4lod-dependencies.sh to install dependencies"
+   fi
    exit 0
 fi
 
