@@ -24,6 +24,7 @@ function offer_install_with_apt {
    return `which $command`
 }
 
+
 echo
 echo -n "Try to install dependencies? (y/N) "
 read -u 1 install_it
