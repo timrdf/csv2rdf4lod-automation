@@ -68,17 +68,17 @@ for name in ckan.package_register_get():
 @prefix prov:       <http://www.w3.org/ns/prov#> .
 @prefix :           <CSV2RDF4LOD_BASE_URI/id/> .
 
-<CSV2RDF4LOD_BASE_URI/source/SOURCE-ID/dataset/DATASET-ID>
+<CSV2RDF4LOD_BASE_URI/source/SOURCE_ID/dataset/DATASET_ID>
    a void:Dataset;
    conversion:source_identifier  "SOURCE_ID";
    conversion:dataset_identifier "DATASET_ID";
    prov:wasDerivedFrom :as_a_csv_UUID;
 .
 
-<TARGET_CKAN/dataset/DATASET-ID>
+<TARGET_CKAN/dataset/DATASET_ID>
    a dcat:Dataset;
    dcat:distribution :as_a_csv_UUID;
-   prov:alternateOf <SOURCE_CKAN/dataset/DATASET-ID>;
+   prov:alternateOf <SOURCE_CKAN/dataset/DATASET_ID>;
 .
 
 :as_a_csv_UUID
