@@ -70,8 +70,8 @@ for name in ckan.package_register_get():
 
 <CSV2RDF4LOD_BASE_URI/source/SOURCE-ID/dataset/DATASET-ID>
    a void:Dataset;
-   conversion:source_identifier  "SOURCE-ID";
-   conversion:dataset_identifier "DATASET-ID";
+   conversion:source_identifier  "SOURCE_ID";
+   conversion:dataset_identifier "DATASET_ID";
    prov:wasDerivedFrom :as_a_csv_UUID;
 .
 
