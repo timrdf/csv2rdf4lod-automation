@@ -50,6 +50,9 @@ echo "    sourcing my-csv2rdf4lod-source-me.${ext} must be done each time you lo
 echo ""
 echo "      source $CSV2RDF4LOD_HOME/my-csv2rdf4lod-source-me.${ext} # http://purl.org/twc/id/software/csv2rdf4lod"
 echo ""
-echo "    use cr-vars.${ext} to see the environment variables that CSV2RDF4LOD uses to control execution flow."
-echo "    use 'cr-vars.${ext} --check' to check for dependencies."
+echo "    run cr-vars.${ext} to see the environment variables that CSV2RDF4LOD uses to control execution flow."
+echo "    see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation"
+echo
+echo "    run 'cr-vars.${ext} --check' to check for dependencies."
+echo "    run bin/util/install-csv2rdf4lod-automation.sh to install dependencies."
 mv install.sh bin/
