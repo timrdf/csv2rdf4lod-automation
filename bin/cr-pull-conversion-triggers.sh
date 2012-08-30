@@ -72,8 +72,6 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
-orig_params="$*"
-
 dryRun="true"
 if [[ "$1" == "-w" || "$1" == "--write" ]]; then
    dryRun="false"
@@ -122,13 +120,13 @@ if [[ `is-pwd-a.sh cr:data-root` == "yes" ]]; then
          echo "############################################# $source #############################################"
          echo "############################################# `echo $source | sed 's/./ /g'` #############################################"
          echo "############################################# `echo $source | sed 's/./ /g'` #############################################"
-         $0 $orig_params # Run this same script now that we are in the source/ directory, using the same params we were given.
+         $0 $* # Run this same script now that we are in the source/ directory, using the same params we were given.
       popd &>/dev/null
    done
 elif [[ `is-pwd-a.sh cr:source` == "yes" ]]; then
    for dataset in `cr-list-sources-datasets.sh -s`; do
       pushd $dataset &>/dev/null
-         $0 $orig_params # Run this same script with the same params we were given.
+         $0 $* # Run this same script with the same params we were given.
       popd &>/dev/null
    done
 elif [[ `is-pwd-a.sh cr:dataset` == "yes" ]]; then
@@ -139,7 +137,7 @@ elif [[ `is-pwd-a.sh cr:dataset` == "yes" ]]; then
    fi
    for version in $versions; do
       pushd version/$version &>/dev/null
-         $0 $orig_params # Run this same script with the same params we were given.
+         $0 $* # Run this same script with the same params we were given.
       popd &>/dev/null
    done
 elif [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
