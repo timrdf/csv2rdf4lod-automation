@@ -63,7 +63,6 @@ for name in ckan.package_register_get():
 #         'TARGET_CKAN'          : TARGET_CKAN,
 #<TARGET_CKAN/dataset/DATASET_ID>
 #   a dcat:Dataset;
-#   dcat:distribution :as_a_csv_UUID;
 #   prov:alternateOf <SOURCE_CKAN/dataset/DATASET_ID>;
 #.
 
@@ -88,6 +87,7 @@ for name in ckan.package_register_get():
 
 <SOURCE_CKAN/dataset/DATASET_ID>
    a dcat:Dataset;
+   dcat:distribution :as_a_csv_UUID;
 .
 '''
       for search in replacements.keys():
