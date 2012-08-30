@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-cockpit.sh> .
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-cockpit.sh> .
 #
 #   Copyright 2012 Timothy Lebo
 #
