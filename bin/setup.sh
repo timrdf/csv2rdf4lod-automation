@@ -512,10 +512,12 @@ export CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION="false"
 
 #
 # Customize: populate a directory OTHER THAN publish/lod-mat/ 
-# when lod-materializing. This prevents the need to move files
-# around to get them from the conversion directory to the
-# www directory.
+#            when lod-materializing. This prevents the need to move files
+#            around to get them from the conversion directory to the
+#            www directory.
 # Variable type: Machine ? Project ? User ? Activity ?
+#
+# No trailing slash.
 #
 # To populate publish/lod-mat/, leave this variable empty "".
 #
