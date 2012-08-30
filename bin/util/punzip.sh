@@ -68,7 +68,7 @@ fi
 ZIP_LIST_HEADER_LENGTH=3
 ZIP_LIST_FOOTER_LENGTH=2
 
-logID=`java edu.rpi.tw.string.NameFactory`
+logID=`resource-name.sh`
 while [ $# -gt 0 ]; do
 
    zip="$1"
@@ -131,7 +131,7 @@ while [ $# -gt 0 ]; do
       fi
 
       echo $file came from $zip
-      requestID=`java edu.rpi.tw.string.NameFactory`
+      requestID=`resource-name.sh`
       extractedFileMD5=`$CSV2RDF4LOD_HOME/bin/util/md5.sh $file`
 
       # Relative paths.

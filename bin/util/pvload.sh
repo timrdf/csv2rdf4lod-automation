@@ -51,13 +51,13 @@ TEMP="_"`basename $0``date +%s`_$$.response
 
 escapedEndpoint=`echo ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'`
 
-logID=`java edu.rpi.tw.string.NameFactory`
+logID=`resource-name.sh`
 while [ $# -gt 0 ]; do
    echo
    echo "/////------------------------------ `basename $0` ------------------------------\\\\\\\\\\"
 
    url="$1"
-   requestID=`java edu.rpi.tw.string.NameFactory`
+   requestID=`resource-name.sh`
 
    #
    # Grab the file.

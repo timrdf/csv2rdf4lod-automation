@@ -56,7 +56,7 @@ fi
 myMD5="md5_`$CSV2RDF4LOD_HOME/bin/util/md5.sh $0`"
 curlMD5="md5_`md5.sh \`which curl\``"
 
-logID=`java edu.rpi.tw.string.NameFactory`
+logID=`resource-name.sh`
 while [ $# -gt 0 ]; do
 
    if [ "$1" == "--repeat" ]; then
@@ -148,7 +148,7 @@ while [ $# -gt 0 ]; do
    #echo "INFO `basename $0`: local file name will be $file"
 
    if [ ! -e $file -a ${#documentVersion} -gt 0 ]; then 
-      requestID=`java edu.rpi.tw.string.NameFactory`
+      requestID=`resource-name.sh`
       usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'`
 
       #echo "$url (mod $urlModDateTime)"

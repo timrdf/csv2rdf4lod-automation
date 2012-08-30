@@ -13,8 +13,8 @@
 #3> .
 
 export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER="true"
-$CSV2RDF4LOD_HOME/bin/cr-create-versioned-dataset-dir.sh cr:auto                                               \
-                                                        'https://raw.github.com/timrdf/csv2rdf4lod-automation/master/doc/examples/source/iodp-org/scientific-ocean-drilling-repository-dspace/version/2011-Oct-17/source/sandboxMeta.csv' \
-                                                       --comment-character '#'                                 \
-                                                       --header-line        1                                  \
+$CSV2RDF4LOD_HOME/bin/cr-create-versioned-dataset-dir.sh cr:auto                                              \
+                                                        'http://scientific.oceandrilling.org/sodmetadata.csv' \
+                                                       --comment-character '#'                                \
+                                                       --header-line        1                                 \
                                                        --delimiter         ','

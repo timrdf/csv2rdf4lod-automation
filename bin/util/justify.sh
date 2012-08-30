@@ -48,8 +48,7 @@ else
       myMD5=`md5.sh $0`
    fi
 
-   alias rname="java edu.rpi.tw.string.NameFactory"
-   logID=`java edu.rpi.tw.string.NameFactory`
+   logID=`resource-name.sh`
 
    antecedent="$1"
    consequent="$2"
@@ -118,7 +117,7 @@ else
          fi
 
          usageDateTime=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`
-         requestID=`java edu.rpi.tw.string.NameFactory`
+         requestID=`resource-name.sh`
          engine_name="$method$requestID"
 
          echo "$antecedent (a $engine_type applying $method_name) -> $consequent"

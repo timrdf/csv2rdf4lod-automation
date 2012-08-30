@@ -97,7 +97,7 @@ for sparql in $queryFiles; do
       resultsFile=$results/$sparql.`echo $output | tr '/+-' '_'`
       curl "$request" > $resultsFile 2> /dev/null
 
-      requestID=`java edu.rpi.tw.string.NameFactory`
+      requestID=`resource-name.sh`
       requestDate=`dateInXSDDateTime.sh`
       echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                     > $resultsFile.pml.ttl
       echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                        >> $resultsFile.pml.ttl

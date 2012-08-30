@@ -59,10 +59,10 @@
       #conversion:delimits_cell "|";   # pipe
       #conversion:delimits_cell ",";   # comma
 
-      #conversion:interpret [          
-      #   conversion:symbol        "";
-      #   conversion:interpretation conversion:null; 
-      #];                            
+      conversion:interpret [          
+         conversion:symbol        "-";
+         conversion:interpretation conversion:null; 
+      ];                            
       conversion:enhance [
          ov:csvCol          1;
          ov:csvHeader       "VisR";

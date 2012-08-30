@@ -14,4 +14,11 @@
 
 export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER="true"
 $CSV2RDF4LOD_HOME/bin/cr-create-versioned-dataset-dir.sh cr:auto \
- 'https://github.com/timrdf/csv2rdf4lod-automation/raw/master/doc/examples/source/lebot/golfers/version/original/manual/golfers.xls.zip'
+  'http://graves.cl/timrdf/csv2rdf4lod-automation/master/doc/examples/source/lebot/golfers/version/original/manual/golfers.xls.zip'
+
+#3> <http://graves.cl/timrdf/csv2rdf4lod-automation/master/doc/examples/source/lebot/golfers/version/original/manual/golfers.xls.zip>
+#3>   prov:wasDerivedFrom <https://github.com/timrdf/csv2rdf4lod-automation/raw/master/doc/examples/source/lebot/golfers/version/original/manual/golfers.xls.zip>;
+#3>   prov:wasQuotedFrom  <https://github.com/timrdf/csv2rdf4lod-automation/raw/master/doc/examples/source/lebot/golfers/version/original/manual/golfers.xls.zip>;
+#3>   prov:alternateOf    <https://github.com/timrdf/csv2rdf4lod-automation/raw/master/doc/examples/source/lebot/golfers/version/original/manual/golfers.xls.zip>;
+#3>   frbr:reproductionOf <https://github.com/timrdf/csv2rdf4lod-automation/raw/master/doc/examples/source/lebot/golfers/version/original/manual/golfers.xls.zip>;
+#3> .

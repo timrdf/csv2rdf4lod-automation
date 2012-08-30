@@ -413,7 +413,7 @@ if [ $runRaw == "yes" ]; then
          echo "#-fstack raw $runRaw enhancement $runEnhancement $destDir/$datafile.raw.ttl @ `dateInXSDDateTime.sh`" >> $destDir/$datafile.raw.void.ttl
          fstack.py --stdout $destDir/$datafile.raw.ttl                                                               >> $destDir/$datafile.raw.void.ttl # TODO: incorporate into java directly.
          echo "@prefix prov: <http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl#> ."           >> $destDir/$datafile.raw.void.ttl
-         #echo "<#csv2rdf4lod_invocation`java edu.rpi.tw.string.NameFactory`>"                                       >> $destDir/$datafile.raw.void.ttl
+         #echo "<#csv2rdf4lod_invocation`bin/convert.sh`>"                                                           >> $destDir/$datafile.raw.void.ttl
          #echo "   a prov:ProcessExecution;"                                                                         >> $destDir/$datafile.raw.void.ttl
          #echo "   prov:used      <$item_i>;"                                                                        >> $destDir/$datafile.raw.void.ttl
          #echo "   prov:used      <$item_p>;"                                                                        >> $destDir/$datafile.raw.void.ttl
