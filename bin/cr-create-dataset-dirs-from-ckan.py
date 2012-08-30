@@ -57,9 +57,15 @@ for name in ckan.package_register_get():
          'DATASET_ID'           : dataset['name'],
          'UUID'                 : str(uuid.uuid4()),
          'SOURCE_CKAN'          : source.replace('/api',''),
-         'TARGET_CKAN'          : TARGET_CKAN,
          'DIST_URL'             : URL
       }
+
+#         'TARGET_CKAN'          : TARGET_CKAN,
+#<TARGET_CKAN/dataset/DATASET_ID>
+#   a dcat:Dataset;
+#   dcat:distribution :as_a_csv_UUID;
+#   prov:alternateOf <SOURCE_CKAN/dataset/DATASET_ID>;
+#.
 
       template='''@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix conversion: <http://purl.org/twc/vocab/conversion/> .
@@ -73,12 +79,6 @@ for name in ckan.package_register_get():
    conversion:source_identifier  "SOURCE_ID";
    conversion:dataset_identifier "DATASET_ID";
    prov:wasDerivedFrom :as_a_csv_UUID;
-.
-
-<TARGET_CKAN/dataset/DATASET_ID>
-   a dcat:Dataset;
-   dcat:distribution :as_a_csv_UUID;
-   prov:alternateOf <SOURCE_CKAN/dataset/DATASET_ID>;
 .
 
 :as_a_csv_UUID
