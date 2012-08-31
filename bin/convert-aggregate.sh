@@ -439,92 +439,94 @@ fi
 lnwwwrootSH="$publishDir/bin/ln-to-www-root-${sourceID}-${datasetID}-${versionID}.sh"
 echo $lnwwwrootSH | tee -a $CSV2RDF4LOD_LOG
 
-echo "#!/bin/bash"                                                                                    > $lnwwwrootSH
-echo "#"                                                                                             >> $lnwwwrootSH
-echo "# run from `pwd | sed 's/^.*source/source/'`/"                                                 >> $lnwwwrootSH
-echo "#"                                                                                             >> $lnwwwrootSH
-echo "# CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT"                                            >> $lnwwwrootSH
-echo "# was "                                                                                        >> $lnwwwrootSH
-echo "# ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}"                                         >> $lnwwwrootSH
-echo "# when this script was created. "                                                              >> $lnwwwrootSH
-echo ""                                                                                              >> $lnwwwrootSH
+echo "#!/bin/bash"                                                                                  > $lnwwwrootSH
+echo "#"                                                                                            >> $lnwwwrootSH
+echo "# run from `pwd | sed 's/^.*source/source/'`/"                                                >> $lnwwwrootSH
+echo "#"                                                                                            >> $lnwwwrootSH
+echo "# CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT"                                           >> $lnwwwrootSH
+echo "# was "                                                                                       >> $lnwwwrootSH
+echo "# ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}"                                        >> $lnwwwrootSH
+echo "# when this script was created. "                                                             >> $lnwwwrootSH
+echo ""                                                                                             >> $lnwwwrootSH
 echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT=\${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:?\"not set; source csv2rdf4lod/source-me.sh $or_see_github\"}" >> $lnwwwrootSH
-echo ""                                                                                              >> $lnwwwrootSH
-echo "verbose=\"no\""                                                                                >> $lnwwwrootSH
-echo "if [ \$# -gt 0 -a \${1:-\"\"} == \"-v\" ]; then"                                               >> $lnwwwrootSH
-echo "  verbose=\"yes\""                                                                             >> $lnwwwrootSH
-echo "  shift"                                                                                       >> $lnwwwrootSH
-echo "fi"                                                                                            >> $lnwwwrootSH
-echo ""                                                                                              >> $lnwwwrootSH
-echo "symbolic=\"\""                                                                                 >> $lnwwwrootSH
-echo "pwd=\"\""                                                                                      >> $lnwwwrootSH
-echo "if [[ \$# -gt 0 && \${1:-\"\"} == \"-s\" || \\"                                                >> $lnwwwrootSH
-echo "      \${CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE:-\".\"} == \"soft\" ]]; then"                    >> $lnwwwrootSH
-echo "  symbolic=\"-sf \""                                                                           >> $lnwwwrootSH
-echo "  pwd=\`pwd\`/"                                                                                >> $lnwwwrootSH
-#echo "  echo SYMBOLIC: \$symbolic \$pwd"                                                             >> $lnwwwrootSH
-echo "  shift"                                                                                       >> $lnwwwrootSH
-echo "fi"                                                                                            >> $lnwwwrootSH
-echo ""                                                                                              >> $lnwwwrootSH
-echo "sudo=\"sudo\""                                                                                 >> $lnwwwrootSH
-echo "if [ \`whoami\` == "root" ]; then"                                                             >> $lnwwwrootSH
-echo "   sudo=\"\""                                                                                  >> $lnwwwrootSH
-echo "fi"                                                                                            >> $lnwwwrootSH
-echo ""                                                                                              >> $lnwwwrootSH
-echo "##################################################"                                            >> $lnwwwrootSH
-echo "# Link all original files from the provenance_file directory structure to the web directory."  >> $lnwwwrootSH
-echo "# (these are from source/)"                                                                    >> $lnwwwrootSH
+echo ""                                                                                             >> $lnwwwrootSH
+echo "verbose=\"no\""                                                                               >> $lnwwwrootSH
+echo "if [[ \"\$1\" == \"-v\" ]]; then"                                                             >> $lnwwwrootSH
+echo "  verbose=\"yes\""                                                                            >> $lnwwwrootSH
+echo "  shift"                                                                                      >> $lnwwwrootSH
+echo "fi"                                                                                           >> $lnwwwrootSH
+echo ""                                                                                             >> $lnwwwrootSH
+echo "symbolic=\"\""                                                                                >> $lnwwwrootSH
+echo "pwd=\"\""                                                                                     >> $lnwwwrootSH
+echo "if [[ \"\$1\" == \"-s\" || \"\$CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE\" == \"soft\" ]]; then"   >> $lnwwwrootSH
+echo "  symbolic=\"-sf \""                                                                          >> $lnwwwrootSH
+echo "  pwd=\`pwd\`/"                                                                               >> $lnwwwrootSH
+#echo "  echo SYMBOLIC: \$symbolic \$pwd"                                                           >> $lnwwwrootSH
+echo "  shift"                                                                                      >> $lnwwwrootSH
+echo "fi"                                                                                           >> $lnwwwrootSH
+echo ""                                                                                             >> $lnwwwrootSH
+echo "sudo=\"sudo\""                                                                                >> $lnwwwrootSH
+echo "if [ \`whoami\` == "root" ]; then"                                                            >> $lnwwwrootSH
+echo "   sudo=\"\""                                                                                 >> $lnwwwrootSH
+echo "fi"                                                                                           >> $lnwwwrootSH
+echo ""                                                                                             >> $lnwwwrootSH
+echo "pfile=\"provenance_file\""                                                                    >> $lnwwwrootSH
+echo "file=\"file\""                                                                                >> $lnwwwrootSH
+echo ""                                                                                             >> $lnwwwrootSH
+echo "##################################################"                                           >> $lnwwwrootSH
+echo "# Link all original files from the provenance_file directory structure to the web directory." >> $lnwwwrootSH
+echo "# (these are from source/)"                                                                      >> $lnwwwrootSH
 for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    sourceFile=`echo $sourceFileProvenance | sed 's/.pml.ttl$//'` 
-   echo "if [ -e \"$sourceFile\" ]; then "                                                           >> $lnwwwrootSH
+   echo "if [ -e \"$sourceFile\" ]; then "                                                             >> $lnwwwrootSH
    echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$sourceFile\"" >> $lnwwwrootSH
-   echo "   if [ -e \$wwwfile ]; then "                                                              >> $lnwwwrootSH
-   echo "     \$sudo rm -f \$wwwfile"                                                                >> $lnwwwrootSH
-   echo "   else"                                                                                    >> $lnwwwrootSH
-   echo "     \$sudo mkdir -p \`dirname \$wwwfile\`"                                                 >> $lnwwwrootSH
-   echo "   fi"                                                                                      >> $lnwwwrootSH
-   echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
+   echo "   if [ -e \$wwwfile ]; then "                                                                >> $lnwwwrootSH
+   echo "     \$sudo rm -f \$wwwfile"                                                                  >> $lnwwwrootSH
+   echo "   else"                                                                                      >> $lnwwwrootSH
+   echo "     \$sudo mkdir -p \`dirname \$wwwfile\`"                                                   >> $lnwwwrootSH
+   echo "   fi"                                                                                        >> $lnwwwrootSH
+   echo "   echo \"  \$wwwfile\""                                                                      >> $lnwwwrootSH
 #   echo "   echo \$sudo ln \$symbolic \"\${pwd}$sourceFile\" \"\$wwwfile\""                          >> $lnwwwrootSH # TODO rm
-   echo "   \$sudo ln \$symbolic \"\${pwd}$sourceFile\" \"\$wwwfile\""                               >> $lnwwwrootSH
-   echo "else"                                                                                       >> $lnwwwrootSH
-   echo "   echo \"  -- $sourceFile omitted --\""                                                    >> $lnwwwrootSH
-   echo "fi"                                                                                         >> $lnwwwrootSH
-   echo ""                                                                                           >> $lnwwwrootSH
-   echo "if [ -e \"$sourceFileProvenance\" ]; then"                                                  >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$sourceFileProvenance\"" >> $lnwwwrootSH
-   echo "   if [ -e \"\$wwwfile\" ]; then "                                                          >> $lnwwwrootSH
-   echo "     \$sudo rm -f \$wwwfile"                                                                >> $lnwwwrootSH
-   echo "   else"                                                                                    >> $lnwwwrootSH
-   echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                             >> $lnwwwrootSH
-   echo "   fi"                                                                                      >> $lnwwwrootSH
-   echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-#   echo "   echo \$sudo ln \$symbolic \"\${pwd}$sourceFileProvenance\" \"\$wwwfile\""                     >> $lnwwwrootSH # TODO
-   echo "   \$sudo ln \$symbolic \"\${pwd}$sourceFileProvenance\" \"\$wwwfile\""                     >> $lnwwwrootSH
-   echo "else"                                                                                       >> $lnwwwrootSH
-   echo "   echo \"  -- $sourceFileProvenance omitted --\""                                          >> $lnwwwrootSH
-   echo "fi"                                                                                         >> $lnwwwrootSH
-   echo ""                                                                                           >> $lnwwwrootSH
+   echo "   \$sudo ln \$symbolic \"\${pwd}$sourceFile\" \"\$wwwfile\""                                 >> $lnwwwrootSH
+   echo "else"                                                                                         >> $lnwwwrootSH
+   echo "   echo \"  -- $sourceFile omitted --\""                                                      >> $lnwwwrootSH
+   echo "fi"                                                                                           >> $lnwwwrootSH
+   echo ""                                                                                             >> $lnwwwrootSH
+   echo "if [ -e \"$sourceFileProvenance\" ]; then"                                                    >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$sourceFileProvenance\""   >> $lnwwwrootSH
+   echo "   if [ -e \"\$wwwfile\" ]; then "                                                            >> $lnwwwrootSH
+   echo "     \$sudo rm -f \$wwwfile"                                                                  >> $lnwwwrootSH
+   echo "   else"                                                                                      >> $lnwwwrootSH
+   echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                               >> $lnwwwrootSH
+   echo "   fi"                                                                                        >> $lnwwwrootSH
+   echo "   echo \"  \$wwwfile\""                                                                      >> $lnwwwrootSH
+#   echo "   echo \$sudo ln \$symbolic \"\${pwd}$sourceFileProvenance\" \"\$wwwfile\""                       >> $lnwwwrootSH # TODO
+   echo "   \$sudo ln \$symbolic \"\${pwd}$sourceFileProvenance\" \"\$wwwfile\""                       >> $lnwwwrootSH
+   echo "else"                                                                                         >> $lnwwwrootSH
+   echo "   echo \"  -- $sourceFileProvenance omitted --\""                                            >> $lnwwwrootSH
+   echo "fi"                                                                                           >> $lnwwwrootSH
+   echo ""                                                                                             >> $lnwwwrootSH
 done
 
-echo "##################################################"                                            >> $lnwwwrootSH
-echo "# Link all INPUT CSV files from the provenance_file directory structure to the web directory." >> $lnwwwrootSH
-echo "# (this could be from manual/ or source/"                                                      >> $lnwwwrootSH
+echo "##################################################"                                              >> $lnwwwrootSH
+echo "# Link all INPUT CSV files from the provenance_file directory structure to the web directory."   >> $lnwwwrootSH
+echo "# (this could be from manual/ or source/"                                                        >> $lnwwwrootSH
 if [ -e $convertDir/_CSV2RDF4LOD_file_list.txt ]; then
    for inputFile in `cat $convertDir/_CSV2RDF4LOD_file_list.txt`; do # convert.sh builds this list b/c it knows what files were converted.
-      echo "if [ -e \"$inputFile\" ]; then "                                                            >> $lnwwwrootSH
+      echo "if [ -e \"$inputFile\" ]; then "                                                           >> $lnwwwrootSH
       echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$inputFile\"" >> $lnwwwrootSH
-      echo "   if [ -e \"\$wwwfile\" ]; then "                                                          >> $lnwwwrootSH
-      echo "      \$sudo rm -f \"\$wwwfile\""                                                           >> $lnwwwrootSH
-      echo "   else"                                                                                    >> $lnwwwrootSH
-      echo "      \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                            >> $lnwwwrootSH
-      echo "   fi"                                                                                      >> $lnwwwrootSH
-      echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-      # echo "   echo \$sudo ln \$symbolic \"\${pwd}$inputFile\" \"\$wwwfile\""                         >> $lnwwwrootSH # TODO
-      echo "   \$sudo ln \$symbolic \"\${pwd}$inputFile\" \"\$wwwfile\""                                >> $lnwwwrootSH
-      echo "else"                                                                                       >> $lnwwwrootSH
-      echo "   echo \"  -- $inputFile omitted --\""                                                     >> $lnwwwrootSH
-      echo "fi"                                                                                         >> $lnwwwrootSH
-      echo ""                                                                                           >> $lnwwwrootSH
+      echo "   if [ -e \"\$wwwfile\" ]; then "                                                         >> $lnwwwrootSH
+      echo "      \$sudo rm -f \"\$wwwfile\""                                                          >> $lnwwwrootSH
+      echo "   else"                                                                                   >> $lnwwwrootSH
+      echo "      \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                           >> $lnwwwrootSH
+      echo "   fi"                                                                                     >> $lnwwwrootSH
+      echo "   echo \"  \$wwwfile\""                                                                   >> $lnwwwrootSH
+      # echo "   echo \$sudo ln \$symbolic \"\${pwd}$inputFile\" \"\$wwwfile\""                        >> $lnwwwrootSH # TODO
+      echo "   \$sudo ln \$symbolic \"\${pwd}$inputFile\" \"\$wwwfile\""                               >> $lnwwwrootSH
+      echo "else"                                                                                      >> $lnwwwrootSH
+      echo "   echo \"  -- $inputFile omitted --\""                                                    >> $lnwwwrootSH
+      echo "fi"                                                                                        >> $lnwwwrootSH
+      echo ""                                                                                          >> $lnwwwrootSH
    done
 fi
 TEMP_file_list="_"`basename $0``date +%s`_$$.tmp
