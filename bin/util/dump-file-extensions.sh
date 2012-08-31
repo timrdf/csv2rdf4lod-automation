@@ -17,25 +17,24 @@
 # Determine the file extensions that should be used based on the serializations that will be produced.
 # This avoids needing to manually determine and set it.
 
-if [[ "$CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS" != "cr:auto" && "$1" != "--auto" ]]; then
+if [[ "$CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS" != "cr:auto" && "$1" != "--auto" ]]; then # and?
    echo $CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS
    exit
 fi
 
-
-tgz=""
+gz=""
 if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]; then
-   tgz=".tgz" # NOTE: needs to sync with bin/convert-aggregate.sh
+   gz=".gz" # NOTE: needs to sync with bin/convert-aggregate.sh (was .tgz)
 fi
 
-extensions="ttl$tgz"
+extensions="ttl$gz"
 
 if [ "$CSV2RDF4LOD_PUBLISH_RDFXML" == "true" ]; then
-   extensions="$extensions,rdf$tgz"
+   extensions="$extensions,rdf$gz"
 fi
 
 if [ "$CSV2RDF4LOD_PUBLISH_NT" == "true" ]; then
-   extensions="$extensions,nt$tgz"
+   extensions="$extensions,nt$gz"
 fi
 
 echo $extensions

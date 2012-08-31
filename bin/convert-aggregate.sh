@@ -136,9 +136,9 @@ allSAMEAS_L=$sourceID-$datasetID-$versionID.sameas.nt
 
 filesToCompress=""
 
-# TODO: align with CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS                 "cr:auto" => ttl.tgz 
-# bin/util/dump-file-extensions.sh defaults to tgz
-zip="tgz"
+# TODO: align with CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS                 "cr:auto" => ttl.gz 
+# bin/util/dump-file-extensions.sh defaults to gz
+zip="gz"
 if [ ! `which rapper` ]; then
    # check if rapper is on path, if not, report error.
    echo "NOTE: rapper not found. Some serializations will probably be empty." | tee -a $CSV2RDF4LOD_LOG
