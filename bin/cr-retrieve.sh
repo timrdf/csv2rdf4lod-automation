@@ -19,9 +19,9 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
-write="no"
+dryrun="yes"
 if [[ "$1" == "-w" || "$1" == "--write" ]]; then
-   write="yes"
+   dryrun="no"
 fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
@@ -40,10 +40,15 @@ elif [[ `is-pwd-a.sh                                                            
    fi
    if [ -e "$dcat" ]; then
       url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
-      cat $0.template > retrieve.sh
-      perl -pi -e "s|DOWNLOAD_URL|$url|" retrieve.sh
-      chmod +x retrieve.sh
-      ./retrieve.sh
+      if [ "$dryrun" != "yes" ]; then
+         cat $0.template > retrieve.sh
+         perl -pi -e "s|DOWNLOAD_URL|$url|" retrieve.sh
+         chmod +x retrieve.sh
+         ./retrieve.sh
+      else
+         echo "`cr-dataset-uri.sh --uri`:"
+         echo "   Will retrieve $url"
+      fi
    fi
 
 elif [[ `is-pwd-a.sh                                                 cr:dataset                         ` == "yes" ]]; then
