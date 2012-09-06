@@ -154,7 +154,7 @@ else
 fi
 
 #
-# Sample of raw (TODO: add sample of enhanced, too)
+# Sample of raw (enhanced samples done below)
 #
 convertedRawSamples="no"; for raw in `find $convertDir -name "*.raw.sample.ttl"`; do convertedRaw="yes"; done
 if [ $convertedRawSamples == "yes" ]; then
@@ -178,12 +178,12 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
 
    # Aggregate the enhancements.
    echo $eTTL | tee -a $CSV2RDF4LOD_LOG
-   cat $convertDir/*.e$eIDD.ttl > $eTTL                  ; filesToCompress="$filesToCompress $eTTL"
+   cat $convertDir/*.e$eIDD.ttl > $eTTL
+   if [ "$CSV2RDF4LOD_PUBLISH_TTL_LAYERS" == 'true' ]; then
+      filesToCompress="$filesToCompress $eTTL"
+   fi
 
    # Sample the aggregated enhancements.
-   # REPLACED by an extra call to the converter with the -samples param.
-   #echo $eTTLsample | tee -a $CSV2RDF4LOD_LOG
-   #$CSV2RDF4LOD_HOME/bin/util/grep-head.sh -p 'ov:csvRow "100' $eTTL > $eTTLsample
    echo $eTTLsample | tee -a $CSV2RDF4LOD_LOG
    if [ $anyEsDone == "no" ]; then
       cat $convertDir/*.e$eIDD.sample.ttl  > $eTTLsample
