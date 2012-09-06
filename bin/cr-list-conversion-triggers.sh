@@ -2,6 +2,12 @@
 #
 #3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-list-conversion-triggers.sh> ;
 #3>    prov:wasRevisionOf    <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-retrieve.sh> .
+#
+# Usage:
+#
+# Tricks:
+#    Delete all versions:
+#    for sh in `cr-list-conversion-triggers.sh`; do rm -rf `dirname $sh`; done
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
