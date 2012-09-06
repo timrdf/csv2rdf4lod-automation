@@ -1139,7 +1139,8 @@ if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]; then
       fi
    done
    if [ "$CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR" == "true" ]; then
-      echo PURGE: `pwd`
+      echo "automatic/* purging b/c CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR == true"
+      rm -rf automatic/*
    fi
 fi
 
