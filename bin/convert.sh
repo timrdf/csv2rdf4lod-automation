@@ -58,6 +58,10 @@ export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
 #   fi
 #done
 
+if [ `cr-pwd-type.sh` != 'cr:conversion-cockpit' ]; then # aka ${0#./} != `basename $0`
+   pushd `dirname $0`
+fi
+
 eParamsDir=manual # Enhancement parameter templates are placed in manual/ b/c a human will be modifying them.
 
 extensionlessFilename=`echo $datafile | sed 's/^\([^\.]*\)\..*$/\1/'`
@@ -577,3 +581,7 @@ echo "   convert.sh done" | tee -a $CSV2RDF4LOD_LOG
 
 # NOTE: this script (convert.sh) does NOT call convert-aggregate.sh directly.
 #       convert-aggregate.sh is called by convert-DDD.sh /after/ it has called convert.sh (potentially) several times.
+
+if [ `cr-pwd-type.sh` != 'cr:conversion-cockpit' ]; then # aka ${0#./} != `basename $0`
+   popd `dirname $0`
+fi
