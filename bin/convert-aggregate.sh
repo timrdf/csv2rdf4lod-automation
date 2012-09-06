@@ -32,28 +32,21 @@ if [ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "fine" ]; then
    # The following variables are needed by this script
    # They are set by publish/bin/publish.sh before calling this script.
 
-   #surrogate="http://logd.tw.rpi.edu" # REMOVED; not accessed anymore
-   echo $sourceID `cr-source-id.sh`
+   echo $sourceID  `cr-source-id.sh`
    echo $datasetID `cr-dataset-id.sh`
-
-   #datasetVersion="release-24" # REMOVED; not accessed anymore
    echo $versionID `cr-version-id.sh`
 
    echo $eID TODO
 
-   #sourceDir="manual" # REMOVED; not accessed anymore
-   #destDir="automatic" # REMOVED; intentionally hard coded.
-
    echo $graph `cr-dataset-uri.sh --uri`
-   #publishDir="publish" # REMOVED; intentionally hard coded.
 
    CSV2RDF4LOD_FORCE_PUBLISH="true"
 fi
 
 # These directory names have become canonical. 
 # The flexibility to change them is no longer desirable.
-convertDir=${convertDir:-automatic}   #
-publishDir=${publishDir:-publish}     #
+convertDir=${convertDir:-automatic}   # Could be renamed to 'converted'?
+#publishDir=${publishDir:-publish}    # hard coded now, as it should be.
 # # # # # # # # # # # # # # # # # # # #            
 
 
@@ -101,10 +94,10 @@ else
    fi
 fi
 
-if [ ! -e $publishDir/bin ]; then
+if [ ! -e publish/bin ]; then
    mkdir -p publish/bin
 fi
-touch $publishDir
+touch publish
 
 myMD5=`md5.sh $0`
 
@@ -113,17 +106,17 @@ if [ ${#versionID} -le 0 ]; then
    versionID=$datasetVersion
 fi
     S_D_V=$sourceID-$datasetID-$versionID
-     pSDV=$publishDir/$sourceID-$datasetID-$versionID
-   allRaw=$publishDir/$sourceID-$datasetID-$versionID.raw.ttl
-    allEX=$publishDir/$sourceID-$datasetID-$versionID.e$eID.ttl # only the current enhancement.
-   allTTL=$publishDir/$sourceID-$datasetID-$versionID.ttl
-    allNT=$publishDir/$sourceID-$datasetID-$versionID.nt
-allRDFXML=$publishDir/$sourceID-$datasetID-$versionID.rdf
-  allVOID=$publishDir/$sourceID-$datasetID-$versionID.void.ttl
-allVOIDNT=$publishDir/$sourceID-$datasetID-$versionID.void.nt
-   allPML=$publishDir/$sourceID-$datasetID-$versionID.pml.ttl
-allSAMEAS=$publishDir/$sourceID-$datasetID-$versionID.sameas.nt
-rawSAMPLE=$publishDir/$sourceID-$datasetID-$versionID.raw.sample.ttl
+     pSDV=publish/$sourceID-$datasetID-$versionID
+   allRaw=publish/$sourceID-$datasetID-$versionID.raw.ttl
+    allEX=publish/$sourceID-$datasetID-$versionID.e$eID.ttl # only the current enhancement.
+   allTTL=publish/$sourceID-$datasetID-$versionID.ttl
+    allNT=publish/$sourceID-$datasetID-$versionID.nt
+allRDFXML=publish/$sourceID-$datasetID-$versionID.rdf
+  allVOID=publish/$sourceID-$datasetID-$versionID.void.ttl
+allVOIDNT=publish/$sourceID-$datasetID-$versionID.void.nt
+   allPML=publish/$sourceID-$datasetID-$versionID.pml.ttl
+allSAMEAS=publish/$sourceID-$datasetID-$versionID.sameas.nt
+rawSAMPLE=publish/$sourceID-$datasetID-$versionID.raw.sample.ttl
 versionedDatasetURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID"
      rawSampleGraph="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID/conversion/raw/subset/sample"
          http_allNT="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${versionID}.nt"
@@ -180,7 +173,7 @@ fi
 enhancementLevels=`cr-list-enhancement-identifiers.sh` # WARNING: only handles e1 through e9
 anyEsDone="no"
 for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
-   eTTL=$publishDir/$sourceID-$datasetID-$versionID.e$eIDD.ttl
+   eTTL=publish/$sourceID-$datasetID-$versionID.e$eIDD.ttl
    eTTLsample=`echo $eTTL | sed 's/.ttl$/.sample.ttl/'` # Just insert sample to the next-to-last
 
    # Aggregate the enhancements.
@@ -299,7 +292,7 @@ fi
 echo $allTTL $willDeleteMsg | tee -a $CSV2RDF4LOD_LOG
 anyEsDone="no"
 for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
-   eTTL=$publishDir/$sourceID-$datasetID-$versionID.e$eIDD.ttl
+   eTTL=publish/$sourceID-$datasetID-$versionID.e$eIDD.ttl
 
    echo "  (including $eTTL)" | tee -a $CSV2RDF4LOD_LOG
 
@@ -339,7 +332,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_NT:-"."} == "true" -o ${CSV2RDF4LOD_PUBLISH_LOD_MATER
       filesToCompress="$filesToCompress $allNT"
    fi
    echo "$allNT $willDeleteMsg" | tee -a $CSV2RDF4LOD_LOG
-   if [ `find $publishDir -size +1900M -name $sourceID-$datasetID-$versionID.ttl | wc -l` -gt 0 ]; then # +1900M, +10M for debugging
+   if [ `find publish -size +1900M -name $sourceID-$datasetID-$versionID.ttl | wc -l` -gt 0 ]; then # +1900M, +10M for debugging
       # Rapper can't handle a turtle file bigger than ~2GB (1900M to be safe). Split it up and feed it.
       $CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT 2> /dev/null
    else
@@ -364,7 +357,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS:-"."} == "true" ]; then
       if [ -e $allNT ];then
          # echo "   (cat'ing NT)" | tee -a $CSV2RDF4LOD_LOG
          cat $allNT | awk -f $CSV2RDF4LOD_HOME/bin/util/sameasInNT.awk > $allSAMEAS
-      elif [ `find $publishDir -size +1900M -name $sourceID-$datasetID-$versionID.ttl | wc -l` -gt 0 ]; then # +1900M, +10M for debugging
+      elif [ `find publish -size +1900M -name $sourceID-$datasetID-$versionID.ttl | wc -l` -gt 0 ]; then # +1900M, +10M for debugging
          # Rapper can't handle a turtle file bigger than ~2GB (1900M to be safe). Split it up and feed it.
          # echo "   (bigttl2nt.sh'ing NT)" | tee -a $CSV2RDF4LOD_LOG
          $CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL 2> /dev/null | awk -f $CSV2RDF4LOD_HOME/bin/util/sameasInNT.awk > $allSAMEAS
@@ -387,7 +380,7 @@ fi
 if [ ${CSV2RDF4LOD_PUBLISH_RDFXML:-"."} == "true" ]; then
    echo $allRDFXML | tee -a $CSV2RDF4LOD_LOG
    # Rapper can't handle a turtle file bigger than ~2GB (1900M to be safe).
-   if [ `find $publishDir -size +1900M -name $sourceID-$datasetID-$versionID.ttl | wc -l` -gt 0 ]; then
+   if [ `find publish -size +1900M -name $sourceID-$datasetID-$versionID.ttl | wc -l` -gt 0 ]; then
       # Use N-Triples (will be uglier).
       rapper -i ntriples $allNT  -o rdfxml > $allRDFXML 2> /dev/null
    else
@@ -436,7 +429,7 @@ fi
 #
 # WWWROOT/source/cordad-at-rpi-edu/file/transfer-coefficents/version/2010-Jul-14/conversion/cordad-at-rpi-edu-transfer-coefficents-2010-Jul-14.e1
 
-lnwwwrootSH="$publishDir/bin/ln-to-www-root-${sourceID}-${datasetID}-${versionID}.sh"
+lnwwwrootSH="publish/bin/ln-to-www-root-${sourceID}-${datasetID}-${versionID}.sh"
 echo $lnwwwrootSH | tee -a $CSV2RDF4LOD_LOG
 
 echo "#!/bin/bash"                                                                                  > $lnwwwrootSH
@@ -588,29 +581,29 @@ for serialization in ttl nt rdf
 do
    echo "dump=$sourceID-$datasetID-$versionID.$serialization"                                                                              >> $lnwwwrootSH
    echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump" >> $lnwwwrootSH
-   echo "if [ -e $publishDir/\$dump.$zip ]; then "                                                   >> $lnwwwrootSH 
+   echo "if [ -e publish/\$dump.$zip ]; then "                                                   >> $lnwwwrootSH 
    echo "   if [ -e \$wwwfile.$zip ]; then"                                                          >> $lnwwwrootSH 
    echo "    \$sudo rm -f \$wwwfile.$zip"                                                            >> $lnwwwrootSH 
    echo "   else"                                                                                    >> $lnwwwrootSH
    echo "     \$sudo mkdir -p \`dirname \$wwwfile.$zip\`"                                            >> $lnwwwrootSH 
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile.$zip\""                                                               >> $lnwwwrootSH 
-#   echo "   echo \$sudo ln \$symbolic \${pwd}$publishDir/\$dump.$zip \$wwwfile.$zip"                             >> $lnwwwrootSH  # TODO
-   echo "   \$sudo ln \$symbolic \${pwd}$publishDir/\$dump.$zip \$wwwfile.$zip"                      >> $lnwwwrootSH
+#   echo "   echo \$sudo ln \$symbolic \${pwd}publish/\$dump.$zip \$wwwfile.$zip"                             >> $lnwwwrootSH  # TODO
+   echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump.$zip \$wwwfile.$zip"                      >> $lnwwwrootSH
    echo ""                                                                                           >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then"                                                               >> $lnwwwrootSH
    echo "      echo \"  \$wwwfile\" - removing b/c $zip available"                                   >> $lnwwwrootSH 
    echo "      \$sudo rm -f \$wwwfile # clean up to save space"                                      >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
-   echo "elif [ -e $publishDir/\$dump ]; then "                                                      >> $lnwwwrootSH
+   echo "elif [ -e publish/\$dump ]; then "                                                      >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then "                                                              >> $lnwwwrootSH
    echo "      \$sudo rm -f \$wwwfile"                                                               >> $lnwwwrootSH
    echo "   else"                                                                                    >> $lnwwwrootSH
    echo "      \$sudo mkdir -p \`dirname \$wwwfile\`"                                                >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-#   echo "   echo \$sudo ln \$symbolic \${pwd}$publishDir/\$dump \$wwwfile"                                       >> $lnwwwrootSH # TODO
-   echo "   \$sudo ln \$symbolic \${pwd}$publishDir/\$dump \$wwwfile"                                       >> $lnwwwrootSH
+#   echo "   echo \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                       >> $lnwwwrootSH # TODO
+   echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                       >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  -- full $serialization omitted -- \""                                           >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -623,28 +616,28 @@ do
    do
       echo "dump=$sourceID-$datasetID-$versionID.$conversionID.$serialization"                                                                >> $lnwwwrootSH
       echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump" >> $lnwwwrootSH
-      echo "if [ -e $publishDir/\$dump.$zip ]; then "                                                >> $lnwwwrootSH 
+      echo "if [ -e publish/\$dump.$zip ]; then "                                                >> $lnwwwrootSH 
       echo "   if [ -e \$wwwfile.$zip ]; then"                                                       >> $lnwwwrootSH 
       echo "      \$sudo rm -f \$wwwfile.$zip"                                                       >> $lnwwwrootSH 
       echo "   else"                                                                                 >> $lnwwwrootSH
       echo "      \$sudo mkdir -p \`dirname \$wwwfile.$zip\`"                                        >> $lnwwwrootSH 
       echo "   fi"                                                                                   >> $lnwwwrootSH
       echo "   echo \"  \$wwwfile.$zip\""                                                            >> $lnwwwrootSH 
-      echo "   \$sudo ln \$symbolic \${pwd}$publishDir/\$dump.$zip \$wwwfile.$zip"                          >> $lnwwwrootSH 
+      echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump.$zip \$wwwfile.$zip"                          >> $lnwwwrootSH 
       echo ""                                                                                        >> $lnwwwrootSH
       echo "   if [ -e \$wwwfile ]; then"                                                            >> $lnwwwrootSH
       echo "      echo \"  \$wwwfile\" - removing b/c $zip available"                                >> $lnwwwrootSH 
       echo "      \$sudo rm -f \$wwwfile # clean up to save space"                                   >> $lnwwwrootSH
       echo "   fi"                                                                                   >> $lnwwwrootSH
-      echo "elif [ -e $publishDir/\$dump ]; then "                                                   >> $lnwwwrootSH
+      echo "elif [ -e publish/\$dump ]; then "                                                   >> $lnwwwrootSH
       echo "   if [ -e \$wwwfile ]; then "                                                           >> $lnwwwrootSH
       echo "      \$sudo rm -f \$wwwfile"                                                            >> $lnwwwrootSH
       echo "   else"                                                                                 >> $lnwwwrootSH
       echo "      \$sudo mkdir -p \`dirname \$wwwfile\`"                                             >> $lnwwwrootSH
       echo "   fi"                                                                                   >> $lnwwwrootSH
       echo "   echo \"  \$wwwfile\""                                                                 >> $lnwwwrootSH
-#      echo "   echo \$sudo ln \$symbolic \${pwd}$publishDir/\$dump \$wwwfile"                                    >> $lnwwwrootSH # TODO
-      echo "   \$sudo ln \$symbolic \${pwd}$publishDir/\$dump \$wwwfile"                                    >> $lnwwwrootSH
+#      echo "   echo \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                    >> $lnwwwrootSH # TODO
+      echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                    >> $lnwwwrootSH
       echo "else"                                                                                    >> $lnwwwrootSH
       echo "   echo \"  -- $conversionID $serialization omitted --\""                                >> $lnwwwrootSH
       echo "fi"                                                                                      >> $lnwwwrootSH
@@ -658,15 +651,15 @@ do
          #    http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Jul-21/conversion/data-gov-1008-2010-Jul-21.raw.sample
          echo "dump=$sourceID-$datasetID-$versionID.$conversionID.$subset.$serialization"                                                        >> $lnwwwrootSH
          echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump" >> $lnwwwrootSH
-         echo "if [ -e $publishDir/\$dump ]; then "                                                  >> $lnwwwrootSH
+         echo "if [ -e publish/\$dump ]; then "                                                  >> $lnwwwrootSH
          echo "   if [ -e \$wwwfile ]; then "                                                        >> $lnwwwrootSH
          echo "      \$sudo rm -f \$wwwfile"                                                         >> $lnwwwrootSH
          echo "   else"                                                                              >> $lnwwwrootSH
          echo "      \$sudo mkdir -p \`dirname \$wwwfile\`"                                          >> $lnwwwrootSH
          echo "   fi"                                                                                >> $lnwwwrootSH
          echo "   echo \"  \$wwwfile\""                                                              >> $lnwwwrootSH
-#         echo "   echo \$sudo ln \$symbolic \${pwd}$publishDir/\$dump \$wwwfile"                                 >> $lnwwwrootSH # TODO
-         echo "   \$sudo ln \$symbolic \${pwd}$publishDir/\$dump \$wwwfile"                                 >> $lnwwwrootSH
+#         echo "   echo \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                 >> $lnwwwrootSH # TODO
+         echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                 >> $lnwwwrootSH
          echo "else"                                                                                 >> $lnwwwrootSH
          echo "   echo \"  -- $conversionID $subset $serialization omitted --\""                     >> $lnwwwrootSH
          echo "fi"                                                                                   >> $lnwwwrootSH
@@ -692,13 +685,13 @@ fi
 #
 # TDB
 #
-local_tdb_dir=$publishDir/tdb
+local_tdb_dir=publish/tdb
 TDB_DIR=${CSV2RDF4LOD_PUBLISH_TDB_DIR:-$local_tdb_dir}
-josekiConfigFile=$publishDir/bin/joseki-config-anterior-${sourceID}-${datasetID}-${versionID}.ttl
+josekiConfigFile=publish/bin/joseki-config-anterior-${sourceID}-${datasetID}-${versionID}.ttl
 if [ ! -e $josekiConfigFile ]; then
    cat $CSV2RDF4LOD_HOME/bin/dup/joseki-config-ANTERIOR.ttl | awk '{gsub("__TDB__DIRECTORY__",dir);print $0}' dir=`pwd`/$TDB_DIR > $josekiConfigFile
 fi
-loadtdbSH="$publishDir/bin/tdbloader-${sourceID}-${datasetID}-${versionID}.sh"
+loadtdbSH="publish/bin/tdbloader-${sourceID}-${datasetID}-${versionID}.sh"
 echo "#!/bin/bash"                                                                             > $loadtdbSH
 echo ""                                                                                       >> $loadtdbSH
 echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $loadtdbSH
@@ -744,7 +737,7 @@ echo "if [[ \${#load_file} -eq 0 ]]; then"                                      
 echo "   echo \"[ERROR] \`basename \$0 \`could not find dump file to load.\""                 >> $loadtdbSH
 echo "   exit 1"                                                                              >> $loadtdbSH
 echo "fi"                                                                                     >> $loadtdbSH
-echo "echo \`basename \$load_file\` into $TDB_DIR as $graph >> $publishDir/ng.info"           >> $loadtdbSH
+echo "echo \`basename \$load_file\` into $TDB_DIR as $graph >> publish/ng.info"           >> $loadtdbSH
 echo ""                                                                                       >> $loadtdbSH
 #                                                                             billion="000000000"
 #echo "if [ \$load_file = \"$allTTL\" -a \`stat -f \"%z\" \"$allTTL\"\` -gt 2$billion ]; then" >> $loadtdbSH # replaced b/c stat -c "%s" on some flavors of unix.
@@ -785,7 +778,7 @@ fi
 #
 # 4store
 #
-fourstoreSH=$publishDir/bin/4store-${sourceID}-${datasetID}-${versionID}.sh
+fourstoreSH=publish/bin/4store-${sourceID}-${datasetID}-${versionID}.sh
 fourstoreKB=${CSV2RDF4LOD_PUBLISH_4STORE_KB:-'csv2rdf4lod'}
 fourstoreKBDir=/var/lib/4store/$fourstoreKB
 echo "#!/bin/bash"                                                                         > $fourstoreSH
@@ -814,9 +807,9 @@ chmod +x                                                                        
 #
 # Virtuoso
 #
-vloadSH=$publishDir/bin/virtuoso-load-${sourceID}-${datasetID}-${versionID}.sh
-vloadvoidSH=$publishDir/bin/virtuoso-load-${sourceID}-${datasetID}-${versionID}-void.sh
-vdeleteSH=$publishDir/bin/virtuoso-delete-${sourceID}-${datasetID}-${versionID}.sh
+vloadSH=publish/bin/virtuoso-load-${sourceID}-${datasetID}-${versionID}.sh
+vloadvoidSH=publish/bin/virtuoso-load-${sourceID}-${datasetID}-${versionID}-void.sh
+vdeleteSH=publish/bin/virtuoso-delete-${sourceID}-${datasetID}-${versionID}.sh
 echo "#!/bin/bash"                                                                                                           > $vloadSH
 echo "#"                                                                                                                    >> $vloadSH
 echo "# run $vloadSH"                                                                                                       >> $vloadSH
@@ -983,7 +976,7 @@ fi
 #
 # LOD-materialize
 #
-local_materialization_dir=$publishDir/lod-mat
+local_materialization_dir=publish/lod-mat
 
 lodmat='$CSV2RDF4LOD_HOME/bin/lod-materialize/${c_lod_mat}lod-materialize.pl'
 prefixDefs=`$CSV2RDF4LOD_HOME/bin/dup/prefixes2flags.sh $allTTL`        
@@ -993,7 +986,7 @@ mappingPatternsProvenance='--uripattern="/source/([^/]+)/provenance/(.*)" --file
 CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 MATERIALIZATION_DIR=${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:-$local_materialization_dir}
 
-lodmatSH=$publishDir/bin/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh
+lodmatSH=publish/bin/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh
 echo "#!/bin/bash"                                                                                              > $lodmatSH
 echo "#"                                                                                                       >> $lodmatSH
 echo "# run $convertDir/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh"                            >> $lodmatSH
@@ -1048,7 +1041,7 @@ echo "   rm \$delete"                                                           
 echo "fi"                                                                                                      >> $lodmatSH
 chmod +x                                                                                                          $lodmatSH
 
-lodmatvoidSH=$publishDir/bin/lod-materialize-${sourceID}-${datasetID}-${versionID}-void.sh
+lodmatvoidSH=publish/bin/lod-materialize-${sourceID}-${datasetID}-${versionID}-void.sh
 echo "#!/bin/bash"                                                                                                > $lodmatvoidSH
 echo "#"                                                                                                       >> $lodmatvoidSH
 echo "# run $convertDir/lod-materialize-${sourceID}-${datasetID}-${versionID}.sh"                            >> $lodmatvoidSH
@@ -1089,7 +1082,7 @@ echo "   rm $allVOIDNT"                                                         
 echo "fi"                                                                                                      >> $lodmatvoidSH
 chmod +x                                                                                                          $lodmatvoidSH
 
-lodmatapacheSH=$publishDir/bin/lod-materialize-apache-${sourceID}-${datasetID}-${versionID}.sh
+lodmatapacheSH=publish/bin/lod-materialize-apache-${sourceID}-${datasetID}-${versionID}.sh
 echo "#!/bin/bash"                                                                                                > $lodmatapacheSH
 echo "#"                                                                                                       >> $lodmatapacheSH
 echo "# run $convertDir/lod-materialize-apache-${sourceID}-${datasetID}-${versionID}.sh"                     >> $lodmatapacheSH
@@ -1137,14 +1130,17 @@ fi
 #
 # Removed the pre-compressed dump files
 #
-if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
+if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]; then
    for dumpFile in $filesToCompress ; do
-      # NOTE, compressed file was created earlier in this script.
+      # Compressed file was created earlier in this script.
       if [ -e $dumpFile.$zip ]; then
          echo "$dumpFile - removed b/c \$CSV2RDF4LOD_PUBLISH_COMPRESS=\"true\"" | tee -a $CSV2RDF4LOD_LOG
          rm $dumpFile
       fi
    done
+   if [ "$CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR" == "true" ]; then
+      echo PURGE: `pwd`
+   fi
 fi
 
 

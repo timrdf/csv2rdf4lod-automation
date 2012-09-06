@@ -64,7 +64,7 @@ if [ "$1" == "--check" ]; then
    exit 0
 fi
 
-if [ ${1:-"no"} != "CLEAR" ]; then
+if [ "$1" != "CLEAR" ]; then
    show_all="no"
    if [ "$1" == "--all" ]; then
       show_all="yes";
@@ -107,6 +107,7 @@ if [ ${1:-"no"} != "CLEAR" ]; then
 
    echo "CSV2RDF4LOD_PUBLISH_RDFXML                               ${CSV2RDF4LOD_PUBLISH_RDFXML:-"(will default to: false)"}"
    echo "CSV2RDF4LOD_PUBLISH_COMPRESS                             ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"(will default to: false)"}"
+   echo "CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR                        ${CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR:-"(will default to: false)"}"
 
    echo "  "
    echo "CSV2RDF4LOD_PUBLISH_SUBSET_VOID                          ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:="(will default to: true)"}"
@@ -216,6 +217,7 @@ else
    export CSV2RDF4LOD_PUBLISH_NT=""
    export CSV2RDF4LOD_PUBLISH_RDFXML=""
    export CSV2RDF4LOD_PUBLISH_COMPRESS=""
+   export CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR=""
    # "  "
    export CSV2RDF4LOD_PUBLISH_SUBSET_VOID=""
    export CSV2RDF4LOD_PUBLISH_SUBSET_VOID_NAMED_GRAPH=""
