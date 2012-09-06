@@ -289,6 +289,18 @@ export CSV2RDF4LOD_PUBLISH_COMPRESS="false"
 export CSV2RDF4LOD_PUBLISH_COMPRESS="true"
 
 #
+# Customize: If CSV2RDF4LOD_PUBLISH_COMPRESS == true,
+#            delete automatic/* after creating publish/*
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (done in convert-aggregate.sh)
+#
+export CSV2RDF4LOD_PUBLISH_PURGE_AUTODIRS="true"
+export CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR="false"
+
+
+#
 # Customize: Specify the source_identifier 
 #            (in the csv2rdf4lod conversion's source/dataset/version scheme)
 # Variable type: Machine ? Project ? User ? Activity ?
