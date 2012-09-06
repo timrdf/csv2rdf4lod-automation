@@ -41,7 +41,8 @@ elif [[ `is-pwd-a.sh                                                            
    if [ -e "$dcat" ]; then
       url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
       if [ "$dryrun" != "yes" ]; then
-         cat $0.template > retrieve.sh
+         echo template from $0
+         cat $0.template > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
          perl -pi -e "s|DOWNLOAD_URL|$url|" retrieve.sh
          chmod +x retrieve.sh
          ./retrieve.sh
