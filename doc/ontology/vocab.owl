@@ -13,6 +13,7 @@
    xmlns:pmlp="http://inference-web.org/2.0/pml-provenance.owl#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:sd="http://www.w3.org/ns/sparql-service-description#"
    xmlns:vann="http://purl.org/vocab/vann/"
    xmlns:void="http://rdfs.org/ns/void#"
    xmlns:vs="http://www.w3.org/2003/06/sw-vocab-status/ns#"
@@ -568,6 +569,9 @@
       </rdf:Description>
     </owl:disjointUnionOf>
   </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/ServiceEndpoint">
+    <rdfs:comment>http://www.w3.org/TR/sparql11-service-description/ does not specify a range, but we want to refer to it</rdfs:comment>
+  </owl:Class>
   <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/Source">
     <rdfs:comment>A person, organization, or agent from which a dataset is retrieved.</rdfs:comment>
     <rdfs:label>Source</rdfs:label>
@@ -1025,4 +1029,7 @@
   <owl:ObjectProperty rdf:about="http://www.w3.org/2006/03/test-description#informationResourceInput">
     <rdfs:comment>Information Resource (e.g. a file) used as input for the test case</rdfs:comment>
   </owl:ObjectProperty>
+  <rdf:Description rdf:about="http://www.w3.org/ns/sparql-service-description#endpoint">
+    <rdfs:range rdf:resource="http://purl.org/twc/vocab/conversion/ServiceEndpoint"/>
+  </rdf:Description>
 </rdf:RDF>

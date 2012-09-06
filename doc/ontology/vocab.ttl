@@ -17,6 +17,7 @@
 @prefix coin:        <http://purl.org/court/def/2009/coin#> .
 @prefix vann:        <http://purl.org/vocab/vann/> .
 @prefix cdm:         <http://purl.org/twc/ontology/cdm.owl#> .
+@prefix sd:          <http://www.w3.org/ns/sparql-service-description#> .
 
 @base <http://purl.org/twc/vocab/conversion/> .
 
@@ -1227,4 +1228,11 @@ conversion:num_triples
 conversion:Deprecated
    a owl:Class;
    rdfs:comment "";
+.
+
+sd:endpoint rdfs:range conversion:ServiceEndpoint .
+
+conversion:ServiceEndpoint
+   a owl:Class;
+   rdfs:comment "http://www.w3.org/TR/sparql11-service-description/ does not specify a range, but we want to refer to it";
 .
