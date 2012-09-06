@@ -850,14 +850,14 @@ echo 'CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/
 #echo "done"                                                                                                                >> $vloadSH
 echo ""                                                                                                                     >> $vloadSH
 echo "if [ \`is-pwd-a.sh cr:dev\` == 'yes' ]; then"                                                                         >> $vloadSH
-echo "  echo \"Refusing to publish; see 'cr:dev and refusing to publish' at\""                                              >> $vloadSH
-echo "  echo \"  https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-%28considerations-for-a-distributed-workflow%29\""    >> $vloadSH
-echo "  exit 1"                                                                                                             >> $vloadSH
+echo "   echo \"Refusing to publish; see 'cr:dev and refusing to publish' at\""                                             >> $vloadSH
+echo "   echo \"  https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-%28considerations-for-a-distributed-workflow%29\"" >> $vloadSH
+echo "   exit 1"                                                                                                            >> $vloadSH
 echo "fi"                                                                                                                   >> $vloadSH
-echo "if [ -e '$lnwwwrootSH' ]; then # Make sure that the file we will load from the web is published"                      >> $vloadSH
-echo "  $lnwwwrootSH"                                                                                                       >> $vloadSH
+echo "if [ -e '$lnwwwrootSH' ];"                                                                                            >> $vloadSH
+echo "   # Make sure that the file we will load from the web is published"                                                  >> $vloadSH
+echo "   $lnwwwrootSH"                                                                                                      >> $vloadSH
 echo "fi"                                                                                                                   >> $vloadSH
-echo ""                                                                                                                     >> $vloadSH
 echo ""                                                                                                                     >> $vloadSH
 echo "graph=\`cat '$pSDV.sd_name'\`"                                                                                        >> $vloadSH
 echo "metaGraph=\"\$graph\""                                                                                                >> $vloadSH
