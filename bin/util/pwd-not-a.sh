@@ -25,7 +25,7 @@ CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source my-csv2rdf4lod-source-me.s
 script=""
 if [[ "$1" == "--script" ]]; then
    script="$2"
-   echo "$script not situated:"
+   echo "$script not situated at `cr-pwd-type.sh`: `cr-pwd.sh`"
    shift 2
 fi
 
