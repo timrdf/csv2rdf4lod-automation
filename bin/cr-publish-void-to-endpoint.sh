@@ -43,19 +43,13 @@ CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID=${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:?"not set;
 CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID=${CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID:?"not set; see $see"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-ACCEPTABLE_PWDs="cr:data-root cr:source"
+ACCEPTABLE_PWDs="cr:data-root"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
 fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
-
-if [ `is-pwd-a.sh cr:data-root` == "yes" ]; then
-   graphName="$CSV2RDF4LOD_BASE_URI/vocab/Dataset"
-elif [ `is-pwd-a.sh cr:source` == "yes" ]; then
-   graphName=$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/vocab/Dataset
-fi
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n] --clear-graph <named_graph_URI | cr:auto | .>"
