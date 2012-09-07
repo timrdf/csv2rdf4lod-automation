@@ -196,6 +196,7 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
    layerSlugs="$layerSlugs enhancement/$eIDD"
 done
 
+
 #
 # Provenance - PML
 #
@@ -204,10 +205,10 @@ rm $allPML 2> /dev/null
 for dir in source manual automatic; do
    for pml in `find $dir -name "*.pml.ttl"`; do
       # source/STATE_SINGLE_PW.CSV -> 
-      # http://logd.tw.rpi.edu/source/data-gov/provenance_file/1008/version/2010-Aug-30/source/STATE_SINGLE_PW.CSV
-      # rapper -g -o turtle source/STATE_SINGLE_PW.CSV.pml.ttl  http://logd.tw.rpi.edu/source/data-gov/provenance_file/1008/version/2010-Aug-30/source/
+      # http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Aug-30/source/STATE_SINGLE_PW.CSV
+      # rapper -g -o turtle source/STATE_SINGLE_PW.CSV.pml.ttl  http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Aug-30/source/
       sourceFile=`echo $pml | sed 's/.pml.ttl$//'`
-      base4rapper="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/provenance_file/${datasetID}/version/${versionID}/$dir/"
+      base4rapper="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/$dir/"
       echo "  (including $pml)" | tee -a $CSV2RDF4LOD_LOG
       if [ `which rapper` ]; then
          rapper -g -o turtle $pml $base4rapper >> $allPML 2> /dev/null
@@ -425,7 +426,7 @@ fi
 # ln or cp from publish/ to www root.
 #
 # publish/cordad-at-rpi-edu-transfer-coefficents-2010-Jul-14.e1.ttl -->
-# source/STATE_SINGLE_PW.CSV -> http://logd.tw.rpi.edu/source/data-gov/provenance_file/1008/version/2010-Jul-21/source/STATE_SINGLE_PW.CSV
+# source/STATE_SINGLE_PW.CSV -> http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Jul-21/source/STATE_SINGLE_PW.CSV
 #
 # WWWROOT/source/cordad-at-rpi-edu/file/transfer-coefficents/version/2010-Jul-14/conversion/cordad-at-rpi-edu-transfer-coefficents-2010-Jul-14.e1
 
@@ -463,16 +464,15 @@ echo "if [ \`whoami\` == "root" ]; then"                                        
 echo "   sudo=\"\""                                                                                 >> $lnwwwrootSH
 echo "fi"                                                                                           >> $lnwwwrootSH
 echo ""                                                                                             >> $lnwwwrootSH
-echo "pfile=\"provenance_file\""                                                                    >> $lnwwwrootSH
 echo "file=\"file\""                                                                                >> $lnwwwrootSH
 echo ""                                                                                             >> $lnwwwrootSH
 echo "##################################################"                                           >> $lnwwwrootSH
-echo "# Link all original files from the provenance_file directory structure to the web directory." >> $lnwwwrootSH
+echo "# Link all original files from the /file/ directory structure to the web directory." >> $lnwwwrootSH
 echo "# (these are from source/)"                                                                      >> $lnwwwrootSH
 for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    sourceFile=`echo $sourceFileProvenance | sed 's/.pml.ttl$//'` 
    echo "if [ -e \"$sourceFile\" ]; then "                                                             >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$sourceFile\"" >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/$sourceFile\"" >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then "                                                                >> $lnwwwrootSH
    echo "     \$sudo rm -f \$wwwfile"                                                                  >> $lnwwwrootSH
    echo "   else"                                                                                      >> $lnwwwrootSH
@@ -486,7 +486,7 @@ for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    echo "fi"                                                                                           >> $lnwwwrootSH
    echo ""                                                                                             >> $lnwwwrootSH
    echo "if [ -e \"$sourceFileProvenance\" ]; then"                                                    >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$sourceFileProvenance\""   >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/$sourceFileProvenance\""   >> $lnwwwrootSH
    echo "   if [ -e \"\$wwwfile\" ]; then "                                                            >> $lnwwwrootSH
    echo "     \$sudo rm -f \$wwwfile"                                                                  >> $lnwwwrootSH
    echo "   else"                                                                                      >> $lnwwwrootSH
@@ -502,12 +502,12 @@ for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
 done
 
 echo "##################################################"                                              >> $lnwwwrootSH
-echo "# Link all INPUT CSV files from the provenance_file directory structure to the web directory."   >> $lnwwwrootSH
+echo "# Link all INPUT CSV files from the /file/ directory structure to the web directory."   >> $lnwwwrootSH
 echo "# (this could be from manual/ or source/"                                                        >> $lnwwwrootSH
 if [ -e $convertDir/_CSV2RDF4LOD_file_list.txt ]; then
    for inputFile in `cat $convertDir/_CSV2RDF4LOD_file_list.txt`; do # convert.sh builds this list b/c it knows what files were converted.
       echo "if [ -e \"$inputFile\" ]; then "                                                           >> $lnwwwrootSH
-      echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$inputFile\"" >> $lnwwwrootSH
+      echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/$inputFile\"" >> $lnwwwrootSH
       echo "   if [ -e \"\$wwwfile\" ]; then "                                                         >> $lnwwwrootSH
       echo "      \$sudo rm -f \"\$wwwfile\""                                                          >> $lnwwwrootSH
       echo "   else"                                                                                   >> $lnwwwrootSH
@@ -523,16 +523,16 @@ if [ -e $convertDir/_CSV2RDF4LOD_file_list.txt ]; then
    done
 fi
 TEMP_file_list="_"`basename $0``date +%s`_$$.tmp
-# automatic/STATE_SINGLE_PW.CSV.raw.params.ttl -> http://logd.tw.rpi.edu/source/data-gov/provenance_file/1008/version/1st-anniversary/automatic/STATE_SINGLE_PW.CSV.raw.params.ttl
+# automatic/STATE_SINGLE_PW.CSV.raw.params.ttl -> http://logd.tw.rpi.edu/source/data-gov/file/1008/version/1st-anniversary/automatic/STATE_SINGLE_PW.CSV.raw.params.ttl
 
 find automatic -name '*.params.ttl' | sed 's/^\.\///'  > $TEMP_file_list
 find manual    -name '*.params.ttl' | sed 's/^\.\///' >> $TEMP_file_list
 echo "##################################################"                                            >> $lnwwwrootSH
-echo "# Link all raw and enhancement PARAMETERS from the provenance_file file directory structure to the web directory." >> $lnwwwrootSH
+echo "# Link all raw and enhancement PARAMETERS from the file directory structure to the web directory." >> $lnwwwrootSH
 echo "#"                                                                                             >> $lnwwwrootSH
 for paramFile in `cat $TEMP_file_list`; do
    echo "if [ -e \"$paramFile\" ]; then "                                                            >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$paramFile\"" >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/$paramFile\"" >> $lnwwwrootSH
    echo "   if [ -e \"\$wwwfile\" ]; then "                                                          >> $lnwwwrootSH
    echo "     \$sudo rm -f \"\$wwwfile\""                                                            >> $lnwwwrootSH
    echo "   else"                                                                                    >> $lnwwwrootSH
@@ -557,7 +557,7 @@ echo "#"                                                                        
 for pmlFile in `cat $TEMP_file_list`
 do
    echo "if [ -e \"$pmlFile\" ]; then "                                                              >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/provenance_file/$datasetID/version/$versionID/$pmlFile\"" >> $lnwwwrootSH
+   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/$pmlFile\"" >> $lnwwwrootSH
    echo "   if [ -e \"\$wwwfile\" ]; then"                                                           >> $lnwwwrootSH
    echo "     \$sudo rm -f \"\$wwwfile\""                                                            >> $lnwwwrootSH
    echo "   else"                                                                                    >> $lnwwwrootSH
@@ -574,7 +574,7 @@ done
 rm $TEMP_file_list
 
 echo "##################################################"                                                                >> $lnwwwrootSH
-echo "# Link all bundled RDF output files from the source/.../provenance_file directory structure to the web directory." >> $lnwwwrootSH
+echo "# Link all bundled RDF output files from the source/.../file directory structure to the web directory." >> $lnwwwrootSH
 echo "#"                                                                                                                 >> $lnwwwrootSH
 # Version rollup of all layers (all serializations)
 for serialization in ttl nt rdf
@@ -982,7 +982,7 @@ lodmat='$CSV2RDF4LOD_HOME/bin/lod-materialize/${c_lod_mat}lod-materialize.pl'
 prefixDefs=`$CSV2RDF4LOD_HOME/bin/dup/prefixes2flags.sh $allTTL`        
 mappingPatterns='--uripattern="/source/([^/]+)/dataset/(.*)" --filepattern="/source/\\1/file/\\2"'
 mappingPatternsVocab='--uripattern="/source/([^/]+)/vocab/(.*)" --filepattern="/source/\\1/vocab_file/\\2"'
-mappingPatternsProvenance='--uripattern="/source/([^/]+)/provenance/(.*)" --filepattern="/source/\\1/provenance_file/\\2"'
+mappingPatternsProvenance='--uripattern="/source/([^/]+)/provenance/(.*)" --filepattern="/source/\\1/file/\\2"'
 CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 MATERIALIZATION_DIR=${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:-$local_materialization_dir}
 
