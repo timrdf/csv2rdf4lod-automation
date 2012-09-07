@@ -96,7 +96,8 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    for file in $*; do
       echo "lnwww $file"                                                                                           >> $lnwww
    done
-   echo "lnwww publish/$sdv.nt publish"                                                                            >> $lnwww
+   echo "lnwww publish/$sdv.nt       publish"                                                                      >> $lnwww
+   echo "lnwww publish/$sdv.void.ttl publish"                                                                      >> $lnwww
    chmod +x $lnwww
 
    #echo "publish/bin/virtuoso-load.sh"
