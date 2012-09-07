@@ -430,12 +430,14 @@ fi
 #
 # WWWROOT/source/cordad-at-rpi-edu/file/transfer-coefficents/version/2010-Jul-14/conversion/cordad-at-rpi-edu-transfer-coefficents-2010-Jul-14.e1
 
+# NOTE: bin/aggregate-source-rdf.sh is duplicating this
+
 lnwwwrootSH="publish/bin/ln-to-www-root-${sourceID}-${datasetID}-${versionID}.sh"
 echo $lnwwwrootSH | tee -a $CSV2RDF4LOD_LOG
 
 echo "#!/bin/bash"                                                                                  > $lnwwwrootSH
 echo "#"                                                                                            >> $lnwwwrootSH
-echo "# run from `pwd | sed 's/^.*source/source/'`/"                                                >> $lnwwwrootSH
+echo "# run from `cr-pwd.sh`"                                                                       >> $lnwwwrootSH
 echo "#"                                                                                            >> $lnwwwrootSH
 echo "# CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT"                                           >> $lnwwwrootSH
 echo "# was "                                                                                       >> $lnwwwrootSH
@@ -467,8 +469,8 @@ echo ""                                                                         
 echo "file=\"file\""                                                                                >> $lnwwwrootSH
 echo ""                                                                                             >> $lnwwwrootSH
 echo "##################################################"                                           >> $lnwwwrootSH
-echo "# Link all original files from the /file/ directory structure to the web directory." >> $lnwwwrootSH
-echo "# (these are from source/)"                                                                      >> $lnwwwrootSH
+echo "# Link all original files from the /file/ directory structure to the web directory."          >> $lnwwwrootSH
+echo "# (these are from source/)"                                                                   >> $lnwwwrootSH
 for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    sourceFile=`echo $sourceFileProvenance | sed 's/.pml.ttl$//'` 
    echo "if [ -e \"$sourceFile\" ]; then "                                                             >> $lnwwwrootSH
@@ -807,6 +809,7 @@ chmod +x                                                                        
 #
 # Virtuoso
 #
+# NOTE: bin/aggregate-source-rdf.sh copied from this.
 vloadSH=publish/bin/virtuoso-load-${sourceID}-${datasetID}-${versionID}.sh
 vloadvoidSH=publish/bin/virtuoso-load-${sourceID}-${datasetID}-${versionID}-void.sh
 vdeleteSH=publish/bin/virtuoso-delete-${sourceID}-${datasetID}-${versionID}.sh
