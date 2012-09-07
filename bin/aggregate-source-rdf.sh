@@ -235,13 +235,13 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       $vloadSH   --sample
    fi
 
-   echo "publish/bin/virtuoso-delete.sh"
-   echo "sudo /opt/virtuoso/scripts/vdelete `cat publish/$sdv.sd_name`" > publish/bin/virtuoso-delete-$sdv.sh
-   chmod +x publish/bin/virtuoso-delete.sh
+   #echo "publish/bin/virtuoso-delete.sh"
+   #echo "sudo /opt/virtuoso/scripts/vdelete `cat publish/$sdv.sd_name`" > publish/bin/virtuoso-delete-$sdv.sh
+   #chmod +x publish/bin/virtuoso-delete.sh
 
-   echo "publish/bin/virtuoso-load-metadata.sh"
-   echo "sudo /opt/virtuoso/scripts/vload ttl publish/$sdv.void.ttl http://logd.tw.rpi.edu/vocab/Dataset" > publish/bin/virtuoso-load-metadata.sh
-   chmod +x publish/bin/virtuoso-load-metadata.sh
+   #echo "publish/bin/virtuoso-load-metadata.sh"
+   #echo "sudo /opt/virtuoso/scripts/vload ttl publish/$sdv.void.ttl http://logd.tw.rpi.edu/vocab/Dataset" > publish/bin/virtuoso-load-metadata.sh
+   #chmod +x publish/bin/virtuoso-load-metadata.sh
 
 elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
    echo "N/A"
