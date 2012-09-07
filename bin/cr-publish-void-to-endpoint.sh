@@ -111,7 +111,7 @@ for void in $voids; do
    fi
 done
 
-pushd &> /dev/null
+pushd $cockpit &> /dev/null
    aggregate-source-rdf.sh source/*
 popd &> /dev/null
 
