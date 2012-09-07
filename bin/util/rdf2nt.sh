@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#
 # Accept an RDF file in RDF/XML, Turtle, or N-TRIPLES and output N-TRIPLES or N-QUADS file.
 # N-TRIPLES output will be produce collision-safe bnodes (b/c will prepend with filepath hash).
 #
