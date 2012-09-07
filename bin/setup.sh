@@ -546,6 +546,8 @@ export CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION="false"
 # NOTE: CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION needs to be "true" for
 #       this to take effect.
 #
+# DEPRECATED: use CSV2RDF4LOD_PUBLISH_VARWWW_ROOT for general htdocs publishing.
+#
 # (done in convert-aggregate.sh)
 #
 export CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT=""
