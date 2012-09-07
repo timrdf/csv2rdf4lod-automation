@@ -500,6 +500,16 @@ export CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES="true"
 export CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES="false"
 
 #
+# Customize: The path to the htdocs directory, to host files on the web.
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (done in convert-aggregate.sh and publish/bin/ln-*.sh)
+#
+export CSV2RDF4LOD_PUBLISH_VARWWW_ROOT="/var/www"
+export CSV2RDF4LOD_PUBLISH_VARWWW_ROOT=""
+
+#
 # Customize: use ln or ln -s when linking from the conversion root
 #            directory to the /var/www directory to publish on web.
 #
