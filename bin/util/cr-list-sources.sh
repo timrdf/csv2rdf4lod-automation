@@ -16,16 +16,12 @@
 #
 # usage:
 
-back_zero=`pwd`
-ANCHOR_SHOULD_BE_SOURCE=`basename $back_zero`
-if [ $ANCHOR_SHOULD_BE_SOURCE != "source" ]; then
-   echo "  Working directory does not appear to be a source directory."
-   echo "  Run `basename $0` from a source/ directory (e.g. csv2rdf4lod/data/source)"
+# cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
+ACCEPTABLE_PWDs="cr:data-root"
+if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
 fi
-
-#echo "anchor: $ANCHOR_SHOULD_BE_SOURCE" >&2
-#echo "source: $source" >&2
 
 # older version of same query: find . -maxdepth 1 -type d | sed 's/^\.\///' | grep -v "^\.$" | grep -v "^$"
 

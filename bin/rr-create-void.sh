@@ -14,23 +14,22 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-if [ ${1:-"."} == "--help" ]; then
+if [ "$1" == "--help" ]; then
    echo "usage: `basename $0` [[-w] file]"
-   exit 1
-fi
-
-back_one=`cd .. 2>/dev/null && pwd`
-ANCHOR_SHOULD_BE_VERSION=`basename $back_one`
-if [ $ANCHOR_SHOULD_BE_VERSION != "version" ]; then
-   echo "  Working directory does not appear to be a VERSION directory."
-   echo "  Run `basename $0` from a SOURCE directory (e.g. csv2rdf4lod/data/source/SOURCE/version/VERSION/)"
    exit 1
 fi
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"must be set; source csv2rdf4lod/source-me.sh (created by install.sh)."}
 
+# cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
+ACCEPTABLE_PWDs="cr:conversion-cockpit"
+if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
+   exit 1
+fi
+
 write="-"
-if [ ${1:-"."} == "-w" ]; then
+if [ "$1"} == "-w" ]; then
    write="-w"
    shift
 fi

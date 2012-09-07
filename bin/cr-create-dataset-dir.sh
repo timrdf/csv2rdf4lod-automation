@@ -27,16 +27,14 @@ if [ $# -lt 1 ]; then
    exit 1
 fi
 
-wd=`pwd`
-ANCHOR_SHOULD_BE_SOURCE=`basename $wd`
-if [ $ANCHOR_SHOULD_BE_SOURCE != "source" ]; then
-   echo "  Working directory does not appear to be a SOURCE directory."
-   echo "  Run `basename $0` from a 'source' directory (e.g. csv2rdf4lod/data/source/)"
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+
+# cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
+ACCEPTABLE_PWDs="cr:data-root"
+if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
 fi
-
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"must be set; source csv2rdf4lod/source-me.sh (created by install.sh)."}
-formats=${formats:?"must be set; source csv2rdf4lod/source-me.sh (created by install.sh)."}
 
 SETUP_PARAMS="_"`basename $0``date +%s`_$$.tmp
 

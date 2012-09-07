@@ -9,13 +9,13 @@ if [ "$1" == "true" ]; then
    if [ "$2" == "beginning" ]; then
       echo "" 
       echo "" 
-      echo "       (NOTE: only performing dryrun; remove -n parameter to actually load triple store.)"
+      echo "       (NOTE: only performing dryrun)"
       echo "" 
       echo ""
    elif [ "$2" == "ending" ]; then
       echo "" 
       echo "" 
-      echo "       (NOTE: only performed dryrun; remove -n parameter to actually load triple store's <$graphName>)"
+      echo "       (NOTE: only performed dryrun)"
       echo ""
       echo ""
    fi
