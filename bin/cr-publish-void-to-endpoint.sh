@@ -126,7 +126,7 @@ fi
 
 #echo "Loading void into $graphName"                                           >&2
 
-if [ "$dryRun" != "true" -a $graphName != "." ]; then
+if [ "$dryRun" != "true" ]; then
    pushd $cockpit &> /dev/null
       #${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $graphName
       publish/bin/virtuoso-load-$sourceID-$datasetID-$versionID.sh
