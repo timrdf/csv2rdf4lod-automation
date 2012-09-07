@@ -88,6 +88,12 @@ if [ "$1" == "-n" ]; then
    shift 
 fi
 
+clearGraph="false"
+if [ "$1" == "--clear-graph" ]; then
+   clearGraph="true"
+   shift
+fi
+
 if [ $# -lt 1 ]; then
    $0 --help
 fi
@@ -122,7 +128,7 @@ pushd $cockpit &> /dev/null
    aggregate-source-rdf.sh source/*
 popd &> /dev/null
 
-if [ "$1" == "--clear-graph" ]; then
+if [ "$clearGraph" == "true" ]; then
    echo ""
    echo "Deleting $graphName"                                         >&2
    echo  "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $graphName" >&2
