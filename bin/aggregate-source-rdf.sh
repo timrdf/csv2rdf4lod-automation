@@ -22,7 +22,7 @@ fi
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:conversion-cockpit"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
-   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
+   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh --script `basename $0` $ACCEPTABLE_PWDs
    exit 1
 fi
 

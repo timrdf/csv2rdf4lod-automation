@@ -22,6 +22,13 @@
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source my-csv2rdf4lod-source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
 
+script=""
+if [[ "$1" == "--script" ]]; then
+   script="$2"
+   echo "$script not situated:"
+   shift 2
+fi
+
 if [[ "$1" == "--types" ]]; then
    ${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh --types
    exit 1
