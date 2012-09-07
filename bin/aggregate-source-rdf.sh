@@ -146,7 +146,7 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "   echo \"  $see\""                                                                                                   >> $vloadSH
    echo "   exit 1"                                                                                                            >> $vloadSH
    echo "fi"                                                                                                                   >> $vloadSH
-   echo "if [ -e '$lnwww' ];"                                                                                                  >> $vloadSH
+   echo "if [ -e '$lnwww' ]; then"                                                                                             >> $vloadSH
    echo "   # Make sure that the file we will load from the web is published"                                                  >> $vloadSH
    echo "   $lnwww"                                                                                                            >> $vloadSH
    echo "fi"                                                                                                                   >> $vloadSH
