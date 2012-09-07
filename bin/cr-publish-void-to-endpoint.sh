@@ -111,7 +111,9 @@ for void in $voids; do
    fi
 done
 
-aggregate-source-rdf.sh $valid
+pushd &> /dev/null
+   aggregate-source-rdf.sh source/*
+popd &> /dev/null
 
 if [ "$1" == "--clear-graph" ]; then
    echo ""
