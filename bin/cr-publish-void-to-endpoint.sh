@@ -51,10 +51,18 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
+sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
+datasetID=`basename $0 | sed 's/.sh$//'`
+versionID=`date +%Y-%b-%d`
+
+graphName=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID
+
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n] --clear-graph <named_graph_URI | cr:auto | .>"
    echo ""
-   echo "Find all void subset ttl files and put them into a named graph on a virtuoso sparql endpoint."
+   echo "Find all metadata Turtle files in any conversion cockpit, "
+   echo "  archive them into a new versioned dataset, and "
+   echo "    load it into a virtuoso sparql endpoint."
    echo ""
    echo "         --target : return the name of graph that will be loaded; then quit."
    echo "               -n : perform dry run only; do not load named graph."
@@ -67,6 +75,8 @@ if [[ $# -lt 1 || "$1" == "--help" ]]; then
 fi
 
 if [ "$1" == "--target" ]; then
+   # a conversion:VersionedDataset:
+   # e.g. http://purl.org/twc/health/source/tw-rpi-edu/dataset/cr-publish-void-to-endpoint/version/2012-Sep-07
    echo $graphName
    exit 0
 fi
@@ -87,9 +97,6 @@ if [ "$1" != "cr:auto" ]; then
    shift 
 fi
 
-sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
-datasetID=`basename $0 | sed 's/.sh$//'`
-versionID=`date +%Y-%b-%d`
 cockpit="$sourceID/$datasetID/version/$versionID"
 if [ ! -d $cockpit/source ]; then
    mkdir -p $cockpit/source
@@ -125,8 +132,6 @@ if [ "$1" == "--clear-graph" ]; then
    fi
    shift
 fi
-
-#echo "Loading void into $graphName"                                           >&2
 
 if [ "$dryRun" != "true" ]; then
    pushd $cockpit &> /dev/null
