@@ -31,6 +31,8 @@ while [ $# -gt 0 ]; do
       md5sum $file | perl -pe 's/\s.*//'
       # md5sum 1008/urls.txt 
       # 06c63f2da8419e3791531cbabaaccc9c  1008/urls.txt
+
+      #echo hi | md5sum | awk '{print $1}'
    else
       echo "`basename $0`: can not find md5 to run."
    fi
