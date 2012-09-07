@@ -60,9 +60,9 @@ graphName=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$source
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n] --clear-graph <named_graph_URI | cr:auto | .>"
    echo ""
-   echo "Find all metadata Turtle files in any conversion cockpit, "
-   echo "  archive them into a new versioned dataset, and "
-   echo "    load it into a virtuoso sparql endpoint."
+   echo "  Find all metadata Turtle files in any conversion cockpit, "
+   echo "    archive them into a new versioned dataset, and "
+   echo "      load it into a virtuoso sparql endpoint."
    echo ""
    echo "         --target : return the name of graph that will be loaded; then quit."
    echo "               -n : perform dry run only; do not load named graph."
