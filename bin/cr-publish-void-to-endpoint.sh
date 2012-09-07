@@ -57,7 +57,7 @@ elif [ `is-pwd-a.sh cr:source` == "yes" ]; then
    graphName=$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/vocab/Dataset
 fi
 
-if [ $# -lt 1 ]; then
+if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n] --clear-graph <named_graph_URI | cr:auto | .>"
    echo ""
    echo "Find all void subset ttl files and put them into a named graph on a virtuoso sparql endpoint."
