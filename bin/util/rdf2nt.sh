@@ -23,7 +23,12 @@ while [ $# -gt 0 ]; do
       serialization="-g" # Assume that the extension is correct
    fi
    fullpath=`pwd`/$1 # Does not need to be exact; only needs to be unique.
-   md5=urlhash`md5 -qs $fullpath`
+   md5=""
+   if [ `which md5 2> /dev/null` ]; then
+      md5=urlhash`md5 -qs $fullpath`
+   elif [ `which md5sum 2> /dev/null` ]; then
+      md5=urlhash`echo $fullpath | md5sum | awk '{print $1}'`
+   fi
    
    # -q : quiet
    # -o : output ntriples
