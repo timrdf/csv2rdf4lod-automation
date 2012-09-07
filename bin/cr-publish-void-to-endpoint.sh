@@ -35,7 +35,12 @@
 #      datasetGraph=`cr-publish-void-to-endpoint.sh   -n auto 2>&1 | awk '/Will populate into/{print $7}'`
 #      cr-publish-void-to-endpoint.sh   auto # http://logd.tw.rpi.edu/vocab/Dataset
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
+
+see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets"
+CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID=${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:?"not set; see $see"}
+CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID=${CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID:?"not set; see $see"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:data-root cr:source"
@@ -75,11 +80,7 @@ fi
 dryRun="false"
 if [ "$1" == "-n" ]; then
    dryRun="true"
-   echo "" 
-   echo "" 
-   echo "       (NOTE: only performing dryrun; remove -n parameter to actually load triple store.)"
-   echo "" 
-   echo ""
+   dryrun.sh $dryrun beginning
    shift 
 fi
 
@@ -87,75 +88,66 @@ if [ $# -lt 1 ]; then
    $0 --help
 fi
 
-if [ "$1" == "--clear-graph" ]; then
-   echo ""
-   echo "Deleting $graphName"                                         >&2
-   echo  "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $graphName" >&2
-   if [ "$dryRun" != "true" -a $graphName != "." ]; then
-      ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete             $graphName
-   fi
-   shift
-fi
-
 if [ "$1" != "cr:auto" ]; then
    graphName="$1"
    shift 
 fi
 
-ARCHIVED_void=""
-
-echo "Finding all VoIDs from `pwd`. Will populate into $graphName" >&2
-echo ""
-if [ `is-pwd-a.sh cr:source` == "yes" ]; then
-   voids=`find   */version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
-elif [ `is-pwd-a.sh cr:data-root` == "yes" ]; then
-   voids=`find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
-
-   if [ ${#CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID} -gt 0 -a ${#CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID} -gt 0 ]; then
-      ARCHIVED_void=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID/$CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID-metadata/version/`date +%Y-%b-%d`/source/conversion-metadata.nt
-      echo Archiving all VoID to $ARCHIVED_void
-      echo ""
-      if [ "$dryRun" != "true" ]; then
-         mkdir -p `dirname $ARCHIVED_void`
-         if [ -e $ARCHIVED_void ]; then 
-            rm $ARCHIVED_void # In case we've run this script earlier today.
-         fi
-      fi
-      TEMP=$ARCHIVED_void
-   fi
+sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
+datasetID=`basename $0 | sed 's/.sh$//'`
+versionID=`date +%Y-%b-%d`
+cockpit="$sourceID/$datasetID/version/$versionID"
+if [ ! -d $cockpit/source ]; then
+   mkdir -p $cockpit/source
 fi
+rm -rf $cockpit/source/*
 
+echo "Finding all VoIDs from `cr-pwd.sh`."
+echo "Will populate into $graphName" >&2
+echo
+
+voids=`find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
+valid=""
 for void in $voids; do
-   count=`wc $void | awk '{print $1}'`
+   count=`void-triples.sh $void`
    echo "$count . $void" >&2
-   if [ "$dryRun" != "true" ]; then
-      rapper -i turtle -o ntriples $void >> $TEMP
+   ln $void $cockpit/source
+   if [ "$valid" -gt 0 ]; then
+      valid="$valid $void"
    fi
 done
 
-echo ""
-echo "Loading void into $graphName"                                           >&2
-echo "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $graphName" >&2
+aggregate-source-rdf.sh $valid
+
+if [ "$1" == "--clear-graph" ]; then
+   echo ""
+   echo "Deleting $graphName"                                         >&2
+   echo  "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $graphName" >&2
+   if [ "$dryRun" != "true" -a $graphName != "." ]; then
+      #${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete             $graphName
+      publish/bin/virtuoso-delete-$sourceID-$datasetID-$versionID.sh
+   fi
+   shift
+fi
+
+#echo "Loading void into $graphName"                                           >&2
+
 if [ "$dryRun" != "true" -a $graphName != "." ]; then
-   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $graphName
+   pushd $cockpit &> /dev/null
+      #${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $graphName
+      publish/bin/virtuoso-load-$sourceID-$datasetID-$versionID.sh
+   popd &> /dev/null
 fi
 
-if [ -e $TEMP ]; then
-   if [ $graphName == "." ]; then
-      echo "dumping to stdout" >&2      
-      cat $TEMP
-   fi
-   if [ ${#ARCHIVED_void} -gt 0 ]; then
-      tar czf $TEMP.tgz $TEMP
-   fi
-   rm $TEMP 
-fi
+#if [ -e $TEMP ]; then
+#   if [ $graphName == "." ]; then
+#      echo "dumping to stdout" >&2      
+#      cat $TEMP
+#   fi
+#   if [ ${#ARCHIVED_void} -gt 0 ]; then
+#      tar czf $TEMP.tgz $TEMP
+#   fi
+#   rm $TEMP 
+#fi
 
-if [ "$dryRun" == "true" ]; then
-   echo "" 
-   echo "" 
-   echo "       (NOTE: only performed dryrun; remove -n parameter to actually load triple store's <$graphName>)"
-   echo ""
-   echo ""
-   shift 
-fi
+dryrun.sh $dryrun ending
