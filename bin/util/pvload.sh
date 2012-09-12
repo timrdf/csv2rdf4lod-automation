@@ -30,8 +30,9 @@ if [ $# -lt 1 ]; then
    exit 1
 fi
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
-CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
+CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 dryrun="false"
 if [ $1 == "-n" ]; then
@@ -80,10 +81,13 @@ while [ $# -gt 0 ]; do
 
    #echo "PVLOAD: url                $url"
    flag=$2
-   if [ ${flag:="."} == "-ng" -a $# -ge 2 ]; then # Override the default named graph name (the URL of the source).
+   if [ "$flag" == "-ng" -a $# -ge 2 ]; then # Override the default named graph name (the URL of the source).
       named_graph="$3"
       #echo "PVLOAD: -ng             $named_graph"; 
       shift 2
+   elif [ "$flag" == "-ng" -a $# -lt 2 ]; then
+      echo "ERROR: -ng given with no value."
+      exit 1
    else
       named_graph="$url"                          # Default to a named graph name of the URL source.
    fi
