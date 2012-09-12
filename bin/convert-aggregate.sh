@@ -435,7 +435,7 @@ fi
 lnwwwrootSH="publish/bin/ln-to-www-root-${sourceID}-${datasetID}-${versionID}.sh"
 echo $lnwwwrootSH | tee -a $CSV2RDF4LOD_LOG
 
-echo "#!/bin/bash"                                                                                  > $lnwwwrootSH
+echo "#!/bin/bash"                                                                                   > $lnwwwrootSH
 echo "#"                                                                                            >> $lnwwwrootSH
 echo "# run from `cr-pwd.sh`"                                                                       >> $lnwwwrootSH
 echo "#"                                                                                            >> $lnwwwrootSH
@@ -444,7 +444,14 @@ echo "# was "                                                                   
 echo "# ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}"                                        >> $lnwwwrootSH
 echo "# when this script was created. "                                                             >> $lnwwwrootSH
 echo ""                                                                                             >> $lnwwwrootSH
-echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT=\${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:?\"not set; source csv2rdf4lod/source-me.sh $or_see_github\"}" >> $lnwwwrootSH
+echo "wwwroot=\$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT"                                                    >> $lnwwwrootSH
+echo "if [ \${\#wwwroot} -eq 0 ]; then"                                                             >> $lnwwwrootSH
+echo "  wwwroot=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT"                                 >> $lnwwwrootSH
+echo "fi"                                                                                           >> $lnwwwrootSH
+echo "if [ \${\#wwwroot} -eq 0 ]; then"                                                             >> $lnwwwrootSH
+echo "  echo \"wwwroot not defined.\""                                                              >> $lnwwwrootSH
+echo "  exit 1"                                                                                     >> $lnwwwrootSH
+echo "fi"                                                                                           >> $lnwwwrootSH
 echo ""                                                                                             >> $lnwwwrootSH
 echo "verbose=\"no\""                                                                               >> $lnwwwrootSH
 echo "if [[ \"\$1\" == \"-v\" ]]; then"                                                             >> $lnwwwrootSH
@@ -474,7 +481,7 @@ echo "# (these are from source/)"                                               
 for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    sourceFile=`echo $sourceFileProvenance | sed 's/.pml.ttl$//'` 
    echo "if [ -e \"$sourceFile\" ]; then "                                                             >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/$sourceFile\"" >> $lnwwwrootSH
+   echo "   wwwfile=\"\$wwwroot/source/$sourceID/file/$datasetID/version/$versionID/$sourceFile\""     >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then "                                                                >> $lnwwwrootSH
    echo "     \$sudo rm -f \$wwwfile"                                                                  >> $lnwwwrootSH
    echo "   else"                                                                                      >> $lnwwwrootSH
@@ -488,8 +495,8 @@ for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
    echo "fi"                                                                                           >> $lnwwwrootSH
    echo ""                                                                                             >> $lnwwwrootSH
    echo "if [ -e \"$sourceFileProvenance\" ]; then"                                                    >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/$sourceFileProvenance\""   >> $lnwwwrootSH
-   echo "   if [ -e \"\$wwwfile\" ]; then "                                                            >> $lnwwwrootSH
+   echo "   wwwfile=\"\$wwwroot/source/$sourceID/file/$datasetID/version/$versionID/$sourceFileProvenance\"" >> $lnwwwrootSH
+   echo "   if [ -e \"\$wwwfile\" ]; then "                                                                  >> $lnwwwrootSH
    echo "     \$sudo rm -f \$wwwfile"                                                                  >> $lnwwwrootSH
    echo "   else"                                                                                      >> $lnwwwrootSH
    echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                               >> $lnwwwrootSH
@@ -504,12 +511,12 @@ for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
 done
 
 echo "##################################################"                                              >> $lnwwwrootSH
-echo "# Link all INPUT CSV files from the /file/ directory structure to the web directory."   >> $lnwwwrootSH
+echo "# Link all INPUT CSV files from the /file/ directory structure to the web directory."            >> $lnwwwrootSH
 echo "# (this could be from manual/ or source/"                                                        >> $lnwwwrootSH
 if [ -e $convertDir/_CSV2RDF4LOD_file_list.txt ]; then
    for inputFile in `cat $convertDir/_CSV2RDF4LOD_file_list.txt`; do # convert.sh builds this list b/c it knows what files were converted.
       echo "if [ -e \"$inputFile\" ]; then "                                                           >> $lnwwwrootSH
-      echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/$inputFile\"" >> $lnwwwrootSH
+      echo "   wwwfile=\"\$wwwroot/source/$sourceID/file/$datasetID/version/$versionID/$inputFile\""   >> $lnwwwrootSH
       echo "   if [ -e \"\$wwwfile\" ]; then "                                                         >> $lnwwwrootSH
       echo "      \$sudo rm -f \"\$wwwfile\""                                                          >> $lnwwwrootSH
       echo "   else"                                                                                   >> $lnwwwrootSH
@@ -529,24 +536,24 @@ TEMP_file_list="_"`basename $0``date +%s`_$$.tmp
 
 find automatic -name '*.params.ttl' | sed 's/^\.\///'  > $TEMP_file_list
 find manual    -name '*.params.ttl' | sed 's/^\.\///' >> $TEMP_file_list
-echo "##################################################"                                            >> $lnwwwrootSH
+echo "##################################################"                                                >> $lnwwwrootSH
 echo "# Link all raw and enhancement PARAMETERS from the file directory structure to the web directory." >> $lnwwwrootSH
-echo "#"                                                                                             >> $lnwwwrootSH
+echo "#"                                                                                                 >> $lnwwwrootSH
 for paramFile in `cat $TEMP_file_list`; do
-   echo "if [ -e \"$paramFile\" ]; then "                                                            >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/$paramFile\"" >> $lnwwwrootSH
-   echo "   if [ -e \"\$wwwfile\" ]; then "                                                          >> $lnwwwrootSH
-   echo "     \$sudo rm -f \"\$wwwfile\""                                                            >> $lnwwwrootSH
-   echo "   else"                                                                                    >> $lnwwwrootSH
-   echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                             >> $lnwwwrootSH
-   echo "   fi"                                                                                      >> $lnwwwrootSH
-   echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-   # echo "   echo \$sudo ln \$symbolic \"\${pwd}$paramFile\" \"\$wwwfile\""                         >> $lnwwwrootSH # TODO
-   echo "   \$sudo ln \$symbolic \"\${pwd}$paramFile\" \"\$wwwfile\""                                >> $lnwwwrootSH
-   echo "else"                                                                                       >> $lnwwwrootSH
-   echo "   echo \"  -- $paramFile omitted --\""                                                     >> $lnwwwrootSH
-   echo "fi"                                                                                         >> $lnwwwrootSH
-   echo ""                                                                                           >> $lnwwwrootSH
+   echo "if [ -e \"$paramFile\" ]; then "                                                                >> $lnwwwrootSH
+   echo "   wwwfile=\"\$wwwroot/source/$sourceID/file/$datasetID/version/$versionID/$paramFile\""        >> $lnwwwrootSH
+   echo "   if [ -e \"\$wwwfile\" ]; then "                                                              >> $lnwwwrootSH
+   echo "     \$sudo rm -f \"\$wwwfile\""                                                                >> $lnwwwrootSH
+   echo "   else"                                                                                        >> $lnwwwrootSH
+   echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                                 >> $lnwwwrootSH
+   echo "   fi"                                                                                          >> $lnwwwrootSH
+   echo "   echo \"  \$wwwfile\""                                                                        >> $lnwwwrootSH
+   # echo "   echo \$sudo ln \$symbolic \"\${pwd}$paramFile\" \"\$wwwfile\""                             >> $lnwwwrootSH # TODO
+   echo "   \$sudo ln \$symbolic \"\${pwd}$paramFile\" \"\$wwwfile\""                                    >> $lnwwwrootSH
+   echo "else"                                                                                           >> $lnwwwrootSH
+   echo "   echo \"  -- $paramFile omitted --\""                                                         >> $lnwwwrootSH
+   echo "fi"                                                                                             >> $lnwwwrootSH
+   echo ""                                                                                               >> $lnwwwrootSH
 done
 
 find source -name '*.pml.ttl'                                     > $TEMP_file_list
@@ -559,14 +566,14 @@ echo "#"                                                                        
 for pmlFile in `cat $TEMP_file_list`
 do
    echo "if [ -e \"$pmlFile\" ]; then "                                                              >> $lnwwwrootSH
-   echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/$pmlFile\"" >> $lnwwwrootSH
+   echo "   wwwfile=\"\$wwwroot/source/$sourceID/file/$datasetID/version/$versionID/$pmlFile\""      >> $lnwwwrootSH
    echo "   if [ -e \"\$wwwfile\" ]; then"                                                           >> $lnwwwrootSH
    echo "     \$sudo rm -f \"\$wwwfile\""                                                            >> $lnwwwrootSH
    echo "   else"                                                                                    >> $lnwwwrootSH
    echo "     \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                             >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-#   echo "   echo \$sudo ln \$symbolic \"\${pwd}$pmlFile\" \"\$wwwfile\""                                  >> $lnwwwrootSH # TODO
+#   echo "   echo \$sudo ln \$symbolic \"\${pwd}$pmlFile\" \"\$wwwfile\""                            >> $lnwwwrootSH # TODO
    echo "   \$sudo ln \$symbolic \"\${pwd}$pmlFile\" \"\$wwwfile\""                                  >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  -- $pmlFile omitted --\""                                                       >> $lnwwwrootSH
@@ -575,37 +582,37 @@ do
 done
 rm $TEMP_file_list
 
-echo "##################################################"                                                                >> $lnwwwrootSH
+echo "##################################################"                                                     >> $lnwwwrootSH
 echo "# Link all bundled RDF output files from the source/.../file directory structure to the web directory." >> $lnwwwrootSH
-echo "#"                                                                                                                 >> $lnwwwrootSH
+echo "#"                                                                                                      >> $lnwwwrootSH
 # Version rollup of all layers (all serializations)
 for serialization in ttl nt rdf
 do
-   echo "dump=$sourceID-$datasetID-$versionID.$serialization"                                                                              >> $lnwwwrootSH
-   echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump" >> $lnwwwrootSH
-   echo "if [ -e publish/\$dump.$zip ]; then "                                                   >> $lnwwwrootSH 
+   echo "dump=$sourceID-$datasetID-$versionID.$serialization"                                        >> $lnwwwrootSH
+   echo "wwwfile=\$wwwroot/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump"    >> $lnwwwrootSH
+   echo "if [ -e publish/\$dump.$zip ]; then "                                                       >> $lnwwwrootSH 
    echo "   if [ -e \$wwwfile.$zip ]; then"                                                          >> $lnwwwrootSH 
    echo "    \$sudo rm -f \$wwwfile.$zip"                                                            >> $lnwwwrootSH 
    echo "   else"                                                                                    >> $lnwwwrootSH
    echo "     \$sudo mkdir -p \`dirname \$wwwfile.$zip\`"                                            >> $lnwwwrootSH 
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile.$zip\""                                                               >> $lnwwwrootSH 
-#   echo "   echo \$sudo ln \$symbolic \${pwd}publish/\$dump.$zip \$wwwfile.$zip"                             >> $lnwwwrootSH  # TODO
-   echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump.$zip \$wwwfile.$zip"                      >> $lnwwwrootSH
+#   echo "   echo \$sudo ln \$symbolic \${pwd}publish/\$dump.$zip \$wwwfile.$zip"                    >> $lnwwwrootSH  # TODO
+   echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump.$zip \$wwwfile.$zip"                          >> $lnwwwrootSH
    echo ""                                                                                           >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then"                                                               >> $lnwwwrootSH
    echo "      echo \"  \$wwwfile\" - removing b/c $zip available"                                   >> $lnwwwrootSH 
    echo "      \$sudo rm -f \$wwwfile # clean up to save space"                                      >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
-   echo "elif [ -e publish/\$dump ]; then "                                                      >> $lnwwwrootSH
+   echo "elif [ -e publish/\$dump ]; then "                                                          >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then "                                                              >> $lnwwwrootSH
    echo "      \$sudo rm -f \$wwwfile"                                                               >> $lnwwwrootSH
    echo "   else"                                                                                    >> $lnwwwrootSH
    echo "      \$sudo mkdir -p \`dirname \$wwwfile\`"                                                >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "   echo \"  \$wwwfile\""                                                                    >> $lnwwwrootSH
-#   echo "   echo \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                       >> $lnwwwrootSH # TODO
-   echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                       >> $lnwwwrootSH
+#   echo "   echo \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                              >> $lnwwwrootSH # TODO
+   echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                    >> $lnwwwrootSH
    echo "else"                                                                                       >> $lnwwwrootSH
    echo "   echo \"  -- full $serialization omitted -- \""                                           >> $lnwwwrootSH
    echo "fi"                                                                                         >> $lnwwwrootSH
@@ -616,30 +623,30 @@ for conversionID in $conversionIDs sameas void # <---- Add root-level subsets he
 do
    for serialization in ttl nt rdf
    do
-      echo "dump=$sourceID-$datasetID-$versionID.$conversionID.$serialization"                                                                >> $lnwwwrootSH
-      echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump" >> $lnwwwrootSH
-      echo "if [ -e publish/\$dump.$zip ]; then "                                                >> $lnwwwrootSH 
+      echo "dump=$sourceID-$datasetID-$versionID.$conversionID.$serialization"                       >> $lnwwwrootSH
+      echo "wwwfile=\$wwwroot/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump" >> $lnwwwrootSH
+      echo "if [ -e publish/\$dump.$zip ]; then"                                                     >> $lnwwwrootSH 
       echo "   if [ -e \$wwwfile.$zip ]; then"                                                       >> $lnwwwrootSH 
       echo "      \$sudo rm -f \$wwwfile.$zip"                                                       >> $lnwwwrootSH 
       echo "   else"                                                                                 >> $lnwwwrootSH
       echo "      \$sudo mkdir -p \`dirname \$wwwfile.$zip\`"                                        >> $lnwwwrootSH 
       echo "   fi"                                                                                   >> $lnwwwrootSH
       echo "   echo \"  \$wwwfile.$zip\""                                                            >> $lnwwwrootSH 
-      echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump.$zip \$wwwfile.$zip"                          >> $lnwwwrootSH 
+      echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump.$zip \$wwwfile.$zip"                       >> $lnwwwrootSH 
       echo ""                                                                                        >> $lnwwwrootSH
       echo "   if [ -e \$wwwfile ]; then"                                                            >> $lnwwwrootSH
       echo "      echo \"  \$wwwfile\" - removing b/c $zip available"                                >> $lnwwwrootSH 
       echo "      \$sudo rm -f \$wwwfile # clean up to save space"                                   >> $lnwwwrootSH
       echo "   fi"                                                                                   >> $lnwwwrootSH
-      echo "elif [ -e publish/\$dump ]; then "                                                   >> $lnwwwrootSH
+      echo "elif [ -e publish/\$dump ]; then "                                                       >> $lnwwwrootSH
       echo "   if [ -e \$wwwfile ]; then "                                                           >> $lnwwwrootSH
       echo "      \$sudo rm -f \$wwwfile"                                                            >> $lnwwwrootSH
       echo "   else"                                                                                 >> $lnwwwrootSH
       echo "      \$sudo mkdir -p \`dirname \$wwwfile\`"                                             >> $lnwwwrootSH
       echo "   fi"                                                                                   >> $lnwwwrootSH
       echo "   echo \"  \$wwwfile\""                                                                 >> $lnwwwrootSH
-#      echo "   echo \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                    >> $lnwwwrootSH # TODO
-      echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                    >> $lnwwwrootSH
+#      echo "   echo \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                           >> $lnwwwrootSH # TODO
+      echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                 >> $lnwwwrootSH
       echo "else"                                                                                    >> $lnwwwrootSH
       echo "   echo \"  -- $conversionID $serialization omitted --\""                                >> $lnwwwrootSH
       echo "fi"                                                                                      >> $lnwwwrootSH
@@ -651,29 +658,29 @@ do
          #    /var/www/html/logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Jul-21/conversion/data-gov-1008-2010-Jul-21.raw.sample
          # to get:
          #    http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Jul-21/conversion/data-gov-1008-2010-Jul-21.raw.sample
-         echo "dump=$sourceID-$datasetID-$versionID.$conversionID.$subset.$serialization"                                                        >> $lnwwwrootSH
-         echo "wwwfile=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump" >> $lnwwwrootSH
-         echo "if [ -e publish/\$dump ]; then "                                                  >> $lnwwwrootSH
-         echo "   if [ -e \$wwwfile ]; then "                                                        >> $lnwwwrootSH
-         echo "      \$sudo rm -f \$wwwfile"                                                         >> $lnwwwrootSH
-         echo "   else"                                                                              >> $lnwwwrootSH
-         echo "      \$sudo mkdir -p \`dirname \$wwwfile\`"                                          >> $lnwwwrootSH
-         echo "   fi"                                                                                >> $lnwwwrootSH
-         echo "   echo \"  \$wwwfile\""                                                              >> $lnwwwrootSH
-#         echo "   echo \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                 >> $lnwwwrootSH # TODO
+         echo "dump=$sourceID-$datasetID-$versionID.$conversionID.$subset.$serialization"               >> $lnwwwrootSH
+         echo "wwwfile=\$wwwroot/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump" >> $lnwwwrootSH
+         echo "if [ -e publish/\$dump ]; then "                                                         >> $lnwwwrootSH
+         echo "   if [ -e \$wwwfile ]; then "                                                           >> $lnwwwrootSH
+         echo "      \$sudo rm -f \$wwwfile"                                                            >> $lnwwwrootSH
+         echo "   else"                                                                                 >> $lnwwwrootSH
+         echo "      \$sudo mkdir -p \`dirname \$wwwfile\`"                                             >> $lnwwwrootSH
+         echo "   fi"                                                                                   >> $lnwwwrootSH
+         echo "   echo \"  \$wwwfile\""                                                                 >> $lnwwwrootSH
+#         echo "   echo \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                           >> $lnwwwrootSH # TODO
          echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump \$wwwfile"                                 >> $lnwwwrootSH
-         echo "else"                                                                                 >> $lnwwwrootSH
-         echo "   echo \"  -- $conversionID $subset $serialization omitted --\""                     >> $lnwwwrootSH
-         echo "fi"                                                                                   >> $lnwwwrootSH
-         echo ""                                                                                     >> $lnwwwrootSH
+         echo "else"                                                                                    >> $lnwwwrootSH
+         echo "   echo \"  -- $conversionID $subset $serialization omitted --\""                        >> $lnwwwrootSH
+         echo "fi"                                                                                      >> $lnwwwrootSH
+         echo ""                                                                                        >> $lnwwwrootSH
       done
    done
-   echo ""                                                                                           >> $lnwwwrootSH
+   echo ""                                                                                              >> $lnwwwrootSH
 done
 
 chmod +x $lnwwwrootSH
 
-if [ ${#CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT} -gt 0 -a ${CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES:-"false"} == "true" ]; then
+if [ ${#CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT} -gt 0 -a "$CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES" == "true" ]; then
    echo "$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT - linking dump files into web root:" | tee -a $CSV2RDF4LOD_LOG
    # Execute the script we just generated.
    $lnwwwrootSH #2> /dev/null
