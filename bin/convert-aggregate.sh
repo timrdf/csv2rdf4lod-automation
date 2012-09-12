@@ -17,11 +17,11 @@
 # Aggregate conversion outputs into publishable datafiles.
 #
 # Up to this point, all processing was done using filenames provided by the dataset source organization.
-# Put all data into $sourceID-$datasetID-$versionID dump files and construct command appropriate 
+# Put all data into $sourceID-$datasetID-$versionID dump files and construct command appropriate
 # for lod-materialization.
 #
 #
-# This script is ___NOT___ to be called directly: 
+# This script is ___NOT___ to be called directly:
 # Called by conversion trigger (e.g. convert-DATASET.sh)
 # The conversion trigger is created by manually invoking cr-create-conversion-trigger.sh)
 # This script can also be invoked by running publish/bin/publish.sh (created by the conversion trigger)
@@ -43,11 +43,11 @@ if [ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "fine" ]; then
    CSV2RDF4LOD_FORCE_PUBLISH="true"
 fi
 
-# These directory names have become canonical. 
+# These directory names have become canonical.
 # The flexibility to change them is no longer desirable.
 convertDir=${convertDir:-automatic}   # Could be renamed to 'converted'?
 #publishDir=${publishDir:-publish}    # hard coded now, as it should be.
-# # # # # # # # # # # # # # # # # # # #            
+# # # # # # # # # # # # # # # # # # # #
 
 
 # These variables are embedded in the directory conventions.
@@ -56,7 +56,7 @@ datasetID=`cr-dataset-id.sh`    #
 versionID=`cr-version-id.sh`    #
 # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Directory-Conventions
 
-# NOTE: eID is provided by conversion trigger, but the case where it is not provided should be handled 
+# NOTE: eID is provided by conversion trigger, but the case where it is not provided should be handled
 # (e.g. when cr-publish-cockpit.sh calls this script)
 
 graph=`cr-dataset-uri.sh --uri`
@@ -78,7 +78,7 @@ else
       if [[ $runEnhancement == "yes" && ( $dumps == "yes" || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
          echo "convert-aggregate.sh publishing raw and enhancements."                                                                     | tee -a $CSV2RDF4LOD_LOG
       else
-         # NOTE: If multiple files to convert and the LAST file is not enhanced, 
+         # NOTE: If multiple files to convert and the LAST file is not enhanced,
          #       the runEnhancement flag will be "no" and convert-aggregate.sh will not aggregate.
          # To overcome this bug, manually run publish/bin/publish.sh to force the aggregation.
          sourceme="my-csv2rdf4lod-source-me.sh"
@@ -129,7 +129,7 @@ allSAMEAS_L=$sourceID-$datasetID-$versionID.sameas.nt
 
 filesToCompress=""
 
-# TODO: align with CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS                 "cr:auto" => ttl.gz 
+# TODO: align with CSV2RDF4LOD_CONVERT_DUMP_FILE_EXTENSIONS                 "cr:auto" => ttl.gz
 # bin/util/dump-file-extensions.sh defaults to gz
 zip="gz"
 if [ ! `which rapper` ]; then
@@ -166,11 +166,13 @@ fi
 #
 # Individual enhancement ttl (any that are not aggregated)
 #
-# Got messed up when added sample.ttl: 
+# Got messed up when added sample.ttl:
 #     enhancementLevels=`ls $convertDir/*.e*.ttl 2> /dev/null | grep -v void.ttl | sed -e 's/^.*\.e\([^.]*\).ttl/\1/' | sort -u`
-# This works, but moved to script: 
+# This works, but moved to script:
 #     enhancementLevels=`find $convertDir -name "*.e[!.].ttl" | sed -e 's/^.*\.e\([^.]*\).ttl/\1/' | sort -u` # WARNING: only handles e1 through e9
 enhancementLevels=`cr-list-enhancement-identifiers.sh` # WARNING: only handles e1 through e9
+filesToCompress=""
+filesToDelete=""
 anyEsDone="no"
 for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
    eTTL=publish/$sourceID-$datasetID-$versionID.e$eIDD.ttl
@@ -181,6 +183,7 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
    cat $convertDir/*.e$eIDD.ttl > $eTTL
    if [ "$CSV2RDF4LOD_PUBLISH_TTL_LAYERS" == 'true' ]; then
       filesToCompress="$filesToCompress $eTTL"
+      filesToDelete="$filesToDelete $eTTL"
    fi
 
    # Sample the aggregated enhancements.
@@ -204,7 +207,7 @@ echo $allPML | tee -a $CSV2RDF4LOD_LOG
 rm $allPML 2> /dev/null
 for dir in source manual automatic; do
    for pml in `find $dir -name "*.pml.ttl"`; do
-      # source/STATE_SINGLE_PW.CSV -> 
+      # source/STATE_SINGLE_PW.CSV ->
       # http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Aug-30/source/STATE_SINGLE_PW.CSV
       # rapper -g -o turtle source/STATE_SINGLE_PW.CSV.pml.ttl  http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Aug-30/source/
       sourceFile=`echo $pml | sed 's/.pml.ttl$//'`
@@ -363,7 +366,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS:-"."} == "true" ]; then
          # echo "   (bigttl2nt.sh'ing NT)" | tee -a $CSV2RDF4LOD_LOG
          $CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL 2> /dev/null | awk -f $CSV2RDF4LOD_HOME/bin/util/sameasInNT.awk > $allSAMEAS
       else
-         # Process the entire file at once; it's small enough.  
+         # Process the entire file at once; it's small enough.
          # echo "   (rapper'ing NT)" | tee -a $CSV2RDF4LOD_LOG
          rapper -i turtle $allTTL -o ntriples 2> /dev/null | awk -f $CSV2RDF4LOD_HOME/bin/util/sameasInNT.awk > $allSAMEAS
       fi
@@ -409,11 +412,11 @@ if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
          # Don't use tar if there is only ever one file; use gzip instead:
          cat $dumpFileBase | gzip > $dumpFileBase.$zip # TODO:notar
 
-         # WARNING: 
+         # WARNING:
          # gunzip $dumpFileBase.gz # will remove .gz file
          # INSTEAD:
          # gunzip -c $dumpFileBase.gz > $dumpFileBase # Keep .gz and write to original.
-         # FYI: 
+         # FYI:
          # bzip has a -k option to keep it around.
       popd &> /dev/null
       # NOTE, pre-tarball will be deleted at end of this script.
@@ -479,7 +482,7 @@ echo "##################################################"                       
 echo "# Link all original files from the /file/ directory structure to the web directory."          >> $lnwwwrootSH
 echo "# (these are from source/)"                                                                   >> $lnwwwrootSH
 for sourceFileProvenance in `ls source/*.pml.ttl 2> /dev/null`; do
-   sourceFile=`echo $sourceFileProvenance | sed 's/.pml.ttl$//'` 
+   sourceFile=`echo $sourceFileProvenance | sed 's/.pml.ttl$//'`
    echo "if [ -e \"$sourceFile\" ]; then "                                                             >> $lnwwwrootSH
    echo "   wwwfile=\"\$wwwroot/source/$sourceID/file/$datasetID/version/$versionID/$sourceFile\""     >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then "                                                                >> $lnwwwrootSH
@@ -590,18 +593,18 @@ for serialization in ttl nt rdf
 do
    echo "dump=$sourceID-$datasetID-$versionID.$serialization"                                        >> $lnwwwrootSH
    echo "wwwfile=\$wwwroot/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump"    >> $lnwwwrootSH
-   echo "if [ -e publish/\$dump.$zip ]; then "                                                       >> $lnwwwrootSH 
-   echo "   if [ -e \$wwwfile.$zip ]; then"                                                          >> $lnwwwrootSH 
-   echo "    \$sudo rm -f \$wwwfile.$zip"                                                            >> $lnwwwrootSH 
+   echo "if [ -e publish/\$dump.$zip ]; then "                                                       >> $lnwwwrootSH
+   echo "   if [ -e \$wwwfile.$zip ]; then"                                                          >> $lnwwwrootSH
+   echo "    \$sudo rm -f \$wwwfile.$zip"                                                            >> $lnwwwrootSH
    echo "   else"                                                                                    >> $lnwwwrootSH
-   echo "     \$sudo mkdir -p \`dirname \$wwwfile.$zip\`"                                            >> $lnwwwrootSH 
+   echo "     \$sudo mkdir -p \`dirname \$wwwfile.$zip\`"                                            >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
-   echo "   echo \"  \$wwwfile.$zip\""                                                               >> $lnwwwrootSH 
+   echo "   echo \"  \$wwwfile.$zip\""                                                               >> $lnwwwrootSH
 #   echo "   echo \$sudo ln \$symbolic \${pwd}publish/\$dump.$zip \$wwwfile.$zip"                    >> $lnwwwrootSH  # TODO
    echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump.$zip \$wwwfile.$zip"                          >> $lnwwwrootSH
    echo ""                                                                                           >> $lnwwwrootSH
    echo "   if [ -e \$wwwfile ]; then"                                                               >> $lnwwwrootSH
-   echo "      echo \"  \$wwwfile\" - removing b/c $zip available"                                   >> $lnwwwrootSH 
+   echo "      echo \"  \$wwwfile\" - removing b/c $zip available"                                   >> $lnwwwrootSH
    echo "      \$sudo rm -f \$wwwfile # clean up to save space"                                      >> $lnwwwrootSH
    echo "   fi"                                                                                      >> $lnwwwrootSH
    echo "elif [ -e publish/\$dump ]; then "                                                          >> $lnwwwrootSH
@@ -625,17 +628,17 @@ do
    do
       echo "dump=$sourceID-$datasetID-$versionID.$conversionID.$serialization"                       >> $lnwwwrootSH
       echo "wwwfile=\$wwwroot/source/$sourceID/file/$datasetID/version/$versionID/conversion/\$dump" >> $lnwwwrootSH
-      echo "if [ -e publish/\$dump.$zip ]; then"                                                     >> $lnwwwrootSH 
-      echo "   if [ -e \$wwwfile.$zip ]; then"                                                       >> $lnwwwrootSH 
-      echo "      \$sudo rm -f \$wwwfile.$zip"                                                       >> $lnwwwrootSH 
+      echo "if [ -e publish/\$dump.$zip ]; then"                                                     >> $lnwwwrootSH
+      echo "   if [ -e \$wwwfile.$zip ]; then"                                                       >> $lnwwwrootSH
+      echo "      \$sudo rm -f \$wwwfile.$zip"                                                       >> $lnwwwrootSH
       echo "   else"                                                                                 >> $lnwwwrootSH
-      echo "      \$sudo mkdir -p \`dirname \$wwwfile.$zip\`"                                        >> $lnwwwrootSH 
+      echo "      \$sudo mkdir -p \`dirname \$wwwfile.$zip\`"                                        >> $lnwwwrootSH
       echo "   fi"                                                                                   >> $lnwwwrootSH
-      echo "   echo \"  \$wwwfile.$zip\""                                                            >> $lnwwwrootSH 
-      echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump.$zip \$wwwfile.$zip"                       >> $lnwwwrootSH 
+      echo "   echo \"  \$wwwfile.$zip\""                                                            >> $lnwwwrootSH
+      echo "   \$sudo ln \$symbolic \${pwd}publish/\$dump.$zip \$wwwfile.$zip"                       >> $lnwwwrootSH
       echo ""                                                                                        >> $lnwwwrootSH
       echo "   if [ -e \$wwwfile ]; then"                                                            >> $lnwwwrootSH
-      echo "      echo \"  \$wwwfile\" - removing b/c $zip available"                                >> $lnwwwrootSH 
+      echo "      echo \"  \$wwwfile\" - removing b/c $zip available"                                >> $lnwwwrootSH
       echo "      \$sudo rm -f \$wwwfile # clean up to save space"                                   >> $lnwwwrootSH
       echo "   fi"                                                                                   >> $lnwwwrootSH
       echo "elif [ -e publish/\$dump ]; then "                                                       >> $lnwwwrootSH
@@ -690,7 +693,7 @@ else
 fi
 
 
- 
+
 #
 # TDB
 #
@@ -708,18 +711,18 @@ echo ""                                                                         
 echo "delete=\"\""                                                                            >> $loadtdbSH
 echo "#if [ ! -e $allNT ]; then"                                                              >> $loadtdbSH
 echo "#  delete=\"$allNT\""                                                                   >> $loadtdbSH
-echo "#  if [ -e $allNT.$zip ]; then"                                                         >> $loadtdbSH 
+echo "#  if [ -e $allNT.$zip ]; then"                                                         >> $loadtdbSH
 echo "#    gunzip -c $allNT.$zip > $allNT"                                                    >> $loadtdbSH
 echo "#  elif [ -e $allTTL ]; then"                                                           >> $loadtdbSH
 echo "#    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""          >> $loadtdbSH
 echo "#    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                         >> $loadtdbSH
-echo "#  elif [ -e $allTTL.$zip ]; then"                                                      >> $loadtdbSH 
+echo "#  elif [ -e $allTTL.$zip ]; then"                                                      >> $loadtdbSH
 echo "#    gunzip -c $allTTL.$zip > $allTTL"                                                  >> $loadtdbSH
 echo "#    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""          >> $loadtdbSH
 echo "#    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                         >> $loadtdbSH
 echo "#    rm $allTTL"                                                                        >> $loadtdbSH
 echo "#  else"                                                                                >> $loadtdbSH
-echo "#    echo $allNT, $allNT.$zip, $allTTL, or $allTTL.$zip needed to lod-materialize."     >> $loadtdbSH 
+echo "#    echo $allNT, $allNT.$zip, $allTTL, or $allTTL.$zip needed to lod-materialize."     >> $loadtdbSH
 echo "#    delete=\"\""                                                                       >> $loadtdbSH
 echo "#    exit 1"                                                                            >> $loadtdbSH
 echo "#  fi"                                                                                  >> $loadtdbSH
@@ -729,7 +732,7 @@ echo "if [ -e     \"$allNT\" ]; then"                                           
 echo "  load_file=\"$allNT\""                                                                 >> $loadtdbSH
 echo "elif [ -e   \"$allTTL\" ]; then"                                                        >> $loadtdbSH
 echo "  load_file=\"$allTTL\""                                                                >> $loadtdbSH
-echo "elif [ -e   \"$allTTL.$zip\" ]; then"                                                   >> $loadtdbSH 
+echo "elif [ -e   \"$allTTL.$zip\" ]; then"                                                   >> $loadtdbSH
 echo "  load_file=\"$allTTL\""                                                                >> $loadtdbSH
 echo "  gunzip -c  $allTTL.$zip > $allTTL"                                                    >> $loadtdbSH
 echo "     delete=\"$allTTL\""                                                                >> $loadtdbSH
@@ -751,9 +754,9 @@ echo ""                                                                         
 #                                                                             billion="000000000"
 #echo "if [ \$load_file = \"$allTTL\" -a \`stat -f \"%z\" \"$allTTL\"\` -gt 2$billion ]; then" >> $loadtdbSH # replaced b/c stat -c "%s" on some flavors of unix.
 echo "#if [[ ! \`which tdbloader\` ]]; then"                                                     >> $loadtdbSH
-echo "#   echo \"ERROR: tdbloader not found.\""                                                >> $loadtdbSH 
-echo "#   exit"                                                                                >> $loadtdbSH 
-echo "#fi"                                                                                     >> $loadtdbSH 
+echo "#   echo \"ERROR: tdbloader not found.\""                                                >> $loadtdbSH
+echo "#   exit"                                                                                >> $loadtdbSH
+echo "#fi"                                                                                     >> $loadtdbSH
 echo "if [[ \$load_file == \"$allTTL\" && \"\`too-big-for-rapper.sh\`\" == \"yes\" ]]; then"  >> $loadtdbSH
 echo "  dir=\"`dirname $allTTL`\""                                                            >> $loadtdbSH
 echo "  echo \"cHuNking $allTTL in \$dir\""                                                   >> $loadtdbSH
@@ -762,11 +765,11 @@ echo "  \${CSV2RDF4LOD_HOME}/bin/split_ttl.pl \$load_file"                      
 echo "  for cHuNk in \$dir/cHuNk*.ttl; do"                                                    >> $loadtdbSH
 echo "    echo giving \$cHuNk to tdbloader"                                                   >> $loadtdbSH
 echo "    tdbloader --loc=$TDB_DIR --graph=\`cat $allNT.graph\` \$cHuNk"                      >> $loadtdbSH
-echo "    rm \$cHuNk"                                                                         >> $loadtdbSH 
-echo "  done"                                                                                 >> $loadtdbSH 
-echo "else"                                                                                   >> $loadtdbSH 
+echo "    rm \$cHuNk"                                                                         >> $loadtdbSH
+echo "  done"                                                                                 >> $loadtdbSH
+echo "else"                                                                                   >> $loadtdbSH
 echo "  tdbloader --loc=$TDB_DIR --graph=\`cat $allNT.graph\` \$load_file"                    >> $loadtdbSH
-echo "fi"                                                                                     >> $loadtdbSH 
+echo "fi"                                                                                     >> $loadtdbSH
 echo ""                                                                                       >> $loadtdbSH
 echo "if [ \${#delete} -gt 0 ]; then"                                                         >> $loadtdbSH
 echo "   rm \$delete"                                                                         >> $loadtdbSH
@@ -795,7 +798,7 @@ echo "#"                                                                        
 echo "# run $fourstoreSH"                                                               >> $fourstoreSH
 echo "# from ${sourceID}/$datasetID/version/$versionID/"                           >> $fourstoreSH
 echo ""                                                                                 >> $fourstoreSH
-echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $fourstoreSH 
+echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $fourstoreSH
 echo ""                                                                                 >> $fourstoreSH
 echo "allNT=$allNT"                                                                     >> $fourstoreSH
 echo "if [ ! -e \$allNT ]; then"                                                        >> $fourstoreSH
@@ -928,7 +931,7 @@ echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"        
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                                         >> $vloadSH
 #echo "   #sudo /opt/virtuoso/scripts/vload nt \$dump \$graph"                                                              >> $vloadSH
 echo "   exit 1"                                                                                                            >> $vloadSH
-echo "elif [ -e \$dump.$zip ]; then"                                                                                        >> $vloadSH 
+echo "elif [ -e \$dump.$zip ]; then"                                                                                        >> $vloadSH
 echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                                               >> $vloadSH
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                                                    >> $vloadSH
 #echo "   #gunzip -c \$dump.$zip > \$TEMP"                                                                                  >> $vloadSH
@@ -945,7 +948,7 @@ echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"             
 #echo "   #echo sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                                        >> $vloadSH
 #echo "   #sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                                             >> $vloadSH
 echo "   exit 1"                                                                                                            >> $vloadSH
-echo "elif [ -e \$dump.$zip ]; then"                                                                                        >> $vloadSH 
+echo "elif [ -e \$dump.$zip ]; then"                                                                                        >> $vloadSH
 echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                                               >> $vloadSH
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                                                    >> $vloadSH
 #echo "   #gunzip -c \$dump.$zip > \$TEMP"                                                                                  >> $vloadSH
@@ -961,7 +964,7 @@ echo "if [ -e \$dump ]; then"                                                   
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                                         >> $vloadSH
 #echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                                                              >> $vloadSH
 echo "   exit 1"                                                                                                            >> $vloadSH
-echo "elif [ -e \$dump.$zip ]; then"                                                                                        >> $vloadSH 
+echo "elif [ -e \$dump.$zip ]; then"                                                                                        >> $vloadSH
 echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                                                    >> $vloadSH
 #echo "   gunzip -c \$dump.$zip > \$TEMP"                                                                                   >> $vloadSH
 #echo "   sudo /opt/virtuoso/scripts/vload rdf \$TEMP \$graph"                                                              >> $vloadSH
@@ -978,8 +981,8 @@ if [ ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"."} == "true" ]; then
    $vdeleteSH
    $vloadSH
 elif [ ${CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES:-"."} == "true" ]; then # TODO: cross of publish media and subsets to publish. This violates it.
-   $vdeleteSH --sample 
-   $vloadSH   --sample 
+   $vdeleteSH --sample
+   $vloadSH   --sample
 fi
 
 
@@ -989,7 +992,7 @@ fi
 local_materialization_dir=publish/lod-mat
 
 lodmat='$CSV2RDF4LOD_HOME/bin/lod-materialize/${c_lod_mat}lod-materialize.pl'
-prefixDefs=`$CSV2RDF4LOD_HOME/bin/dup/prefixes2flags.sh $allTTL`        
+prefixDefs=`$CSV2RDF4LOD_HOME/bin/dup/prefixes2flags.sh $allTTL`
 mappingPatterns='--uripattern="/source/([^/]+)/dataset/(.*)" --filepattern="/source/\\1/file/\\2"'
 mappingPatternsVocab='--uripattern="/source/([^/]+)/vocab/(.*)" --filepattern="/source/\\1/vocab_file/\\2"'
 mappingPatternsProvenance='--uripattern="/source/([^/]+)/provenance/(.*)" --filepattern="/source/\\1/file/\\2"'
@@ -1007,20 +1010,20 @@ echo ""                                                                         
 echo "delete=\"\""                                                                                             >> $lodmatSH
 echo "if [ ! -e $allNT ]; then"                                                                                >> $lodmatSH
 echo "  delete=\"$allNT\""                                                                                     >> $lodmatSH
-echo "  if [ -e $allNT.$zip ]; then"                                                                           >> $lodmatSH 
+echo "  if [ -e $allNT.$zip ]; then"                                                                           >> $lodmatSH
 #echo "    tar xzf $allNT.$zip"                                                                                  >> $lodmatSH # TODO:notar
 echo "    gunzip -c \$allNT.$zip > \$allNT"                                                                      >> $lodmatSH # TODO:notar
 echo "  elif [ -e $allTTL ]; then"                                                                             >> $lodmatSH
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""                            >> $lodmatSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                                           >> $lodmatSH
-echo "  elif [ -e $allTTL.$zip ]; then"                                                                        >> $lodmatSH 
+echo "  elif [ -e $allTTL.$zip ]; then"                                                                        >> $lodmatSH
 #echo "    tar xzf $allTTL.$zip"                                                                                 >> $lodmatSH # TODO:notar
 echo "    gunzip -c \$allTTL.$zip > \$allTTL"                                                                    >> $lodmatSH # TODO:notar
 echo "    echo \"cHuNking $allTTL into $allNT; will delete when done lod-mat'ing\""                            >> $lodmatSH
 echo "    \$CSV2RDF4LOD_HOME/bin/util/bigttl2nt.sh $allTTL > $allNT"                                           >> $lodmatSH
 echo "    rm $allTTL"                                                                                          >> $lodmatSH
 echo "  else"                                                                                                  >> $lodmatSH
-echo "    echo $allNT, $allNT.$zip, $allTTL, or $allTTL.$zip needed to lod-materialize."                       >> $lodmatSH 
+echo "    echo $allNT, $allNT.$zip, $allTTL, or $allTTL.$zip needed to lod-materialize."                       >> $lodmatSH
 echo "    delete=\"\""                                                                                         >> $lodmatSH
 echo "    exit 1"                                                                                              >> $lodmatSH
 echo "  fi"                                                                                                    >> $lodmatSH
@@ -1153,6 +1156,12 @@ if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]; then
       rm -rf automatic/*
    fi
 fi
+for dumpFile in $filesToDelete ; do
+   if [ -e $dumpFile ]; then
+      echo "$dumpFile - removed b/c \$CSV2RDF4LOD_PUBLISH_COMPRESS=\"true\"" | tee -a $CSV2RDF4LOD_LOG
+      rm $dumpFile
+   fi
+done
 
 
 
