@@ -445,10 +445,10 @@ echo "# ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}"                    
 echo "# when this script was created. "                                                             >> $lnwwwrootSH
 echo ""                                                                                             >> $lnwwwrootSH
 echo "wwwroot=\$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT"                                                    >> $lnwwwrootSH
-echo "if [ \${\#wwwroot} -eq 0 ]; then"                                                             >> $lnwwwrootSH
+echo "if [ \${#wwwroot} -eq 0 ]; then"                                                              >> $lnwwwrootSH
 echo "  wwwroot=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT"                                 >> $lnwwwrootSH
 echo "fi"                                                                                           >> $lnwwwrootSH
-echo "if [ \${\#wwwroot} -eq 0 ]; then"                                                             >> $lnwwwrootSH
+echo "if [ \${#wwwroot} -eq 0 ]; then"                                                              >> $lnwwwrootSH
 echo "  echo \"wwwroot not defined.\""                                                              >> $lnwwwrootSH
 echo "  exit 1"                                                                                     >> $lnwwwrootSH
 echo "fi"                                                                                           >> $lnwwwrootSH
