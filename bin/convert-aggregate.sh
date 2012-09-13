@@ -173,7 +173,6 @@ fi
 #     enhancementLevels=`find $convertDir -name "*.e[!.].ttl" | sed -e 's/^.*\.e\([^.]*\).ttl/\1/' | sort -u` # WARNING: only handles e1 through e9
 enhancementLevels=`cr-list-enhancement-identifiers.sh` # WARNING: only handles e1 through e9
 filesToCompress=""
-filesToDelete=""
 anyEsDone="no"
 for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
    eTTL=publish/$sourceID-$datasetID-$versionID.e$eIDD.ttl
@@ -184,9 +183,6 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
    cat $convertDir/*.e$eIDD.ttl > $eTTL
    if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" -a "$CSV2RDF4LOD_PUBLISH_TTL_LAYERS" == "true" ]; then
       filesToCompress="$filesToCompress $eTTL"
-   fi
-   if [ "$CSV2RDF4LOD_PUBLISH_TTL_LAYERS" != "true" ]; then
-      filesToDelete="$filesToDelete $eTTL"
    fi
 
    # Sample the aggregated enhancements.
@@ -1154,17 +1150,12 @@ if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]; then
          rm $dumpFile
       fi
    done
-   if [ "$CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR" == "true" ]; then
-      echo "automatic/* purging b/c CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR == true"
-      rm -rf automatic/*
-   fi
+   # This causes too much unconsidered issues:
+   #if [ "$CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR" == "true" ]; then
+   #   echo "automatic/* purging b/c CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR == true"
+   #   rm -rf automatic/*
+   #fi
 fi
-for dumpFile in $filesToDelete ; do
-   if [ -e $dumpFile ]; then
-      echo "$dumpFile - removed b/c \$CSV2RDF4LOD_PUBLISH_COMPRESS=\"true\"" | tee -a $CSV2RDF4LOD_LOG
-      rm $dumpFile
-   fi
-done
 
 
 
