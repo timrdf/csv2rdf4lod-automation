@@ -14,6 +14,14 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+#
+#
+# TODO: reconcile with bin/cr-convert.sh
+#
+#
+#
+#
+#
 # Synopsis:
 #    Pull the conversion triggers in many conversion cockpits.
 #    Source identifiers and layer identifiers can be specified for which conversion triggers to pull.
