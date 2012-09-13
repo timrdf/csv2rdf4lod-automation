@@ -181,8 +181,10 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
    # Aggregate the enhancements.
    echo $eTTL | tee -a $CSV2RDF4LOD_LOG
    cat $convertDir/*.e$eIDD.ttl > $eTTL
-   if [ "$CSV2RDF4LOD_PUBLISH_TTL_LAYERS" == 'true' ]; then
+   if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" -a "$CSV2RDF4LOD_PUBLISH_TTL_LAYERS" == "true" ]; then
       filesToCompress="$filesToCompress $eTTL"
+   fi
+   if [ "$CSV2RDF4LOD_PUBLISH_TTL_LAYERS" != "true" ]; then
       filesToDelete="$filesToDelete $eTTL"
    fi
 
@@ -401,7 +403,7 @@ fi
 #
 # Compressed dump files
 #
-if [ ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"."} == "true" ]; then
+if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]; then
    for dumpFile in $filesToCompress ; do
       echo "$dumpFile.$zip (will delete uncompressed version at end of processing)" | tee -a $CSV2RDF4LOD_LOG
       dumpFileDir=`dirname $dumpFile`
