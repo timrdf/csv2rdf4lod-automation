@@ -51,6 +51,7 @@ convertDir=${convertDir:-automatic}   # Could be renamed to 'converted'?
 
 
 # These variables are embedded in the directory conventions.
+baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
  sourceID=`cr-source-id.sh`     #
 datasetID=`cr-dataset-id.sh`    #
 versionID=`cr-version-id.sh`    #
@@ -117,11 +118,11 @@ allVOIDNT=publish/$sourceID-$datasetID-$versionID.void.nt
    allPML=publish/$sourceID-$datasetID-$versionID.pml.ttl
 allSAMEAS=publish/$sourceID-$datasetID-$versionID.sameas.nt
 rawSAMPLE=publish/$sourceID-$datasetID-$versionID.raw.sample.ttl
-versionedDatasetURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID"
-     rawSampleGraph="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID/conversion/raw/subset/sample"
-         http_allNT="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${versionID}.nt"
-        http_allTTL="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${versionID}.ttl"
-     http_allRDFXML="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${versionID}.rdf"
+versionedDatasetURI="$baseURI/source/$sourceID/dataset/$datasetID/version/$versionID"
+     rawSampleGraph="$baseURI/source/$sourceID/dataset/$datasetID/version/$versionID/conversion/raw/subset/sample"
+         http_allNT="$baseURI/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${versionID}.nt"
+        http_allTTL="$baseURI/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${versionID}.ttl"
+     http_allRDFXML="$baseURI/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${versionID}.rdf"
 
 # Special case needs:
     allNT_L=$sourceID-$datasetID-$versionID.nt        # L: Local name (not including directory; for use when pushd'ing to cHuNk)
@@ -213,7 +214,7 @@ for dir in source manual automatic; do
       # http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Aug-30/source/STATE_SINGLE_PW.CSV
       # rapper -g -o turtle source/STATE_SINGLE_PW.CSV.pml.ttl  http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Aug-30/source/
       sourceFile=`echo $pml | sed 's/.pml.ttl$//'`
-      base4rapper="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/$dir/"
+      base4rapper="$baseURI/source/${sourceID}/file/${datasetID}/version/${versionID}/$dir/"
       echo "  (including $pml)" | tee -a $CSV2RDF4LOD_LOG
       if [ `which rapper` ]; then
          rapper -g -o turtle $pml $base4rapper >> $allPML 2> /dev/null
@@ -229,7 +230,7 @@ done
 TEMP_pml="_"`basename $0``date +%s`_$$.tmp
 if [ -d ../../doc ]; then
    for pml in `find ../../doc -name "*.pml.ttl"`; do
-      base4rapper="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/doc_file/${datasetID}/`echo $pml | sed 's/......doc.//'`"
+      base4rapper="$baseURI/source/${sourceID}/doc_file/${datasetID}/`echo $pml | sed 's/......doc.//'`"
       # TODO: has a base of: @base <http://logd.tw.rpi.edu/source/data-gov/doc_file/1008/1008.html.pml.ttl>
       cp $pml $TEMP_pml
       echo "  (including $pml)" | tee -a $CSV2RDF4LOD_LOG
@@ -973,9 +974,9 @@ echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"        
 #echo "   rm \$TEMP"                                                                                                        >> $vloadSH
 echo "   exit 1"                                                                                                            >> $vloadSH
 echo "fi"                                                                                                                   >> $vloadSH
-echo "#3> <> prov:wasAttributedTo <${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/csv2rdf4lod/$myMD5> ."        >> $vloadSH
+echo "#3> <> prov:wasAttributedTo <$baseURI/id/csv2rdf4lod/$myMD5> ."                                                       >> $vloadSH
 echo "#3> <> prov:generatedAtTime \"`dateInXSDDateTime.sh`\"^^xsd:dateTime ."                                               >> $vloadSH
-echo "#3> <${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/csv2rdf4lod/$myMD5> foaf:name \"`basename $0`\" ."    >> $vloadSH
+echo "#3> <$baseURI/id/csv2rdf4lod/$myMD5> foaf:name \"`basename $0`\" ."                                                   >> $vloadSH
 chmod +x $vloadSH
 cat $vloadSH | sed 's/pvload.sh .*-ng/pvdelete.sh/g' | sed 's/vload [^ ]* [^^ ]* /vdelete /' | grep -v "tar xzf" | grep -v "unzip" | grep -v "rm " > $vdeleteSH # TODO:notar
 chmod +x $vdeleteSH
@@ -1045,11 +1046,11 @@ echo "concurrency=\"--concurrency=\${CSV2RDF4LOD_CONCURRENCY:-\"1\"}\""         
 echo "freqParams=\" \$writeBuffer \$humanReport \$concurrency \""                                              >> $lodmatSH
 echo ""                                                                                                        >> $lodmatSH
 echo "# -D namespace abbreviations, -p: print progress"                                                        >> $lodmatSH
-echo perl $lodmat -i=ntriples $prefixDefs $mappingPatterns           \$freqParams --directoryindex=CSV2RDF4LODINDEX $allNT ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} $MATERIALIZATION_DIR >> $lodmatSH
+echo perl $lodmat -i=ntriples $prefixDefs $mappingPatterns           \$freqParams --directoryindex=CSV2RDF4LODINDEX $allNT $baseURI $MATERIALIZATION_DIR >> $lodmatSH
 echo ""                                                                                                        >> $lodmatSH
-echo perl $lodmat -i=ntriples $prefixDefs $mappingPatternsVocab      \$freqParams --directoryindex=CSV2RDF4LODINDEX $allNT ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} $MATERIALIZATION_DIR >> $lodmatSH
+echo perl $lodmat -i=ntriples $prefixDefs $mappingPatternsVocab      \$freqParams --directoryindex=CSV2RDF4LODINDEX $allNT $baseURI $MATERIALIZATION_DIR >> $lodmatSH
 echo ""                                                                                                        >> $lodmatSH
-echo perl $lodmat -i=ntriples $prefixDefs $mappingPatternsProvenance \$freqParams --directoryindex=CSV2RDF4LODINDEX $allNT ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} $MATERIALIZATION_DIR >> $lodmatSH
+echo perl $lodmat -i=ntriples $prefixDefs $mappingPatternsProvenance \$freqParams --directoryindex=CSV2RDF4LODINDEX $allNT $baseURI $MATERIALIZATION_DIR >> $lodmatSH
 echo ""                                                                                                        >> $lodmatSH
 echo "if [ \${#delete} -gt 0 ]; then"                                                                          >> $lodmatSH
 echo "   rm \$delete"                                                                                          >> $lodmatSH
@@ -1086,11 +1087,11 @@ echo "concurrency=\"--concurrency=\${CSV2RDF4LOD_CONCURRENCY:-\"1\"}\""         
 echo "freqParams=\" \$writeBuffer \$humanReport \$concurrency \""                                              >> $lodmatvoidSH
 echo ""                                                                                                        >> $lodmatvoidSH
 echo "# -D namespace abbreviations, -p: print progress"                                                        >> $lodmatvoidSH
-echo perl $lodmat -i=ntriples $prefixDefs $mappingPatterns           \$freqParams --directoryindex=CSV2RDF4LODINDEX $allVOIDNT ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} $MATERIALIZATION_DIR >> $lodmatvoidSH
+echo perl $lodmat -i=ntriples $prefixDefs $mappingPatterns           \$freqParams --directoryindex=CSV2RDF4LODINDEX $allVOIDNT $baseURI $MATERIALIZATION_DIR >> $lodmatvoidSH
 echo ""                                                                                                        >> $lodmatvoidSH
-echo perl $lodmat -i=ntriples $prefixDefs $mappingPatternsVocab      \$freqParams --directoryindex=CSV2RDF4LODINDEX $allVOIDNT ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} $MATERIALIZATION_DIR >> $lodmatvoidSH
+echo perl $lodmat -i=ntriples $prefixDefs $mappingPatternsVocab      \$freqParams --directoryindex=CSV2RDF4LODINDEX $allVOIDNT $baseURI $MATERIALIZATION_DIR >> $lodmatvoidSH
 echo ""                                                                                                        >> $lodmatvoidSH
-echo perl $lodmat -i=ntriples $prefixDefs $mappingPatternsProvenance \$freqParams --directoryindex=CSV2RDF4LODINDEX $allVOIDNT ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} $MATERIALIZATION_DIR >> $lodmatvoidSH
+echo perl $lodmat -i=ntriples $prefixDefs $mappingPatternsProvenance \$freqParams --directoryindex=CSV2RDF4LODINDEX $allVOIDNT $baseURI $MATERIALIZATION_DIR >> $lodmatvoidSH
 echo ""                                                                                                        >> $lodmatvoidSH
 echo "if [ \$delete == \"true\" ]; then"                                                                       >> $lodmatvoidSH
 echo "   rm $allVOIDNT"                                                                                        >> $lodmatvoidSH
@@ -1111,8 +1112,8 @@ echo "   c_lod_mat=\"\" # If it is not available, use the older perl version."  
 echo "   echo \"WARNING: REALLY SLOW lod-materialization going on. Run make in \$CSV2RDF4LOD_HOME/bin/lod-materialize/c/\"" >> $lodmatapacheSH
 echo "fi"                                                                                                      >> $lodmatapacheSH
 echo ""                                                                                                        >> $lodmatapacheSH
-echo perl $lodmat -i=ntriples $mappingPatterns      --apache $allNT ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} $MATERIALIZATION_DIR >> $lodmatapacheSH
-echo perl $lodmat -i=ntriples $mappingPatternsVocab --apache $allNT ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} $MATERIALIZATION_DIR >> $lodmatapacheSH
+echo perl $lodmat -i=ntriples $mappingPatterns      --apache $allNT $baseURI $MATERIALIZATION_DIR              >> $lodmatapacheSH
+echo perl $lodmat -i=ntriples $mappingPatternsVocab --apache $allNT $baseURI $MATERIALIZATION_DIR              >> $lodmatapacheSH
 chmod +x                                                                                                          $lodmatapacheSH
 
 if [ ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION:-"."} == "true" ]; then # Producing lod-mat can take a fair amount of time and space...
