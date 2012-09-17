@@ -52,6 +52,12 @@ if [[ "$1" == "-n" ]]; then
 fi
 #dryrun.sh $dryRun beginning
 
+xargs="false"
+if [[ "$1" == "-l" || "$1" == "--list" ]]; then
+   xargs="true"
+   shift 
+fi
+
 latest_version_only="no"
 if [ "$1" == "--latest-version-only" ]; then
    latest_version_only="yes"
@@ -72,7 +78,11 @@ for trigger in `find . -name "convert*.sh"`; do
          if [ "$dryRun" != "true" ]; then
             ./`basename $trigger`
          else
-            echo "`cr-pwd.sh`: `basename $trigger`"
+            if [ "$xargs" == "true" ]; then
+               echo "`basename $trigger`"
+            else
+               echo "`cr-pwd.sh`: `basename $trigger`"
+            fi
          fi
       fi
    popd &> /dev/null
