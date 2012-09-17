@@ -53,7 +53,7 @@ fi
 #dryrun.sh $dryRun beginning
 
 xargs="false"
-if [[ "$1" == "-l" || "$1" == "--list" ]]; then
+if [[ "$1" == "--xargs" ]]; then
    xargs="true"
    shift 
 fi
