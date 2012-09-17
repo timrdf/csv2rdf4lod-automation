@@ -54,6 +54,7 @@ fi
 
 xargs="false"
 if [[ "$1" == "--xargs" ]]; then
+   dryRun="true"
    xargs="true"
    shift 
 fi
