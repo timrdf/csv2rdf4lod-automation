@@ -50,7 +50,7 @@ if [[ "$1" == "-n" ]]; then
    dryRun="true"
    shift 
 fi
-dryrun.sh $dryRun beginning
+#dryrun.sh $dryRun beginning
 
 latest_version_only="no"
 if [ "$1" == "--latest-version-only" ]; then
@@ -78,4 +78,4 @@ for trigger in `find . -name "convert*.sh"`; do
    popd &> /dev/null
 done
 
-dryrun.sh $dryRun ending
+#dryrun.sh $dryRun ending
