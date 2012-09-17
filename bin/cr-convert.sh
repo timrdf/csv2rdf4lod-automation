@@ -80,7 +80,7 @@ for trigger in `find . -name "convert*.sh"`; do
             ./`basename $trigger`
          else
             if [ "$xargs" == "true" ]; then
-               echo "`cr-pwd.sh`/`basename $trigger`"
+               echo "`pwd`/`basename $trigger`"
             else
                echo "`cr-pwd.sh`: `basename $trigger`"
             fi
