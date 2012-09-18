@@ -119,6 +119,20 @@ for name in ckan.package_register_get():
    prov:wasAttributedTo <MIRRORED_AGENT>;
 .
 '''
+      template = template + '''
+#3> <> prov:wasGeneratedBy [ 
+#3>    a prov:Activity; 
+#3>    prov:qualifiedAssociation [ 
+#3>       a prov:Association;
+#3>       prov:hadPlan <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-create-dataset-dirs-from-ckan.py>;
+#3>    ];
+#3>    rdfs:seeAlso <https://github.com/jimmccusker/twc-healthdata/wiki/Accessing-CKAN-listings>;
+#3> ] .
+#3> <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-create-dataset-dirs-from-ckan.py>
+#3>    a prov:Plan;
+#3>    dcterms:title "'''+os.path.basename(sys.argv[0])+'''" ;
+#3> .
+'''
       for search in replacements.keys():
          template = template.replace(search,replacements[search])
 
