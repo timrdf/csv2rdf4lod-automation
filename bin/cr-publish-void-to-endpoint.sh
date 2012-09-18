@@ -92,9 +92,9 @@ if [ "$1" == "--clear-graph" ]; then
    shift
 fi
 
-if [ $# -lt 1 ]; then
-   $0 --help
-fi
+#if [ $# -lt 1 ]; then
+#   $0 --help
+#fi
 
 if [ "$1" != "cr:auto" ]; then
    graphName="$1"
@@ -106,10 +106,6 @@ if [ ! -d $cockpit/source ]; then
    mkdir -p $cockpit/source
 fi
 rm -rf $cockpit/source/*
-
-echo "Finding all VoIDs from `cr-pwd.sh`."
-echo "Will populate into $graphName" >&2
-echo
 
 voids=`find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
 valid=""
@@ -128,17 +124,14 @@ popd &> /dev/null
 
 if [ "$clearGraph" == "true" ]; then
    echo ""
-   echo "Deleting $graphName"                                         >&2
-   if [ "$dryRun" != "true" -a $graphName != "." ]; then
-      #${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete             $graphName
+   echo "Deleting $graphName" >&2
+   if [ "$dryRun" != "true" ]; then
       publish/bin/virtuoso-delete-$sourceID-$datasetID-$versionID.sh
    fi
-   shift
 fi
 
 if [ "$dryRun" != "true" ]; then
    pushd $cockpit &> /dev/null
-      #${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $graphName
       publish/bin/virtuoso-load-$sourceID-$datasetID-$versionID.sh
    popd &> /dev/null
 fi
