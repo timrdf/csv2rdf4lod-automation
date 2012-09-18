@@ -5,7 +5,7 @@
 # Invoke from a cr:source directory, e.g. source/hub-healthdata-gov
 #   % cr-pwd.sh 
 #     source/hub-healthdata-gov
-#   % cr-create-dataset-dirs-from-ckan.py http://healthdata.tw.rpi.edu/hub/api http://purl.org/twc/health
+#   % cr-create-dataset-dirs-from-ckan.py http://healthdata.tw.rpi.edu/hub/api http://purl.org/twc/health http://hub.healthdata.gov/dataset/
 #   % find . -name dcat.ttl | xargs git add -f
 
 import sys, os, re, json, uuid
@@ -19,19 +19,20 @@ import ckanclient  # see README at https://github.com/okfn/ckanclient
 
 if len(sys.argv) <= 2:
    print
-   print "usage: %s <ckan-api>" % os.path.basename(sys.argv[0])
+   print "usage: %s <ckan-api> <CSV2RDF4LOD_BASE_URI>: [mirrored-ckan]" % os.path.basename(sys.argv[0])
    print
    print "  <ckan-api>:             The API URL for the CKAN instance, e.g. http://healthdata.tw.rpi.edu/hub/api"
-   print "  <CSV2RDF4LOD_BASE_URI>: The base URI of the VoID datasets that will be created from CKAN, e.g. http://purl.org/twc/health"
+   print "  <CSV2RDF4LOD_BASE_URI>: The base URI of the VoID datasets that will be created from CKAN,   e.g. http://purl.org/twc/health"
+   print "  [mirrored-ckan]:        The dataset base for the CKAN instance being mirrored by <ckan-api> e.g. http://hub.healthdata.gov/dataset/"
    print
    sys.exit(1)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                                                     # http://hub.healthdata.gov/api
-ckanAPI              = sys.argv[1]                   # http://healthdata.tw.rpi.edu/hub/api
-CSV2RDF4LOD_BASE_URI = sys.argv[2]                   # http://purl.org/twc/health
-sourceID             = os.path.basename(os.getcwd()) # hub-healthdata-gov
-#TARGET_CKAN          = 'http://healthdata.tw.rpi.edu' # Can assume this?
+                                                                # http://hub.healthdata.gov/api
+ckanAPI              = sys.argv[1]                              # http://healthdata.tw.rpi.edu/hub/api
+CSV2RDF4LOD_BASE_URI = sys.argv[2]                              # http://purl.org/twc/health
+mirroredCKAN         = sys.argv[3] if len(sys.argv) > 3 else '' # http://hub.healthdata.gov/dataset/
+sourceID             = os.path.basename(os.getcwd())            # hub-healthdata-gov
 
 # Formats seen on healthdata.gov: 
 #    CSV Text XLS XML Feed Query API Widget RDF
@@ -75,24 +76,21 @@ for name in ckan.package_register_get():
          'UUID'                 : str(uuid.uuid4()),
          'SOURCE_CKAN'          : ckanAPI.replace('/api',''),
          'SOURCE_AGENT'         : re.sub('(http://[^/]*)/.*$','\\1',ckanAPI),
-         'DIST_URL'             : URL
+         'DIST_URL'             : URL,
+         'MIRRORED_CKAN'        : mirroredCKAN,
+         'MIRRORED_AGENT'       : re.sub('(http://[^/]*)/.*$','\\1',mirroredCKAN),
       }
-
-#         'TARGET_CKAN'          : TARGET_CKAN,
-#<TARGET_CKAN/dataset/DATASET_ID>
-#   a dcat:Dataset;
-#   prov:alternateOf <SOURCE_CKAN/dataset/DATASET_ID>;
-#.
 
       template='''@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix conversion: <http://purl.org/twc/vocab/conversion/> .
 @prefix dcat:       <http://www.w3.org/ns/dcat#> .
 @prefix void:       <http://rdfs.org/ns/void#> .
 @prefix prov:       <http://www.w3.org/ns/prov#> .
+@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> .
 @prefix :           <CSV2RDF4LOD_BASE_URI/id/> .
 
 <CSV2RDF4LOD_BASE_URI/source/SOURCE_ID/dataset/DATASET_ID>
-   a void:Dataset;
+   a void:Dataset, dcat:Dataset;
    conversion:source_identifier  "SOURCE_ID";
    conversion:dataset_identifier "DATASET_ID";
    prov:wasDerivedFrom :as_a_csv_UUID;
@@ -104,9 +102,21 @@ for name in ckan.package_register_get():
 .
 
 <SOURCE_CKAN/dataset/DATASET_ID>
-   a dcat:Dataset;
+   a dcat:Dataset, datafaqs:CKANDataset;
    dcat:distribution :as_a_csv_UUID;
    prov:wasAttributedTo <SOURCE_AGENT>;
+.
+'''
+      if len(mirroredCKAN) > 0:
+         template = template + '''
+<SOURCE_CKAN/dataset/DATASET_ID> 
+   prov:alternateOf <MIRRORED_CKAN/dataset/DATASET_ID>;
+.
+
+<MIRRORED_CKAN/dataset/DATASET_ID>
+   a dcat:Dataset, datafaqs:CKANDataset;
+   prov:alternateOf <SOURCE_CKAN/dataset/DATASET_ID>;
+   prov:wasAttributedTo <MIRRORED_AGENT>;
 .
 '''
       for search in replacements.keys():
