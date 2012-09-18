@@ -124,6 +124,7 @@ popd &> /dev/null
 
 if [ "$clearGraph" == "true" ]; then
    echo ""
+   echo "huh $clearGraph"
    echo "Deleting $graphName" >&2
    if [ "$dryRun" != "true" ]; then
       publish/bin/virtuoso-delete-$sourceID-$datasetID-$versionID.sh
