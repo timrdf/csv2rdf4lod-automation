@@ -1,32 +1,49 @@
 #!/usr/bin/env python
-#
-# Invoke from a cr:source directory, e.g. source/hub-healthdata-gov
-
 #3> <> prov:wasRevisionOf 
 #3>    <https://github.com/jimmccusker/twc-healthdata/blob/master/ckan/mirror.py> .
+#
+# Invoke from a cr:source directory, e.g. source/hub-healthdata-gov
+#   % cr-pwd.sh 
+#     source/hub-healthdata-gov
+#   % cr-create-dataset-dirs-from-ckan.py http://healthdata.tw.rpi.edu/hub/api http://purl.org/twc/health
+#   % find . -name dcat.ttl | xargs git add -f
 
-import os, json, uuid
+import sys, os, re, json, uuid
 
-import ckanclient  # see https://github.com/okfn/ckanclient README
-# Get latest download URL from http://pypi.python.org/pypi/ckanclient#downloads --\/
+import ckanclient  # see README at https://github.com/okfn/ckanclient
+# Get latest download URL \/ from http://pypi.python.org/pypi/ckanclient#downloads
 # sudo easy_install http://pypi.python.org/packages/source/c/ckanclient/ckanclient-0.10.tar.gz
 
 # See also https://github.com/timrdf/DataFAQs/wiki/CKAN
 #    section "Automatically publish dataset on CKAN"
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-CSV2RDF4LOD_BASE_URI = 'http://purl.org/twc/health'
-SOURCE_ID            = 'hub-healthdata-gov'
-TARGET_CKAN          = 'http://healthdata.tw.rpi.edu'
+if len(sys.argv) <= 2:
+   print
+   print "usage: %s <ckan-api>" % os.path.basename(sys.argv[0])
+   print
+   print "  <ckan-api>:             The API URL for the CKAN instance, e.g. http://healthdata.tw.rpi.edu/hub/api"
+   print "  <CSV2RDF4LOD_BASE_URI>: The base URI of the VoID datasets that will be created from CKAN, e.g. http://purl.org/twc/health"
+   print
+   sys.exit(1)
 
-#source = 'http://aquarius.tw.rpi.edu/projects/healthdata/api'
-source = 'http://hub.healthdata.gov/api'
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                                                     # http://hub.healthdata.gov/api
+ckanAPI              = sys.argv[1]                   # http://healthdata.tw.rpi.edu/hub/api
+CSV2RDF4LOD_BASE_URI = sys.argv[2]                   # http://purl.org/twc/health
+sourceID             = os.path.basename(os.getcwd()) # hub-healthdata-gov
+#TARGET_CKAN          = 'http://healthdata.tw.rpi.edu' # Can assume this?
+
 # Formats seen on healthdata.gov: 
 #    CSV Text XLS XML Feed Query API Widget RDF
 desiredFormats = ['CSV', 'XLS']
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-ckan = ckanclient.CkanClient(base_location=source)
+#print "ckan-api:  " + ckanAPI
+#print "SOURCE-ID: " + sourceID
+#print "BASE_URI:  " + CSV2RDF4LOD_BASE_URI
+#sys.exit(1)
+
+ckan = ckanclient.CkanClient(base_location=ckanAPI)
 #api_key = os.environ['X_CKAN_API_Key'] # api_key must be defined to POST/PUT.
 
 indent = '    '
@@ -53,10 +70,11 @@ for name in ckan.package_register_get():
    if desiredFormat:
       replacements = {
          'CSV2RDF4LOD_BASE_URI' : CSV2RDF4LOD_BASE_URI,
-         'SOURCE_ID'            : SOURCE_ID,
+         'SOURCE_ID'            : sourceID,
          'DATASET_ID'           : dataset['name'],
          'UUID'                 : str(uuid.uuid4()),
-         'SOURCE_CKAN'          : source.replace('/api',''),
+         'SOURCE_CKAN'          : ckanAPI.replace('/api',''),
+         'SOURCE_AGENT'         : re.sub('(http://[^/]*)/.*$','\\1',ckanAPI),
          'DIST_URL'             : URL
       }
 
@@ -88,6 +106,7 @@ for name in ckan.package_register_get():
 <SOURCE_CKAN/dataset/DATASET_ID>
    a dcat:Dataset;
    dcat:distribution :as_a_csv_UUID;
+   prov:wasAttributedTo <SOURCE_AGENT>;
 .
 '''
       for search in replacements.keys():
