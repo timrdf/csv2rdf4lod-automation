@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-void-to-endpoint.sh
+# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-dcat-to-endpoint.sh
 #
 #   Copyright 2012 Timothy Lebo
 #
@@ -31,8 +31,8 @@
 #
 # Example usage:
 #   cd /srv/logd/data/source
-#      datasetGraph=`cr-publish-void-to-endpoint.sh   -n auto 2>&1 | awk '/Will populate into/{print $7}'`
-#      cr-publish-void-to-endpoint.sh   auto # http://logd.tw.rpi.edu/vocab/Dataset
+#      datasetGraph=`cr-publish-dcat-to-endpoint.sh   -n auto 2>&1 | awk '/Will populate into/{print $7}'`
+#      cr-publish-dcat-to-endpoint.sh   auto # http://logd.tw.rpi.edu/vocab/Dataset
 
 see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
@@ -74,7 +74,7 @@ fi
 
 if [ "$1" == "--target" ]; then
    # a conversion:VersionedDataset:
-   # e.g. http://purl.org/twc/health/source/tw-rpi-edu/dataset/cr-publish-void-to-endpoint/version/2012-Sep-07
+   # e.g. http://purl.org/twc/health/source/tw-rpi-edu/dataset/cr-publish-dcat-to-endpoint/version/2012-Sep-07
    echo $graphName
    exit 0
 fi
@@ -107,18 +107,19 @@ if [ ! -d $cockpit/source ]; then
 fi
 rm -rf $cockpit/source/*
 
-echo "Finding all VoIDs from `cr-pwd.sh`."
+echo "Finding all DCATs from `cr-pwd.sh`."
 echo "Will populate into $graphName" >&2
 echo
 
-voids=`find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
+dcats=`find . -mindepth 3 -maxdepth 4 -name "*dcat.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
 valid=""
-for void in $voids; do
-   count=`void-triples.sh $void`
-   echo "$count . $void" >&2
-   ln $void $cockpit/source
+for dcat in $dcats; do
+   count=`void-triples.sh $dcat`
+   echo "$count . $dcat" >&2
+   sdv=$(cd `dirname $dcat` && cr-sdv.sh)
+   ln $dcat $cockpit/source/$sdv.dcat.ttl
    if [ "$count" -gt 0 ]; then
-      valid="$valid $void"
+      valid="$valid $dcat"
    fi
 done
 
@@ -148,7 +149,7 @@ fi
 #      echo "dumping to stdout" >&2      
 #      cat $TEMP
 #   fi
-#   if [ ${#ARCHIVED_void} -gt 0 ]; then
+#   if [ ${#ARCHIVED_dcat} -gt 0 ]; then
 #      tar czf $TEMP.tgz $TEMP
 #   fi
 #   rm $TEMP 

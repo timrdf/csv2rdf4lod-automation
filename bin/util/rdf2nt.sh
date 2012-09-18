@@ -33,7 +33,15 @@ while [ $# -gt 0 ]; do
    # -q : quiet
    # -o : output ntriples
    # rapper cannot contextualize bnodes and may lead to a collision.
-   rapper -q $serialization -o ntriples $file | serdi -i ntriples -p $md5 -
+   if [[ `which rapper` && `which serdi` ]]; then
+      rapper -q $serialization -o ntriples $file | serdi -i ntriples -p $md5 -
+   elif [ `which rapper` ]; then
+      see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+      echo "ERROR: `basename $0` requires rapper. See $see"
+   else
+      see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+      echo "ERROR: `basename $0` requires serdi. See $see"
+   fi
    # serdi can, but cannot handle RDF/XML (so use rapper to preprocess it).
    # -p : prepend bnodes with $md5
    # -  : read from stdin
