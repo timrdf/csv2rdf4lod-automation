@@ -33,6 +33,9 @@
 #   cd /srv/logd/data/source
 #      datasetGraph=`cr-publish-void-to-endpoint.sh   -n auto 2>&1 | awk '/Will populate into/{print $7}'`
 #      cr-publish-void-to-endpoint.sh   auto # http://logd.tw.rpi.edu/vocab/Dataset
+# 
+# A quick way to see the triple count:
+# grep "#triples>" publish/*.nt | awk '{print $1,$3}' | sed 's/"^.*$//;s/"//' | awk '{print $2,$1}' | sort  -n
 
 see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
