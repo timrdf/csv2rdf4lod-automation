@@ -92,9 +92,9 @@ if [ "$1" == "--clear-graph" ]; then
    shift
 fi
 
-if [ $# -lt 1 ]; then
-   $0 --help
-fi
+#if [ $# -lt 1 ]; then
+#   $0 --help
+#fi
 
 if [ "$1" != "cr:auto" ]; then
    graphName="$1"
@@ -107,15 +107,11 @@ if [ ! -d $cockpit/source ]; then
 fi
 rm -rf $cockpit/source/*
 
-echo "Finding all DCATs from `cr-pwd.sh`."
-echo "Will populate into $graphName" >&2
-echo
-
 dcats=`find . -mindepth 3 -maxdepth 4 -name "*dcat.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
 valid=""
 for dcat in $dcats; do
    count=`void-triples.sh $dcat`
-   echo "$count . $dcat" >&2
+   echo "$count . ${dcat#./}" >&2
    sdv=$(cd `dirname $dcat` && cr-sdv.sh)
    ln $dcat $cockpit/source/$sdv.dcat.ttl
    if [ "$count" -gt 0 ]; then
