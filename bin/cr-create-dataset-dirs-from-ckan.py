@@ -5,7 +5,9 @@
 # Invoke from a cr:source directory, e.g. source/hub-healthdata-gov
 #   % cr-pwd.sh 
 #     source/hub-healthdata-gov
-#   % cr-create-dataset-dirs-from-ckan.py http://healthdata.tw.rpi.edu/hub/api http://purl.org/twc/health http://hub.healthdata.gov/dataset/
+#   % cr-create-dataset-dirs-from-ckan.py http://healthdata.tw.rpi.edu/hub/api \
+#                                         http://purl.org/twc/health \
+#                                         http://hub.healthdata.gov/dataset/
 #   % find . -name dcat.ttl | xargs git add -f
 
 import sys, os, re, json, uuid
@@ -21,9 +23,12 @@ if len(sys.argv) <= 2:
    print
    print "usage: %s <ckan-api> <CSV2RDF4LOD_BASE_URI>: [mirrored-ckan]" % os.path.basename(sys.argv[0])
    print
-   print "  <ckan-api>:             The API URL for the CKAN instance, e.g. http://healthdata.tw.rpi.edu/hub/api"
-   print "  <CSV2RDF4LOD_BASE_URI>: The base URI of the VoID datasets that will be created from CKAN,   e.g. http://purl.org/twc/health"
-   print "  [mirrored-ckan]:        The dataset base for the CKAN instance being mirrored by <ckan-api> e.g. http://hub.healthdata.gov/dataset/"
+   print "  <ckan-api>:             The API URL for the CKAN instance."
+   print "                          e.g. http://healthdata.tw.rpi.edu/hub/api"
+   print "  <CSV2RDF4LOD_BASE_URI>: The base URI of the VoID datasets that will be created from CKAN."
+   print "                          e.g. http://purl.org/twc/health"
+   print "  [mirrored-ckan]:        The dataset base for the CKAN instance being mirrored by <ckan-api>."
+   print "                          e.g. http://hub.healthdata.gov/dataset/"
    print
    sys.exit(1)
 
