@@ -14,8 +14,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-if [ $# -lt 1 ]; then
+if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` source/some.{rdf,ttl,nt}"
+   echo "  will create publish/*.ttl and publish/bin"
    exit 1
 fi
 
