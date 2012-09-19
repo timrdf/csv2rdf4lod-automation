@@ -13,6 +13,9 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
+#
+# To get the settings for all of variables:
+#    set | grep CSV2RDF4LOD | grep -v CSV2RDF4LOD_HOME | awk '{print "export",$0}'
 
 if [ "$1" == "--check" ]; then
    warnings=""

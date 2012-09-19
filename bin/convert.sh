@@ -116,7 +116,7 @@ rm _pvload.sh*.ttl _pvload.sh*.nt &> /dev/null
 
 runRaw=yes
 runEnhancement=no
-if [ -e "$destDir/$datafile.raw.ttl" -o ${CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER:-"."} == "true" ]; then
+if [ -e "$destDir/$datafile.raw.ttl" -o "$CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER" == "true" ]; then
    # Raw layer has already been produced OR we just don't want the Raw layer (because it is generally less useful).
    runRaw=no
    runEnhancement=yes
