@@ -83,7 +83,3 @@ elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets            
       popd > /dev/null
    done
 fi
-
-if [ -e $TEMP ]; then
-   rm -f $TEMP
-fi
