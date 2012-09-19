@@ -145,9 +145,8 @@ if [ ! -d $version ]; then
          done
 
          files=`find source/ -name "*.csv"`
-         cr-create-convert-sh.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
+         cr-create-conversion-trigger.sh  -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
       else
-
          # Take a best guess as to what data files should be converted.
          # Include source/* that is newer than source/.__CSV2RDF4LOD_retrieval and NOT *.pml.ttl
 
@@ -158,13 +157,13 @@ if [ ! -d $version ]; then
          cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
       fi
 
-      cr-pull-conversion-triggers.sh -w # Run raw conversion
+      cr-convert.sh
       for enhancementID in `cr-list-enhancement-identifiers.sh`; do
          flag=""
          if [ $enhancementID != "1" ]; then
             flag="-e $enhancementID"
          fi
-         ./*.sh $flag # Run enhancement (flag not used for first enhancement)
+         ./convert*.sh $flag # Run enhancement (flag not used for first enhancement)
       done
 
    popd &> /dev/null

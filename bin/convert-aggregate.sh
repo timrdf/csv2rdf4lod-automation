@@ -73,10 +73,14 @@ else
          CSV2RDF4LOD_LOG=""
          exit 1
    fi
+   rawdumps="no"; for dump in `find $convertDir -name "*.raw.ttl"`;   do rawdumps="yes"; done
+   edumps="no";   for dump in `find $convertDir -name "*.e$eID.ttl"`; do edumps="yes";   done
+   if [[ "$CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER" == "true" && "$CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED" == "false" && "$edumps" == "no" ]]; then
+      echo "convert-aggregate.sh delaying publishing until an enhancement is available."                                                  | tee -a $CSV2RDF4LOD_LOG
+   fi
    if [ "$CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED" == "true" ]; then
       #if [[ $runEnhancement == "yes" && ( `ls $convertDir/*.e$eID.ttl 2> /dev/null | wc -l` > 0 || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
-      dumps="no"; for dump in `find $convertDir -name "*.e$eID.ttl"`; do dumps="yes"; done
-      if [[ $runEnhancement == "yes" && ( $dumps == "yes" || "$CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY" == "true" ) ]]; then
+      if [[ $runEnhancement == "yes" && ( $edumps == "yes" || "$CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY" == "true" ) ]]; then
          echo "convert-aggregate.sh publishing raw and enhancements."                                                                     | tee -a $CSV2RDF4LOD_LOG
       else
          # NOTE: If multiple files to convert and the LAST file is not enhanced,
