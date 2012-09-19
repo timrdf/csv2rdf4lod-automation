@@ -39,9 +39,10 @@ fi
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
 if [ "$1" == "--help" ]; then
-   echo "usage: `basename $0` [-n]"
-   echo "   -n:                    perform dry run only."
-   echo "   --latest-version-only: only convert the latest version for each dataset (uses directory modification date)."
+   echo "usage: `basename $0` [-n] [--xargs] [--latest-version-only]"
+   echo "   -n:                    Perform dry run only."
+   echo "   --xargs:               Produce xargs friendly output (cr-convert.sh --xargs | xargs --max-args 1 --max-procs 2 bash)."
+   echo "   --latest-version-only: Only convert the latest version for each dataset (uses directory modification date)."
    exit 1
 fi
 
