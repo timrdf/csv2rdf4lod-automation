@@ -62,21 +62,21 @@ versionID=`cr-version-id.sh`    #
 
 graph=`cr-dataset-uri.sh --uri`
 
-if [ ${CSV2RDF4LOD_FORCE_PUBLISH:-"."} == "true" ]; then
+if [ "$CSV2RDF4LOD_FORCE_PUBLISH" == "true" ]; then
    echo "convert-aggregate.sh publishing raw and enhancements (forced)." | tee -a $CSV2RDF4LOD_LOG
    echo "===========================================================================================" | tee -a $CSV2RDF4LOD_LOG
 else
-   if [ ${CSV2RDF4LOD_PUBLISH:-"."} == "false" ]; then
+   if [ "$CSV2RDF4LOD_PUBLISH" == "false" ]; then
          echo "convert-aggregate.sh not publishing b/c \$CSV2RDF4LOD_PUBLISH=false."                        | tee -a $CSV2RDF4LOD_LOG
          echo "===========================================================================================" | tee -a $CSV2RDF4LOD_LOG
          rm $CSV2RDF4LOD_LOG
          CSV2RDF4LOD_LOG=""
          exit 1
    fi
-   if [ ${CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED:-"true"} == "true" ]; then
+   if [ "$CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED" == "true" ]; then
       #if [[ $runEnhancement == "yes" && ( `ls $convertDir/*.e$eID.ttl 2> /dev/null | wc -l` > 0 || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
       dumps="no"; for dump in `find $convertDir -name "*.e$eID.ttl"`; do dumps="yes"; done
-      if [[ $runEnhancement == "yes" && ( $dumps == "yes" || ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY-"."} == "true" ) ]]; then
+      if [[ $runEnhancement == "yes" && ( $dumps == "yes" || "$CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY" == "true" ) ]]; then
          echo "convert-aggregate.sh publishing raw and enhancements."                                                                     | tee -a $CSV2RDF4LOD_LOG
       else
          # NOTE: If multiple files to convert and the LAST file is not enhanced,
@@ -91,6 +91,14 @@ else
          rm $CSV2RDF4LOD_LOG
          CSV2RDF4LOD_LOG=""
          exit 1
+      fi
+   fi
+   newest_publication="publish/`ls -lt publish/ | grep -v "total" | head -1 | awk '{print $NF}'`"
+   if [ -e "$newest_publication" ]; then
+      newest_automatic="automatic/`find automatic -newer $newest_publication -and -not -name "*params*" | head -1`"
+      if [ "$newest_automatic" == "automatic/" ]; then
+         echo "INFO `basename $0` skipping aggregation into publish/ because nothing in automatic/ is newer."
+         exit
       fi
    fi
 fi
