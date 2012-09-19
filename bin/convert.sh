@@ -202,8 +202,7 @@ if [ $runEnhancement == "yes" ]; then
          # local enhancement parameters are not useful
          # there is no file-version global enhancement parameters
          # there is no version global enhancement parameters
-         echo "   E$eID conversion parameters file does not provide any useful enhancements ($eParamsDir/$datafile.e$eID.params.ttl)." | tee -a $CSV2RDF4LOD_LOG
-         echo "    - Skipping E$eID conversion b/c enhancement parameters do not provide any useful enhancements."                     | tee -a $CSV2RDF4LOD_LOG
+         echo "   Skipping E$eID conversion b/c enhancement parameters do not provide any useful enhancements: ($eParamsDir/$datafile.e$eID.params.ttl)" | tee -a $CSV2RDF4LOD_LOG
          #exit 1 # Added by user request: quit asap and do not do anything. https://github.com/timrdf/csv2rdf4lod-automation/issues/128
          runEnhancement="no"
       fi
