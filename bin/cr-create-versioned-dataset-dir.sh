@@ -155,7 +155,7 @@ if [ ! -d $version ]; then
 
          echo files: $files
          # Create a conversion trigger for the files obtained during retrieval.
-         cr-create-convert-sh.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
+         cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
       fi
 
       cr-pull-conversion-triggers.sh -w # Run raw conversion
