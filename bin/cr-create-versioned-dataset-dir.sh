@@ -158,7 +158,7 @@ if [ ! -d $version ]; then
          cr-create-convert-sh.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
       fi
 
-      ./*.sh # Run raw conversion
+      cr-pull-conversion-triggers.sh -w # Run raw conversion
       for enhancementID in `cr-list-enhancement-identifiers.sh`; do
          flag=""
          if [ $enhancementID != "1" ]; then
