@@ -168,29 +168,45 @@ csvHeadersParams="--header-line ${header:-'1'} --delimiter $cellDelimiter"
 
 #
 #
-# Check to see if enhancement parameters match template generated.
-# (IF same number of "todo:Literal"s, THEN they are the same.)
+# Check to see if enhancement parameters provide useful enhancements (and is more than just the template generated).
 #
 #
 
-if [[ $runEnhancement == "yes" && "" == "https://github.com/timrdf/csv2rdf4lod-automation/issues/267" ]]; then 
-   TMP_ePARAMS="_"`basename $0``date +%s`_$$.tmp
+if [ $runEnhancement == "yes" ]; then 
 
-   # NOTE: command done below, too.
-   java $csvHeadersClasspath $data $csvHeadersParams | awk -v conversionID="$eID" $paramsParams -f $h2p > $TMP_ePARAMS
+   if [ "" == "https://github.com/timrdf/csv2rdf4lod-automation/issues/267" ]; then
+      # @@ DEPRECATED
+      # @@ DEPRECATED - this whole block.
+      # @@ DEPRECATED
+      TMP_ePARAMS="_"`basename $0``date +%s`_$$.tmp
 
-   numTemplateTODOs=` grep "todo:Literal" $TMP_ePARAMS                           | wc -l` 
-   numRemainingTODOs=`grep "todo:Literal" $eParamsDir/$datafile.e$eID.params.ttl | wc -l` 
-   rm $TMP_ePARAMS
-   if [ $numRemainingTODOs -eq $numTemplateTODOs -a ! -e ../e$eID.params.ttl -a ! -e ../$datafile.e$eID.params.ttl ]; then
-      # local enhancement parameters are no different from when this script generated them
-      # there is no file-version global enhancement parameters
-      # there is no version global enhancement parameters
-      echo "   E$eID conversion parameters file has same number of \"todo:Literal\"s as template originally generated."                  | tee -a $CSV2RDF4LOD_LOG
-      echo "    - Skipping E$eID conversion b/c enhancement parameters appear very similar to the default template."                     | tee -a $CSV2RDF4LOD_LOG
-      echo "    - Replace todo:Literal in E$eID conversion parameters with rdfs:Literal or rdfs:Resource to enable enhanced conversion." | tee -a $CSV2RDF4LOD_LOG
-      #exit 1 # Added by user request: quit asap and do not do anything. https://github.com/timrdf/csv2rdf4lod-automation/issues/128
-      runEnhancement="no"
+      # NOTE: command done below, too.
+      java $csvHeadersClasspath $data $csvHeadersParams | awk -v conversionID="$eID" $paramsParams -f $h2p > $TMP_ePARAMS
+
+      numTemplateTODOs=` grep "todo:Literal" $TMP_ePARAMS                           | wc -l` 
+      numRemainingTODOs=`grep "todo:Literal" $eParamsDir/$datafile.e$eID.params.ttl | wc -l` 
+      rm $TMP_ePARAMS
+      if [ $numRemainingTODOs -eq $numTemplateTODOs -a ! -e ../e$eID.params.ttl -a ! -e ../$datafile.e$eID.params.ttl ]; then
+         # local enhancement parameters are no different from when this script generated them
+         # there is no file-version global enhancement parameters
+         # there is no version global enhancement parameters
+         echo "   E$eID conversion parameters file has same number of \"todo:Literal\"s as template originally generated."                  | tee -a $CSV2RDF4LOD_LOG
+         echo "    - Skipping E$eID conversion b/c enhancement parameters appear very similar to the default template."                     | tee -a $CSV2RDF4LOD_LOG
+         echo "    - Replace todo:Literal in E$eID conversion parameters with rdfs:Literal or rdfs:Resource to enable enhanced conversion." | tee -a $CSV2RDF4LOD_LOG
+         #exit 1 # Added by user request: quit asap and do not do anything. https://github.com/timrdf/csv2rdf4lod-automation/issues/128
+         runEnhancement="no"
+      fi
+   else
+      useful=`java edu.rpi.tw.data.csv.impl.UsefulEnhancements $eParamsDir/$datafile.e$eID.params.ttl 2> /dev/null`
+      if [ "$useful" == "false" -a ! -e ../e$eID.params.ttl -a ! -e ../$datafile.e$eID.params.ttl ]; then
+         # local enhancement parameters are not useful
+         # there is no file-version global enhancement parameters
+         # there is no version global enhancement parameters
+         echo "   E$eID conversion parameters file does not provide any useful enhancements ($eParamsDir/$datafile.e$eID.params.ttl)." | tee -a $CSV2RDF4LOD_LOG
+         echo "    - Skipping E$eID conversion b/c enhancement parameters do not provide any useful enhancements."                     | tee -a $CSV2RDF4LOD_LOG
+         exit 1 # Added by user request: quit asap and do not do anything. https://github.com/timrdf/csv2rdf4lod-automation/issues/128
+         runEnhancement="no"
+      fi
    fi
    # TODO: check to see if enhancement parameters match previous enhancement parameters (e2 same as e1). 
 fi
@@ -582,6 +598,6 @@ echo "   convert.sh done" | tee -a $CSV2RDF4LOD_LOG
 # NOTE: this script (convert.sh) does NOT call convert-aggregate.sh directly.
 #       convert-aggregate.sh is called by convert-DDD.sh /after/ it has called convert.sh (potentially) several times.
 
-if [ `cr-pwd-type.sh` != 'cr:conversion-cockpit' ]; then # aka ${0#./} != `basename $0`
+if [ `cr-pwd-type.sh` != 'cr:conversion-cockpit' ]; then
    popd `dirname $0`
 fi
