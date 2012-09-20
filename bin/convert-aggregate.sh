@@ -876,10 +876,11 @@ echo "   # Make sure that the file we will load from the web is published"      
 echo "   $lnwwwrootSH"                                                                                                      >> $vloadSH
 echo "fi"                                                                                                                   >> $vloadSH
 echo ""                                                                                                                     >> $vloadSH
-echo "graph=\`cat '$pSDV.sd_name'\`"                                                                                        >> $vloadSH
+echo "base=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\""                                                   >> $vloadSH
+echo "graph=\"\$base/source/${sourceID}/dataset/${datasetID}/version/${versionID}\"" >> $vloadSH
 echo "metaGraph=\"\$graph\""                                                                                                >> $vloadSH
 echo "if [ \"\$1\" == \"--sample\" ]; then"                                                                                 >> $vloadSH
-http_allRawSample="\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${versionID}.rdf"
+http_allRawSample="\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sourceID}-${datasetID}-${versionID}.rdf"
 for layerSlug in $layerSlugs # <---- Add root-level subsets here.
 do
    layerID=`echo $layerSlug | sed 's/^.*\//e/'` # enhancement/1 -> e1
@@ -887,7 +888,7 @@ do
    echo "   sampleGraph=\"\$graph/conversion/\$layerSlug/subset/sample\""                                                   >> $vloadSH
 #   echo "   #sampleTTL=$pSDV.`echo $layerSlug | sed 's/^.*\//e/'`.sample.ttl"                                              >> $vloadSH # .-todo
 #   echo "   #sudo /opt/virtuoso/scripts/vload ttl \$sampleTTL \$sampleGraph"                                               >> $vloadSH
-   echo "   sampleURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.${layerID}.sample.ttl\"" >> $vloadSH
+   echo "   sampleURL=\"\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.${layerID}.sample.ttl\"" >> $vloadSH
    #                  http://logd.tw.rpi.edu/source/twc-rpi-edu/file/instance-hub-us-states-and-territories/version/2011-Mar-31_17-51-07/conversion/twc-rpi-edu-instance-hub-us-states-and-territories-2011-Mar-31_17-51-07.e1.sample
    echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"                                     >> $vloadSH
    echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"                                          >> $vloadSH
@@ -895,8 +896,8 @@ do
 done
 echo "   exit 1"                                                                                                            >> $vloadSH
 echo "elif [[ \"\$1\" == \"--meta\" && -e '$allVOID' ]]; then"                                                              >> $vloadSH
-echo "   metaURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.void.ttl\"" >> $vloadSH
-echo "   metaGraph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\"/vocab/Dataset"                             >> $vloadSH
+echo "   metaURL=\"\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.void.ttl\""         >> $vloadSH
+echo "   metaGraph=\"\$base\"/vocab/Dataset"                                                                                >> $vloadSH
 #echo "   #echo sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                                      >> $vloadSH
 #echo "   #sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                                           >> $vloadSH
 echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                            >> $vloadSH
@@ -908,10 +909,10 @@ echo "# Change the target graph before continuing to load everything"           
 echo "if [[ \"\$1\" == \"--unversioned\" || \"\$1\" == \"--abstract\" ]]; then"                                             >> $vloadSH
 echo "   # strip off version"                                                                                               >> $vloadSH
 echo "   graph=\"\`echo \$graph\ | perl -pe 's|/version/[^/]*$||'\`\""                                                      >> $vloadSH
-echo "   graph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/dataset/${datasetID}\""       >> $vloadSH
+echo "   graph=\"\$base/source/${sourceID}/dataset/${datasetID}\""                                                          >> $vloadSH
 echo "   echo populating abstract named graph \(\$graph\) instead of versioned named graph."                                >> $vloadSH
 echo "elif [[ \"\$1\" == \"--meta\" ]]; then"                                                                               >> $vloadSH
-echo "   metaGraph=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\"/vocab/Dataset"                             >> $vloadSH
+echo "   metaGraph=\"\$base/vocab/Dataset\""                                                                                >> $vloadSH
 echo "elif [[ \"\$1\" == \"--as-metadataset\" ]]; then"                                                                     >> $vloadSH
 echo "   graph=\"\${CSV2RDF4LOD_PUBLISH_METADATASET_GRAPH_NAME:-'http://purl.org/twc/vocab/conversion/MetaDataset'}\""      >> $vloadSH
 echo "   metaGraph=\"\$graph\""                                                                                             >> $vloadSH
@@ -923,7 +924,7 @@ echo "   exit 1"                                                                
 echo "fi"                                                                                                                   >> $vloadSH
 echo ""                                                                                                                     >> $vloadSH
 echo "# Load the metadata, either in the same named graph as the data or into a more global one."                           >> $vloadSH
-echo "metaURL=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.void.ttl\"" >> $vloadSH
+echo "metaURL=\"\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.void.ttl\""            >> $vloadSH
 echo "echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                               >> $vloadSH
 echo "\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                                    >> $vloadSH
 echo "if [[ \"\$1\" == \"--meta\" ]]; then"                                                                                 >> $vloadSH
