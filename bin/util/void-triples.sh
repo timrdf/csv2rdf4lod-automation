@@ -30,6 +30,7 @@ else
          pushd `dirname $possible` > /dev/null
             c=`$0 $*` # Recursive call
             if [ ${#c} -gt 0 ]; then
+               echo adding $c
                let "count=count+c"
             fi
          popd > /dev/null
