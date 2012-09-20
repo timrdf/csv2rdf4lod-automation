@@ -87,7 +87,6 @@ if [ "$1" != "CLEAR" ]; then
    echo "CSV2RDF4LOD_CONCURRENCY                                  ${CSV2RDF4LOD_CONCURRENCY:-"(will default to: 1)"}"
    echo "CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER                       ${CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER:="(will default to: false)"}"
    echo "CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS                ${CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS:="(will default to: 2)"}"
-   echo "CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS                     ${CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS:="(will default to: false)"}"
    echo "CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY                   ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:="(will default to: false)"}"
    echo "CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY                  ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:="(will default to: false)"}"
    extensions=`dump-file-extensions.sh`
@@ -114,6 +113,7 @@ if [ "$1" != "CLEAR" ]; then
    echo "CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR                        ${CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR:-"(will default to: false)"}"
 
    echo "  "
+   echo "CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS                     ${CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS:="(will default to: false)"}"
    echo "CSV2RDF4LOD_PUBLISH_SUBSET_VOID                          ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:="(will default to: true)"}"
    echo "CSV2RDF4LOD_PUBLISH_SUBSET_VOID_NAMED_GRAPH              ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID_NAMED_GRAPH:="(will default to: auto)"}"
    echo "CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS                        ${CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS:="(will default to: false)"}"
