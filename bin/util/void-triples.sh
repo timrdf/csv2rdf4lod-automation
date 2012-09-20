@@ -22,7 +22,7 @@ if [ $# -gt 0 ]; then
 else
    if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
-      count=`grep "void:triples" automatic/*.void.ttl | sed 's/^.*void:triples "//; s/[^0-9]*//g'`
+      count=`grep "void:triples" automatic/*.void.ttl | sed 's/^.*void:triples "//; s/[^0-9]*//g' | awk '{s+=$1} END {print s}'`
 
    else
 
