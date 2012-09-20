@@ -169,7 +169,7 @@ fi
 #
 # Sample of raw (enhanced samples done below)
 #
-convertedRawSamples="no"; for raw in `find automatic -name "*.raw.sample.ttl"`; do convertedRaw="yes"; done
+convertedRawSamples="no"; for raw in `find automatic -name "*.raw.sample.ttl"`; do convertedRawSamples="yes"; done
 if [ $convertedRawSamples == "yes" ]; then
    echo $pSDV.raw.sample.ttl | tee -a $CSV2RDF4LOD_LOG
    cat automatic/*.raw.sample.ttl > $pSDV.raw.sample.ttl
