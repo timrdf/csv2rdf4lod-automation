@@ -97,7 +97,7 @@ else
          exit 1
       fi
    fi
-   newest_publication="publish/`ls -lt publish/ | grep -v "total" | head -1 | awk '{print $NF}'`"
+   newest_publication="publish/`ls -lt publish/ | grep -v "total" | grep -v "bin" | head -1 | awk '{print $NF}'`"
    if [ -e "$newest_publication" ]; then
       newest_automatic="automatic/`find automatic -newer $newest_publication -and -not -name "*params*" | head -1`"
       if [ "$newest_automatic" == "automatic/" ]; then
