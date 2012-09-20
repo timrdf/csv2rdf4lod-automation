@@ -376,6 +376,16 @@ export CSV2RDF4LOD_PUBLISH_RDFXML="false"
 #
 
 #
+# Customize: Publish the full conversion of the dataset.
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+#
+# (done in convert-aggregate.sh)
+#
+export CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS="true"
+export CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS="false"
+
+#
 # Customize: include subset of conversion that describes the 
 # dataset created. This allows you to publish the description
 # of the dataset without loading the entire (potentially large)
@@ -418,7 +428,6 @@ export CSV2RDF4LOD_PUBLISH_METADATASET_GRAPH_NAME="auto"
 # (done in populate-to-endpoint.sh)
 #
 export CSV2RDF4LOD_PUBLISH_TODO="http://purl.org/twc/vocab/conversion/MetaDataset"
-
 
 #
 # Customize: include subset of conversion: ?s owl:sameAs ?o .

@@ -990,14 +990,16 @@ echo "#3> <$baseURI/id/csv2rdf4lod/$myMD5> foaf:name \"`basename $0`\" ."       
 chmod +x $vloadSH
 cat $vloadSH | sed 's/pvload.sh .*-ng/pvdelete.sh/g' | sed 's/vload [^ ]* [^^ ]* /vdelete /' | grep -v "tar xzf" | grep -v "unzip" | grep -v "rm " > $vdeleteSH # TODO:notar
 chmod +x $vdeleteSH
-if [ ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"."} == "true" ]; then
-   $vdeleteSH
-   $vloadSH
-elif [ ${CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES:-"."} == "true" ]; then # TODO: cross of publish media and subsets to publish. This violates it.
-   $vdeleteSH --sample
-   $vloadSH   --sample
+if [ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" ]; then
+   if [ "$CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS" == "true" ]; then
+      $vdeleteSH
+      $vloadSH
+   fi
+   if [ "$CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES" == "true" ]; then
+      $vdeleteSH --sample
+      $vloadSH   --sample
+   fi
 fi
-
 
 #
 # LOD-materialize
