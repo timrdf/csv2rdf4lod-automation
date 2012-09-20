@@ -157,10 +157,10 @@ or_see_github="or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2
 #
 conversionIDs="raw"
 layerSlugs="raw"
-convertedRaw="no"; for raw in `find $convertDir -name "*.raw.ttl"`; do convertedRaw="yes"; done
+convertedRaw="no"; for raw in `find automatic -name "*.raw.ttl"`; do convertedRaw="yes"; done
 if [ $convertedRaw == "yes" ]; then
    echo $allRaw | tee -a $CSV2RDF4LOD_LOG
-   cat $convertDir/*.raw.ttl > $allRaw
+   cat automatic/*.raw.ttl > $allRaw
    filesToCompress="$allRaw"
 else
    echo "$allRaw - omitted" | tee -a $CSV2RDF4LOD_LOG
@@ -169,11 +169,12 @@ fi
 #
 # Sample of raw (enhanced samples done below)
 #
-convertedRawSamples="no"; for raw in `find $convertDir -name "*.raw.sample.ttl"`; do convertedRaw="yes"; done
+convertedRawSamples="no"; for raw in `find automatic -name "*.raw.sample.ttl"`; do convertedRaw="yes"; done
 if [ $convertedRawSamples == "yes" ]; then
    echo $pSDV.raw.sample.ttl | tee -a $CSV2RDF4LOD_LOG
-   #$CSV2RDF4LOD_HOME/bin/util/grep-head.sh -p 'ov:csvRow "100' $allRaw > $pSDV.raw.sample.ttl # REPLACED by an extra call to the converter with the -samples param.
-   cat $convertDir/*.raw.sample.ttl > $pSDV.raw.sample.ttl
+   cat automatic/*.raw.sample.ttl > $pSDV.raw.sample.ttl
+else
+   echo "INFO: no automatic/*raw.sample.ttl found." 
 fi
 
 #
