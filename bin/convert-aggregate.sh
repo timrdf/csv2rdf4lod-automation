@@ -189,22 +189,22 @@ filesToCompress=""
 anyEsDone="no"
 for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-requested enhancement eID
    eTTL=publish/$sourceID-$datasetID-$versionID.e$eIDD.ttl
-   eTTLsample=`echo $eTTL | sed 's/.ttl$/.sample.ttl/'` # Just insert sample to the next-to-last
+   eTTLsample=publish/$sourceID-$datasetID-$versionID.e$eIDD.sample.ttl
 
    # Aggregate the enhancements.
    echo $eTTL | tee -a $CSV2RDF4LOD_LOG
-   cat $convertDir/*.e$eIDD.ttl > $eTTL
-   if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" -a "$CSV2RDF4LOD_PUBLISH_TTL_LAYERS" == "true" ]; then
+   cat automatic/*.e$eIDD.ttl > $eTTL
+   if [[ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" && "$CSV2RDF4LOD_PUBLISH_TTL_LAYERS" == "true" ]]; then
       filesToCompress="$filesToCompress $eTTL"
    fi
 
    # Sample the aggregated enhancements.
    echo $eTTLsample | tee -a $CSV2RDF4LOD_LOG
    if [ $anyEsDone == "no" ]; then
-      cat $convertDir/*.e$eIDD.sample.ttl  > $eTTLsample
+      cat automatic/*.e$eIDD.sample.ttl  > $eTTLsample
       anyEsDone="yes"
    else
-      cat $convertDir/*.e$eIDD.sample.ttl >> $eTTLsample
+      cat automatic/*.e$eIDD.sample.ttl >> $eTTLsample
    fi
 
    conversionIDs="$conversionIDs e$eIDD"
