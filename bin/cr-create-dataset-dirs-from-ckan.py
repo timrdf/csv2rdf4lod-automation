@@ -7,7 +7,7 @@
 #     source/hub-healthdata-gov
 #   % cr-create-dataset-dirs-from-ckan.py http://healthdata.tw.rpi.edu/hub/api \
 #                                         http://purl.org/twc/health \
-#                                         http://hub.healthdata.gov/dataset/
+#                                         http://hub.healthdata.gov
 #   % find . -name dcat.ttl | xargs git add -f
 
 import sys, os, re, json, uuid
@@ -19,7 +19,7 @@ import ckanclient  # see README at https://github.com/okfn/ckanclient
 # See also https://github.com/timrdf/DataFAQs/wiki/CKAN
 #    section "Automatically publish dataset on CKAN"
 
-if len(sys.argv) <= 2:
+if len(sys.argv) <= 2 or (len(sys.argv) > 1 and sys.argv[1] == "--help"):
    print
    print "usage: %s <ckan-api> <CSV2RDF4LOD_BASE_URI>: [mirrored-ckan]" % os.path.basename(sys.argv[0])
    print
@@ -27,8 +27,11 @@ if len(sys.argv) <= 2:
    print "                          e.g. http://healthdata.tw.rpi.edu/hub/api"
    print "  <CSV2RDF4LOD_BASE_URI>: The base URI of the VoID datasets that will be created from CKAN."
    print "                          e.g. http://purl.org/twc/health"
-   print "  [mirrored-ckan]:        The dataset base for the CKAN instance being mirrored by <ckan-api>."
-   print "                          e.g. http://hub.healthdata.gov/dataset/"
+   print "  [mirrored-ckan]:        The original CKAN instance being mirrored by <ckan-api>."
+   print "                          e.g. http://hub.healthdata.gov"
+   print
+   print "  must be run from a cr:source directory (e.g. /srv/twc-healthdata/data/source/hub-healthdata-gov)"
+   print "    (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/directory%20conventions)"
    print
    sys.exit(1)
 
@@ -62,16 +65,17 @@ for name in ckan.package_register_get():
    desiredFormat = False
    for resource in dataset['resources']:
       if (not desiredFormat and 
-         'url' in resource and len(str(resource['url'])) > 0 and 
-         'format' in resource and resource['format'] in desiredFormats):
+         'url'    in resource and len(str(resource['url'])) > 0 and 
+         'format' in resource and resource['format'].upper() in desiredFormats):
          desiredFormat = True
          URL = resource['url']
          #print indent + 'resource:     ' + resource['format'] + ' ' + resource['url']
-   #if 'download_url' in dataset:
-   #   print indent + 'download_url: ' + dataset['download_url']
-   #if 'url' in dataset:
-   #   print indent + 'url:          ' + dataset['url']
-   #print json.dumps(dataset,sort_keys=True, indent=4)
+   if name == 'hospital-compare' and False:
+      if 'download_url' in dataset:
+         print indent + 'download_url: ' + dataset['download_url']
+      if 'url' in dataset:
+         print indent + 'url:          ' + dataset['url']
+      print json.dumps(dataset,sort_keys=True, indent=4)
 
    if desiredFormat:
       replacements = {
