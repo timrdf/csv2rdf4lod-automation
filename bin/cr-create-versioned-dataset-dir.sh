@@ -171,7 +171,7 @@ if [ ! -d $version ]; then
             cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $validfiles
          else
             echo
-            echo "ERROR: No valid files found when retrieving `cr-dataset-id.sh`, not creating conversion trigger."
+            echo "ERROR: No valid files found when retrieving `cr-dataset-id.sh`; not creating conversion trigger."
          fi
       fi
 
