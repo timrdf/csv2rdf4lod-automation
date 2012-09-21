@@ -160,9 +160,18 @@ if [ ! -d $version ]; then
 
          files=`find source -newer source/.__CSV2RDF4LOD_retrieval -type f | grep -v "pml.ttl$"`
 
-         echo files: $files
-         # Create a conversion trigger for the files obtained during retrieval.
-         cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
+         validfiles=""
+         for name in $files; do
+            if [ -e $name ]; then
+               validfiles="$validfiles $name"
+            fi
+         done
+         if [ ${#validfiles} -gt 0 ]; then
+            # Create a conversion trigger for the files obtained during retrieval.
+            cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $validfiles
+         else
+            echo "ERROR: No valid files found, not creating conversion trigger."
+         fi
       fi
 
       cr-convert.sh
