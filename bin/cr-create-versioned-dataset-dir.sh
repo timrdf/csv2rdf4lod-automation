@@ -102,14 +102,16 @@ echo "header    : $headerLine"
 echo "delimiter : $delimiter"
 
 #
-# This script is invoked from a cr:directory-of-versions, e.g. source/contactingthecongress/directory-for-the-112th-congress/version
+# This script is invoked from a cr:directory-of-versions, 
+# e.g. source/contactingthecongress/directory-for-the-112th-congress/version
 #
 if [ ! -d $version ]; then
 
-   # Create the directory for the new version if it didn't exist already.
+   # Create the directory for the new version.
    mkdir -p $version/source
 
    # Go into the directory that stores the original data obtained from the source organization.
+   echo `cr-pwd.sh`/$version/source
    pushd $version/source &> /dev/null
       touch .__CSV2RDF4LOD_retrieval # Make a timestamp so we know what files were created during retrieval.
       # - - - - - - - - - - - - - - - - - - - - Replace below for custom retrieval  - - - \
