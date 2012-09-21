@@ -55,17 +55,17 @@ url="$2"
 if [[ "$1" == "cr:auto" && ${#url} -gt 0 ]]; then
    version=`urldate.sh $url`
    #echo "Attempting to use URL modification date to name version: $version"
-   version_reason=" (URL's modification date)"
+   version_reason="(URL's modification date)"
 fi
 if [ ${#version} -ne 11 -a "$1" == "cr:auto" ]; then # 11!?
    version=`cr-make-today-version.sh 2>&1 | head -1`
    #echo "Using today's date to name version: $version"
-   version_reason=" (Today's date)"
+   version_reason="(Today's date)"
 fi
 if [ "$1" == "cr:today" ]; then
    version=`cr-make-today-version.sh 2>&1 | head -1`
    #echo "Using today's date to name version: $version"
-   version_reason=" (Today's date)"
+   version_reason="(Today's date)"
 fi
 if [ ${#version} -gt 0 -a `echo $version | grep ":" | wc -l | awk '{print $1}'` -gt 0 ]; then
    echo "Version identifier invalid."
