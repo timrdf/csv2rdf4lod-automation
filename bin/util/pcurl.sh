@@ -158,8 +158,8 @@ while [ $# -gt 0 ]; do
       prefRDF="" #"-H 'Accept: application/rdf+xml, */*; q=0.1'"
       #echo curl $prefRDF -L $url 
       if [ ${downloadFile:-"."} == "true" ]; then
-         echo "curl -L --globoff --insecure $url $formFields ($file)"
-               curl -L --globoff --insecure $url $formFields > $file
+         echo "curl -sL --globoff --insecure $url $formFields ($file)"
+               curl -sL --globoff --insecure $url $formFields > $file
          downloadedFileMD5=`md5.sh $file`
       fi
 
