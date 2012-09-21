@@ -26,7 +26,8 @@
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset
 #
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:directory-of-versions"
@@ -49,18 +50,22 @@ fi
 
 #-#-#-#-#-#-#-#-#
 version="$1"
+version_reason=""
 url="$2"
 if [[ "$1" == "cr:auto" && ${#url} -gt 0 ]]; then
    version=`urldate.sh $url`
-   echo "Attempting to use URL modification date to name version: $version"
+   #echo "Attempting to use URL modification date to name version: $version"
+   version_reason=" (URL's modification date)"
 fi
 if [ ${#version} -ne 11 -a "$1" == "cr:auto" ]; then # 11!?
    version=`cr-make-today-version.sh 2>&1 | head -1`
-   echo "Using today's date to name version: $version"
+   #echo "Using today's date to name version: $version"
+   version_reason=" (Today's date)"
 fi
 if [ "$1" == "cr:today" ]; then
    version=`cr-make-today-version.sh 2>&1 | head -1`
-   echo "Using today's date to name version: $version"
+   #echo "Using today's date to name version: $version"
+   version_reason=" (Today's date)"
 fi
 if [ ${#version} -gt 0 -a `echo $version | grep ":" | wc -l | awk '{print $1}'` -gt 0 ]; then
    echo "Version identifier invalid."
@@ -90,7 +95,7 @@ if [ "$1" == "--delimiter" -a $# -ge 2 ]; then
    shift 2
 fi
 
-echo "version   : $version"
+echo "version   : $version $version_reason"
 echo "url       : $url"
 echo "header    : $headerLine"
 echo "comment   : $commentCharacter"
