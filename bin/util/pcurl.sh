@@ -171,7 +171,6 @@ while [ $# -gt 0 ]; do
       inferenceStep="inferenceStep$requestID"
       wasControlled="wasControlledBy$requestID"
 
-      echo
       echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                                         > $file.pml.ttl
       echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                                            >> $file.pml.ttl
       echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                                    >> $file.pml.ttl
