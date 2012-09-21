@@ -102,13 +102,19 @@ while [ $# -gt 0 ]; do
 
    usageDateTime=`dateInXSDDateTime.sh`
 
+   files=""
    if [ $unzipper == "unzip" ]; then
-      listLength=`unzip -l "$zip" | wc -l`
-      let tailParam="$listLength-$ZIP_LIST_HEADER_LENGTH"
-      let numFiles="$listLength-5"
+      unzip -l "$zip" &> /dev/null
+      if [ $? ]; then
+         listLength=`unzip -l "$zip" | wc -l`
+         let tailParam="$listLength-$ZIP_LIST_HEADER_LENGTH"
+         let numFiles="$listLength-5"
 
-      # NOTE: the line below ACTUALLY uncompresses the file(s)
-      files=`unzip -l "$zip" | tail -$tailParam | head -$numFiles | awk -v zip="$zip" -v file_name="$outfile_override" -v file_extension="$outfile_extension_override" -f $CSV2RDF4LOD_HOME/bin/util/punzip.awk`
+         # NOTE: the line below ACTUALLY uncompresses the file(s)
+         files=`unzip -l "$zip" | tail -$tailParam | head -$numFiles | awk -v zip="$zip" -v file_name="$outfile_override" -v file_extension="$outfile_extension_override" -f $CSV2RDF4LOD_HOME/bin/util/punzip.awk`
+      else
+         unzip -l "$zip"
+      fi
    elif [ $unzipper == "gunzip" ]; then
       files=${zip%.*}
    elif [ $unzipper == "tar" ]; then
@@ -117,7 +123,6 @@ while [ $# -gt 0 ]; do
       tar -tf $zip
    else
       echo "WARNING: no files processed b/c "
-      files=""
    fi
 
    for file in $files; do
