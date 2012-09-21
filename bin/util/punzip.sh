@@ -105,6 +105,7 @@ while [ $# -gt 0 ]; do
    files=""
    if [ $unzipper == "unzip" ]; then
       unzip -l "$zip" &> /dev/null
+      echo $?
       if [ $? ]; then
          listLength=`unzip -l "$zip" | wc -l`
          let tailParam="$listLength-$ZIP_LIST_HEADER_LENGTH"
