@@ -17,7 +17,7 @@
 #
 {
    gsub(/^ *[^ ]* *[^ ]* *[^ ]* */,"");
-   file=$0;                            # Pretty odd that we didn't grab $4
+   file=$0; # Don't just grab $4 (spaces in filenames)
    ofile=file; 
    if( length(file_name) && length(file_extension) ) {
       ofile = sprintf("%s.%s",file_name,file_extension);  
