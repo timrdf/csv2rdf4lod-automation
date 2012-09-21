@@ -112,7 +112,7 @@ if [ ! -d $version ]; then
    mkdir -p $version/source
 
    # Go into the directory that stores the original data obtained from the source organization.
-   echo "INFO `basename $0` @ `cr-pwd.sh`/$version/source"
+   echo INFO `cr-pwd.sh`/$version/source
    pushd $version/source &> /dev/null
       touch .__CSV2RDF4LOD_retrieval # Make a timestamp so we know what files were created during retrieval.
       # - - - - - - - - - - - - - - - - - - - - Replace below for custom retrieval  - - - \
