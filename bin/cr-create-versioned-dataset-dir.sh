@@ -100,6 +100,7 @@ echo "version   : $version $version_reason"
 echo "comment   : $commentCharacter"
 echo "header    : $headerLine"
 echo "delimiter : $delimiter"
+echo
 
 #
 # This script is invoked from a cr:directory-of-versions, 
