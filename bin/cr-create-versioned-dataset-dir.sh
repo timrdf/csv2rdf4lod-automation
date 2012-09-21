@@ -95,10 +95,10 @@ if [ "$1" == "--delimiter" -a $# -ge 2 ]; then
    shift 2
 fi
 
-echo "version   : $version $version_reason"
 echo "url       : $url"
-echo "header    : $headerLine"
+echo "version   : $version $version_reason"
 echo "comment   : $commentCharacter"
+echo "header    : $headerLine"
 echo "delimiter : $delimiter"
 
 #
