@@ -27,6 +27,7 @@ if [[ "$1" == "--turtle" ]]; then
    echo
    # curl http://prefix.cc/rdfs,void,conversion.file.ttl
 else
+   # for eparams defaults: bin/util/header2params2.awk
    echo "prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
    echo "prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>"
    echo "prefix xsd:        <http://www.w3.org/2001/XMLSchema#>"
