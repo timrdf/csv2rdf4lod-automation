@@ -65,6 +65,9 @@ if [ "$1" == "--check" ]; then
       echo
    fi
    exit 0
+elif [ "$1" == "--export" ]; then
+   set | grep CSV2RDF4LOD | grep -v CSV2RDF4LOD_HOME | awk '{print "export",$0}'
+   exit 0
 fi
 
 if [ "$1" != "CLEAR" ]; then
