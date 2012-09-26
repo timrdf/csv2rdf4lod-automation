@@ -15,8 +15,9 @@
 #   limitations under the License.
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` source/some.{rdf,ttl,nt}"
+   echo "usage: `basename $0` [--link-as-latest] source/some.{rdf,ttl,nt}"
    echo "  will create publish/*.ttl and publish/bin"
+   echo "  --link-as-latest: create (or reconfigure) version identifier 'latest' to reference this current version."
    exit 1
 fi
 
@@ -25,6 +26,12 @@ ACCEPTABLE_PWDs="cr:conversion-cockpit"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh --script `basename $0` $ACCEPTABLE_PWDs
    exit 1
+fi
+
+link_latest="no"
+if [ "$1" == "--link-as-latest" ]; then
+   link_latest="yes"
+   shift
 fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
@@ -41,7 +48,7 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    sdv=$sourceID-$datasetID-$versionID
 
    echo "publish/$sdv.nt"
-   rdf2nt.sh $*                      > publish/$sdv.nt # TODO: other serializations and compressing
+   rdf2nt.sh $*                                       > publish/$sdv.nt
    if [ "$CSV2RDF4LOD_PUBLISH_TTL" == "true" ]; then
       echo "publish/$sdv.ttl"
       if [ `which serdi` ]; then
@@ -50,13 +57,27 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
          rapper -i ntriples -o turtle publish/$sdv.nt > publish/$sdv.ttl # TODO: bin/util/bigttl2nt.sh ?
       fi
    fi
+   # TODO: other serializations and compressing
 
    echo "publish/$sdv.sd_name"
-   cr-dataset-uri.sh --uri           > publish/$sdv.sd_name
+   cr-dataset-uri.sh --uri                            > publish/$sdv.sd_name
 
    echo "publish/$sdv.void.ttl"
-   rr-create-void.sh publish/$sdv.nt > publish/$sdv.void.ttl #replaced by rr-create-void.sh: cr-dataset-uri.sh void
+   rr-create-void.sh publish/$sdv.nt                  > publish/$sdv.void.ttl
 
+   if [ "$link_latest" == "yes" ]; then
+      # from:
+      # source/tw-rpi-edu/cr-publish-void-to-endpoint/version/2012-Sep-26
+      #
+      # tw-rpi-edu/cr-publish-void-to-endpoint/version/2012-Sep-26/publish/tw-rpi-edu-cr-publish-void-to-endpoint-2012-Sep-26.nt
+      # tw-rpi-edu/cr-publish-void-to-endpoint/version/2012-Sep-26/publish/tw-rpi-edu-cr-publish-void-to-endpoint-2012-Sep-26.sd_name
+      # tw-rpi-edu/cr-publish-void-to-endpoint/version/2012-Sep-26/publish/tw-rpi-edu-cr-publish-void-to-endpoint-2012-Sep-26.ttl
+      # tw-rpi-edu/cr-publish-void-to-endpoint/version/2012-Sep-26/publish/tw-rpi-edu-cr-publish-void-to-endpoint-2012-Sep-26.void.ttl
+      if [ -e `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest ]; then
+         rm -rf `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest
+      fi
+      ln -s `cr-conversion-root.sh`/$sourceID/$datasetID/version/$versionID `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest
+   fi
 
    lnwww=publish/bin/ln-to-www-root-$sdv.sh # Note: This was originally done by bin/convert-aggregate.sh
    echo "#!/bin/bash"                                                                                               > $lnwww

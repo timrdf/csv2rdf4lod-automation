@@ -122,7 +122,7 @@ for void in $voids; do
 done
 
 pushd $cockpit &> /dev/null
-   aggregate-source-rdf.sh source/* 
+   aggregate-source-rdf.sh --link-as-latest source/* 
    # WARNING: ^^ publishes even with -n b/c it checks for CSV2RDF4LOD_PUBLISH_VIRTUOSO
 popd &> /dev/null
 
