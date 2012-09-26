@@ -42,6 +42,13 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
    echo "publish/$sdv.nt"
    rdf2nt.sh $*                      > publish/$sdv.nt # TODO: other serializations and compressing
+   if [ "$CSV2RDF4LOD_PUBLISH_TTL" == "true" ]; then
+      if [ `which serdi` ]; then
+         serdi  -i ntriples -o turtle publish/$sdv.nt > publish/$sdv.ttl
+      elif [ `which rapper` ]; then
+         rapper -i ntriples -o turtle publish/$sdv.nt > publish/$sdv.ttl # TODO: bin/util/bigttl2nt.sh ?
+      fi
+   fi
 
    echo "publish/$sdv.sd_name"
    cr-dataset-uri.sh --uri           > publish/$sdv.sd_name
