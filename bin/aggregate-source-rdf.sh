@@ -45,6 +45,7 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    sourceID=`cr-source-id.sh`
    datasetID=`cr-dataset-id.sh`
    versionID=`cr-version-id.sh`
+   sd=$sourceID-$datasetID
    sdv=$sourceID-$datasetID-$versionID
 
    echo "publish/$sdv.nt"
@@ -77,6 +78,8 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
          rm -rf `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest
       fi
       ln -s `cr-conversion-root.sh`/$sourceID/$datasetID/version/$versionID `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest
+      # hard link to rename the dump file.
+      ln    `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.ttl `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl
    fi
 
    lnwww=publish/bin/ln-to-www-root-$sdv.sh # Note: This was originally done by bin/convert-aggregate.sh
