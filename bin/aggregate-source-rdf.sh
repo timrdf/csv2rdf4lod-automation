@@ -43,6 +43,7 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "publish/$sdv.nt"
    rdf2nt.sh $*                      > publish/$sdv.nt # TODO: other serializations and compressing
    if [ "$CSV2RDF4LOD_PUBLISH_TTL" == "true" ]; then
+      echo "publish/$sdv.ttl"
       if [ `which serdi` ]; then
          serdi  -i ntriples -o turtle publish/$sdv.nt > publish/$sdv.ttl
       elif [ `which rapper` ]; then
