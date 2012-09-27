@@ -39,15 +39,17 @@ a2=""  # Angle
 end="" # Period
 
 CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
-sourceID=`is-pwd-a.sh  cr:bone --id-of source`
-datasetID=`is-pwd-a.sh cr:bone --id-of dataset`
-versionID=`is-pwd-a.sh cr:bone --id-of version`
+
+sourceID=`cr-source-id.sh`
+datasetID=`cr-dataset-id.sh`
+versionID=`cr-version-id.sh`
 
 if [[ "$1" == 'void' || "$1" == "--void" ]]; then
-   prefixDef="@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
-   isabstract="    a conversion:AbstractDataset;"
+   prefixDef="@prefix void:       <http://rdfs.org/ns/void#> ."
+   prefixDef="$prefixDef @prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
+   isabstract="a conversion:AbstractDataset, void:Dataset;"
    if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]; then
-      isversioned="    a conversion:VersionedDataset;"
+      isversioned="a conversion:VersionedDataset, void:Dataset;"
    fi
    prefix="conversion:"
    a1="<"
@@ -61,14 +63,10 @@ elif [[ "$1" == "uri" || "$1" == "--uri" ]]; then
 fi
 base_uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
 
-
-echo "#   base_uri              $CSV2RDF4LOD_BASE_URI # (env)"
-echo "#   base_uri              $CSV2RDF4LOD_BASE_URI_OVERRIDE # (override)"
 echo $prefixDef
 echo
 echo "$a1$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID$a2"
-#   grep -H ":base_uri" manual/*.params.ttl | awk '{print "    base_uri (params)     "$3,"   ",$1}' | sed -e 's/:$//' -e 's/"//g' -e 's/..xsd:anyURI;//'
-echo      $isabstract
+echo "    $isabstract"
 echo "    ${prefix}base_uri              ${q1}$base_uri${q2}"
 echo "    ${prefix}source_identifier     ${q1}$sourceID${q2}"                                        
 echo "    ${prefix}dataset_identifier    ${q1}$datasetID${q2}"                                    
@@ -76,7 +74,7 @@ echo $end
 echo
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]; then
    echo "$a1$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID$a2"
-   echo      $isversioned
+   echo "    $isversioned"
    echo "    ${prefix}base_uri              ${q1}$base_uri${q2}"
    echo "    ${prefix}source_identifier     ${q1}$sourceID${q2}"                                        
    echo "    ${prefix}dataset_identifier    ${q1}$datasetID${q2}"                                    
