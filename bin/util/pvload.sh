@@ -137,6 +137,10 @@ while [ $# -gt 0 ]; do
       # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Naming-sparql-service-description's-sd:NamedGraph
       named_graph_global="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}?query=PREFIX%20sd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fsparql-service-description%23%3E%20CONSTRUCT%20%7B%20%3Fendpoints_named_graph%20%3Fp%20%3Fo%20%7D%20WHERE%20%7B%20GRAPH%20%3C${escapedNG}%3E%20%7B%20%5B%5D%20sd%3Aurl%20%3C${escapedEndpoint}%3E%3B%20sd%3AdefaultDatasetDescription%20%5B%20sd%3AnamedGraph%20%3Fendpoints_named_graph%20%5D%20.%20%3Fendpoints_named_graph%20sd%3Aname%20%3C${escapedNG}%3E%3B%20%3Fp%20%3Fo%20.%20%7D%20%7D"
 
+      echo "Transform missing: saxon $saxon9"
+      echo "Transform missing: CLASSPATH $CLASSPATH"
+      echo "Transform missing: situate  `cr-situate-classpath.sh`"
+
       java_saxon="java -cp $CLASSPATH:$saxon9 net.sf.saxon.Transform -xsl:$CSV2RDF4LOD_HOME/bin/util/pvload-latest-ng-load.xsl -s:$CSV2RDF4LOD_HOME/bin/util/pvload-latest-ng-load.xsl"
       # Sorry for hard coding this. SparqlProxy is inadequate, and I'm trying to avoid creating YA envvar for PRIVATE vs PUBLIC_ENDPOINT...
       #latest_NG_nodeset=`$java_saxon endpoint=http://logd.tw.rpi.edu:8890/sparql named-graph=${named_graph}` # pvload-latest-ng-load.xsl needs to call vsr:virtuoso b/c virtuoso isn't returning XML
