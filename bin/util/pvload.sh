@@ -63,7 +63,7 @@ while [ $# -gt 0 ]; do
    #
    # Grab the file.
    #
-   if [ ${dryrun-"."} != "true" ]; then
+   if [ "$dryrun" != "true" ]; then
       $CSV2RDF4LOD_HOME/bin/util/pcurl.sh $url -n $TEMP     # Side affect: creates $TEMP.pml.ttl (will be loaded below).
       unzipped=""
       gunzip -t $TEMP &> /dev/null

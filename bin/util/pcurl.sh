@@ -67,7 +67,7 @@ while [ $# -gt 0 ]; do
             sources=`rapper -g -o ntriples $local_pml 2>/dev/null | awk '$3 == "<http://inference-web.org/2.0/pml-provenance.owl#Source>"{if(saw[$1]!=$1){saw[$1]=$1;gsub(/<|>/,"");printf("%s",$1)}}'`
             for url in $sources; do
                echo "repeating retrieval of $url"
-               $CSV2RDF4LOD_HOME/bin/util/pcurl.sh $url # It's a good day when you get to use recursion.
+               $CSV2RDF4LOD_HOME/bin/util/pcurl.sh $url # Recursive call
             done
             # TODO: dig in to find -e -n params
             # TODO: dig in to find POST att=values
@@ -101,7 +101,7 @@ while [ $# -gt 0 ]; do
    urlBaseName=`basename $url`
    #echo "PCURL: url basename       $urlBaseName"
    flag=$2
-   if [ $# -ge 3 -a ${flag:=""} == "-n" ]; then
+   if [ $# -ge 3 -a "$flag" == "-n" ]; then
       localName="$3"
       #echo "PCURL: -n localname       $localName"
       shift 2
@@ -111,7 +111,7 @@ while [ $# -gt 0 ]; do
    fi
 
    flag=$2
-   if [ $# -ge 3 -a ${flag:=""} == "-e" ]; then
+   if [ $# -ge 3 -a "$flag" == "-e" ]; then
       extension=".$3"
       #echo "PCURL: -e localname       $localName$extension"
       shift 2
@@ -157,7 +157,7 @@ while [ $# -gt 0 ]; do
       # http://dowhatimean.net/2008/03/what-is-your-rdf-browsers-accept-header
       prefRDF="" #"-H 'Accept: application/rdf+xml, */*; q=0.1'"
       #echo curl $prefRDF -L $url 
-      if [ ${downloadFile:-"."} == "true" ]; then
+      if [ "$downloadFile" == "true" ]; then
          echo "curl -sL --globoff --insecure $url $formFields ($file)"
                curl -sL --globoff --insecure $url $formFields > $file
          downloadedFileMD5=`md5.sh $file`
@@ -192,7 +192,7 @@ while [ $# -gt 0 ]; do
       echo                                                                                                        >> $file.pml.ttl
       echo "<$url>"                                                                                               >> $file.pml.ttl
       echo "   a pmlp:Source;"                                                                                    >> $file.pml.ttl
-         if [ $redirectedURL != $url ]; then
+         if [ "$redirectedURL" != "$url" ]; then
             if [ ${#urlModDateTime} -gt 3 ]; then
                echo "   pmlp:hasModificationDateTime \"$urlModDateTime\"^^xsd:dateTime;"                          >> $file.pml.ttl
             fi
@@ -207,7 +207,7 @@ while [ $# -gt 0 ]; do
          fi
       echo "."                                                                                                    >> $file.pml.ttl
       echo                                                                                                        >> $file.pml.ttl
-      if [ ${downloadFile:-"."} == "true" ]; then
+      if [ "$downloadFile" == "true" ]; then
          echo "<$file>"                                                                                           >> $file.pml.ttl
          echo "   a pmlp:Information;"                                                                            >> $file.pml.ttl
          echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_content>;"                                         >> $file.pml.ttl
@@ -286,7 +286,7 @@ while [ $# -gt 0 ]; do
       echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                                                   >> $file.pml.ttl
       echo "."                                                                                                    >> $file.pml.ttl
       echo                                                                                                        >> $file.pml.ttl
-         if [ $redirectedURL != $url ]; then
+         if [ "$redirectedURL" != "$url" ]; then
             echo "<info${requestID}_redirected_url_header>"                                                       >> $file.pml.ttl
             echo "   a pmlp:Information, conv:HTTPHeader;"                                                        >> $file.pml.ttl
             echo "   pmlp:hasRawString \"\"\"$redirectedURLINFO\"\"\";"                                           >> $file.pml.ttl
