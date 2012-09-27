@@ -141,7 +141,7 @@ while [ $# -gt 0 ]; do
       echo "Transform missing: CLASSPATH $CLASSPATH"
       echo "Transform missing: situate  `cr-situate-classpath.sh`"
 
-      java_saxon="java -cp $CLASSPATH:$saxon9 net.sf.saxon.Transform -xsl:$CSV2RDF4LOD_HOME/bin/util/pvload-latest-ng-load.xsl -s:$CSV2RDF4LOD_HOME/bin/util/pvload-latest-ng-load.xsl"
+      java_saxon="java -cp $CLASSPATH:$CSV2RDF4LOD_HOME/bin/dup/saxonb9-1-0-8j.jar net.sf.saxon.Transform -xsl:$CSV2RDF4LOD_HOME/bin/util/pvload-latest-ng-load.xsl -s:$CSV2RDF4LOD_HOME/bin/util/pvload-latest-ng-load.xsl"
       # Sorry for hard coding this. SparqlProxy is inadequate, and I'm trying to avoid creating YA envvar for PRIVATE vs PUBLIC_ENDPOINT...
       #latest_NG_nodeset=`$java_saxon endpoint=http://logd.tw.rpi.edu:8890/sparql named-graph=${named_graph}` # pvload-latest-ng-load.xsl needs to call vsr:virtuoso b/c virtuoso isn't returning XML
       latest_NG_nodeset=`$java_saxon endpoint=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} named-graph=${named_graph}` # pvload-latest-ng-load.xsl can call vsr:endpoint for a generic call, but it needs to not be dumb about its caching.

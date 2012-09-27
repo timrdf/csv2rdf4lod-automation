@@ -40,6 +40,7 @@ for jar in                                                             \
            lib/joda-time-2.0/joda-time-2.0.jar                         \
            bin/dup/datadigest-1.0-SNAPSHOT.jar                         \
            bin/lib/commons-validator-1.3.1/commons-validator-1.3.1.jar \
+           bin/dup/saxonb9-1-0-8j.jar                                 \
            bin/dup/csv2rdf4lod.jar ; do
    if [[ $CLASSPATH != *`basename $jar`* ]]; then
       if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:="."} == "fine" ]; then
