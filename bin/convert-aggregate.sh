@@ -891,7 +891,7 @@ do
 #   echo "   #sudo /opt/virtuoso/scripts/vload ttl \$sampleTTL \$sampleGraph"                                               >> $vloadSH
    echo "   sampleURL=\"\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${S_D_V}.${layerID}.sample.ttl\"" >> $vloadSH
    #                  http://logd.tw.rpi.edu/source/twc-rpi-edu/file/instance-hub-us-states-and-territories/version/2011-Mar-31_17-51-07/conversion/twc-rpi-edu-instance-hub-us-states-and-territories-2011-Mar-31_17-51-07.e1.sample
-   echo "   echo \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"                                     >> $vloadSH
+   echo "   echo pvload.sh \$sampleURL -ng \$sampleGraph"                                                                   >> $vloadSH
    echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"                                          >> $vloadSH
    echo ""                                                                                                                  >> $vloadSH
 done
