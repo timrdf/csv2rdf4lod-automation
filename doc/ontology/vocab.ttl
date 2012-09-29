@@ -1236,3 +1236,7 @@ conversion:ServiceEndpoint
    a owl:Class;
    rdfs:comment "http://www.w3.org/TR/sparql11-service-description/ does not specify a range, but we want to refer to it";
 .
+
+# serve with .htaccess:
+# AddType application/rdf+xml .rdf .owl
+# AddType text/turtle .ttl
