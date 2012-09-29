@@ -21,7 +21,7 @@
 
 usage_message="usage: `basename $0` [-n] url [-ng named_graph]" 
 
-if [ $# -lt 1 ]; then
+if [[ "$1" == "--help" || $# -lt 1 ]]; then
    echo $usage_message 
    echo "  -n  : dry run - do not download or load into named graph."
    echo "  url : the URL to retrieve and load into a named graph."
