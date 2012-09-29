@@ -109,7 +109,7 @@ while [ $# -gt 0 ]; do
       syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect ${TEMP}${unzipped} rapper`
       echo "INFO: Guess by inspection: $syntax"
    else
-      echo "INFO: Liked syntax guess $syntax: $liked_guess ($url)"
+      echo "INFO: Guessing syntax without inspection: $syntax ($url)"
    fi
 
    # Turtle to N-TRIPLES (b/c Virtuoso chokes on some Turtle and we need to spoon feed).
