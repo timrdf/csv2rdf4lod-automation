@@ -85,8 +85,9 @@ if [[ $load_in_place == "false" ]]; then
    file_name_local=${data_file##*/}
    file_name_full=$virtuoso_allowed_dir/$file_name_local
    echo "WARNING: COPYING ${data_file} $file_name_full"
+   echo "WARNING:   (set \$CSV2RDF4LOD_CONVERT_DATA_ROOT to avoid a redundant file copy)."
 else
-   echo "INFO (`basename $0`): Avoiding redundant file copy; file is within \$CSV2RDF4LOD_CONVERT_DATA_ROOT, a virtuoso-readable directory."
+   #echo "INFO (`basename $0`): Avoiding redundant file copy; file is within \$CSV2RDF4LOD_CONVERT_DATA_ROOT, a virtuoso-readable directory."
    file_name_full=$data_file
 fi
 
