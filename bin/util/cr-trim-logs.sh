@@ -20,6 +20,7 @@ if [[ "$1" == "--help" || "$1" == "-h" ]]; then
    echo "usage: `basename $0` [-w]"
    echo "  Trim logs in doc/logs/ so that they are no larger than 16kb"
    echo "  -w : Avoid dryrun; do it. If not provided, will only dry run."
+   exit
 fi
 
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
