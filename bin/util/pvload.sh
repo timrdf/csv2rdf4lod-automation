@@ -164,6 +164,7 @@ while [ $# -gt 0 ]; do
       echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                                       >> ${TEMP}${unzipped}.load.pml.ttl
       echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                                        >> ${TEMP}${unzipped}.load.pml.ttl
       echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                                                >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "@prefix dcat:       <http://www.w3.org/ns/dcat#> ."                                                >> ${TEMP}${unzipped}.load.pml.ttl
       echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."                                     >> ${TEMP}${unzipped}.load.pml.ttl
       echo                                                                                                     >> ${TEMP}${unzipped}.load.pml.ttl
       $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                                               >> ${TEMP}${unzipped}.load.pml.ttl
