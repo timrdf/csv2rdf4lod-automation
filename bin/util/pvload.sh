@@ -163,6 +163,7 @@ while [ $# -gt 0 ]; do
       echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                                          >> ${TEMP}${unzipped}.load.pml.ttl
       echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                                       >> ${TEMP}${unzipped}.load.pml.ttl
       echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                                        >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                                                >> ${TEMP}${unzipped}.load.pml.ttl
       echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."                                     >> ${TEMP}${unzipped}.load.pml.ttl
       echo                                                                                                     >> ${TEMP}${unzipped}.load.pml.ttl
       $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                                               >> ${TEMP}${unzipped}.load.pml.ttl
@@ -173,23 +174,6 @@ while [ $# -gt 0 ]; do
       echo                                                                                                     >> ${TEMP}${unzipped}.load.pml.ttl
       echo "<${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}>"                                                 >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   a pmlp:InferenceEngine, pmlp:WebService;"                                                       >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "."                                                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
-      echo                                                                                                     >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "<${PROV_BASE}sdService$requestID> a sd:Service;"                                                   >> ${TEMP}${unzipped}.load.pml.ttl
-      if [ ${#CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} -gt 0 ]; then
-      echo "   sd:url <$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT>;"                                        >> ${TEMP}${unzipped}.load.pml.ttl
-      else
-      echo "   rdfs:comment \"sd:url omitted b/c \$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT undefined\";"  >> ${TEMP}${unzipped}.load.pml.ttl
-      fi
-      echo "   sd:defaultDatasetDescription ["                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "      a sd:Dataset;"                                                                               >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "      sd:namedGraph <$named_graph_global>;"                                                        >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "   ];"                                                                                             >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "."                                                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
-      echo                                                                                                     >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "<$named_graph_global>"                                                                             >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "   a sd:NamedGraph;"                                                                               >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "   sd:name <$named_graph>;"                                                                        >> ${TEMP}${unzipped}.load.pml.ttl
       echo "."                                                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
       echo                                                                                                     >> ${TEMP}${unzipped}.load.pml.ttl
       echo "<${PROV_BASE}nodeSet${requestID}>"                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
@@ -212,6 +196,53 @@ while [ $# -gt 0 ]; do
       echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                  >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   dcterms:date \"`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`\"^^xsd:dateTime;"              >> ${TEMP}${unzipped}.load.pml.ttl
       echo "."                                                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
+
+      #
+      # The above is PML. Below is PROV-O
+      #
+      echo "# PROV-O is better than PML 2: "                                                                   >> ${TEMP}${unzipped}.load.pml.ttl
+
+      echo "<$url>"                                                                                            >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   a foaf:Document;"                                                                               >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "."                                                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
+      echo                                                                                                     >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "<${named_graph_global}#${usageDateTimeSlug}>"                                                      >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   a sd:NamedGraph;"                                                                               >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   dcterms:created      \"${usageDateTime}\"^^xsd:dateTime;"                                       >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   dcterms:identifier   \"${usageDateTimeSlug}\";"                                                 >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   prov:specializationOf <${named_graph_global}>;"                                                 >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "."                                                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
+      echo ""                                                                                                  >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "<${named_graph_global}>"                                                                           >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   a sd:NamedGraph;"                                                                               >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   sd:name <$named_graph>;"                                                                        >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   dcterms:modified     \"${usageDateTime}\"^^xsd:dateTime;"                                       >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "."                                                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
+      echo                                                                                                     >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "<${PROV_BASE}sdService$requestID> a sd:Service;"                                                   >> ${TEMP}${unzipped}.load.pml.ttl
+      if [ ${#CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} -gt 0 ]; then
+         echo "   sd:endpoint <$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT>;"                                >> ${TEMP}${unzipped}.load.pml.ttl
+      fi
+      echo "   sd:availableGraphs <${PROV_BASE}collection$requestID>;"                                         >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "."                                                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
+      echo                                                                                                     >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "<${PROV_BASE}collection$requestID>"                                                                >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "  a sd:GraphCollection, dcat:Dataset;"                                                             >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "  sd:namedGraph <$named_graph_global>;"                                                            >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "."                                                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
+      echo                                                                                                     >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "<${PROV_BASE}activity${requestID}>"                                                                >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   a prov:Activity;"                                                                               >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   prov:used $latest_NG_nodeset, <$url>;"                                                          >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   prov:wasAssociatedWith          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"           >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   prov:qualifiedAssociation ["                                                                    >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "      a prov:Association;"                                                                         >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "      prov:agent `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                             >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "      prov:hadPlan <http://inference-web.org/registry/MPR/RDFModelUnion.owl#RDFModelUnion>;"       >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   ];"                                                                                             >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   prov:startedAtTime \"`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`\"^^xsd:dateTime;"        >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "."                                                                                                 >> ${TEMP}${unzipped}.load.pml.ttl
+
 
       #
       # Virtuoso can't handle all turtle files that rapper can.
