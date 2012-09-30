@@ -137,7 +137,9 @@ elif [[ `is-pwd-a.sh              cr:source                                  ` =
       # Handle the original (3-year old) directory structure 
       # that does not include 'dataset' as a directory.
       datasetID=`basename $0`
-      echo $datasetID ${datasetID%.*}
+      if [ ! -d ${datasetID%.*} ]; then
+         mkdir ${datasetID%.*}
+      fi
       pushd ${datasetID%.*} > /dev/null
          $0 $* # Recursive call
       popd > /dev/null
