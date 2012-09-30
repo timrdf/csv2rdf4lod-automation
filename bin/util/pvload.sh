@@ -234,7 +234,7 @@ while [ $# -gt 0 ]; do
       echo                                                                                                     >> ${TEMP}${unzipped}.load.pml.ttl
       echo "<${PROV_BASE}activity${requestID}>"                                                                >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   a prov:Activity;"                                                                               >> ${TEMP}${unzipped}.load.pml.ttl
-      echo "   prov:used $latest_NG_nodeset, <$url>;"                                                          >> ${TEMP}${unzipped}.load.pml.ttl
+      echo "   prov:used ${latest_NG_nodeset:-$named_graph_global}, <$url>;"                                   >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   prov:wasAssociatedWith          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"           >> ${TEMP}${unzipped}.load.pml.ttl
       echo "   prov:qualifiedAssociation ["                                                                    >> ${TEMP}${unzipped}.load.pml.ttl
       echo "      a prov:Association;"                                                                         >> ${TEMP}${unzipped}.load.pml.ttl
