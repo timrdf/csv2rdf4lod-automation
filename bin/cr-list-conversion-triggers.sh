@@ -77,7 +77,8 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
          eParams="../*e*.params.ttl manual/*e*.params.ttl" # Include global and local eparams.
          if [ "$2" == "--only-globally-enhanced" ]; then
             eParams="../*e*.params.ttl"                    # Use only global eparams.
-            if [ ${#eParams} -eq 0 ]; then
+            list=`ls $eParams 2> /dev/null`
+            if [ ${#list} -eq 0 ]; then
                should_list="false"
             fi
          fi
