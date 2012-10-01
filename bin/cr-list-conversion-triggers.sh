@@ -82,7 +82,6 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
                should_list="false"
             fi
          fi
-         echo "should list $should_list and $eParams"
          if [[ "$should_list" != "false" && ${#eParams} -gt 0 ]]; then
             newest_eparam="`ls -lt $eParams 2> /dev/null | grep -v "total" | grep -v "bin" | head -1 | awk '{print $NF}'`"
             if [ -e "$newest_eparam" ]; then
