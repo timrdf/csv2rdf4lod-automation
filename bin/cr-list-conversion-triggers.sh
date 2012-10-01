@@ -78,11 +78,15 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
          if [ "$2" == "--only-globally-enhanced" ]; then
             eParams="../*e*.params.ttl"                    # Use only global eparams.
          fi
-         newest_eparam="`ls -lt $eParams 2> /dev/null | grep -v "total" | grep -v "bin" | head -1 | awk '{print $NF}'`"
-         if [ -e "$newest_eparam" ]; then
-            newest_e_out="automatic/`find automatic -newer $newest_eparam -and -not -name "*params*" | head -1`"
-            if [ "$newest_e_out" != "automatic/" ]; then # "nothing in automatic/ is newer"
-               should_list="false"
+         if [ ${#eParams} -eq 0 ]; then
+            should_list="false"
+         else
+            newest_eparam="`ls -lt $eParams 2> /dev/null | grep -v "total" | grep -v "bin" | head -1 | awk '{print $NF}'`"
+            if [ -e "$newest_eparam" ]; then
+               newest_e_out="automatic/`find automatic -newer $newest_eparam -and -not -name "*params*" | head -1`"
+               if [ "$newest_e_out" != "automatic/" ]; then # "nothing in automatic/ is newer"
+                  should_list="false"
+               fi
             fi
          fi
       fi
