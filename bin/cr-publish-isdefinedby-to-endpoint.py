@@ -42,7 +42,7 @@ def retrieve(endpoint, pattern):
             nonempty = False
          else:
             print '<{0}> <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <{1}> .\n'.format(term,ns(term))
-            print '<{0}> <http://www.w3.org/ns/prov#isDefinedBy>            <{1}> .\n'.format(term,domain(term))
+            print '<{0}> <http://www.w3.org/ns/prov#wasAttributedTo>        <{1}> .\n'.format(term,domain(term))
             nonempty = True
 
       offset += limit
