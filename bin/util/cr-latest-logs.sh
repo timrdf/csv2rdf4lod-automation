@@ -9,4 +9,8 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
-find doc/logs -type f -newer doc/logs/conversion-trigger-last-pulled
+if [ -e doc/logs/conversion-trigger-last-pulled ]; then
+   find doc/logs -type f -newer doc/logs/conversion-trigger-last-pulled
+else
+   ls -lt doc/logs 2> /dev/null | grep -v "total" | head -1 | awk '{print $NF}'
+fi
