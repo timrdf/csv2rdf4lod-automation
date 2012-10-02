@@ -89,8 +89,9 @@ if [ "$1" != "CLEAR" ]; then
    echo "  "
    echo "CSV2RDF4LOD_CKAN                                         ${CSV2RDF4LOD_CKAN:-"(will default to: false)"}"
    if [  "$CSV2RDF4LOD_CKAN" == "true" ]; then
-   echo "CSV2RDF4LOD_CKAN_SOURCE                                  ${CSV2RDF4LOD_CKAN_SOURCE:-"(will default to: 1)"}"
-   echo "CSV2RDF4LOD_CKAN_WRITABLE                                ${CSV2RDF4LOD_CKAN_WRITABLE:-"(will default to: 1)"}"
+   echo "CSV2RDF4LOD_CKAN_SOURCE                                  ${CSV2RDF4LOD_CKAN_SOURCE:-"(will not replicate a ckan)"}"
+   echo "CSV2RDF4LOD_CKAN_WRITABLE                                ${CSV2RDF4LOD_CKAN_WRITABLE:-"(will not write to a CKAN)"}"
+   echo "X_CKAN_API_Key                                           ${X_CKAN_API_Key:-"(will not be able to write to $CSV2RDF4LOD_CKAN_WRITABLE)"}"
    else
       echo "   ..."
    fi
@@ -197,6 +198,8 @@ if [ "$1" != "CLEAR" ]; then
    echo "CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT                      ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: none)"}"
    echo "CSV2RDF4LOD_PUBLISH_SPARQL_RESULTS_DIRECTORY             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: none)"}"
 
+   echo "  "
+   echo "X_GOOGLE_MAPS_API_Key                                    ${X_GOOGLE_MAPS_API_Key:-"(not required; used by cr-geocoords-addresses)"}"
    if [ ${#CSV2RDF4LOD_HOME} -gt 0 ]; then
       echo "  "
       echo "see documentation for variables in:"
@@ -283,6 +286,9 @@ else
    # "  "
    export CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT=""       
    export CSV2RDF4LOD_PUBLISH_SPARQL_RESULTS_DIRECTORY=""
+
+   # "  "
+   export X_GOOGLE_MAPS_API_Key=""
    
    echo "...cleared."
    $0 # Run this script again to show that they were cleared.

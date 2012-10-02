@@ -59,6 +59,16 @@ export CSV2RDF4LOD_CKAN_WRITABLE="http://healthdata.tw.rpi.edu/hub"
 export CSV2RDF4LOD_CKAN_WRITABLE=""
 
 #
+# Customize: 
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (used in mirror.py)
+#
+# a conversion:ProjectLevelEnvironmentVariable
+export X_CKAN_API_Key="https://github.com/timrdf/DataFAQs/wiki/Missing-CKAN-API-Key"
+export X_CKAN_API_Key=""
+
+#
 # ------- ------- converting options ------- -------
 #
 
@@ -832,6 +842,19 @@ export CSV2RDF4LOD_PUBLISH_SPARQL_RESULTS_DIRECTORY=""
 
 
 
+
+#
+# ------- ------- Post-conversion derivations ------- -------
+#
+
+#
+# Customize: 
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (done in )
+#
+export X_GOOGLE_MAPS_API_Key=""
 
 #
 # ------- ------- data.gov options ------- -------
