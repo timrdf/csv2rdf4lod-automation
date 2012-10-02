@@ -91,6 +91,8 @@ if [ "$1" != "CLEAR" ]; then
    if [  "$CSV2RDF4LOD_CKAN" == "true" ]; then
    echo "CSV2RDF4LOD_CKAN_SOURCE                                  ${CSV2RDF4LOD_CKAN_SOURCE:-"(will default to: 1)"}"
    echo "CSV2RDF4LOD_CKAN_WRITABLE                                ${CSV2RDF4LOD_CKAN_WRITABLE:-"(will default to: 1)"}"
+   else
+      echo "   ..."
    fi
    echo "  "
    echo "CSV2RDF4LOD_CONCURRENCY                                  ${CSV2RDF4LOD_CONCURRENCY:-"(will default to: 1)"}"
