@@ -25,6 +25,40 @@
 # The following variables may be modified to customize csv2rdf4lod.
 
 #
+# ------- ------- CKAN options ------- -------
+#
+
+#
+# Customize: 
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (used in mirror.py)
+#
+# a conversion:ProjectLevelEnvironmentVariable
+export CSV2RDF4LOD_CKAN="true"
+export CSV2RDF4LOD_CKAN="false"
+
+#
+# Customize: 
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (used in mirror.py)
+#
+# a conversion:ProjectLevelEnvironmentVariable
+export CSV2RDF4LOD_CKAN_SOURCE="http://hub.healthdata.gov"
+export CSV2RDF4LOD_CKAN_SOURCE=""
+
+#
+# Customize: 
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (used in mirror.py)
+#
+# a conversion:ProjectLevelEnvironmentVariable
+export CSV2RDF4LOD_CKAN_WRITABLE="http://healthdata.tw.rpi.edu/hub"
+export CSV2RDF4LOD_CKAN_WRITABLE=""
+
+#
 # ------- ------- converting options ------- -------
 #
 

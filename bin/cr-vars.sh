@@ -87,6 +87,12 @@ if [ "$1" != "CLEAR" ]; then
    echo "CSV2RDF4LOD_CONVERT_PERSON_URI                           ${CSV2RDF4LOD_CONVERT_PERSON_URI:="(not required, but recommended! see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD_CONVERT_PERSON_URI)"}"
 
    echo "  "
+   echo "CSV2RDF4LOD_CKAN                                         ${CSV2RDF4LOD_CKAN:-"(will default to: false)"}"
+   if [  "$CSV2RDF4LOD_CKAN" == "true" ]; then
+   echo "CSV2RDF4LOD_CKAN_SOURCE                                  ${CSV2RDF4LOD_CKAN_SOURCE:-"(will default to: 1)"}"
+   echo "CSV2RDF4LOD_CKAN_WRITABLE                                ${CSV2RDF4LOD_CKAN_WRITABLE:-"(will default to: 1)"}"
+   fi
+   echo "  "
    echo "CSV2RDF4LOD_CONCURRENCY                                  ${CSV2RDF4LOD_CONCURRENCY:-"(will default to: 1)"}"
    echo "CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER                       ${CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER:="(will default to: false)"}"
    echo "CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS                ${CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS:="(will default to: 2)"}"
@@ -206,6 +212,10 @@ else
 
    export CSV2RDF4LOD_CONVERT_MACHINE_URI=""           
    export CSV2RDF4LOD_CONVERT_PERSON_URI=""           
+
+   export CSV2RDF4LOD_CKAN=""
+   export CSV2RDF4LOD_CKAN_SOURCE=""
+   export CSV2RDF4LOD_CKAN_WRITABLE=""
 
    export CSV2RDF4LOD_CONVERT_DATA_ROOT=""
    export CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER=""
