@@ -77,7 +77,7 @@ def mirror_ckan(source, target, api_key, dryrun, update):
 if __name__=='__main__':
 
    if len(sys.argv) < 3 or sys.argv[1] == '--help':
-      print "Usage: {} source target [--api-key key] [--dryrun] [--update-if-exists]".format(os.path.basename(sys.argv[0]))
+      print "Usage: cr-mirror-ckan.py source target [--api-key key] [--dryrun] [--update-if-exists]"
       print "              source: the URL of the CKAN to replicate."
       print "                      e.g. http://hub.healthdata.gov/api"
       print "              target: the URL of the writable CKAN that should replicate 'source'."
