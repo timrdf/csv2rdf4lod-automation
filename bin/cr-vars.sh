@@ -89,9 +89,11 @@ if [ "$1" != "CLEAR" ]; then
    echo "  "
    echo "CSV2RDF4LOD_CKAN                                         ${CSV2RDF4LOD_CKAN:-"(will default to: false)"}"
    if [  "$CSV2RDF4LOD_CKAN" == "true" ]; then
-   echo "CSV2RDF4LOD_CKAN_SOURCE                                  ${CSV2RDF4LOD_CKAN_SOURCE:-"(will not replicate a ckan)"}"
-   echo "CSV2RDF4LOD_CKAN_WRITABLE                                ${CSV2RDF4LOD_CKAN_WRITABLE:-"(will not write to a CKAN)"}"
-   echo "X_CKAN_API_Key                                           ${X_CKAN_API_Key:-"(will not be able to write to $CSV2RDF4LOD_CKAN_WRITABLE)"}"
+      echo "CSV2RDF4LOD_CKAN_SOURCE                                  ${CSV2RDF4LOD_CKAN_SOURCE:-"(will not replicate a ckan)"}"
+      echo "CSV2RDF4LOD_CKAN_WRITABLE                                ${CSV2RDF4LOD_CKAN_WRITABLE:-"(will not write to a CKAN)"}"
+      if [  ${#CSV2RDF4LOD_CKAN_WRITABLE} -gt 0 ]; then
+         echo "X_CKAN_API_Key                                           ${X_CKAN_API_Key:-"(will not be able to write to $CSV2RDF4LOD_CKAN_WRITABLE)"}"
+      fi
    else
       echo "   ..."
    fi
