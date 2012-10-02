@@ -12,5 +12,5 @@ fi
 if [ -e doc/logs/conversion-trigger-last-pulled ]; then
    find doc/logs -type f -newer doc/logs/conversion-trigger-last-pulled
 else
-   ls -lt doc/logs 2> /dev/null | grep -v "total" | head -1 | awk '{print $NF}'
+   ls -lt doc/logs 2> /dev/null | grep -v "total" | head -1 | awk '{print "doc/logs/$NF}'
 fi
