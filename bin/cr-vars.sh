@@ -78,15 +78,15 @@ if [ "$1" != "CLEAR" ]; then
    #echo "CLASSPATH                             $CLASSPATH"
    #echo "PATH                                  $PATH"
 
-   echo "  "
+   echo
    echo "CSV2RDF4LOD_HOME                                         ${CSV2RDF4LOD_HOME:-"!!! -- MUST BE SET -- !!! source csv2rdf4lod/source-me.sh"}"
    echo "CSV2RDF4LOD_BASE_URI                                     ${CSV2RDF4LOD_BASE_URI:-"!!! -- MUST BE SET -- !!! source csv2rdf4lod/source-me.sh"}"
    echo "CSV2RDF4LOD_BASE_URI_OVERRIDE                            ${CSV2RDF4LOD_BASE_URI_OVERRIDE:="(not required, \$CSV2RDF4LOD_BASE_URI will be used.)"}"
-   echo "  "
+   echo
    echo "CSV2RDF4LOD_CONVERT_MACHINE_URI                          ${CSV2RDF4LOD_CONVERT_MACHINE_URI:="(not required, but recommended! see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD_CONVERT_PERSON_URI)"}"
    echo "CSV2RDF4LOD_CONVERT_PERSON_URI                           ${CSV2RDF4LOD_CONVERT_PERSON_URI:="(not required, but recommended! see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD_CONVERT_PERSON_URI)"}"
 
-   echo "  "
+   echo
    echo "CSV2RDF4LOD_CKAN                                         ${CSV2RDF4LOD_CKAN:-"(will default to: false)"}"
    if [  "$CSV2RDF4LOD_CKAN" == "true" ]; then
       echo "CSV2RDF4LOD_CKAN_SOURCE                                  ${CSV2RDF4LOD_CKAN_SOURCE:-"(will not replicate a ckan)"}"
@@ -97,7 +97,7 @@ if [ "$1" != "CLEAR" ]; then
    else
       echo "   ..."
    fi
-   echo "  "
+   echo
    echo "CSV2RDF4LOD_CONCURRENCY                                  ${CSV2RDF4LOD_CONCURRENCY:-"(will default to: 1)"}"
    echo "CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER                       ${CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER:="(will default to: false)"}"
    echo "CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS                ${CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS:="(will default to: 2)"}"
@@ -113,7 +113,7 @@ if [ "$1" != "CLEAR" ]; then
       echo "CSV2RDF4LOD_CONVERTER                                 ${CSV2RDF4LOD_CONVERTER:="(will default to: java ... -Xmx3060m edu.rpi.tw.data.csv.CSVtoRDF"}"
    fi
 
-   echo "  "
+   echo
    echo "CSV2RDF4LOD_PUBLISH                                      ${CSV2RDF4LOD_PUBLISH:-"(will default to: true)"}"
    echo "CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED                 ${CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED:-"(will default to: true)"}"
 
@@ -126,7 +126,7 @@ if [ "$1" != "CLEAR" ]; then
    echo "CSV2RDF4LOD_PUBLISH_COMPRESS                             ${CSV2RDF4LOD_PUBLISH_COMPRESS:-"(will default to: false)"}"
    echo "CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR                        ${CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR:-"(will default to: false)"}"
 
-   echo "  "
+   echo
    echo "CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS                     ${CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS:="(will default to: false)"}"
    echo "CSV2RDF4LOD_PUBLISH_SUBSET_VOID                          ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID:="(will default to: true)"}"
    echo "CSV2RDF4LOD_PUBLISH_SUBSET_VOID_NAMED_GRAPH              ${CSV2RDF4LOD_PUBLISH_SUBSET_VOID_NAMED_GRAPH:="(will default to: auto)"}"
@@ -134,13 +134,13 @@ if [ "$1" != "CLEAR" ]; then
    echo "CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS_NAMED_GRAPH            ${CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS_NAMED_GRAPH:="(will default to: auto)"}"
    echo "CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES                       ${CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES:="(will default to: false)"}"
 
-   echo "  "
+   echo
    echo "CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID                        ${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:="(will not archive conversion metadata into versioned dataset.)"}"
    echo "CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID                       ${CSV2RDF4LOD_PUBLISH_OUR_DATASET_ID:="(will not archive conversion metadata into versioned dataset.)"}"
    echo "CSV2RDF4LOD_PUBLISH_CONVERSION_PARAMS_NAMED_GRAPH        ${CSV2RDF4LOD_PUBLISH_CONVERSION_PARAMS_NAMED_GRAPH:="(will default to: auto)"}"
    echo "CSV2RDF4LOD_PUBLISH_METADATASET_GRAPH_NAME               ${CSV2RDF4LOD_PUBLISH_METADATASET_GRAPH_NAME:="(will default to: http://purl.org/twc/vocab/conversion/MetaDataset)"}"
 
-   echo "  "
+   echo
    echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT         ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:-"(will default to: VVV/publish/lod-mat/)"}"
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES                    ${CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES:-"(will default to: false)"}"
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_ROOT                          ${CSV2RDF4LOD_PUBLISH_VARWWW_ROOT:-"(will default to: false)"}"
@@ -154,7 +154,7 @@ if [ "$1" != "CLEAR" ]; then
       echo "   ..."
    fi
 
-   echo "  "
+   echo
    echo "CSV2RDF4LOD_PUBLISH_TDB                                  ${CSV2RDF4LOD_PUBLISH_TDB:-"(will default to: false)"}"
    if [ "$CSV2RDF4LOD_PUBLISH_TDB" == "true" -o $show_all == "yes" ]; then
       echo "CSV2RDF4LOD_PUBLISH_TDB_DIR                              ${CSV2RDF4LOD_PUBLISH_TDB_DIR:-"(will default to: VVV/publish/tdb/)"}"
@@ -164,7 +164,7 @@ if [ "$1" != "CLEAR" ]; then
    fi
 
 
-   echo "  "
+   echo
    echo "CSV2RDF4LOD_PUBLISH_4STORE                               ${CSV2RDF4LOD_PUBLISH_4STORE:-"(will default to: false)"}"
    if [ "$CSV2RDF4LOD_PUBLISH_4STORE" == "true" -o $show_all == "yes" ]; then
    echo "CSV2RDF4LOD_PUBLISH_4STORE_KB                            ${CSV2RDF4LOD_PUBLISH_4STORE_KB:-"(will default to: csv2rdf4lod -- leading to /var/lib/4store/csv2rdf4lod)"}" 
@@ -172,7 +172,7 @@ if [ "$1" != "CLEAR" ]; then
       echo "   ..."
    fi
 
-   echo "  "
+   echo
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO                             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: false)"}"
                                                     virtuoso_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
    if [ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" -o $show_all == "yes" ]; then
@@ -196,18 +196,18 @@ if [ "$1" != "CLEAR" ]; then
    fi 
    echo "CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT:-"(will fail to describe provenance in pvload.sh)"}"
 
-   echo "  "
+   echo
    echo "CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT                      ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: none)"}"
    echo "CSV2RDF4LOD_PUBLISH_SPARQL_RESULTS_DIRECTORY             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: none)"}"
 
-   echo "  "
+   echo
    echo "X_GOOGLE_MAPS_API_Key                                    ${X_GOOGLE_MAPS_API_Key:-"(not required; used by cr-geocoords-addresses)"}"
    if [ ${#CSV2RDF4LOD_HOME} -gt 0 ]; then
-      echo "  "
+      echo
       echo "see documentation for variables in:"
       echo "https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/setup.sh"
       echo "https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables"
-      echo "  "
+      echo
       echo "http://purl.org/twc/id/software/csv2rdf4lod"
    fi
 else
