@@ -49,7 +49,7 @@ def mirror_ckan(source, target, api_key, dryrun, update):
       if not dryrun:
          try: # See if dataset is listed in targetCKAN
             targetCKAN.package_entity_get(dataset['name'])
-            if UPDATE: 
+            if update: 
                # Update target's existing entry from source's
                targetCKAN.package_entity_put(dataset) 
             else:
