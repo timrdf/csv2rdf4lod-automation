@@ -2,8 +2,11 @@
 #
 # Requires: http://pypi.python.org/pypi/googlemaps
 # easy_install http://pypi.python.org/packages/source/g/googlemaps/googlemaps-1.0.2.tar.gz
+# 
+# Requires: X_GOOGLE_MAPS_API_Key environment variable.
 #
-#3> <> prov:wasDerivedFrom <https://github.com/jimmccusker/twc-healthdata/tree/master/data/source/healthdata-tw-rpi-edu/address-coordinates/version>;
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-address-coordinates.py>;
+#3>    prov:wasDerivedFrom <https://github.com/jimmccusker/twc-healthdata/tree/master/data/source/healthdata-tw-rpi-edu/address-coordinates/version>;
 #3>    prov:wasAttributedTo <http://tw.rpi.edu/instances/JamesMcCusker>;
 #3> .
 #
@@ -87,11 +90,11 @@ if __name__=='__main__':
 
 <{outputfile}>
   prov:wasGeneratedBy [
-    a prov:Activity, <https://raw.github.com/jimmccusker/twc-healthdata/master/data/source/healthdata-tw-rpi-edu/address-coordinates/version/retrieve.py>;
+    a prov:Activity, <https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/secondary/cr-address-coordinates.py>;
 
     prov:qualifiedAssociation [
       a prov:Association;
-      prov:hadPlan <https://raw.github.com/jimmccusker/twc-healthdata/master/data/source/healthdata-tw-rpi-edu/address-coordinates/version/retrieve.py>;
+      prov:hadPlan <https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/secondary/cr-address-coordinates.py>;
     ];
     prov:used [
       prov:value """{sparql}""";
@@ -101,6 +104,6 @@ if __name__=='__main__':
   ];
 .
 
-<https://raw.github.com/jimmccusker/twc-healthdata/master/data/source/healthdata-tw-rpi-edu/address-coordinates/version/retrieve.py> a prov:Plan;
-  foaf:homepage <https://github.com/jimmccusker/twc-healthdata/blob/master/data/source/healthdata-tw-rpi-edu/address-coordinates/version/retrieve.py> .
+<https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/secondary/cr-address-coordinates.py> a prov:Plan;
+  foaf:homepage <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-address-coordinates.py> .
 '''.format(outputfile=sys.argv[3] if len(sys.argv) > 3 else '', sparql=query, end=datetime.datetime.now().isoformat()) 
