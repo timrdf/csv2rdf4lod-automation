@@ -6,11 +6,13 @@
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
    echo "usage: `basename $0` [-w]"
    echo "  Create publish/bin/publish.sh and invoke for every conversion cockpit within the current directory tree."
-   echo "  -w : Avoid dryrun; do it. If not provided, will only dry run."
+   echo "                -w : Avoid dryrun; do it. If not provided, will only dry run."
+   echo "  --skip-if-exists : If a version exists for the dataset, do not retrieve it."
    exit 1
 fi
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:source cr:dataset cr:directory-of-versions"
@@ -19,36 +21,48 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
-dryrun="yes"
-if [[ "$1" == "-w" || "$1" == "--write" ]]; then
-   dryrun="no"
-fi
-
-TEMP="_"`basename $0``date +%s`_$$.tmp
-
 if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
    echo "Possible, but not designed and not implemented."
 
 elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
 
-   dcat='' # RDF file containing distribution information - which file to download for this dataset?
-   if [ -e dcat.ttl ]; then
-      dcat='dcat.ttl'
-   elif [ -e ../dcat.ttl ]; then
-      dcat='../dcat.ttl'
+   dryrun="yes"
+   if [[ "$1" == "-w" || "$1" == "--write" ]]; then
+      dryrun="no"
+      shift
    fi
-   if [ -e "$dcat" ]; then
-      url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
-      if [ "$dryrun" != "yes" ]; then
-         #echo template from $0 pwd: `pwd`
-         cat $0.template > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
-         perl -pi -e "s|DOWNLOAD_URL|$url|" retrieve.sh
-         chmod +x retrieve.sh
-         ./retrieve.sh
-      else
-         echo "`cr-dataset-uri.sh --uri`:"
-         echo "   Will retrieve $url"
+
+   skip_if_exists="no"
+   if [[ "$1" == "--skip-if-exists" ]]; then
+      skip_if_exists="yes"
+      shift
+   fi
+
+   latest_version=`cr-list-versions.sh`
+   if [[ "$skip_if_exists" == "yes" && ${#latest_version} -gt 0 ]]; then
+      not='not retrieving b/c --skip-if-exists was specified'
+      echo "INFO: `basename $0`: version for `cr-source-id.sh`/`cr-dataset-id.sh` already exists ($latest_version); $not."
+   else
+      echo $latest_version and $skip_if_exists
+      dcat='' # RDF file containing distribution information - which file to download for this dataset?
+      if [ -e dcat.ttl ]; then
+         dcat='dcat.ttl'
+      elif [ -e ../dcat.ttl ]; then
+         dcat='../dcat.ttl'
+      fi
+      if [ -e "$dcat" ]; then
+         url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
+         if [ "$dryrun" != "yes" ]; then
+            #echo template from $0 pwd: `pwd`
+            cat $0.template > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
+            perl -pi -e "s|DOWNLOAD_URL|$url|" retrieve.sh
+            chmod +x retrieve.sh
+            ./retrieve.sh
+         else
+            echo "`cr-dataset-uri.sh --uri`:"
+            echo "   Will retrieve $url"
+         fi
       fi
    fi
 
