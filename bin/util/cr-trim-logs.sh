@@ -52,7 +52,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    fi
 
    if [ $has_logs == "yes" ]; then
-      for log in doc/logs/csv2rdf4lod_log_*.txt; do
+      for log in doc/logs/*log*; do
          size_kb=`du -sk $log | awk '{print $1}'`
          if [ "$size_kb" -ge 16 ]; then
             head -100 $log > $TEMP
