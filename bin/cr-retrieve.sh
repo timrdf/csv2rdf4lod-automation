@@ -44,7 +44,6 @@ elif [[ `is-pwd-a.sh                                                            
       not='not retrieving b/c --skip-if-exists was specified'
       echo "INFO: `basename $0`: version for `cr-source-id.sh`/`cr-dataset-id.sh` already exists ($latest_version); $not."
    else
-      echo $latest_version and $skip_if_exists
       dcat='' # RDF file containing distribution information - which file to download for this dataset?
       if [ -e dcat.ttl ]; then
          dcat='dcat.ttl'
