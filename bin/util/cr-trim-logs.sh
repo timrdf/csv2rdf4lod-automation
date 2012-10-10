@@ -46,7 +46,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo
 
    has_logs="no"
-   if [[ -d doc/logs && `ls doc/logs/csv2rdf4lod_log_*.txt | wc -l | awk '{print $1}'` -gt 0 ]]; then
+   if [[ -d doc/logs && `ls doc/logs/*log* | wc -l | awk '{print $1}'` -gt 0 ]]; then
       echo `du -sh doc/logs` total
       has_logs="yes"
    fi
