@@ -55,6 +55,8 @@ if [ ! `which serdi` ]; then
          fi
       popd &> /dev/null
    fi
+else
+   echo "[INFO] serdi available at `which serdi`"
 fi
 
 if [ ! `which tdbloader` ]; then
