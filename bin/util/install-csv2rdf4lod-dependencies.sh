@@ -66,8 +66,8 @@ if [ ! `which tdbloader` ]; then
    if [ "$install_it" == "y" ]; then
       tarball='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.3.tar.gz'
       pushd $base &> /dev/null
-         echo curl -O $tarball
-         sudo curl -O $tarball
+         echo curl -O --progress-bar $tarball
+         sudo curl -O --progress-bar $tarball
          tarball=`basename $tarball`
          echo tar xzf $tarball
          sudo tar xzf $tarball
