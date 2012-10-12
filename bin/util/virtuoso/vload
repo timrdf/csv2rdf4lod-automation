@@ -68,9 +68,9 @@ fi
 if [ ! -d $virtuoso_allowed_dir ]; then
 
    echo mkdir -p $virtuoso_allowed_dir
-   mkdir -p $virtuoso_allowed_dir &> /dev/null
+   mkdir -p $virtuoso_allowed_dir
    echo chmod a+w $virtuoso_allowed_dir
-   chmod a+w $virtuoso_allowed_dir &> /dev/null
+   chmod a+w $virtuoso_allowed_dir
 
    # If we failed to do it as our own user...
    if [ ! -d $virtuoso_allowed_dir ]; then
