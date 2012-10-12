@@ -29,8 +29,8 @@ isql_pwd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin pass
 virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/`basename $0`/input-files"
 if [[ -e ${CSV2RDF4LOD_HOME:-'does-not-exist-3T63J'} ]]; then
    conversion_root=`cd ${CSV2RDF4LOD_CONVERT_DATA_ROOT} &> /dev/null; cr-conversion-root.sh --quiet`
-   if [[ ${#conversion_root} -eq 0 ]]; then
-      conversion_root=`cd ${CSV2RDF4LOD_CONVERT_DATA_ROOT}/source &> /dev/null; cr-conversion-root.sh --quiet`
+   if [[ ${#conversion_root} -eq 0 && -e ${CSV2RDF4LOD_CONVERT_DATA_ROOT}/source ]]; then
+      conversion_root=`${CSV2RDF4LOD_CONVERT_DATA_ROOT}/source`
    fi
    if [[ ${#conversion_root}                   -gt 0 && \
          ${#CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID} -gt 0 ]]; then
