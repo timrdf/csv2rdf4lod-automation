@@ -66,10 +66,12 @@ if [ ! `which tdbloader` ]; then
    if [ "$install_it" == "y" ]; then
       tarball='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.3.tar.gz'
       pushd $base &> /dev/null
-         curl -O $tarball
+         echo curl -O $tarball
+         sudo curl -O $tarball
          tarball=`basename $tarball`
-         tar xzf $tarball
-         rm $tarball
+         echo tar xzf $tarball
+         sudo tar xzf $tarball
+         sudo rm $tarball
          jenaroot=$base/${tarball%.tar.gz}
       popd &> /dev/null
       if [ -e my-csv2rdf4lod-source-me.sh ]; then
@@ -80,6 +82,10 @@ if [ ! `which tdbloader` ]; then
             echo "done:"
             tail -1 my-csv2rdf4lod-source-me.sh
          fi
+      else
+         echo "WARNING: set JENAROOT=$jenaroot in your my-csv2rdf4lod-source-me.sh or .bashrc"
       fi
    fi
+else
+   echo "[INFO] tdbloader available at `which tdbloader`"
 fi
