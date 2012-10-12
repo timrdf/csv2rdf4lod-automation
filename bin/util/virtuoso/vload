@@ -66,10 +66,14 @@ fi
 # Virtuoso can read from directories listed in 'DirsAllowed' 
 # in /opt/virtuoso/var/lib/virtuoso/db/virtuoso.ini
 if [ ! -d $virtuoso_allowed_dir ]; then
+   sudo=""
+   if [ `whoami` != `stat -c %U $virtuoso_allowed_dir` ]; then
+      sudo="sudo"
+   fi
    echo mkdir -p $virtuoso_allowed_dir
-   sudo mkdir -p $virtuoso_allowed_dir
+   $sudo mkdir -p $virtuoso_allowed_dir
    echo chmod a+w $virtuoso_allowed_dir
-   sudo chmod a+w $virtuoso_allowed_dir
+   $sudo chmod a+w $virtuoso_allowed_dir
 fi
 
 
