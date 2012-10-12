@@ -48,8 +48,8 @@ if [ ! `which serdi` ]; then
             sudo tar -xjf $bz2
             sudo rm $bz2
             pushd ${bz2%.tar.bz2} &> /dev/null
-               ./waf configure
-               ./waf
+               sudo ./waf configure
+               sudo ./waf
                sudo ./waf install
             popd &> /dev/null
          fi
