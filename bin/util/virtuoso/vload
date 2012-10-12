@@ -36,7 +36,7 @@ if [[ -e ${CSV2RDF4LOD_HOME:-'does-not-exist-3T63J'} ]]; then
          ${#CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID} -gt 0 ]]; then
       me="cr-`basename $0`"
       versionID=`md5.sh $0`
-      virtuoso_allowed_dir="$CSV2RDF4LOD_CONVERT_DATA_ROOT/$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID/$me/version/$versionID/doc/logs"
+      virtuoso_allowed_dir="$conversion_root/$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID/$me/version/$versionID/doc/logs"
    else
       warn='[WARNING]: could not log to well-organized location; set'
       echo "$warn CSV2RDF4LOD_CONVERT_DATA_ROOT     $CSV2RDF4LOD_CONVERT_DATA_ROOT"
