@@ -40,11 +40,13 @@ if [ ! `which serdi` ]; then
    if [ "$install_it" == "y" ]; then
       bz2='http://download.drobilla.net/serd-0.18.0.tar.bz2'
       pushd $base &> /dev/null
-         curl -O $bz2
+         echo curl -O $bz2
+         sudo curl -O $bz2
          bz2=`basename $bz2`
          if [ ! -e ${bz2%.tar.bz2} ]; then
-            tar -xjf $bz2
-            rm $bz2
+            echo tar -xjf $bz2
+            sudo tar -xjf $bz2
+            sudo rm $bz2
             pushd ${bz2%.tar.bz2} &> /dev/null
                ./waf configure
                ./waf
