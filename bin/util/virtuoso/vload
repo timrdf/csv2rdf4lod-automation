@@ -27,6 +27,21 @@ isql_cmd="$isql ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLI
 isql_pwd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin password, may neeed to change
 
 virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/`basename $0`/input-files"
+if [[ -e ${CSV2RDF4LOD_HOME:-'does-not-exist-3T63J'} ]]; then
+   conversion_root=`cd ${CSV2RDF4LOD_CONVERT_DATA_ROOT} &> /dev/null; cr-conversion-root.sh --quiet`
+   if [[ ${#conversion_root}                   -gt 0 && \
+         ${#CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID} -gt 0 ]]; then
+      me="cr-`basename $0`"
+      versionID=`md5.sh $0`
+      virtuoso_allowed_dir="$CSV2RDF4LOD_CONVERT_DATA_ROOT/$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID/$me/version/$versionID/doc/logs"
+   else
+      warn='[WARNING]: could not log to well-organized location; set'
+      echo "$warn CSV2RDF4LOD_CONVERT_DATA_ROOT     $CSV2RDF4LOD_CONVERT_DATA_ROOT"
+      echo "$warn CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"
+   fi
+else
+   echo "[WARNING]: could not log to well-organized location; set CSV2RDF4LOD_HOME"
+fi
 vload_log=$virtuoso_allowed_dir/load_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
 
 if [[ "$1" == "--target" ]]; then
