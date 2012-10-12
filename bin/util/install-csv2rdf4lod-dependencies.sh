@@ -84,6 +84,7 @@ if [ ! `which tdbloader` ]; then
          fi
       else
          echo "WARNING: set JENAROOT=$jenaroot in your my-csv2rdf4lod-source-me.sh or .bashrc"
+         echo "WARNING: set PATH=\"\${PATH}:$base/bin\" in your my-csv2rdf4lod-source-me.sh or .bashrc"
       fi
    fi
 else
