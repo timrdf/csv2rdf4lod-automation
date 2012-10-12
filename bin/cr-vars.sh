@@ -60,7 +60,7 @@ if [ "$1" == "--check" ]; then
       echo "[INFO]: serdi found"
    fi
    echo
-   if [ $warnings == "true" ]; then
+   if [ "$warnings" == "true" ]; then
       echo "Use install-csv2rdf4lod-dependencies.sh to install dependencies"
       echo
    fi
