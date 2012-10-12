@@ -45,6 +45,7 @@ if [ ! `which serdi` ]; then
    echo -n "Try to install serdi at $base? (y/N) "
    read -u 1 install_it
    if [ "$install_it" == "y" ]; then
+      #if [ `which gcc` ]; then
       pushd $base &> /dev/null
          # http://drobilla.net/software/serd/
          bz2='http://download.drobilla.net/serd-0.18.0.tar.bz2'
@@ -63,6 +64,9 @@ if [ ! `which serdi` ]; then
          fi
          $sudo rm `basename $bz2`
       popd &> /dev/null
+      #else
+      #   echo "ERROR: gcc not on PATH, cannot compile serdi"
+      #fi
    fi
 else
    echo "[INFO] serdi available at `which serdi`"
