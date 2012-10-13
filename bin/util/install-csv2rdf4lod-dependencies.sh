@@ -112,5 +112,16 @@ echo -n "Try to perl modules (e.g. YAML)? (y/N) "
 read -u 1 install_it
 if [ "$install_it" == "y" ]; then
    echo perl -MCPAN install YAML
+   $sudo perl -MCPAN -e shell
    $sudo perl -MCPAN -e install YAML
+   $sudo perl -MCPAN -e install URI::Escape
+   $sudo perl -MCPAN -e install Data::Dumper
+   $sudo perl -MCPAN -e install HTTP:Config
+   $sudo perl -MCPAN -e install LWP::UserAgent
+   # ^^ OR sudo apt-cache search perl LWP::UserAgent
+   #      $sudo apt-get install liblwp-useragent-determined-perl
+   # ^^ OR cpan -f -i LWP::UserAgent
+   $sudo perl -MCPAN -e install IO::Socket::SSL
+   $sudo perl -MCPAN -e install Text::CSV_XS 
+   $sudo perl -MCPAN -e install Text::CSV
 fi
