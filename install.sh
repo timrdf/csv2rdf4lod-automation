@@ -54,6 +54,28 @@ echo "    run cr-vars.${ext} to see the environment variables that CSV2RDF4LOD u
 echo "    see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation"
 echo
 echo "    run 'cr-vars.${ext} --check' to check for dependencies."
-echo "    run bin/util/install-csv2rdf4lod-dependencies.sh to install dependencies."
+echo "    run install-csv2rdf4lod-dependencies.sh to install dependencies."
 mv install.sh bin/
 source created my-csv2rdf4lod-source-me.${ext} &> /dev/null
+
+
+echo "Put the following 'source' command into your ~/.bashrc?"
+echo "      source $CSV2RDF4LOD_HOME/my-csv2rdf4lod-source-me.${ext} # http://purl.org/twc/id/software/csv2rdf4lod"
+echo -n "(y/N) "
+read -u 1 install_it
+if [ "$install_it" == "y" ]; then
+   echo                                                                                                                >> ~/.bashrc
+   echo "      source $CSV2RDF4LOD_HOME/my-csv2rdf4lod-source-me.${ext} # http://purl.org/twc/id/software/csv2rdf4lod" >> ~/.bashrc
+fi
+
+echo -n "Try to install dependencies? (y/N) "
+read -u 1 install_it
+if [ "$install_it" == "y" ]; then
+   install-csv2rdf4lod-dependencies.sh
+fi
+
+echo -n "'source' my-csv2rdf4lod-source-me.${ext} now? (Y/n) "
+read -u 1 install_it
+if [ "$install_it" != "n" ]; then
+   source $CSV2RDF4LOD_HOME/my-csv2rdf4lod-source-me.${ext}
+fi
