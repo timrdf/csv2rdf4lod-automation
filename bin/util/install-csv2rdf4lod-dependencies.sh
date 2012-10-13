@@ -105,3 +105,12 @@ if [ ! `which tdbloader` ]; then
 else
    echo "[INFO] tdbloader available at `which tdbloader`"
 fi
+
+
+echo
+echo -n "Try to perl modules (e.g. YAML)? (y/N) "
+read -u 1 install_it
+if [ "$install_it" == "y" ]; then
+   echo perl -MCPAN install YAML
+   $sudo perl -MCPAN install YAML
+fi
