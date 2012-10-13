@@ -44,15 +44,19 @@ fi
 
 echo ""
 
+mv install.sh bin/
+source my-csv2rdf4lod-source-me.${ext} &> /dev/null
+
 echo
 echo "~~~ What to do next: ~~~"
 echo
-echo "   'source my-csv2rdf4lod-source-me.${ext}' to set the environment variables needed to run csv2rdf4lod-automation."
+echo "   'source my-csv2rdf4lod-source-me.${ext}' to set the environment variables that cvs2rdf4lod-automation needs to run."
 echo "    sourcing my-csv2rdf4lod-source-me.${ext} must be done each time you log in, so consider adding this to your .bashrc:"
 echo ""
 echo "      source $CSV2RDF4LOD_HOME/my-csv2rdf4lod-source-me.${ext} # http://purl.org/twc/id/software/csv2rdf4lod"
 echo ""
 
+echo
 echo "Put the following 'source' command into your ~/.bashrc?"
 echo "      source $CSV2RDF4LOD_HOME/my-csv2rdf4lod-source-me.${ext} # http://purl.org/twc/id/software/csv2rdf4lod"
 echo -n "(y/N) "
@@ -65,12 +69,11 @@ fi
 echo
 echo "~~~ What to do next: ~~~"
 echo
-echo "    running 'cr-vars.${ext} --check' to check for dependencies."
-echo "    running 'install-csv2rdf4lod-dependencies.sh' to install dependencies."
-mv install.sh bin/
-source created my-csv2rdf4lod-source-me.${ext} &> /dev/null
+echo "    running 'cr-vars.${ext} --check' to checks for dependencies that csv2rdf4lod-automation needs to run."
+echo "    running 'install-csv2rdf4lod-dependencies.sh' installs dependencies."
 
 
+echo
 echo -n "Try to install dependencies? (y/N) "
 read -u 1 install_it
 if [ "$install_it" == "y" ]; then
@@ -80,11 +83,19 @@ fi
 echo
 echo "~~~ What to do next: ~~~"
 echo
-echo "    run cr-vars.${ext} to see the environment variables that CSV2RDF4LOD uses to control execution flow."
-echo "    see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation"
+echo "    running `cr-vars.${ext}` shows the environment variables that csv2rdf4lod-automation uses to control execution flow."
+echo "      (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation)"
 
+echo
 echo -n "run cr-vars.sh now? (Y/n) "
 read -u 1 install_it
 if [ "$install_it" != "n" ]; then
    cr-vars.sh
 fi
+
+echo
+echo "Installation is complete. Check out the following for next steps:"
+echo "* https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation"
+echo "* https://github.com/timrdf/csv2rdf4lod-automation/wiki/A-quick-and-easy-conversion"
+echo "* https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-process-phases"
+echo
