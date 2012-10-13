@@ -113,15 +113,23 @@ read -u 1 install_it
 if [ "$install_it" == "y" ]; then
    echo perl -MCPAN install YAML
    #$sudo perl -MCPAN -e shell
+   echo YAML
    $sudo perl -MCPAN -e install YAML
+   echo URI::Escape
    $sudo perl -MCPAN -e install URI::Escape
+   echo Data:Dumper
    $sudo perl -MCPAN -e install Data::Dumper
+   echo HTTP:Config
    $sudo perl -MCPAN -e install HTTP:Config
+   echo LWP:UserAgent
    $sudo perl -MCPAN -e install LWP::UserAgent
    # ^^ OR sudo apt-cache search perl LWP::UserAgent
    #      $sudo apt-get install liblwp-useragent-determined-perl
    # ^^ OR cpan -f -i LWP::UserAgent
+   echo IO::Socket::SSL
    $sudo perl -MCPAN -e install IO::Socket::SSL
-   $sudo perl -MCPAN -e install Text::CSV_XS 
+   echo Text::CSV
    $sudo perl -MCPAN -e install Text::CSV
+   echo Text::CSV_XS
+   $sudo perl -MCPAN -e install Text::CSV_XS 
 fi
