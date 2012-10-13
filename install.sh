@@ -44,8 +44,10 @@ fi
 
 echo ""
 
+echo
 echo "~~~ What to do next: ~~~"
-echo "   'source my-csv2rdf4lod-source-me.${ext}' to set environment variables."
+echo
+echo "   'source my-csv2rdf4lod-source-me.${ext}' to set the environment variables needed to run csv2rdf4lod-automation."
 echo "    sourcing my-csv2rdf4lod-source-me.${ext} must be done each time you log in, so consider adding this to your .bashrc:"
 echo ""
 echo "      source $CSV2RDF4LOD_HOME/my-csv2rdf4lod-source-me.${ext} # http://purl.org/twc/id/software/csv2rdf4lod"
