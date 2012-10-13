@@ -108,6 +108,45 @@ fi
 
 
 echo
+echo -n "Try to install virtuoso at $base? (y/N) "
+read -u 1 install_it
+if [ "$install_it" == "y" ]; then
+   # http://sourceforge.net/projects/virtuoso/
+   url='http://sourceforge.net/projects/virtuoso/files/latest/download'
+   pushd $base &> /dev/null
+      $sudo touch $$
+      redirect=`curl -sLI $url | grep Location | tail -1 | awk '{print $2}'`
+      # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
+      tarball=`basename $redirect`
+      # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
+      echo $redirect to $tarball
+      if [ ! -e $tarball ]; then
+         echo curl -L -o $tarball --progress-bar $url
+         sudo curl -L -o $tarball --progress-bar $url
+         echo tar xzf $tarball
+         $sudo tar xzf $tarball
+         #$sudo rm $tarball
+         virtuoso_root=$base/${tarball%.tar.gz}
+      echo
+      fi
+   popd &> /dev/null
+   #if [ -e my-csv2rdf4lod-source-me.sh ]; then
+   #   echo -n "Append JENAROOT to my-csv2rdf4lod-source-me.sh? (y/N) "
+   #   read -u 1 install_it
+   #   if [ "$install_it" == "y" ]; then
+   #      echo "export JENAROOT=$jenaroot"              >> my-csv2rdf4lod-source-me.sh
+   #      echo "export PATH=\"\${PATH}:$jenaroot/bin\"" >> my-csv2rdf4lod-source-me.sh
+   #      echo "done:"
+   #      tail -2 my-csv2rdf4lod-source-me.sh
+   #   fi
+   #else
+   #   echo "WARNING: set JENAROOT=$jenaroot in your my-csv2rdf4lod-source-me.sh or .bashrc"
+   #   echo "WARNING: set PATH=\"\${PATH}:$jenaroot/bin\" in your my-csv2rdf4lod-source-me.sh or .bashrc"
+   #fi
+fi
+
+
+echo
 echo -n "Try to perl modules (e.g. YAML)? (y/N) "
 read -u 1 install_it
 if [ "$install_it" == "y" ]; then
