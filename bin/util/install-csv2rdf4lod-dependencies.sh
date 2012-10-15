@@ -115,7 +115,7 @@ if [ "$install_it" == "y" ]; then
    url='http://sourceforge.net/projects/virtuoso/files/latest/download'
    pushd $base &> /dev/null
       sudo touch pid.$$
-      redirect=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/\r//g' | awk '{printf("%s\n",$2)}'`
+      redirect=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/\r/\n/g' | awk '{printf("%s\n",$2)}'`
       # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
       tarball=`basename $redirect`
       # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
