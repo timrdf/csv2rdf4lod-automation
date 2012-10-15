@@ -118,9 +118,9 @@ if [ "$install_it" == "y" ]; then
       # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
       tarball=`basename $redirect`
       # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
-      echo ".$redirect."
+      echo ".${redirect}."
       echo to
-      echo ".$tarball."
+      echo ".${tarball}."
       if [ ! -e $tarball ]; then
          echo curl -L -o $tarball --progress-bar $url
          sudo curl -L -o $tarball --progress-bar $url
