@@ -108,7 +108,7 @@ fi
 
 
 echo
-echo -n "Try to install virtuoso at /opt (sudo required)? (y/N) " # $base to be relative
+echo -n "Try to install virtuoso at /opt? (note: sudo required) (y/N) " # $base to be relative
 read -u 1 install_it
 if [ "$install_it" == "y" ]; then
    # http://sourceforge.net/projects/virtuoso/
@@ -133,31 +133,21 @@ if [ "$install_it" == "y" ]; then
          #$sudo rm $tarball
          #virtuoso_root=$base/${tarball%.tar.gz} # $base
          virtuoso_root=`find . -maxdepth 1 -cnewer pid.$$ -name "virtuoso*" -type d`
+         # ^ e.g. 'virtuoso-opensource-6.1.6/'
          if [ -d $virtuoso_root ]; then
             pushd $virtuoso_root &> /dev/null
                echo aptitude build-dep virtuoso-opensource
                sudo aptitude build-dep virtuoso-opensource
-               dpkg-buildpackage -rfakeroot
+               echo dpkg-buildpackage -rfakeroot
+               sudo dpkg-buildpackage -rfakeroot
             popd &> /dev/null
-            echo dpkg -i virtuoso-opensource_6.1.6_amd64.deb
-            sudo dpkg -i virtuoso-opensource_6.1.6_amd64.deb
+            pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
+            echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb
+            sudo dpkg -i ${pkg}_amd64.deb
          fi
          echo
       fi
    popd &> /dev/null
-   #if [ -e my-csv2rdf4lod-source-me.sh ]; then
-   #   echo -n "Append JENAROOT to my-csv2rdf4lod-source-me.sh? (y/N) "
-   #   read -u 1 install_it
-   #   if [ "$install_it" == "y" ]; then
-   #      echo "export JENAROOT=$jenaroot"              >> my-csv2rdf4lod-source-me.sh
-   #      echo "export PATH=\"\${PATH}:$jenaroot/bin\"" >> my-csv2rdf4lod-source-me.sh
-   #      echo "done:"
-   #      tail -2 my-csv2rdf4lod-source-me.sh
-   #   fi
-   #else
-   #   echo "WARNING: set JENAROOT=$jenaroot in your my-csv2rdf4lod-source-me.sh or .bashrc"
-   #   echo "WARNING: set PATH=\"\${PATH}:$jenaroot/bin\" in your my-csv2rdf4lod-source-me.sh or .bashrc"
-   #fi
 fi
 
 
@@ -187,3 +177,37 @@ if [ "$install_it" == "y" ]; then
    echo Text::CSV_XS
    $sudo perl -MCPAN -e install Text::CSV_XS 
 fi
+
+# https://github.com/alangrafu/lodspeakr/wiki/How-to-install-requisites-in-Ubuntu
+echo "Dependency for LODSPeaKr:"
+offer_install_with_apt 'a2enmod' 'apache2'
+
+echo
+echo "sudo a2enmod rewrite"
+echo -n "LODSPeaKr requires HTTP rewrite. Enable it with the command above? (y/N) "
+read -u 1 install_it
+if [ "$install_it" == "y" ]; then
+   sudo a2enmod rewrite
+fi
+
+echo
+echo "Dependency for LODSPeaKr:"
+echo 'https://github.com/alangrafu/lodspeakr/wiki/How-to-install-requisites-in-Ubuntu:'
+echo "  /etc/apache2/sites-enabled/000-default must 'AllowOverride All' for <Directory /var/www/>"
+echo
+echo "sudo service apache2 restart"
+echo "Please make the edit, THEN type 'y' to restart apache, or just type 'N' to skip this. (y/N) "
+read -u 1 install_it
+if [ "$install_it" == "y" ]; then
+   sudo service apache2 restart
+fi
+
+# curl already done
+
+for pkg in php5 php5-sqlite php5-curl sqlite3; do
+   not_installed=`dpkg -s $pkg 2>&1 | grep "is not installed"`
+   if [ ${#not_installed} ]; then
+      echo "Dependency for LODSPeaKr:"
+      offer_install_with_apt 'ls' $pkg # 'ls' ==> aka just install it
+   fi
+done
