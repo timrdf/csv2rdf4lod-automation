@@ -183,6 +183,7 @@ echo "Dependency for LODSPeaKr:"
 offer_install_with_apt 'a2enmod' 'apache2'
 
 echo
+echo "~~~~ ~~~~"
 echo "sudo a2enmod rewrite"
 echo -n "LODSPeaKr requires HTTP rewrite. Enable it with the command above? (y/N) "
 read -u 1 install_it
@@ -191,6 +192,7 @@ if [ "$install_it" == "y" ]; then
 fi
 
 echo
+echo "~~~~ ~~~~"
 echo 'https://github.com/alangrafu/lodspeakr/wiki/How-to-install-requisites-in-Ubuntu:'
 echo "  /etc/apache2/sites-enabled/000-default must 'AllowOverride All' for <Directory /var/www/>"
 echo
