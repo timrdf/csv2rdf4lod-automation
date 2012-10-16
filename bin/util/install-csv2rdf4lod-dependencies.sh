@@ -191,7 +191,6 @@ if [ "$install_it" == "y" ]; then
 fi
 
 echo
-echo "Dependency for LODSPeaKr:"
 echo 'https://github.com/alangrafu/lodspeakr/wiki/How-to-install-requisites-in-Ubuntu:'
 echo "  /etc/apache2/sites-enabled/000-default must 'AllowOverride All' for <Directory /var/www/>"
 echo
@@ -199,6 +198,8 @@ echo "sudo service apache2 restart"
 echo "Please make the edit, THEN type 'y' to restart apache, or just type 'N' to skip this. (y/N) "
 read -u 1 install_it
 if [ "$install_it" == "y" ]; then
+   echo "~~~~ ~~~~"
+   echo "Dependency for LODSPeaKr:"
    sudo service apache2 restart
 fi
 
@@ -207,7 +208,8 @@ fi
 for pkg in php5 php5-sqlite php5-curl sqlite3; do
    not_installed=`dpkg -s $pkg 2>&1 | grep "is not installed"`
    if [ ${#not_installed} ]; then
+      echo "~~~~ ~~~~"
       echo "Dependency for LODSPeaKr:"
-      offer_install_with_apt 'ls' $pkg # 'ls' ==> aka just install it
+      offer_install_with_apt $pkg'do-it-anyway' $pkg # 'ls' ==> aka just install it
    fi
 done
