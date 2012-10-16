@@ -209,7 +209,11 @@ for pkg in php5 php5-sqlite php5-curl sqlite3; do
    not_installed=`dpkg -s $pkg 2>&1 | grep "is not installed"`
    if [ ${#not_installed} ]; then
       echo "~~~~ ~~~~"
-      echo "Dependency for LODSPeaKr:"
-      offer_install_with_apt $pkg'do-it-anyway' $pkg # 'ls' ==> aka just install it
+      echo "$pkg (Dependency for LODSPeaKr) is not shown in dpkg; install it? (y/N) "
+      read -u 1 install_it
+      if [ "$install_it" == "y" ]; then
+         echo sudo apt-get install $package
+         sudo apt-get install $package
+      fi
    fi
 done
