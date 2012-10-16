@@ -108,12 +108,12 @@ fi
 
 
 echo
-echo -n "Try to install virtuoso at $base? (y/N) "
+echo -n "Try to install virtuoso at /opt (sudo required)? (y/N) " # $base to be relative
 read -u 1 install_it
 if [ "$install_it" == "y" ]; then
    # http://sourceforge.net/projects/virtuoso/
    url='http://sourceforge.net/projects/virtuoso/files/latest/download'
-   pushd $base &> /dev/null
+   pushd /opt &> /dev/null # $base
       # Not really working:
          #redirect=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/[^z]*$/\n/g' | awk '{printf("%s\n",$2)}'`
          # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
@@ -129,10 +129,10 @@ if [ "$install_it" == "y" ]; then
          sudo curl -L -o $tarball --progress-bar $url
          sudo touch pid.$$
          echo tar xzf $tarball
-         $sudo tar xzf $tarball
+         sudo tar xzf $tarball
          #$sudo rm $tarball
-         virtuoso_root=$base/${tarball%.tar.gz}
-      echo
+         #virtuoso_root=$base/${tarball%.tar.gz} # $base
+         echo
       fi
    popd &> /dev/null
    #if [ -e my-csv2rdf4lod-source-me.sh ]; then
