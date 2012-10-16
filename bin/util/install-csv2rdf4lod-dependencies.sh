@@ -114,20 +114,20 @@ if [ "$install_it" == "y" ]; then
    # http://sourceforge.net/projects/virtuoso/
    url='http://sourceforge.net/projects/virtuoso/files/latest/download'
    pushd $base &> /dev/null
-      sudo touch pid.$$
-      #redirect=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/[^z]*$/\n/g' | awk '{printf("%s\n",$2)}'`
-      # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
+      # Not really working:
+         #redirect=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/[^z]*$/\n/g' | awk '{printf("%s\n",$2)}'`
+         # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
+         #tarball=`basename $redirect`
+         # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
+         #echo "${redirect}.----------"
+         #echo to
+         #echo "${tarball}.----------"
       redirect=$url
-
-      #tarball=`basename $redirect`
-      tarball=virtuoso.tar.gz
-      # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
-      echo "${redirect}.----------"
-      echo to
-      echo "${tarball}.----------"
+      tarball='virtuoso.tar.gz'
       if [ ! -e $tarball ]; then
          echo curl -L -o $tarball --progress-bar $url
          sudo curl -L -o $tarball --progress-bar $url
+         sudo touch pid.$$
          echo tar xzf $tarball
          $sudo tar xzf $tarball
          #$sudo rm $tarball
