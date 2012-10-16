@@ -197,7 +197,7 @@ echo 'https://github.com/alangrafu/lodspeakr/wiki/How-to-install-requisites-in-U
 echo "  /etc/apache2/sites-enabled/000-default must 'AllowOverride All' for <Directory /var/www/>"
 echo
 echo "sudo service apache2 restart"
-echo "Please make the edit, THEN type 'y' to restart apache, or just type 'N' to skip this. (y/N) "
+echo "Please edit 000-default to AllowOverride All, THEN type 'y' to restart apache, or just type 'N' to skip this. (y/N) "
 read -u 1 install_it
 if [ "$install_it" == "y" ]; then
    echo "~~~~ ~~~~"
