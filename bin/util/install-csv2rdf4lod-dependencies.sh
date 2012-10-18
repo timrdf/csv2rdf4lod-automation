@@ -126,9 +126,9 @@ if [ "$install_it" == "y" ]; then
       tarball='virtuoso.tar.gz'
       if [ ! -e $tarball ]; then
          sudo touch pid.$$
-         echo curl -L -o $tarball --progress-bar $url
+         echo [INFO] curl -L -o $tarball --progress-bar $url
          sudo curl -L -o $tarball --progress-bar $url
-         echo tar xzf $tarball
+         echo [INFO] tar xzf $tarball
          sudo tar xzf $tarball
          #$sudo rm $tarball
          #virtuoso_root=$base/${tarball%.tar.gz} # $base
@@ -138,11 +138,11 @@ if [ "$install_it" == "y" ]; then
             pushd $virtuoso_root &> /dev/null
                echo
                echo
-               echo aptitude build-dep virtuoso-opensource
+               echo [INFO] aptitude build-dep virtuoso-opensource
                sudo aptitude build-dep virtuoso-opensource
                echo
                echo
-               echo dpkg-buildpackage -rfakeroot
+               echo [INFO] dpkg-buildpackage -rfakeroot
                sudo dpkg-buildpackage -rfakeroot
             popd &> /dev/null
             pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
