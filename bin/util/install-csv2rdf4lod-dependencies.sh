@@ -136,8 +136,12 @@ if [ "$install_it" == "y" ]; then
          # ^ e.g. 'virtuoso-opensource-6.1.6/'
          if [ -d $virtuoso_root ]; then
             pushd $virtuoso_root &> /dev/null
+               echo
+               echo
                echo aptitude build-dep virtuoso-opensource
                sudo aptitude build-dep virtuoso-opensource
+               echo
+               echo
                echo dpkg-buildpackage -rfakeroot
                sudo dpkg-buildpackage -rfakeroot
             popd &> /dev/null
@@ -197,7 +201,7 @@ echo 'https://github.com/alangrafu/lodspeakr/wiki/How-to-install-requisites-in-U
 echo "  /etc/apache2/sites-enabled/000-default must 'AllowOverride All' for <Directory /var/www/>"
 echo
 echo "sudo service apache2 restart"
-echo "Please edit 000-default to AllowOverride All, THEN type 'y' to restart apache, or just type 'N' to skip this. (y/N) "
+echo -n "Please edit 000-default to AllowOverride All, THEN type 'y' to restart apache, or just type 'N' to skip this. (y/N) "
 read -u 1 install_it
 if [ "$install_it" == "y" ]; then
    echo "~~~~ ~~~~"
@@ -210,8 +214,9 @@ fi
 for pkg in php5 php5-sqlite php5-curl sqlite3; do
    not_installed=`dpkg -s $pkg 2>&1 | grep "is not installed"`
    if [ ${#not_installed} ]; then
+      echo
       echo "~~~~ ~~~~"
-      echo "$pkg (Dependency for LODSPeaKr) is not shown in dpkg; install it? (y/N) "
+      echo -n "$pkg (Dependency for LODSPeaKr) is not shown in dpkg; install it? (y/N) "
       read -u 1 install_it
       if [ "$install_it" == "y" ]; then
          echo sudo apt-get install $package
@@ -219,3 +224,7 @@ for pkg in php5 php5-sqlite php5-curl sqlite3; do
       fi
    fi
 done
+
+# Just for general use:
+offer_install_with_apt 'screen' 'screen'
+
