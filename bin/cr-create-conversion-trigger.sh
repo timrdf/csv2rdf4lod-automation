@@ -31,7 +31,7 @@
 #        ^^ source   ^                                 ^
 #                    ^^ dataset                        ^
 #                                                      ^^ version  
-if [ $# -lt 1 ]; then
+if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [-w] [--comment-character char] [--header-line row] [--delimiter delimiter] a.csv [another.csv ...]"
    echo
    echo " (run from conversion cockpit, e.g. csv2rdf4lod/data/source/SSS/version/VVV/)"

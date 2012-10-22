@@ -31,7 +31,7 @@
 #        ^^ source   ^                                 ^
 #                    ^^ dataset                        ^
 #                                                      ^^ version  
-if [ $# -lt 1 ]; then
+if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [-w] [--comment-character char] [--header-line row] [--delimiter delimiter] a.csv [another.csv ...]"
    echo
    echo " (run from conversion cockpit, e.g. csv2rdf4lod/data/source/SSS/version/VVV/)"
@@ -153,6 +153,9 @@ echo "if [[ \${1:-\".\"} == \"-e\" && \$# -ge 2 ]]; then"                       
 echo "   eID=\"\$2\" # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Generating-enhancement-parameters"     >> $TMP_SH
 echo "fi"                                                                                                               >> $TMP_SH
 echo ""                                                                                                                 >> $TMP_SH
+echo "if [ -d doc/logs ]; then"                                                                                         >> $TMP_SH
+echo "   dateInXSDDateTime.sh > doc/logs/conversion-trigger-last-pulled"                                                >> $TMP_SH
+echo "fi"                                                                                                               >> $TMP_SH
 echo ""                                                                                                                 >> $TMP_SH
 #echo "# $1"                                                                                                            >> $TMP_SH
 #echo "sourceDir=\"`dirname "$1"`\"                  # if converting data directly (unmodified) from source organization, 'source'; if manual manipulations were required, 'manual'." >> $TMP_SH
