@@ -15,7 +15,7 @@ see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-ACCEPTABLE_PWDs="cr:source cr:dataset cr:directory-of-versions"
+ACCEPTABLE_PWDs="cr:data-root cr:source cr:dataset cr:directory-of-versions"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
@@ -72,6 +72,12 @@ elif [[ `is-pwd-a.sh                                                 cr:dataset 
    pushd version > /dev/null
       $0 $* # Recursive call
    popd > /dev/null
+elif [[ `is-pwd-a.sh                        cr:directory-of-datasets                                    ` == "yes" ]]; then
+   for next in `directories.sh`; do
+      pushd $next > /dev/null
+         $0 $* # Recursive call
+      popd > /dev/null
+   done
 elif [[ `is-pwd-a.sh              cr:source                                                             ` == "yes" ]]; then
    if [ -d dataset ]; then
       # This would conform to the directory structure if 
@@ -83,15 +89,15 @@ elif [[ `is-pwd-a.sh              cr:source                                     
    else
       # Handle the original (3-year old) directory structure 
       # that does not include 'dataset' as a directory.
-      for dataset in `directories.sh`; do
+      for dataset in `cr-list-datasets.sh`; do
          pushd $dataset > /dev/null
             $0 $* # Recursive call
          popd > /dev/null
       done
    fi
-elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets                                    ` == "yes" ]]; then
-   for next in `directories.sh`; do
-      pushd $next > /dev/null
+elif [[ `is-pwd-a.sh cr:data-root                                                                       ` == "yes" ]]; then
+   for sourceID in `cr-list-sources.sh`; do
+      pushd $sourceID > /dev/null
          $0 $* # Recursive call
       popd > /dev/null
    done
