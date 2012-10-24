@@ -207,6 +207,23 @@ fi
 echo "Dependency for LODSPeaKr:"
 offer_install_with_apt 'a2enmod' 'apache2'
 
+# curl already done
+
+for package in php5 php5-sqlite php5-curl sqlite3; do
+   not_installed=`dpkg -s $package 2>&1 | grep "is not installed"`
+   if [ ${#not_installed} ]; then
+      echo
+      echo "~~~~ ~~~~"
+      echo sudo apt-get install $package
+      echo -n "$package (Dependency for LODSPeaKr) is not shown in dpkg; install it with command above? (y/N) "
+      read -u 1 install_it
+      if [ "$install_it" == "y" ]; then
+         echo sudo apt-get install $package
+         sudo apt-get install $package
+      fi
+   fi
+done
+
 echo
 echo "~~~~ ~~~~"
 echo "sudo a2enmod rewrite"
@@ -230,22 +247,7 @@ if [ "$install_it" == "y" ]; then
    sudo service apache2 restart
 fi
 
-# curl already done
-
-for package in php5 php5-sqlite php5-curl sqlite3; do
-   not_installed=`dpkg -s $package 2>&1 | grep "is not installed"`
-   if [ ${#not_installed} ]; then
-      echo
-      echo "~~~~ ~~~~"
-      echo -n "$package (Dependency for LODSPeaKr) is not shown in dpkg; install it? (y/N) "
-      read -u 1 install_it
-      if [ "$install_it" == "y" ]; then
-         echo sudo apt-get install $package
-         sudo apt-get install $package
-      fi
-   fi
-done
-
 # Just for general use:
+echo
+echo "~~~~ ~~~~"
 offer_install_with_apt 'screen' 'screen'
-
