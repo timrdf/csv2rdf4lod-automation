@@ -30,6 +30,7 @@
 @prefix ov:            <http://open.vocab.org/terms/> .
 @prefix conversion:    <http://purl.org/twc/vocab/conversion/> .
 @prefix :              <http://logd.tw.rpi.edu/source/lebot/dataset/structural-domain-name-subclass-of/version/2012-Oct-24/params/enhancement/1/> .
+@prefix pol:           <http://escience.rpi.edu/ontology/smenateco/2/0/pollution.owl#> .
 
 <http://tw.rpi.edu/instances/TimLebo> foaf:holdsAccount <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
 <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot>
@@ -70,34 +71,39 @@
       #   conversion:symbol        "";
       #   conversion:interpretation conversion:null; 
       #];
-      #conversion:enhance [
-      #   conversion:domain_template "thing_[r]";
-      #   conversion:domain_name     "Thing";
-      #];
-      #conversion:enhance [
-      #   conversion:class_name "Thing";
-      #   conversion:subclass_of <http://purl.org/...>;
-      #];
+      conversion:enhance [
+         conversion:domain_template "am_[r]";
+         conversion:domain_name     "AirMeasurement";
+      ];
+      conversion:enhance [
+         conversion:class_name "AirMeasurement";
+         conversion:subclass_of pol:AirMeasurement;
+      ];
       conversion:enhance [
          ov:csvCol          1;
          ov:csvHeader       "date";
          #conversion:label   "date";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:date;
       ];
       conversion:enhance [
          ov:csvCol          2;
          ov:csvHeader       "location";
          #conversion:label   "location";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Resource;
+         conversion:range_name "Site";
+      ];
+      conversion:enhance [
+         conversion:class_name "Site";
+         conversion:subclass_of pol:Site;
       ];
       conversion:enhance [
          ov:csvCol          3;
          ov:csvHeader       "value";
          #conversion:label   "value";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:decimal;
       ];
       #conversion:enhance [            
       #   ov:csvRow 3,4,5;             
