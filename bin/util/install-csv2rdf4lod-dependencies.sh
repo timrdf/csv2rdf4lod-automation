@@ -107,6 +107,27 @@ else
 fi
 
 
+# config and db in /var/lib/virtuoso
+# programs in /usr/bin /usr/lib
+# inti.d script in /etc/init.d
+
+# http://blog.bodhizazen.net/linux/apt-get-how-to-fix-very-broken-packages/
+# var/lib/dpkg/info:
+# virtuoso-opensource.conffiles  virtuoso-opensource.md5sums    virtuoso-opensource.postrm     
+# virtuoso-opensource.list       virtuoso-opensource.postinst   virtuoso-opensource.prerm 
+
+# change localhost to map to that IP (shown in /etc/hosts)
+# comment 127.0.0.1    localhost and add 'localhost' to the other IP
+
+# /etc/apache2/sites-available/default ~=  /etc/apache2/sites-available/std.common
+
+# a2enmod proxy
+# service apache2 restart
+
+# "No protocol handler was valid for the URL /sparql. If you are using a DSO version of mod_proxy" ==>
+#   apt-get install libapache2-mod-proxy-html
+#   a2enmod proxy-html
+
 echo
 echo -n "Try to install virtuoso at /opt? (note: sudo required) (y/N) " # $base to be relative
 read -u 1 install_it
@@ -135,7 +156,7 @@ if [ "$install_it" == "y" ]; then
          virtuoso_root=`find . -maxdepth 1 -cnewer pid.$$ -name "virtuoso*" -type d`
          # ^ e.g. 'virtuoso-opensource-6.1.6/'
          if [ -d $virtuoso_root ]; then
-            pushd $virtuoso_root &> /dev/null
+            pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
                echo
                echo
                echo [INFO] aptitude build-dep virtuoso-opensource
@@ -211,12 +232,12 @@ fi
 
 # curl already done
 
-for pkg in php5 php5-sqlite php5-curl sqlite3; do
-   not_installed=`dpkg -s $pkg 2>&1 | grep "is not installed"`
+for package in php5 php5-sqlite php5-curl sqlite3; do
+   not_installed=`dpkg -s $package 2>&1 | grep "is not installed"`
    if [ ${#not_installed} ]; then
       echo
       echo "~~~~ ~~~~"
-      echo -n "$pkg (Dependency for LODSPeaKr) is not shown in dpkg; install it? (y/N) "
+      echo -n "$package (Dependency for LODSPeaKr) is not shown in dpkg; install it? (y/N) "
       read -u 1 install_it
       if [ "$install_it" == "y" ]; then
          echo sudo apt-get install $package
