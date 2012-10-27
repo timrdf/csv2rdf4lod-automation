@@ -10,6 +10,13 @@
 # Usage: vload [rdf|ttl|nt|nq] [data_file] [graph_uri]
 # See http://docs.openlinksw.com/virtuoso/fn_ttlp_mt.html
 
+USAGE="`basename $0` [--target] {rdf, ttl, nt, nq} <data_file> <graph_uri> [-v | --verbose]"
+
+if [ "$1" == "--help" ]; then
+   echo "usage: $USAGE"
+   exit 1
+fi
+
 # Log into Virtuoso isql env
 # USERNAME and PASSWORD (see http://docs.openlinksw.com/virtuoso/isql.html)
 virtuoso_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
@@ -18,7 +25,6 @@ isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql"}
 if [ ! -e "$isql" ]; then
    isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql-v"}
 fi
-echo which: `which isql-v`
 if [ `which isql-v` ]; then # Debian installs to /usr/bin/isql-v
    isql=`which isql-v`
 fi
@@ -59,13 +65,13 @@ if [[ "$1" == "--target" ]]; then
    exit 1
 fi
 
+
 #
 # Check usage
 if [[ $# -lt 3 || $# -gt 4 ]]; then
-	echo "usage: `basename $0` [--target] {rdf, ttl, nt, nq} <data_file> <graph_uri> [-v | --verbose]"
+	echo "usage: $USAGE"
    exit 1
 fi
-
 
 # Virtuoso can read from directories listed in 'DirsAllowed' 
 # in /opt/virtuoso/var/lib/virtuoso/db/virtuoso.ini
