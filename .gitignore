@@ -1,4 +1,5 @@
 source-me.sh
+my-csv2rdf4lod-source-me.sh
 .*swp
 bin/util/*.pyc
 bin/install.sh
