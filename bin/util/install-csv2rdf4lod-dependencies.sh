@@ -32,6 +32,8 @@ function offer_install_with_apt {
    return $?
 }
 
+offer_install_with_apt 'java'         'openjdk-6-jdk'
+offer_install_with_apt 'awk'          'gawk'
 offer_install_with_apt 'curl'         'curl'
 offer_install_with_apt 'rapper'       'raptor-utils'
 offer_install_with_apt 'unzip'        'unzip'
