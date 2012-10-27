@@ -26,9 +26,8 @@ virtuoso_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
 isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql"}
 if [ ! -e "$isql" ]; then
    isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql-v"}
-fi 
-if [ `which isql` ]; then # Debian installs to /usr/bin/isql-v
-   isql=`which isql`
+elif [ `which isql-v` ]; then # Debian installs to /usr/bin/isql-v
+   isql=`which isql-v`
 fi
 if [ ! -e "$isql" ]; then
    echo "[ERROR] $isql not found. Cannot delete triples."

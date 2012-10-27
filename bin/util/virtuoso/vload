@@ -24,8 +24,7 @@ virtuoso_home=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_HOME:-"/opt/virtuoso"}
 isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql"}
 if [ ! -e "$isql" ]; then
    isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql-v"}
-fi
-if [ `which isql-v` ]; then # Debian installs to /usr/bin/isql-v
+elif [ `which isql-v` ]; then # Debian installs to /usr/bin/isql-v
    isql=`which isql-v`
 fi
 if [ ! -e "$isql" ]; then
@@ -77,9 +76,9 @@ fi
 # in /opt/virtuoso/var/lib/virtuoso/db/virtuoso.ini
 if [ ! -d $virtuoso_allowed_dir ]; then
 
-   echo mkdir -p $virtuoso_allowed_dir
+   echo "[INFO] (vload): mkdir -p $virtuoso_allowed_dir"
    mkdir -p $virtuoso_allowed_dir
-   echo chmod a+w $virtuoso_allowed_dir
+   echo "[INFO] (vload): chmod a+w $virtuoso_allowed_dir"
    chmod a+w $virtuoso_allowed_dir
 
    # If we failed to do it as our own user...
@@ -120,7 +119,8 @@ if [[ $load_in_place == "false" ]]; then
    file_name_local=${data_file##*/}
    file_name_full=$virtuoso_allowed_dir/$file_name_local
    echo "WARNING: COPYING ${data_file} $file_name_full"
-   echo "WARNING:   (set \$CSV2RDF4LOD_CONVERT_DATA_ROOT to avoid a redundant file copy)."
+   echo "WARNING:   (set \$CSV2RDF4LOD_CONVERT_DATA_ROOT and add it to DirsAllowed in virtuoso.ini to avoid a redundant file copy)."
+   echo "WARNING:   (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore)."
 else
    #echo "INFO (`basename $0`): Avoiding redundant file copy; file is within \$CSV2RDF4LOD_CONVERT_DATA_ROOT, a virtuoso-readable directory."
    file_name_full=$data_file
