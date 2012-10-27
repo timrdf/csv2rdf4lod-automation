@@ -18,6 +18,7 @@ isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql"}
 if [ ! -e "$isql" ]; then
    isql=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_ISQL_PATH:-"$virtuoso_home/bin/isql-v"}
 fi
+echo `which isql-v`
 if [ `which isql-v` ]; then # Debian installs to /usr/bin/isql-v
    isql=`which isql-v`
 fi
