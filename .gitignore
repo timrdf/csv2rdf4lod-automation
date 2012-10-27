@@ -1,3 +1,4 @@
 source-me.sh
 .*swp
 bin/util/*.pyc
+bin/install.sh
