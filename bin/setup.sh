@@ -98,7 +98,7 @@ export CSV2RDF4LOD_CONVERTER=""
 # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-process-phase:-name
 #
 export CSV2RDF4LOD_BASE_URI="http://logd.tw.rpi.edu"
-export CSV2RDF4LOD_BASE_URI="http://change.CSV2RDF4LOD_BASE_URI.in-source-me.sh.localhost"
+export CSV2RDF4LOD_BASE_URI="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD_BASE_URI#"
 
 #
 # Customize: A base URI to use in place of CSV2RDF4LOD_BASE_URI
