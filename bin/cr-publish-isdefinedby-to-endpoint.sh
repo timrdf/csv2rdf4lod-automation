@@ -7,6 +7,15 @@
 #
 # Environment variables used:
 #
+#    CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID - to know which source-id to place the dataset into.
+#                                        (not needed if invoked within a cr:source directory)
+#
+#    CSV2RDF4LOD_BASE_URI - to know the URI of the dataset created.
+#
+#    CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT - the SPARQL endpoint to look for vocabulary terms used.
+#
+#    CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT - fallback, in case ^^ is not defined.
+#
 #    (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables)
 #
 # Usage:
