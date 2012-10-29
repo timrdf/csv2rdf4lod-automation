@@ -94,13 +94,18 @@ if [[ `is-pwd-a.sh                                                              
       exit 1
    fi
 
-   cockpit="$versionID"
-   if [ ! -d $cockpit/source ]; then
-      mkdir -p $cockpit/automatic
+   if [ -e $versionID ]; then
+      echo "[INFO] `basename $0`: version $versionID already exists; skipping."
+      exit 1
    fi
-   rm -rf $cockpit/source/*
 
-   echo python $CSV2RDF4LOD_HOME/bin/cr-publish-isdefinedby-to-endpoint.py $endpoint
+   cockpit="$versionID"
+   if [ ! -d $cockpit/automatic ]; then
+      mkdir -p $cockpit/automatic # TODO: pull down as csv, convert with eparams.
+   fi
+   rm -rf $cockpit/source/* # opposite of "if exists, quit" above.
+
+   echo "[INFO] python $CSV2RDF4LOD_HOME/bin/cr-publish-isdefinedby-to-endpoint.py $endpoint"
    if [ "$dryRun" != "true" ]; then
       python $CSV2RDF4LOD_HOME/bin/cr-publish-isdefinedby-to-endpoint.py $endpoint > $cockpit/automatic/isdefinedby.nt
       pushd $cockpit &> /dev/null
