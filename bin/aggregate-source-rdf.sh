@@ -82,6 +82,8 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       ln    `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.ttl `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl
    fi
 
+   plan='https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/aggregate-source-rdf.sh'
+   homepage='https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/aggregate-source-rdf.sh'
    lnwww=publish/bin/ln-to-www-root-$sdv.sh # Note: This was originally done by bin/convert-aggregate.sh
    echo "#!/bin/bash"                                                                                               > $lnwww
    echo "#"                                                                                                        >> $lnwww
@@ -91,6 +93,10 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "# was "                                                                                                   >> $lnwww
    echo "# ${CSV2RDF4LOD_PUBLISH_VARWWW_ROOT}"                                                                     >> $lnwww
    echo "# when this script was created. "                                                                         >> $lnwww
+   echo "#"                                                                                                        >> $lnwww
+   echo "#3> <> prov:wasGeneratedBy [ prov:qualifiedAssociation [ prov:hadPlan <$plan> ] ] ."                      >> $lnwww
+   echo "#3> <$plan> a prov:Plan; foaf:homepage <$homepage> ."                                                     >> $lnwww
+   echo ""                                                                                                         >> $lnwww
    echo ""                                                                                                         >> $lnwww
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_ROOT=\${CSV2RDF4LOD_PUBLISH_VARWWW_ROOT:?\"not set; source csv2rdf4lod/source-me.sh $or_see_github\"}" >> $lnwww
    echo ""                                                                                                         >> $lnwww
@@ -103,7 +109,9 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "fi"                                                                                                       >> $lnwww
    echo ""                                                                                                         >> $lnwww
    echo "sudo=\"sudo\""                                                                                            >> $lnwww
-   echo "if [ \`whoami\` == "root" ]; then"                                                                        >> $lnwww
+   echo "if [[ \`whoami\` == "root" ]]; then"                                                                      >> $lnwww
+   echo "   sudo=\"\""                                                                                             >> $lnwww
+   echo "elif [[ \`stat --format=%U \"\$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT\`\" == \`whoami\` ]]; then"                >> $lnwww
    echo "   sudo=\"\""                                                                                             >> $lnwww
    echo "fi"                                                                                                       >> $lnwww
    echo ""                                                                                                         >> $lnwww
