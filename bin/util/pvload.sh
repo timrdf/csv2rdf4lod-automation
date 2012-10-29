@@ -271,8 +271,14 @@ while [ $# -gt 0 ]; do
       #
       # Clean up
       #
-      if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
-         rm -f ${TEMP}${unzipped} ${TEMP}.pml.ttl ${TEMP}.pml.ttl.nt ${TEMP}${unzipped}.nt ${TEMP}${unzipped}.load.pml.ttl ${TEMP}${unzipped}.load.pml.ttl.nt #
+      if [ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" != "finest" ]; then
+         rm -f ${TEMP}.pml.ttl 
+         rm -f ${TEMP}.pml.ttl.nt 
+         rm -f ${TEMP}${unzipped} 
+         rm -f ${TEMP}.nt
+         rm -f ${TEMP}${unzipped}.nt
+         rm -f ${TEMP}${unzipped}.load.pml.ttl 
+         rm -f ${TEMP}${unzipped}.load.pml.ttl.nt
       fi
 
       echo "\\\\\\\\\\------------------------------ `basename $0` ------------------------------/////"
