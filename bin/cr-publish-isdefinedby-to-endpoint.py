@@ -53,5 +53,11 @@ if __name__=='__main__':
       sys.stderr.write(USAGE+'\n')
       sys.exit(1)
 
-   retrieve(sys.argv[1], "select distinct ?p where { graph ?g { [] ?p [] } }")
-   retrieve(sys.argv[1], "select distinct ?c where { graph ?g { [] ?p ?c } }")
+   prefixes = 'prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
+
+   optional = ''
+   retrieve(sys.argv[1], prefixes + 'select distinct ?p where { graph ?g { [] ?p [] } ' + optional + '}')
+
+   optional = ' optional {?c rdfs:isDefinedBy ?def} filter(!bound(?def))'
+   optional = ''
+   retrieve(sys.argv[1], prefixes + 'select distinct ?c where { graph ?g { [] a ?c } ' + optional + '}')
