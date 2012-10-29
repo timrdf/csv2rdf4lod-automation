@@ -37,13 +37,43 @@ fi
 isql_cmd="$isql ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"dba"}"
 isql_pass="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin password, may neeed to change
 
-log_dir=${CSV2RDF4LOD_HOME}/tmp/vdelete-tmp
-if [ ! -d $log_dir ]; then
-   mkdir -p $log_dir
-   chmod a+w $log_dir
+virtuoso_allowed_dir=${CSV2RDF4LOD_HOME}/tmp/vdelete-tmp
+if [[ -e ${CSV2RDF4LOD_HOME:-'does-not-exist-3T63J'} ]]; then
+   conversion_root=`cd ${CSV2RDF4LOD_CONVERT_DATA_ROOT} &> /dev/null; cr-conversion-root.sh --quiet`
+   if [[ ${#conversion_root} -eq 0 && -e ${CSV2RDF4LOD_CONVERT_DATA_ROOT}/source ]]; then
+      conversion_root=${CSV2RDF4LOD_CONVERT_DATA_ROOT}/source
+   fi
+   if [[ ${#conversion_root}                   -gt 0 && \
+         ${#CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID} -gt 0 ]]; then
+      me="cr-`basename $0`"
+      versionID=`md5.sh $0`
+      virtuoso_allowed_dir="$conversion_root/$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID/$me/version/$versionID/doc/logs"
+   else
+      warn='[WARNING]: could not log to well-organized location; set'
+      echo "$warn CSV2RDF4LOD_CONVERT_DATA_ROOT     $CSV2RDF4LOD_CONVERT_DATA_ROOT"
+      echo "$warn CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"
+   fi
+else
+   echo "[WARNING]: could not log to well-organized location; set CSV2RDF4LOD_HOME"
 fi
 
-vdelete_log=$log_dir/delete_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
+# Virtuoso can read from directories listed in 'DirsAllowed' 
+# in /opt/virtuoso/var/lib/virtuoso/db/virtuoso.ini
+if [ ! -d $virtuoso_allowed_dir ]; then
+
+   echo "[INFO] (vload): mkdir -p $virtuoso_allowed_dir"
+   mkdir -p $virtuoso_allowed_dir
+   echo "[INFO] (vload): chmod a+w $virtuoso_allowed_dir"
+   chmod a+w $virtuoso_allowed_dir
+
+   # If we failed to do it as our own user...
+   if [ ! -d $virtuoso_allowed_dir ]; then
+      sudo mkdir -p $virtuoso_allowed_dir &> /dev/null
+      sudo chmod a+w $virtuoso_allowed_dir &> /dev/null
+   fi
+fi
+
+vdelete_log=$virtuoso_allowed_dir/delete_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh coin:slug`_$$.log
 
 # Call SPARQL CLEAR to delete named graphs
 start=`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`
@@ -65,10 +95,10 @@ echo "# CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT: ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-
 echo "# end   time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`"                 >> $vdelete_log
 
 # Move the latest.log pointer to the log we just created.
-rm $log_dir/latest.log &> /dev/null
-ln -s $vdelete_log $log_dir/latest.log
+rm $virtuoso_allowed_dir/latest.log &> /dev/null
+ln -s $vdelete_log $virtuoso_allowed_dir/latest.log
 
-echo "Deleting finished. Check $log_dir/latest.log for details"
+echo "Deleting finished. Check $virtuoso_allowed_dir/latest.log for details"
 echo "              (currently $vdelete_log)."
 
 if [[ "$2" == "-v" || "$2" == "--verbose" ]]; then
