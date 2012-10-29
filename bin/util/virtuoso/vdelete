@@ -61,9 +61,9 @@ fi
 # in /opt/virtuoso/var/lib/virtuoso/db/virtuoso.ini
 if [ ! -d $virtuoso_allowed_dir ]; then
 
-   echo "[INFO] (vload): mkdir -p $virtuoso_allowed_dir"
+   echo "[INFO] (vdelete): mkdir -p $virtuoso_allowed_dir"
    mkdir -p $virtuoso_allowed_dir
-   echo "[INFO] (vload): chmod a+w $virtuoso_allowed_dir"
+   echo "[INFO] (vdelete): chmod a+w $virtuoso_allowed_dir"
    chmod a+w $virtuoso_allowed_dir
 
    # If we failed to do it as our own user...
