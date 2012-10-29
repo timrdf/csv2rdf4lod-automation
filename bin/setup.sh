@@ -912,7 +912,6 @@ export saxon9="${CSV2RDF4LOD_HOME}/bin/dup/saxonb9-1-0-8j.jar"
 #
 alias csv2rdf4lod='java edu.rpi.tw.data.csv.CSVtoRDF'
 # # # # # # # These variables should not be modified # # # # # # 
-cr-vars.sh
 echo "(run cr-vars.sh to see all environment variables that CSV2RDF4LOD uses to control execution flow)"
 
 
