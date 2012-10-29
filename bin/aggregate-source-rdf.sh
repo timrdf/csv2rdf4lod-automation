@@ -111,7 +111,7 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "sudo=\"sudo\""                                                                                            >> $lnwww
    echo "if [[ \`whoami\` == "root" ]]; then"                                                                      >> $lnwww
    echo "   sudo=\"\""                                                                                             >> $lnwww
-   echo "elif [[ \`stat --format=%U \"\$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT\`\" == \`whoami\` ]]; then"                >> $lnwww
+   echo "elif [[ \"\`stat --format=%U \"\$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT\"\`\" == \`whoami\` ]]; then"            >> $lnwww
    echo "   sudo=\"\""                                                                                             >> $lnwww
    echo "fi"                                                                                                       >> $lnwww
    echo ""                                                                                                         >> $lnwww
