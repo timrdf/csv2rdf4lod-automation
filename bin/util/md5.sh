@@ -14,11 +14,26 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-usage="usage: `basename $0` file [file] ..."
+usage="usage: `basename $0` [-qs <string>] | [<file> [file]*]"
 
 if [ $# -lt 1 ]; then
    echo $usage
    exit 1
+fi
+
+if [ "$1" == "-qs" ]; then
+   shift
+   if [ `which md5 2> /dev/null` ]; then
+      md5 -qs $*
+   elif [ `which md5sum 2> /dev/null` ]; then
+      TEMP="_"`basename $0``date +%s`_$$.tmp
+      echo $* > $TEMP
+      md5.sh $TEMP
+      rm $TEMP
+   else
+      echo "`basename $0`: can not find md5 to run."
+   fi
+   exit
 fi
 
 while [ $# -gt 0 ]; do
