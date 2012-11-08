@@ -46,17 +46,17 @@ endpoint="$1"
 shift
 
 outputVarName="output"
-if [ ${1:-'.'} == "-p" ]; then
+if [ "$1" == "-p" ]; then
    shift
    outputVarName="$1"
    shift
 fi
 #echo "`basename $0` using results format param: $outputVarName"
 
-if [ ${1:-'.'} == "-o" ]; then
+if [ "$1" == "-o" ]; then
    shift
    outputTypes=""
-   while [ ${1:-'.'} != "-q" -a $# -gt 0 ]; do
+   while [ "$1" != "-q" -a $# -gt 0 ]; do
       outputTypes="$outputTypes $1"
       shift
    done
@@ -77,12 +77,12 @@ else
 fi
 
 results="results"
-if [ ${1:-'.'} == "-od" -a $# -gt 1 ]; then
+if [ "$1" == "-od" -a $# -gt 1 ]; then
    shift
    results="$1"
 fi
 if [ ! -d $results ]; then
-   mkdir $results
+   mkdir -p $results
 fi
 
 for sparql in $queryFiles; do
