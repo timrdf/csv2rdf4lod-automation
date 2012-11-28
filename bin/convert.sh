@@ -197,6 +197,11 @@ if [ $runEnhancement == "yes" ]; then
          runEnhancement="no"
       fi
    else
+      if [ `valid-rdf.sh $eParamsDir/$datafile.e$eID.params.ttl` == "no" ]; then
+         echo
+         echo "WARNING; invalid RDF syntax in $eParamsDir/$datafile.e$eID.params.ttl"
+         echo
+      fi
       useful=`java edu.rpi.tw.data.csv.impl.UsefulEnhancements $eParamsDir/$datafile.e$eID.params.ttl 2> /dev/null`
       if [ "$useful" == "false" -a ! -e ../e$eID.params.ttl -a ! -e ../$datafile.e$eID.params.ttl ]; then
          # local enhancement parameters are not useful
