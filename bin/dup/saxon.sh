@@ -111,16 +111,16 @@ if [ $# -gt 1 ]; then
   multiple_files="true"
 fi
 
-if [ "debug" == "nodebug" ]; then
-  echo "add_cp:            $add_cp"
-  echo "xsl:               $xsl"
-  echo "input_extension:   $input_extension"
-  echo "output_extension:  $output_extension"
-  echo "overwrite:         $overwrite"
-  echo "output_dir_set:    $output_dir_set"
-  echo "multiple_files:    $multiple_files"
-  echo "replace_extension: $multiple_files"
-fi
+#if [ "debug" == "nodebug" ]; then
+#  echo "add_cp:            $add_cp"
+#  echo "xsl:               $xsl"
+#  echo "input_extension:   $input_extension"
+#  echo "output_extension:  $output_extension"
+#  echo "overwrite:         $overwrite"
+#  echo "output_dir_set:    $output_dir_set"
+#  echo "multiple_files:    $multiple_files"
+#  echo "replace_extension: $multiple_files"
+#fi
 
 # Paths required during processing
 #TODO: removed 18 may 2010 source ~/afrl/classpath-scripts/saxon9.sh # This SHOULD NOT modify classpath, only create saxon9
