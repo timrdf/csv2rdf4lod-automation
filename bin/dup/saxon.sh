@@ -1,4 +1,14 @@
-#!/bin/bash
+#!/bin/sh
+#
+# AFRL provides this Software to you on an "AS IS" basis, without warranty
+# of any kind. AFRL HEREBY EXPRESSLY DISCLAIMS ALL WARRANTIES OR CONDITIONS,
+# EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OR CONDITIONS OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE. You are solely responsible for determining the appropriateness of
+# using this Software and assume all risks associated with the use of this
+# Software, including but not limited to the risks of program errors, damage to
+# or loss of data, programs or equipment, and unavailability or interruption of
+# operations.
 #
 # usage:
 #
@@ -37,7 +47,7 @@ input_extension="any"
 output_extension="any"
 replace_extension="false"
 
-usage_message="usage: `basename $0` [-cp classpath] the.xsl input_extension output_extension [-w] [-od path/to/output/to] some.$input_extension [another.$input_extension ...]" 
+usage_message="usage: `basename $0` [-cp classpath] the.xsl input_extension output_extension [-w] [-od path/to/output/to] [-v a=1 b=2 ... -in] some.$input_extension [another.$input_extension ...]" 
 
 if [ $# -lt 3 ]; then
   echo $usage_message 
@@ -74,12 +84,22 @@ if [ $# -lt 1 ]; then
 fi
 output_dir_set="false"
 if [ $1 = "-od" ]; then
-	output_dir_set="true"
-  output_dir="$2"
+   output_dir_set="true"
+   output_dir="$2"
 	if [ ! -d $output_dir ]; then
-	  mkdir $output_dir
+      mkdir $output_dir
 	fi
 	shift 2
+fi
+
+vars=""
+if [ "$1" = "-v" ]; then
+   shift
+   while [ "$1" != "-in" ]; do
+      vars="$vars $1"
+      shift
+   done 
+   shift # peel "-in"
 fi
 
 if [ $# -lt 1 ]; then
@@ -91,7 +111,7 @@ if [ $# -gt 1 ]; then
   multiple_files="true"
 fi
 
-if [ "debug" = "false" ]; then
+if [ "debug" == "nodebug" ]; then
   echo "add_cp:            $add_cp"
   echo "xsl:               $xsl"
   echo "input_extension:   $input_extension"
@@ -139,18 +159,20 @@ while [ $# -gt 0 ]; do
    #echo saxon9: $saxon9 CP: $cp
 
 	if [ $multiple_files = "true" -o $output_dir_set = "true" ]; then
-		if [ ! -e $outfile -o $overwrite = "yes" ]; then
-		  echo $base $outfile
-			java $memory_option -cp $cp $class -dtd:off $artifact $xsl > $outfile
-	  else 
-      echo "$base    WARNING: $outfile already exists. Did not overwrite."
-		fi
+      if [ ! -e $outfile -o $overwrite = "yes" ]; then
+		   echo $base $outfile
+			java $memory_option -cp $cp $class -dtd:off $artifact $xsl $vars > $outfile
+         java $memory_option -cp $cp $class -dtd:off $artifact $xsl $vars > $outfile
+      else 
+         echo "$base    WARNING: $outfile already exists. Did not overwrite."
+      fi
 	else
 		# Only one file was given
 		if [ $overwrite = "yes" ]; then
-			java $memory_option -cp $cp $class -dtd:off $artifact $xsl > $outfile
+			java $memory_option -cp $cp $class -dtd:off $artifact $xsl $vars > $outfile
 		else
-			java $memory_option -cp $cp $class -dtd:off $artifact $xsl
+         #echo java $memory_option -cp $cp $class -dtd:off $artifact $xsl $vars
+			java $memory_option -cp $cp $class -dtd:off $artifact $xsl $vars
 	  fi
 	fi
 
