@@ -30,7 +30,7 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 elif [[ `is-pwd-a.sh                                                 cr:dataset cr:directory-of-versions` == "yes" ]]; then
 
    DIST_URL="$1"
-   UUID=`uuidgen | awk '{print tolower($0)}'`
+   UUID=`bin/util/resource-name.sh | sed 's/^_//' | awk '{print tolower($0)}'`
 
    echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                > dcat.ttl
    echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."               >> dcat.ttl
