@@ -38,7 +38,7 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
-if [ $# -lt 2 ]; then
+if [[ $# -lt 2 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` version-identifier URL [--comment-character char]"
    echo "                                                                 [--header-line        row]"
    echo "                                                                 [--delimiter         char]"
@@ -123,6 +123,16 @@ if [ ! -d $version ]; then
          for zip in `ls *.gz *.zip 2> /dev/null`; do                                    # |
             punzip.sh $zip              # We are capturing provenance of decompression. # |
          done                                                                           # |
+      fi                                                                                # |
+      if [ `ls *.htm 2> /dev/null | wc -l` -gt 0 ]; then                                # |
+         # Tidy any HTML                                                                # |
+         touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
+         tidy.sh *.htm                                                                  # |
+      fi                                                                                # |
+      if [ `ls *.html 2> /dev/null | wc -l` -gt 0 ]; then                               # |
+         # Tidy any HTML                                                                # |
+         touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
+         tidy.sh *.html                                                                 # |
       fi                                                                                # |
       # - - - - - - - - - - - - - - - - - - - - Replace above for custom retrieval - - - -/
    popd &> /dev/null
