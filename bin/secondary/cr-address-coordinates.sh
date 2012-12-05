@@ -1,9 +1,7 @@
 #!/bin/bash
 #
-# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-isdefinedby-to-endpoint.sh
-#
-# See also:
-#    https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-address-coordinates.sh>;
+#3>    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets> .
 #
 # Environment variables used:
 #
@@ -93,7 +91,7 @@ if [[ `is-pwd-a.sh                                                              
 
    echo python $CSV2RDF4LOD_HOME/bin/cr-publish-isdefinedby-to-endpoint.py $endpoint
    if [ "$dryRun" != "true" ]; then
-      python $CSV2RDF4LOD_HOME/bin/cr-publish-isdefinedby-to-endpoint.py $endpoint > $cockpit/automatic/isdefinedby.nt
+      python $CSV2RDF4LOD_HOME/bin/secondary/cr-address-coordinates.py $endpoint --prov > $cockpit/source/coordinates.csv
       pushd $cockpit &> /dev/null
          aggregate-source-rdf.sh --link-as-latest automatic/* 
          # ^^ publishes if CSV2RDF4LOD_PUBLISH_VIRTUOSO
