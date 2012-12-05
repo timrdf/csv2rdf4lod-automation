@@ -11,6 +11,12 @@
 # To handle more files than 'ls' can provide:
 #   find . -name "[^.]*" | xargs      rdf2nt.sh > ../all.nt
 
+if [[ $# -eq 0 || "$1" == "--help" ]]; then
+   echo "usage: `basename $0` <some.rdf>*"
+   echo "  output to stderr the N-TRIPLES union of all rdf files given as arguments"
+   exit
+fi
+
 while [ $# -gt 0 ]; do
    file="$1" 
 
