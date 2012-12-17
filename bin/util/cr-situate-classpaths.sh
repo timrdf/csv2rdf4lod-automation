@@ -39,16 +39,24 @@ for jar in                                                             \
            bin/dup/slf4j-nop-1.5.6.jar                                 \
            lib/joda-time-2.0/joda-time-2.0.jar                         \
            lib/droid-command-line-6.1.jar                              \
-           lib/droid-6.1/commons-cli-1.2.jar                           \
            bin/dup/datadigest-1.0-SNAPSHOT.jar                         \
            bin/lib/commons-validator-1.3.1/commons-validator-1.3.1.jar \
            bin/dup/saxonb9-1-0-8j.jar                                  \
            bin/dup/csv2rdf4lod.jar ; do
    if [[ $CLASSPATH != *`basename $jar`* ]]; then
-      if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:="."} == "fine" ]; then
+      if [ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "fine" ]; then
          echo "`basename $jar` not in classpath; adding $CSV2RDF4LOD_HOME/$jar"
       fi
       missing=$missing:$CSV2RDF4LOD_HOME/$jar # TODO: export? : vs ; cygwin
+   fi
+done
+
+# Jar directories; relative to $CSV2RDF4LOD_HOME
+for dir in              \
+          lib/droid-6.1 \
+        ; do
+   if [[ $CLASSPATH != */$dir:* ]]; then
+      missing=$missing:$CSV2RDF4LOD_HOME${dir}
    fi
 done
 
