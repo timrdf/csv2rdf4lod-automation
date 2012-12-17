@@ -126,7 +126,7 @@ for name in ckan.package_register_get():
 
 <SOURCE_CKAN/dataset/DATASET_ID>
    a dcat:Dataset, datafaqs:CKANDataset;
-   dcat:distribution :as_a_csv_UUID;
+   dcat:distribution :as_a_FORMAT_UUID;
    prov:wasAttributedTo <SOURCE_AGENT>;
 .
 '''
