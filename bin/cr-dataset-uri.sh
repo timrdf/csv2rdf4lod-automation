@@ -58,7 +58,11 @@ if [[ "$1" == 'void' || "$1" == "--void" ]]; then
    q2="\";"
    end="."
 elif [[ "$1" == "uri" || "$1" == "--uri" ]]; then
-   echo $CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID
+   if [[ "`cr-pwd-type.sh`" == "cr:dataset" || "`cr-pwd-type.sh`" == "cr:directory-of-versions" ]]; then
+      echo $CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID
+   else
+      echo $CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID
+   fi
    exit 0
 fi
 base_uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
