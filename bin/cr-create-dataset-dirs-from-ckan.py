@@ -87,7 +87,7 @@ for name in ckan.package_register_get():
          'CSV2RDF4LOD_BASE_URI' : CSV2RDF4LOD_BASE_URI,
          'SOURCE_ID'            : sourceID,
          'DATASET_ID'           : dataset['name'],
-         'FORMAT'               : fmt.replace(' ','_'),
+         'FORMAT'               : fmt.replace(' ','_').lower(),
          'UUID'                 : str(uuid.uuid4()),
          'SOURCE_CKAN'          : ckanAPI.replace('/api',''),
          'SOURCE_AGENT'         : re.sub('(http://[^/]*)/.*$','\\1',ckanAPI),
@@ -116,7 +116,7 @@ for name in ckan.package_register_get():
    a void:Dataset, dcat:Dataset;
    conversion:source_identifier  "SOURCE_ID";
    conversion:dataset_identifier "DATASET_ID";
-   prov:wasDerivedFrom :as_a_csv_UUID;
+   prov:wasDerivedFrom :as_a_FORMAT_UUID;
 .
 
 :as_a_FORMAT_UUID
