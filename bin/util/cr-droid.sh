@@ -130,9 +130,13 @@ fi
 
 # echo "Running DROID with these options: $OPTIONS $@"
 
+export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
+
 # Run the command line or user interface version with the options:
 if [ $# -gt 0 ]; then
-    java $OPTIONS -jar $CSV2RDF4LOD_HOME/lib/droid-command-line-6.1.jar "$@"
+    #java $OPTIONS -jar $CSV2RDF4LOD_HOME/lib/droid-command-line-6.1.jar "$@"
+    java $OPTIONS uk.gov.nationalarchives.droid.command.DroidCommandLine "$@"
 else
+    #java $OPTIONS -jar $CSV2RDF4LOD_HOME/lib/droid-ui-6.1.jar
     java $OPTIONS -jar $CSV2RDF4LOD_HOME/lib/droid-ui-6.1.jar
 fi
