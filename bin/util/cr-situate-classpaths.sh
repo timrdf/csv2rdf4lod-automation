@@ -39,7 +39,7 @@ for jar in                                                             \
            bin/dup/slf4j-nop-1.5.6.jar                                 \
            lib/joda-time-2.0/joda-time-2.0.jar                         \
            lib/droid-command-line-6.1.jar                              \
-           lib/droid-1.6/commons-cli-1.2.jar                           \
+           lib/droid-6.1/commons-cli-1.2.jar                           \
            bin/dup/datadigest-1.0-SNAPSHOT.jar                         \
            bin/lib/commons-validator-1.3.1/commons-validator-1.3.1.jar \
            bin/dup/saxonb9-1-0-8j.jar                                  \
