@@ -132,6 +132,10 @@ fi
 
 export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
 
+for path in `echo $CLASSPATH | sed 's/:/ /g'`; do
+   echo $path
+done
+
 # Run the command line or user interface version with the options:
 if [ $# -gt 0 ]; then
     #java $OPTIONS -jar $CSV2RDF4LOD_HOME/lib/droid-command-line-6.1.jar "$@"
