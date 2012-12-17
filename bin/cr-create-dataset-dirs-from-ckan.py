@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#
 #3> <> prov:wasRevisionOf 
 #3>    <https://github.com/jimmccusker/twc-healthdata/blob/master/ckan/mirror.py> .
 #
@@ -10,7 +11,7 @@
 #                                         http://hub.healthdata.gov
 #   % find . -name dcat.ttl | xargs git add -f
 
-import sys, os, re, json, uuid
+import sys, os, re, json, uuid, hashlib
 
 import ckanclient  # see README at https://github.com/okfn/ckanclient
 # Get latest download URL \/ from http://pypi.python.org/pypi/ckanclient#downloads
@@ -28,6 +29,7 @@ if len(sys.argv) <= 2 or (len(sys.argv) > 1 and sys.argv[1] == "--help"):
    print "  <CSV2RDF4LOD_BASE_URI>: The base URI of the VoID datasets that will be created from CKAN."
    print "                          e.g. http://purl.org/twc/health"
    print "  [mirrored-ckan]:        The original CKAN instance being mirrored by <ckan-api>."
+   print "                          OPTIONAL: if omitted, will omit some PROV assertions."
    print "                          e.g. http://hub.healthdata.gov"
    print
    print "  must be run from a cr:source directory (e.g. /srv/twc-healthdata/data/source/hub-healthdata-gov)"
@@ -42,9 +44,11 @@ CSV2RDF4LOD_BASE_URI = sys.argv[2]                              # http://purl.or
 mirroredCKAN         = sys.argv[3] if len(sys.argv) > 3 else '' # http://hub.healthdata.gov/dataset/
 sourceID             = os.path.basename(os.getcwd())            # hub-healthdata-gov
 
+# Focus on formats?
+focusOnFormats = False          # Set to False to get retrieval info about all datasets.
+desiredFormats = ['CSV', 'XLS'] # Applies only when focusOnFormats == True
 # Formats seen on healthdata.gov: 
 #    CSV Text XLS XML Feed Query API Widget RDF
-desiredFormats = ['CSV', 'XLS']
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 #print "ckan-api:  " + ckanAPI
@@ -53,7 +57,6 @@ desiredFormats = ['CSV', 'XLS']
 #sys.exit(1)
 
 ckan = ckanclient.CkanClient(base_location=ckanAPI)
-#api_key = os.environ['X_CKAN_API_Key'] # api_key must be defined to POST/PUT.
 
 indent = '    '
 for name in ckan.package_register_get():
@@ -62,14 +65,16 @@ for name in ckan.package_register_get():
    dataset = ckan.last_message
 
    URL = ''
+   fmt = ''
    desiredFormat = False
    for resource in dataset['resources']:
       if (not desiredFormat and 
          'url'    in resource and len(str(resource['url'])) > 0 and 
-         'format' in resource and resource['format'].upper() in desiredFormats):
+        ('format' in resource and resource['format'].upper() in desiredFormats or not(focusOnFormats))):
          desiredFormat = True
          URL = resource['url']
-         #print indent + 'resource:     ' + resource['format'] + ' ' + resource['url']
+         fmt = resource['format']
+         print indent + 'resource:     ' + resource['format'] + ' ' + resource['url']
    if name == 'hospital-compare' and False:
       if 'download_url' in dataset:
          print indent + 'download_url: ' + dataset['download_url']
@@ -82,6 +87,7 @@ for name in ckan.package_register_get():
          'CSV2RDF4LOD_BASE_URI' : CSV2RDF4LOD_BASE_URI,
          'SOURCE_ID'            : sourceID,
          'DATASET_ID'           : dataset['name'],
+         'FORMAT'               : fmt.replace(' ','_'),
          'UUID'                 : str(uuid.uuid4()),
          'SOURCE_CKAN'          : ckanAPI.replace('/api',''),
          'SOURCE_AGENT'         : re.sub('(http://[^/]*)/.*$','\\1',ckanAPI),
@@ -89,6 +95,14 @@ for name in ckan.package_register_get():
          'MIRRORED_CKAN'        : mirroredCKAN,
          'MIRRORED_AGENT'       : re.sub('(http://[^/]*)/.*$','\\1',mirroredCKAN),
       }
+
+      m = hashlib.md5()
+      m.update(replacements['CSV2RDF4LOD_BASE_URI'] + 
+               replacements['SOURCE_ID'] + 
+               replacements['DATASET_ID'] + 
+               fmt + 
+               replacements['DIST_URL'])
+      replacements['UUID'] = m.hexdigest()
 
       template='''@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix conversion: <http://purl.org/twc/vocab/conversion/> .
@@ -105,7 +119,7 @@ for name in ckan.package_register_get():
    prov:wasDerivedFrom :as_a_csv_UUID;
 .
 
-:as_a_csv_UUID
+:as_a_FORMAT_UUID
    a dcat:Distribution;
    dcat:downloadURL <DIST_URL>;
 .
