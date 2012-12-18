@@ -23,7 +23,7 @@ BEGIN {
       print "<"container">"
       print "   dcterms:hasPart <"container"/"contained">;"
       print "."
-      print "<"container"/"contained"> dcterms:format <http://provenanceweb.org/formats/pronom/"format"> ;"
+      print "<"container"/"contained"> dcterms:format <http://provenanceweb.org/formats/pronom/"format"> ."
       print ""
 
    } else {
