@@ -70,6 +70,7 @@ if [ "$1" == "--conversion-cockpit-sources" ]; then
       echo "ERROR: could not recognize directory convention."
       exit 1
    fi
+   exit
 fi
 
 # The current directory from which this script was invoked.
