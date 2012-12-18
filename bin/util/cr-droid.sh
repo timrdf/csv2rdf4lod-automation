@@ -75,7 +75,7 @@ while [ $# -gt 0 ]; do
                    sigs="--signature-file \"$CSV2RDF4LOD_HOME/config/droid/signatures.xml\""
          container_sigs="--container-file \"$CSV2RDF4LOD_HOME/config/droid/container-signatures.xml\""
          echo ./droid.sh --no-profile-resource $target_abs --open-archives $sigs $container_sigs --quiet >&2
-              ./droid.sh --no-profile-resource $target_abs --open-archives $sigs $container_sigs --quiet | perl -pi -e "s|$INVOCATION_WD/||"
+              ./droid.sh --no-profile-resource $target_abs --open-archives $sigs $container_sigs --quiet | perl -pi -e "s|$INVOCATION_WD/||" | $CSV2RDF4LOD_HOME/bin/util/cr-droid.awk
       popd              &> /dev/null
       shift
    else
