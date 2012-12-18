@@ -17,8 +17,8 @@ BEGIN {
       sub(/,[^,].*$/,"",contained)
 
       format=$0
-      sub(/^.*,/,"", format)
-      sub(/-/,   "/",format)
+      sub(/^.*,/,"",    format)
+      sub(/fmt-/,"fmt/",format)
 
       print "<"container">"
       print "   dcterms:hasPart <"container"/"contained">;"
@@ -32,8 +32,8 @@ BEGIN {
       sub(/,[^,]*$/,"",file)
  
       format=$0
-      sub(/^.*,/,"", format)
-      sub(/-/,   "/",format)
+      sub(/^.*,/,"",    format)
+      sub(/fmt-/,"fmt/",format)
 
       if( tolower(format) != "unknown" ) {
          print "<"file"> dcterms:format <http://provenanceweb.org/formats/pronom/"format"> ."
