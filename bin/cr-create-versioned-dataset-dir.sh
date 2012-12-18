@@ -135,7 +135,7 @@ if [ ! -d $version ]; then
          tidy.sh *.html                                                                 # |
       fi                                                                                # |
       if [ "$CSV2RDF4LOD_RETRIEVE_DROID_SOURCES" != "false" ]; then                     # |
-         cr-droid.sh * > .cr-droid.ttl                                                  # |
+         cr-droid.sh * > cr-droid.ttl                                                   # |
       fi                                                                                # |
       # - - - - - - - - - - - - - - - - - - - - Replace above for custom retrieval - - - -/
    popd &> /dev/null
@@ -171,7 +171,7 @@ if [ ! -d $version ]; then
          # Take a best guess as to what data files should be converted.
          # Include source/* that is newer than source/.__CSV2RDF4LOD_retrieval and NOT *.pml.ttl
 
-         files=`find source -newer source/.__CSV2RDF4LOD_retrieval -type f | grep -v "pml.ttl$"`
+         files=`find source -newer source/.__CSV2RDF4LOD_retrieval -type f | grep -v "pml.ttl$" | grep -v "cr-droid.ttl$"`
 
          validfiles=""
          for name in $files; do
