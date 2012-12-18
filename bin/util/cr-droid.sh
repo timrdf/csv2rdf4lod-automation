@@ -51,9 +51,9 @@ DROID_HOME=$CSV2RDF4LOD_HOME/lib/droid-binary-6.1-bin
 target='/home/lebot/repos/twc-healthdata/data/source/hub-healthdata-gov/medlineplus-health-topic-files/version/2012-Dec-15/source'
 
 pushd $DROID_HOME &> /dev/null
-   sigs="--signature-file $CSV2RDF4LOD_HOME/config/droid/signatures.xml"
+             sigs="--signature-file $CSV2RDF4LOD_HOME/config/droid/signatures.xml"
    container_sigs="--container-file $CSV2RDF4LOD_HOME/config/droid/container-signatures.xml"
-   droid.sh --no-profile-resource "$target" --open-archives $sigs $container_sigs --quiet
+   ./droid.sh --no-profile-resource "$target" --open-archives $sigs $container_sigs --quiet
 popd              &> /dev/null
 
 exit 1
