@@ -42,9 +42,11 @@
 # Usage:
 #    twc-healthdata/data/source/hub-healthdata-gov/medlineplus-health-topic-files/version/2012-Dec-15/source$ cr-droid.sh . > b
 
-
 if [ "$1" == "--help" ]; then
-   echo "usage: `basename $0` [--help] (<dir> | <file)*"
+   echo "usage: `basename $0` [--help] (--conversion-cockpit-sources | (<dir> | <file)+)"
+   echo
+   echo "   --conversion-cockpit-sources: identify all files in every conversion cockpit's source/ directory."
+   echo "                                 <dir> and <file> arguments have no affect with this option."
    echo "   <dir>:  a directory whose files should be format identified."
    echo "   <file>: a file that should be format identified."
    exit
@@ -52,6 +54,14 @@ fi
 
 see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
+
+if [ "$1" == "--conversion-cockpit-sources" ]; then
+   if [ `cr-pwd-type.sh` == "cr:conversion-cockpit" ]; then
+   else
+      echo "ERROR: could not recognize directory convention."
+      exit 1
+   fi
+fi
 
 # The current directory from which this script was invoked.
 INVOCATION_WD=`pwd`
