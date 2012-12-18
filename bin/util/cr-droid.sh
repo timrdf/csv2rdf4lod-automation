@@ -60,17 +60,18 @@ while [ $# -gt 0 ]; do
    if [ -e "$target" ]; then
       echo $INVOCATION_WD $target
       if [ -f $target ]; then
-         target_abs="$INVOCATION_WD`dirname $target`"
+         # Unfortunately, droid requires the values to be wrapped in double quotes.
+         target_abs="\"$INVOCATION_WD`dirname $target`\""
       else
-         target_abs="$INVOCATION_WD$target"
+         target_abs="\"$INVOCATION_WD$target\""
       fi
       echo $target_abs
 
       pushd $DROID_HOME &> /dev/null
-                   sigs="--signature-file $CSV2RDF4LOD_HOME/config/droid/signatures.xml"
-         container_sigs="--container-file $CSV2RDF4LOD_HOME/config/droid/container-signatures.xml"
-         echo ./droid.sh --no-profile-resource "$target_abs" --open-archives \"$sigs\" \"$container_sigs\" --quiet
-              ./droid.sh --no-profile-resource "$target_abs" --open-archives \"$sigs\" \"$container_sigs\" --quiet
+                   sigs="\"--signature-file $CSV2RDF4LOD_HOME/config/droid/signatures.xml\""
+         container_sigs="\"--container-file $CSV2RDF4LOD_HOME/config/droid/container-signatures.xml\""
+         echo ./droid.sh --no-profile-resource $target_abs --open-archives $sigs $container_sigs --quiet
+              ./droid.sh --no-profile-resource $target_abs --open-archives $sigs $container_sigs --quiet
       popd              &> /dev/null
       shift
    else
