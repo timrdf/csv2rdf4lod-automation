@@ -39,6 +39,13 @@
 # and simply want to invoke it for a particular file 
 # (also it only accepts directories -- another limitation).
 
+if [ "$1" == "--help" ]; then
+   echo "usage: `basename $0` [--help] (<dir> | <file)*"
+   echo "   <dir>:  a directory whose files should be format identified."
+   echo "   <file>: a file that should be format identified."
+   exit
+fi
+
 see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
@@ -48,13 +55,27 @@ INVOCATION_WD=`pwd`
 # We must be within this directory to invoke droid (an unfortunate limitation).
 DROID_HOME=$CSV2RDF4LOD_HOME/lib/droid-binary-6.1-bin
 
-target='/home/lebot/repos/twc-healthdata/data/source/hub-healthdata-gov/medlineplus-health-topic-files/version/2012-Dec-15/source'
+while [ $# -gt 0 ]; do
+   target="$1"
+   if [ -e "$target" ]; then
+      echo $INVOCATION_WD $target
+      if [ -f $target ]; then
+         target_abs="$INVOCATION_WD`dirname $target`"
+      else
+         target_abs="$INVOCATION_WD$target"
+      fi
+      echo $target_abs
 
-pushd $DROID_HOME &> /dev/null
-             sigs="--signature-file $CSV2RDF4LOD_HOME/config/droid/signatures.xml"
-   container_sigs="--container-file $CSV2RDF4LOD_HOME/config/droid/container-signatures.xml"
-   ./droid.sh --no-profile-resource "$target" --open-archives $sigs $container_sigs --quiet
-popd              &> /dev/null
+      pushd $DROID_HOME &> /dev/null
+                   sigs="--signature-file $CSV2RDF4LOD_HOME/config/droid/signatures.xml"
+         container_sigs="--container-file $CSV2RDF4LOD_HOME/config/droid/container-signatures.xml"
+         ./droid.sh --no-profile-resource "$target_abs" --open-archives "$sigs" "$container_sigs" --quiet
+      popd              &> /dev/null
+      shift
+   else
+      echo "WARNING: $target does not exist; not processing" >&2
+   fi
+done
 
 exit 1
 # Everything below here is in droid.sh; we want to suit the vars shown below.
