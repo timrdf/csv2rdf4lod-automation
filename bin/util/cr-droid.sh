@@ -69,7 +69,7 @@ while [ $# -gt 0 ]; do
       pushd $DROID_HOME &> /dev/null
                    sigs="--signature-file $CSV2RDF4LOD_HOME/config/droid/signatures.xml"
          container_sigs="--container-file $CSV2RDF4LOD_HOME/config/droid/container-signatures.xml"
-         ./droid.sh --no-profile-resource "$target_abs" --open-archives "$sigs" "$container_sigs" --quiet
+         ./droid.sh --no-profile-resource "$target_abs" --open-archives \"$sigs\" \"$container_sigs\" --quiet
       popd              &> /dev/null
       shift
    else
