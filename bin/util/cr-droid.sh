@@ -74,6 +74,13 @@ if [ "$1" == "--conversion-cockpit-sources" ]; then
             cr-droid.sh . > cr-droid.ttl
          popd         &> /dev/null
       fi
+   elif [ `cr-pwd-type.sh` == "cr:directory-of-versions" ]; then
+      #for version in `cr-list-versions.sh`; do
+      for version in `find . -mindepth 2 -maxdepth 2 -name source -type d`; do
+         pushd `dirname $version` &> /dev/null
+            $0 $*
+         popd &> /dev/null
+      done 
    else
       echo "ERROR: could not recognize directory convention."
       exit 1
