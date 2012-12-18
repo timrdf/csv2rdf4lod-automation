@@ -104,9 +104,6 @@ if [ "$1" == "--conversion-cockpit-sources" ]; then
             $0 $*
          popd &> /dev/null
       done 
-   else
-      echo "ERROR: could not recognize directory convention."
-      exit 1
    fi
 
    exit
