@@ -31,38 +31,6 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-#3> <> prov:wasDerivedFrom [ rdfs:label "droid-binary-6.1-bin/droid.sh" ] .
-#
-# droid's shell script seems to demand that it be invoked from within the directory
-# that the script exists (and the libraries are relative to lib/).
-# This constraint isn't suitable when we are working within a data directory 
-# and simply want to invoke it for a particular file 
-# (also it only accepts directories -- another limitation).
-
-see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
-
-# The current directory from which this script was invoked.
-INVOCATION_WD=`pwd`
-
-# We must be within this directory to invoke droid (an unfortunate limitation).
-DROID_HOME=$CSV2RDF4LOD_HOME/lib/droid-binary-6.1-bin
-
-target='/home/lebot/repos/twc-healthdata/data/source/hub-healthdata-gov/medlineplus-health-topic-files/version/2012-Dec-15/source'
-
-pushd $DROID_HOME &> /dev/null
-   sigs="--signature-file $CSV2RDF4LOD_HOME/config/droid/signatures.xml"
-   container_sigs="--container-file $CSV2RDF4LOD_HOME/config/droid/container-signatures.xml"
-   droid.sh --no-profile-resource "$target" --open-archives $sigs $container_sigs --quiet
-popd              &> /dev/null
-
-exit 1
-# Everything below here is in droid.sh; we want to suit the vars shown below.
-
-
-
-
-
 
 # DROID launch script for UNIX/Linux/Mac systems
 # ==============================================
@@ -160,17 +128,9 @@ fi
 
 # echo "Running DROID with these options: $OPTIONS $@"
 
-export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
-
-for path in `echo $CLASSPATH | sed 's/:/ /g'`; do
-   echo $path
-done
-
 # Run the command line or user interface version with the options:
 if [ $# -gt 0 ]; then
-    #java $OPTIONS -jar $CSV2RDF4LOD_HOME/lib/droid-command-line-6.1.jar "$@"
-    java $OPTIONS uk.gov.nationalarchives.droid.command.DroidCommandLine "$@"
+    java $OPTIONS -jar droid-command-line-6.1.jar "$@"
 else
-    #java $OPTIONS -jar $CSV2RDF4LOD_HOME/lib/droid-ui-6.1.jar
-    java $OPTIONS -jar $CSV2RDF4LOD_HOME/lib/droid-ui-6.1.jar
+    java $OPTIONS -jar droid-ui-6.1.jar
 fi
