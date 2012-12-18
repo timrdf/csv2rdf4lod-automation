@@ -58,7 +58,7 @@ CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh o
 if [ "$1" == "--conversion-cockpit-sources" ]; then
 
    # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-   ACCEPTABLE_PWDs="cr:conversion-cockpit"
+   ACCEPTABLE_PWDs="cr:directory-of-versions cr:conversion-cockpit"
    if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
       ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
       exit 1
