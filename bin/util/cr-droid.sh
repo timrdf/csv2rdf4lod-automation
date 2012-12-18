@@ -38,6 +38,10 @@
 # This constraint isn't suitable when we are working within a data directory 
 # and simply want to invoke it for a particular file 
 # (also it only accepts directories -- another limitation).
+#
+# Usage:
+#    twc-healthdata/data/source/hub-healthdata-gov/medlineplus-health-topic-files/version/2012-Dec-15/source$ cr-droid.sh . > b
+
 
 if [ "$1" == "--help" ]; then
    echo "usage: `basename $0` [--help] (<dir> | <file)*"
@@ -71,7 +75,7 @@ while [ $# -gt 0 ]; do
                    sigs="--signature-file \"$CSV2RDF4LOD_HOME/config/droid/signatures.xml\""
          container_sigs="--container-file \"$CSV2RDF4LOD_HOME/config/droid/container-signatures.xml\""
          echo ./droid.sh --no-profile-resource $target_abs --open-archives $sigs $container_sigs --quiet >&2
-              ./droid.sh --no-profile-resource $target_abs --open-archives $sigs $container_sigs --quiet
+              ./droid.sh --no-profile-resource $target_abs --open-archives $sigs $container_sigs --quiet | perl -pi -e "s|$INVOCATION_WD/||"
       popd              &> /dev/null
       shift
    else
