@@ -63,7 +63,7 @@ while [ $# -gt 0 ]; do
          # Unfortunately, droid requires the values to be wrapped in double quotes.
          target_abs="\"$INVOCATION_WD/`dirname $target`\""
       else
-         target_abs="\"$INVOCATION_WD$target\""
+         target_abs="\"$INVOCATION_WD/$target\""
       fi
       echo $target_abs
 
