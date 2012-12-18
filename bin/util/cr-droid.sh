@@ -57,6 +57,15 @@ CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh o
 
 if [ "$1" == "--conversion-cockpit-sources" ]; then
    if [ `cr-pwd-type.sh` == "cr:conversion-cockpit" ]; then
+      if [ ! -d source ]; then
+         echo "[INFO] `cr-pwd.sh` has no source/; skipping."
+      elif [ -e source/cr-droid.ttl ]; then
+         echo "[INFO] `cr-pwd.sh` already has source/cr-droid.ttl; skipping."
+      else
+         pushd source &> /dev/null
+            cr-droid.sh . > cr-droid.ttl
+         popd         &> /dev/null
+      fi
    else
       echo "ERROR: could not recognize directory convention."
       exit 1
