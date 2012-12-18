@@ -134,6 +134,9 @@ if [ ! -d $version ]; then
          touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
          tidy.sh *.html                                                                 # |
       fi                                                                                # |
+      if [ "$CSV2RDF4LOD_RETRIEVE_DROID_SOURCES" != "false" ]; then                     # |
+         cr-droid.sh * > .cr-droid.ttl                                                  # |
+      fi                                                                                # |
       # - - - - - - - - - - - - - - - - - - - - Replace above for custom retrieval - - - -/
    popd &> /dev/null
 

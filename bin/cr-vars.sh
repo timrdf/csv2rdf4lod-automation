@@ -83,6 +83,8 @@ if [ "$1" != "CLEAR" ]; then
    echo "CSV2RDF4LOD_BASE_URI                                     ${CSV2RDF4LOD_BASE_URI:-"!!! -- MUST BE SET -- !!! source csv2rdf4lod/source-me.sh"}"
    echo "CSV2RDF4LOD_BASE_URI_OVERRIDE                            ${CSV2RDF4LOD_BASE_URI_OVERRIDE:="(not required, \$CSV2RDF4LOD_BASE_URI will be used.)"}"
    echo
+   echo "CSV2RDF4LOD_RETRIEVE_DROID_SOURCES                       ${CSV2RDF4LOD_RETRIEVE_DROID_SOURCES:="(will default to: true)"}"
+   echo
    echo "CSV2RDF4LOD_CONVERT_MACHINE_URI                          ${CSV2RDF4LOD_CONVERT_MACHINE_URI:="(not required, but recommended! see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD_CONVERT_PERSON_URI)"}"
    echo "CSV2RDF4LOD_CONVERT_PERSON_URI                           ${CSV2RDF4LOD_CONVERT_PERSON_URI:="(not required, but recommended! see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD_CONVERT_PERSON_URI)"}"
 
@@ -216,6 +218,8 @@ else
    export CSV2RDF4LOD_HOME=""
    export CSV2RDF4LOD_BASE_URI=""
    export CSV2RDF4LOD_BASE_URI_OVERRIDE=""           
+
+   export CSV2RDF4LOD_RETRIEVE_DROID_SOURCES=""           
 
    export CSV2RDF4LOD_CONVERT_MACHINE_URI=""           
    export CSV2RDF4LOD_CONVERT_PERSON_URI=""           

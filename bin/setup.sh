@@ -120,6 +120,19 @@ export CSV2RDF4LOD_BASE_URI_OVERRIDE="http://tw2.tw.rpi.edu"
 export CSV2RDF4LOD_BASE_URI_OVERRIDE=""
 
 #
+# Customize: Inspect the files (with DROID) and record 
+# their formats in source/cr-droid.ttl
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+#
+# (used in bin/cr-create-versioned-dataset-dir.sh)
+#
+# a conversion:
+export CSV2RDF4LOD_RETRIEVE_DROID_SOURCES="false"
+export CSV2RDF4LOD_RETRIEVE_DROID_SOURCES="true"
+
+#
 # Customize: The URI for the machine that is running the conversions.
 # Variable type: Machine ? Project ? User ? Activity ?
 #
