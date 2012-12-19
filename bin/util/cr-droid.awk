@@ -13,7 +13,7 @@ BEGIN {
       sub(/^.*:\//,"", container)
 
       contained=$0
-      sub(/^.*!\//,"", contained)
+      sub(/^.*!\//,"",  contained)
       sub(/,[^,].*$/,"",contained)
 
       format=$0
