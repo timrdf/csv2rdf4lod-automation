@@ -43,7 +43,7 @@ elif [[ `is-pwd-a.sh                                                            
    if [[ "$skip_if_exists" == "yes" && ${#latest_version} -gt 0 ]]; then
       not='not retrieving b/c --skip-if-exists was specified'
       echo "INFO: `basename $0`: version for `cr-source-id.sh`/`cr-dataset-id.sh` already exists ($latest_version); $not."
-   elif [[ -e dcat.ttl || -e ../dcat.ttl ]];
+   elif [[ -e dcat.ttl || -e ../dcat.ttl ]]; then
       dcat='' # RDF file containing distribution information - which file to download for this dataset?
       if [ -e dcat.ttl ]; then
          dcat='dcat.ttl'
@@ -63,7 +63,7 @@ elif [[ `is-pwd-a.sh                                                            
             echo "   Will retrieve $url"
          fi
       fi
-   elif [[ ${#latest_version} -eq 0 && ! -e dcat.ttl && ! -e ../dcat.ttl && -e retrieve.sh ]];
+   elif [[ ${#latest_version} -eq 0 && ! -e dcat.ttl && ! -e ../dcat.ttl && -e retrieve.sh ]]; then
       # There is no version yet, there is no dcat.ttl, but there is a retrieve.sh
       chmod +x retrieve.sh
       ./retrieve.sh
