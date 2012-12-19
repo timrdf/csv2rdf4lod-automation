@@ -74,6 +74,18 @@ if [ "$1" == "--conversion-cockpit-sources" ]; then
             cr-droid.sh . > cr-droid.ttl
          popd         &> /dev/null
       fi
+
+      # TODO (if source/cr-droid.ttl exists):
+      #
+      # <http://http://healthdata.tw.rpi.edu/source/hub-healthdata-gov/dataset/medlineplus-health-topic-files/version/2012-Dec-15>
+      #    a conversion:VersionedDataset; 
+      #    void:subset <http://healthdata.tw.rpi.edu/source/hub-healthdata-gov/dataset/medlineplus-health-topic-files/version/2012-Dec-15/subset/meta/droid>;
+      # .
+      # <http://healthdata.tw.rpi.edu/source/hub-healthdata-gov/dataset/medlineplus-health-topic-files/version/2012-Dec-15/subset/meta/droid>
+      #    a conversion:Metadataset;
+      #    void:dataDump <http://healthdata.tw.rpi.edu/source/hub-healthdata-gov/file/hospital-compare/version/2012-Jul-17/source/cr-droid.ttl>;
+      # .
+
    elif [ `cr-pwd-type.sh` == "cr:directory-of-versions" ]; then
       #declare -A depths
       #depths['cr:directory-of-versions']=2
