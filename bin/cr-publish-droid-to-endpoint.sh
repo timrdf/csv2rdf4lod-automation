@@ -106,7 +106,7 @@ for droid in `find . -mindepth 6 -maxdepth 6 -name cr-droid.ttl`; do
 
    #ext=${droid%*.}
    #let "tally=tally+1
-   echo "ln $droid -> $sdv.ttl"
+   echo "ln $sdv.ttl"
    if [ "$dryRun" != "true" ]; then
       ln $droid $cockpit/source/$sdv.ttl
    fi
