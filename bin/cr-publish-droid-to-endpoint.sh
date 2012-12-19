@@ -106,7 +106,10 @@ for droid in `find . -mindepth 6 -maxdepth 6 -name cr-droid.ttl`; do
 
    ext=${droid#*.}
    #let "tally=tally+1"
-   echo ln     $droid   $cockpit/source/$sdv.$ext
+   echo ln $droid $cockpit/source/$sdv.$ext
+   if [ "$dryRun" == "false" ]; then
+      ln $droid $cockpit/source/$sdv.$ext
+   fi
    #count=`void-triples.sh $cockpit/automatic/$tally$ext.ttl`
    #if [ "$count" -gt 0 ]; then
    #   valid="$valid $tic"
