@@ -51,7 +51,7 @@ elif [[ `is-pwd-a.sh                                                            
          dcat='../dcat.ttl'
       fi
       if [ -e "$dcat" ]; then
-         url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
+         url=`grep "dcat:accessURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
          if [ "$dryrun" != "yes" ]; then
             #echo template from $0 pwd: `pwd`
             cat $0.template > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
