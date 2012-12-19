@@ -116,7 +116,9 @@ valid=""
 for void in $voids; do
    count=`void-triples.sh $void`
    echo "$count . $void" >&2
-   ln $void $cockpit/source
+   if [ "$dryRun" != "true" ]; then
+      ln $void $cockpit/source
+   fi
    if [ "$count" -gt 0 ]; then
       valid="$valid $void"
    fi
