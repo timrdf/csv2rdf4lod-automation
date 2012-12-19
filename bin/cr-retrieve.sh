@@ -68,7 +68,7 @@ elif [[ `is-pwd-a.sh                                                            
       chmod +x retrieve.sh
       ./retrieve.sh
    else
-      echo "[WARNING]: did not know how to handle `cr-pwd.`"
+      echo "[WARNING]: did not know how to handle `cr-pwd.sh`"
    fi
 
 elif [[ `is-pwd-a.sh                                                 cr:dataset                         ` == "yes" ]]; then
