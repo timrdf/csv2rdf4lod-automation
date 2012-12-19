@@ -107,7 +107,7 @@ for droid in `find . -mindepth 6 -maxdepth 6 -name cr-droid.ttl`; do
    ext=${droid#*.}
    #let "tally=tally+1"
    echo ln $droid $cockpit/source/$sdv.$ext
-   if [ "$dryRun" == "false" ]; then
+   if [ "$dryRun" != "true" ]; then
       ln $droid $cockpit/source/$sdv.$ext
    fi
    #count=`void-triples.sh $cockpit/automatic/$tally$ext.ttl`
@@ -118,12 +118,16 @@ done
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 pushd $cockpit &> /dev/null
-   aggregate-source-rdf.sh --link-as-latest source/* 
-   # WARNING: ^^ publishes even with -n b/c it checks for CSV2RDF4LOD_PUBLISH_VIRTUOSO
+   echo
+   echo aggregate-source-rdf.sh --link-as-latest source/* 
+   if [ "$dryRun" != "true" ]; then
+      aggregate-source-rdf.sh --link-as-latest source/* 
+      # WARNING: ^^ publishes even with -n b/c it checks for CSV2RDF4LOD_PUBLISH_VIRTUOSO
+   fi
 popd &> /dev/null
 
 if [ "$clearGraph" == "true" ]; then
-   echo ""
+   echo
    echo "Deleting $graphName" >&2
    if [ "$dryRun" != "true" ]; then
       publish/bin/virtuoso-delete-$sourceID-$datasetID-$versionID.sh
