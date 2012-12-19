@@ -102,13 +102,32 @@ for droid in `find . -mindepth 6 -maxdepth 6 -name cr-droid.ttl`; do
    echo $droid
    loc=`dirname $droid`
    loc=`dirname $loc`
-   sdv=$(cd $loc && cr-sdv.sh)
+   sdv=$(cd $loc && cr-sdv.sh) # Local file name in the aggregated source/ directory.
+
+   # Files are referenced relatively in the turtle file, so 
+   # moving it will lose the file it's talking about.
+   # We need to set the @base in the file's new location.
+   # e.g., "<Hospital_flatfiles.zip>" 
+   #   in:
+   #    "<Hospital_flatfiles.zip> dcterms:format <http://provenanceweb.org/formats/pronom/x-fmt/263> ."
+   #   in:
+   #     /srv/twc-healthdata/data/source/hub-healthdata-gov/hospital-compare/version/2012-Oct-10
+   #   is:
+   #     http://healthdata.tw.rpi.edu/source/hub-healthdata-gov/file/hospital-compare/version/2012-Oct-10/source/Hospital_flatfiles.zip 
+   #
+   # cr-dataset-uri.sh --uri | sed 's/\/dataset\//\/file\//' | awk '{print $0"/source/"}'
+   # gives
+   #     http://purl.org/twc/health/source/hub-healthdata-gov/file/hospital-compare/version/2012-Oct-10/source/
+   url=$(cd $loc && cr-dataset-uri.sh --uri)
+   base=`echo $url | sed 's/\/dataset\//\/file\//' | awk '{print "@base <"$0"/source/> ."}'`
 
    #ext=${droid%*.}
    #let "tally=tally+1
-   echo "   -(ln)-> $sdv.ttl"
+   echo "   --> $sdv.ttl"
    if [ "$dryRun" != "true" ]; then
-      ln $droid $cockpit/source/$sdv.ttl
+      echo $base > $cockpit/source/$sdv.ttl
+      echo      >> $cockpit/source/$sdv.ttl
+      cat $droid   $cockpit/source/$sdv.ttl
    fi
    #count=`void-triples.sh $cockpit/automatic/$tally$ext.ttl`
    #if [ "$count" -gt 0 ]; then
