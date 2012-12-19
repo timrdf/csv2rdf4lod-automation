@@ -130,13 +130,14 @@ DROID_HOME=$CSV2RDF4LOD_HOME/lib/droid-binary-6.1-bin
 while [ $# -gt 0 ]; do
    target="$1"
    if [ -e "$target" ]; then
-      echo $INVOCATION_WD $target >&2
+      #echo $INVOCATION_WD $target >&2
       if [ -f $target ]; then
          # Unfortunately, droid requires the values to be wrapped in double quotes.
          target_abs="\"$INVOCATION_WD/`dirname $target`\""
       else
          target_abs="\"$INVOCATION_WD/$target\""
       fi
+      echo             >&2
       echo $target_abs >&2
 
       pushd $DROID_HOME &> /dev/null
