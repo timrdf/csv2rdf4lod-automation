@@ -118,12 +118,12 @@ for name in ckan.package_register_get():
    a void:Dataset, dcat:Dataset;
    conversion:source_identifier  "SOURCE_ID";
    conversion:dataset_identifier "DATASET_ID";
-   prov:wasDerivedFrom :as_a_FORMaT_UUID;
+   prov:wasDerivedFrom <DIST_URL>;
 .
 
 :as_a_FORMaT_UUID
    a dcat:Distribution;
-   dcat:downloadURL <DIST_URL>;
+   dcat:accessURL <DIST_URL>;
    dcterms:format [ rdfs:label "FORMAT" ];
 .
 
