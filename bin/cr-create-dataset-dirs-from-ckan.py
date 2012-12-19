@@ -127,6 +127,8 @@ for name in ckan.package_register_get():
    dcterms:format [ rdfs:label "FORMAT" ];
 .
 
+<DIST_URL> :format [ rdfs:label "FORMAT" ] .
+
 <SOURCE_CKAN/dataset/DATASET_ID>
    a dcat:Dataset, datafaqs:CKANDataset;
    dcat:distribution :as_a_FORMaT_UUID;
