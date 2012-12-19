@@ -143,11 +143,15 @@ while [ $# -gt 0 ]; do
                    sigs="--signature-file \"$CSV2RDF4LOD_HOME/config/droid/signatures.xml\""
          container_sigs="--container-file \"$CSV2RDF4LOD_HOME/config/droid/container-signatures.xml\""
          export droidUserDir=$INVOCATION_WD/.droid6
-         echo `basename $0` droidUserDir $droidUserDir
-         echo `basename $0` droidTempDir $droidTempDir
-         echo `basename $0` droidLogDir  $droidLogDir
-         echo `basename $0` log4j        $log4j
-         echo `basename $0` logLevel     $logLevel
+         export droidTempDir=''
+         export droidLogDir=''
+         export log4j=''
+         export logLevel=''
+         echo `basename $0` droidUserDir $droidUserDir >&2
+         echo `basename $0` droidTempDir $droidTempDir >&2
+         echo `basename $0` droidLogDir  $droidLogDir  >&2
+         echo `basename $0` log4j        $log4j        >&2
+         echo `basename $0` logLevel     $logLevel     >&2
          echo ./droid.sh --no-profile-resource $target_abs --open-archives $sigs $container_sigs --quiet >&2
               ./droid.sh --no-profile-resource $target_abs --open-archives $sigs $container_sigs --quiet | perl -pi -e "s|$INVOCATION_WD/||" | awk -f $CSV2RDF4LOD_HOME/bin/util/cr-droid.awk
          export droidUserDir=''
