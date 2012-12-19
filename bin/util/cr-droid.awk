@@ -25,7 +25,9 @@ BEGIN {
       print "."
       print "<"container"/"contained">"
       print "   dcterms:isPartOf <"container">;"
-      print "   dcterms:format   <http://provenanceweb.org/formats/pronom/"format">;"
+      if( tolower(format) != "unknown" ) {
+         print "   dcterms:format   <http://provenanceweb.org/formats/pronom/"format">;"
+      }
       print "."
       print ""
 
