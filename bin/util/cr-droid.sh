@@ -151,6 +151,7 @@ while [ $# -gt 0 ]; do
          export logLevel=''
          echo `basename $0` droidUserDir $droidUserDir >&2
          echo `basename $0` droidTempDir $droidTempDir >&2
+         echo `basename $0` droidWorkDir $droidWorkDir >&2
          echo `basename $0` droidLogDir  $droidLogDir  >&2
          echo `basename $0` log4j        $log4j        >&2
          echo `basename $0` logLevel     $logLevel     >&2
