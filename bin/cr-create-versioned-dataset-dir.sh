@@ -177,6 +177,8 @@ if [ ! -d $version ]; then
          for name in $files; do
             if [ -e $name ]; then
                validfiles="$validfiles $name"
+            else
+               echo "[INFO] \"$name\" does not exist."
             fi
          done
          if [ ${#validfiles} -gt 0 ]; then
