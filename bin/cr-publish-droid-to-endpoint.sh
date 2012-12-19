@@ -102,7 +102,7 @@ for droid in `find . -mindepth 6 -maxdepth 6 -name cr-droid.ttl`; do
    echo $droid
    loc=`dirname $droid`
    loc=`dirname $loc`
-   sdv=(cd $loc && cr-sdv.sh)
+   sdv=$(cd $loc && cr-sdv.sh)
 
    ext=${droid#*.}
    #let "tally=tally+1"
