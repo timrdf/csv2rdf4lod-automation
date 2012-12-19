@@ -120,6 +120,7 @@ if [ ! -d $version ]; then
       if [ `ls *.gz *.zip 2> /dev/null | wc -l` -gt 0 ]; then                           # |
          # Uncompress anything that is compressed.                                      # |
          touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
+         sleep 1
          for zip in `ls *.gz *.zip 2> /dev/null`; do                                    # |
             punzip.sh $zip              # We are capturing provenance of decompression. # |
          done                                                                           # |
@@ -127,14 +128,17 @@ if [ ! -d $version ]; then
       if [ `ls *.htm 2> /dev/null | wc -l` -gt 0 ]; then                                # |
          # Tidy any HTML                                                                # |
          touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
+         sleep 1
          tidy.sh *.htm                                                                  # |
       fi                                                                                # |
       if [ `ls *.html 2> /dev/null | wc -l` -gt 0 ]; then                               # |
          # Tidy any HTML                                                                # |
          touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
+         sleep 1
          tidy.sh *.html                                                                 # |
       fi                                                                                # |
       if [ "$CSV2RDF4LOD_RETRIEVE_DROID_SOURCES" != "false" ]; then                     # |
+         sleep 1
          cr-droid.sh . > cr-droid.ttl                                                   # |
       fi                                                                                # |
       # - - - - - - - - - - - - - - - - - - - - Replace above for custom retrieval - - - -/
