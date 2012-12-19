@@ -206,6 +206,14 @@ if [ "$install_it" == "y" ]; then
    $sudo perl -MCPAN -e install Text::CSV_XS 
 fi
 
+echo
+echo -n "Try to python modules (e.g. python-dateutil)? (y/N) "
+read -u 1 install_it
+if [ "$install_it" == "y" ]; then
+   $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
+   # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
+fi
+
 # https://github.com/alangrafu/lodspeakr/wiki/How-to-install-requisites-in-Ubuntu
 echo "Dependency for LODSPeaKr:"
 offer_install_with_apt 'a2enmod' 'apache2'
@@ -254,3 +262,5 @@ fi
 echo
 echo "~~~~ ~~~~"
 offer_install_with_apt 'screen' 'screen'
+
+
