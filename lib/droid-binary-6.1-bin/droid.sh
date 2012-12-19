@@ -45,7 +45,7 @@
 # under the user's home directory.
 # It can be configured using this property, or by an environment
 # variable of the same name.
-droidUserDir=""
+# COMMENTED OUT for csv2rdf4lod-automation: droidUserDir=""
 
 # Default work dir: droidTempDir
 # ------------------------------
@@ -54,7 +54,7 @@ droidUserDir=""
 # under the droid user directory.
 # It can be configured using this property, or by an environment
 # variable of the same name.
-droidTempDir=""
+# COMMENTED OUT for csv2rdf4lod-automation: droidTempDir=""
 
 # Default log dir: droidLogDir
 # ----------------------------
@@ -63,7 +63,7 @@ droidTempDir=""
 # under the droidWorkDir.
 # It can be configured using this property, or by an environment
 # variable of the same name.
-droidLogDir=""
+# COMMENTED OUT for csv2rdf4lod-automation: droidLogDir=""
 
 
 # Log configuration: log4j
@@ -73,7 +73,7 @@ droidLogDir=""
 # which is found under the droidWorkDir.
 # It can be configured using this setting, or by an environment
 # variable called log4j.configuration
-log4j=""
+# COMMENTED OUT for csv2rdf4lod-automation: log4j=""
 
 
 # Default console logging level
@@ -83,7 +83,7 @@ log4j=""
 # it defaults to INFO level logging, unless running in quiet
 # mode from the command-line, in which case the log level is
 # overridden to be ERROR.
-logLevel=""
+# COMMENTED OUT for csv2rdf4lod-automation: logLevel=""
 
 # Max memory: droidMemory
 # -----------------------
