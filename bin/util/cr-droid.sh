@@ -153,7 +153,7 @@ while [ $# -gt 0 ]; do
          echo `basename $0` droidLogDir  $droidLogDir  >&2
          echo `basename $0` log4j        $log4j        >&2
          echo `basename $0` logLevel     $logLevel     >&2
-         rm -rf /tmp/droid-archive*.tmp
+         # DROID seems to spam /tmp: rm -rf /tmp/droid-archive*.tmp
          echo ./droid.sh --no-profile-resource $target_abs --open-archives $sigs $container_sigs --quiet >&2
               ./droid.sh --no-profile-resource $target_abs --open-archives $sigs $container_sigs --quiet | perl -pi -e "s|$INVOCATION_WD/||" | awk -f $CSV2RDF4LOD_HOME/bin/util/cr-droid.awk
          export droidUserDir=''
