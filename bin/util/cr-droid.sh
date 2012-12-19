@@ -145,6 +145,7 @@ while [ $# -gt 0 ]; do
          container_sigs="--container-file \"$CSV2RDF4LOD_HOME/config/droid/container-signatures.xml\""
          export droidUserDir=$INVOCATION_WD/.droid6 # https://groups.google.com/forum/?fromgroups=#!topic/droid-list/DRmKU1qyGIk
          export droidTempDir=$INVOCATION_WD/.droid6tmp
+         export droidWorkDir=$INVOCATION_WD/.droid6work
          export droidLogDir=''
          export log4j=''
          export logLevel=''
@@ -158,10 +159,11 @@ while [ $# -gt 0 ]; do
               ./droid.sh --no-profile-resource $target_abs --open-archives $sigs $container_sigs --quiet | perl -pi -e "s|$INVOCATION_WD/||" | awk -f $CSV2RDF4LOD_HOME/bin/util/cr-droid.awk
          export droidUserDir=''
          if [ -e $INVOCATION_WD/.droid6 ]; then
-            echo "`basename $0` temporary .droid6    is `du -sh $INVOCATION_WD/.droid6`"    >&2
-            echo "`basename $0` temporary .droid6tmp is `du -sh $INVOCATION_WD/.droid6tmp`" >&2
-            echo "`basename $0` removing $INVOCATION_WD/.droid6"                            >&2
-            rm -rf $INVOCATION_WD/.droid6 $INVOCATION_WD/.droid6tmp
+            echo "`basename $0` temporary .droid6     is `du -sh $INVOCATION_WD/.droid6`"     >&2
+            echo "`basename $0` temporary .droid6tmp  is `du -sh $INVOCATION_WD/.droid6tmp`"  >&2
+            echo "`basename $0` temporary .droid6work is `du -sh $INVOCATION_WD/.droid6work`" >&2
+            echo "`basename $0` removing $INVOCATION_WD/.droid6"                              >&2
+            rm -rf $INVOCATION_WD/.droid6 $INVOCATION_WD/.droid6tmp $INVOCATION_WD/.droid6work
          fi
       popd              &> /dev/null
       shift
