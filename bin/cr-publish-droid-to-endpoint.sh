@@ -104,7 +104,7 @@ for droid in `find . -mindepth 6 -maxdepth 6 -name cr-droid.ttl`; do
    loc=`dirname $loc`
    sdv=$(cd $loc && cr-sdv.sh)
 
-   ext=${droid#*.}
+   ext=${droid%*.}
    #let "tally=tally+1"
    echo ln $droid $cockpit/source/$sdv.$ext
    if [ "$dryRun" != "true" ]; then
