@@ -21,9 +21,10 @@
 #
 # Environment variables used:
 #
-#    CSV2RDF4LOD_HOME                   - root for executables.
-#    CSV2RDF4LOD_BASE_URI               - namespace for data.
-#    CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID  - e.g. "twc-rpi-edu"
+#    CSV2RDF4LOD_HOME                  - root for executables.
+#    CSV2RDF4LOD_BASE_URI              - namespace for data.
+#    CSV2RDF4LOD_BASE_URI_OVERRIDE     - overrides above.
+#    CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID - e.g. "twc-rpi-edu"
 #
 #    (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables)
 #
