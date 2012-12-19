@@ -113,6 +113,9 @@ fi
 if [ -n "$droidUserDir" ]; then
     OPTIONS=$OPTIONS" -DdroidUserDir=$droidUserDir"
 fi
+if [ -n "$droidWorkDir" ]; then                     # Added as guess for csv2rdf4lod-automation
+    OPTIONS=$OPTIONS" -DdroidWorkDir=$droidWorkDir" # Added as guess for csv2rdf4lod-automation
+fi                                                  # Added as guess for csv2rdf4lod-automation
 if [ -n "$droidTempDir" ]; then
     OPTIONS=$OPTIONS" -DdroidTempDir=$droidTempDir"
 fi
