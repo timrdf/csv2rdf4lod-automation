@@ -125,7 +125,10 @@ for void in $voids; do
 done
 
 pushd $cockpit &> /dev/null
-   aggregate-source-rdf.sh --link-as-latest source/* 
+   echo aggregate-source-rdf.sh --link-as-latest source/* 
+   if [ "$dryRun" != "true" ]; then
+      aggregate-source-rdf.sh --link-as-latest source/* 
+   fi
    # WARNING: ^^ publishes even with -n b/c it checks for CSV2RDF4LOD_PUBLISH_VIRTUOSO
 popd &> /dev/null
 
