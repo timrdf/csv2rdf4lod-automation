@@ -125,9 +125,9 @@ for droid in `find . -mindepth 6 -maxdepth 6 -name cr-droid.ttl`; do
    #let "tally=tally+1
    echo "   --> $sdv.ttl"
    if [ "$dryRun" != "true" ]; then
-      echo $base > $cockpit/source/$sdv.ttl
-      echo      >> $cockpit/source/$sdv.ttl
-      cat $droid   $cockpit/source/$sdv.ttl
+      echo $base  > $cockpit/source/$sdv.ttl
+      echo       >> $cockpit/source/$sdv.ttl
+      cat $droid >> $cockpit/source/$sdv.ttl
    fi
    #count=`void-triples.sh $cockpit/automatic/$tally$ext.ttl`
    #if [ "$count" -gt 0 ]; then
