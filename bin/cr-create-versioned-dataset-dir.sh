@@ -135,7 +135,7 @@ if [ ! -d $version ]; then
          tidy.sh *.html                                                                 # |
       fi                                                                                # |
       if [ "$CSV2RDF4LOD_RETRIEVE_DROID_SOURCES" != "false" ]; then                     # |
-         cr-droid.sh * > cr-droid.ttl                                                   # |
+         cr-droid.sh . > cr-droid.ttl                                                   # |
       fi                                                                                # |
       # - - - - - - - - - - - - - - - - - - - - Replace above for custom retrieval - - - -/
    popd &> /dev/null
