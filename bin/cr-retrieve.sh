@@ -63,10 +63,10 @@ elif [[ `is-pwd-a.sh                                                            
             echo "   Will retrieve $url"
          fi
       fi
-   elif [[ ${#latest_version} -eq 0 && ! -e dcat.ttl && ! -e ../dcat.ttl && -e retrieve.sh ]]; then
+   elif [[ ${#latest_version} -eq 0 && ! -e dcat.ttl && ! -e ../dcat.ttl && -e "ls retrieve.*" ]]; then
       # There is no version yet, there is no dcat.ttl, but there is a retrieve.sh
-      chmod +x retrieve.sh
-      ./retrieve.sh
+      chmod +x retrieve.*
+      ./retrieve.*
    else
       echo "[WARNING]: did not know how to handle `cr-pwd.sh`"
    fi
