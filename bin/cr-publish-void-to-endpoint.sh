@@ -118,22 +118,23 @@ fi
 rm -rf $cockpit/source/*
 
 echo trying to publish about to find voids
-voids=`find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
-echo foudn voids ${#voids}
-valid=""
-for void in $voids; do
-   echo counting in $void
-   count=`void-triples.sh $void`
+find */*/version/*/publish -name "*void.ttl"
+#voids=`find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
+#echo found voids ${#voids}
+#valid=""
+for void in `find */*/version/*/publish -name "*void.ttl"`; do
+   #echo counting in $void
+   #count=`void-triples.sh $void`
    echo "$count . $void"
-   echo "$count . $void" >&2
+   #echo "$count . $void" >&2
    if [ "$dryRun" != "true" ]; then
       echo ln $void $cockpit/source
       ln $void $cockpit/source
    fi
-   if [ "$count" -gt 0 ]; then
-      echo valid!
-      valid="$valid $void"
-   fi
+   #if [ "$count" -gt 0 ]; then
+   #   echo valid!
+   #   valid="$valid $void"
+   #fi
 done
 
 echo pushing into cockpit
