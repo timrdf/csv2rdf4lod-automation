@@ -126,9 +126,11 @@ for void in $voids; do
    echo "$count . $void"
    echo "$count . $void" >&2
    if [ "$dryRun" != "true" ]; then
+      echo ln $void $cockpit/source
       ln $void $cockpit/source
    fi
    if [ "$count" -gt 0 ]; then
+      echo valid!
       valid="$valid $void"
    fi
 done
