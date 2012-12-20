@@ -41,6 +41,10 @@
 #
 # Usage:
 #    twc-healthdata/data/source/hub-healthdata-gov/medlineplus-health-topic-files/version/2012-Dec-15/source$ cr-droid.sh . > b
+#
+#    /srv/twc-healthdata/data/source$ cr-pwd.sh 
+#       source/
+#    /srv/twc-healthdata/data/source$ find . -mindepth 6 -maxdepth 6 -name cr-droid.ttl
 
 if [ "$1" == "--help" ]; then
    echo "usage: `basename $0` [--help] (--conversion-cockpit-sources | (<dir> | <file)+)"
