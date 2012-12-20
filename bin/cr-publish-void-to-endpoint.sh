@@ -122,6 +122,7 @@ voids=`find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | a
 echo foudn voids ${#voids}
 valid=""
 for void in $voids; do
+   echo counting in $void
    count=`void-triples.sh $void`
    echo "$count . $void"
    echo "$count . $void" >&2
