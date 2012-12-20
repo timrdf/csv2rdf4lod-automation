@@ -63,6 +63,8 @@ versionID=`date +%Y-%b-%d`
 
 graphName=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID
 
+echo trying to publish $graphName
+
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n] --clear-graph <named_graph_URI | cr:auto | .>"
    echo ""
@@ -115,6 +117,7 @@ if [ ! -d $cockpit/source ]; then
 fi
 rm -rf $cockpit/source/*
 
+echo trying to publish about to find voids
 voids=`find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
 valid=""
 for void in $voids; do
