@@ -70,8 +70,17 @@ if [ "$1" == "--conversion-cockpit-sources" ]; then
       elif [ -e source/cr-droid.ttl ]; then
          echo "[INFO] `cr-pwd.sh` already has source/cr-droid.ttl; skipping."
       else
+         datasetV=`cr-dataset-uri.sh --uri`
          pushd source &> /dev/null
-            cr-droid.sh . > cr-droid.ttl
+            echo "@prefix prov: <http://www.w3.org/ns/prov#> . "                 > cr-droid.ttl
+            echo                                                                >> cr-droid.ttl
+            cr-droid.sh .                                                       >> cr-droid.ttl
+            for retrieved in `find . -name "*.pml.ttl"`; do
+               retrieved=${retrieved%.pml.ttl}
+               retrieved=${retrieved#\./}
+               echo                                                             >> cr-droid.ttl
+               echo "<$datasetV> prov:wasDerivedFrom <${retrieved%.pml.ttl}> ." >> cr-droid.ttl
+            done
          popd         &> /dev/null
       fi
 
