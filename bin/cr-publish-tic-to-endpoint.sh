@@ -7,6 +7,11 @@
 #
 # Environment variables used:
 #
+#   CSV2RDF4LOD_HOME
+#   CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
+#   CSV2RDF4LOD_BASE_URI
+#   CSV2RDF4LOD_BASE_URI_OVERRIDE
+#
 #    (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables)
 #
 # Usage:

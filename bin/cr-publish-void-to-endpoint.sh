@@ -38,8 +38,6 @@
 # A quick way to see the triple count:
 # grep "#triples>" publish/*.nt | awk '{print $1,$3}' | sed 's/"^.*$//;s/"//' | awk '{print $2,$1}' | sort  -n
 
-echo trying to publish void CSV2RDF4LOD_HOME $CSV2RDF4LOD_HOME CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID 
-
 see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
@@ -53,8 +51,6 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
-echo trying to publish void cr:data-root
-
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
 sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
@@ -63,7 +59,6 @@ versionID=`date +%Y-%b-%d`
 
 graphName=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID
 
-echo trying to publish $graphName
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n] --clear-graph <named_graph_URI | cr:auto | .>"
@@ -117,15 +112,12 @@ if [ ! -d $cockpit/source ]; then
 fi
 rm -rf $cockpit/source/*
 
-echo trying to publish about to find voids
-find */*/version/*/publish -name "*void.ttl"
 #voids=`find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
 #echo found voids ${#voids}
 #valid=""
 for void in `find */*/version/*/publish -name "*void.ttl"`; do
    #echo counting in $void
    #count=`void-triples.sh $void`
-   echo "$count . $void"
    #echo "$count . $void" >&2
    if [ "$dryRun" != "true" ]; then
       echo ln $void $cockpit/source
@@ -137,7 +129,6 @@ for void in `find */*/version/*/publish -name "*void.ttl"`; do
    #fi
 done
 
-echo pushing into cockpit
 pushd $cockpit &> /dev/null
    echo aggregate-source-rdf.sh --link-as-latest source/* 
    if [ "$dryRun" != "true" ]; then
