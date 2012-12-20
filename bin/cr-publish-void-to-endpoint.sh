@@ -123,6 +123,7 @@ echo foudn voids ${#voids}
 valid=""
 for void in $voids; do
    count=`void-triples.sh $void`
+   echo "$count . $void"
    echo "$count . $void" >&2
    if [ "$dryRun" != "true" ]; then
       ln $void $cockpit/source
