@@ -107,16 +107,16 @@ if [ ! -d $cockpit/source ]; then
 fi
 rm -rf $cockpit/source/*
 
-dcats=`find . -mindepth 3 -maxdepth 4 -name "*dcat.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
-valid=""
-for dcat in $dcats; do
-   count=`void-triples.sh $dcat`
-   echo "$count . ${dcat#./}" >&2
+#dcats=`find . -mindepth 3 -maxdepth 4 -name "*dcat.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
+#valid=""
+for dcat in `find . -mindepth 3 -maxdepth 4 -name "*dcat.ttl"`; do
+   #count=`void-triples.sh $dcat`
+   echo ${dcat#./}
    sdv=$(cd `dirname $dcat` && cr-sdv.sh)
    ln $dcat $cockpit/source/$sdv.dcat.ttl
-   if [ "$count" -gt 0 ]; then
-      valid="$valid $dcat"
-   fi
+   #if [ "$count" -gt 0 ]; then
+   #   valid="$valid $dcat"
+   #fi
 done
 
 pushd $cockpit &> /dev/null
