@@ -135,6 +135,7 @@ for void in $voids; do
    fi
 done
 
+echo pushing into cockpit
 pushd $cockpit &> /dev/null
    echo aggregate-source-rdf.sh --link-as-latest source/* 
    if [ "$dryRun" != "true" ]; then
