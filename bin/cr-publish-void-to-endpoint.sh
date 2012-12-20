@@ -38,7 +38,7 @@
 # A quick way to see the triple count:
 # grep "#triples>" publish/*.nt | awk '{print $1,$3}' | sed 's/"^.*$//;s/"//' | awk '{print $2,$1}' | sort  -n
 
-echo hi from void
+echo trying to publish void CSV2RDF4LOD_HOME $CSV2RDF4LOD_HOME CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID 
 
 see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
