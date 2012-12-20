@@ -53,6 +53,8 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
+echo trying to publish void cr:data-root
+
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
 sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
