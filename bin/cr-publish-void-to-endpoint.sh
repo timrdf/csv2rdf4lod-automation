@@ -119,6 +119,7 @@ rm -rf $cockpit/source/*
 
 echo trying to publish about to find voids
 voids=`find */*/version/*/publish -name "*void.ttl" | xargs wc -l | sort -nr | awk '$2!="total"{print $2}'`
+echo foudn voids ${#voids}
 valid=""
 for void in $voids; do
    count=`void-triples.sh $void`
