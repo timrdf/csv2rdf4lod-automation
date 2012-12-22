@@ -16,10 +16,15 @@
 #
 #
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--list-extensionless] [-v] [--replace-extension] file [file...]"
+   echo "   --list-extensionless : return a list of files without file extensions."
+   echo "                     -v : return the new name of the file."
+   echo "    --replace-extension : [not implemented]"
+   echo "                   file : The file to identify RDF syntax and rename with appropriate extension."
    exit 1
 fi
 
