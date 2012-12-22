@@ -1,15 +1,5 @@
 #!/bin/sh
 #
-# AFRL provides this Software to you on an "AS IS" basis, without warranty
-# of any kind. AFRL HEREBY EXPRESSLY DISCLAIMS ALL WARRANTIES OR CONDITIONS,
-# EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-# WARRANTIES OR CONDITIONS OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-# PURPOSE. You are solely responsible for determining the appropriateness of
-# using this Software and assume all risks associated with the use of this
-# Software, including but not limited to the risks of program errors, damage to
-# or loss of data, programs or equipment, and unavailability or interruption of
-# operations.
-#
 # usage:
 #
 #   $path_to/in2out.sh file1.in > file1.out
@@ -123,7 +113,6 @@ fi
 #fi
 
 # Paths required during processing
-#TODO: removed 18 may 2010 source ~/afrl/classpath-scripts/saxon9.sh # This SHOULD NOT modify classpath, only create saxon9
 saxon9=${saxon9:?"needs to be set to run Saxon."}
 
 # Determine the absolute path to this script.
