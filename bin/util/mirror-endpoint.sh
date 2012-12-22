@@ -21,7 +21,8 @@ if [[ $# -lt 2 ]]; then
    exit 1
 fi
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 endpoint=$1
 shift
@@ -50,13 +51,13 @@ while [ $# -gt 0 ]; do
    # Query it in directly (will connect up with previous provenance via queryURL)
    #
    if [ ${#queryURL} -gt 0 ]; then
-      if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} == "finest" ]; then
+      if [ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "finest" ]; then
          echo "pvloading $queryURL"
       fi
       ${CSV2RDF4LOD_HOME}/bin/util/pvload.sh $queryURL -ng $named_graph # Queries endpoint again.
    fi
 
-   if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"none"} != "finest" ]; then
+   if [ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" != "finest" ]; then
       rm -rf $TEMP_query $TEMP_results &> /dev/null
    fi
 
