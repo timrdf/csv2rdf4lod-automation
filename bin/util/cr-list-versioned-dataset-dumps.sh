@@ -5,9 +5,10 @@
 #
 
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
-   echo "usage: `basename $0` [-w]"
+   echo "usage: `basename $0` [-w] [--warn-if-missing]"
    echo "  Create publish/bin/publish.sh and invoke for every conversion cockpit within the current directory tree."
-   echo "  -w : Avoid dryrun; do it. If not provided, will only dry run."
+   echo "                -w : Avoid dryrun; do it. If not provided, will only dry run."
+   echo " --warn-if-missing : print a warning if the versioned dataset does not have a dump file."
 fi
 
 see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
@@ -24,6 +25,12 @@ fi
 write="no"
 if [[ "$1" == "-w" || "$1" == "--write" ]]; then
    write="yes"
+   shift
+fi
+
+warn="no"
+if [[ "$1" == "--warn-if-missing" ]]; then
+   warn="yes"
 fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
@@ -32,6 +39,21 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
    echo "========== `cr-pwd.sh` ========================================"
    echo
+
+   sdv=`cr-sdv.sh`
+   found=''
+   for extension in 'nt ttl rdf'; do
+      if [ -e publish/"$sdv.$extension" ]; then
+         found="`pwd`/publish/$sdv.$extension"
+         echo $found
+      elif [ -e publish/"$sdv.$extension.gz" ]; then
+         found="`pwd`/publish/$sdv.$extension.gz"
+         echo $found
+      fi
+   done
+   if [[ "$warn" == "yes" && -z "$found" ]]; then
+      echo "WARNING: `basename $0` did not find a data dump for `cr-pwd.sh`"
+   fi
 
    if [ "$write" == "yes" ]; then
       export CSV2RDF4LOD_FORCE_PUBLISH="true"
