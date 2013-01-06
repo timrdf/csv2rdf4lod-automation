@@ -68,10 +68,10 @@ for publishDir in `find . -mindepth 5 -maxdepth 5 -type d -name publish`; do
    echo $publishDir
    publishDir=`dirname $publishDir`
    echo $publishDir
+   pushd $publishdDir &> /dev/null
+      ls
+   popd &> /dev/null
    echo
-   #pushd $publishdDir &> /dev/null
-   #   ls publish
-   #popd &> /dev/null
 done
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
