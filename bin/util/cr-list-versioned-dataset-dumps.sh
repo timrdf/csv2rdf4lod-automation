@@ -49,7 +49,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       fi
    done
    if [[ "$warn" == "yes" && -z "$found" ]]; then
-      echo "WARNING: `basename $0` did not find a data dump for `cr-pwd.sh`"
+      echo "WARNING: `basename $0` did not find a data dump for `cr-pwd.sh`" >&2
    fi
 
 elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets            cr:directory-of-versions` == "yes" ]]; then
