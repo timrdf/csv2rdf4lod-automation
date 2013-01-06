@@ -53,7 +53,7 @@ while [ $# -gt 0 ]; do
       fi
    else
       if [ "$version" == "2" ]; then
-         serialization=`guess-syntax.sh        $file mime` # Assume that the file extension is correct (to save time).
+         serialization=`guess-syntax.sh           $file mime` # Assume that the file extension is correct (to save time).
       else
          serialization="-g" # Original version, let rapper guess (this can break if file too big.)
       fi
