@@ -64,15 +64,11 @@ fi
 rm -rf $cockpit/source/*
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-for publishDir in `find . -mindepth 5 -maxdepth 5 -type d -name publish`; do
-   echo $publishDir
-   cockpitDir=`dirname $publishDir`
-   echo $cockpitDir
-   pushd $cockpitDir &> /dev/null
-      sdv=`cr-sdv.sh`
-      ls publish
-   popd &> /dev/null
-   echo
+for datadump in `cr-list-versioned-dataset-dumps.sh --warn-if-missing`; do
+   echo ln $datadump $cockpit/source/
+   if [ "$dryRun" != "true" ]; then
+      ln $datadump $cockpit/source/
+   fi
 done
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
