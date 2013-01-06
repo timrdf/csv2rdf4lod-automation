@@ -70,7 +70,7 @@ for publishDir in `find . -mindepth 5 -maxdepth 5 -type d -name publish`; do
    echo $cockpitDir
    pushd $cockpitDir &> /dev/null
       sdv=`cr-sdv.sh`
-      ls publish/${sdv}.*
+      ls publish
    popd &> /dev/null
    echo
 done
