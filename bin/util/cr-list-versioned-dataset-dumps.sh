@@ -37,9 +37,6 @@ TEMP="_"`basename $0``date +%s`_$$.tmp
 
 if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
-   #echo "========== `cr-pwd.sh` ========================================"
-   #echo
-
    sdv=`cr-sdv.sh`
    found=''
    for extension in 'nt ttl rdf'; do
@@ -54,18 +51,6 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    if [[ "$warn" == "yes" && -z "$found" ]]; then
       echo "WARNING: `basename $0` did not find a data dump for `cr-pwd.sh`"
    fi
-
-   if [ "$write" == "yes" ]; then
-      export CSV2RDF4LOD_FORCE_PUBLISH="true"
-      source $CSV2RDF4LOD_HOME/bin/convert-aggregate.sh
-      export CSV2RDF4LOD_FORCE_PUBLISH="false"
-   fi
-
-   #if [ "$write" == "no" ]; then
-   #   echo
-   #   echo "Note: Performed dry run only; no changes occurred. Use `basename $0` -w to avoid dry run and make modifications."
-   #   echo
-   #fi
 
 elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets            cr:directory-of-versions` == "yes" ]]; then
    for next in `directories.sh`; do
