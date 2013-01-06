@@ -30,7 +30,7 @@ datasetID=`basename $0 | sed 's/.sh$//'`
 versionID='latest' # Doing it every day is a waste of space for this use case. `date +%Y-%b-%d`
 
 cockpit="$sourceID/$datasetID/version/$versionID"
-dumpFileLocal=`echo $CSV2RDF4LOD_BASE_URI | perl -pi -e 's|http://||;s/\./-/g'`
+dumpFileLocal=`echo $CSV2RDF4LOD_BASE_URI | perl -pi -e 's|http://||;s/\./-/g;s|/|-|g'`
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n]"
