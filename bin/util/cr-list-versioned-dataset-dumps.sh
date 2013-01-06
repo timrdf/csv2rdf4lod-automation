@@ -40,12 +40,14 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    sdv=`cr-sdv.sh --fast`
    found=''
    for extension in nt ttl rdf; do
-      if [ -e publish/"$sdv.$extension" ]; then
-         found="`pwd`/publish/$sdv.$extension"
-         echo $found
-      elif [ -e publish/"$sdv.$extension.gz" ]; then
-         found="`pwd`/publish/$sdv.$extension.gz"
-         echo $found
+      if [ -z "$found" ]; then
+         if [ -e publish/"$sdv.$extension" ]; then
+            found="`pwd`/publish/$sdv.$extension"
+            echo $found
+         elif [ -e publish/"$sdv.$extension.gz" ]; then
+            found="`pwd`/publish/$sdv.$extension.gz"
+            echo $found
+         fi
       fi
    done
    if [[ "$warn" == "yes" && -z "$found" ]]; then
