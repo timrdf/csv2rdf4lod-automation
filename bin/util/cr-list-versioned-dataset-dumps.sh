@@ -39,7 +39,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
    sdv=`cr-sdv.sh --fast`
    found=''
-   for extension in 'nt ttl rdf'; do
+   for extension in nt ttl rdf; do
       echo "`basename $0` $sdv.$extension and $sdv.$extension.gz"
       if [ -e publish/"$sdv.$extension" ]; then
          found="`pwd`/publish/$sdv.$extension"
