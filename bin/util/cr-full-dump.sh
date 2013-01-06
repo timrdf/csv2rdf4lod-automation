@@ -81,7 +81,7 @@ rm -rf $cockpit/publish/*
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
 if [ 'few-enough-files' == 'few-enough-files' ]; then
-   rdf2nt.sh --version 2 `find $cockpit/source` | gzip > $cockpit/publish/$dumpFileLocal
+   rdf2nt.sh --version 2 `find $cockpit/source` | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/publish/rdf2nt-errors.log
 else
    for datadump in `find $cockpit/source`; do
       rdf2nt.sh --version 2 $datadump >> $cockpit/publish/$dumpFileLocal.tmp
