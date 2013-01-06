@@ -12,7 +12,7 @@ if [ "$1" == "--help" ]; then
    echo
 fi
 
-if [ "$1" == "true" ]; then
+if [[ "$1" == "true" || "$1" == "yes" ]]; then
    if [ "$2" == "beginning" ]; then
       echo "" 
       echo "" 
