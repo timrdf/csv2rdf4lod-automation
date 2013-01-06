@@ -66,10 +66,10 @@ rm -rf $cockpit/source/*
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 for publishDir in `find . -mindepth 5 -maxdepth 5 -type d -name publish`; do
    echo $publishDir
-   publishDir=`dirname $publishDir`
-   echo $publishDir
-   pushd $publishDir &> /dev/null
-      ls publish
+   cockpitDir=`dirname $publishDir`
+   echo $cockpitDir
+   pushd $cockpitDir &> /dev/null
+      ls publish/`cr-sdv.sh`*
    popd &> /dev/null
    echo
 done
