@@ -43,7 +43,8 @@ if [ $# -lt 1 ]; then
    exit 1
 fi
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
 
 downloadFile="true"
@@ -187,6 +188,7 @@ while [ $# -gt 0 ]; do
       echo "@prefix httphead:   <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> ."                     >> $file.pml.ttl
       echo "@prefix httpget:    <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> ."                      >> $file.pml.ttl
       echo "@prefix httppost:   <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> ."                     >> $file.pml.ttl
+      echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                                                   >> $file.pml.ttl
       echo                                                                                                        >> $file.pml.ttl
       $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                                                  >> $file.pml.ttl
       echo                                                                                                        >> $file.pml.ttl
