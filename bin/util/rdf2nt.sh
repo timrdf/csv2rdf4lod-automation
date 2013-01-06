@@ -83,7 +83,7 @@ while [ $# -gt 0 ]; do
       fi
       
       if [ "$serialization" == "application/rdf+xml" ]; then
-         # Need to use rapper to decompose into N-TRIPLES
+         # Need to use rapper to decompose into N-TRIPLES.
          # Need to use serdi to prepend bnodes with a unique prefix.
          if [[ `which rapper` && `which serdi` ]]; then
             echo "rapper -q -i rdfxml -o ntriples $file | serdi -i ntriples -o ntriples -p $md5 - (from $origFile)" >&2
