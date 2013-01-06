@@ -76,7 +76,7 @@ while [ $# -gt 0 ]; do
          TEMP="_"`basename $0``date +%s`_$$.tmp
          gunzip -c $file > $TEMP
 
-         origFile="$file" # In case we want to know what file we were working with.
+         origFile="$file" # Remember which file we were working with.
          file=$TEMP       # So we can reuse the code that handles uncompressed output.
       else
          gzipped="no"
