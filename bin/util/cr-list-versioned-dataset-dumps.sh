@@ -33,8 +33,6 @@ if [[ "$1" == "--warn-if-missing" ]]; then
    warn="yes"
 fi
 
-TEMP="_"`basename $0``date +%s`_$$.tmp
-
 if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
    sdv=`cr-sdv.sh --fast`
@@ -72,8 +70,4 @@ elif [[ `is-pwd-a.sh                                                 cr:dataset 
       # Recursive call to base case 'cr:conversion-cockpit'
       $0 $*
    popd > /dev/null
-fi
-
-if [ -e $TEMP ]; then
-   rm -f $TEMP
 fi
