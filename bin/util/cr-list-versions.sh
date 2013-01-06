@@ -49,7 +49,7 @@ TEMP="_"`basename $0``date +%s`_$$.tmp
 if   [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source`                                                 == "yes" ]]; then
    for dataset_id in `cr-list-datasets.sh `; do
       pushd $dataset_id &> /dev/null
-         $0 * # Call this script again
+         `cr-source-id.sh`/`$0 *` # Call this script again
       popd &> /dev/null
    done
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh           cr:dataset`                                      == "yes" ]]; then
