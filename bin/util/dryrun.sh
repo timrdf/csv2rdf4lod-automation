@@ -6,8 +6,10 @@
 #    dryrun.sh {true,false} {beginning,ending}
 
 if [ "$1" == "--help" ]; then
+   echo
    echo "usage: `basename $0` {true,false} {beginning,ending}"
    echo "  prints NOTE to stdout describing the status of the dryrun (IF it is a dryrun)."
+   echo
 fi
 
 if [ "$1" == "true" ]; then
