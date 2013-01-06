@@ -85,13 +85,16 @@ while [ $# -gt 0 ]; do
       if [ "$serialization" == "application/rdf+xml" ]; then
          # Need to use rapper to decompose into N-TRIPLES.
          # Need to use serdi to prepend bnodes with a unique prefix.
-         if [[ ! `which rapper` ]]; then
-            echo "ERROR: `basename $0` requires rapper. See $see"
-         elif [[ ! `which serdi` ]]; then
-            echo "ERROR: `basename $0` requires serdi. See $see"
-         else
+         if [[ `which rapper` && `which serdi` ]]; then
             echo "rapper -q -i rdfxml -o ntriples $file | serdi -i ntriples -o ntriples -p $md5 - (from $origFile)" >&2
             rapper -q -i rdfxml -o ntriples $file | serdi -i ntriples -o ntriples -p $md5 -
+         elif [[ ! `which rapper` ]]; then
+            echo "ERROR: `basename $0` requires rapper. See $see"
+            if [[ ! `which serdi` ]]; then
+               echo "ERROR: `basename $0` requires serdi. See $see"
+            fi
+         elif [[ ! `which serdi` ]]; then
+            echo "ERROR: `basename $0` requires serdi. See $see"
          fi
       elif [ "$serialization" == "text/plain" ]; then
          # Need to use serdi to prepend bnodes with a unique prefix.
