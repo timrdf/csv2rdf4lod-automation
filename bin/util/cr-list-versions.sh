@@ -38,7 +38,7 @@ see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-ACCEPTABLE_PWDs="cr:source cr:dataset cr:directory-of-versions cr:conversion-cockpit"
+ACCEPTABLE_PWDs="cr:dataset cr:directory-of-versions cr:conversion-cockpit"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
@@ -47,9 +47,10 @@ fi
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
 if   [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source`                                                 == "yes" ]]; then
+   # Avoid this; $0 could return any bad error and it would not be valid.
    for dataset_id in `cr-list-datasets.sh `; do
       pushd $dataset_id &> /dev/null
-         `cr-source-id.sh`/`$0 *` # Call this script again
+         echo `cr-source-id.sh`/`$0 *` # Call this script again
       popd &> /dev/null
    done
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh           cr:dataset`                                      == "yes" ]]; then
