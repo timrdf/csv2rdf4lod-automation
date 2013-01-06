@@ -81,7 +81,7 @@ rm -rf $cockpit/source/*
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
 for datadump in `find $cockpit/source`; do
-   rdf2nt.sh --version 2 $datadump > $cockpit/publish/$dumpFileLocal
+   rdf2nt.sh --version 2 $datadump >> $cockpit/publish/$dumpFileLocal
 done
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
