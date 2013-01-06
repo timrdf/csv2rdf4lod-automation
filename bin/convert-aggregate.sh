@@ -421,6 +421,8 @@ if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]; then
       pushd $dumpFileDir &> /dev/null
          tar czf $dumpFileBase.$zip $dumpFileBase  # TODO:notar
 
+         # TODO ^^ this tar command is a no-op, the .zip gets replaced below. Remove the above command?
+
          # Don't use tar if there is only ever one file; use gzip instead:
          cat $dumpFileBase | gzip > $dumpFileBase.$zip # TODO:notar
 
