@@ -37,7 +37,7 @@ TEMP="_"`basename $0``date +%s`_$$.tmp
 
 if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
-   sdv=`cr-sdv.sh`
+   sdv=`cr-sdv.sh --fast`
    found=''
    for extension in 'nt ttl rdf'; do
       if [ -e publish/"$sdv.$extension" ]; then
