@@ -40,7 +40,7 @@ else
    #   exit 1
    #fi
 
-   if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
+   if [[                                                                 `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
       # e.g. pwd: /srv/twc-healthdata/data/source/hub-healthdata-gov/food-recalls/version/2012-May-08
       # desired result: hub-healthdata-gov-food-recalls-2012-May-08
@@ -63,7 +63,7 @@ else
 
    elif [[ `is-pwd-a.sh                        cr:directory-of-datasets                                    ` == "yes" ]]; then
       
-      echo `basename $0` todo
+      echo `basename $0`#todo
  
    elif [[ `is-pwd-a.sh              cr:source                                                             ` == "yes" ]]; then
 
@@ -74,7 +74,7 @@ else
 
    elif [[ `is-pwd-a.sh cr:data-root                                                                       ` == "yes" ]]; then
 
-      echo `basename $0` todo
+      echo `basename $0`#todo
 
    fi
 fi
