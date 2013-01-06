@@ -65,11 +65,13 @@ rm -rf $cockpit/source/*
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 for publishDir in `find . -mindepth 5 -maxdepth 5 -type d -name publish`; do
+   echo $publishDir
    publishDir=`dirname $publishDir`
-   pushd $publishdDir &> /dev/null
-      echo $publishDir
-      ls publish
-   popd &> /dev/null
+   echo $publishDir
+   echo
+   #pushd $publishdDir &> /dev/null
+   #   ls publish
+   #popd &> /dev/null
 done
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
