@@ -64,13 +64,26 @@ fi
 rm -rf $cockpit/source/*
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Collect source files into source/
 for datadump in `cr-list-versioned-dataset-dumps.sh --warn-if-missing`; do
    echo ln $datadump $cockpit/source/
    if [ "$dryRun" != "true" ]; then
       ln $datadump $cockpit/source/
    fi
 done
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+if [ ! -d $cockpit/source ]; then
+   mkdir -p $cockpit/source
+fi
+rm -rf $cockpit/source/*
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Build up full dump file into publish/
+for datadump in `find $cockpit/source`; do
+   rdf2nt.sh --version 2 $datadump > $cockpit/publish/$dumpFileLocal
+done
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 
 # hub-healthdata-gov/food-recalls/version/2012-May-08/publish/hub-healthdata-gov-food-recalls-2012-May-08.ttl.gz
