@@ -80,9 +80,12 @@ rm -rf $cockpit/publish/*
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
-if [ 'few-enough-files' == 'few-enough-files' ]; then
+if [[ -n "`getconf ARG_MAX`" && \
+     `find $cockpit/source | wc -l` -lt `getconf ARG_MAX` ]]; then #if [ 'few-enough-files' == 'few-enough-files' ]; then
+   # Saves disk space, but shell can't handle infinite arguments.
    rdf2nt.sh --version 2 `find $cockpit/source` | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/publish/rdf2nt-errors.log
 else
+   # Handles infinite source/* files, but uses disk space.
    for datadump in `find $cockpit/source`; do
       rdf2nt.sh --version 2 $datadump >> $cockpit/publish/$dumpFileLocal.tmp
    done
