@@ -38,9 +38,9 @@ TEMP="_"`basename $0``date +%s`_$$.tmp
 if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
    sdv=`cr-sdv.sh --fast`
-   found=''
-   for extension in nt ttl rdf; do # Prefer nt over ttl; ttl over rdf.
-      if [ -z "$found" ]; then
+   found=''                                        
+   for extension in nt ttl rdf; do                 # Prefer nt over ttl; ttl over rdf.
+      if [ -z "$found" ]; then                     # Stop after we've found one.
          if [ -e publish/"$sdv.$extension" ]; then # Prefer uncompressed over compressed.
             found="`pwd`/publish/$sdv.$extension"
             echo $found
