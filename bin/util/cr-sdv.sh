@@ -40,8 +40,6 @@ else
    #   exit 1
    #fi
 
-   #TEMP="_"`basename $0``date +%s`_$$.tmp
-
    if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
       # e.g. pwd: /srv/twc-healthdata/data/source/hub-healthdata-gov/food-recalls/version/2012-May-08
@@ -63,23 +61,20 @@ else
  
       pwd | awk -F/ '{print $(NF-1)"-"$NF}' # Will break on https://github.com/timrdf/csv2rdf4lod-automation/issues/311
 
-   elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets            cr:directory-of-versions` == "yes" ]]; then
-      for next in `directories.sh`; do
-         pushd $next > /dev/null
-            # Recursive call to base case 'cr:conversion-cockpit'
-            $0 $*
-         popd > /dev/null
-      done
+   elif [[ `is-pwd-a.sh                        cr:directory-of-datasets                                    ` == "yes" ]]; then
+      
+      echo `basename $0` todo
+ 
    elif [[ `is-pwd-a.sh              cr:source                                                             ` == "yes" ]]; then
-      # TODO https://github.com/timrdf/csv2rdf4lod-automation/issues/311
-      pushd dataset > /dev/null
-         # Recursive call to base case 'cr:conversion-cockpit'
-         $0 $*
-      popd > /dev/null
+
+      # e.g. pwd: /srv/twc-healthdata/data/source/hub-healthdata-gov
+      # desired output: hub-healthdata-gov
+ 
+      pwd | awk -F/ '{print $NF}' # Will break on https://github.com/timrdf/csv2rdf4lod-automation/issues/311
+
+   elif [[ `is-pwd-a.sh cr:data-root                                                                       ` == "yes" ]]; then
+
+      echo `basename $0` todo
+
    fi
-
-   #if [ -e $TEMP ]; then
-   #   rm -f $TEMP
-   #fi
-
 fi
