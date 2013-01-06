@@ -80,10 +80,15 @@ rm -rf $cockpit/publish/*
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
-for datadump in `find $cockpit/source`; do
-   rdf2nt.sh --version 2 $datadump >> $cockpit/publish/$dumpFileLocal
-done
+if [ 'few-enough-files' == 'few-enough-files' ]; then
+   rdf2nt.sh --version 2 `find $cockpit/source` | gzip > $cockpit/publish/$dumpFileLocal
+else
+   for datadump in `find $cockpit/source`; do
+      rdf2nt.sh --version 2 $datadump >> $cockpit/publish/$dumpFileLocal.tmp
+   done
+   cat $cockpit/publish/$dumpFileLocal.tmp | gzip > $cockpit/publish/$dumpFileLocal
+   rm $cockpit/publish/$dumpFileLocal.tmp
+fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-
-# hub-healthdata-gov/food-recalls/version/2012-May-08/publish/hub-healthdata-gov-food-recalls-2012-May-08.ttl.gz
+dryrun.sh $dryrun ending
