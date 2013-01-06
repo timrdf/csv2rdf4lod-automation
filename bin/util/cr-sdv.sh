@@ -56,6 +56,13 @@ else
 
       pwd | awk -F/ '{print $(NF-2)"-"$(NF-1)}' # Will break on https://github.com/timrdf/csv2rdf4lod-automation/issues/311
 
+   elif [[ `is-pwd-a.sh                                                 cr:dataset                         ` == "yes" ]]; then
+     
+      # e.g. pwd: /srv/twc-healthdata/data/source/hub-healthdata-gov/food-recalls
+      # desired output: hub-healthdata-gov-food-recalls
+ 
+      pwd | awk -F/ '{print $(NF-1)"-"$NF}' # Will break on https://github.com/timrdf/csv2rdf4lod-automation/issues/311
+
    elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets            cr:directory-of-versions` == "yes" ]]; then
       for next in `directories.sh`; do
          pushd $next > /dev/null
@@ -66,11 +73,6 @@ else
    elif [[ `is-pwd-a.sh              cr:source                                                             ` == "yes" ]]; then
       # TODO https://github.com/timrdf/csv2rdf4lod-automation/issues/311
       pushd dataset > /dev/null
-         # Recursive call to base case 'cr:conversion-cockpit'
-         $0 $*
-      popd > /dev/null
-   elif [[ `is-pwd-a.sh                                                 cr:dataset                         ` == "yes" ]]; then
-      pushd version > /dev/null
          # Recursive call to base case 'cr:conversion-cockpit'
          $0 $*
       popd > /dev/null
