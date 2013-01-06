@@ -32,7 +32,7 @@ versionID='latest' # Doing it every day is a waste of space for this use case. `
 cockpit="$sourceID/$datasetID/version/$versionID"
 dumpFileLocal=`echo $CSV2RDF4LOD_BASE_URI | perl -pi -e 's|http://||;s/\./-/g;s|/|-|g'`.nt.gz
 
-if [[ $# -lt 1 || "$1" == "--help" ]]; then
+if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n]"
    echo ""
    echo "  Gather all versioned dataset dump files into one enormous dump file."
