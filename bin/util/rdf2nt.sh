@@ -41,6 +41,10 @@ fi
 while [ $# -gt 0 ]; do
    file="$1" 
 
+   if [ ! -f $file ]; then
+      continue
+   fi
+
    if [ "$file" == "${file%.*}" ]; then 
       # The file does not have an extension.
       # Literally: "The filename is the same with and without an extension"
