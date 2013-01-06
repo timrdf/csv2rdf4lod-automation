@@ -2,8 +2,8 @@
 #
 #3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/rdf2nt.sh> .
 #
-# Accept an RDF file in RDF/XML, Turtle, or N-TRIPLES and output N-TRIPLES or N-QUADS file.
-# N-TRIPLES output will be produce collision-safe bnodes (b/c will prepend with filepath hash).
+# Accept one or more RDF files in RDF/XML, Turtle, or N-TRIPLES and output N-TRIPLES to stdout.
+# The output N-TRIPLES will have collision-safe bnodes (b/c their identifiers are prepended with a filepath hash).
 #
 # example usages:
 #
