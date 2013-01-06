@@ -40,6 +40,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    sdv=`cr-sdv.sh --fast`
    found=''
    for extension in 'nt ttl rdf'; do
+      echo "`basename $0` $sdv.$extension and $sdv.$extension.gz"
       if [ -e publish/"$sdv.$extension" ]; then
          found="`pwd`/publish/$sdv.$extension"
          echo $found
@@ -48,6 +49,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
          echo $found
       fi
    done
+   echo
    if [[ "$warn" == "yes" && -z "$found" ]]; then
       echo "WARNING: `basename $0` did not find a data dump for `cr-pwd.sh`"
    fi
