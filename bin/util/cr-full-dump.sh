@@ -73,10 +73,10 @@ for datadump in `cr-list-versioned-dataset-dumps.sh --warn-if-missing`; do
 done
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-if [ ! -d $cockpit/source ]; then
-   mkdir -p $cockpit/source
+if [ ! -d $cockpit/publish ]; then
+   mkdir -p $cockpit/publish
 fi
-rm -rf $cockpit/source/*
+rm -rf $cockpit/publish/*
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
