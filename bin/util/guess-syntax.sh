@@ -27,8 +27,10 @@
 #   fi
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
+   echo
    echo "usage: `basename $0` [--inspect] url-of.rdf [{mime,rapper,jena,extension}]"
    echo "  --inspect: look at the local file and guess (if not specified, guesses based on the file name)."
+   echo
    exit 1
 fi
 
@@ -47,13 +49,13 @@ guess=""
 # Take a stab:
 #
 
-if   [[ $url =~ \\.nt$  || $url =~ \\.nt\\.  || $url =~ \\.nt#  || $url == *nt ]]; then # Replaced \. with \\. b/c other OSes were recognizing them as regex.
+if   [[ $url =~ \\.nt$  || $url =~ \\.nt\\.  || $url =~ \\.nt#  || $url == *nt  || $url == *.nt.gz  ]]; then # Replaced \. with \\. b/c other OSes were recognizing them as regex.
    guess="-i ntriples"
 elif [[ $url =~ \\.ttl$ || $url =~ \\.ttl\\. || $url =~ \\.ttl# || $url == *ttl || $url == *.ttl.gz ]]; then # TODO special case should be handled in general.
    guess="-i turtle"
-elif [[ $url =~ \\.rdf$ || $url =~ \\.rdf\\. || $url =~ \\.rdf# || $url == *rdf ]]; then
+elif [[ $url =~ \\.rdf$ || $url =~ \\.rdf\\. || $url =~ \\.rdf# || $url == *rdf || $url == *.rdf.gz ]]; then
    guess="-i rdfxml"
-elif [[ $url =~ \\.xml$ || $url =~ \\.xml\\. || $url =~ \\.xml# || $url == *xml ]]; then
+elif [[ $url =~ \\.xml$ || $url =~ \\.xml\\. || $url =~ \\.xml# || $url == *xml || $url == *.xml.gz ]]; then
    guess="-i rdfxml"
 else
    # We failed to guess based on the file name.
