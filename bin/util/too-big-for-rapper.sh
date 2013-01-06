@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/too-big-for-rapper.sh
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/too-big-for-rapper.sh>;
+#3>    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Dealing-with-rapper%27s-2GB-limitation> .
 #
 #   Copyright 2012 Timothy Lebo
 #
@@ -19,7 +20,12 @@
 # Return "yes" if any of the files listed are too big for rapper's 2GB limit.
 # Otherwise, return "no".
 #
-# https://github.com/timrdf/csv2rdf4lod-automation/wiki/Dealing-with-rapper%27s-2GB-limitation
+# This logic is also in:
+#
+#    bin/convert-aggregate.sh
+#    bin/util/pvload.sh
+#    bin/util/rdf2nt.sh (to avoid csv2rdf4lod dependencies)
+
 
 if [ $# -lt 1 ]; then
    echo "usage: `basename $0` a.ttl b.ttl ..."

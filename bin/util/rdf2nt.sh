@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/rdf2nt.sh> .
+#
 # Accept an RDF file in RDF/XML, Turtle, or N-TRIPLES and output N-TRIPLES or N-QUADS file.
 # N-TRIPLES output will be produce collision-safe bnodes (b/c will prepend with filepath hash).
 #
@@ -11,23 +13,53 @@
 # To handle more files than 'ls' can provide:
 #   find . -name "[^.]*" | xargs      rdf2nt.sh > ../all.nt
 
+see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+
 if [[ $# -eq 0 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` <some.rdf>*"
+   echo
+   echo "usage: `basename $0` [--version <version>] <some.rdf>*"
    echo "  output to stderr the N-TRIPLES union of all rdf files given as arguments"
+   echo
+   echo "  --version <version> : use technique identified by <version>; can be omitted to use original technique."
+   echo "                      |"
+   echo "             (none)   | use rapper, which can break if turtle is too big."
+   echo "                      |"
+   echo "  --version  2        | guess-syntax without inspection if it          has  a file extension"
+   echo "                      | guess-syntax with    inspection if it does not have a file extension"
+   echo "                      | uncompress any gzipped files"
+   echo "                      | use serdi to prepend bnodes with prefixes (for all input formats)"
+   echo "                      | use rapper for rdf/xml ONLY; use serdi directly for ntriples and turtle"
    exit
+fi
+
+version=''
+if [[ "$1" == "--version" && $# -gt 1 ]]; then
+   version="$2"
+   shift 2
 fi
 
 while [ $# -gt 0 ]; do
    file="$1" 
 
    if [ "$file" == "${file%.*}" ]; then 
-      # "The filename is the same with and without an extension"
       # The file does not have an extension.
+      # Literally: "The filename is the same with and without an extension"
       # Note: this does not rename the file; use rename-by-syntax.sh for that.
-      serialization=`guess-syntax.sh --inspect $file rapper`
+      if [ "$version" == "2" ]; then
+         serialization=`guess-syntax.sh --inspect $file mime`
+      else
+         serialization=`guess-syntax.sh --inspect $file rapper`
+         # Original version, feeding through rapper (this can break if file too big.)
+      fi
    else
-      serialization="-g" # Assume that the extension is correct
+      if [ "$version" == "2" ]; then
+         serialization=`guess-syntax.sh        $file mime` # Assume that the file extension is correct (to save time).
+      else
+         serialization="-g" # Original version, let rapper guess (this can break if file too big.)
+      fi
    fi
+
+   # Determine a prefix for bnodes (to avoid bnode collision when concatenating multiple files).
    fullpath=`pwd`/$1 # Does not need to be exact; only needs to be unique.
    md5=""
    if [ `which md5 2> /dev/null` ]; then
@@ -35,22 +67,74 @@ while [ $# -gt 0 ]; do
    elif [ `which md5sum 2> /dev/null` ]; then
       md5=urlhash`echo $fullpath | md5sum | awk '{print $1}'`
    fi
-   
-   # -q : quiet
-   # -o : output ntriples
-   # rapper cannot contextualize bnodes and may lead to a collision.
-   if [[ `which rapper` && `which serdi` ]]; then
-      rapper -q $serialization -o ntriples $file | serdi -i ntriples -p $md5 -
-   elif [ `which rapper` ]; then
-      see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
-      echo "ERROR: `basename $0` requires rapper. See $see"
-   else
-      see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
-      echo "ERROR: `basename $0` requires serdi. See $see"
+ 
+   if [ "$version" == "2" ]; then
+
+      gunzip --test $file &> /dev/null
+      if [ $? -eq 0 ]; then
+         gzipped="yes"
+         TEMP="_"`basename $0``date +%s`_$$.tmp
+         gunzip -c $file > $TEMP
+
+         origFile="$file" # In case we want to know what file we were working with.
+         file=$TEMP       # So we can reuse the code that handles uncompressed output.
+      else
+         gzipped="no"
+      fi
+      
+      if [ "$serialization" == "application/rdf+xml" ]; then
+         # Need to use rapper to decompse into N-TRIPLES
+         # Need to use serdi to prepend bnodes with a unique prefix.
+         if [[ `which rapper` && `which serdi` ]]; then
+            echo "rapper -q -i rdfxml -o ntriples $file | serdi -i ntriples -o ntriples -p $md5 - (from $origFile)" >&2
+            rapper -q -i rdfxml -o ntriples $file | serdi -i ntriples -o ntriples -p $md5 -
+         else
+            echo "ERROR: `basename $0` requires rapper. See $see"
+            echo "ERROR: `basename $0` requires serdi. See $see"
+         fi
+      elif [ "$serialization" == "text/plain" ]; then
+         # Need to use serdi to prepend bnodes with a unique prefix.
+         if [[ `which serdi` ]]; then
+            echo "serdi -i ntriples -o ntriples -p $md5 $file (from $origFile)" >&2
+            serdi -i ntriples -o ntriples -p $md5 $file
+         else
+            echo "ERROR: `basename $0` requires serdi. See $see"
+         fi
+      elif [ "$serialization" == "text/turtle" ]; then
+         # Need to use serdi to prepend bnodes with a unique prefix.
+         if [[ `which serdi` ]]; then
+            echo "serdi -i turtle -o ntriples -p $md5 $file (from $origFile)" >&2
+            serdi -i turtle -o ntriples -p $md5 $file
+         else
+            echo "ERROR: `basename $0` requires serdi. See $see"
+         fi
+      else
+         echo "`basename $0` TODO: $serialization $file" >&2
+      fi
+
+      if [ -e "$TEMP" ]; then
+         rm "$TEMP"
+      fi 
+
+   else 
+
+      # Original version
+
+      # -q : quiet
+      # -o : output ntriples
+      # rapper cannot contextualize bnodes and may lead to a collision.
+      if [[ `which rapper` && `which serdi` ]]; then
+         rapper -q $serialization -o ntriples $file | serdi -i ntriples -p $md5 -
+      elif [ `which rapper` ]; then
+         echo "ERROR: `basename $0` requires rapper. See $see"
+      else
+         echo "ERROR: `basename $0` requires serdi. See $see"
+      fi
+      # serdi can, but cannot handle RDF/XML (so use rapper to preprocess it).
+      # -p : prepend bnodes with $md5
+      # -  : read from stdin
+      # (prints to stdout)
    fi
-   # serdi can, but cannot handle RDF/XML (so use rapper to preprocess it).
-   # -p : prepend bnodes with $md5
-   # -  : read from stdin
-   # (prints to stdout)
+
    shift
 done
