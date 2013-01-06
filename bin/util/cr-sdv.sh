@@ -47,8 +47,14 @@ else
       # e.g. pwd: /srv/twc-healthdata/data/source/hub-healthdata-gov/food-recalls/version/2012-May-08
       # desired result: hub-healthdata-gov-food-recalls-2012-May-08
 
-      # TODO: will break on https://github.com/timrdf/csv2rdf4lod-automation/issues/311
-      pwd | awk -F/ '{print $(NF-3)"-"$(NF-2)"-"$NF}'
+      pwd | awk -F/ '{print $(NF-3)"-"$(NF-2)"-"$NF}' # Will break on https://github.com/timrdf/csv2rdf4lod-automation/issues/311
+
+   elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
+      
+      # e.g. pwd: /srv/twc-healthdata/data/source/hub-healthdata-gov/food-recalls/version
+      # desired output: hub-healthdata-gov-food-recalls
+
+      pwd | awk -F/ '{print $(NF-2)"-"$(NF-1)}' # Will break on https://github.com/timrdf/csv2rdf4lod-automation/issues/311
 
    elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets            cr:directory-of-versions` == "yes" ]]; then
       for next in `directories.sh`; do
