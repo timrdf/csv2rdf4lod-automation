@@ -62,7 +62,9 @@ else
    guess="-g"
 fi
 if [ $inspect == "true" ]; then
-   if [[ `head -10 $url | awk '$0 ~ /.*<html>.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
+   if [[ ! -f $inspect ]]; then
+      guess="-g"
+   elif [[ `head -10 $url | awk '$0 ~ /.*<html>.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
       guess="-g"
    elif [[ `head -1000 $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
       # @prefix
