@@ -10,7 +10,7 @@
 
 if [[ $# -eq 0 || "$1" == "--help" ]]; then
    echo
-   echo "usage: `basename $0` [--version <version>] <some.rdf>*"
+   echo "usage: `basename $0` <some.rdf>*"
    echo "  Print the URI subjects and objects of the given RDF file."
    exit
 fi
