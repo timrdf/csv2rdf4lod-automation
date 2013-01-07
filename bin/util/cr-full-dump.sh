@@ -82,24 +82,26 @@ done
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
-if [[ -n "`getconf ARG_MAX`" && \
-     `find $cockpit/source | wc -l` -lt `getconf ARG_MAX` ]]; then
-   # Saves disk space, but shell can't handle infinite arguments.
-   echo "rdf2nt.sh --version 2 `find $cockpit/source` | gzip 2> $cockpit/publish/rdf2nt-errors.log LT $cockpit/publish/$dumpFileLocal"
-   if [ "$dryrun" != "true" ]; then
-      rdf2nt.sh --version 2 `find $cockpit/source` | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/publish/rdf2nt-errors.log
-   fi
-else
-   # Handles infinite source/* files, but uses disk space.
-   for datadump in `find $cockpit/source`; do
-      echo "rdf2nt.sh --version 2 $datadump APPEND $cockpit/publish/$dumpFileLocal.tmp"
+if [ "$dryrun" != "true" ]; then
+   if [[ -n "`getconf ARG_MAX`" && \
+        `find $cockpit/source | wc -l` -lt `getconf ARG_MAX` ]]; then
+      # Saves disk space, but shell can't handle infinite arguments.
+      echo "rdf2nt.sh --version 2 `find $cockpit/source` | gzip 2> $cockpit/publish/rdf2nt-errors.log LT $cockpit/publish/$dumpFileLocal"
       if [ "$dryrun" != "true" ]; then
-         rdf2nt.sh --version 2 $datadump >> $cockpit/publish/$dumpFileLocal.tmp
+         rdf2nt.sh --version 2 `find $cockpit/source` | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/publish/rdf2nt-errors.log
       fi
-   done
-   if [ "$dryrun" != "true" ]; then
-      cat $cockpit/publish/$dumpFileLocal.tmp | gzip > $cockpit/publish/$dumpFileLocal
-      rm $cockpit/publish/$dumpFileLocal.tmp
+   else
+      # Handles infinite source/* files, but uses disk space.
+      for datadump in `find $cockpit/source`; do
+         echo "rdf2nt.sh --version 2 $datadump APPEND $cockpit/publish/$dumpFileLocal.tmp"
+         if [ "$dryrun" != "true" ]; then
+            rdf2nt.sh --version 2 $datadump >> $cockpit/publish/$dumpFileLocal.tmp
+         fi
+      done
+      if [ "$dryrun" != "true" ]; then
+         cat $cockpit/publish/$dumpFileLocal.tmp | gzip > $cockpit/publish/$dumpFileLocal
+         rm $cockpit/publish/$dumpFileLocal.tmp
+      fi
    fi
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
