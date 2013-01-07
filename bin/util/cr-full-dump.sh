@@ -88,7 +88,7 @@ if [[ -n "`getconf ARG_MAX`" && \
    # Saves disk space, but shell can't handle infinite arguments.
    echo "rdf2nt.sh --version 2 `find $cockpit/source` | gzip 2> $cockpit/publish/rdf2nt-errors.log LT $cockpit/publish/$dumpFileLocal"
    if [ "$dryrun" != "true" ]; then
-      rdf2nt.sh --version 2 `find $cockpit/source` | gzip 2> $cockpit/publish/rdf2nt-errors.log > $cockpit/publish/$dumpFileLocal
+      rdf2nt.sh --version 2 `find $cockpit/source` | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/publish/rdf2nt-errors.log
    fi
 else
    # Handles infinite source/* files, but uses disk space.
