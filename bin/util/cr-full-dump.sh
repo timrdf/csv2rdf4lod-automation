@@ -53,9 +53,9 @@ if [ "$1" == "--target" ]; then
    exit 0
 fi
 
-dryRun="false"
+dryrun="false"
 if [ "$1" == "-n" ]; then
-   dryRun="true"
+   dryrun="true"
    dryrun.sh $dryrun beginning
    shift
 fi
@@ -65,7 +65,7 @@ for panel in source automatic publish; do
       mkdir -p $cockpit/$panel
    fi
    echo "rm -rf $cockpit/$panel/*"
-   if [ "$dryRun" != "true" ]; then
+   if [ "$dryrun" != "true" ]; then
       rm -rf $cockpit/$panel/*
    fi
 done
@@ -75,7 +75,7 @@ done
 for datadump in `cr-list-versioned-dataset-dumps.sh --warn-if-missing`; do
    # TODO: error: head: error reading `healthdata-tw-rpi-edu/cr-full-dump/version/latest/source': Is a directory
    echo ln $datadump $cockpit/source/
-   if [ "$dryRun" != "true" ]; then
+   if [ "$dryrun" != "true" ]; then
       ln $datadump $cockpit/source/
    fi
 done
@@ -87,18 +87,18 @@ if [[ -n "`getconf ARG_MAX`" && \
      `find $cockpit/source | wc -l` -lt `getconf ARG_MAX` ]]; then
    # Saves disk space, but shell can't handle infinite arguments.
    echo "rdf2nt.sh --version 2 `find $cockpit/source` | gzip 2> $cockpit/publish/rdf2nt-errors.log LT $cockpit/publish/$dumpFileLocal"
-   if [ "$dryRun" != "true" ]; then
+   if [ "$dryrun" != "true" ]; then
       rdf2nt.sh --version 2 `find $cockpit/source` | gzip 2> $cockpit/publish/rdf2nt-errors.log > $cockpit/publish/$dumpFileLocal
    fi
 else
    # Handles infinite source/* files, but uses disk space.
    for datadump in `find $cockpit/source`; do
       echo "rdf2nt.sh --version 2 $datadump APPEND $cockpit/publish/$dumpFileLocal.tmp"
-      if [ "$dryRun" != "true" ]; then
+      if [ "$dryrun" != "true" ]; then
          rdf2nt.sh --version 2 $datadump >> $cockpit/publish/$dumpFileLocal.tmp
       fi
    done
-   if [ "$dryRun" != "true" ]; then
+   if [ "$dryrun" != "true" ]; then
       cat $cockpit/publish/$dumpFileLocal.tmp | gzip > $cockpit/publish/$dumpFileLocal
       rm $cockpit/publish/$dumpFileLocal.tmp
    fi
