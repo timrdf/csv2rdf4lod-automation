@@ -21,6 +21,7 @@ if [[ "$1" == "--version" && $# -gt 1 ]]; then
    shift 2
 fi
 
+total=$#
 while [ $# -gt 0 ]; do
    file="$1" 
 
@@ -28,7 +29,7 @@ while [ $# -gt 0 ]; do
       continue
    fi
 
-   if [[ `gzipped.sh $file` == "yes" && `guess-syntax.sh $file mime` == "text/plan" ]]; then
+   if [[ $total -eq 1 && `gzipped.sh $file` == "yes" && `guess-syntax.sh $file mime` == "text/plan" ]]; then
       # Avoids dumping to an intermediate file.
       # e.g. 2.0 GB unzipped ntriples file can be done in 1.5 minutes (as opposed to 4.5 minutes).
       gunzip -c             $file | awk '$1 ~ /^<.*/ { print $1 } $3 ~ /^<.*/ { print $3 }'
