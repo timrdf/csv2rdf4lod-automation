@@ -93,6 +93,7 @@ if [ ! -d $cockpit/source ]; then
 fi
 rm -rf $cockpit/source/*
 
+echo "INFO `basename $0` grepping for ^#3>..."
 tics=`grep -Rl "^#3>" *`
 tally=1
 #valid=""
@@ -100,6 +101,7 @@ for tic in $tics; do
    echo $tic
    ext=${tic#*.}
    let "tally=tally+1"
+   echo "INFO `basename $0` processing tic $tally"
    ln     $tic   $cockpit/source/$tally.$ext
    tic.sh $tic > $cockpit/automatic/$tally.$ext.ttl
    #count=`void-triples.sh $cockpit/automatic/$tally$ext.ttl`
@@ -109,6 +111,7 @@ for tic in $tics; do
 done
 
 pushd $cockpit &> /dev/null
+   echo "INFO `basename $0`: aggregate-source-rdf.sh --link-as-latest automatic/*"
    aggregate-source-rdf.sh --link-as-latest automatic/* 
    # WARNING: ^^ publishes even with -n b/c it checks for CSV2RDF4LOD_PUBLISH_VIRTUOSO
 popd &> /dev/null
