@@ -73,7 +73,6 @@ done
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Collect source files into source/
 for datadump in `cr-list-versioned-dataset-dumps.sh --warn-if-missing`; do
-   # TODO: error: head: error reading `healthdata-tw-rpi-edu/cr-full-dump/version/latest/source': Is a directory
    echo ln $datadump $cockpit/source/
    if [ "$dryrun" != "true" ]; then
       ln $datadump $cockpit/source/
@@ -107,9 +106,10 @@ fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Pull out the RDF URI nodes from the full dump.
-uri-nodes.sh $cockpit/publish/$dumpFileLocal                                   > $cockpit/automatic/$sdv-uri-node-occurrences.txt
-cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt        | sort    > $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt
-cat          $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt | sort -u > $cockpit/automatic/$sdv-uri-nodes.txt
+uri-nodes.sh $cockpit/publish/$dumpFileLocal                              > $cockpit/automatic/$sdv-uri-node-occurrences.txt
+# no space left on device...
+# cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt | sort    > $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt
+cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt   | sort -u > $cockpit/automatic/$sdv-uri-nodes.txt
 
 echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                    > $cockpit/publish/$sdv-uri-nodes.ttl
 echo                                                                             >> $cockpit/publish/$sdv-uri-nodes.ttl
