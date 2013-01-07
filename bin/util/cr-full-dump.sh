@@ -60,10 +60,15 @@ if [ "$1" == "-n" ]; then
    shift
 fi
 
-if [ ! -d $cockpit/source ]; then
-   mkdir -p $cockpit/source
-fi
-rm -rf $cockpit/source/*
+for panel in source automatic publish; do
+   if [ ! -d $cockpit/$panel ]; then
+      mkdir -p $cockpit/$panel
+   fi
+   echo "rm -rf $cockpit/$panel/*"
+   if [ "$dryRun" != "true" ]; then
+      rm -rf $cockpit/$panel/*
+   fi
+done
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Collect source files into source/
@@ -76,26 +81,32 @@ for datadump in `cr-list-versioned-dataset-dumps.sh --warn-if-missing`; do
 done
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-if [ ! -d $cockpit/publish ]; then
-   mkdir -p $cockpit/publish
-fi
-rm -rf $cockpit/publish/*
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
 if [[ -n "`getconf ARG_MAX`" && \
      `find $cockpit/source | wc -l` -lt `getconf ARG_MAX` ]]; then
    # Saves disk space, but shell can't handle infinite arguments.
-   rdf2nt.sh --version 2 `find $cockpit/source` | gzip 2> $cockpit/publish/rdf2nt-errors.log > $cockpit/publish/$dumpFileLocal
+   echo "rdf2nt.sh --version 2 `find $cockpit/source` | gzip 2> $cockpit/publish/rdf2nt-errors.log LT $cockpit/publish/$dumpFileLocal"
+   if [ "$dryRun" != "true" ]; then
+      rdf2nt.sh --version 2 `find $cockpit/source` | gzip 2> $cockpit/publish/rdf2nt-errors.log > $cockpit/publish/$dumpFileLocal
+   fi
 else
    # Handles infinite source/* files, but uses disk space.
    for datadump in `find $cockpit/source`; do
-      rdf2nt.sh --version 2 $datadump >> $cockpit/publish/$dumpFileLocal.tmp
+      echo "rdf2nt.sh --version 2 $datadump APPEND $cockpit/publish/$dumpFileLocal.tmp"
+      if [ "$dryRun" != "true" ]; then
+         rdf2nt.sh --version 2 $datadump >> $cockpit/publish/$dumpFileLocal.tmp
+      fi
    done
-   cat $cockpit/publish/$dumpFileLocal.tmp | gzip > $cockpit/publish/$dumpFileLocal
-   rm $cockpit/publish/$dumpFileLocal.tmp
+   if [ "$dryRun" != "true" ]; then
+      cat $cockpit/publish/$dumpFileLocal.tmp | gzip > $cockpit/publish/$dumpFileLocal
+      rm $cockpit/publish/$dumpFileLocal.tmp
+   fi
 fi
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Pull out the RDF URI nodes from the full dump.
 uri-nodes.sh $cockpit/publish/$dumpFileLocal                                   > $cockpit/automatic/$sdv-uri-node-occurrences.txt
 cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt        | sort    > $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt
 cat          $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt | sort -u > $cockpit/automatic/$sdv-uri-nodes.txt
