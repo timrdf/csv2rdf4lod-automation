@@ -28,7 +28,14 @@ while [ $# -gt 0 ]; do
       continue
    fi
 
-   rdf2nt.sh --version 2 $file | awk '$1 ~ /^<.*/ { print $1 } $3 ~ /^<.*/ { print $3 }'
+   if [[ `gzipped.sh $file` == "yes" && `guess-syntax.sh $file mime` == "text/plan" ]]; then
+      # Avoids dumping to an intermediate file.
+      # e.g. 2.0 GB unzipped ntriples file can be done in 1.5 minutes (as opposed to 4.5 minutes).
+      gunzip -c             $file | awk '$1 ~ /^<.*/ { print $1 } $3 ~ /^<.*/ { print $3 }'
+   else
+      # Handles any syntax, compressed or not.
+      rdf2nt.sh --version 2 $file | awk '$1 ~ /^<.*/ { print $1 } $3 ~ /^<.*/ { print $3 }'
+   fi
 
    shift
 done

@@ -1,7 +1,8 @@
 #!/bin/bash
 #
 #3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-full-dump.sh>;
-#3>   prov:wasDerivedFrom <cr-publish-droid-to-endpoint.sh> .
+#3>    prov:wasDerivedFrom   <cr-publish-droid-to-endpoint.sh>;
+#3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/One-click-data-dump> .
 #
 # Gather all versioned dataset dump files into one enormous dump file.
 # This is highly redundant, but can be helpful for those that "just want the data"
@@ -82,9 +83,9 @@ rm -rf $cockpit/publish/*
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
 if [[ -n "`getconf ARG_MAX`" && \
-     `find $cockpit/source | wc -l` -lt `getconf ARG_MAX` ]]; then #if [ 'few-enough-files' == 'few-enough-files' ]; then
+     `find $cockpit/source | wc -l` -lt `getconf ARG_MAX` ]]; then
    # Saves disk space, but shell can't handle infinite arguments.
-   rdf2nt.sh --version 2 `find $cockpit/source` | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/publish/rdf2nt-errors.log
+   rdf2nt.sh --version 2 `find $cockpit/source` | gzip 2> $cockpit/publish/rdf2nt-errors.log > $cockpit/publish/$dumpFileLocal
 else
    # Handles infinite source/* files, but uses disk space.
    for datadump in `find $cockpit/source`; do
