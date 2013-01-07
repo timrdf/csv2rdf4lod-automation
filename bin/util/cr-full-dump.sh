@@ -31,7 +31,8 @@ datasetID=`basename $0 | sed 's/.sh$//'`
 versionID='latest' # Doing it every day is a waste of space for this use case. `date +%Y-%b-%d`
 
 cockpit="$sourceID/$datasetID/version/$versionID"
-dumpFileLocal=`echo $CSV2RDF4LOD_BASE_URI | perl -pi -e 's|http://||;s/\./-/g;s|/|-|g'`.nt.gz
+sdv=`echo $CSV2RDF4LOD_BASE_URI | perl -pi -e 's|http://||;s/\./-/g;s|/|-|g'`
+dumpFileLocal=$sdv.nt.gz
 
 if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n]"
@@ -94,6 +95,14 @@ else
    cat $cockpit/publish/$dumpFileLocal.tmp | gzip > $cockpit/publish/$dumpFileLocal
    rm $cockpit/publish/$dumpFileLocal.tmp
 fi
+
+uri-nodes.sh $cockpit/publish/$dumpFileLocal                                   > $cockpit/automatic/$sdv-uri-node-occurrences.txt
+cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt        | sort    > $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt
+cat          $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt | sort -u > $cockpit/automatic/$sdv-uri-nodes.txt
+
+echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                    > $cockpit/publish/$sdv-uri-nodes.ttl
+echo                                                                             >> $cockpit/publish/$sdv-uri-nodes.ttl
+cat $cockpit/automatic/$sdv-uri-nodes.txt | awk '{print $1,"a rdfs:Resource ."}' >> $cockpit/publish/$sdv-uri-nodes.ttl
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 dryrun.sh $dryrun ending
