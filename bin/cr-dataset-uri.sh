@@ -21,7 +21,8 @@ if [[ "$1" == "--help" || "$1" == "-h" ]]; then
    exit 1
 fi
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:dataset cr:directory-of-versions cr:conversion-cockpit"
@@ -38,7 +39,8 @@ a1=""  # Angle
 a2=""  # Angle
 end="" # Period
 
-CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 sourceID=`cr-source-id.sh`
 datasetID=`cr-dataset-id.sh`
@@ -69,6 +71,10 @@ base_uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
 
 echo $prefixDef
 echo
+if [[ "$1" == 'void' || "$1" == "--void" ]]; then
+   # See https://github.com/jimmccusker/twc-healthdata/wiki/Using-VoID-for-Accessibility
+   echo "<$CSV2RDF4LOD_BASE_URI/void> void:subset <$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID> ."
+fi
 echo "$a1$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID$a2"
 echo "    $isabstract"
 echo "    ${prefix}base_uri              ${q1}$base_uri${q2}"
@@ -77,6 +83,10 @@ echo "    ${prefix}dataset_identifier    ${q1}$datasetID${q2}"
 echo $end
 echo
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]; then
+   if [[ "$1" == 'void' || "$1" == "--void" ]]; then
+      # See https://github.com/jimmccusker/twc-healthdata/wiki/Using-VoID-for-Accessibility
+      echo "<$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID> void:subset <$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID> ."
+   fi
    echo "$a1$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID$a2"
    echo "    $isversioned"
    echo "    ${prefix}base_uri              ${q1}$base_uri${q2}"
