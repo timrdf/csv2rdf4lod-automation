@@ -34,7 +34,7 @@ while [ $# -gt 0 ]; do
       # e.g. 2.0 GB unzipped ntriples file can be done in 1.5 minutes (as opposed to 4.5 minutes).
       gunzip -c             $file | awk '$1 ~ /^<.*/ { print $1 } $3 ~ /^<.*/ { print $3 }'
    else
-      echo $total `gzipped.sh $file` `guess-syntax.sh $file mime` >&2
+      echo ".${total}. .`gzipped.sh $file`. .`guess-syntax.sh $file mime`." >&2
       # Handles any syntax, compressed or not.
       rdf2nt.sh --version 2 $file | awk '$1 ~ /^<.*/ { print $1 } $3 ~ /^<.*/ { print $3 }'
    fi
