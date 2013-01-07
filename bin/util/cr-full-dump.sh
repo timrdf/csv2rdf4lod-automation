@@ -60,7 +60,7 @@ if [ "$1" == "-n" ]; then
    shift
 fi
 
-for panel in source automatic publish; do
+for panel in 'source' 'automatic' 'publish'; do
    if [ ! -d $cockpit/$panel ]; then
       mkdir -p $cockpit/$panel
    fi
