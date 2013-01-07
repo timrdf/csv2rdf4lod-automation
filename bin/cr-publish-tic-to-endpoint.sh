@@ -94,7 +94,9 @@ fi
 rm -rf $cockpit/source/*
 
 echo "INFO `basename $0` grepping for ^#3>..."
-tics=`grep -Rl "^#3>" *`
+
+
+tics=`grep -Rl "^#3>" *` # <---- TODO: This takes forever; use heuristic to grep first 100 lines (and if none, move on).
 tally=1
 #valid=""
 for tic in $tics; do
