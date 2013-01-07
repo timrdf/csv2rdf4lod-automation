@@ -66,6 +66,7 @@ rm -rf $cockpit/source/*
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Collect source files into source/
 for datadump in `cr-list-versioned-dataset-dumps.sh --warn-if-missing`; do
+   # TODO: error: head: error reading `healthdata-tw-rpi-edu/cr-full-dump/version/latest/source': Is a directory
    echo ln $datadump $cockpit/source/
    if [ "$dryRun" != "true" ]; then
       ln $datadump $cockpit/source/
