@@ -106,7 +106,9 @@ fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Pull out the RDF URI nodes from the full dump.
-uri-nodes.sh $cockpit/publish/$dumpFileLocal                              > $cockpit/automatic/$sdv-uri-node-occurrences.txt
+if [ "$dryrun" != "true" ]; then
+   uri-nodes.sh $cockpit/publish/$dumpFileLocal                              > $cockpit/automatic/$sdv-uri-node-occurrences.txt
+fi
 # no space left on device...
 # cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt | sort    > $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt
 cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt   | sort -u > $cockpit/automatic/$sdv-uri-nodes.txt
