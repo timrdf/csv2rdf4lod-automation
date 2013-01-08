@@ -24,12 +24,30 @@ fi
 see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
+see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
+
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:dataset cr:directory-of-versions cr:conversion-cockpit"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
 fi
+
+sourceID=`cr-source-id.sh`
+datasetID=`cr-dataset-id.sh`
+versionID=`cr-version-id.sh`
+
+if [[ "$1" == "uri" || "$1" == "--uri" ]]; then
+   if [[ "`cr-pwd-type.sh`" == "cr:dataset" || "`cr-pwd-type.sh`" == "cr:directory-of-versions" ]]; then
+      echo $CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID
+   else
+      echo $CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID
+   fi
+   exit 0
+fi
+
+base_uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
 
 prefix=""
 q1=""  # Quote
@@ -38,16 +56,10 @@ a1=""  # Angle
 a2=""  # Angle
 end="" # Period
 
-see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
-CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
-
-sourceID=`cr-source-id.sh`
-datasetID=`cr-dataset-id.sh`
-versionID=`cr-version-id.sh`
-
 if [[ "$1" == 'void' || "$1" == "--void" ]]; then
    echo "@prefix void:       <http://rdfs.org/ns/void#> ."
    echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
+
    isabstract="a conversion:AbstractDataset, void:Dataset;"
    if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]; then
       isversioned="a conversion:VersionedDataset, void:Dataset;"
@@ -59,15 +71,7 @@ if [[ "$1" == 'void' || "$1" == "--void" ]]; then
    q1="\""
    q2="\";"
    end="."
-elif [[ "$1" == "uri" || "$1" == "--uri" ]]; then
-   if [[ "`cr-pwd-type.sh`" == "cr:dataset" || "`cr-pwd-type.sh`" == "cr:directory-of-versions" ]]; then
-      echo $CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID
-   else
-      echo $CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID
-   fi
-   exit 0
 fi
-base_uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
 
 if [[ "$1" == 'void' || "$1" == "--void" ]]; then
    # See https://github.com/jimmccusker/twc-healthdata/wiki/Using-VoID-for-Accessibility
