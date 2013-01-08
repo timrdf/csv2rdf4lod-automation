@@ -17,7 +17,7 @@ see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lo
 
 if [[ $# -eq 0 || "$1" == "--help" ]]; then
    echo
-   echo "usage: `basename $0` [--version <version>] <some.rdf>*"
+   echo "usage: `basename $0` [--version <version>] [--verbose] <some.rdf>*"
    echo "  output to stderr the N-TRIPLES union of all rdf files given as arguments"
    echo
    echo "  --version <version> : use technique identified by <version>; can be omitted to use original technique."
@@ -29,6 +29,8 @@ if [[ $# -eq 0 || "$1" == "--help" ]]; then
    echo "                      | uncompress any gzipped files"
    echo "                      | use serdi to prepend bnodes with prefixes (for all input formats)"
    echo "                      | use rapper for rdf/xml ONLY; use serdi directly for ntriples and turtle"
+   echo
+   echo "  --verbose           | print more."
    exit
 fi
 
@@ -36,6 +38,12 @@ version=''
 if [[ "$1" == "--version" && $# -gt 1 ]]; then
    version="$2"
    shift 2
+fi
+
+verbose='no'
+if [[ "$1" == "--verbose" ]]; then
+   verbose='yes'
+   shift
 fi
 
 while [ $# -gt 0 ]; do
@@ -91,7 +99,9 @@ while [ $# -gt 0 ]; do
          # Need to use rapper to decompose into N-TRIPLES.
          # Need to use serdi to prepend bnodes with a unique prefix.
          if [[ `which rapper` && `which serdi` ]]; then
-            echo "rapper -q -i rdfxml -o ntriples $file | serdi -i ntriples -o ntriples -p $md5 - (from $origFile)" >&2
+            if [ "$verbose" == "yes" ]; then
+               echo "rapper -q -i rdfxml -o ntriples $file | serdi -i ntriples -o ntriples -p $md5 - (from $origFile)" >&2
+            fi
             rapper -q -i rdfxml -o ntriples $file | serdi -i ntriples -o ntriples -p $md5 -
          elif [[ ! `which rapper` ]]; then
             echo "ERROR: `basename $0` requires rapper. See $see"
@@ -104,7 +114,9 @@ while [ $# -gt 0 ]; do
       elif [ "$serialization" == "text/plain" ]; then
          # Need to use serdi to prepend bnodes with a unique prefix.
          if [[ `which serdi` ]]; then
-            echo "serdi -i ntriples -o ntriples -p $md5 $file (from $origFile)" >&2
+            if [ "$verbose" == "yes" ]; then
+               echo "serdi -i ntriples -o ntriples -p $md5 $file (from $origFile)" >&2
+            fi
             serdi -i ntriples -o ntriples -p $md5 $file
          else
             echo "ERROR: `basename $0` requires serdi. See $see"
@@ -112,7 +124,9 @@ while [ $# -gt 0 ]; do
       elif [ "$serialization" == "text/turtle" ]; then
          # Need to use serdi to prepend bnodes with a unique prefix.
          if [[ `which serdi` ]]; then
-            echo "serdi -i turtle -o ntriples -p $md5 $file (from $origFile)" >&2
+            if [ "$verbose" == "yes" ]; then
+               echo "serdi -i turtle -o ntriples -p $md5 $file (from $origFile)" >&2
+            fi
             serdi -i turtle -o ntriples -p $md5 $file
          else
             echo "ERROR: `basename $0` requires serdi. See $see"
