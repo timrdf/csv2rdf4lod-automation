@@ -13,10 +13,22 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
+# 
+# Environment variables used:
+#
+#    CSV2RDF4LOD_PUBLISH_TTL                                  
+#    CSV2RDF4LOD_PUBLISH_NT                                   
+#    CSV2RDF4LOD_PUBLISH_RDFXML                               
+#
+#    CSV2RDF4LOD_PUBLISH_COMPRESS                             
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [--link-as-latest] source/some.{rdf,ttl,nt}"
+   echo "usage: `basename $0` [--compress] [--turtle] [--ntriples] [--rdfxml] [--link-as-latest] source/some.{rdf,ttl,nt}"
    echo "  will create publish/*.ttl and publish/bin"
+   echo "  --compress : gzip    publish/*"
+   echo "  --turtle   : include publish/*.ttl"
+   echo "  --ntriples : include publish/*.nt"
+   echo "  --rdfxml   : include publish/*.rdf"
    echo "  --link-as-latest: create (or reconfigure) version identifier 'latest' to reference this current version."
    exit 1
 fi
@@ -26,6 +38,30 @@ ACCEPTABLE_PWDs="cr:conversion-cockpit"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh --script `basename $0` $ACCEPTABLE_PWDs
    exit 1
+fi
+
+compress="no"
+if [ "$1" == "--compress" ]; then
+   compress="yes"
+   shift
+fi
+
+turtle="no"
+if [ "$1" == "--turtle" ]; then
+   turtle="yes"
+   shift
+fi
+
+ntriples="no"
+if [ "$1" == "--ntriples" ]; then
+   ntriples="yes"
+   shift
+fi
+
+rdfxml="no"
+if [ "$1" == "--rdfxml" ]; then
+   rdfxml="yes"
+   shift
 fi
 
 link_latest="no"
@@ -48,18 +84,46 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    sd=$sourceID-$datasetID
    sdv=$sourceID-$datasetID-$versionID
 
-   echo "publish/$sdv.nt"
-   rdf2nt.sh $*                                       > publish/$sdv.nt
-   if [ "$CSV2RDF4LOD_PUBLISH_TTL" == "true" ]; then
-      # TODO: going to Turtle from Ntriples reduces readability.
-      echo "publish/$sdv.ttl"
-      if [ `which serdi` ]; then
-         serdi  -i ntriples -o turtle publish/$sdv.nt > publish/$sdv.ttl
-      elif [ `which rapper` ]; then
-         rapper -i ntriples -o turtle publish/$sdv.nt > publish/$sdv.ttl # TODO: bin/util/bigttl2nt.sh ?
+
+   # $* is the list of RDF files that should be aggregated into publish/
+
+   #    CSV2RDF4LOD_PUBLISH_TTL                                  
+   #    CSV2RDF4LOD_PUBLISH_NT                                   
+   #    CSV2RDF4LOD_PUBLISH_RDFXML                               
+   #
+   #    CSV2RDF4LOD_PUBLISH_COMPRESS                             
+
+   if [[ "$CSV2RDF4LOD_PUBLISH_NT" == "true" || "$ntriples" == "true" ]]; then
+      if [[ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" || "$compress" == "true" ]]; then
+         echo "publish/$sdv.nt.gz"
+         rdf2nt.sh $* | gzip                             > publish/$sdv.nt.gz
+      else
+         echo "publish/$sdv.nt"
+         rdf2nt.sh $*                                    > publish/$sdv.nt
+      fi
+   else
+      echo "publish/$sdv.nt[.gz] - skipping; set CSV2RDF4LOD_PUBLISH_NT=true to publish as N-TRIPLES." 
+   fi
+
+   if [[ "$CSV2RDF4LOD_PUBLISH_TTL" == "true" || "$turtle" == "true" ]]; then
+      if [[ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" || "$compress" == "true" ]]; then
+         echo "publish/$sdv.ttl"
+         if [ `which serdi` ]; then      # TODO: going to Turtle from Ntriples reduces readability.
+            serdi  -i ntriples -o turtle publish/$sdv.nt > publish/$sdv.ttl
+         elif [ `which rapper` ]; then
+            rapper -i ntriples -o turtle publish/$sdv.nt > publish/$sdv.ttl # TODO: bin/util/bigttl2nt.sh ?
+         fi
+      else
+         echo "publish/$sdv.ttl.gz"
+         if [ `which serdi` ]; then      # TODO: going to Turtle from Ntriples reduces readability.
+            serdi  -i ntriples -o turtle publish/$sdv.nt | gzip > publish/$sdv.ttl.gz
+         elif [ `which rapper` ]; then
+            rapper -i ntriples -o turtle publish/$sdv.nt | gzip > publish/$sdv.ttl.gz # TODO: bin/util/bigttl2nt.sh ?
+         fi
       fi
    fi
-   # TODO: other serializations and compressing
+
+   # TODO: RDF/XML + compressed RDF/XML
 
    echo "publish/$sdv.sd_name"
    cr-dataset-uri.sh --uri                            > publish/$sdv.sd_name
