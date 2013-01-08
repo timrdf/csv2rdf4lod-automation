@@ -28,14 +28,29 @@
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo
-   echo "usage: `basename $0` [--inspect] url-of.rdf [{mime,rapper,jena,extension}]"
-   echo "  --inspect: look at the local file and guess (if not specified, guesses based on the file name)."
+   echo "usage: `basename $0` [--tell <tool> <mimetype>] [--inspect] url-of.rdf [{mime,rapper,jena,extension}]"
+   echo "  --tell <tool> <mimetype> : return the token that the given <tool> uses for the given <mimetype>."
+   echo "  --inspect                : look at the local file and guess (if not specified, guesses based on the file name)."
    echo
    exit 1
 fi
 
+if [ "$1" == "--tell" ]; then
+   tool="$2"
+   mime="$3" 
+   if [ "$tool" == "serdi" ]; then
+      if [ "$mime" == "text/turtle" ]; then
+         echo turtle
+      elif [ "$mime" == "text/plain" ]; then
+         echo ntriples
+      fi
+   fi
+   # TODO: rapper, jena, extension
+   exit
+fi
+
 inspect="false"
-if [ $1 == "--inspect" ]; then
+if [ "$1" == "--inspect" ]; then
    inspect="true"
    shift
 fi
@@ -64,6 +79,8 @@ fi
 if [ $inspect == "true" ]; then
    if [[ ! -f $url ]]; then
       guess="$guess"
+   elif [[ `gzipped.sh $url` == "yes" ]]; then
+      guess="-g"
    elif [[ `head -10 $url | awk '$0 ~ /.*<html>.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
       guess="-g"
    elif [[ `head -1000 $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
