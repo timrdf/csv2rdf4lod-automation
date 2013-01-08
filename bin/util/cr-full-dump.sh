@@ -148,11 +148,10 @@ fi
    sourceID=`cr-source-id.sh`
    datasetID=`cr-dataset-id.sh`
    versionID=`cr-version-id.sh`
-   sdv=`cr-sdv.sh`
-   echo "$cockpit/publish/$sdv.void.ttl"
-   echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/publish/$sdv.void.ttl
-   echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/publish/$sdv.void.ttl
-   echo "<$topVoID> void:dataDump     <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal> ." >> $cockpit/publish/$sdv.void.ttl
+   echo "$cockpit/publish/$base.void.ttl"
+   echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/publish/$base.void.ttl
+   echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/publish/$base.void.ttl
+   echo "<$topVoID> void:dataDump     <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal> ." >> $cockpit/publish/$base.void.ttl
 
    #      __________________________""""""""_____________________""""""____________"""""""""______""""""""""""_________________________
    # e.g. http://purl.org/twc/health/source/healthdata-tw-rpi-edu/file/cr-full-dump/version/latest/conversion/purl-org-twc-health.nt.gz
@@ -178,6 +177,7 @@ fi
 
    echo "${wd}$cockpit/publish/$dumpFileLocal"
    $sudo rm -f $CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal
+   echo $sudo ln $symbolic "${wd}$cockpit/publish/$dumpFileLocal" "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal"
    $sudo ln $symbolic "${wd}$cockpit/publish/$dumpFileLocal" "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal"
 #fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
