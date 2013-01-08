@@ -36,7 +36,7 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
-if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
+if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
    if [ ! -d publish/bin ]; then
       mkdir -p publish/bin
@@ -51,6 +51,7 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "publish/$sdv.nt"
    rdf2nt.sh $*                                       > publish/$sdv.nt
    if [ "$CSV2RDF4LOD_PUBLISH_TTL" == "true" ]; then
+      # TODO: going to Turtle from Ntriples eliminates the readability that csv2rdf4lod worked hard to make.
       echo "publish/$sdv.ttl"
       if [ `which serdi` ]; then
          serdi  -i ntriples -o turtle publish/$sdv.nt > publish/$sdv.ttl
@@ -210,8 +211,8 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    done
    echo "   exit 1"                                                                                                            >> $vloadSH
    echo "elif [[ \"\$1\" == \"--meta\" && -e '$allVOID' ]]; then"                                                              >> $vloadSH
-   echo "   metaURL=\"\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sdv}.void.ttl\"" >> $vloadSH
-   echo "   metaGraph=\"\$base\"/vocab/Dataset"                             >> $vloadSH
+   echo "   metaURL=\"\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sdv}.void.ttl\""           >> $vloadSH
+   echo "   metaGraph=\"\$base\"/vocab/Dataset"                                                                                >> $vloadSH
    #echo "   #echo sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                                      >> $vloadSH
    #echo "   #sudo /opt/virtuoso/scripts/vload ttl $allVOID \$graph"                                                           >> $vloadSH
    echo "   echo pvload.sh \$metaURL -ng \$metaGraph"                                                                          >> $vloadSH
@@ -223,10 +224,10 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "if [[ \"\$1\" == \"--unversioned\" || \"\$1\" == \"--abstract\" ]]; then"                                             >> $vloadSH
    echo "   # strip off version"                                                                                               >> $vloadSH
    echo "   graph=\"\`echo \$graph\ | perl -pe 's|/version/[^/]*$||'\`\""                                                      >> $vloadSH
-   echo "   graph=\"\$base/source/${sourceID}/dataset/${datasetID}\""       >> $vloadSH
+   echo "   graph=\"\$base/source/${sourceID}/dataset/${datasetID}\""                                                          >> $vloadSH
    echo "   echo populating abstract named graph \(\$graph\) instead of versioned named graph."                                >> $vloadSH
    echo "elif [[ \"\$1\" == \"--meta\" ]]; then"                                                                               >> $vloadSH
-   echo "   metaGraph=\"\$base\"/vocab/Dataset"                             >> $vloadSH
+   echo "   metaGraph=\"\$base\"/vocab/Dataset"                                                                                >> $vloadSH
    echo "elif [[ \"\$1\" == \"--as-metadataset\" ]]; then"                                                                     >> $vloadSH
    echo "   graph=\"\${CSV2RDF4LOD_PUBLISH_METADATASET_GRAPH_NAME:-'http://purl.org/twc/vocab/conversion/MetaDataset'}\""      >> $vloadSH
    echo "   metaGraph=\"\$graph\""                                                                                             >> $vloadSH
@@ -238,7 +239,7 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "fi"                                                                                                                   >> $vloadSH
    echo ""                                                                                                                     >> $vloadSH
    echo "# Load the metadata, either in the same named graph as the data or into a more global one."                           >> $vloadSH
-   echo "metaURL=\"\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sdv}.void.ttl\"" >> $vloadSH
+   echo "metaURL=\"\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sdv}.void.ttl\""              >> $vloadSH
    echo "echo pvload.sh \$metaURL -ng \$metaGraph"                                                                             >> $vloadSH
    echo "\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                                    >> $vloadSH
    echo "if [[ \"\$1\" == \"--meta\" ]]; then"                                                                                 >> $vloadSH
