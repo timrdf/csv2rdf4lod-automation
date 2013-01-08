@@ -85,7 +85,8 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
    plan='https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/aggregate-source-rdf.sh'
    homepage='https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/aggregate-source-rdf.sh'
-   lnwww=publish/bin/ln-to-www-root-$sdv.sh # Note: This was originally done by bin/convert-aggregate.sh
+   lnwww=publish/bin/ln-to-www-root-$sdv.sh # Note: This was originally done by bin/convert-aggregate.sh (deprecate it)
+                                            # Note: This has since be done in bin/util/cr-full-dump.sh (keep them aligned)
    echo "#!/bin/bash"                                                                                               > $lnwww
    echo "#"                                                                                                        >> $lnwww
    echo "# run from `pwd | sed 's/^.*source/source/'`/"                                                            >> $lnwww

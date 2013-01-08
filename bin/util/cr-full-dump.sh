@@ -17,6 +17,9 @@ CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID=${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:?"not set;
 see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets"
 CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; see $see"}
 
+see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets"
+CSV2RDF4LOD_PUBLISH_VARWWW_ROOT=${CSV2RDF4LOD_PUBLISH_VARWWW_ROOT:?"not set; see $see"}
+
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:data-root"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
@@ -31,8 +34,8 @@ datasetID=`basename $0 | sed 's/.sh$//'`
 versionID='latest' # Doing it every day is a waste of space for this use case. `date +%Y-%b-%d`
 
 cockpit="$sourceID/$datasetID/version/$versionID"
-sdv=`echo $CSV2RDF4LOD_BASE_URI | perl -pi -e 's|http://||;s/\./-/g;s|/|-|g'`
-dumpFileLocal=$sdv.nt.gz
+base=`echo $CSV2RDF4LOD_BASE_URI | perl -pi -e 's|http://||;s/\./-/g;s|/|-|g'`
+dumpFileLocal=$base.nt.gz
 
 if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n]"
@@ -107,26 +110,76 @@ fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Pull out the RDF URI nodes from the full dump.
-echo $cockpit/automatic/$sdv-uri-node-occurrences.txt
+echo $cockpit/automatic/$base-uri-node-occurrences.txt
 if [ "$dryrun" != "true" ]; then
-   uri-nodes.sh $cockpit/publish/$dumpFileLocal                              > $cockpit/automatic/$sdv-uri-node-occurrences.txt
+   uri-nodes.sh $cockpit/publish/$dumpFileLocal                                       > $cockpit/automatic/$base-uri-node-occurrences.txt
 fi
 
 # no space left on device...
-# echo $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt
-# cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt | sort    > $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt
+# echo $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
+# cat          $cockpit/automatic/$base-uri-node-occurrences.txt | sort    > $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
 
-echo $cockpit/automatic/$sdv-uri-nodes.txt
+echo $cockpit/automatic/$base-uri-nodes.txt
 if [ "$dryrun" != "true" ]; then
-   cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt   | sort -u > $cockpit/automatic/$sdv-uri-nodes.txt
+   cat          $cockpit/automatic/$base-uri-node-occurrences.txt | sort -u           > $cockpit/automatic/$base-uri-nodes.txt
 fi
 
-echo $cockpit/publish/$sdv-uri-nodes.ttl
+echo $cockpit/publish/$base-uri-nodes.ttl
 if [ "$dryrun" != "true" ]; then
-   echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                    > $cockpit/automatic/$sdv-uri-nodes.ttl
-   echo                                                                             >> $cockpit/automatic/$sdv-uri-nodes.ttl
-   cat $cockpit/automatic/$sdv-uri-nodes.txt | awk '{print $1,"a rdfs:Resource ."}' >> $cockpit/automatic/$sdv-uri-nodes.ttl
+   echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                     > $cockpit/automatic/$base-uri-nodes.ttl
+   echo                                                                              >> $cockpit/automatic/$base-uri-nodes.ttl
+   cat $cockpit/automatic/$base-uri-nodes.txt | awk '{print $1,"a rdfs:Resource ."}' >> $cockpit/automatic/$base-uri-nodes.ttl
 fi
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#if [ "$dryrun" != "true" ]; then
+   pushd $cockpit &> /dev/null
+      aggregate-source-rdf.sh automatic/$base-uri-nodes.ttl
+   popd &> /dev/null
+
+   # Sneak the top-level VoID into the void file.
+   # This will not be published by aggregate-source-rdf.sh, but 
+   # will get picked up by cr-publish-void-to-endpoint.sh during cron.
+   #
+   baseURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}"
+   topVoID="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"
+   sourceID=`cr-source-id.sh`
+   datasetID=`cr-dataset-id.sh`
+   versionID=`cr-version-id.sh`
+   sdv=`cr-sdv.sh`
+   echo "$cockpit/publish/$sdv.void.ttl"
+   echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/publish/$sdv.void.ttl
+   echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/publish/$sdv.void.ttl
+   echo "<$topVoID> void:dataDump     <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal> ." >> $cockpit/publish/$sdv.void.ttl
+
+   #      __________________________""""""""_____________________""""""____________"""""""""______""""""""""""_________________________
+   # e.g. http://purl.org/twc/health/source/healthdata-tw-rpi-edu/file/cr-full-dump/version/latest/conversion/purl-org-twc-health.nt.gz
+   #
+   #      hosted at:
+   #                        _________"""""""_____________________""""""____________"""""""""______""""""""""""_________________________
+   #                        /var/www/source/healthdata-tw-rpi-edu/file/cr-full-dump/version/latest/conversion/purl-org-twc-health.nt.gz
+
+   # NOTE: this is repeated from bin/aggregate-source-rdf.sh - be sure to align with it.
+   sudo="sudo"
+   if [[ `whoami` == root ]]; then
+      sudo=""
+   elif [[ "`stat --format=%U "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT"`" == `whoami` ]]; then
+      sudo=""
+   fi
+
+   symbolic=""
+   wd=""
+   if [[ "$CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE" == "soft" ]]; then
+     symbolic="-sf "
+     wd=`pwd`/
+   fi
+
+   echo "${wd}$cockpit/publish/$dumpFileLocal"
+   $sudo rm -f $CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal
+   $sudo ln $symbolic "${wd}$cockpit/publish/$dumpFileLocal" "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal"
+#fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 dryrun.sh $dryrun ending
