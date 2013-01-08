@@ -217,11 +217,9 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "   fi"                                                                                                    >> $lnwww
    echo "}"                                                                                                        >> $lnwww
    echo ""                                                                                                         >> $lnwww
-   for file in $*; do
-      echo "lnwww $file"                                                                                           >> $lnwww
+   for file in `find publish -maxdepth 1 -type f -not -name "*sd_name"`; do
+      echo "lnwww $file publish"                                                                                   >> $lnwww
    done
-   echo "lnwww publish/$sdv.nt$gz    publish"                                                                      >> $lnwww
-   echo "lnwww publish/$sdv.void.ttl publish"                                                                      >> $lnwww
    chmod +x $lnwww
 
    #echo "publish/bin/virtuoso-load.sh"
@@ -342,11 +340,8 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "   fi"                                                                                                                >> $vloadSH
    echo "}"                                                                                                                    >> $vloadSH
    echo ""                                                                                                                     >> $vloadSH
-   echo "try .nt.gz"                                                                                                           >> $vloadSH
    echo "try .nt"                                                                                                              >> $vloadSH
-   echo "try .ttl.gz"                                                                                                          >> $vloadSH
    echo "try .ttl"                                                                                                             >> $vloadSH
-   echo "try .rdf.gz"                                                                                                          >> $vloadSH
    echo "try .rdf"                                                                                                             >> $vloadSH
    echo ""                                                                                                                     >> $vloadSH
    echo "#3> <> prov:wasAttributedTo <${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/csv2rdf4lod/$myMD5> ."        >> $vloadSH
