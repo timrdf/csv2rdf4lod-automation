@@ -153,9 +153,15 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       fi
       ln -s `cr-conversion-root.sh`/$sourceID/$datasetID/version/$versionID `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest
       # hard link to rename the dump file.
-      ln    `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.nt$gz  `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.nt$gz
-      ln    `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.ttl$gz `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl$gz
-      ln    `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.rdf$gz `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz
+      if [[ "$CSV2RDF4LOD_PUBLISH_NT" == "true" || "$ntriples" == "true" ]]; then
+         ln `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.nt$gz  `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.nt$gz
+      fi
+      if [[ "$CSV2RDF4LOD_PUBLISH_TTL" == "true" || "$turtle" == "true" ]]; then
+         ln `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.ttl$gz `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl$gz
+      fi
+      if [[ "$CSV2RDF4LOD_PUBLISH_RDFXML" == "true" || "$rdfxml" == "true" ]]; then
+         ln `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.rdf$gz `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz
+      fi
    fi
 
    plan='https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/aggregate-source-rdf.sh'
