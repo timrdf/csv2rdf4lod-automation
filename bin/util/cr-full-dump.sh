@@ -134,6 +134,8 @@ echo $cockpit/automatic/$base-uri-nodes.ttl
    pushd $cockpit &> /dev/null
       versionedDataset=`cr-dataset-uri.sh --uri`
    popd &> /dev/null
+   baseURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}"
+   topVoID="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"
    cat $cockpit/automatic/$base-uri-nodes.txt | awk -v dataset=$versionedDataset '{print $1,"void:inDataset <"dataset"> ."}'      >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/automatic/$base-uri-nodes.ttl
@@ -156,8 +158,6 @@ echo $cockpit/automatic/$base-uri-nodes.ttl
    # This will not be published by aggregate-source-rdf.sh, but 
    # will get picked up by cr-publish-void-to-endpoint.sh during cron.
    #
-   baseURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}"
-   topVoID="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"
    echo "$cockpit/publish/$base.void.ttl"
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/publish/$base.void.ttl
    echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/publish/$base.void.ttl
