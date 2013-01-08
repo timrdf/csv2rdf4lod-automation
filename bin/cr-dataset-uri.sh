@@ -31,7 +31,6 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
-prefixDef=""
 prefix=""
 q1=""  # Quote
 q2=""  # Quote
@@ -47,12 +46,13 @@ datasetID=`cr-dataset-id.sh`
 versionID=`cr-version-id.sh`
 
 if [[ "$1" == 'void' || "$1" == "--void" ]]; then
-   prefixDef="@prefix void:       <http://rdfs.org/ns/void#> ."
-   prefixDef="$prefixDef @prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
+   echo "@prefix void:       <http://rdfs.org/ns/void#> ."
+   echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."
    isabstract="a conversion:AbstractDataset, void:Dataset;"
    if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]; then
       isversioned="a conversion:VersionedDataset, void:Dataset;"
    fi
+   echo
    prefix="conversion:"
    a1="<"
    a2=">"
@@ -69,8 +69,6 @@ elif [[ "$1" == "uri" || "$1" == "--uri" ]]; then
 fi
 base_uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
 
-echo $prefixDef
-echo
 if [[ "$1" == 'void' || "$1" == "--void" ]]; then
    # See https://github.com/jimmccusker/twc-healthdata/wiki/Using-VoID-for-Accessibility
    echo "<$CSV2RDF4LOD_BASE_URI/void> void:subset <$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID> ."
