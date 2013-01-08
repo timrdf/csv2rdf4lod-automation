@@ -89,7 +89,7 @@ if [[ -n "`getconf ARG_MAX`" && \
      `find $cockpit/source -name "*.*" | wc -l` -lt `getconf ARG_MAX` ]]; then
    # Saves disk space, but shell can't handle infinite arguments.
    if [ "$dryrun" != "true" ]; then
-      rdf2nt.sh --version 2 `find $cockpit/source` 2> $cockpit/publish/rdf2nt-errors.log | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/publish/gzip-errors.log
+      rdf2nt.sh --version 2 `find $cockpit/source` 2> $cockpit/doc/logs/rdf2nt-errors.log | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/doc/logs/gzip-errors.log
    fi
 else
    # Handles infinite source/* files, but uses disk space.
@@ -123,9 +123,9 @@ fi
 
 echo $cockpit/publish/$sdv-uri-nodes.ttl
 if [ "$dryrun" != "true" ]; then
-   echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                    > $cockpit/publish/$sdv-uri-nodes.ttl
-   echo                                                                             >> $cockpit/publish/$sdv-uri-nodes.ttl
-   cat $cockpit/automatic/$sdv-uri-nodes.txt | awk '{print $1,"a rdfs:Resource ."}' >> $cockpit/publish/$sdv-uri-nodes.ttl
+   echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                    > $cockpit/automatic/$sdv-uri-nodes.ttl
+   echo                                                                             >> $cockpit/automatic/$sdv-uri-nodes.ttl
+   cat $cockpit/automatic/$sdv-uri-nodes.txt | awk '{print $1,"a rdfs:Resource ."}' >> $cockpit/automatic/$sdv-uri-nodes.ttl
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
