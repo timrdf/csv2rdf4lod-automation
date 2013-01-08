@@ -125,7 +125,7 @@ if [ "$dryrun" != "true" ]; then
 fi
 
 echo $cockpit/automatic/$base-uri-nodes.ttl
-if [ "$dryrun" != "true" ]; then
+#if [ "$dryrun" != "true" ]; then
    echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                                                                  > $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                                                                           >> $cockpit/automatic/$base-uri-nodes.ttl
    pushd $cockpit &> /dev/null
@@ -135,7 +135,7 @@ if [ "$dryrun" != "true" ]; then
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:dataDump     <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal> ." >> $cockpit/automatic/$base-uri-nodes.ttl
-fi
+#fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
