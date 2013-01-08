@@ -87,7 +87,7 @@ fi
 if [[ -n "`getconf ARG_MAX`" && \
      `find $cockpit/source -name "*.*" | wc -l` -lt `getconf ARG_MAX` ]]; then
    # Saves disk space, but shell can't handle infinite arguments.
-   echo "rdf2nt.sh --version 2 `find $cockpit/source` | gzip 2> $cockpit/publish/rdf2nt-errors.log LT $cockpit/publish/$dumpFileLocal"
+   echo "rdf2nt.sh --version 2 'find $cockpit/source' | gzip 2> $cockpit/publish/rdf2nt-errors.log LT $cockpit/publish/$dumpFileLocal"
    #if [ "$dryrun" != "true" ]; then
       rdf2nt.sh --version 2 `find $cockpit/source` | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/publish/rdf2nt-errors.log
    #fi
@@ -108,11 +108,19 @@ fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Pull out the RDF URI nodes from the full dump.
+echo
+
+echo $cockpit/automatic/$sdv-uri-node-occurrences.txt
 uri-nodes.sh $cockpit/publish/$dumpFileLocal                              > $cockpit/automatic/$sdv-uri-node-occurrences.txt
+
 # no space left on device...
+# echo $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt
 # cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt | sort    > $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt
+
+echo $cockpit/automatic/$sdv-uri-nodes.txt
 cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt   | sort -u > $cockpit/automatic/$sdv-uri-nodes.txt
 
+echo $cockpit/publish/$sdv-uri-nodes.ttl
 echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                    > $cockpit/publish/$sdv-uri-nodes.ttl
 echo                                                                             >> $cockpit/publish/$sdv-uri-nodes.ttl
 cat $cockpit/automatic/$sdv-uri-nodes.txt | awk '{print $1,"a rdfs:Resource ."}' >> $cockpit/publish/$sdv-uri-nodes.ttl
