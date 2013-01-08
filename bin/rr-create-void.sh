@@ -59,7 +59,7 @@ if [ ${#file} -gt 0 ]; then
    if [ -e $file ]; then
       date=`modifiedXSDDateTime.sh $file -o`
       if [ ${#date} -gt 0 ]; then
-         echo "$versionedDataset dcterms:modified $date ."                         >> $TEMP
+         echo "<$versionedDataset> dcterms:modified $date ."                       >> $TEMP
       fi
    fi
 fi

@@ -51,7 +51,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "publish/$sdv.nt"
    rdf2nt.sh $*                                       > publish/$sdv.nt
    if [ "$CSV2RDF4LOD_PUBLISH_TTL" == "true" ]; then
-      # TODO: going to Turtle from Ntriples eliminates the readability that csv2rdf4lod worked hard to make.
+      # TODO: going to Turtle from Ntriples reduces readability.
       echo "publish/$sdv.ttl"
       if [ `which serdi` ]; then
          serdi  -i ntriples -o turtle publish/$sdv.nt > publish/$sdv.ttl
