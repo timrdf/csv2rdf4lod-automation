@@ -124,7 +124,7 @@ if [ "$dryrun" != "true" ]; then
    cat          $cockpit/automatic/$base-uri-node-occurrences.txt | sort -u           > $cockpit/automatic/$base-uri-nodes.txt
 fi
 
-echo $cockpit/publish/$base-uri-nodes.ttl
+echo $cockpit/automatic/$base-uri-nodes.ttl
 if [ "$dryrun" != "true" ]; then
    echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                     > $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                              >> $cockpit/automatic/$base-uri-nodes.ttl
@@ -136,6 +136,7 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #if [ "$dryrun" != "true" ]; then
    pushd $cockpit &> /dev/null
+      cr-pwd.sh
       aggregate-source-rdf.sh automatic/$base-uri-nodes.ttl
    popd &> /dev/null
 
