@@ -171,6 +171,7 @@ echo $cockpit/automatic/$base-uri-nodes.ttl
    #                        /var/www/source/healthdata-tw-rpi-edu/file/cr-full-dump/version/latest/conversion/purl-org-twc-health.nt.gz
 
    # NOTE: this is repeated from bin/aggregate-source-rdf.sh - be sure to align with it.
+   # (update: This might have been superceded by bin/aggregate-source-rdf.sh, check!)
    sudo="sudo"
    if [[ `whoami` == root ]]; then
       sudo=""
