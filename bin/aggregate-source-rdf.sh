@@ -41,8 +41,10 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
 fi
 
 compress="no"
+gz=''
 if [ "$1" == "--compress" ]; then
    compress="yes"
+   gz=".gz"
    shift
 fi
 
@@ -129,7 +131,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    cr-dataset-uri.sh --uri                            > publish/$sdv.sd_name
 
    echo "publish/$sdv.void.ttl"
-   rr-create-void.sh publish/$sdv.nt                  > publish/$sdv.void.ttl
+   rr-create-void.sh publish/$sdv.*                   > publish/$sdv.void.ttl
 
    if [ "$link_latest" == "yes" ]; then
       # from:
@@ -144,7 +146,9 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       fi
       ln -s `cr-conversion-root.sh`/$sourceID/$datasetID/version/$versionID `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest
       # hard link to rename the dump file.
-      ln    `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.ttl `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl
+      ln    `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.nt$gz  `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.nt$gz
+      ln    `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.ttl$gz `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl$gz
+      ln    `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.rdf$gz `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz
    fi
 
    plan='https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/aggregate-source-rdf.sh'
