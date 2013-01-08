@@ -60,7 +60,7 @@ if [ "$1" == "-n" ]; then
    shift
 fi
 
-for panel in 'source' 'automatic' 'publish'; do
+for panel in 'source' 'automatic' 'publish' 'doc/logs'; do
    if [ ! -d $cockpit/$panel ]; then
       mkdir -p $cockpit/$panel
    fi
@@ -84,17 +84,16 @@ fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
+echo "$cockpit/publish/$dumpFileLocal"
 if [[ -n "`getconf ARG_MAX`" && \
      `find $cockpit/source -name "*.*" | wc -l` -lt `getconf ARG_MAX` ]]; then
    # Saves disk space, but shell can't handle infinite arguments.
-   echo "rdf2nt.sh --version 2 'find $cockpit/source' | gzip 2> $cockpit/publish/rdf2nt-errors.log LT $cockpit/publish/$dumpFileLocal"
-   #if [ "$dryrun" != "true" ]; then
+   if [ "$dryrun" != "true" ]; then
       rdf2nt.sh --version 2 `find $cockpit/source` 2> $cockpit/publish/rdf2nt-errors.log | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/publish/gzip-errors.log
-   #fi
+   fi
 else
    # Handles infinite source/* files, but uses disk space.
    for datadump in `find $cockpit/source`; do
-      echo "rdf2nt.sh --version 2 $datadump APPEND $cockpit/publish/$dumpFileLocal.tmp"
       if [ "$dryrun" != "true" ]; then
          rdf2nt.sh --version 2 $datadump >> $cockpit/publish/$dumpFileLocal.tmp
       fi
@@ -108,22 +107,26 @@ fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Pull out the RDF URI nodes from the full dump.
-echo
-
 echo $cockpit/automatic/$sdv-uri-node-occurrences.txt
-uri-nodes.sh $cockpit/publish/$dumpFileLocal                              > $cockpit/automatic/$sdv-uri-node-occurrences.txt
+if [ "$dryrun" != "true" ]; then
+   uri-nodes.sh $cockpit/publish/$dumpFileLocal                              > $cockpit/automatic/$sdv-uri-node-occurrences.txt
+fi
 
 # no space left on device...
 # echo $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt
 # cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt | sort    > $cockpit/automatic/$sdv-uri-node-occurrences-sorted.txt
 
 echo $cockpit/automatic/$sdv-uri-nodes.txt
-cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt   | sort -u > $cockpit/automatic/$sdv-uri-nodes.txt
+if [ "$dryrun" != "true" ]; then
+   cat          $cockpit/automatic/$sdv-uri-node-occurrences.txt   | sort -u > $cockpit/automatic/$sdv-uri-nodes.txt
+fi
 
 echo $cockpit/publish/$sdv-uri-nodes.ttl
-echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                    > $cockpit/publish/$sdv-uri-nodes.ttl
-echo                                                                             >> $cockpit/publish/$sdv-uri-nodes.ttl
-cat $cockpit/automatic/$sdv-uri-nodes.txt | awk '{print $1,"a rdfs:Resource ."}' >> $cockpit/publish/$sdv-uri-nodes.ttl
+if [ "$dryrun" != "true" ]; then
+   echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                    > $cockpit/publish/$sdv-uri-nodes.ttl
+   echo                                                                             >> $cockpit/publish/$sdv-uri-nodes.ttl
+   cat $cockpit/automatic/$sdv-uri-nodes.txt | awk '{print $1,"a rdfs:Resource ."}' >> $cockpit/publish/$sdv-uri-nodes.ttl
+fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 dryrun.sh $dryrun ending
