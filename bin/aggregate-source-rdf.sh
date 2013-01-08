@@ -114,7 +114,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
          serialization=`guess-syntax.sh --inspect $file mime`
 
          echo "  (including $file, format is $serialization)" 
-         if [[ "$serialization" == "text/turtle" ]];
+         if [[ "$serialization" == "text/turtle" ]]; then
             cat $file                                  >> publish/$sdv.ttl
          elif [[ -z "$serialization" ]]; then
             echo "WARNING: omitting $file b/c could not recognize serialization type"
