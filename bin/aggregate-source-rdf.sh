@@ -180,7 +180,6 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "#3> <> prov:wasGeneratedBy [ prov:qualifiedAssociation [ prov:hadPlan <$plan> ] ] ."                      >> $lnwww
    echo "#3> <$plan> a prov:Plan; foaf:homepage <$homepage> ."                                                     >> $lnwww
    echo ""                                                                                                         >> $lnwww
-   echo ""                                                                                                         >> $lnwww
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_ROOT=\${CSV2RDF4LOD_PUBLISH_VARWWW_ROOT:?\"not set; source csv2rdf4lod/source-me.sh $or_see_github\"}" >> $lnwww
    echo ""                                                                                                         >> $lnwww
    echo "symbolic=\"\""                                                                                            >> $lnwww
