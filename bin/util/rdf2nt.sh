@@ -40,6 +40,7 @@ fi
 
 while [ $# -gt 0 ]; do
    file="$1" 
+   shift
 
    if [ ! -f $file ]; then
       continue
@@ -144,5 +145,4 @@ while [ $# -gt 0 ]; do
       # (prints to stdout)
    fi
 
-   shift
 done
