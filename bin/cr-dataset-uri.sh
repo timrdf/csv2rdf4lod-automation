@@ -73,9 +73,14 @@ if [[ "$1" == 'void' || "$1" == "--void" ]]; then
    end="."
 fi
 
+# TODO: use base_uri to permit override.
+
 if [[ "$1" == 'void' || "$1" == "--void" ]]; then
    # See https://github.com/jimmccusker/twc-healthdata/wiki/Using-VoID-for-Accessibility
-   echo "<$CSV2RDF4LOD_BASE_URI/void> void:subset <$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID> ."
+   echo "<$CSV2RDF4LOD_BASE_URI/void> a void:Dataset;"
+   echo "   void:rootResource <$CSV2RDF4LOD_BASE_URI/void>;"
+   echo "   void:subset       <$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID>;"
+   echo "."
 fi
 echo "$a1$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID$a2"
 echo "    $isabstract"
@@ -87,7 +92,8 @@ echo
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]; then
    if [[ "$1" == 'void' || "$1" == "--void" ]]; then
       # See https://github.com/jimmccusker/twc-healthdata/wiki/Using-VoID-for-Accessibility
-      echo "<$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID> void:subset <$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID> ."
+      echo "<$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID> a conversion:AbstractDataset;"
+      echo "   void:subset <$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID> ."
    fi
    echo "$a1$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID$a2"
    echo "    $isversioned"

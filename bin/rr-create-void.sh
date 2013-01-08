@@ -39,38 +39,36 @@ if [ $# -gt 0 ]; then
    file="$1"
 fi
 
-TMP=`date +%s`_$$_`basename $0`.tmp
+TEMP=`date +%s`_$$_`basename $0`.tmp
 
-#echo "@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> ."                   > $TMP
-echo "@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> ."                      >> $TMP
-echo "@prefix dcterms: <http://purl.org/dc/terms/> ."                              >> $TMP
-#echo "@prefix pmlp:    <http://inference-web.org/2.0/pml-provenance.owl#> ."       >> $TMP
-#echo "@prefix pmlj:    <http://inference-web.org/2.0/pml-justification.owl#> ."    >> $TMP
-#echo "@prefix irw:     <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> ." >> $TMP
-#echo "@prefix nfo:     <http://www.semanticdesktop.org/ontologies/nfo/#> ."        >> $TMP
-#echo "@prefix conv:    <http://purl.org/twc/vocab/conversion/> ."                  >> $TMP
-echo "@prefix void:    <http://rdfs.org/ns/void#> ."                               >> $TMP
-echo ""                                                                            >> $TMP
+# TODO: could use: cr-default-prefixes.sh
 
-unversioned="`cr-dataset-uri.sh void | grep '^<' | head -1`"
-versioned="`cr-dataset-uri.sh void | grep '^<' | tail -1`"
+#echo "@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> ."                   > $TEMP
+echo "@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> ."                      >> $TEMP
+echo "@prefix dcterms: <http://purl.org/dc/terms/> ."                              >> $TEMP
+#echo "@prefix pmlp:    <http://inference-web.org/2.0/pml-provenance.owl#> ."       >> $TEMP
+#echo "@prefix pmlj:    <http://inference-web.org/2.0/pml-justification.owl#> ."    >> $TEMP
+#echo "@prefix irw:     <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> ." >> $TEMP
+#echo "@prefix nfo:     <http://www.semanticdesktop.org/ontologies/nfo/#> ."        >> $TEMP
+echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."               >> $TEMP
+echo "@prefix void:       <http://rdfs.org/ns/void#> ."                            >> $TEMP
+echo ""                                                                            >> $TEMP
 
-echo "$unversioned void:subset $versioned ."                                       >> $TMP
 if [ ${#file} -gt 0 ]; then
    if [ -e $file ]; then
       date=`modifiedXSDDateTime.sh $file -o`
       if [ ${#date} -gt 0 ]; then
-         echo "$versioned dcterms:modified $date ."                                >> $TMP
+         echo "$versioned dcterms:modified $date ."                                >> $TEMP
       fi
    fi
 fi
 
-cr-dataset-uri.sh void >> $TMP
+cr-dataset-uri.sh --void                                                           >> $TEMP
 
 if [ $write == "-w" ]; then
-   cat $TMP > $file.void.ttl # TODO: populate-void*.sh only looks in publish/, so it'll miss this...
+   cat $TEMP > $file.void.ttl # TODO: populate-void*.sh only looks in publish/, so it'll miss this...
 else
-   cat $TMP
+   cat $TEMP
 fi
 
-rm $TMP 2> /dev/null
+rm $TEMP 2> /dev/null
