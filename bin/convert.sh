@@ -29,7 +29,7 @@
 # @param datafile       - the local filename of the csv.
 #
 
-if [ -f ../../../../csv2rdf4lod-source-me.sh ]; then
+if [ -e ../../../../csv2rdf4lod-source-me.sh ]; then
    # Include project-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
    source ../../../../csv2rdf4lod-source-me.sh
 else
