@@ -137,6 +137,9 @@ fi
 #if [ "$dryrun" != "true" ]; then
    pushd $cockpit &> /dev/null
       cr-pwd.sh
+      sourceID=`cr-source-id.sh`   # Saved for later
+      datasetID=`cr-dataset-id.sh` # Saved for later
+      versionID=`cr-version-id.sh` # Saved for later
       aggregate-source-rdf.sh automatic/$base-uri-nodes.ttl
    popd &> /dev/null
 
@@ -146,9 +149,6 @@ fi
    #
    baseURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}"
    topVoID="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"
-   sourceID=`cr-source-id.sh`
-   datasetID=`cr-dataset-id.sh`
-   versionID=`cr-version-id.sh`
    echo "$cockpit/publish/$base.void.ttl"
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/publish/$base.void.ttl
    echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/publish/$base.void.ttl
@@ -176,10 +176,11 @@ fi
      wd=`pwd`/
    fi
 
-   echo "${wd}$cockpit/publish/$dumpFileLocal"
-   $sudo rm -f $CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal
-   echo $sudo ln $symbolic "${wd}$cockpit/publish/$dumpFileLocal" "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal"
-   $sudo ln $symbolic "${wd}$cockpit/publish/$dumpFileLocal" "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal"
+   wwwFile="$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal"
+   echo "$wwwFile"
+   $sudo rm -f $wwwFile
+   echo $sudo ln $symbolic "${wd}$cockpit/publish/$dumpFileLocal" $wwwFile
+        $sudo ln $symbolic "${wd}$cockpit/publish/$dumpFileLocal" $wwwFile
 #fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
