@@ -127,6 +127,9 @@ fi
 echo $cockpit/automatic/$base-uri-nodes.ttl
 #if [ "$dryrun" != "true" ]; then
    echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                                                                  > $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix foaf: <http://xmlns.com/foaf/0.1/> ."                                                                            >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix void: <http://rdfs.org/ns/void#> ."                                                                              >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix prov: <http://www.w3.org/ns/prov#> ."                                                                            >> $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                                                                           >> $cockpit/automatic/$base-uri-nodes.ttl
    pushd $cockpit &> /dev/null
       versionedDataset=`cr-dataset-uri.sh --uri`
