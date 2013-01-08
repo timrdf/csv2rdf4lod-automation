@@ -54,11 +54,12 @@ echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."            
 echo "@prefix void:       <http://rdfs.org/ns/void#> ."                            >> $TEMP
 echo ""                                                                            >> $TEMP
 
+versionedDataset=`cr-dataset-uri.sh --uri`
 if [ ${#file} -gt 0 ]; then
    if [ -e $file ]; then
       date=`modifiedXSDDateTime.sh $file -o`
       if [ ${#date} -gt 0 ]; then
-         echo "$versioned dcterms:modified $date ."                                >> $TEMP
+         echo "$versionedDataset dcterms:modified $date ."                         >> $TEMP
       fi
    fi
 fi
