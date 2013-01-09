@@ -48,6 +48,11 @@ if [ ! `which vload` ]; then
    missing=$missing$CSV2RDF4LOD_HOME/bin/util/virtuoso
 fi
 
+if [ ! `which cr-linksets.sh` ]; then
+   missing=":"
+   missing=$missing$CSV2RDF4LOD_HOME/bin/secondary
+fi
+
 echo $missing
 
 #for path in `echo ${PATH//://  }`; do

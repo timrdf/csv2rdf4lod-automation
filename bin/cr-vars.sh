@@ -203,6 +203,10 @@ if [ "$1" != "CLEAR" ]; then
    echo "CSV2RDF4LOD_PUBLISH_SPARQL_RESULTS_DIRECTORY             ${CSV2RDF4LOD_PUBLISH_VIRTUOSO:-"(will default to: none)"}"
 
    echo
+   echo "CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA                     ${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA:-"(will default to: none)"}"
+   echo "CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID       ${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID:-"(will default to: none)"}"
+
+   echo
    echo "X_GOOGLE_MAPS_API_Key                                    ${X_GOOGLE_MAPS_API_Key:-"(not required; used by cr-geocoords-addresses)"}"
    if [ ${#CSV2RDF4LOD_HOME} -gt 0 ]; then
       echo
@@ -292,6 +296,10 @@ else
    # "  "
    export CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT=""       
    export CSV2RDF4LOD_PUBLISH_SPARQL_RESULTS_DIRECTORY=""
+
+   # "  "
+   export CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA=""
+   export CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID=""
 
    # "  "
    export X_GOOGLE_MAPS_API_Key=""

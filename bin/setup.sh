@@ -39,7 +39,8 @@ export CSV2RDF4LOD_CKAN="true"
 export CSV2RDF4LOD_CKAN="false"
 
 #
-# Customize: 
+# Customize: This csv2rdf4lod node is pulling datasets from a third party CKAN.
+#
 # Variable type: Machine ? Project ? User ? Activity ?
 #
 # (used in mirror.py)
@@ -49,7 +50,8 @@ export CSV2RDF4LOD_CKAN_SOURCE="http://hub.healthdata.gov"
 export CSV2RDF4LOD_CKAN_SOURCE=""
 
 #
-# Customize: 
+# Customize: This csv2rdf4lod has its own writable CKAN instance.
+#
 # Variable type: Machine ? Project ? User ? Activity ?
 #
 # (used in mirror.py)
@@ -851,10 +853,26 @@ export CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT=""
 export CSV2RDF4LOD_PUBLISH_SPARQL_RESULTS_DIRECTORY="/var/www/html/logd.tw.rpi.edu/query" 
 export CSV2RDF4LOD_PUBLISH_SPARQL_RESULTS_DIRECTORY="" 
 
+#
+# Customize: Publish metadata about this csv2rdf4lod node to http://datahub.io/
+#            
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (done in )
+#
+export CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA="false" 
+export CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA="true" 
 
-
-
-
+#
+# Customize: CKAN identifier for our bubble, e.g. twc-logd
+#   (which is http://datahub.io/dataset/twc-logd)
+#            
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (done in bin/secondary/cr-linksets.sh)
+#
+export CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID="twc-logd" 
+export CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID="" 
 
 #
 # ------- ------- Post-conversion derivations ------- -------
