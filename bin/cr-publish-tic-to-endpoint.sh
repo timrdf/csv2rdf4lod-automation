@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-tic-to-endpoint.sh
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-tic-to-endpoint.sh> .
 #
 # See also:
 #    https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets

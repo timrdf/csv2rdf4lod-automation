@@ -146,16 +146,40 @@ if [ ! -d $version ]; then
          fi
       done
 
+      DATAHUB='http://datahub.io'
       for linkset in `find automatic -name "linkset.txt" -size +1c`; do
+         # e.g.: automatic/data-gov/linkset.txt
+         bubble=`echo $linkset | awk -F/ '{print $2}'`
          wc -l $linkset
+         size=`cat automatic/$bubble/linkset.txt | wc -l | awk '{print $1}'`
+
+         ls=`md5.sh -qs $DATAHUB/dataset/$ours\`date +%s\`$DATAHUB/dataset/$bubble`
+
+         echo automatic/$bubble.ttl
+         echo "@prefix : <`cr-dataset-uri.sh --uri`> ."                > automatic/$bubble.ttl
+         cr-default-prefixes.sh --turtle                              >> automatic/$bubble.ttl
+         echo                                                         >> automatic/$bubble.ttl
+         echo "<$DATAHUB/dataset/$ours>"                              >> automatic/$bubble.ttl
+         echo "    void:subset :linkset_$ls ."                        >> automatic/$bubble.ttl
+         echo ""                                                      >> automatic/$bubble.ttl
+         echo ":linkset_$ls "                                         >> automatic/$bubble.ttl
+         echo "     a void:Linkset, void:Dataset;"                    >> automatic/$bubble.ttl
+         echo "     dcterms:created `dateInXSDDateTime.sh --turtle`;" >> automatic/$bubble.ttl
+         echo "     void:inDataset <`cr-dataset-uri.sh --uri`>;"      >> automatic/$bubble.ttl
+         echo "     void:target "                                     >> automatic/$bubble.ttl
+         echo "       <$DATAHUB/dataset/twc-healthdata>, "            >> automatic/$bubble.ttl
+         echo "       <$DATAHUB/dataset/2000-us-census-rdf>;"         >> automatic/$bubble.ttl
+         echo "     void:triples     $size;"                          >> automatic/$bubble.ttl
+         echo "     sio:member-count $size;"                          >> automatic/$bubble.ttl
+         echo "."                                                     >> automatic/$bubble.ttl
+         echo                                                         >> automatic/$bubble.ttl
+         for uri in `cat automatic/$bubble/linkset.txt`; do
+            echo "<$uri> void:inDataset :linkset_$ls ."               >> automatic/$bubble.ttl
+            echo ":linkset_$ls sio:has-member <$uri> ."               >> automatic/$bubble.ttl
+         done
       done
 
-
-      # TODO: convert to RDF (via converter, or just awk?)
-
- 
-      # TODO: aggregate 
-
+      aggregate-source-rdf.sh automatic/*.ttl
 
       # #justify.sh $xls $csv xls2csv_`md5.sh \`which justify.sh\`` # TODO: excessive? justify.sh needs to know the broad class rule/engine
       #                                                # TODO: shouldn't you be hashing the xls2csv.sh, not justify.sh?
