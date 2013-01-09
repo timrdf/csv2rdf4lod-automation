@@ -99,7 +99,7 @@ echo
 # This script is invoked from a cr:directory-of-versions, 
 # e.g. source/contactingthecongress/directory-for-the-112th-congress/version
 #
-#TEMPif [ ! -d $version ]; then
+if [ ! -d $version ]; then
 
    # Create the directory for the new version.
    mkdir -p $version/source
@@ -109,7 +109,7 @@ echo
    pushd $version/source &> /dev/null
       touch .__CSV2RDF4LOD_retrieval # Make a timestamp so we know what files were created during retrieval.
       # - - - - - - - - - - - - - - - - - - - - Replace below for custom retrieval  - - - \
-#TEMP      pcurl.sh $url                                                                     # |
+      pcurl.sh $url                                                                     # |
       # - - - - - - - - - - - - - - - - - - - - Replace above for custom retrieval - - - -/
    popd &> /dev/null
 
@@ -123,7 +123,7 @@ echo
       tarball=${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID}-cr-full-dump-latest.ttl.gz
       ours=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID}
       echo "Extracting list of RDF URI nodes from our bubble: $ours"
-#TEMP      gunzip -c source/$tarball | awk '{print $1}' | grep "^<" | sed 's/^<//;s/>$//' | sort -u > automatic/$ours.txt
+      gunzip -c source/$tarball | awk '{print $1}' | grep "^<" | sed 's/^<//;s/>$//' | sort -u > automatic/$ours.txt
       echo "`wc -l automatic/$ours.txt | awk '{print $1}'` RDF URI nodes in our bubble"
 
       tally=0
@@ -162,6 +162,6 @@ echo
       #  justify.sh $xls $csv csv2rdf4lod_xls2csv_sh
 
    popd &> /dev/null
-#TEMPelse
-#TEMP   echo "Version exists; skipping."
-#TEMPfi
+else
+   echo "Version exists; skipping."
+fi
