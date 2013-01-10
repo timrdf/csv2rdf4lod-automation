@@ -1,5 +1,6 @@
 #
-# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/ptsw.sh
+# <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/ptsw.sh>;
+#    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Ping-the-Semantic-Web> .
 #
 #   Copyright 2012 Timothy Lebo
 #
@@ -38,10 +39,28 @@
 # $ %24
 # , %2C
 
+if [[ $# -lt 1 || "$1" == "--help" ]]; then
+   echo
+   echo "usage: `basename $0` [-v]"
+   echo "   -v : verbose"
+   echo
+   exit
+fi
+
+verbose="false"
+if [[ "$1" == "-v" || "$1" == "--verbose" ]]; then
+   verbose="true"
+   shift
+fi
+
 while [ $# -gt 0 ]; do
    url="$1"
-   echo $url
+   $tab
+   if [ "$verbose" == "true" ]; then
+      echo $url
+      tab="   "
+   fi
    encoded=`echo $url | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'`
-   echo "   http://pingthesemanticweb.com/rest/?url=$encoded"
+   echo "${tab}http://pingthesemanticweb.com/rest/?url=$encoded"
    shift
 done

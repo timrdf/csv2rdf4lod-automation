@@ -875,6 +875,49 @@ export CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID="twc-logd"
 export CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID="" 
 
 #
+# Customize: Notify Ping The Semantic Web about all published datasets.
+#
+#    Note that your machine IP must be registered at http://pingthesemanticweb.com
+#    see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Ping-the-Semantic-Web
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (used in bin/convert-aggregate.sh)
+# (done in bin/aggregate-source-rdf.sh)
+#
+export CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE="true" 
+export CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE="false" 
+
+#
+# Customize: Notify Sindice about all published datasets.
+#            
+#    see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Ping-the-Semantic-Web
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (used in bin/convert-aggregate.sh)
+# (done in bin/aggregate-source-rdf.sh)
+#
+export CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_PTSW="true" 
+export CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_PTSW="false" 
+
+#
+# Customize: Only Notify PTSW or Sindice if the published dataset is Enhanced (omit raw conversions).
+#            
+# NOTE: This setting has no affect on for aggregate-source-rdf.sh.
+#       It WILL apply when publishing data that we've converted from tables.
+#
+#    If true, will NOT publish raw, but will publish enhanced.
+#    If false, will publish BOTH raw and enhanced.
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (used in bin/convert-aggregate.sh - NOT bin/convert-aggregate.sh)
+#
+export CSV2RDF4LOD_PUBLISH_ANNOUNCE_ONLY_ENHANCED="true" 
+export CSV2RDF4LOD_PUBLISH_ANNOUNCE_ONLY_ENHANCED="false" 
+
+#
 # ------- ------- Post-conversion derivations ------- -------
 #
 

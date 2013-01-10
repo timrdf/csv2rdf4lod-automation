@@ -207,6 +207,23 @@ if [ "$1" != "CLEAR" ]; then
    echo "CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID       ${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID:-"(will default to: none)"}"
 
    echo
+   echo "CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE                  ${CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE:-"(will NOT announce to http://sindice.com)"}"
+   echo "CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_PTSW                     ${CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_PTSW:-"(will NOT announce to http://pingthesemanticweb.com)"}"
+   to=''
+   if [[ "$CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE" == "true" ]]; then
+      to="http://sindice.com "
+   fi
+   if [[ "$CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_PTSW" == "true" ]]; then
+      to="${to}http://pingthesemanticweb.com "
+   fi
+   if [[ "$CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE" == "true" || "$CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_PTSW" == "true" ]]; then
+      echo "CSV2RDF4LOD_PUBLISH_ANNOUNCE_ONLY_ENHANCED               ${CSV2RDF4LOD_PUBLISH_ANNOUNCE_ONLY_ENHANCED:-"(will publish both raw and enhanced datasets to $to)"}"
+   else
+      to="http://sindice.com or http://pingthesemanticweb.com"
+      echo "CSV2RDF4LOD_PUBLISH_ANNOUNCE_ONLY_ENHANCED               ${CSV2RDF4LOD_PUBLISH_ANNOUNCE_ONLY_ENHANCED:-"(will NOT announce any dataset to $to)"}"
+   fi
+
+   echo
    echo "X_GOOGLE_MAPS_API_Key                                    ${X_GOOGLE_MAPS_API_Key:-"(not required; used by cr-geocoords-addresses)"}"
    if [ ${#CSV2RDF4LOD_HOME} -gt 0 ]; then
       echo
@@ -300,6 +317,11 @@ else
    # "  "
    export CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA=""
    export CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID=""
+
+   # "  "
+   export CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE=""
+   export CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_PTSW=""
+   export CSV2RDF4LOD_PUBLISH_ANNOUNCE_ONLY_ENHANCED=""
 
    # "  "
    export X_GOOGLE_MAPS_API_Key=""

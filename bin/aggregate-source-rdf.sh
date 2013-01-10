@@ -21,6 +21,11 @@
 #    CSV2RDF4LOD_PUBLISH_RDFXML                               
 #
 #    CSV2RDF4LOD_PUBLISH_COMPRESS                             
+#
+#    CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE
+#    CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_PTSW
+#    CSV2RDF4LOD_PUBLISH_ANNOUNCE_ONLY_ENHANCED
+
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--compress] [--turtle] [--ntriples] [--rdfxml] [--link-as-latest] source/some.{rdf,ttl,nt}"
@@ -349,12 +354,37 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    chmod +x $vloadSH
    cat $vloadSH | sed 's/pvload.sh .*-ng/pvdelete.sh/g' | sed 's/vload [^ ]* [^^ ]* /vdelete /' | grep -v "tar xzf" | grep -v "unzip" | grep -v "rm " > $vdeleteSH
    chmod +x $vdeleteSH
+
+   announce='false' # It doesn't make sense to announce it unless we've published it as Linked Data.
    if [ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" ]; then
       $vdeleteSH
       $vloadSH
+      announce='true'
    elif [ "$CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES" == "true" ]; then # TODO: cross of publish media and subsets to publish. This violates it.
-      $vdeleteSH --sample
+      $vdeleteSH --sample                                         # SUBSET_SAMPLES should not be mutually exclusive from VIRTUOSO.
       $vloadSH   --sample
+      announce='true'
+   fi
+
+   if [ "$announce" == "true" ]; then
+      # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Ping-the-Semantic-Web
+      about=`cr-dataset-uri.sh --uri`
+      if [ "$CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE" == "true" ]; then
+         echo "http://api.sindice.com/v2/ping <-- $about"
+         echo curl -H "Accept: text/plain" --data-binary "$about" http://api.sindice.com/v2/ping
+      else
+         echo "http://api.sindice.com/v2/ping - skipping; set CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE=true to announce to Sindice."
+      fi
+      if [ "$CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_PTSW" == "true" ]; then
+         echo "http://pingthesemanticweb.com  <-- $about"
+         echo curl `ptsw.sh $about`
+      else
+         echo "http://pingthesemanticweb.com  - skipping; set CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_PTSW=true to announce to Ping the Semantic Web."
+      fi
+      #CSV2RDF4LOD_PUBLISH_ANNOUNCE_ONLY_ENHANCED <- Bother with this?
+   else
+      echo "http://api.sindice.com/v2/ping - skipping; set CSV2RDF4LOD_PUBLISH_VIRTUOSO=true or CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES=true to announce to Sindice."
+      echo "http://pingthesemanticweb.com  - skipping; set CSV2RDF4LOD_PUBLISH_VIRTUOSO=true or CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES=true to announce to Ping the Semantic Web."
    fi
 
    #echo "publish/bin/virtuoso-delete.sh"
