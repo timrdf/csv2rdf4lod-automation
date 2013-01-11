@@ -127,13 +127,12 @@ if [[ `is-pwd-a.sh                                                            cr
          echo "}"                                                                  >> $rq
          echo "order by ?modified"                                                 >> $rq
           
-         ln $me.rq .
          # Execute the fixed query against the endpoint, and store in source/
          cache-queries.sh $CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT -o xml -q $rq -od source
 
          echo INFO `cr-pwd.sh`/automatic
          # Convert the XML SPARQL bindings to the sitemap XML format.
-         saxon.sh $me.xsl xml xml -od automatic source/`basename $0`.rq.xml
+         saxon.sh $me.xsl xml xml -od automatic source/$rq.xml
 
          echo automatic/data.ttl
          echo "@prefix : <`cr-dataset-uri.sh --uri`> ."              > automatic/data.ttl
