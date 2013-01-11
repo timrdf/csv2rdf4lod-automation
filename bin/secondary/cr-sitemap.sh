@@ -148,11 +148,15 @@ if [[ `is-pwd-a.sh                                                            cr
          aggregate-source-rdf.sh --link-as-latest automatic/data.ttl
 
          mv automatic/$rq.xml.xml publish/sitemap.xml
-
+         
          # #justify.sh $xls $csv xls2csv_`md5.sh \`which justify.sh\`` # TODO: excessive? justify.sh needs to know the broad class rule/engine
          #                                                # TODO: shouldn't you be hashing the xls2csv.sh, not justify.sh?
          #  justify.sh $xls $csv csv2rdf4lod_xls2csv_sh
 
+      popd &> /dev/null
+
+      pushd latest &> /dev/null
+         cr-ln-to-www-root.sh publish/sitemap.xml         
       popd &> /dev/null
    else
       echo "Version exists; skipping."
