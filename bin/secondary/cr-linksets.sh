@@ -159,7 +159,7 @@ if [[ `is-pwd-a.sh                                                            cr
             ls=`md5.sh -qs $DATAHUB/dataset/$ours\`date +%s\`$DATAHUB/dataset/$bubble`
 
             echo automatic/$bubble.ttl
-            echo "@prefix : <`cr-dataset-uri.sh --uri`> ."                > automatic/$bubble.ttl
+            echo "@prefix : <`cr-dataset-uri.sh --uri`/> ."               > automatic/$bubble.ttl
             cr-default-prefixes.sh --turtle                              >> automatic/$bubble.ttl
             echo                                                         >> automatic/$bubble.ttl
             echo "<$DATAHUB/dataset/$ours>"                              >> automatic/$bubble.ttl
