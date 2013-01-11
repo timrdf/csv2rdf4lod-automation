@@ -72,7 +72,7 @@ while [ $# -gt 0 ]; do
    shift
    # publish/sitemap.xml
    if [ -e "$file" ]; then
-      if [ "$uri_of_path" == "--url-of-filepath" ]; then
+      if [ "$uri_of_path" == "yes" ]; then
          echo $file
       else
          directory=`dirname $file`
