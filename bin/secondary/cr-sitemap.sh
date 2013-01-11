@@ -147,7 +147,7 @@ if [[ `is-pwd-a.sh                                                            cr
 
          aggregate-source-rdf.sh --link-as-latest automatic/data.ttl
 
-         mv automatic/$rq.xml.xml sitemap.xml
+         mv automatic/$rq.xml.xml publish/sitemap.xml
 
          # #justify.sh $xls $csv xls2csv_`md5.sh \`which justify.sh\`` # TODO: excessive? justify.sh needs to know the broad class rule/engine
          #                                                # TODO: shouldn't you be hashing the xls2csv.sh, not justify.sh?
