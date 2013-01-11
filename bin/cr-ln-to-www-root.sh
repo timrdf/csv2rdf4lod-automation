@@ -61,7 +61,7 @@ while [ $# -gt 0 ]; do
    shift
    # publish/sitemap.xml
    if [ -e "$file" ]; then
-      if [ "$file" ~= \\.\\./* ]; then
+      if [[ "$file" ~= \\.\\./* ]]; then
          echo $file
       else  
          echo "ignoring $file"
