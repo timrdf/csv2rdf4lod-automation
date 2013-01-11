@@ -195,10 +195,12 @@ if [[ `is-pwd-a.sh                                                            cr
    fi
 elif [[  `is-pwd-a.sh              cr:source                                                             ` == "yes" ]]; then
    # In a directory such as source/healthdata-tw-rpi-edu
-   if [[ ! -e `basename $0` ]]; then
-      mkdir `basename $0`
+   datasetID=`basename $0`
+   datasetID=${datasetID%.*}
+   if [[ ! -e $datasetID ]]; then
+      mkdir $datasetID
    fi
-   pushd `basename $0` &> /dev/null
+   pushd $datasetID &> /dev/null
       $0 $* # Recursive call to base case 'cr:directory-of-versions'
    popd &> /dev/null
 fi
