@@ -163,6 +163,7 @@ if [[ `is-pwd-a.sh                                                            cr
             cr-default-prefixes.sh --turtle                              >> automatic/$bubble.ttl
             echo                                                         >> automatic/$bubble.ttl
             echo "<$DATAHUB/dataset/$ours>"                              >> automatic/$bubble.ttl
+            echo "    a datafaqs:CKANDataset;"                           >> automatic/$bubble.ttl
             echo "    void:subset :linkset_$ls ."                        >> automatic/$bubble.ttl
             echo ""                                                      >> automatic/$bubble.ttl
             echo ":linkset_$ls "                                         >> automatic/$bubble.ttl
