@@ -115,15 +115,17 @@ if [[ `is-pwd-a.sh                                                            cr
          me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
          me=${me%.*}
 
+         rq=`basename $0`
+         rq=${rq%.*}.rq
          echo INFO `cr-pwd.sh`/source
-         echo "prefix dcterms:    <http://purl.org/dc/terms/>"                      > `basename $0`.rq
-         echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>"         >> `basename $0`.rq
-         echo ""                                                                   >> `basename $0`.rq
-         echo "select distinct ?versioned (max(?mod) as ?modified)"                >> `basename $0`.rq
-         echo "where {"                                                            >> `basename $0`.rq
-         echo "   ?versioned a conversion:VersionedDataset; dcterms:modified ?mod" >> `basename $0`.rq
-         echo "}"                                                                  >> `basename $0`.rq
-         echo "order by ?modified"                                                 >> `basename $0`.rq
+         echo "prefix dcterms:    <http://purl.org/dc/terms/>"                      > $rq
+         echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>"         >> $rq
+         echo ""                                                                   >> $rq
+         echo "select distinct ?versioned (max(?mod) as ?modified)"                >> $rq
+         echo "where {"                                                            >> $rq
+         echo "   ?versioned a conversion:VersionedDataset; dcterms:modified ?mod" >> $rq
+         echo "}"                                                                  >> $rq
+         echo "order by ?modified"                                                 >> $rq
           
          ln $me.rq .
          # Execute the fixed query against the endpoint, and store in source/
