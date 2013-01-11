@@ -40,12 +40,11 @@ fi
 
 if [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
 
-   HOME=$(cd ${0%/*} && echo ${PWD%/*})
    me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
-
-   echo $HOME
    echo $me
-   exit
+   echo ${me%.*}
+
+   exit 
 
    ln -s /opt/csv2rdf4lod-automation/bin/secondary/cr-sitemap.rq .
    cache-queries.sh http://healthdata.tw.rpi.edu/sparql -o xml -q cr-sitemap.rq -od source
