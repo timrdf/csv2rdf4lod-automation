@@ -159,7 +159,12 @@ if [[ `is-pwd-a.sh                                                            cr
          sitemap=`cr-ln-to-www-root.sh publish/sitemap.xml`
          url=`cr-ln-to-www-root.sh --url-of-filepath $sitemap`
          if [[ -n "$url" && "$url" =~ http* ]]; then
-            ping-sindice.sh $url 
+            if [ "$CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE" == "true" ]; then
+               echo "http://api.sindice.com/v2/ping <-- $url"
+               ping-sindice.sh -w $url 
+            else
+               echo "http://api.sindice.com/v2/ping - skipping; set CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE=true to announce to Sindice."
+            fi
          fi
       popd &> /dev/null
 

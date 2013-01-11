@@ -371,6 +371,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       about=`cr-dataset-uri.sh --uri`
       if [ "$CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE" == "true" ]; then
          echo "http://api.sindice.com/v2/ping <-- $about"
+         # TODO: use ping-sindice.sh -w
          curl -H "Accept: text/plain" --data-binary "$about" http://api.sindice.com/v2/ping
       else
          echo "http://api.sindice.com/v2/ping - skipping; set CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE=true to announce to Sindice."
