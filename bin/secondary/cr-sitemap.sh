@@ -43,7 +43,6 @@ if [[ `is-pwd-a.sh                                                            cr
    CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
    baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
    CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT=${CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
-   CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
    #-#-#-#-#-#-#-#-#
    sourceID=`cr-source-id.sh` # Should be same as $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
