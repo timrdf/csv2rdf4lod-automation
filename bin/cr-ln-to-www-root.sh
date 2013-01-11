@@ -60,9 +60,13 @@ while [ $# -gt 0 ]; do
    file="$1"
    shift
    # publish/sitemap.xml
-   if [ "$file" != \.\./* ]; then
-      echo $file
-   else  
-      echo "ignoring $file"
+   if [ -e "$file" ]; then
+      if [ "$file" != ../* ]; then
+         echo $file
+      else  
+         echo "ignoring $file"
+      fi
+   else
+      "WARNING: $file does not exist"
    fi
 done
