@@ -371,13 +371,13 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       about=`cr-dataset-uri.sh --uri`
       if [ "$CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE" == "true" ]; then
          echo "http://api.sindice.com/v2/ping <-- $about"
-         echo curl -H "Accept: text/plain" --data-binary "$about" http://api.sindice.com/v2/ping
+         curl -H "Accept: text/plain" --data-binary "$about" http://api.sindice.com/v2/ping
       else
          echo "http://api.sindice.com/v2/ping - skipping; set CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE=true to announce to Sindice."
       fi
       if [ "$CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_PTSW" == "true" ]; then
          echo "http://pingthesemanticweb.com  <-- $about"
-         echo curl `ptsw.sh $about`
+         curl `ptsw.sh $about`
       else
          echo "http://pingthesemanticweb.com  - skipping; set CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_PTSW=true to announce to Ping the Semantic Web."
       fi
