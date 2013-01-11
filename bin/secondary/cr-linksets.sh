@@ -194,7 +194,12 @@ if [[ `is-pwd-a.sh                                                            cr
       echo "Version exists; skipping."
    fi
 elif [[  `is-pwd-a.sh                        cr:dataset                                                  ` == "yes" ]]; then
-   cr-pwd.sh
+   if [[ ! -d version ]]; then
+      mkdir version
+   fi
+   pushd version &> /dev/null
+      $0 $* # Recursive call to base case 'cr:directory-of-versions'
+   popd &> /dev/null
 elif [[  `is-pwd-a.sh              cr:source                                                             ` == "yes" ]]; then
    # In a directory such as source/healthdata-tw-rpi-edu
    datasetID=`basename $0`
