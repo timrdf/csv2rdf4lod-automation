@@ -158,7 +158,9 @@ if [[ `is-pwd-a.sh                                                            cr
       pushd latest &> /dev/null
          sitemap=`cr-ln-to-www-root.sh publish/sitemap.xml`
          url=`cr-ln-to-www-root.sh --url-of-filepath $sitemap`
-         ping-sindice.sh $url 
+         if [[ -n "$url" && "$url" =~ http* ]]; then
+            ping-sindice.sh $url 
+         fi
       popd &> /dev/null
 
    else
