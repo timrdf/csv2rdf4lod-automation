@@ -40,18 +40,10 @@ fi
 
 if [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
 
-   me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
-   echo $me
-   echo ${me%.*}
-
-   exit 
-
-   ln -s /opt/csv2rdf4lod-automation/bin/secondary/cr-sitemap.rq .
-   cache-queries.sh http://healthdata.tw.rpi.edu/sparql -o xml -q cr-sitemap.rq -od source
-   saxon.sh /opt/csv2rdf4lod-automation/bin/secondary/cr-sitemap.xsl xml xml -od automatic source/cr-sitemap.rq.xml
 
    CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
    baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
+   CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT=${CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
    CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
    #-#-#-#-#-#-#-#-#
@@ -116,85 +108,33 @@ if [[ `is-pwd-a.sh                                                            cr
    #
    if [ ! -d $version ]; then
 
-      # Create the directory for the new version.
-      mkdir -p $version/source
-
-      # Go into the directory that stores the original data obtained from the source organization.
-      echo INFO `cr-pwd.sh`/$version/source
-      pushd $version/source &> /dev/null
-         touch .__CSV2RDF4LOD_retrieval # Make a timestamp so we know what files were created during retrieval.
-         # - - - - - - - - - - - - - - - - - - - - Replace below for custom retrieval  - - - \
-         pcurl.sh $url                                                                     # |
-         # - - - - - - - - - - - - - - - - - - - - Replace above for custom retrieval - - - -/
-      popd &> /dev/null
-
       # Go into the conversion cockpit of the new version.
       pushd $version &> /dev/null
 
-         if [ ! -e automatic ]; then
-            mkdir automatic
-         fi
+         me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
+         me=${me%.*}
 
-         tarball=$sourceID-cr-full-dump-latest.ttl.gz
-         ours=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID}
-         echo "Extracting list of RDF URI nodes from our bubble: $ours"
-         gunzip -c source/$tarball | awk '{print $1}' | grep "^<" | sed 's/^<//;s/>$//' | sort -u > automatic/$ours.txt
-         echo "`wc -l automatic/$ours.txt | awk '{print $1}'` RDF URI nodes in our bubble"
+         echo INFO `cr-pwd.sh`/$version/source
+         ln -s $me.rq .
+         # Execute the fixed query against the endpoint, and store in source/
+         cache-queries.sh $CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT -o xml -q $me.rq -od source
 
-         tally=0
-         total=`ckan-datasets-in-group.py | wc -l | awk '{print $1}'`
-         for bubble in `ckan-datasets-in-group.py`; do
-            let "tally=$tally+1"
-            if [ ! -e automatic/$bubble ]; then
-               mkdir automatic/$bubble
-            fi
-            uri_space=`ckan-urispace-of-dataset.py $bubble`
-            if [ -n "$uri_space" ]; then
-               echo "$tally/$total Searching $ours for URIs in $uri_space (for $bubble)"
-               echo "$uri_space" > automatic/$bubble/urispace.txt
-               grep "^$uri_space" automatic/$ours.txt > automatic/$bubble/linkset.txt
-               for linkset in `find automatic/$bubble -name "linkset.txt" -size +1c`; do
-                  echo "$tally/$total $bubble `cat automatic/$bubble/linkset.txt | wc -l`"
-               done
-            else
-               echo "WARNING: no URI space found for $bubble"
-            fi
-         done
+         echo INFO `cr-pwd.sh`/$version/automatic
+         # Convert the XML SPARQL bindings to the sitemap XML format.
+         saxon.sh $me.xsl xml xml -od automatic source/`basename $0`.rq.xml
 
-         DATAHUB='http://datahub.io'
-         for linkset in `find automatic -name "linkset.txt" -size +1c`; do
-            # e.g.: automatic/data-gov/linkset.txt
-            bubble=`echo $linkset | awk -F/ '{print $2}'`
-            wc -l $linkset
-            size=`cat automatic/$bubble/linkset.txt | wc -l | awk '{print $1}'`
+         echo automatic/data.ttl
+         echo "@prefix : <`cr-dataset-uri.sh --uri`> ."              > automatic/data.ttl
+         cr-default-prefixes.sh --turtle                            >> automatic/data.ttl
+         echo                                                       >> automatic/data.ttl
+         echo "<`cr-dataset-uri.sh --uri`>"                         >> automatic/data.ttl
+         echo "   a dcat:Dataset;"                                  >> automatic/data.ttl
+         echo "   dcterms:created `dateInXSDDateTime.sh --turtle`;" >> automatic/data.ttl
+         echo "."                                                   >> automatic/data.ttl
 
-            ls=`md5.sh -qs $DATAHUB/dataset/$ours\`date +%s\`$DATAHUB/dataset/$bubble`
+      # TODO: add accessURL to the sitemap.xml
 
-            echo automatic/$bubble.ttl
-            echo "@prefix : <`cr-dataset-uri.sh --uri`> ."                > automatic/$bubble.ttl
-            cr-default-prefixes.sh --turtle                              >> automatic/$bubble.ttl
-            echo                                                         >> automatic/$bubble.ttl
-            echo "<$DATAHUB/dataset/$ours>"                              >> automatic/$bubble.ttl
-            echo "    void:subset :linkset_$ls ."                        >> automatic/$bubble.ttl
-            echo ""                                                      >> automatic/$bubble.ttl
-            echo ":linkset_$ls "                                         >> automatic/$bubble.ttl
-            echo "     a void:Linkset, void:Dataset;"                    >> automatic/$bubble.ttl
-            echo "     dcterms:created `dateInXSDDateTime.sh --turtle`;" >> automatic/$bubble.ttl
-            echo "     void:inDataset <`cr-dataset-uri.sh --uri`>;"      >> automatic/$bubble.ttl
-            echo "     void:target "                                     >> automatic/$bubble.ttl
-            echo "       <$DATAHUB/dataset/twc-healthdata>, "            >> automatic/$bubble.ttl
-            echo "       <$DATAHUB/dataset/2000-us-census-rdf>;"         >> automatic/$bubble.ttl
-            echo "     void:triples     $size;"                          >> automatic/$bubble.ttl
-            echo "     sio:member-count $size;"                          >> automatic/$bubble.ttl
-            echo "."                                                     >> automatic/$bubble.ttl
-            echo                                                         >> automatic/$bubble.ttl
-            for uri in `cat automatic/$bubble/linkset.txt`; do
-               echo "<$uri> void:inDataset :linkset_$ls ."               >> automatic/$bubble.ttl
-               echo ":linkset_$ls sio:has-member <$uri> ."               >> automatic/$bubble.ttl
-            done
-         done
-
-         aggregate-source-rdf.sh automatic/*.ttl
+         aggregate-source-rdf.sh automatic/data.ttl
 
          # #justify.sh $xls $csv xls2csv_`md5.sh \`which justify.sh\`` # TODO: excessive? justify.sh needs to know the broad class rule/engine
          #                                                # TODO: shouldn't you be hashing the xls2csv.sh, not justify.sh?
