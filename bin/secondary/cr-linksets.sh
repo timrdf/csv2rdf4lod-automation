@@ -17,14 +17,13 @@ see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
-CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID=${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
 export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-ACCEPTABLE_PWDs="cr:source cr:dataset cr:directory-of-versions"
+ACCEPTABLE_PWDs="cr:data-root cr:source cr:dataset cr:directory-of-versions"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
@@ -208,6 +207,15 @@ elif [[  `is-pwd-a.sh              cr:source                                    
       mkdir $datasetID
    fi
    pushd $datasetID &> /dev/null
+      $0 $* # Recursive call to base case 'cr:directory-of-versions'
+   popd &> /dev/null
+elif [[  `is-pwd-a.sh cr:data-root                                                                       ` == "yes" ]]; then
+   CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID=${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
+   sourceID=${sourceID%.*}
+   if [[ ! -e $sourceID ]]; then
+      mkdir $sourceID
+   fi
+   pushd $sourceID &> /dev/null
       $0 $* # Recursive call to base case 'cr:directory-of-versions'
    popd &> /dev/null
 fi
