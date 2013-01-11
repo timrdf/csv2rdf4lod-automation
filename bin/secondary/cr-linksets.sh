@@ -170,8 +170,8 @@ if [[ `is-pwd-a.sh                                                            cr
             echo "     dcterms:created `dateInXSDDateTime.sh --turtle`;" >> automatic/$bubble.ttl
             echo "     void:inDataset <`cr-dataset-uri.sh --uri`>;"      >> automatic/$bubble.ttl
             echo "     void:target "                                     >> automatic/$bubble.ttl
-            echo "       <$DATAHUB/dataset/twc-healthdata>, "            >> automatic/$bubble.ttl
-            echo "       <$DATAHUB/dataset/2000-us-census-rdf>;"         >> automatic/$bubble.ttl
+            echo "       <$DATAHUB/dataset/$ours>, "                     >> automatic/$bubble.ttl
+            echo "       <$DATAHUB/dataset/$bubble>;"                    >> automatic/$bubble.ttl
             echo "     void:triples     $size;"                          >> automatic/$bubble.ttl
             echo "     sio:member-count $size;"                          >> automatic/$bubble.ttl
             echo "."                                                     >> automatic/$bubble.ttl
