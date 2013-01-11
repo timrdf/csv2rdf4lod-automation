@@ -1,7 +1,6 @@
 #!/bin/bash
 #
-# <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-create-versioned-dataset-dir.sh>>;
-#    prov:wasDerivedFrom   <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-linksets.sh> .
+# <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-linksets.sh> .
 #
 # This script sets up a new version of a dataset when given a URL to a tabular file and some options
 # describing its structure (comment character, header line, and delimter).
@@ -15,9 +14,6 @@
 
 see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
-
-CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
-CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
 export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
@@ -40,14 +36,18 @@ if [[ $# -lt 2 || "$1" == "--help" ]]; then
    exit 1
 fi
 
-baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
-
 if [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
+
+   CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
+   baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
+   CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
+
    #-#-#-#-#-#-#-#-#
+   sourceID=`cr-source-id.sh` # Should be same as $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
    version="$1"
    version_reason=""
    url="$2"
-   url="${baseURI}/source/${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID}/file/cr-full-dump/version/latest/conversion/${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID}-cr-full-dump-latest.ttl.gz"
+   url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$sourceID-cr-full-dump-latest.ttl.gz"
    if [[ "$1" == "cr:auto" && ${#url} -gt 0 ]]; then
       version=`urldate.sh $url`
       #echo "Attempting to use URL modification date to name version: $version"
@@ -123,7 +123,7 @@ if [[ `is-pwd-a.sh                                                            cr
             mkdir automatic
          fi
 
-         tarball=${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID}-cr-full-dump-latest.ttl.gz
+         tarball=$sourceID-cr-full-dump-latest.ttl.gz
          ours=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID}
          echo "Extracting list of RDF URI nodes from our bubble: $ours"
          gunzip -c source/$tarball | awk '{print $1}' | grep "^<" | sed 's/^<//;s/>$//' | sort -u > automatic/$ours.txt
