@@ -129,7 +129,7 @@ if [[ `is-pwd-a.sh                                                            cr
           
          ln $me.rq .
          # Execute the fixed query against the endpoint, and store in source/
-         cache-queries.sh $CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT -o xml -q `basename $0`.rq -od source
+         cache-queries.sh $CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT -o xml -q $rq -od source
 
          echo INFO `cr-pwd.sh`/automatic
          # Convert the XML SPARQL bindings to the sitemap XML format.
