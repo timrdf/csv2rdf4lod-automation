@@ -64,7 +64,7 @@ while [ $# -gt 0 ]; do
       directory=`dirname $file`
       if [[ "$directory" == 'publish'   || "$directory" == "manual" || \
             "$directory" == 'automatic' || "$directory" == "publish" ]]; then
-         echo $file
+         lnwww $file $directory
       else  
          echo "ignoring $file"
       fi
