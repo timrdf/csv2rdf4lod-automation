@@ -156,8 +156,11 @@ if [[ `is-pwd-a.sh                                                            cr
       popd &> /dev/null
 
       pushd latest &> /dev/null
-         cr-ln-to-www-root.sh publish/sitemap.xml         
+         sitemap=`cr-ln-to-www-root.sh publish/sitemap.xml`
+         url=`cr-ln-to-www-root.sh --url-of-filepath $sitemap`
+         ping-sindice.sh $url 
       popd &> /dev/null
+
    else
       echo "Version exists; skipping."
    fi

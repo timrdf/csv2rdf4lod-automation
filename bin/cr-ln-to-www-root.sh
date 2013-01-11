@@ -16,7 +16,18 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
+if [ "$1" == "--help" ]; then
+   echo "usage: `basename $0` [--url-of-filepath] <file>+"
+   exit
+fi
+
 CSV2RDF4LOD_PUBLISH_VARWWW_ROOT=${CSV2RDF4LOD_PUBLISH_VARWWW_ROOT:?"not set; source csv2rdf4lod/source-me.sh "}
+
+uri_of_path='no'
+if [ "$1" == "--url-of-filepath" ]; then
+   uri_of_path='yes'
+   shift
+fi
 
 symbolic=""
 pwd=""
@@ -61,12 +72,16 @@ while [ $# -gt 0 ]; do
    shift
    # publish/sitemap.xml
    if [ -e "$file" ]; then
-      directory=`dirname $file`
-      if [[ "$directory" == 'publish'   || "$directory" == "manual" || \
-            "$directory" == 'automatic' || "$directory" == "publish" ]]; then
-         lnwww $file $directory
-      else  
-         echo "ignoring $file"
+      if [ "$uri_of_path" == "--url-of-filepath" ]; then
+         echo $file
+      else
+         directory=`dirname $file`
+         if [[ "$directory" == 'publish'   || "$directory" == "manual" || \
+               "$directory" == 'automatic' || "$directory" == "publish" ]]; then
+            lnwww $file $directory
+         else  
+            echo "ignoring $file"
+         fi
       fi
    else
       "WARNING: $file does not exist"
