@@ -116,6 +116,15 @@ if [[ `is-pwd-a.sh                                                            cr
          me=${me%.*}
 
          echo INFO `cr-pwd.sh`/source
+         echo "prefix dcterms:    <http://purl.org/dc/terms/>"                      > `basename $0`.rq
+         echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>"         >> `basename $0`.rq
+         echo ""                                                                   >> `basename $0`.rq
+         echo "select distinct ?versioned (max(?mod) as ?modified)"                >> `basename $0`.rq
+         echo "where {"                                                            >> `basename $0`.rq
+         echo "   ?versioned a conversion:VersionedDataset; dcterms:modified ?mod" >> `basename $0`.rq
+         echo "}"                                                                  >> `basename $0`.rq
+         echo "order by ?modified"                                                 >> `basename $0`.rq
+          
          ln $me.rq .
          # Execute the fixed query against the endpoint, and store in source/
          cache-queries.sh $CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT -o xml -q `basename $0`.rq -od source
