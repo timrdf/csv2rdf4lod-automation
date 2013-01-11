@@ -211,7 +211,7 @@ elif [[  `is-pwd-a.sh              cr:source                                    
    popd &> /dev/null
 elif [[  `is-pwd-a.sh cr:data-root                                                                       ` == "yes" ]]; then
    CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID=${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
-   sourceID=${sourceID%.*}
+   sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
    if [[ ! -e $sourceID ]]; then
       mkdir $sourceID
    fi
