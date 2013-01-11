@@ -57,6 +57,12 @@ function lnwww {
 }
 
 while [ $# -gt 0 ]; do
-   echo $1
+   file="$1"
    shift
+   # publish/sitemap.xml
+   if [ "$file" != \.\./* ]; then
+      echo $file
+   else  
+      echo "ignoring $file"
+   fi
 done
