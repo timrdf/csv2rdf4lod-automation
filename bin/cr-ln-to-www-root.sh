@@ -62,7 +62,7 @@ while [ $# -gt 0 ]; do
    # publish/sitemap.xml
    if [ -e "$file" ]; then
       directory=`dirname $file`
-      if [[ "$directory" == 'publish' ]]; then
+      if [[ "$directory" == 'publish' || "$directory" == "manual" || "$directory" == 'automatic' || "$directory" == "publish" ]]; then
          echo $file
       else  
          echo "ignoring $file"
