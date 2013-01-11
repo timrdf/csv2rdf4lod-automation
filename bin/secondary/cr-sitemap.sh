@@ -145,7 +145,7 @@ if [[ `is-pwd-a.sh                                                            cr
 
       # TODO: add accessURL to the sitemap.xml
 
-         aggregate-source-rdf.sh automatic/data.ttl
+         aggregate-source-rdf.sh --link-as-latest automatic/data.ttl
 
          # #justify.sh $xls $csv xls2csv_`md5.sh \`which justify.sh\`` # TODO: excessive? justify.sh needs to know the broad class rule/engine
          #                                                # TODO: shouldn't you be hashing the xls2csv.sh, not justify.sh?
