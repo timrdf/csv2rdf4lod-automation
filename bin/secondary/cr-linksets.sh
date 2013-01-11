@@ -24,7 +24,7 @@ export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
 export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-ACCEPTABLE_PWDs="cr:source cr:directory-of-versions"
+ACCEPTABLE_PWDs="cr:source cr:dataset cr:directory-of-versions"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
@@ -193,6 +193,8 @@ if [[ `is-pwd-a.sh                                                            cr
    else
       echo "Version exists; skipping."
    fi
+elif [[  `is-pwd-a.sh                        cr:dataset                                                  ` == "yes" ]]; then
+   cr-pwd.sh
 elif [[  `is-pwd-a.sh              cr:source                                                             ` == "yes" ]]; then
    # In a directory such as source/healthdata-tw-rpi-edu
    datasetID=`basename $0`
