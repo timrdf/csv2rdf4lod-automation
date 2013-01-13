@@ -77,30 +77,34 @@ else
    guess="-g"
 fi
 if [ $inspect == "true" ]; then
+   SAMPLE=1000
    if [[ ! -f $url ]]; then
       guess="$guess"
    elif [[ `gzipped.sh $url` == "yes" ]]; then
-      guess="-g"
+      TEMP="_"`basename $0``date +%s`_$$.tmp
+      gunzip -c $url | head -$SAMPLE > $TEMP
+      guess=`$0 --inspect $TEMP` # Recursive call on uncompressed sample from the gzip.
+      rm $TEMP
    elif [[ `head -10 $url | awk '$0 ~ /.*<html>.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
       guess="-g"
-   elif [[ `head -1000 $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
+   elif [[ `head -$SAMPLE $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
       # @prefix
       guess="-i turtle"                   #      <     >     <     >     <     >      .
-   elif [[   `head -1000 $url | awk '$0 ~ /^[^<]*<[^>]+>[^>]*<[^>]+>[^>]*<[^>]+>[^<]*\.[^<]*$/ && $0 !~ "rdf:about=" && $0 !~ "rdf:nodeID=" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
+   elif [[   `head -$SAMPLE $url | awk '$0 ~ /^[^<]*<[^>]+>[^>]*<[^>]+>[^>]*<[^>]+>[^<]*\.[^<]*$/ && $0 !~ "rdf:about=" && $0 !~ "rdf:nodeID=" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
       # <> <> <>
       guess="-i ntriples"
-   elif [[ `head -1000 $url | awk '$0 ~ "rdf:about=" || $0 ~ "rdf:resource" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
+   elif [[ `head -$SAMPLE $url | awk '$0 ~ "rdf:about=" || $0 ~ "rdf:resource" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
       # rdf:about=
       guess="-i rdfxml"
-   elif [[ `head -1000 $url | awk '$0 ~ /> +a +</ {c++} $0 ~ /^ *a +</ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
+   elif [[ `head -$SAMPLE $url | awk '$0 ~ /> +a +</ {c++} $0 ~ /^ *a +</ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
       # <http://> a <http://>,
       #           a <http://>,
       guess="-i turtle"
    else
       #echo "still no idea after --inspect"
-      #echo "ntriples: `head -1000 $url | awk '$0 ~ /[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*/{c++}END{printf("%s",c)}'`"
-      #echo "turtle:   `head -1000 $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'`"
-      #echo "rdfxml:   `head -1000 $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'`"
+      #echo "ntriples: `head -$SAMPLE $url | awk '$0 ~ /[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*/{c++}END{printf("%s",c)}'`"
+      #echo "turtle:   `head -$SAMPLE $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'`"
+      #echo "rdfxml:   `head -$SAMPLE $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'`"
       guess="-g"
    fi
 fi
