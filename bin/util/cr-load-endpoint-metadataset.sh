@@ -333,18 +333,17 @@ if [ $files_to_load == "yes" -a "$dryRun" == "false" ]; then
          # and plop into a single monolith
          echo "INFO `basename $0`: Adding to monolith Turtle"
          cat $ttl                             >> $WEB_TODAY/publish/metadatasets.ttl
-         #echo "INFO `basename $0`: Adding to monolith N-TRIPLES"
-         #rapper -q -i turtle -o ntriples $ttl >> $WEB_TODAY/publish/metadatasets.nt # BUG; do all at once later.
       done
       if [ `which serdi` ]; then
-         echo "[INFO] metadatasets.ttl -> metadatasets.nt from `pwd` to $WEB_TODAY"
-         serdi metadatasets.ttl > $WEB_TODAY/publish/metadatasets.nt # serdi -i turtle -o ntriples metadatasets.ttl > metadatasets.nt
+         echo "[INFO] metadatasets.ttl -> metadatasets.nt from `pwd` to $WEB_TODAY with `which serdi`"
+         serdi metadatasets.ttl > $WEB_TODAY/publish/metadatasets.nt 
+         # serdi -i turtle -o ntriples metadatasets.ttl > metadatasets.nt
       else
          echo "[WARNING] cannot convert ttl to nt with serdi from `pwd` to $WEB_TODAY"
       fi
    popd &> /dev/null
 
-   echo "INFO `basename $0`: Creating monolith RDF/XML"
+   echo "INFO `basename $0`: Creating monolith RDF/XML with `which rapper`"
    rapper -q -i ntriples -o rdfxml $WEB_TODAY/publish/metadatasets.nt >> $WEB_TODAY/publish/metadatasets.rdf
    #rm $WEB_TODAY/publish/metadatasets.nt
    
