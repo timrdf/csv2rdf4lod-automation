@@ -7,25 +7,43 @@ base=${this%/bin/util/install-csv2rdf4lod-dependencies.sh}
 base=${base%/*}
 
 if [[ "$base" == *prizms/repos ]]; then
+   # In case we are installed as part of Prizms, 
+   # install next to where Prizms is installed.
    base=${base%/prizms/repos}
 fi
 
 if [[ "$1" == "--help" ]]; then
    echo
-   echo "usage: `basename $0`"
+   echo "usage: `basename $0` [--avoid-sudo] [-n]"
    echo
    echo "  Install the third-party utilities that csv2rdf4lod-automation uses."
    echo "  Will install everything relative to the path:"
    echo "     $base"
    echo "  See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
    echo
+   echo "  --avoid-sudo : Avoid using sudo if at all possible. It's best to avoid root."
+   echo
+   echo "   -n          | Perform only a dry run. This can be used to get a sense of what will be done before we actually do it."
+   echo "               : NOTE: not implemented yet."
+   echo
    exit
 fi
 
 sudo=""
-read -p "Install as sudo? (if 'N', then will install as `whoami`) [y/N] " -u 1 install_it
-if [[ "$install_it" == [yY] ]]; then
-   sudo="sudo "
+if [ "$1" == "--avoid-sudo" ]; then
+   shift
+else
+   read -p "Install as sudo? (if 'N', then will install as `whoami`) [y/N] " -u 1 use_sudo
+   if [[ "$use_sudo" == [yY] ]]; then
+      sudo="sudo "
+   fi
+fi
+
+dryrun="false"
+if [ "$1" == "-n" ]; then
+   dryrun="true"
+   dryrun.sh $dryrun beginning
+   shift
 fi
 
 function offer_install_with_apt {
@@ -36,10 +54,12 @@ function offer_install_with_apt {
          if [ ! `which $command` ]; then
             echo
             echo $sudo apt-get install $package
-            read -p "Could not find $command on path. Try to install with command shown above? (y/n): " -u 1 install_it
-            if [[ "$install_it" == [yY] ]]; then
-               echo $sudo apt-get install $package
-                    $sudo apt-get install $package
+            if [ "$dryrun" != "true" ]; then
+               read -p "Could not find $command on path. Try to install with command shown above? (y/n): " -u 1 install_it
+               if [[ "$install_it" == [yY] ]]; then
+                  echo $sudo apt-get install $package
+                       $sudo apt-get install $package
+               fi
             fi
          else
             echo "[INFO] $command already available at `which $command`"
@@ -58,6 +78,8 @@ offer_install_with_apt 'awk'          'gawk'
 offer_install_with_apt 'curl'         'curl'
 offer_install_with_apt 'rapper'       'raptor-utils'
 offer_install_with_apt 'unzip'        'unzip'
+
+exit 1
 
 if [ ! `which serdi` ]; then
    echo
@@ -279,4 +301,4 @@ echo
 echo "~~~~ ~~~~"
 offer_install_with_apt 'screen' 'screen'
 
-
+dryrun.sh $dryrun ending
