@@ -52,7 +52,9 @@ function offer_install_with_apt {
    if [ `which apt-get` ]; then
       if [[ -n "$command" && -n "$package" ]]; then
          if [ ! `which $command` ]; then
-            echo
+            if [ "$dryrun" != "true" ]; then
+               echo
+            fi
             echo $sudo apt-get install $package
             if [ "$dryrun" != "true" ]; then
                read -p "Could not find $command on path. Try to install with command shown above? (y/n): " -u 1 install_it
