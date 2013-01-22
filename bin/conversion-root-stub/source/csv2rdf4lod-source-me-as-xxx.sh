@@ -3,4 +3,4 @@
 #3     <http://purl.org/twc/page/csv2rdf4lod/distributed_env_vars>,
 #3     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-source-me.sh> .
 
-export CSV2RDF4LOD_CONVERT_PERSON_URI="http://tw.rpi.edu/instances/AlvaroGraves"
+export CSV2RDF4LOD_CONVERT_PERSON_URI="http://tw.rpi.edu/instances/notAlvaroGraves"
