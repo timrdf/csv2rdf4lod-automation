@@ -1,9 +1,20 @@
 #!/bin/bash
+#
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/install-csv2rdf4lod-dependencies.sh> .
+
+this=$(cd ${0%/*} && echo $PWD/${0##*/})
+base=${this%/bin/util/install-csv2rdf4lod-dependencies.sh}
+base=${base%/*}
+
+if [[ "$1" == "--help" ]]; then
+   echo "usage: `basename $0`"
+   echo "  install relative to $base"
+   exit
+fi
 
 sudo=""
-echo -n "Install as sudo? (if 'N', then will install as `whoami`) (y/N) "
-read -u 1 install_it
-if [ "$install_it" == "y" ]; then
+read -p "Install as sudo? (if 'N', then will install as `whoami`) [y/N] " -u 1 install_it
+if [[ "$install_it" == [yY] ]]; then
    sudo="sudo "
 fi
 
@@ -11,18 +22,17 @@ function offer_install_with_apt {
    command="$1"
    package="$2"
    if [ `which apt-get` ]; then
-      if [[ ${#command} -gt 0 && ${#package} -gt 0 ]]; then
+      if [[ -n "$command" && -n "$package" ]]; then
          if [ ! `which $command` ]; then
             echo
             echo $sudo apt-get install $package
-            echo -n "Could not find $command on path. Try to install with command shown above? (y/n): "
-            read -u 1 install_it
-            if [ "$install_it" == "y" ]; then
+            read -p "Could not find $command on path. Try to install with command shown above? (y/n): " -u 1 install_it
+            if [[ "$install_it" == [yY] ]]; then
                echo $sudo apt-get install $package
-               $sudo apt-get install $package
+                    $sudo apt-get install $package
             fi
          else
-            echo "[INFO] $command available at `which $command`"
+            echo "[INFO] $command already available at `which $command`"
          fi
       fi
    else
@@ -38,10 +48,6 @@ offer_install_with_apt 'awk'          'gawk'
 offer_install_with_apt 'curl'         'curl'
 offer_install_with_apt 'rapper'       'raptor-utils'
 offer_install_with_apt 'unzip'        'unzip'
-
-this=$(cd ${0%/*} && echo $PWD/${0##*/})
-base=${this%/bin/util/install-csv2rdf4lod-dependencies.sh}
-base=${base%/*}
 
 if [ ! `which serdi` ]; then
    echo
