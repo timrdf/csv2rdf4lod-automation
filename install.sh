@@ -54,9 +54,11 @@ pushd $CSV2RDF4LOD_HOME &> /dev/null
    echo "#3>     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-source-me.sh>" . >> my-csv2rdf4lod-source-me.${ext}
    echo ""                                                                                       >> my-csv2rdf4lod-source-me.${ext}
    echo "export CSV2RDF4LOD_HOME=\"$CSV2RDF4LOD_HOME\""                                          >> my-csv2rdf4lod-source-me.${ext}
-   echo "`basename $0`:"
-   echo "   has created my-csv2rdf4lod-source-me.${ext}."
-   echo "   has set \$CSV2RDF4LOD_HOME to $CSV2RDF4LOD_HOME in my-csv2rdf4lod-source-me.${ext}"
+   if [ "$interactive" == "yes" ]; then
+      echo "`basename $0`:"
+      echo "   has created my-csv2rdf4lod-source-me.${ext}."
+      echo "   has set \$CSV2RDF4LOD_HOME to $CSV2RDF4LOD_HOME in my-csv2rdf4lod-source-me.${ext}"
+   fi
 
    cat bin/setup.sh | grep -v "# _NOTE_" | grep -v "# _WARNING_"                                 >> my-csv2rdf4lod-source-me.sh
 
