@@ -20,6 +20,21 @@
 #   export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
 #   (can be repeated indefinately, once paths are in PATH, nothing is returned.)
 
+HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
+me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
+
+if [ "$1" == "--help" ]; then
+   echo "`basename $0` [--help]"
+   echo
+   echo "Return the shell paths needed to find all csv2rdf4lod-automation scripts."
+   echo "Set them by executing:"
+   echo
+   echo "    export PATH=\$PATH\`$me\`"
+   echo $HOME 
+   echo $me
+   exit
+fi
+
 missing=""
 
 if [ ! `which cr-vars.sh` ]; then
