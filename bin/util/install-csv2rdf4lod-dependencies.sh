@@ -40,7 +40,7 @@ else
 fi
 
 dryrun="false"
-TODO='[okay]'
+TODO=''
 if [ "$1" == "-n" ]; then
    dryrun="true"
    dryrun.sh $dryrun beginning
@@ -118,29 +118,29 @@ else
    echo "[okay] serdi available at `which serdi`"
 fi
 
-exit 1
-
 
 if [ ! `which tdbloader` ]; then
-   echo
-   echo -n "Try to install jena at $base? (y/N) "
-   read -u 1 install_it
-   if [ "$install_it" == "y" ]; then
+   if [ "$dryrun" != "true" ]; then
+      echo
+      read -p "Try to install jena at $base? (y/N) " -u 1 install_it
+   fi
+   if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
       # https://repository.apache.org/content/repositories/releases/org/apache/jena/jena-core/
-      tarball='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.3.tar.gz'
+      tarball='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.3.tar.gz' # TODO: up to 2.7.4 now.
       pushd $base &> /dev/null
-         echo curl -O --progress-bar $tarball
-         $sudo curl -O --progress-bar $tarball
-         tarball=`basename $tarball`
-         echo tar xzf $tarball
-         $sudo tar xzf $tarball
-         $sudo rm $tarball
-         jenaroot=$base/${tarball%.tar.gz}
+         echo $TODO curl -O --progress-bar $tarball from `pwd`
+         if [ "$dryrun" != "true" ]; then
+            $sudo curl -O --progress-bar $tarball
+            tarball=`basename $tarball`
+            echo tar xzf $tarball
+            $sudo tar xzf $tarball
+            $sudo rm $tarball
+            jenaroot=$base/${tarball%.tar.gz}
+         fi
       popd &> /dev/null
-      if [ -e my-csv2rdf4lod-source-me.sh ]; then
-         echo -n "Append JENAROOT to my-csv2rdf4lod-source-me.sh? (y/N) "
-         read -u 1 install_it
-         if [ "$install_it" == "y" ]; then
+      if [[ -e my-csv2rdf4lod-source-me.sh && "$dryrun" != "true" ]]; then
+         read -p "Append JENAROOT to my-csv2rdf4lod-source-me.sh? (y/N) " -u 1 install_it
+         if [[ "$install_it" == [yY] ]]; then
             echo "export JENAROOT=$jenaroot"              >> my-csv2rdf4lod-source-me.sh
             echo "export PATH=\"\${PATH}:$jenaroot/bin\"" >> my-csv2rdf4lod-source-me.sh
             echo "done:"
@@ -154,6 +154,9 @@ if [ ! `which tdbloader` ]; then
 else
    echo "[okay] tdbloader available at `which tdbloader`"
 fi
+
+exit 1
+
 
 
 # config and db in /var/lib/virtuoso
