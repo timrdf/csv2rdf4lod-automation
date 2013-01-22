@@ -64,7 +64,9 @@ if [ ! `which vload` ]; then
 fi
 
 if [ ! `which cr-linksets.sh` ]; then
-   missing=":"
+   if [ ${#missing} -gt 0 ]; then
+      missing=$missing":"
+   fi
    missing=$missing$HOME/bin/secondary
 fi
 
