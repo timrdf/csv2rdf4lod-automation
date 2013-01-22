@@ -30,8 +30,6 @@ if [ "$1" == "--help" ]; then
    echo "Set them by executing:"
    echo
    echo "    export PATH=\$PATH\`$me\`"
-   echo $HOME 
-   echo $me
    exit
 fi
 
@@ -43,28 +41,28 @@ if [ ! `which cr-vars.sh` ]; then
 fi
 
 if [ ! `which prefixes2flags.sh` ]; then
-   if [ ${#missing} -gt 0 ]; then
+   if [ -n "$missing" ]; then
       missing=$missing":"
    fi
    missing=$missing$HOME/bin/dup
 fi
 
 if [ ! `which pcurl.sh` ]; then export PATH=$PATH:$HOME/bin/util
-   if [ ${#missing} -gt 0 ]; then
+   if [ -n "$missing" ]; then
       missing=$missing":"
    fi
    missing=$missing$HOME/bin/util
 fi
 
 if [ ! `which vload` ]; then
-   if [ ${#missing} -gt 0 ]; then
+   if [ -n "$missing" ]; then
       missing=$missing":"
    fi
    missing=$missing$HOME/bin/util/virtuoso
 fi
 
 if [ ! `which cr-linksets.sh` ]; then
-   if [ ${#missing} -gt 0 ]; then
+   if [ -n "$missing" ]; then
       missing=$missing":"
    fi
    missing=$missing$HOME/bin/secondary
