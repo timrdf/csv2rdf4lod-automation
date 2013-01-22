@@ -66,7 +66,7 @@ function offer_install_with_apt {
                fi
             fi
          else
-            echo "[INFO] $command already available at `which $command`"
+            echo "[okay] $command already available at `which $command`"
          fi
       fi
    else
@@ -115,7 +115,7 @@ if [ ! `which serdi` ]; then
       #fi
    fi
 else
-   echo "[INFO] serdi available at `which serdi`"
+   echo "[okay] serdi available at `which serdi`"
 fi
 
 exit 1
@@ -152,7 +152,7 @@ if [ ! `which tdbloader` ]; then
       fi
    fi
 else
-   echo "[INFO] tdbloader available at `which tdbloader`"
+   echo "[okay] tdbloader available at `which tdbloader`"
 fi
 
 
@@ -196,9 +196,9 @@ if [ "$install_it" == "y" ]; then
       tarball='virtuoso.tar.gz'
       if [ ! -e $tarball ]; then
          sudo touch pid.$$
-         echo [INFO] curl -L -o $tarball --progress-bar $url
+         echo $TODO curl -L -o $tarball --progress-bar $url
          sudo curl -L -o $tarball --progress-bar $url
-         echo [INFO] tar xzf $tarball
+         echo $TODO tar xzf $tarball
          sudo tar xzf $tarball
          #$sudo rm $tarball
          #virtuoso_root=$base/${tarball%.tar.gz} # $base
@@ -208,11 +208,11 @@ if [ "$install_it" == "y" ]; then
             pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
                echo
                echo
-               echo [INFO] aptitude build-dep virtuoso-opensource
+               echo $TODO aptitude build-dep virtuoso-opensource
                sudo aptitude build-dep virtuoso-opensource
                echo
                echo
-               echo [INFO] dpkg-buildpackage -rfakeroot
+               echo $TODO dpkg-buildpackage -rfakeroot
                sudo dpkg-buildpackage -rfakeroot
             popd &> /dev/null
             pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
