@@ -355,7 +355,7 @@ export CSV2RDF4LOD_PUBLISH_COMPRESS="true"
 #
 # (done in convert-aggregate.sh)
 #
-export CSV2RDF4LOD_PUBLISH_PURGE_AUTODIRS="true"
+export CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR="true"
 export CSV2RDF4LOD_PUBLISH_PURGE_AUTODIR="false"
 
 
