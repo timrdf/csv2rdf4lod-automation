@@ -22,8 +22,6 @@
 
 CSV2RDF4LOD_HOME=$(cd ${0%/*} && echo ${PWD})
 
-echo $CSV2RDF4LOD_HOME
-
 ext="sh"
 if [ "$1" == "--csh" ]; then
    ext="csh"
