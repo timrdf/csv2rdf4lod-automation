@@ -20,8 +20,8 @@
 #   export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
 #   (can be repeated indefinately, once paths are in PATH, nothing is returned.)
 
-HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
-me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
+HOME=$(cd ${0%/*/*} && echo ${PWD%/*})        # e.g. /home/lebot/opt/prizms/repos/csv2rdf4lod-automation
+me=$(cd ${0%/*} && echo ${PWD})/`basename $0` # e.g. /home/lebot/opt/prizms/repos/csv2rdf4lod-automation/bin/util/cr-situate-paths.sh
 
 if [ "$1" == "--help" ]; then
    echo "`basename $0` [--help]"
@@ -39,33 +39,33 @@ missing=""
 
 if [ ! `which cr-vars.sh` ]; then
    missing=":"
-   missing=$missing$CSV2RDF4LOD_HOME/bin
+   missing=$missing$HOME/bin
 fi
 
 if [ ! `which prefixes2flags.sh` ]; then
    if [ ${#missing} -gt 0 ]; then
       missing=$missing":"
    fi
-   missing=$missing$CSV2RDF4LOD_HOME/bin/dup
+   missing=$missing$HOME/bin/dup
 fi
 
-if [ ! `which pcurl.sh` ]; then export PATH=$PATH:$CSV2RDF4LOD_HOME/bin/util
+if [ ! `which pcurl.sh` ]; then export PATH=$PATH:$HOME/bin/util
    if [ ${#missing} -gt 0 ]; then
       missing=$missing":"
    fi
-   missing=$missing$CSV2RDF4LOD_HOME/bin/util
+   missing=$missing$HOME/bin/util
 fi
 
 if [ ! `which vload` ]; then
    if [ ${#missing} -gt 0 ]; then
       missing=$missing":"
    fi
-   missing=$missing$CSV2RDF4LOD_HOME/bin/util/virtuoso
+   missing=$missing$HOME/bin/util/virtuoso
 fi
 
 if [ ! `which cr-linksets.sh` ]; then
    missing=":"
-   missing=$missing$CSV2RDF4LOD_HOME/bin/secondary
+   missing=$missing$HOME/bin/secondary
 fi
 
 echo $missing
