@@ -20,12 +20,11 @@
 #   install.sh [--csh] [--non-interactive]
 #   --csh : seat up for csh instead of bash.
 
-HOME=$(cd ${0%/*} && echo ${PWD})
-me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
+CSV2RDF4LOD_HOME=$(cd ${0%/*} && echo ${PWD})
 
-echo $HOME
-echo $me
-exit
+echo $CSV2RDF4LOD_HOME
+
+exit 1
 
 ext="sh"
 if [ "$1" == "--csh" ]; then
@@ -41,7 +40,6 @@ if [ "$1" == "--non-interactive" ]; then
    interactive="no"
 fi
 
-CSV2RDF4LOD_HOME=`pwd`
 see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-%28considerations-for-a-distributed-workflow%29'
 echo "#3> <#> a <http://purl.org/twc/vocab/conversion/CSV2RDF4LOD_environment_variables> ;"    > my-csv2rdf4lod-source-me.${ext}
 echo "#3>     rdfs:seeAlso"                                                                   >> my-csv2rdf4lod-source-me.${ext}
