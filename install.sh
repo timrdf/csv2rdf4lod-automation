@@ -20,7 +20,7 @@
 #   install.sh [--csh] [--non-interactive]
 #   --csh : seat up for csh instead of bash.
 
-HOME=$(cd ${0%/*} && echo ${PWD%/*})
+HOME=$(cd ${0%/*} && echo ${PWD})
 me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
 
 echo $HOME
