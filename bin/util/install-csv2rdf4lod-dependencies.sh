@@ -15,7 +15,8 @@ if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0`"
    echo
    echo "  Install the third-party utilities that csv2rdf4lod-automation uses."
-   echo "  Will install everything relative to the path $base"
+   echo "  Will install everything relative to the path:"
+   echo "     $base"
    echo "  See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
    echo
    exit
