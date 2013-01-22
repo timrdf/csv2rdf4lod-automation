@@ -79,31 +79,32 @@ offer_install_with_apt 'curl'         'curl'
 offer_install_with_apt 'rapper'       'raptor-utils'
 offer_install_with_apt 'unzip'        'unzip'
 
-exit 1
-
 if [ ! `which serdi` ]; then
-   echo
-   echo -n "Try to install serdi at $base? (y/N) "
-   read -u 1 install_it
-   if [ "$install_it" == "y" ]; then
+   if [ "$dryrun" != "true" ]; then
+      echo
+      read -p "Try to install serdi at $base? [y/N] " -u 1 install_it
+   fi
+   if [[ "$install_it" == [yY] ]]; then
       #if [ `which gcc` ]; then
       pushd $base &> /dev/null
          # http://drobilla.net/software/serd/
-         bz2='http://download.drobilla.net/serd-0.18.0.tar.bz2'
-         echo curl -O $bz2
-         $sudo curl -O $bz2
-         bz2=`basename $bz2`
-         if [ ! -e ${bz2%.tar.bz2} ]; then
-            echo tar -xjf $bz2
-            $sudo tar -xjf $bz2
-            $sudo rm $bz2
-            pushd ${bz2%.tar.bz2} &> /dev/null
-               $sudo ./waf configure
-               $sudo ./waf
-               $sudo ./waf install
-            popd &> /dev/null
+         bz2='http://download.drobilla.net/serd-0.18.2.tar.bz2'
+         echo curl -O $bz2 from `pwd`
+         if [ "$dryrun" != "true" ]; then
+            $sudo curl -O $bz2
+            bz2=`basename $bz2`
+            if [ ! -e ${bz2%.tar.bz2} ]; then
+               echo tar -xjf $bz2
+               $sudo tar -xjf $bz2
+               $sudo rm $bz2
+               pushd ${bz2%.tar.bz2} &> /dev/null
+                  $sudo ./waf configure
+                  $sudo ./waf
+                  $sudo ./waf install
+               popd &> /dev/null
+            fi
+            $sudo rm `basename $bz2`
          fi
-         $sudo rm `basename $bz2`
       popd &> /dev/null
       #else
       #   echo "ERROR: gcc not on PATH, cannot compile serdi"
@@ -112,6 +113,9 @@ if [ ! `which serdi` ]; then
 else
    echo "[INFO] serdi available at `which serdi`"
 fi
+
+exit 1
+
 
 if [ ! `which tdbloader` ]; then
    echo
