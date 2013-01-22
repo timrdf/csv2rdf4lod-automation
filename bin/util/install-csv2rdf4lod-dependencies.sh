@@ -6,6 +6,10 @@ this=$(cd ${0%/*} && echo $PWD/${0##*/})
 base=${this%/bin/util/install-csv2rdf4lod-dependencies.sh}
 base=${base%/*}
 
+if [[ "$base" == *prizms/repos ]]; then
+   base=${base%/prizms/repos}
+fi
+
 if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0`"
    echo "  install relative to $base"
