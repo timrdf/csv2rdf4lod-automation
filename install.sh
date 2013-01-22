@@ -17,8 +17,12 @@
 #   limitations under the License.
 #
 # Usage:
-#   install.sh [--csh] [--non-interactive]
-#   --csh : seat up for csh instead of bash.
+#
+#   install.sh [--csh] [--non-interactive] [--vars-only]
+#
+#     --csh : seat up for csh instead of bash.
+#     --non-interactive : do not print user-based stdout; just print the configuration to stdout.
+#     --vars-only       : do not include the PATH and alias configurations; only include the CSV2RDF4LOD_ variables.
 
 CSV2RDF4LOD_HOME=$(cd ${0%/*} && echo ${PWD})
 
@@ -34,6 +38,11 @@ fi
 interactive="yes"
 if [ "$1" == "--non-interactive" ]; then
    interactive="no"
+fi
+
+vars_only="no"
+if [ "$1" == "--vars-only" ]; then
+   vars_only="yes"
 fi
 
 pushd $CSV2RDF4LOD_HOME &> /dev/null
@@ -64,7 +73,7 @@ pushd $CSV2RDF4LOD_HOME &> /dev/null
    mv install.sh bin/
 
    if [ "$interactive" == "no" ]; then
-      cat my-csv2rdf4lod-source-me.${ext}
+      $CSV2RDF4LOD_HOME/bin/util/grep-head.sh -p '# End of CSV2RDF4LOD_ variables' my-csv2rdf4lod-source-me.sh
    else
       source my-csv2rdf4lod-source-me.${ext} &> /dev/null
 
