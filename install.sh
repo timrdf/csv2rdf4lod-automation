@@ -54,6 +54,7 @@ pushd $CSV2RDF4LOD_HOME &> /dev/null
    echo "#3>     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-source-me.sh>" . >> my-csv2rdf4lod-source-me.${ext}
    echo ""                                                                                       >> my-csv2rdf4lod-source-me.${ext}
    echo "export CSV2RDF4LOD_HOME=\"$CSV2RDF4LOD_HOME\""                                          >> my-csv2rdf4lod-source-me.${ext}
+
    if [ "$interactive" == "yes" ]; then
       echo "`basename $0`:"
       echo "   has created my-csv2rdf4lod-source-me.${ext}."
