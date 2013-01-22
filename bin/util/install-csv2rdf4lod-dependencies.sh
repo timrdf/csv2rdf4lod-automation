@@ -40,7 +40,7 @@ else
 fi
 
 dryrun="false"
-TODO=''
+TODO='[okay]'
 if [ "$1" == "-n" ]; then
    dryrun="true"
    dryrun.sh $dryrun beginning
