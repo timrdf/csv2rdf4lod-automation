@@ -11,8 +11,12 @@ if [[ "$base" == *prizms/repos ]]; then
 fi
 
 if [[ "$1" == "--help" ]]; then
+   echo
    echo "usage: `basename $0`"
-   echo "  install relative to $base"
+   echo "  Install the third-party utilities that csv2rdf4lod-automation uses."
+   echo "  Will install everything relative to the path $base"
+   echo "  See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
+   echo
    exit
 fi
 
