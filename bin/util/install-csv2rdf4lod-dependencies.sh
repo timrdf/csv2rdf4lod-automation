@@ -40,9 +40,11 @@ else
 fi
 
 dryrun="false"
+TODO=''
 if [ "$1" == "-n" ]; then
    dryrun="true"
    dryrun.sh $dryrun beginning
+   TODO="[TODO]"
    shift
 fi
 
@@ -55,7 +57,7 @@ function offer_install_with_apt {
             if [ "$dryrun" != "true" ]; then
                echo
             fi
-            echo $sudo apt-get install $package
+            echo $TODO $sudo apt-get install $package
             if [ "$dryrun" != "true" ]; then
                read -p "Could not find $command on path. Try to install with command shown above? (y/n): " -u 1 install_it
                if [[ "$install_it" == [yY] ]]; then
@@ -91,7 +93,7 @@ if [ ! `which serdi` ]; then
       pushd $base &> /dev/null
          # http://drobilla.net/software/serd/
          bz2='http://download.drobilla.net/serd-0.18.2.tar.bz2'
-         echo curl -O $bz2 from `pwd`
+         echo $TODO curl -O $bz2 from `pwd`
          if [ "$dryrun" != "true" ]; then
             $sudo curl -O $bz2
             bz2=`basename $bz2`
