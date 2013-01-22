@@ -90,10 +90,10 @@ if [ "$1" != "CLEAR" ]; then
 
    echo
    echo "CSV2RDF4LOD_CKAN                                         ${CSV2RDF4LOD_CKAN:-"(will default to: false)"}"
-   if [  "$CSV2RDF4LOD_CKAN" == "true" ]; then
+   if [[ "$CSV2RDF4LOD_CKAN" == "true" || "$show_all" == "yes" ]]; then
       echo "CSV2RDF4LOD_CKAN_SOURCE                                  ${CSV2RDF4LOD_CKAN_SOURCE:-"(will not replicate a ckan)"}"
       echo "CSV2RDF4LOD_CKAN_WRITABLE                                ${CSV2RDF4LOD_CKAN_WRITABLE:-"(will not write to a CKAN)"}"
-      if [  ${#CSV2RDF4LOD_CKAN_WRITABLE} -gt 0 ]; then
+      if [[  ${#CSV2RDF4LOD_CKAN_WRITABLE} -gt 0 || "$show_all" == "yes" ]]; then
          echo "X_CKAN_API_Key                                           ${X_CKAN_API_Key:-"(will not be able to write to $CSV2RDF4LOD_CKAN_WRITABLE)"}"
       fi
    else
@@ -111,7 +111,7 @@ if [ "$1" != "CLEAR" ]; then
    echo "CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR                      ${CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR:="(will default to: false)"}"
    echo "CSV2RDF4LOD_CONVERT_DEBUG_LEVEL                          ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:="(will default to: none \{none,fine,finer,finest\})"}"
 
-   if [ ${#CSV2RDF4LOD_CONVERTER} -gt 0 ]; then
+   if [[ ${#CSV2RDF4LOD_CONVERTER} -gt 0 || "$show_all" == "yes" ]]; then
       echo "CSV2RDF4LOD_CONVERTER                                 ${CSV2RDF4LOD_CONVERTER:="(will default to: java ... -Xmx3060m edu.rpi.tw.data.csv.CSVtoRDF"}"
    fi
 
