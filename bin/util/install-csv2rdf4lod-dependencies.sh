@@ -138,13 +138,17 @@ if [ ! `which tdbloader` ]; then
             jenaroot=$base/${tarball%.tar.gz}
          fi
       popd &> /dev/null
-      if [[ -e my-csv2rdf4lod-source-me.sh && "$dryrun" != "true" ]]; then
-         read -p "Append JENAROOT to my-csv2rdf4lod-source-me.sh? (y/N) " -u 1 install_it
-         if [[ "$install_it" == [yY] ]]; then
-            echo "export JENAROOT=$jenaroot"              >> my-csv2rdf4lod-source-me.sh
-            echo "export PATH=\"\${PATH}:$jenaroot/bin\"" >> my-csv2rdf4lod-source-me.sh
-            echo "done:"
-            tail -2 my-csv2rdf4lod-source-me.sh
+      if [[ -e my-csv2rdf4lod-source-me.sh ]]; then
+         if [ "$dryrun" != "true" ]; then
+            read -p "Append JENAROOT to my-csv2rdf4lod-source-me.sh? (y/N) " -u 1 install_it
+            if [[ "$install_it" == [yY] ]]; then
+               echo "export JENAROOT=$jenaroot"              >> my-csv2rdf4lod-source-me.sh
+               echo "export PATH=\"\${PATH}:$jenaroot/bin\"" >> my-csv2rdf4lod-source-me.sh
+               echo "done:"
+               tail -2 my-csv2rdf4lod-source-me.sh
+            fi
+         else
+            echo "$TODO set JENAROOT=$jenaroot in `pwd`/my-csv2rdf4lod-source-me.sh"
          fi
       else
          echo "WARNING: set JENAROOT=$jenaroot in your my-csv2rdf4lod-source-me.sh or .bashrc"
