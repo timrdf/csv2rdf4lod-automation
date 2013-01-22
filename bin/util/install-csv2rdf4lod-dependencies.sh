@@ -84,7 +84,7 @@ if [ ! `which serdi` ]; then
       echo
       read -p "Try to install serdi at $base? [y/N] " -u 1 install_it
    fi
-   if [[ "$install_it" == [yY] ]]; then
+   if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
       #if [ `which gcc` ]; then
       pushd $base &> /dev/null
          # http://drobilla.net/software/serd/
