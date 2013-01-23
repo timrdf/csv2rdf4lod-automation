@@ -155,16 +155,13 @@ if [ ! `which tdbloader` ]; then
             echo "WARNING: set JENAROOT=$jenaroot in your my-csv2rdf4lod-source-me.sh or .bashrc"
             echo "WARNING: set PATH=\"\${PATH}:$jenaroot/bin\" in your my-csv2rdf4lod-source-me.sh or .bashrc"
          else
-            echo "$TODO installer would not be able to set JENAROOT=$jenaroot in `pwd`/my-csv2rdf4lod-source-me.sh"
+            echo "$TODO installer would not be able to set JENAROOT= in `pwd`/my-csv2rdf4lod-source-me.sh"
          fi
       fi
    fi
 else
    echo "[okay] tdbloader available at `which tdbloader`"
 fi
-
-exit 1
-
 
 
 # config and db in /var/lib/virtuoso
@@ -188,10 +185,11 @@ exit 1
 #   apt-get install libapache2-mod-proxy-html
 #   a2enmod proxy-html
 
-echo
-echo -n "Try to install virtuoso at /opt? (note: sudo required) (y/N) " # $base to be relative
-read -u 1 install_it
-if [ "$install_it" == "y" ]; then
+if [ "$dryrun" != "true" ]; then
+   echo
+   read -p "Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
+fi
+if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
    # http://sourceforge.net/projects/virtuoso/
    url='http://sourceforge.net/projects/virtuoso/files/latest/download'
    pushd /opt &> /dev/null # $base
@@ -206,34 +204,41 @@ if [ "$install_it" == "y" ]; then
       redirect=$url
       tarball='virtuoso.tar.gz'
       if [ ! -e $tarball ]; then
-         sudo touch pid.$$
-         echo $TODO curl -L -o $tarball --progress-bar $url
-         sudo curl -L -o $tarball --progress-bar $url
-         echo $TODO tar xzf $tarball
-         sudo tar xzf $tarball
-         #$sudo rm $tarball
-         #virtuoso_root=$base/${tarball%.tar.gz} # $base
-         virtuoso_root=`find . -maxdepth 1 -cnewer pid.$$ -name "virtuoso*" -type d`
-         # ^ e.g. 'virtuoso-opensource-6.1.6/'
-         if [ -d $virtuoso_root ]; then
-            pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
-               echo
-               echo
-               echo $TODO aptitude build-dep virtuoso-opensource
-               sudo aptitude build-dep virtuoso-opensource
-               echo
-               echo
-               echo $TODO dpkg-buildpackage -rfakeroot
-               sudo dpkg-buildpackage -rfakeroot
-            popd &> /dev/null
-            pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
-            echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb
-            sudo dpkg -i ${pkg}_amd64.deb
+         if [ "$dryrun" != "true" ]; then
+            sudo touch pid.$$
          fi
-         echo
+         echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
+         if [ "$dryrun" != "true" ]; then
+            sudo curl -L -o $tarball --progress-bar $url
+            echo $TODO tar xzf $tarball
+            sudo tar xzf $tarball
+            #$sudo rm $tarball
+            #virtuoso_root=$base/${tarball%.tar.gz} # $base
+            virtuoso_root=`find . -maxdepth 1 -cnewer pid.$$ -name "virtuoso*" -type d`
+            # ^ e.g. 'virtuoso-opensource-6.1.6/'
+            if [ -d $virtuoso_root ]; then
+               pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
+                  echo
+                  echo
+                  echo $TODO aptitude build-dep virtuoso-opensource
+                  sudo aptitude build-dep virtuoso-opensource
+                  echo
+                  echo
+                  echo $TODO dpkg-buildpackage -rfakeroot
+                  sudo dpkg-buildpackage -rfakeroot
+               popd &> /dev/null
+               pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
+               echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb
+               sudo dpkg -i ${pkg}_amd64.deb
+            fi
+            echo
+         fi
       fi
    popd &> /dev/null
 fi
+
+exit 1
+
 
 
 echo
