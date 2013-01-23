@@ -288,9 +288,11 @@ if [ "$dryrun" != "true" ]; then
    read -p "Try to python modules (e.g. python-dateutil)? (y/N) " -u 1 install_it
 fi
 if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
+   # TODO: set up the user-based install that does NOT require sudo.
    echo $TODO $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
    if [ "$dryrun" != "true" ]; then
               $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
+             # SUDO IS NOT REQUIRED HERE.
    fi
    # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
 fi
@@ -306,15 +308,14 @@ offer_install_with_apt 'a2enmod' 'apache2'
 
 for package in php5 php5-cli php5-sqlite php5-curl sqlite3; do
    not_installed=`dpkg -s $package 2>&1 | grep "is not installed"`
-   if [ ${#not_installed} ]; then
+   if [ -n "$not_installed" ]; then
       echo
       echo "~~~~ ~~~~"
       echo sudo apt-get install $package
-      echo -n "$package (Dependency for LODSPeaKr) is not shown in dpkg; install it with command above? (y/N) "
-      read -u 1 install_it
-      if [ "$install_it" == "y" ]; then
+      read -p "$package (Dependency for LODSPeaKr) is not shown in dpkg; install it with command above? (y/N) " -u 1 install_it
+      if [[ "$install_it" == [yY] ]]; then
          echo sudo apt-get install $package
-         sudo apt-get install $package
+              sudo apt-get install $package
       fi
    fi
 done
@@ -322,9 +323,8 @@ done
 echo
 echo "~~~~ ~~~~"
 echo "sudo a2enmod rewrite"
-echo -n "LODSPeaKr requires HTTP rewrite. Enable it with the command above? (y/N) "
-read -u 1 install_it
-if [ "$install_it" == "y" ]; then
+read -p "LODSPeaKr requires HTTP rewrite. Enable it with the command above? (y/N) " -u 1 install_it
+if [[ "$install_it" == [yY] ]]; then
    sudo a2enmod rewrite
 fi
 
@@ -334,9 +334,8 @@ echo 'https://github.com/alangrafu/lodspeakr/wiki/How-to-install-requisites-in-U
 echo "  /etc/apache2/sites-enabled/000-default must 'AllowOverride All' for <Directory /var/www/>"
 echo
 echo "sudo service apache2 restart"
-echo -n "Please edit 000-default to AllowOverride All, THEN type 'y' to restart apache, or just type 'N' to skip this. (y/N) "
-read -u 1 install_it
-if [ "$install_it" == "y" ]; then
+read -p "Please edit 000-default to AllowOverride All, THEN type 'y' to restart apache, or just type 'N' to skip this. (y/N) " -u 1 install_it
+if [[ "$install_it" == [yY] ]]; then
    echo "~~~~ ~~~~"
    echo "Dependency for LODSPeaKr:"
    sudo service apache2 restart
