@@ -151,8 +151,12 @@ if [ ! `which tdbloader` ]; then
             echo "$TODO set JENAROOT=$jenaroot in `pwd`/my-csv2rdf4lod-source-me.sh"
          fi
       else
-         echo "WARNING: set JENAROOT=$jenaroot in your my-csv2rdf4lod-source-me.sh or .bashrc"
-         echo "WARNING: set PATH=\"\${PATH}:$jenaroot/bin\" in your my-csv2rdf4lod-source-me.sh or .bashrc"
+         if [ "$dryrun" != "true" ]; then
+            echo "WARNING: set JENAROOT=$jenaroot in your my-csv2rdf4lod-source-me.sh or .bashrc"
+            echo "WARNING: set PATH=\"\${PATH}:$jenaroot/bin\" in your my-csv2rdf4lod-source-me.sh or .bashrc"
+         else
+            echo "$TODO installer would not be able to set JENAROOT=$jenaroot in `pwd`/my-csv2rdf4lod-source-me.sh"
+         fi
       fi
    fi
 else
