@@ -282,17 +282,21 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
    fi
 fi
 
-exit 1
 
-
-
-echo
-echo -n "Try to python modules (e.g. python-dateutil)? (y/N) "
-read -u 1 install_it
-if [ "$install_it" == "y" ]; then
-   $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
+if [ "$dryrun" != "true" ]; then
+   echo
+   read -p "Try to python modules (e.g. python-dateutil)? (y/N) " -u 1 install_it
+fi
+if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
+   $TODO $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
+   if [ "$dryrun" != "true" ]; then
+      $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
+   fi
    # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
 fi
+
+exit 1
+
 
 # https://github.com/alangrafu/lodspeakr/wiki/How-to-install-requisites-in-Ubuntu
 echo "Dependency for LODSPeaKr:"
