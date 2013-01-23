@@ -237,36 +237,54 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
    popd &> /dev/null
 fi
 
-exit 1
 
-
-
-echo
-echo -n "Try to perl modules (e.g. YAML)? (y/N) "
-read -u 1 install_it
-if [ "$install_it" == "y" ]; then
-   echo perl -MCPAN install YAML
+if [ "$dryrun" != "true" ]; then
+   echo
+   read -p "Try to perl modules (e.g. YAML)? (y/N) " -u 1 install_it
+fi
+if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
+   #echo $TODO perl -MCPAN install YAML
    #$sudo perl -MCPAN -e shell
-   echo YAML
-   $sudo perl -MCPAN -e install YAML
-   echo URI::Escape
-   $sudo perl -MCPAN -e install URI::Escape
-   echo Data:Dumper
-   $sudo perl -MCPAN -e install Data::Dumper
-   echo HTTP:Config
-   $sudo perl -MCPAN -e install HTTP:Config
-   echo LWP:UserAgent
-   $sudo perl -MCPAN -e install LWP::UserAgent
+   echo $TODO perl -MCPAN install YAML
+   if [ "$dryrun" != "true" ]; then
+      $sudo perl -MCPAN -e install YAML
+   fi
+   echo $TODO perl -MCPAN install URI::Escape
+   if [ "$dryrun" != "true" ]; then
+      $sudo perl -MCPAN -e install URI::Escape
+   fi
+   echo $TODO perl -MCPAN install Data:Dumper
+   if [ "$dryrun" != "true" ]; then
+      $sudo perl -MCPAN -e install Data::Dumper
+   fi
+   echo $TODO perl -MCPAN install HTTP:Config
+   if [ "$dryrun" != "true" ]; then
+      $sudo perl -MCPAN -e install HTTP:Config
+   fi
+   echo $TODO perl -MCPAN install LWP:UserAgent
+   if [ "$dryrun" != "true" ]; then
+      $sudo perl -MCPAN -e install LWP::UserAgent
+   fi
    # ^^ OR sudo apt-cache search perl LWP::UserAgent
    #      $sudo apt-get install liblwp-useragent-determined-perl
    # ^^ OR cpan -f -i LWP::UserAgent
-   echo IO::Socket::SSL
-   $sudo perl -MCPAN -e install IO::Socket::SSL
-   echo Text::CSV
-   $sudo perl -MCPAN -e install Text::CSV
-   echo Text::CSV_XS
-   $sudo perl -MCPAN -e install Text::CSV_XS 
+   echo $TODO perl -MCPAN install IO::Socket::SSL
+   if [ "$dryrun" != "true" ]; then
+      $sudo perl -MCPAN -e install IO::Socket::SSL
+   fi
+   echo $TODO perl -MCPAN install Text::CSV
+   if [ "$dryrun" != "true" ]; then
+      $sudo perl -MCPAN -e install Text::CSV
+   fi
+   echo $TODO perl -MCPAN install Text::CSV_XS
+   if [ "$dryrun" != "true" ]; then
+      $sudo perl -MCPAN -e install Text::CSV_XS 
+   fi
 fi
+
+exit 1
+
+
 
 echo
 echo -n "Try to python modules (e.g. python-dateutil)? (y/N) "
