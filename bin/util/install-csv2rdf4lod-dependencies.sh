@@ -298,10 +298,6 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
 fi
 
 
-if [ "$dryrun" == "true" ]; then
-   # The rest of the install portions do NOT recognize the $dryrun flag, so skip them.
-   exit 1
-fi
 
 
 # https://github.com/alangrafu/lodspeakr/wiki/How-to-install-requisites-in-Ubuntu
@@ -312,17 +308,27 @@ offer_install_with_apt 'a2enmod' 'apache2'
 
 for package in php5 php5-cli php5-sqlite php5-curl sqlite3; do
    not_installed=`dpkg -s $package 2>&1 | grep "is not installed"`
-   if [ -n "$not_installed" ]; then
+   if [[ -n "$not_installed" && "$dryrun" != "true" ]]; then
       echo
       echo "~~~~ ~~~~"
-      echo sudo apt-get install $package
-      read -p "$package (Dependency for LODSPeaKr) is not shown in dpkg; install it with command above? (y/N) " -u 1 install_it
-      if [[ "$install_it" == [yY] ]]; then
-         echo sudo apt-get install $package
-              sudo apt-get install $package
+   fi
+   if [[ -n "$not_installed" ]]; then
+      echo $TODO sudo apt-get install $package
+      if [[ "$dryrun" != "true" ]]; then
+         read -p "$package (Dependency for LODSPeaKr) is not shown in dpkg; install it with command above? (y/N) " -u 1 install_it
+         if [[ "$install_it" == [yY] ]]; then
+            sudo apt-get install $package
+         fi
       fi
+   else
+      echo "[okay] $package is installed (needed for LODSPeaKr)."
    fi
 done
+
+if [ "$dryrun" == "true" ]; then
+   # The rest of the install portions do NOT recognize the $dryrun flag, so skip them.
+   exit 1
+fi
 
 echo
 echo "~~~~ ~~~~"
