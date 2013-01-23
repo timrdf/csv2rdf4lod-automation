@@ -297,7 +297,11 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
    # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
 fi
 
-exit 1
+
+if [ "$dryrun" == "true" ]; then
+   # The rest of the install portions do NOT recognize the $dryrun flag, so skip them.
+   exit 1
+fi
 
 
 # https://github.com/alangrafu/lodspeakr/wiki/How-to-install-requisites-in-Ubuntu
