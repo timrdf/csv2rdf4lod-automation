@@ -288,9 +288,9 @@ if [ "$dryrun" != "true" ]; then
    read -p "Try to python modules (e.g. python-dateutil)? (y/N) " -u 1 install_it
 fi
 if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
-   $TODO $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
+   echo $TODO $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
    if [ "$dryrun" != "true" ]; then
-      $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
+              $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
    fi
    # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
 fi
