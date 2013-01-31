@@ -250,6 +250,7 @@ fi
 
 
 cannot_locate=`echo 'yo' | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }' 2>&1 | grep "Can't locate"`
+echo cannot: $cannot_locate
 if [[ "$dryrun" != "true" && -n "$cannot_locate" ]]; then
    echo
    read -p "Try to perl modules (e.g. YAML)? (Y/n) " -u 1 install_it
