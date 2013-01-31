@@ -20,12 +20,17 @@
 #   export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
 #   (can be repeated indefinately, once paths are in PATH, nothing is returned.)
 
+HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
+me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
+
 if [ "$1" == "--help" ]; then
    echo "`basename $0` [--help]"
    echo
    echo "Put them there by executing:"
    echo
    echo "    export CLASSPATH=\$CLASSPATH\`\$CSV2RDF4LOD_HOME/bin/util/${0##*/}\`"
+   echo "$HOME"
+   echo "$me"
    exit
 fi
 
