@@ -43,10 +43,16 @@ elif [[ `is-pwd-a.sh                                                            
    if [[ "$skip_if_exists" == "yes" && ${#latest_version} -gt 0 ]]; then
       not='not retrieving b/c --skip-if-exists was specified'
       echo "INFO: `basename $0`: version for `cr-source-id.sh`/`cr-dataset-id.sh` already exists ($latest_version); $not."
-   elif [[ -e dcat.ttl || -e ../dcat.ttl ]]; then
+   elif [[ -e access.ttl || -e dcat.ttl || -e ../access.ttl || -e ../dcat.ttl ]]; then
+      # dcat.ttl was a bad choice of name. It should be named after it's purpose, not the specific vocab.
+      # that currently achieves it. Still triggering on dcat.ttl for backward compatibility.
       dcat='' # RDF file containing distribution information - which file to download for this dataset?
-      if [ -e dcat.ttl ]; then
+      if [ -e access.ttl ]; then
+         dcat='access.ttl'
+      elif [ -e dcat.ttl ]; then
          dcat='dcat.ttl'
+      elif [ -e ../access.ttl ]; then
+         dcat='../access.ttl'
       elif [ -e ../dcat.ttl ]; then
          dcat='../dcat.ttl'
       fi
