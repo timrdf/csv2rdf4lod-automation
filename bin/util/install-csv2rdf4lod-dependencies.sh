@@ -165,6 +165,8 @@ if [ ! `which tdbloader` ]; then
                jenaroot=$base/${zip%.zip}
             fi
          popd &> /dev/null
+      else
+         echo "$jenaroot is already present, so we didn't try to download $zip again."
       fi
       if [[ -e my-csv2rdf4lod-source-me.sh ]]; then
          if [ "$dryrun" != "true" ]; then
