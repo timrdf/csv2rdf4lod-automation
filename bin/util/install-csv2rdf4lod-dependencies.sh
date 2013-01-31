@@ -189,7 +189,7 @@ if [ "$dryrun" != "true" ]; then
    echo
    read -p "Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
 fi
-if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
+if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
    # http://sourceforge.net/projects/virtuoso/
    url='http://sourceforge.net/projects/virtuoso/files/latest/download'
    pushd /opt &> /dev/null # $base
