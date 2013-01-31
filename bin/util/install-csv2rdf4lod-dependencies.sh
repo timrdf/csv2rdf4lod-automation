@@ -309,7 +309,7 @@ if [[ -z "$cannot_locate" ]]; then
    fi
 else
    for package in $perl_packages; do
-      echo "[okay] perl -MCPAN install YAML"
+      echo "[okay] perl -MCPAN install $package"
    done
 fi
 
