@@ -357,8 +357,8 @@ else
 fi
 
 if [ "$dryrun" != "true" ]; then
-   echo $div
    echo
+   echo $div
    read -p "Try to install python modules (e.g. python-dateutil)? (Y/n) " -u 1 install_it
 fi
 if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
