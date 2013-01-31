@@ -12,6 +12,8 @@ if [[ "$base" == *prizms/repos ]]; then
    base=${base%/prizms/repos}
 fi
 
+div="-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+
 if [[ "$1" == "--help" ]]; then
    echo
    echo "usage: `basename $0` [-n] [--avoid-sudo]"
@@ -138,6 +140,7 @@ fi
 if [ ! `which tdbloader` ]; then
    if [ "$dryrun" != "true" ]; then
       echo
+      echo $div
       read -p "Could not find tdbloader on path. Try to install jena at $base? (y/n): " -u 1 install_it
    fi
    if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
@@ -166,7 +169,7 @@ if [ ! `which tdbloader` ]; then
             fi
          popd &> /dev/null
       else
-         echo "$jenaroot is already present, so we didn't try to download $zip again."
+         echo "  ($jenaroot is already present, so we didn't try to download $zip again.)"
       fi
       if [[ -e my-csv2rdf4lod-source-me.sh ]]; then
          if [ "$dryrun" != "true" ]; then
@@ -217,6 +220,7 @@ fi
 
 if [ "$dryrun" != "true" ]; then
    echo
+   echo $div
    read -p "Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
 fi
 if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
