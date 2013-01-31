@@ -48,6 +48,7 @@ elif [ "$dryrun" != "true" ]; then
    if [[ "$use_sudo" == [yY] ]]; then
       sudo="sudo "
    fi
+   echo
 fi
 
 # Do a pass to avoid sudo, then continue using sudo if we must.
@@ -141,16 +142,25 @@ if [ ! `which tdbloader` ]; then
    fi
    if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
       # https://repository.apache.org/content/repositories/releases/org/apache/jena/jena-core/
-      tarball='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.3.tar.gz' # TODO: up to 2.7.4 now.
+      tarball='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.3.tar.gz' # 404s
+      zip='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.4.zip'
       pushd $base &> /dev/null
-         echo $TODO curl -O --progress-bar $tarball from `pwd`
+         #echo $TODO curl -O --progress-bar $tarball from `pwd`
          if [ "$dryrun" != "true" ]; then
-            $sudo curl -O --progress-bar $tarball
-            tarball=`basename $tarball`
-            echo tar xzf $tarball
-            $sudo tar xzf $tarball
-            $sudo rm $tarball
-            jenaroot=$base/${tarball%.tar.gz}
+            # For 2.7.3's tarball, which does not work anymore.
+            #$sudo curl -O --progress-bar $tarball
+            #tarball=`basename $tarball`
+            #echo tar xzf $tarball
+            #$sudo tar xzf $tarball
+            #$sudo rm $tarball
+            #jenaroot=$base/${tarball%.tar.gz}
+
+            # For 2.7.4's zip...
+            $sudo curl -O --progress-bar $zipurl
+            zip=`basename $zip`   
+            echo $sudo gunzip $zip
+                 $sudo gunzip $zip
+            jenaroot=$base/${zip%.zip}
          fi
       popd &> /dev/null
       if [[ -e my-csv2rdf4lod-source-me.sh ]]; then
