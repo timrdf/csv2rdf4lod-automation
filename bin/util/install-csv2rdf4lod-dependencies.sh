@@ -158,8 +158,8 @@ if [ ! `which tdbloader` ]; then
             # For 2.7.4's zip...
             $sudo curl -O --progress-bar $zip
             zip=`basename $zip`   
-            echo $sudo gunzip $zip
-                 $sudo gunzip $zip
+            echo $sudo unzip $zip
+                 $sudo unzip $zip
             jenaroot=$base/${zip%.zip}
          fi
       popd &> /dev/null
