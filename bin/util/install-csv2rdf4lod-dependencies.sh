@@ -50,6 +50,14 @@ elif [ "$dryrun" != "true" ]; then
    fi
 fi
 
+# Do a pass to avoid sudo, then continue using sudo if we must.
+#if [[ "$dryrun" == "true" ]]; then
+#   $0 -n --avoid-sudo
+#else
+#   $0 --avoid-sudo
+#fi
+# Press on with installing as sudo after we've tried to install without it.
+
 function offer_install_with_apt {
    command="$1"
    package="$2"
