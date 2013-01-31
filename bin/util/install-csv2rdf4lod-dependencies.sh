@@ -249,11 +249,12 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
 fi
 
 
-if [ "$dryrun" != "true" ]; then
+cannot_locate=`echo 'yo' | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }' 2>&1 | grep "Can't locate"`
+if [[ "$dryrun" != "true" && -n "$cannot_locate" ]]; then
    echo
    read -p "Try to perl modules (e.g. YAML)? (Y/n) " -u 1 install_it
 fi
-if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
+if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$cannot_locate" ]]; then
    #echo $TODO perl -MCPAN install YAML
    #$sudo perl -MCPAN -e shell
    echo $TODO perl -MCPAN install YAML
@@ -263,6 +264,10 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
    echo $TODO perl -MCPAN install URI::Escape
    if [ "$dryrun" != "true" ]; then
       $sudo perl -MCPAN -e install URI::Escape
+      # used in:
+      #    bin/util/pvload.sh
+      #    bin/util/cache-queries.sh
+      #    bin/util/ptsw.sh
    fi
    echo $TODO perl -MCPAN install Data:Dumper
    if [ "$dryrun" != "true" ]; then
@@ -275,6 +280,10 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
    echo $TODO perl -MCPAN install LWP:UserAgent
    if [ "$dryrun" != "true" ]; then
       $sudo perl -MCPAN -e install LWP::UserAgent
+      # used in:
+      #   bin/util/filename-v3.pl
+      #   bin/util/filename2.pl
+      #   bin/util/filename.pl
    fi
    # ^^ OR sudo apt-cache search perl LWP::UserAgent
    #      $sudo apt-get install liblwp-useragent-determined-perl
@@ -286,6 +295,9 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
    echo $TODO perl -MCPAN install Text::CSV
    if [ "$dryrun" != "true" ]; then
       $sudo perl -MCPAN -e install Text::CSV
+      # used in:
+      #   bin/util/parse_fixedwidth.pl
+      #   bin/util/sparql-csv2plain.pl
    fi
    echo $TODO perl -MCPAN install Text::CSV_XS
    if [ "$dryrun" != "true" ]; then
