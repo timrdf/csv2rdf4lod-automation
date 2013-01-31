@@ -86,6 +86,10 @@ function offer_install_with_apt {
    return $?
 }
 
+if [ "$dryrun" != "true" ]; then
+   $sudo apt-get update
+fi
+
 offer_install_with_apt 'git'    'git-core'      # These are dryrun safe.
 offer_install_with_apt 'java'   'openjdk-6-jre' # openjdk-6-jdk ?
 offer_install_with_apt 'awk'    'gawk'          #
@@ -244,6 +248,19 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
             fi
             echo
          fi
+         # Administering Virtuoso is discussed at:
+         #   https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore
+         #   https://github.com/jimmccusker/twc-healthdata/wiki/VM-Installation-Notes
+         #
+         # Debian package build results in:
+         #
+         #   /usr/bin/isql-v
+         #   /var/lib/virtuoso/db/virtuoso.ini
+         #   /usr/bin and /var and /usr/lib
+         #   endpoint: http://aquarius.tw.rpi.edu/projects/healthdata/sparql
+         #
+         # Restart virtuoso with sudo /etc/init.d/virtuoso-opensource restart
+         # Monitor virtuoso with sudo tail -f /var/lib/virtuoso/db/virtuoso.log
       fi
    popd &> /dev/null
 fi
