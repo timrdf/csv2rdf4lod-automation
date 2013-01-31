@@ -22,7 +22,7 @@ import ckanclient  # see README at https://github.com/okfn/ckanclient
 
 if len(sys.argv) <= 2 or (len(sys.argv) > 1 and sys.argv[1] == "--help"):
    print
-   print "usage: %s <ckan-api> <CSV2RDF4LOD_BASE_URI>: [mirrored-ckan]" % os.path.basename(sys.argv[0])
+   print "usage: %s <ckan-api> <CSV2RDF4LOD_BASE_URI> [mirrored-ckan]" % os.path.basename(sys.argv[0])
    print
    print "  <ckan-api>:             The API URL for the CKAN instance."
    print "                          e.g. http://healthdata.tw.rpi.edu/hub/api"
