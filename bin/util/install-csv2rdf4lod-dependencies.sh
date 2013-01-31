@@ -24,7 +24,6 @@ if [[ "$1" == "--help" ]]; then
    echo "  --avoid-sudo : Avoid using sudo if at all possible. It's best to avoid root."
    echo
    echo "   -n          | Perform only a dry run. This can be used to get a sense of what will be done before we actually do it."
-   echo "               : NOTE: not implemented yet."
    echo
    exit
 fi
