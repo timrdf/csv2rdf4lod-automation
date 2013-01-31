@@ -289,13 +289,13 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
 fi
 
 
-echo
-echo $div
 cannot_locate=`echo 'yo' | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }' 2>&1 | grep "Can't locate"`
 perl_packages="YAML URI::Escape Data::Dumper HTTP:Config LWP:UserAgent IO::Socket::SSL Text:CSV Text::CSV_XS"
 if [[ "$cannot_locate" =~ *Can*t*locate* ]]; then
    echo ${#cannot_locate} $cannot_locate
    if [[ "$dryrun" != "true" ]]; then
+   echo
+   echo $div
       read -p "Try to install perl modules (e.g. YAML)? (Y/n) " -u 1 install_perl
    fi
    if [[ "$install_perl" == [yY] || "$dryrun" == "true" && -n "$cannot_locate" ]]; then
@@ -355,6 +355,7 @@ else
 fi
 
 if [ "$dryrun" != "true" ]; then
+   echo $div
    echo
    read -p "Try to install python modules (e.g. python-dateutil)? (Y/n) " -u 1 install_it
 fi
