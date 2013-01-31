@@ -40,6 +40,9 @@ fi
 sudo=""
 if [ "$1" == "--avoid-sudo" ]; then
    shift
+elif [ "$1" == "--use-sudo" ]; then
+   sudo="sudo "
+   shift
 elif [ "$dryrun" != "true" ]; then
    read -p "Install as sudo? (if 'N', then will install as `whoami`) [y/N] " -u 1 use_sudo
    if [[ "$use_sudo" == [yY] ]]; then
