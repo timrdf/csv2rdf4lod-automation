@@ -349,6 +349,8 @@ if [[ "$cannot_locate" =~ *Can*t*locate* ]]; then
       fi
    fi
 else
+   echo
+   echo $div
    for package in $perl_packages; do
       echo "[okay] perl -MCPAN install $package"
    done
