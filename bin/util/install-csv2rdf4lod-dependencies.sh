@@ -278,7 +278,7 @@ fi
 
 cannot_locate=`echo 'yo' | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }' 2>&1 | grep "Can't locate"`
 perl_packages="YAML URI::Escape Data::Dumper HTTP:Config LWP:UserAgent IO::Socket::SSL Text:CSV Text::CSV_XS"
-if [[ -z "$cannot_locate" ]]; then
+if [[ "$cannot_locate" =~ *Can*t*locate*]]; then
    echo ${#cannot_locate} $cannot_locate
    if [[ "$dryrun" != "true" ]]; then
       echo
