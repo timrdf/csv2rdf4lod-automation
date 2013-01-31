@@ -28,9 +28,7 @@ if [ "$1" == "--help" ]; then
    echo
    echo "Put them there by executing:"
    echo
-   echo "    export CLASSPATH=\$CLASSPATH\`\$CSV2RDF4LOD_HOME/bin/util/${0##*/}\`"
-   echo "$HOME"
-   echo "$me"
+   echo "    export CLASSPATH=\$CLASSPATH\`$me\`"
    exit
 fi
 
@@ -49,9 +47,9 @@ for jar in                                                             \
            bin/dup/csv2rdf4lod.jar ; do
    if [[ $CLASSPATH != *`basename $jar`* ]]; then
       if [ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "fine" ]; then
-         echo "`basename $jar` not in classpath; adding $CSV2RDF4LOD_HOME/$jar"
+         echo "`basename $jar` not in classpath; adding $HOME/$jar"
       fi
-      missing=$missing:$CSV2RDF4LOD_HOME/$jar # TODO: export? : vs ; cygwin
+      missing=$missing:$HOME/$jar # TODO: export? : vs ; cygwin
    fi
 done
 
