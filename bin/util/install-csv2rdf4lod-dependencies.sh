@@ -138,31 +138,34 @@ fi
 if [ ! `which tdbloader` ]; then
    if [ "$dryrun" != "true" ]; then
       echo
-      read -p "Try to install jena at $base? (y/N) " -u 1 install_it
+      read -p "Could not find tdbloader on path. Try to install jena at $base? (y/n): " -u 1 install_it
    fi
    if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
-      # https://repository.apache.org/content/repositories/releases/org/apache/jena/jena-core/
-      tarball='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.3.tar.gz' # 404s
-      zip='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.4.zip'
-      pushd $base &> /dev/null
-         #echo $TODO curl -O --progress-bar $tarball from `pwd`
-         if [ "$dryrun" != "true" ]; then
-            # For 2.7.3's tarball, which does not work anymore.
-            #$sudo curl -O --progress-bar $tarball
-            #tarball=`basename $tarball`
-            #echo tar xzf $tarball
-            #$sudo tar xzf $tarball
-            #$sudo rm $tarball
-            #jenaroot=$base/${tarball%.tar.gz}
+      jenaroot=`find $base -type d -name "apache-jena*"`
+      if [[ -z "$jenaroot" || ! -e $jenaroot ]]; 
+         # https://repository.apache.org/content/repositories/releases/org/apache/jena/jena-core/
+         tarball='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.3.tar.gz' # 404s
+         zip='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.4.zip'
+         pushd $base &> /dev/null
+            echo $TODO $sudo curl -O --progress-bar $zip from `pwd`
+            if [ "$dryrun" != "true" ]; then
+               # For 2.7.3's tarball, which does not work anymore.
+               #$sudo curl -O --progress-bar $tarball
+               #tarball=`basename $tarball`
+               #echo tar xzf $tarball
+               #$sudo tar xzf $tarball
+               #$sudo rm $tarball
+               #jenaroot=$base/${tarball%.tar.gz}
 
-            # For 2.7.4's zip...
-            $sudo curl -O --progress-bar $zip
-            zip=`basename $zip`   
-            echo $sudo unzip $zip
-                 $sudo unzip $zip
-            jenaroot=$base/${zip%.zip}
-         fi
-      popd &> /dev/null
+               # For 2.7.4's zip...
+               $sudo curl -O --progress-bar $zip
+               zip=`basename $zip`   
+               echo $sudo unzip $zip
+                    $sudo unzip $zip
+               jenaroot=$base/${zip%.zip}
+            fi
+         popd &> /dev/null
+      fi
       if [[ -e my-csv2rdf4lod-source-me.sh ]]; then
          if [ "$dryrun" != "true" ]; then
             read -p "Append JENAROOT to my-csv2rdf4lod-source-me.sh? (y/N) " -u 1 install_it
