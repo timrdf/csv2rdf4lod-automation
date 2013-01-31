@@ -87,7 +87,7 @@ function offer_install_with_apt {
 }
 
 offer_install_with_apt 'git'    'git-core'      # These are dryrun safe.
-offer_install_with_apt 'java'   'openjdk-6-jdk' #
+offer_install_with_apt 'java'   'openjdk-6-jre' # openjdk-6-jdk ?
 offer_install_with_apt 'awk'    'gawk'          #
 offer_install_with_apt 'curl'   'curl'          #
 offer_install_with_apt 'rapper' 'raptor-utils'  #
