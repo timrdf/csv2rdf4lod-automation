@@ -142,7 +142,7 @@ if [ ! `which tdbloader` ]; then
    fi
    if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
       jenaroot=`find $base -type d -name "apache-jena*"`
-      if [[ -z "$jenaroot" || ! -e $jenaroot ]]; 
+      if [[ -z "$jenaroot" || ! -e $jenaroot ]]; then
          # https://repository.apache.org/content/repositories/releases/org/apache/jena/jena-core/
          tarball='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.3.tar.gz' # 404s
          zip='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.4.zip'
