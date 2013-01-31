@@ -285,10 +285,30 @@ fi
 
 if [ "$dryrun" != "true" ]; then
    echo
-   read -p "Try to python modules (e.g. python-dateutil)? (y/N) " -u 1 install_it
+   read -p "Try to install python modules (e.g. python-dateutil)? (y/N) " -u 1 install_it
 fi
 if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
-   # TODO: set up the user-based install that does NOT require sudo.
+   if [[ -z "$sudo" ]]; then
+      # Set a user-based install that does NOT require sudo.
+      # (As mentioned at https://github.com/timrdf/DataFAQs/wiki/Installing-DataFAQs
+      #  and http://www.astropython.org/tutorial/2010/1/User-rootsudo-free-installation-of-Python-modules)
+      if [[ ! -e ~/.pydistutils.cfg ]]; then
+         echo $TODO ~/.pydistutils.cfg
+         echo "[install]"                                     > ~/.pydistutils.cfg
+         echo "install_scripts = $base/python/bin"           >> ~/.pydistutils.cfg
+         echo "install_data = $base/python/share"            >> ~/.pydistutils.cfg
+         echo "install_lib = $base/python/lib/site-packages" >> ~/.pydistutils.cfg
+      else
+         echo "[okay] ~/.pydistutils.cfg"
+      fi 
+      # PYTHONPATH needs to be set to look into install_lib from ^^
+      export PYTHONPATH=$base/python/lib/site-packages:$PYTHONPATH
+      if [ "$dryrun" != "true" ]; then
+         echo "WARNING: set PYTHONPATH=$base/python/lib/site-packages:\$PYTHONPATH in your my-csv2rdf4lod-source-me.sh or .bashrc"
+      else
+         echo "[NOTE] installer would not be able to set PYTHONPATH= in `pwd`/my-csv2rdf4lod-source-me.sh"
+      fi
+   fi
    echo $TODO $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
    if [ "$dryrun" != "true" ]; then
               $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
