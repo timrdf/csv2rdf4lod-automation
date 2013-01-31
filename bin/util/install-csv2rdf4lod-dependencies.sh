@@ -118,7 +118,7 @@ if [ ! `which serdi` ]; then
                   $sudo ./waf install
                popd &> /dev/null
             fi
-            $sudo rm `basename $bz2`
+            $sudo rm -f `basename $bz2`
          fi
       popd &> /dev/null
       #else
@@ -251,7 +251,7 @@ fi
 
 if [ "$dryrun" != "true" ]; then
    echo
-   read -p "Try to perl modules (e.g. YAML)? (y/N) " -u 1 install_it
+   read -p "Try to perl modules (e.g. YAML)? (Y/n) " -u 1 install_it
 fi
 if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
    #echo $TODO perl -MCPAN install YAML
@@ -296,7 +296,7 @@ fi
 
 if [ "$dryrun" != "true" ]; then
    echo
-   read -p "Try to install python modules (e.g. python-dateutil)? (y/N) " -u 1 install_it
+   read -p "Try to install python modules (e.g. python-dateutil)? (Y/n) " -u 1 install_it
 fi
 if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
    if [[ -z "$sudo" ]]; then
@@ -322,6 +322,7 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
          echo "[NOTE] installer would not be able to set PYTHONPATH= in `pwd`/my-csv2rdf4lod-source-me.sh"
       fi
    fi
+   offer_install_with_apt 'easy_install' 'python-setuptools' # dryrun aware
    echo $TODO $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
    if [ "$dryrun" != "true" ]; then
               $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
