@@ -172,6 +172,7 @@ if [ ! `which tdbloader` ]; then
          echo "  ($jenaroot is already present, so we didn't try to download it again.)"
       fi
       if [[ -e my-csv2rdf4lod-source-me.sh ]]; then
+         # This file exists when installing csv2rdf4lod-automation with its install.sh
          if [ "$dryrun" != "true" ]; then
             read -p "Append JENAROOT to my-csv2rdf4lod-source-me.sh? (y/N) " -u 1 install_it
             if [[ "$install_it" == [yY] ]]; then
@@ -184,11 +185,13 @@ if [ ! `which tdbloader` ]; then
             echo "$TODO set JENAROOT=$jenaroot in `pwd`/my-csv2rdf4lod-source-me.sh"
          fi
       else
+         # JENAROOT and PATH should be set in csv2rdf4lod-source-me-as-<username>.sh
+         # It _could_ be done in ~/.bashrc, but then we're spreading our configuration in multiple places.
          if [ "$dryrun" != "true" ]; then
-            echo "WARNING: set JENAROOT=$jenaroot in your my-csv2rdf4lod-source-me.sh or .bashrc"
-            echo "WARNING: set PATH=\"\${PATH}:$jenaroot/bin\" in your my-csv2rdf4lod-source-me.sh or .bashrc"
+            echo "JENAROOT=$jenaroot # <-- needs to be set in your my-csv2rdf4lod-source-me.sh or ~/.bashrc"
+            echo "PATH=\"\${PATH}:$jenaroot/bin\" # <-- needs to be set in your my-csv2rdf4lod-source-me.sh or ~/.bashrc"
          else
-            echo "[NOTE] installer would not be able to set JENAROOT= in `pwd`/my-csv2rdf4lod-source-me.sh"
+            echo "[NOTE] Need to set JENAROOT=$jenaroot and PATH=\"\${PATH}:$jenaroot/bin\" in my-csv2rdf4lod-source-me.sh"
          fi
       fi
    fi
