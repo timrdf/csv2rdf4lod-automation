@@ -253,9 +253,9 @@ cannot_locate=`echo 'yo' | perl -e 'use URI::Escape; @userinput = <STDIN>; forea
 echo cannot: $cannot_locate
 if [[ "$dryrun" != "true" && -n "$cannot_locate" ]]; then
    echo
-   read -p "Try to perl modules (e.g. YAML)? (Y/n) " -u 1 install_it
+   read -p "Try to perl modules (e.g. YAML)? (Y/n) " -u 1 install_perl
 fi
-if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$cannot_locate" ]]; then
+if [[ "$install_perl" == [yY] || "$dryrun" == "true" && -n "$cannot_locate" ]]; then
    #echo $TODO perl -MCPAN install YAML
    #$sudo perl -MCPAN -e shell
    echo $TODO perl -MCPAN install YAML
