@@ -171,6 +171,7 @@ if [ ! `which tdbloader` ]; then
       else
          echo "  ($jenaroot is already present, so we didn't try to download it again.)"
       fi
+      echo
       if [[ -e my-csv2rdf4lod-source-me.sh ]]; then
          # This file exists when installing csv2rdf4lod-automation with its install.sh
          if [ "$dryrun" != "true" ]; then
