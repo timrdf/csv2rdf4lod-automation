@@ -245,12 +245,12 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
                pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
                   echo
                   echo
-                  echo $TODO aptitude build-dep virtuoso-opensource
-                  sudo aptitude build-dep virtuoso-opensource
+                  echo $TODO sudo aptitude build-dep virtuoso-opensource
+                             sudo aptitude build-dep virtuoso-opensource
                   echo
                   echo
-                  echo $TODO dpkg-buildpackage -rfakeroot
-                  sudo dpkg-buildpackage -rfakeroot
+                  echo $TODO sudo dpkg-buildpackage -rfakeroot
+                             sudo dpkg-buildpackage -rfakeroot
                popd &> /dev/null
                pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
                echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb
@@ -277,7 +277,7 @@ fi
 
 
 cannot_locate=`echo 'yo' | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }' 2>&1 | grep "Can't locate"`
-echo cannot: $cannot_locate
+echo cannot: ${cannot_locate} $cannot_locate
 perl_packages="YAML URI::Escape Data::Dumper HTTP:Config LWP:UserAgent IO::Socket::SSL Text:CSV Text::CSV_XS"
 if [[ -z "$cannot_locate" ]]; then
    if [[ "$dryrun" != "true" ]]; then
