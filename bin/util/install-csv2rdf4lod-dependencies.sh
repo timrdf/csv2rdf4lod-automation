@@ -305,10 +305,12 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
       #  and http://www.astropython.org/tutorial/2010/1/User-rootsudo-free-installation-of-Python-modules)
       if [[ ! -e ~/.pydistutils.cfg ]]; then
          echo $TODO ~/.pydistutils.cfg
-         echo "[install]"                                     > ~/.pydistutils.cfg
-         echo "install_scripts = $base/python/bin"           >> ~/.pydistutils.cfg
-         echo "install_data = $base/python/share"            >> ~/.pydistutils.cfg
-         echo "install_lib = $base/python/lib/site-packages" >> ~/.pydistutils.cfg
+         if [[ "$dryrun" != "true" ]]; then
+            echo "[install]"                                     > ~/.pydistutils.cfg
+            echo "install_scripts = $base/python/bin"           >> ~/.pydistutils.cfg
+            echo "install_data = $base/python/share"            >> ~/.pydistutils.cfg
+            echo "install_lib = $base/python/lib/site-packages" >> ~/.pydistutils.cfg
+         fi
       else
          echo "[okay] ~/.pydistutils.cfg"
       fi 
