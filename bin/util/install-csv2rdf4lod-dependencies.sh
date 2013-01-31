@@ -87,7 +87,7 @@ function offer_install_with_apt {
 }
 
 if [ "$dryrun" != "true" ]; then
-   $sudo apt-get update
+   $sudo apt-get update &> /dev/null
 fi
 
 offer_install_with_apt 'git'    'git-core'      # These are dryrun safe.
