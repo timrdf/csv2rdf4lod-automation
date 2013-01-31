@@ -76,12 +76,13 @@ function offer_install_with_apt {
    return $?
 }
 
-offer_install_with_apt 'git'          'git-core'
-offer_install_with_apt 'java'         'openjdk-6-jdk'
-offer_install_with_apt 'awk'          'gawk'
-offer_install_with_apt 'curl'         'curl'
-offer_install_with_apt 'rapper'       'raptor-utils'
-offer_install_with_apt 'unzip'        'unzip'
+offer_install_with_apt 'git'    'git-core'      # These are dryrun safe.
+offer_install_with_apt 'java'   'openjdk-6-jdk' #
+offer_install_with_apt 'awk'    'gawk'          #
+offer_install_with_apt 'curl'   'curl'          #
+offer_install_with_apt 'rapper' 'raptor-utils'  #
+offer_install_with_apt 'unzip'  'unzip'         #
+offer_install_with_apt 'screen' 'screen'        #
 
 if [ ! `which serdi` ]; then
    if [ "$dryrun" != "true" ]; then
@@ -296,64 +297,5 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
    fi
    # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
 fi
-
-
-
-
-# https://github.com/alangrafu/lodspeakr/wiki/How-to-install-requisites-in-Ubuntu
-echo "Dependency for LODSPeaKr:"
-offer_install_with_apt 'a2enmod' 'apache2'
-
-# curl already done
-
-for package in php5 php5-cli php5-sqlite php5-curl sqlite3; do
-   not_installed=`dpkg -s $package 2>&1 | grep "is not installed"`
-   if [[ -n "$not_installed" && "$dryrun" != "true" ]]; then
-      echo
-      echo "~~~~ ~~~~"
-   fi
-   if [[ -n "$not_installed" ]]; then
-      echo $TODO sudo apt-get install $package
-      if [[ "$dryrun" != "true" ]]; then
-         read -p "$package (Dependency for LODSPeaKr) is not shown in dpkg; install it with command above? (y/N) " -u 1 install_it
-         if [[ "$install_it" == [yY] ]]; then
-            sudo apt-get install $package
-         fi
-      fi
-   else
-      echo "[okay] $package is installed (needed for LODSPeaKr)."
-   fi
-done
-
-if [ "$dryrun" == "true" ]; then
-   # The rest of the install portions do NOT recognize the $dryrun flag, so skip them.
-   exit 1
-fi
-
-echo
-echo "~~~~ ~~~~"
-echo "sudo a2enmod rewrite"
-read -p "LODSPeaKr requires HTTP rewrite. Enable it with the command above? (y/N) " -u 1 install_it
-if [[ "$install_it" == [yY] ]]; then
-   sudo a2enmod rewrite
-fi
-
-echo
-echo "~~~~ ~~~~"
-echo 'https://github.com/alangrafu/lodspeakr/wiki/How-to-install-requisites-in-Ubuntu:'
-echo "  /etc/apache2/sites-enabled/000-default must 'AllowOverride All' for <Directory /var/www/>"
-echo
-echo "sudo service apache2 restart"
-read -p "Please edit 000-default to AllowOverride All, THEN type 'y' to restart apache, or just type 'N' to skip this. (y/N) " -u 1 install_it
-if [[ "$install_it" == [yY] ]]; then
-   echo "~~~~ ~~~~"
-   echo "Dependency for LODSPeaKr:"
-   sudo service apache2 restart
-fi
-
-# Just for general use:
-echo
-echo "~~~~ ~~~~"
-offer_install_with_apt 'screen' 'screen'
 
 dryrun.sh $dryrun ending
