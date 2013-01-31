@@ -14,28 +14,18 @@ fi
 
 if [[ "$1" == "--help" ]]; then
    echo
-   echo "usage: `basename $0` [--avoid-sudo] [-n]"
+   echo "usage: `basename $0` [-n] [--avoid-sudo]"
    echo
    echo "  Install the third-party utilities that csv2rdf4lod-automation uses."
    echo "  Will install everything relative to the path:"
    echo "     $base"
    echo "  See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
    echo
-   echo "  --avoid-sudo : Avoid using sudo if at all possible. It's best to avoid root."
-   echo
    echo "   -n          | Perform only a dry run. This can be used to get a sense of what will be done before we actually do it."
    echo
+   echo "  --avoid-sudo : Avoid using sudo if at all possible. It's best to avoid root."
+   echo
    exit
-fi
-
-sudo=""
-if [ "$1" == "--avoid-sudo" ]; then
-   shift
-else
-   read -p "Install as sudo? (if 'N', then will install as `whoami`) [y/N] " -u 1 use_sudo
-   if [[ "$use_sudo" == [yY] ]]; then
-      sudo="sudo "
-   fi
 fi
 
 dryrun="false"
@@ -45,6 +35,16 @@ if [ "$1" == "-n" ]; then
    dryrun.sh $dryrun beginning
    TODO="[TODO]"
    shift
+fi
+
+sudo=""
+if [ "$1" == "--avoid-sudo" ]; then
+   shift
+elif [ "$dryrun" != "true" ]; then
+   read -p "Install as sudo? (if 'N', then will install as `whoami`) [y/N] " -u 1 use_sudo
+   if [[ "$use_sudo" == [yY] ]]; then
+      sudo="sudo "
+   fi
 fi
 
 function offer_install_with_apt {
