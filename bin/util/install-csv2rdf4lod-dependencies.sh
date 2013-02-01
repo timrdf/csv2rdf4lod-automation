@@ -297,7 +297,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
       popd &> /dev/null
    fi
 else
-   echo "[okay] Virtuoso is already installed at /etc/init.d/virtuoso-opensource + /var/lib/virtuoso/db/virtuoso.ini + /usr/bin/isql-v + /var/lib/virtuoso/db/virtuoso.log"
+   echo "[okay] virtuoso is already installed at /etc/init.d/virtuoso-opensource + /var/lib/virtuoso/db/virtuoso.ini + /usr/bin/isql-v + /var/lib/virtuoso/db/virtuoso.log"
 fi
 
 cannot_locate=`echo 'yo' | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }' 2>&1 | grep "Can't locate"`
