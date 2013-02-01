@@ -248,8 +248,8 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
          echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
          if [ "$dryrun" != "true" ]; then
             sudo curl -L -o $tarball --progress-bar $url
-            echo $TODO tar xzf $tarball
-            sudo tar xzf $tarball
+            echo $TODO sudo tar xzf $tarball
+                       sudo tar xzf $tarball
             #$sudo rm $tarball
             #virtuoso_root=$base/${tarball%.tar.gz} # $base
             virtuoso_root=`find . -maxdepth 1 -cnewer pid.$$ -name "virtuoso*" -type d`
@@ -284,6 +284,7 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
          #
          # Restart virtuoso with sudo /etc/init.d/virtuoso-opensource restart
          # Monitor virtuoso with sudo tail -f /var/lib/virtuoso/db/virtuoso.log
+         #                                    ^^ this shows "... Server online at 1111 (pid ...)"
       fi
    popd &> /dev/null
 fi
@@ -361,6 +362,17 @@ if [ "$dryrun" != "true" ]; then
    echo $div
    read -p "Try to install python modules (e.g. python-dateutil)? (Y/n) " -u 1 install_it
 fi
+
+# python --version
+#   Python 2.6.5
+#
+# Installs at /usr/local/lib/python2.6/dist-packages
+#   /usr/local/lib/python2.6/dist-packages/SuRF-1.1.4_r352-py2.6.egg
+#   /usr/local/lib/python2.6/dist-packages/surf.sesame2-0.2.1_r335-py2.6.egg
+#   /usr/local/lib/python2.6/dist-packages/surf.sparql_protocol-1.0.0_r336-py2.6.egg
+#   /usr/local/lib/python2.6/dist-packages/surf.rdflib-1.0.0_r338-py2.6.egg
+#   /usr/local/lib/python2.6/dist-packages/python_dateutil-2.1-py2.6.egg
+
 if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
    if [[ -z "$sudo" ]]; then
       # Set a user-based install that does NOT require sudo.
@@ -386,11 +398,17 @@ if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
       fi
    fi
    offer_install_with_apt 'easy_install' 'python-setuptools' # dryrun aware
-   echo $TODO $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
-   if [ "$dryrun" != "true" ]; then
-              $sudo easy_install -U surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil
-             # SUDO IS NOT REQUIRED HERE.
-   fi
+   V=`python --version 2>&1 | sed 's/Python \(.\..\).*$/\1/'`
+   for egg in surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil; do
+      there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d | grep -i $egg`
+      if [[ $there =~ /usr/local* ]]; then
+         echo $TODO $sudo easy_install -U $egg
+         if [ "$dryrun" != "true" ]; then
+                    $sudo easy_install -U $egg
+                   # SUDO IS NOT REQUIRED HERE.
+         fi
+      fi
+   done
    # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
 fi
 
