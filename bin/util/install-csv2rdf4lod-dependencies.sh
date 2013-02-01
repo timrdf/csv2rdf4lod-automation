@@ -137,6 +137,9 @@ else
 fi
 
 
+
+
+
 if [ ! `which tdbloader` ]; then
    if [ "$dryrun" != "true" ]; then
       echo
@@ -199,6 +202,78 @@ if [ ! `which tdbloader` ]; then
 else
    echo "[okay] tdbloader available at `which tdbloader`"
 fi
+
+
+
+
+cannot_locate=`echo 'yo' | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }' 2>&1 | grep "Can't locate"`
+perl_packages="YAML URI::Escape Data::Dumper HTTP:Config LWP:UserAgent IO::Socket::SSL Text:CSV Text::CSV_XS"
+if [[ "$cannot_locate" =~ *Can*t*locate* ]]; then
+   echo ${#cannot_locate} $cannot_locate
+   if [[ "$dryrun" != "true" ]]; then
+   echo
+   echo $div
+      read -p "Try to install perl modules (e.g. YAML)? (Y/n) " -u 1 install_perl
+   fi
+   if [[ "$install_perl" == [yY] || "$dryrun" == "true" && -n "$cannot_locate" ]]; then
+      #echo $TODO perl -MCPAN install YAML
+      #$sudo perl -MCPAN -e shell
+      echo $TODO perl -MCPAN install YAML
+      if [ "$dryrun" != "true" ]; then
+         $sudo perl -MCPAN -e install YAML
+      fi
+      echo $TODO perl -MCPAN install URI::Escape
+      if [ "$dryrun" != "true" ]; then
+         $sudo perl -MCPAN -e install URI::Escape
+         # used in:
+         #    bin/util/pvload.sh
+         #    bin/util/cache-queries.sh
+         #    bin/util/ptsw.sh
+      fi
+      echo $TODO perl -MCPAN install Data:Dumper
+      if [ "$dryrun" != "true" ]; then
+         $sudo perl -MCPAN -e install Data::Dumper
+      fi
+      echo $TODO perl -MCPAN install HTTP:Config
+      if [ "$dryrun" != "true" ]; then
+         $sudo perl -MCPAN -e install HTTP:Config
+      fi
+      echo $TODO perl -MCPAN install LWP:UserAgent
+      if [ "$dryrun" != "true" ]; then
+         $sudo perl -MCPAN -e install LWP::UserAgent
+         # used in:
+         #   bin/util/filename-v3.pl
+         #   bin/util/filename2.pl
+         #   bin/util/filename.pl
+      fi
+      # ^^ OR sudo apt-cache search perl LWP::UserAgent
+      #      $sudo apt-get install liblwp-useragent-determined-perl
+      # ^^ OR cpan -f -i LWP::UserAgent
+      echo $TODO perl -MCPAN install IO::Socket::SSL
+      if [ "$dryrun" != "true" ]; then
+         $sudo perl -MCPAN -e install IO::Socket::SSL
+      fi
+      echo $TODO perl -MCPAN install Text::CSV
+      if [ "$dryrun" != "true" ]; then
+         $sudo perl -MCPAN -e install Text::CSV
+         # used in:
+         #   bin/util/parse_fixedwidth.pl
+         #   bin/util/sparql-csv2plain.pl
+      fi
+      echo $TODO perl -MCPAN install Text::CSV_XS
+      if [ "$dryrun" != "true" ]; then
+         $sudo perl -MCPAN -e install Text::CSV_XS 
+      fi
+   fi
+else
+   echo
+   echo $div
+   for package in $perl_packages; do
+      echo "[okay] perl -MCPAN install $package"
+   done
+fi
+
+
 
 
 # config and db in /var/lib/virtuoso
@@ -300,72 +375,9 @@ else
    echo "[okay] virtuoso is already installed at /etc/init.d/virtuoso-opensource + /var/lib/virtuoso/db/virtuoso.ini + /usr/bin/isql-v + /var/lib/virtuoso/db/virtuoso.log"
 fi
 
-cannot_locate=`echo 'yo' | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }' 2>&1 | grep "Can't locate"`
-perl_packages="YAML URI::Escape Data::Dumper HTTP:Config LWP:UserAgent IO::Socket::SSL Text:CSV Text::CSV_XS"
-if [[ "$cannot_locate" =~ *Can*t*locate* ]]; then
-   echo ${#cannot_locate} $cannot_locate
-   if [[ "$dryrun" != "true" ]]; then
-   echo
-   echo $div
-      read -p "Try to install perl modules (e.g. YAML)? (Y/n) " -u 1 install_perl
-   fi
-   if [[ "$install_perl" == [yY] || "$dryrun" == "true" && -n "$cannot_locate" ]]; then
-      #echo $TODO perl -MCPAN install YAML
-      #$sudo perl -MCPAN -e shell
-      echo $TODO perl -MCPAN install YAML
-      if [ "$dryrun" != "true" ]; then
-         $sudo perl -MCPAN -e install YAML
-      fi
-      echo $TODO perl -MCPAN install URI::Escape
-      if [ "$dryrun" != "true" ]; then
-         $sudo perl -MCPAN -e install URI::Escape
-         # used in:
-         #    bin/util/pvload.sh
-         #    bin/util/cache-queries.sh
-         #    bin/util/ptsw.sh
-      fi
-      echo $TODO perl -MCPAN install Data:Dumper
-      if [ "$dryrun" != "true" ]; then
-         $sudo perl -MCPAN -e install Data::Dumper
-      fi
-      echo $TODO perl -MCPAN install HTTP:Config
-      if [ "$dryrun" != "true" ]; then
-         $sudo perl -MCPAN -e install HTTP:Config
-      fi
-      echo $TODO perl -MCPAN install LWP:UserAgent
-      if [ "$dryrun" != "true" ]; then
-         $sudo perl -MCPAN -e install LWP::UserAgent
-         # used in:
-         #   bin/util/filename-v3.pl
-         #   bin/util/filename2.pl
-         #   bin/util/filename.pl
-      fi
-      # ^^ OR sudo apt-cache search perl LWP::UserAgent
-      #      $sudo apt-get install liblwp-useragent-determined-perl
-      # ^^ OR cpan -f -i LWP::UserAgent
-      echo $TODO perl -MCPAN install IO::Socket::SSL
-      if [ "$dryrun" != "true" ]; then
-         $sudo perl -MCPAN -e install IO::Socket::SSL
-      fi
-      echo $TODO perl -MCPAN install Text::CSV
-      if [ "$dryrun" != "true" ]; then
-         $sudo perl -MCPAN -e install Text::CSV
-         # used in:
-         #   bin/util/parse_fixedwidth.pl
-         #   bin/util/sparql-csv2plain.pl
-      fi
-      echo $TODO perl -MCPAN install Text::CSV_XS
-      if [ "$dryrun" != "true" ]; then
-         $sudo perl -MCPAN -e install Text::CSV_XS 
-      fi
-   fi
-else
-   echo
-   echo $div
-   for package in $perl_packages; do
-      echo "[okay] perl -MCPAN install $package"
-   done
-fi
+
+
+
 
 # python --version
 #   Python 2.6.5
