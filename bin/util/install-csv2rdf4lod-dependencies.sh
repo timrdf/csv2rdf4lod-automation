@@ -408,7 +408,7 @@ for egg in surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil; d
          fi
       fi
    else
-      echo "[okay] $sudo easy_install -U $egg"
+      echo "[okay] easy_install -U $egg"
    fi
 done
 
