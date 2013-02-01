@@ -400,7 +400,7 @@ for egg in surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil; d
       echo $TODO $sudo easy_install -U $egg
       if [ "$dryrun" != "true" ]; then
          read -p "Try to install python module $egg using the command above? (y/n) " -u 1 install_it
-         if [[ "$install_it"  [yY] ]]; then
+         if [[ "$install_it" == [yY] ]]; then
                  $sudo easy_install -U $egg
                   # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
                 # SUDO IS NOT REQUIRED HERE.
