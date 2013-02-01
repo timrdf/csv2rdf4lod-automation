@@ -222,73 +222,83 @@ fi
 #   apt-get install libapache2-mod-proxy-html
 #   a2enmod proxy-html
 
-if [ "$dryrun" != "true" ]; then
+virtuoso_installed="no"
+if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
+      -e '/usr/bin/isql-v'                   && \
+      -e '/etc/init.d/virtuoso-opensource'   && \
+      -e '/var/lib/virtuoso/db/virtuoso.log' ]]; then
+   virtuoso_installed="yes"
+fi
+if [[ "$dryrun" != "true" && "$virtuoso_installed" == "no" ]]; then
    echo
    echo $div
    read -p "Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
 fi
-if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
-   # http://sourceforge.net/projects/virtuoso/
-   url='http://sourceforge.net/projects/virtuoso/files/latest/download'
-   pushd /opt &> /dev/null # $base
-      # Not really working:
-         #redirect=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/[^z]*$/\n/g' | awk '{printf("%s\n",$2)}'`
-         # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
-         #tarball=`basename $redirect`
-         # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
-         #echo "${redirect}.----------"
-         #echo to
-         #echo "${tarball}.----------"
-      redirect=$url
-      tarball='virtuoso.tar.gz'
-      if [ ! -e $tarball ]; then
-         if [ "$dryrun" != "true" ]; then
-            sudo touch pid.$$
-         fi
-         echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
-         if [ "$dryrun" != "true" ]; then
-            sudo curl -L -o $tarball --progress-bar $url
-            echo $TODO sudo tar xzf $tarball
-                       sudo tar xzf $tarball
-            #$sudo rm $tarball
-            #virtuoso_root=$base/${tarball%.tar.gz} # $base
-            virtuoso_root=`find . -maxdepth 1 -cnewer pid.$$ -name "virtuoso*" -type d`
-            # ^ e.g. 'virtuoso-opensource-6.1.6/'
-            if [ -d $virtuoso_root ]; then
-               pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
-                  echo
-                  echo
-                  echo $TODO sudo aptitude build-dep virtuoso-opensource
-                             sudo aptitude build-dep virtuoso-opensource
-                  echo
-                  echo
-                  echo $TODO sudo dpkg-buildpackage -rfakeroot
-                             sudo dpkg-buildpackage -rfakeroot
-               popd &> /dev/null
-               pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
-               echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb
-               sudo dpkg -i ${pkg}_amd64.deb
+if [[ "$virtuoso_installed" == "no" ]]; then
+      if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
+      # http://sourceforge.net/projects/virtuoso/
+      url='http://sourceforge.net/projects/virtuoso/files/latest/download'
+      pushd /opt &> /dev/null # $base
+         # Not really working:
+            #redirect=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/[^z]*$/\n/g' | awk '{printf("%s\n",$2)}'`
+            # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
+            #tarball=`basename $redirect`
+            # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
+            #echo "${redirect}.----------"
+            #echo to
+            #echo "${tarball}.----------"
+         redirect=$url
+         tarball='virtuoso.tar.gz'
+         if [ ! -e $tarball ]; then
+            if [ "$dryrun" != "true" ]; then
+               sudo touch pid.$$
             fi
-            echo
+            echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
+            if [ "$dryrun" != "true" ]; then
+               sudo curl -L -o $tarball --progress-bar $url
+               echo $TODO sudo tar xzf $tarball
+                          sudo tar xzf $tarball
+               #$sudo rm $tarball
+               #virtuoso_root=$base/${tarball%.tar.gz} # $base
+               virtuoso_root=`find . -maxdepth 1 -cnewer pid.$$ -name "virtuoso*" -type d`
+               # ^ e.g. 'virtuoso-opensource-6.1.6/'
+               if [ -d $virtuoso_root ]; then
+                  pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
+                     echo
+                     echo
+                     echo $TODO sudo aptitude build-dep virtuoso-opensource # NOTE: if this is run on a TWC VM with 
+                                sudo aptitude build-dep virtuoso-opensource # /etc/hosts localhost 127.0.0.1, it will fail.
+                     echo
+                     echo
+                     echo $TODO sudo dpkg-buildpackage -rfakeroot
+                                sudo dpkg-buildpackage -rfakeroot
+                  popd &> /dev/null
+                  pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
+                  echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb
+                  sudo dpkg -i ${pkg}_amd64.deb
+               fi
+               echo
+            fi
+            # Administering Virtuoso is discussed at:
+            #   https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore
+            #   https://github.com/jimmccusker/twc-healthdata/wiki/VM-Installation-Notes
+            #
+            # Debian package build results in:
+            #
+            #   /usr/bin/isql-v
+            #   /var/lib/virtuoso/db/virtuoso.ini
+            #   /usr/bin and /var and /usr/lib
+            #   endpoint: http://aquarius.tw.rpi.edu/projects/healthdata/sparql
+            #
+            # Restart virtuoso with sudo /etc/init.d/virtuoso-opensource restart
+            # Monitor virtuoso with sudo tail -f /var/lib/virtuoso/db/virtuoso.log
+            #                                    ^^ this shows "... Server online at 1111 (pid ...)"
          fi
-         # Administering Virtuoso is discussed at:
-         #   https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore
-         #   https://github.com/jimmccusker/twc-healthdata/wiki/VM-Installation-Notes
-         #
-         # Debian package build results in:
-         #
-         #   /usr/bin/isql-v
-         #   /var/lib/virtuoso/db/virtuoso.ini
-         #   /usr/bin and /var and /usr/lib
-         #   endpoint: http://aquarius.tw.rpi.edu/projects/healthdata/sparql
-         #
-         # Restart virtuoso with sudo /etc/init.d/virtuoso-opensource restart
-         # Monitor virtuoso with sudo tail -f /var/lib/virtuoso/db/virtuoso.log
-         #                                    ^^ this shows "... Server online at 1111 (pid ...)"
-      fi
-   popd &> /dev/null
+      popd &> /dev/null
+   fi
+else
+   echo "[okay] Virtuoso is already installed at /etc/init.d/virtuoso-opensource + /var/lib/virtuoso/db/virtuoso.ini + /usr/bin/isql-v + /var/lib/virtuoso/db/virtuoso.log"
 fi
-
 
 cannot_locate=`echo 'yo' | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }' 2>&1 | grep "Can't locate"`
 perl_packages="YAML URI::Escape Data::Dumper HTTP:Config LWP:UserAgent IO::Socket::SSL Text:CSV Text::CSV_XS"
