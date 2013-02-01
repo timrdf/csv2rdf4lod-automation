@@ -357,12 +357,6 @@ else
    done
 fi
 
-if [ "$dryrun" != "true" ]; then
-   echo
-   echo $div
-   read -p "Try to install python modules (e.g. python-dateutil)? (Y/n) " -u 1 install_it
-fi
-
 # python --version
 #   Python 2.6.5
 #
@@ -373,43 +367,47 @@ fi
 #   /usr/local/lib/python2.6/dist-packages/surf.rdflib-1.0.0_r338-py2.6.egg
 #   /usr/local/lib/python2.6/dist-packages/python_dateutil-2.1-py2.6.egg
 
-if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
-   if [[ -z "$sudo" ]]; then
-      # Set a user-based install that does NOT require sudo.
-      # (As mentioned at https://github.com/timrdf/DataFAQs/wiki/Installing-DataFAQs
-      #  and http://www.astropython.org/tutorial/2010/1/User-rootsudo-free-installation-of-Python-modules)
-      if [[ ! -e ~/.pydistutils.cfg ]]; then
-         echo $TODO ~/.pydistutils.cfg
-         if [[ "$dryrun" != "true" ]]; then
-            echo "[install]"                                     > ~/.pydistutils.cfg
-            echo "install_scripts = $base/python/bin"           >> ~/.pydistutils.cfg
-            echo "install_data = $base/python/share"            >> ~/.pydistutils.cfg
-            echo "install_lib = $base/python/lib/site-packages" >> ~/.pydistutils.cfg
-         fi
-      else
-         echo "[okay] ~/.pydistutils.cfg"
-      fi 
-      # PYTHONPATH needs to be set to look into install_lib from ^^
-      export PYTHONPATH=$base/python/lib/site-packages:$PYTHONPATH
+pdiv=$div
+if [[ -z "$sudo" ]]; then
+   # Set a user-based install that does NOT require sudo.
+   # (As mentioned at https://github.com/timrdf/DataFAQs/wiki/Installing-DataFAQs
+   #  and http://www.astropython.org/tutorial/2010/1/User-rootsudo-free-installation-of-Python-modules)
+   if [[ ! -e ~/.pydistutils.cfg ]]; then
+      echo $TODO ~/.pydistutils.cfg
+      if [[ "$dryrun" != "true" ]]; then
+         echo "[install]"                                     > ~/.pydistutils.cfg
+         echo "install_scripts = $base/python/bin"           >> ~/.pydistutils.cfg
+         echo "install_data = $base/python/share"            >> ~/.pydistutils.cfg
+         echo "install_lib = $base/python/lib/site-packages" >> ~/.pydistutils.cfg
+      fi
+   else
+      echo "[okay] ~/.pydistutils.cfg"
+   fi 
+   # PYTHONPATH needs to be set to look into install_lib from ^^
+   export PYTHONPATH=$base/python/lib/site-packages:$PYTHONPATH
+   if [ "$dryrun" != "true" ]; then
+      echo "WARNING: set PYTHONPATH=$base/python/lib/site-packages:\$PYTHONPATH in your my-csv2rdf4lod-source-me.sh or .bashrc"
+   else
+      echo "[NOTE] installer would not be able to set PYTHONPATH= in `pwd`/my-csv2rdf4lod-source-me.sh"
+   fi
+fi
+offer_install_with_apt 'easy_install' 'python-setuptools' # dryrun aware
+V=`python --version 2>&1 | sed 's/Python \(.\..\).*$/\1/'`
+for egg in surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil; do
+   there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d | grep -i $egg`
+   if [[ $there =~ /usr/local* ]]; then # TODO: this path is $base/python/lib/site-packages if -z $sudo
+      $pdiv
+      echo $TODO $sudo easy_install -U $egg
       if [ "$dryrun" != "true" ]; then
-         echo "WARNING: set PYTHONPATH=$base/python/lib/site-packages:\$PYTHONPATH in your my-csv2rdf4lod-source-me.sh or .bashrc"
-      else
-         echo "[NOTE] installer would not be able to set PYTHONPATH= in `pwd`/my-csv2rdf4lod-source-me.sh"
+         read -p "Try to install python module $egg using the command above? (y/n) " -u 1 install_it
+         if [[ "$install_it"  [yY] ]]; then
+                 $sudo easy_install -U $egg
+                  # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
+                # SUDO IS NOT REQUIRED HERE.
+            pdiv=""
+         fi
       fi
    fi
-   offer_install_with_apt 'easy_install' 'python-setuptools' # dryrun aware
-   V=`python --version 2>&1 | sed 's/Python \(.\..\).*$/\1/'`
-   for egg in surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil; do
-      there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d | grep -i $egg`
-      if [[ $there =~ /usr/local* ]]; then
-         echo $TODO $sudo easy_install -U $egg
-         if [ "$dryrun" != "true" ]; then
-                    $sudo easy_install -U $egg
-                   # SUDO IS NOT REQUIRED HERE.
-         fi
-      fi
-   done
-   # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
-fi
+done
 
 dryrun.sh $dryrun ending
