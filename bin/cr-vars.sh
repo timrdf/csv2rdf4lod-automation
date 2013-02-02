@@ -112,7 +112,7 @@ if [ "$1" != "CLEAR" ]; then
    echo "CSV2RDF4LOD_CONVERT_DEBUG_LEVEL                          ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:="(will default to: none \{none,fine,finer,finest\})"}"
 
    if [[ ${#CSV2RDF4LOD_CONVERTER} -gt 0 || "$show_all" == "yes" ]]; then
-      echo "CSV2RDF4LOD_CONVERTER                                 ${CSV2RDF4LOD_CONVERTER:="(will default to: java ... -Xmx3060m edu.rpi.tw.data.csv.CSVtoRDF"}"
+      echo "CSV2RDF4LOD_CONVERTER                                    ${CSV2RDF4LOD_CONVERTER:="(will default to: java ... -Xmx3060m edu.rpi.tw.data.csv.CSVtoRDF)"}"
    fi
 
    echo
