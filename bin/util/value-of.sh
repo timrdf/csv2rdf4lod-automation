@@ -90,6 +90,6 @@ if [ -e $source_me ]; then
       #                       Should handle both ="" and ='' ------+
       #                                                           \|/
       #                                                            .
-      grep "export ${variable}=" $source_me | tail -1 | sed "s/^.*=.\(.*\)[\"']/\1/"
+      grep "export ${variable}=" $source_me | tail -1 | sed "s/^.*=.\(.*\)[\"']/\1/" | sed 's/^ *//;s/ *$//'
    fi
 fi
