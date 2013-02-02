@@ -4,10 +4,15 @@
 #3>    prov:wasRevisionOf    <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-retrieve.sh> ;
 #3>    prov:wasRevisionOf    <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-cockpit.sh> .
 
+HOME=$(cd ${0%/*} && echo ${PWD%/*})
+me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
+
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
    echo "usage: `basename $0` [-w]"
    echo "  Create publish/bin/publish.sh and invoke for every conversion cockpit within the current directory tree."
    echo "  -w : Avoid dryrun; do it. If not provided, will only dry run."
+   echo $HOME
+   echo $me
    exit 1
 fi
 
