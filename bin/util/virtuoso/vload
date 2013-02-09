@@ -62,7 +62,7 @@ else
    echo "[WARNING]: could not log to well-organized location; set CSV2RDF4LOD_HOME"
 fi
 slug=`date +%Y-%m-%dT%H_%M_%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/' | sed 's/:/-/g; s/\+/-/g'` # Copied from dateInXSDDateTime.sh
-vload_log=$virtuoso_allowed_dir/load_$slug_$$.log
+vload_log=$virtuoso_allowed_dir/load_${slug}_$$.log
 #                               load_2013-02-02T13_22_02-05-00
 
 if [[ "$1" == "--target" ]]; then
