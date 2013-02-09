@@ -4,8 +4,7 @@
 
 this=$(cd ${0%/*} && echo $PWD/${0##*/})
 base=${this%/bin/util/install-csv2rdf4lod-dependencies.sh}
-
-export PATH=$PATH`$base/bin/util/cr-situate-paths.sh`
+base=${base%/*}
 
 if [[ "$base" == *prizms/repos ]]; then
    # In case we are installed as part of Prizms, 
@@ -35,7 +34,7 @@ dryrun="false"
 TODO=''
 if [ "$1" == "-n" ]; then
    dryrun="true"
-   dryrun.sh $dryrun beginning
+   $base/bin/util/dryrun.sh $dryrun beginning
    TODO="[TODO]"
    shift
 fi
@@ -436,4 +435,4 @@ for egg in surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil; d
    fi
 done
 
-dryrun.sh $dryrun ending
+$base/bin/util/dryrun.sh $dryrun ending
