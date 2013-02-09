@@ -419,7 +419,7 @@ offer_install_with_apt 'easy_install' 'python-setuptools' # dryrun aware
 V=`python --version 2>&1 | sed 's/Python \(.\..\).*$/\1/'`
 for egg in surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil ckanclient; do
    eggReg=`echo $egg | sed 's/-/./g;s/_/./g'`
-   find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d | grep -i $eggReg &> /dev/null
+   find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 | grep -i $eggReg &> /dev/null
    status=$?
    there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d | grep -i $eggReg`
    if [[ "$there" =~ /usr/*.egg ]]; then # TODO: this path is $base/python/lib/site-packages if -z $sudo
