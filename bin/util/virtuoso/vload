@@ -49,7 +49,7 @@ elif [[ "try" == "try" ]]; then
    if [[ -z $conversion_root && -e $CSV2RDF4LOD_CONVERT_DATA_ROOT/source ]]; then                     #  |
       conversion_root=${CSV2RDF4LOD_CONVERT_DATA_ROOT}/source                                         #  |
    fi                                                                                                 #  |
-   if [[ -n "$conversion_root"               && \                                                     #  |
+   if [[ -n "$conversion_root"               && \                                                 
          -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" ]]; then                                             #  |
       me="cr-`basename $0`"                                                                           # \|/
       versionID=`md5.sh $0`                                                                           #  . 
