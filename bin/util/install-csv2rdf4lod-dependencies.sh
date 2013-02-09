@@ -4,7 +4,6 @@
 
 this=$(cd ${0%/*} && echo $PWD/${0##*/})
 base=${this%/bin/util/install-csv2rdf4lod-dependencies.sh}
-base=${base%/*}
 
 export PATH=$PATH`$base/bin/util/cr-situate-paths.sh`
 
