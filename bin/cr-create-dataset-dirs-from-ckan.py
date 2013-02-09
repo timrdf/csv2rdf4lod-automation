@@ -9,7 +9,7 @@
 #   % cr-create-dataset-dirs-from-ckan.py http://healthdata.tw.rpi.edu/hub/api \
 #                                         http://purl.org/twc/health \
 #                                         http://hub.healthdata.gov
-#   % find . -name dcat.ttl | xargs git add -f
+#   % find . -name access.ttl | xargs git add -f
 
 import sys, os, re, json, uuid, hashlib
 
@@ -164,7 +164,7 @@ for name in ckan.package_register_get():
       for search in replacements.keys():
          template = template.replace(search,replacements[search])
 
-      filename = dataset['name']+'/dcat.ttl'
+      filename = dataset['name']+'/access.ttl'
       if not os.path.exists(dataset['name']):
          os.makedirs(dataset['name'])
       print filename
