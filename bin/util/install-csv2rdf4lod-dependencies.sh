@@ -3,6 +3,7 @@
 #3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/install-csv2rdf4lod-dependencies.sh> .
 
 this=$(cd ${0%/*} && echo $PWD/${0##*/})
+sibling=`dirname $this`
 base=${this%/bin/util/install-csv2rdf4lod-dependencies.sh}
 base=${base%/*}
 
@@ -34,7 +35,7 @@ dryrun="false"
 TODO=''
 if [ "$1" == "-n" ]; then
    dryrun="true"
-   $base/bin/util/dryrun.sh $dryrun beginning
+   $sibling/dryrun.sh $dryrun beginning
    TODO="[TODO]"
    shift
 fi
@@ -435,4 +436,4 @@ for egg in surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil; d
    fi
 done
 
-$base/bin/util/dryrun.sh $dryrun ending
+$sibling/dryrun.sh $dryrun ending
