@@ -569,6 +569,7 @@ export CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES="false"
 
 #
 # Customize: The path to the htdocs directory, to host files on the web.
+#    See https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD_PUBLISH_VARWWW_ROOT
 #
 # Variable type: Machine ? Project ? User ? Activity ?
 #

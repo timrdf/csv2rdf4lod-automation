@@ -10,6 +10,8 @@
 # Usage: vload [rdf|ttl|nt|nq] [data_file] [graph_uri]
 # See http://docs.openlinksw.com/virtuoso/fn_ttlp_mt.html
 
+me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
+
 USAGE="`basename $0` [--target] {rdf, ttl, nt, nq} <data_file> <graph_uri> [-v | --verbose]"
 
 if [ "$1" == "--help" ]; then
@@ -34,18 +36,23 @@ if [ ! -e "$isql" ]; then
 fi
 
 isql_cmd="$isql ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-"1111"} ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_USERNAME:-"dba"}"
-isql_pwd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # default admin password, may neeed to change
+isql_pwd="${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PASSWORD:-"dba"}"  # Default admin password, may neeed to change.
 
-virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/`basename $0`/input-files"
-if [[ -e ${CSV2RDF4LOD_HOME:-'does-not-exist-3T63J'} ]]; then
-   conversion_root=`cd ${CSV2RDF4LOD_CONVERT_DATA_ROOT} &> /dev/null; cr-conversion-root.sh --quiet`
-   if [[ ${#conversion_root} -eq 0 && -e ${CSV2RDF4LOD_CONVERT_DATA_ROOT}/source ]]; then
-      conversion_root=${CSV2RDF4LOD_CONVERT_DATA_ROOT}/source
-   fi
-   if [[ ${#conversion_root}                   -gt 0 && \
-         ${#CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID} -gt 0 ]]; then
-      me="cr-`basename $0`"
-      versionID=`md5.sh $0`
+virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/`basename $0`/input-files" # -----------------------------.
+#if [[ -n "$CSV2RDF4LOD_HOME" ]]; then                                                                #  |
+if [[ -d "$CSV2RDF4LOD_CONVERT_DATA_ROOT" && -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" ]]; then
+   versionID=`md5.sh $me`                                                                             #  . 
+   virtuoso_allowed_dir="$CSV2RDF4LOD_CONVERT_DATA_ROOT/$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID/cr-`basename $0`/version/$versionID/doc/logs"
+elif
+   # Fall back to seeing if we are actually in a data root.
+   conversion_root=`cd $CSV2RDF4LOD_CONVERT_DATA_ROOT &> /dev/null; cr-conversion-root.sh --quiet`    #  |
+   if [[ -z $conversion_root && -e $CSV2RDF4LOD_CONVERT_DATA_ROOT/source ]]; then                     #  |
+      conversion_root=${CSV2RDF4LOD_CONVERT_DATA_ROOT}/source                                         #  |
+   fi                                                                                                 #  |
+   if [[ -n "$conversion_root"               && \                                                     #  |
+         -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" ]]; then                                             #  |
+      me="cr-`basename $0`"                                                                           # \|/
+      versionID=`md5.sh $0`                                                                           #  . 
       virtuoso_allowed_dir="$conversion_root/$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID/$me/version/$versionID/doc/logs"
    else
       warn='[WARNING]: could not log to well-organized location; set'
@@ -176,6 +183,7 @@ echo "# CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT: ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_PORT:-
 echo "# log_enable(3,1);"                                                                >> $vload_log
 echo "# load function: $load_func"                                                       >> $vload_log
 echo "# end   time: `${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`"                 >> $vload_log
+# TODO: tic.sh PROV-O start and end times.
 
 # Move the latest.log pointer to the log we just created.
 rm $virtuoso_allowed_dir/latest.log &> /dev/null
@@ -186,7 +194,7 @@ if [[ $load_in_place == "false" ]]; then
    rm $file_name_full
 fi
 
-if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-"."} == "finest" ]; then
+if [ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "finest" ]; then
    echo "INFO (`basename $0`): Loading finished. $vload_log:"	
    cat $vload_log
 else
