@@ -43,7 +43,7 @@ virtuoso_allowed_dir="${CSV2RDF4LOD_HOME}/tmp/`basename $0`/input-files" # -----
 if [[ -d "$CSV2RDF4LOD_CONVERT_DATA_ROOT" && -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" ]]; then
    versionID=`md5.sh $me`                                                                             #  . 
    virtuoso_allowed_dir="$CSV2RDF4LOD_CONVERT_DATA_ROOT/$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID/cr-`basename $0`/version/$versionID/doc/logs"
-elif
+elif [[ "try" == "try" ]]; then
    # Fall back to seeing if we are actually in a data root.
    conversion_root=`cd $CSV2RDF4LOD_CONVERT_DATA_ROOT &> /dev/null; cr-conversion-root.sh --quiet`    #  |
    if [[ -z $conversion_root && -e $CSV2RDF4LOD_CONVERT_DATA_ROOT/source ]]; then                     #  |
