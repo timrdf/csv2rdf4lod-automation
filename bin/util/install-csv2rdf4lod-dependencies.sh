@@ -432,7 +432,7 @@ for egg in surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil ck
          fi
       fi
    else
-      echo "[okay] python egg \"$egg\" is already available at $there"
+      echo "[okay] python egg \"$egg\" is already available at $there ($eggReg)"
    fi
 done
 
