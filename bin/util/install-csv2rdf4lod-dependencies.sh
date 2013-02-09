@@ -389,6 +389,7 @@ fi
 #   /usr/local/lib/python2.6/dist-packages/surf.sparql_protocol-1.0.0_r336-py2.6.egg
 #   /usr/local/lib/python2.6/dist-packages/surf.rdflib-1.0.0_r338-py2.6.egg
 #   /usr/local/lib/python2.6/dist-packages/python_dateutil-2.1-py2.6.egg
+#   /usr/local/lib/python2.6/dist-packages/ckanclient-0.10-py2.6.egg # from "sudo easy_install -U ckanclient"
 
 pdiv=$div
 if [[ -z "$sudo" ]]; then
@@ -416,12 +417,10 @@ if [[ -z "$sudo" ]]; then
 fi
 offer_install_with_apt 'easy_install' 'python-setuptools' # dryrun aware
 V=`python --version 2>&1 | sed 's/Python \(.\..\).*$/\1/'`
-for egg in surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil ckanclient; do
+for egg in surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil; do
    eggReg=`echo $egg | sed 's/-/./g;s/_/./g'`
    there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d | grep -i $eggReg`
-   status=$?
-   #if [[ "$there" =~ /usr/local*.egg ]]; then # TODO: this path is $base/python/lib/site-packages if -z $sudo
-   if [[ $status == 0 ]]; then # TODO: this path is $base/python/lib/site-packages if -z $sudo
+   if [[ "$there" =~ /usr/*.egg ]]; then # TODO: this path is $base/python/lib/site-packages if -z $sudo
       echo $pdiv
       echo $TODO $sudo easy_install -U $egg
       if [ "$dryrun" != "true" ]; then
