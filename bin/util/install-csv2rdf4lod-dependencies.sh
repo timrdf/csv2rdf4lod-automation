@@ -47,7 +47,7 @@ elif [ "$1" == "--use-sudo" ]; then
    sudo="sudo "
    shift
 elif [ "$dryrun" != "true" ]; then
-   read -p "Install as sudo? (if 'N', then will install as `whoami`) [y/N] " -u 1 use_sudo
+   read -p "Install as sudo? (if 'N', will install as `whoami`) [y/N] " -u 1 use_sudo
    if [[ "$use_sudo" == [yY] ]]; then
       sudo="sudo "
    fi
@@ -422,6 +422,8 @@ offer_install_with_apt 'easy_install' 'python-setuptools' # dryrun aware
 V=`python --version 2>&1 | sed 's/Python \(.\..\).*$/\1/'`
 eggs="surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil ckanclient" 
 for egg in $eggs; do 
+   # See also https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/install-csv2rdf4lod-dependencies.sh
+   # See also https://github.com/timrdf/DataFAQs/blob/master/bin/install-datafaqs-dependencies.sh
    eggReg=`echo $egg | sed 's/-/./g;s/_/./g'`
    find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 | grep -i $eggReg &> /dev/null
    status=$?
