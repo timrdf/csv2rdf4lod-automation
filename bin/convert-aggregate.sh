@@ -1000,11 +1000,17 @@ if [ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" ]; then
    if [ "$CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS" == "true" ]; then
       $vdeleteSH
       $vloadSH
+   else
+      echo "$vloadSH - skipping load of full conversion; set CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS=true to automatically load full conversions into the triple store."
    fi
    if [ "$CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES" == "true" ]; then
       $vdeleteSH --sample
       $vloadSH   --sample
+   else
+      echo "$vloadSH - skipping load of conversion samples; set CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES=true to automatically load conversion samples into the triple store."
    fi
+else
+   echo "$vloadSH - skipping; set CSV2RDF4LOD_PUBLISH_VIRTUOSO=true to automatically load conversions into the triple store."
 fi
 
 #
