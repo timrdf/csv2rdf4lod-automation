@@ -1001,7 +1001,7 @@ if [ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" ]; then
       $vdeleteSH
       $vloadSH
    else
-      echo "$vloadSH - skipping load of full conversion; set CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS=true to automatically load full conversions into the triple store."
+      echo "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT - skipping load of full conversion; set CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS=true to automatically load full conversions into the triple store."
    fi
    if [ "$CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES" == "true" ]; then
       $vdeleteSH --sample
