@@ -489,7 +489,7 @@ echo ""                                                                         
 echo "sudo=\"sudo\""                                                                                 >> $lnwwwrootSH
 echo "if [ \`whoami\` == "root" ]; then"                                                             >> $lnwwwrootSH
 echo "   sudo=\"\""                                                                                  >> $lnwwwrootSH
-echo "elif [[ \"\`stat --format=%U \"\$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT\"\`\" == \`whoami\` ]]; then" >> $lnwwwrootSH
+echo "elif [[ \"\`stat --format=%U \"\$wwwroot/source\"\`\" == \`whoami\` ]]; then"                  >> $lnwwwrootSH
 echo "   sudo=\"\""                                                                                  >> $lnwwwrootSH
 echo "fi"                                                                                            >> $lnwwwrootSH
 echo ""                                                                                              >> $lnwwwrootSH

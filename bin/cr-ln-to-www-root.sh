@@ -40,7 +40,7 @@ fi
 sudo="sudo"
 if [[ `whoami` == root ]]; then
    sudo=""
-elif [[ "`stat --format=%U "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT"`" == `whoami` ]]; then
+elif [[ "`stat --format=%U "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source"`" == `whoami` ]]; then
    sudo=""
 fi
 
