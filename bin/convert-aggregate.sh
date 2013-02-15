@@ -463,10 +463,10 @@ echo "# ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT}"                    
 echo "# when this script was created. "                                                              >> $lnwwwrootSH
 echo ""                                                                                              >> $lnwwwrootSH
 echo "wwwroot=\$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT"                                                     >> $lnwwwrootSH
-echo "if [ \${#wwwroot} -eq 0 ]; then"                                                               >> $lnwwwrootSH
+echo "if [ -z \"\$wwwroot\" ]; then"                                                                 >> $lnwwwrootSH
 echo "  wwwroot=\$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT"                                  >> $lnwwwrootSH
 echo "fi"                                                                                            >> $lnwwwrootSH
-echo "if [ \${#wwwroot} -eq 0 ]; then"                                                               >> $lnwwwrootSH
+echo "if [ -z \"\$wwwroot\" ]; then"                                                                 >> $lnwwwrootSH
 echo "  echo \"wwwroot not defined.\""                                                               >> $lnwwwrootSH
 echo "  exit 1"                                                                                      >> $lnwwwrootSH
 echo "fi"                                                                                            >> $lnwwwrootSH
@@ -700,7 +700,8 @@ done
 
 chmod +x $lnwwwrootSH
 
-if [ ${#CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT} -gt 0 -a "$CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES" == "true" ]; then
+if [[ ( -e "$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT" || -e "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT" ) && \
+           "$CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES" == "true" ]]; then
    echo "$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT - linking dump files into web root:" | tee -a $CSV2RDF4LOD_LOG
    # Execute the script we just generated.
    $lnwwwrootSH #2> /dev/null
