@@ -64,6 +64,7 @@
       </foaf:Organization>
     </foaf:member>
     <foaf:page rdf:resource="http://academic.research.microsoft.com/Author/49398650/timothy-lebo"/>
+    <foaf:page rdf:resource="http://dl.acm.org/author_page.cfm?id=81467669968&amp;coll=DL&amp;dl=ACM&amp;trk=0&amp;cfid=276876962&amp;cftoken=39993813"/>
     <foaf:page rdf:resource="http://tw.rpi.edu/web/person/TimLebo"/>
     <foaf:page rdf:resource="http://www.dblp.org/db/indices/a-tree/l/Lebo:Timothy.html"/>
     <foaf:page rdf:resource="http://www.informatik.uni-trier.de/~ley/db/indices/a-tree/l/Lebo:Timothy.html"/>
