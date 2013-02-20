@@ -65,6 +65,7 @@ fi
 function offer_install_with_apt {
    # See also https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/install-csv2rdf4lod-dependencies.sh
    # See also https://github.com/timrdf/DataFAQs/blob/master/bin/install-datafaqs-dependencies.sh
+   # See also Prizms bin/install.sh
 
    command="$1"
    package="$2"
@@ -94,7 +95,8 @@ function offer_install_with_apt {
 }
 
 if [ "$dryrun" != "true" ]; then
-   $sudo apt-get update &> /dev/null
+   echo $sudo apt-get update &> /dev/null
+        $sudo apt-get update &> /dev/null
 fi
 
 offer_install_with_apt 'git'    'git-core'      # These are dryrun safe.
