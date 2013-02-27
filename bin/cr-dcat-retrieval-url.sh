@@ -9,15 +9,16 @@
 #   cr-pwd-type.sh 
 #      cr:data-root
 #
-#   cr-source-id.sh http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf
+#   cr-dcat-retrieval-url.sh http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf timbl-foaf
 
 if [[ "$1" == "--help" || "$1" == "-h" || $# != 1 ]]; then
    echo
-   echo "usage: `basename $0` [-w] <distribution-url>"
+   echo "usage: `basename $0` [-w] <distribution-url> [dataset-id]"
    echo
    echo "  Create a file containing an RDF description of how to access the sitated dataset using <distribution-url>."
    echo
    echo "                -w : Avoid interactivity; do it."
+   echo "        dataset-id : The dataset identifier for the dataset to create."
    #echo "  --skip-if-exists : If a version exists for the dataset, do not retrieve it."
    exit 1
 fi
