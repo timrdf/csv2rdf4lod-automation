@@ -1,13 +1,13 @@
 #!/bin/bash
-
-#!/bin/bash
 #
-#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-retrieve.sh> ;
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-retrieve.sh>;
 #3>    prov:wasRevisionOf    <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-cockpit.sh> .
 
 if [[ "$1" == "--help" || "$1" == "-h" || $# != 1 ]]; then
+   echo
    echo "usage: `basename $0` <distribution-url>"
-   echo "  Create publish/bin/publish.sh and invoke for every conversion cockpit within the current directory tree."
+   echo
+   echo "  Create a file containing an RDF description of how to access the sitated dataset using <distribution-url>."
    #cho "                -w : Avoid dryrun; do it. If not provided, will only dry run."
    #echo "  --skip-if-exists : If a version exists for the dataset, do not retrieve it."
    exit 1
