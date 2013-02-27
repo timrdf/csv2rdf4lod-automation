@@ -69,7 +69,7 @@ elif [[ `is-pwd-a.sh                                                            
             ./retrieve.sh
          else
             echo "`cr-dataset-uri.sh --uri`:"
-            echo "   Will retrieve $url"
+            echo "   Will retrieve b/c not yet retrieved $url"
          fi
       fi
    elif [[ ${#latest_version} -eq 0 && ! -e dcat.ttl && ! -e ../dcat.ttl && -e "ls retrieve.*" ]]; then
