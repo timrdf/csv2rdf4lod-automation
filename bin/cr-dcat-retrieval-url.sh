@@ -11,9 +11,9 @@
 #
 #   cr-dcat-retrieval-url.sh http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf timbl-foaf
 
-if [[ "$1" == "--help" || "$1" == "-h" || $# != 1 ]]; then
+if [[ "$1" == "--help" || "$1" == "-h" || $# < 1 ]]; then
    echo
-   echo "usage: `basename $0` [-w] <distribution-url> [dataset-id]"
+   echo "usage: `basename $0` [-w] [dataset-id] <distribution-url>"
    echo
    echo "  Create a file containing an RDF description of how to access the sitated dataset using <distribution-url>."
    echo
@@ -98,8 +98,8 @@ elif [[ `is-pwd-a.sh              cr:source                                     
    fi
 elif [[ `is-pwd-a.sh cr:data-root                                                                       ` == "yes" ]]; then
 
-   accessURL="$1"
-   datasetID="$2"
+   datasetID="$1"
+   accessURL="$2"
    sourceID=`$CSV2RDF4LOD_HOME/bin/util/cr-source-id.sh $accessURL`
 
    if [[ -n "$datasetID" ]]; then
