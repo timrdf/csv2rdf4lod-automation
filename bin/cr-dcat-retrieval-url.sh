@@ -114,7 +114,7 @@ elif [[ `is-pwd-a.sh cr:data-root                                               
          pushd $sourceID > /dev/null
             $0 $w $* # Recursive call
          popd > /dev/null
-      if
+      fi
    else
       echo "ERROR: `basename $0` could not determine source-id from $1"
    fi
