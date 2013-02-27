@@ -72,6 +72,7 @@ elif [[ `is-pwd-a.sh                                                 cr:dataset 
    echo "   a dcat:Dataset;"                                                          >> access.ttl
    echo "   dcat:distribution :download_$UUID;"                                       >> access.ttl
    echo "."                                                                           >> access.ttl
+   echo `cr-pwd.sh`/access.ttl >&2
 
 elif [[ `is-pwd-a.sh                        cr:directory-of-datasets                                    ` == "yes" ]]; then
    for next in `directories.sh`; do
