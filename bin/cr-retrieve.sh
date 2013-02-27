@@ -5,7 +5,7 @@
 
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
    echo
-   echo "usage: `basename $0` [-w]"
+   echo "usage: `basename $0` [-w] [--skip-if-exists]"
    echo
    echo "  Create publish/bin/publish.sh and invoke for every conversion cockpit within the current directory tree."
    echo
