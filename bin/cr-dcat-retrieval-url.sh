@@ -6,10 +6,11 @@
 #
 # Usage:
 #
-#   cr-pwd-type.sh 
+#   $cr-pwd-type.sh 
 #      cr:data-root
 #
-#   cr-dcat-retrieval-url.sh http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf timbl-foaf
+#   $cr-dcat-retrieval-url.sh tbl-foaf http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf
+#      source/dig-csail-mit-edu/tbl-foaf/access.ttl
 
 if [[ "$1" == "--help" || "$1" == "-h" || $# < 1 ]]; then
    echo

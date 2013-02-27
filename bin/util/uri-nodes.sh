@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/nt-nodes.sh>;
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/uri-nodes.sh>;
 #3>    prov:wasDerivedFrom   <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/rdf2nt.sh> .
 #
 # Print the URI subjects and objects of the given RDF file.
