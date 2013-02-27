@@ -1,5 +1,6 @@
 #!/bin/bash
-# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-source-id.sh
+#
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-source-id.sh> .
 #
 #   Copyright 2012 Timothy Lebo
 #
@@ -18,6 +19,11 @@
 # Return the source identifier, based on
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Directory-Conventions
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
-${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:bone --id-of source
+if [ $# -eq 1 ]; then
+   java -cp $CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh` edu.rpi.tw.string.NameFactory --source-id-of $1
+else
+   ${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:bone --id-of source
+fi
