@@ -2,13 +2,22 @@
 #
 #3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-retrieve.sh>;
 #3>    prov:wasRevisionOf    <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-cockpit.sh> .
+#
+#
+# Usage:
+#
+#   cr-pwd-type.sh 
+#      cr:data-root
+#
+#   cr-source-id.sh http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf
 
 if [[ "$1" == "--help" || "$1" == "-h" || $# != 1 ]]; then
    echo
-   echo "usage: `basename $0` <distribution-url>"
+   echo "usage: `basename $0` [-w] <distribution-url>"
    echo
    echo "  Create a file containing an RDF description of how to access the sitated dataset using <distribution-url>."
-   #cho "                -w : Avoid dryrun; do it. If not provided, will only dry run."
+   echo
+   echo "                -w : Avoid interactivity; do it."
    #echo "  --skip-if-exists : If a version exists for the dataset, do not retrieve it."
    exit 1
 fi
@@ -17,10 +26,16 @@ see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-ACCEPTABLE_PWDs="cr:dataset cr:directory-of-versions"
-if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
-   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
+ACCEPTABLE_PWDs="cr:data-root cr:dataset cr:directory-of-versions"
+if [ `$CSV2RDF4LOD_HOME/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+   $CSV2RDF4LOD_HOME/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
+fi
+
+w=''
+if [[ "$1" == '-w' ]]; then
+   w='-w'
+   shift
 fi
 
 if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
@@ -81,10 +96,26 @@ elif [[ `is-pwd-a.sh              cr:source                                     
       done
    fi
 elif [[ `is-pwd-a.sh cr:data-root                                                                       ` == "yes" ]]; then
-   for sourceID in `cr-list-sources.sh`; do
-      pushd $sourceID > /dev/null
-         $0 $* # Recursive call
-      popd > /dev/null
-   done
-fi
 
+   sourceID=`$CSV2RDF4LOD_HOME/bin/util/cr-source-id.sh $1`
+
+   if [[ -n "$sourceID" ]]; then
+      if [[ ! -e "$sourceID" ]]; then
+         if [[ "$w" == "-w" ]]; then
+            mkdir $sourceID
+         else
+            read -p "Q: make directory for source-id $sourceID? [y/n] " -u 1 make_it
+            if [[ "$make_it" == [yY] ]]; then
+               mkdir $sourceID
+            fi
+         fi
+      fi
+      if [[ -d "$sourceID" ]]; then
+         pushd $sourceID > /dev/null
+            $0 $w $* # Recursive call
+         popd > /dev/null
+      if
+   else
+      echo "ERROR: `basename $0` could not determine source-id from $1"
+   fi
+fi
