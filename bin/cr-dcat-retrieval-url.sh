@@ -104,7 +104,7 @@ elif [[ `is-pwd-a.sh cr:data-root                                               
 
    if [[ -n "$datasetID" ]]; then
       if [[ -n "$sourceID" ]]; then
-         if [[ ! -e "$sourceID" ]]; then
+         if [[ ! -e "$sourceID/$datasetID" ]]; then
             if [[ "$w" == "-w" ]]; then
                mkdir $sourceID/$datasetID
             else
