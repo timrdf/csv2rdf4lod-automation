@@ -98,25 +98,31 @@ elif [[ `is-pwd-a.sh              cr:source                                     
    fi
 elif [[ `is-pwd-a.sh cr:data-root                                                                       ` == "yes" ]]; then
 
-   sourceID=`$CSV2RDF4LOD_HOME/bin/util/cr-source-id.sh $1`
+   accessURL="$1"
+   datasetID="$2"
+   sourceID=`$CSV2RDF4LOD_HOME/bin/util/cr-source-id.sh $accessURL`
 
-   if [[ -n "$sourceID" ]]; then
-      if [[ ! -e "$sourceID" ]]; then
-         if [[ "$w" == "-w" ]]; then
-            mkdir $sourceID
-         else
-            read -p "Q: make directory for source-id   \"$sourceID\" ? [y/n] " -u 1 make_it
-            if [[ "$make_it" == [yY] ]]; then
-               mkdir $sourceID
+   if [[ -n "$datasetID" ]]; then
+      if [[ -n "$sourceID" ]]; then
+         if [[ ! -e "$sourceID" ]]; then
+            if [[ "$w" == "-w" ]]; then
+               mkdir $sourceID/$datasetID
+            else
+               read -p "Q: Make directory for source-id: \"$sourceID\" ? [y/n] " -u 1 make_it
+               if [[ "$make_it" == [yY] ]]; then
+                  mkdir $sourceID/$datasetID
+               fi
             fi
          fi
-      fi
-      if [[ -d "$sourceID" ]]; then
-         pushd $sourceID > /dev/null
-            $0 $w $* # Recursive call
-         popd > /dev/null
+         if [[ -d "$sourceID/$datasetID" ]]; then
+            pushd $sourceID/$datasetID > /dev/null
+               $0 $w $* # Recursive call
+            popd > /dev/null
+         fi
+      else
+         echo "ERROR: `basename $0` could not determine source-id from $accessURL"
       fi
    else
-      echo "ERROR: `basename $0` could not determine source-id from $1"
+      echo "ERROR: `basename $0` needs dataset identifier for $accessURL"
    fi
 fi
