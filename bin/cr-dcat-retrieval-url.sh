@@ -104,7 +104,7 @@ elif [[ `is-pwd-a.sh cr:data-root                                               
          if [[ "$w" == "-w" ]]; then
             mkdir $sourceID
          else
-            read -p "Q: make directory for source-id $sourceID? [y/n] " -u 1 make_it
+            read -p "Q: make directory for source-id   \"$sourceID\" ? [y/n] " -u 1 make_it
             if [[ "$make_it" == [yY] ]]; then
                mkdir $sourceID
             fi
