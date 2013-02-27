@@ -48,30 +48,30 @@ elif [[ `is-pwd-a.sh                                                 cr:dataset 
    DIST_URL="$1"
    UUID=`$CSV2RDF4LOD_HOME/bin/util/resource-name.sh | sed 's/^_//' | awk '{print tolower($0)}'`
 
-   echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                > dcat.ttl
-   echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."               >> dcat.ttl
-   echo "@prefix dcat:       <http://www.w3.org/ns/dcat#> ."                          >> dcat.ttl
-   echo "@prefix void:       <http://rdfs.org/ns/void#> ."                            >> dcat.ttl
-   echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                          >> dcat.ttl
-   echo "@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> ."                 >> dcat.ttl
-   echo "@prefix :           <$CSV2RDF4LOD_BASE_URI/id/> ."                           >> dcat.ttl
-   echo                                                                               >> dcat.ttl
-   echo "<$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/dataset/`cr-dataset-id.sh`>" >> dcat.ttl
-   echo "   a void:Dataset, dcat:Dataset;"                                            >> dcat.ttl
-   echo "   conversion:source_identifier  \"`cr-source-id.sh`\";"                     >> dcat.ttl
-   echo "   conversion:dataset_identifier \"`cr-dataset-id.sh`\";"                    >> dcat.ttl
-   echo "   prov:wasDerivedFrom :download_$UUID;"                                     >> dcat.ttl
-   echo "."                                                                           >> dcat.ttl
-   echo                                                                               >> dcat.ttl
-   echo ":download_$UUID"                                                             >> dcat.ttl
-   echo "   a dcat:Distribution;"                                                     >> dcat.ttl
-   echo "   dcat:downloadURL <$DIST_URL>;"                                            >> dcat.ttl
-   echo "."                                                                           >> dcat.ttl
-   echo                                                                               >> dcat.ttl
-   echo "<dataset/$UUID>"                                                             >> dcat.ttl
-   echo "   a dcat:Dataset;"                                                          >> dcat.ttl
-   echo "   dcat:distribution :download_$UUID;"                                       >> dcat.ttl
-   echo "."                                                                           >> dcat.ttl
+   echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                > access.ttl
+   echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."               >> access.ttl
+   echo "@prefix dcat:       <http://www.w3.org/ns/dcat#> ."                          >> access.ttl
+   echo "@prefix void:       <http://rdfs.org/ns/void#> ."                            >> access.ttl
+   echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                          >> access.ttl
+   echo "@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> ."                 >> access.ttl
+   echo "@prefix :           <$CSV2RDF4LOD_BASE_URI/id/> ."                           >> access.ttl
+   echo                                                                               >> access.ttl
+   echo "<$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/dataset/`cr-dataset-id.sh`>" >> access.ttl
+   echo "   a void:Dataset, dcat:Dataset;"                                            >> access.ttl
+   echo "   conversion:source_identifier  \"`cr-source-id.sh`\";"                     >> access.ttl
+   echo "   conversion:dataset_identifier \"`cr-dataset-id.sh`\";"                    >> access.ttl
+   echo "   prov:wasDerivedFrom :download_$UUID;"                                     >> access.ttl
+   echo "."                                                                           >> access.ttl
+   echo                                                                               >> access.ttl
+   echo ":download_$UUID"                                                             >> access.ttl
+   echo "   a dcat:Distribution;"                                                     >> access.ttl
+   echo "   dcat:downloadURL <$DIST_URL>;"                                            >> access.ttl
+   echo "."                                                                           >> access.ttl
+   echo                                                                               >> access.ttl
+   echo "<dataset/$UUID>"                                                             >> access.ttl
+   echo "   a dcat:Dataset;"                                                          >> access.ttl
+   echo "   dcat:distribution :download_$UUID;"                                       >> access.ttl
+   echo "."                                                                           >> access.ttl
 
 elif [[ `is-pwd-a.sh                        cr:directory-of-datasets                                    ` == "yes" ]]; then
    for next in `directories.sh`; do
