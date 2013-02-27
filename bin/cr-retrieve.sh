@@ -4,8 +4,11 @@
 #3>    prov:wasRevisionOf    <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-cockpit.sh> .
 
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+   echo
    echo "usage: `basename $0` [-w]"
+   echo
    echo "  Create publish/bin/publish.sh and invoke for every conversion cockpit within the current directory tree."
+   echo
    echo "                -w : Avoid dryrun; do it. If not provided, will only dry run."
    echo "  --skip-if-exists : If a version exists for the dataset, do not retrieve it."
    exit 1
@@ -74,7 +77,7 @@ elif [[ `is-pwd-a.sh                                                            
       chmod +x retrieve.*
       ./retrieve.*
    else
-      echo "[WARNING]: did not know how to handle `cr-pwd.sh`"
+      echo "[WARNING]: did not know how to handle `cr-pwd.sh`; no access metadata available."
    fi
 
 elif [[ `is-pwd-a.sh                                                 cr:dataset                         ` == "yes" ]]; then
