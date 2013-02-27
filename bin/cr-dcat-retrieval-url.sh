@@ -3,6 +3,10 @@
 #3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-retrieve.sh>;
 #3>    prov:wasRevisionOf    <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-cockpit.sh> .
 #
+# Environment variables needed:
+#
+#   CSV2RDF4LOD_HOME
+#   CSV2RDF4LOD_BASE_URI
 #
 # Usage:
 #
@@ -27,6 +31,9 @@ fi
 see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
+see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
+
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:data-root cr:dataset cr:directory-of-versions"
 if [ `$CSV2RDF4LOD_HOME/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
@@ -46,7 +53,8 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
 elif [[ `is-pwd-a.sh                                                 cr:dataset cr:directory-of-versions` == "yes" ]]; then
 
-   DIST_URL="$1"
+   DATASET_ID="$1"
+   DIST_URL="$2"
    UUID=`$CSV2RDF4LOD_HOME/bin/util/resource-name.sh | sed 's/^_//' | awk '{print tolower($0)}'`
 
    echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                > access.ttl
