@@ -53,8 +53,7 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
 elif [[ `is-pwd-a.sh                                                 cr:dataset cr:directory-of-versions` == "yes" ]]; then
 
-   DATASET_ID="$1"
-   DIST_URL="$2"
+   DIST_URL="$1"
    UUID=`$CSV2RDF4LOD_HOME/bin/util/resource-name.sh | sed 's/^_//' | awk '{print tolower($0)}'`
 
    echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                > access.ttl
@@ -109,7 +108,8 @@ elif [[ `is-pwd-a.sh              cr:source                                     
 elif [[ `is-pwd-a.sh cr:data-root                                                                       ` == "yes" ]]; then
 
    datasetID="$1"
-   accessURL="$2"
+   shift
+   accessURL="$2" # Leave this in the arg stack for the recursive call.
    sourceID=`$CSV2RDF4LOD_HOME/bin/util/cr-source-id.sh $accessURL`
 
    if [[ -n "$datasetID" ]]; then
