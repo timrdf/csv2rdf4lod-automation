@@ -33,6 +33,11 @@
 #
 # Author: Timothy Lebo
 
+HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
+me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
+
+CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
+
 input_extension="any"
 output_extension="any"
 replace_extension="false"
@@ -113,18 +118,17 @@ fi
 #fi
 
 # Paths required during processing
-saxon9=${saxon9:?"needs to be set to run Saxon."}
+#saxon9=${saxon9:?"needs to be set to run Saxon."}
 
 # Determine the absolute path to this script.
 D=`dirname "$0"`
 script_home="`cd \"$D\" 2>/dev/null && pwd || echo \"$D\"`"
 
-if [ $add_cp = "NOCLASSPATH" ]; then
-	#cp=$saxon8
-	cp=$CLASSPATH:$saxon9
-else
+# csv2rdf4lod/bin/dup/saxonb9-1-0-8j.jar
+
+if [ "$add_cp" != "NOCLASSPATH" ]; then
 	#cp="$add_cp":$saxon8
-	cp="$add_cp":$saxon9
+	cp="$add_cp":$CLASSPATH
 fi
 
 memory_option="-Xmx1024m"
