@@ -126,6 +126,7 @@ script_home="`cd \"$D\" 2>/dev/null && pwd || echo \"$D\"`"
 
 # csv2rdf4lod/bin/dup/saxonb9-1-0-8j.jar
 
+cp=""
 if [ "$add_cp" != "NOCLASSPATH" ]; then
 	#cp="$add_cp":$saxon8
 	cp="$add_cp":$CLASSPATH
@@ -154,18 +155,17 @@ while [ $# -gt 0 ]; do
 	if [ $multiple_files = "true" -o $output_dir_set = "true" ]; then
       if [ ! -e $outfile -o $overwrite = "yes" ]; then
 		   echo $base $outfile
-			java $memory_option -cp $cp $class -dtd:off $artifact $xsl $vars > $outfile
-         java $memory_option -cp $cp $class -dtd:off $artifact $xsl $vars > $outfile
+			java $memory_option $cp $class -dtd:off $artifact $xsl $vars > $outfile
+         java $memory_option $cp $class -dtd:off $artifact $xsl $vars > $outfile
       else 
          echo "$base    WARNING: $outfile already exists. Did not overwrite."
       fi
 	else
 		# Only one file was given
 		if [ $overwrite = "yes" ]; then
-			java $memory_option -cp $cp $class -dtd:off $artifact $xsl $vars > $outfile
+			java $memory_option $cp $class -dtd:off $artifact $xsl $vars > $outfile
 		else
-         #echo java $memory_option -cp $cp $class -dtd:off $artifact $xsl $vars
-			java $memory_option -cp $cp $class -dtd:off $artifact $xsl $vars
+			java $memory_option $cp $class -dtd:off $artifact $xsl $vars
 	  fi
 	fi
 
