@@ -17,7 +17,10 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
 fi
 
 if [[ "$1" == "--help" || $# -lt 1 ]]; then
+   echo
    echo "usage: `basename $0` [--url-of-filepath] <file>+"
+   echo
+   echo "   --url-of-filepath : print the http URL of where <file> will be published."
    exit
 fi
 
