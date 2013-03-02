@@ -36,11 +36,12 @@ missing=""
 
 # Java dependencies; relative to $CSV2RDF4LOD_HOME
 for jar in                                                             \
+           lib/csv2rdf4lod.jar                                         \
            lib/javacsv2.0/javacsv.jar                                  \
-           bin/dup/openrdf-sesame-2.3.1-onejar.jar                     \
            lib/slf4j/slf4j-api-1.7.2.jar                               \
            lib/slf4j/slf4j-nop-1.7.2.jar                               \
            lib/joda-time-2.0/joda-time-2.0.jar                         \
+           bin/dup/openrdf-sesame-2.3.1-onejar.jar                     \
            bin/dup/datadigest-1.0-SNAPSHOT.jar                         \
            bin/lib/commons-validator-1.3.1/commons-validator-1.3.1.jar \
            bin/dup/saxonb9-1-0-8j.jar                                  \
