@@ -76,7 +76,7 @@ while [ $# -gt 0 ]; do
          echo ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}${file#$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT}
       else
          directory=`dirname $file`
-         if [[ "$directory" == 'publish'   || "$directory" == "manual" || \
+         if [[ "$directory" == 'source'    || "$directory" == "manual" || \
                "$directory" == 'automatic' || "$directory" == "publish" ]]; then
             lnwww $file $directory
          else  
