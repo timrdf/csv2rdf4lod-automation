@@ -153,7 +153,12 @@ BEGIN {
    if(length(nowXSD)) {
                                     printf("      dcterms:created \"%s\"^^xsd:dateTime;\n\n",nowXSD);
    }
-
+                                    printf("\n");
+                                    printf("      #conversion:enhance [\n");
+                                    printf("      #   ov:csvRow 2;\n");
+                                    printf("      #   a conversion:DataStartRow;\n");
+                                    printf("      #];\n");
+                                    printf("\n");
    #
    # Structural enhancement parameters.
    #
