@@ -210,12 +210,20 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "   wwwfile=\"\$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/\$publish\${1#publish}\"" >> $lnwww
    echo "   if [ -e \"\$1\" -o \"\$2\" == 'publish' ]; then "                                                      >> $lnwww
    echo "      if [ -e \"\$wwwfile\" ]; then "                                                                     >> $lnwww
+   echo "         if [ -n \"\$sudo\" ]]; then"                                                                     >> $lnwww
+   echo "            echo \$sudo rm -f \"\$wwwfile\""                                                              >> $lnwww
+   echo "         fi"                                                                                              >> $lnwww
    echo "         \$sudo rm -f \"\$wwwfile\""                                                                      >> $lnwww
    echo "      else"                                                                                               >> $lnwww
+   echo "         if [ -n \"\$sudo\" ]]; then"                                                                     >> $lnwww
+   echo "            \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                                    >> $lnwww
+   echo "         fi"                                                                                              >> $lnwww
    echo "         \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                                       >> $lnwww
    echo "      fi"                                                                                                 >> $lnwww
    echo "      echo \"  \$wwwfile\""                                                                               >> $lnwww
-   echo "      \$sudo ln \$symbolic \"\${pwd}\$1\" \"\$wwwfile\""                                                  >> $lnwww
+   echo "      if [ -n \"\$sudo\" ]]; then"                                                                        >> $lnwww
+   echo "         \$sudo ln \$symbolic \"\${pwd}\$1\" \"\$wwwfile\""                                               >> $lnwww
+   echo "      fi"                                                                                                 >> $lnwww
    echo "   else"                                                                                                  >> $lnwww
    echo "      echo \"  -- \$1 omitted --\""                                                                       >> $lnwww
    echo "   fi"                                                                                                    >> $lnwww
