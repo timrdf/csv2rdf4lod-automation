@@ -152,6 +152,15 @@ if [ ! -d $version ]; then
          mkdir manual
       fi
 
+      retrieved_files=`find source -newer source/.__CSV2RDF4LOD_retrieval -type f | grep -v "pml.ttl$" | grep -v "cr-droid.ttl$"`
+
+      all_rdf="yes"
+      for file in $retrieved_files; do
+         if [[ `${CSV2RDF4LOD_HOME}/bin/util/valid-rdf.sh $file` != "yes" ]]; then
+            all_rdf="no"
+         fi
+      done
+
       if [ -e ../2manual.sh ]; then
          # Leave it up to the global 2manual.sh to populate manual/ from any of the source/
          # 2manual.sh should also create the cr-create-convert.sh.
@@ -172,23 +181,23 @@ if [ ! -d $version ]; then
 
          files=`find source/ -name "*.csv"`
          cr-create-conversion-trigger.sh  -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
+      elif [[ $all_rdf == "yes" ]]; then
+         echo "[INFO] All retrieved files are RDF."
       else
          # Take a best guess as to what data files should be converted.
          # Include source/* that is newer than source/.__CSV2RDF4LOD_retrieval and NOT *.pml.ttl
 
-         files=`find source -newer source/.__CSV2RDF4LOD_retrieval -type f | grep -v "pml.ttl$" | grep -v "cr-droid.ttl$"`
-
-         validfiles=""
-         for name in $files; do
+         existing_files=""
+         for name in $retrieved_files; do
             if [ -e $name ]; then
-               validfiles="$validfiles $name"
+               existing_files="$existing_files $name"
             else
                echo "[INFO] \"$name\" does not exist."
             fi
          done
-         if [ ${#validfiles} -gt 0 ]; then
+         if [ ${#existing_files} -gt 0 ]; then
             # Create a conversion trigger for the files obtained during retrieval.
-            cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $validfiles
+            cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $existing_files
          else
             echo
             echo "ERROR: No valid files found when retrieving `cr-dataset-id.sh`; not creating conversion trigger."
