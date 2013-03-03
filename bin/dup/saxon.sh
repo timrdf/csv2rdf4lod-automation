@@ -36,7 +36,7 @@
 HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
 me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
 
-CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
+export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
 
 input_extension="any"
 output_extension="any"

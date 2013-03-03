@@ -35,22 +35,32 @@ if [[ $# -eq 0 || "$1" == "--help" ]]; then
 fi
 
 version=''
+flag_version=""
 if [[ "$1" == "--version" && $# -gt 1 ]]; then
    version="$2"
+   flag_version="--version $2"
    shift 2
 fi
 
 verbose='no'
+flag_verbose=""
 if [[ "$1" == "--verbose" ]]; then
    verbose='yes'
+   flag_verbose="--verbose"
    shift
 fi
 
+TEMP="_"`basename $0``date +%s`_$$.tmp
 while [ $# -gt 0 ]; do
    file="$1" 
    shift
 
    if [ ! -f $file ]; then
+      if [[ "$file" =~ http.* ]]; then
+         rapper -q -g -o ntriples $file > $TEMP         
+         $0 $flag_version $flag_verbose $TEMP
+         rm $TEMP
+      fi
       continue
    fi
 
