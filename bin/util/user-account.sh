@@ -20,24 +20,33 @@ if [ "$1" != "--cite" ]; then
    echo "@prefix foaf:    <http://xmlns.com/foaf/0.1/> ."
    echo "@prefix sioc:    <http://rdfs.org/sioc/ns#> ."
    echo "@prefix dcterms: <http://purl.org/dc/terms/> ."
+   echo "@prefix prov:    <http://www.w3.org/ns/prov#> ."
+   echo
 
    #
    # NOTE: implemented in bin/util/header2params2.awk, too.
    #
 
-   if [ ${#CSV2RDF4LOD_CONVERT_MACHINE_URI} -gt 0 ]; then
-      if [ ${#CSV2RDF4LOD_CONVERT_PERSON_URI} -gt 0 ]; then
-         echo "<$CSV2RDF4LOD_CONVERT_PERSON_URI> foaf:holdsAccount <${CSV2RDF4LOD_CONVERT_MACHINE_URI}#`whoami`> ."
+   if [ -n "$CSV2RDF4LOD_CONVERT_MACHINE_URI" ]; then
+      echo "<${CSV2RDF4LOD_CONVERT_MACHINE_URI}>"
+      echo "   a prov:Entity;"
+      echo "."
+      if [ -n "$CSV2RDF4LOD_CONVERT_PERSON_URI" ]; then
+         echo "<$CSV2RDF4LOD_CONVERT_PERSON_URI>"
+         echo "  a prov:Agent, foaf:Agent;"
+         echo "  foaf:holdsAccount <${CSV2RDF4LOD_CONVERT_MACHINE_URI}#`whoami`>;"
+         echo "."
       fi 
       echo "<${CSV2RDF4LOD_CONVERT_MACHINE_URI}#`whoami`>"
-      echo "   a foaf:OnlineAccount;"
+      echo "   a foaf:OnlineAccount, prov:Agent;"
       echo "   foaf:accountName \"`whoami`\";"
       echo "   dcterms:isPartOf <$CSV2RDF4LOD_CONVERT_MACHINE_URI>;"
-      if [ ${#CSV2RDF4LOD_CONVERT_PERSON_URI} -gt 0 ]; then
-         echo "   sioc:account_of  <$CSV2RDF4LOD_CONVERT_PERSON_URI>;"
+      if [ -n "$CSV2RDF4LOD_CONVERT_PERSON_URI" ]; then
+         echo "   sioc:account_of      <$CSV2RDF4LOD_CONVERT_PERSON_URI>;"
+         echo "   prov:actedOnBehalfOf <$CSV2RDF4LOD_CONVERT_PERSON_URI>;"
       fi 
       echo "."
-   elif [ ${#CSV2RDF4LOD_CONVERT_PERSON_URI} -gt 0 ]; then
+   elif [ -n "$CSV2RDF4LOD_CONVERT_PERSON_URI" ]; then
       echo "<$CSV2RDF4LOD_CONVERT_PERSON_URI> dcterms:identifier \"`whoami`\" ."
    fi
 
@@ -47,15 +56,15 @@ else
    # NOTE: implemented in bin/util/header2params2.awk, too.
    #
 
-   if [ ${#CSV2RDF4LOD_CONVERT_PERSON_URI} -gt 0 -a ${#CSV2RDF4LOD_CONVERT_MACHINE_URI} -gt 0 ]; then
+   if [[ -n "$CSV2RDF4LOD_CONVERT_PERSON_URI" && -n "$CSV2RDF4LOD_CONVERT_MACHINE_URI" ]]; then
 
       echo "<${CSV2RDF4LOD_CONVERT_MACHINE_URI}#`whoami`>"
 
-   elif [ ${#CSV2RDF4LOD_CONVERT_MACHINE_URI} -gt 0 ]; then
+   elif [ -n "$CSV2RDF4LOD_CONVERT_MACHINE_URI" ]; then
 
       echo "<${CSV2RDF4LOD_CONVERT_MACHINE_URI}#`whoami`>" # TODO: same as above.
 
-   elif [ ${#CSV2RDF4LOD_CONVERT_PERSON_URI} -gt 0 ]; then
+   elif [ -n "$CSV2RDF4LOD_CONVERT_PERSON_URI" ]; then
 
       echo "[ a foaf:OnlineAccount; foaf:accountName \"`whoami`\";"
       echo "                        sioc:account_of <$CSV2RDF4LOD_CONVERT_PERSON_URI> ]"

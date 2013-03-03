@@ -20,7 +20,8 @@ while [ $# -gt 0 ]; do
    date_id=`date +%s`
 
    echo "<$file>"                                                                    
-   echo "   a pmlp:Information;"                                                    
+   echo "   a nfo:FileDataObject;"                                                    
+   echo "   nfo:fileName \"$file\";"                                
    echo "   nfo:hasHash <md5_${fileMD5}_time_${date_id}>;"                                
    echo "."                                                                      
    echo "<md5_${fileMD5}_time_${date_id}>"                                             

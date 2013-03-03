@@ -39,6 +39,7 @@ if [ $# -lt 1 ]; then
    echo "  -F       : submit POST with variable=value"
    echo "  -n       : use 'name' as the local file name."
    echo "  -e       : use 'extension' as the extension to the local file name."
+   echo "  --dig    : dig into a PML file and print the URL that was retrieved."
    echo "  --repeat : dig into a PML file and retrieve the pmlp:Sources it describes."
    exit 1
 fi
@@ -167,6 +168,7 @@ while [ $# -gt 0 ]; do
       Eurl=`echo $url | awk '{gsub(/\//,"\\\\/");print}'`  # Escaped URL
 
       # Relative paths.
+      quotation="quotation_$requestID"
       sourceUsage="sourceUsage$requestID"
       nodeSet="nodeSet$requestID"
       inferenceStep="inferenceStep$requestID"
@@ -193,25 +195,29 @@ while [ $# -gt 0 ]; do
       $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                                                  >> $file.pml.ttl
       echo                                                                                                        >> $file.pml.ttl
       echo "<$url>"                                                                                               >> $file.pml.ttl
-      echo "   a pmlp:Source;"                                                                                    >> $file.pml.ttl
+      echo "   a pmlp:Source, prov:Entity;"                                                                       >> $file.pml.ttl
          if [ "$redirectedURL" != "$url" ]; then
             if [ ${#urlModDateTime} -gt 3 ]; then
                echo "   pmlp:hasModificationDateTime \"$urlModDateTime\"^^xsd:dateTime;"                          >> $file.pml.ttl
+               echo "   dcterms:modified             \"$urlModDateTime\"^^xsd:dateTime;"                          >> $file.pml.ttl
             fi
             echo "   irw:redirectsTo <$redirectedURL>;"                                                           >> $file.pml.ttl
          fi
       echo "."                                                                                                    >> $file.pml.ttl
       echo                                                                                                        >> $file.pml.ttl
       echo "<$redirectedURL>"                                                                                     >> $file.pml.ttl
-      echo "   a pmlp:Source;"                                                                                    >> $file.pml.ttl
+      echo "   a pmlp:Source, prov:Entity;"                                                                       >> $file.pml.ttl
          if [ ${#redirectedModDate} -gt 3 ]; then
             echo "   pmlp:hasModificationDateTime \"$redirectedModDate\"^^xsd:dateTime;"                          >> $file.pml.ttl
+            echo "   dcterms:modified             \"$redirectedModDate\"^^xsd:dateTime;"                          >> $file.pml.ttl
          fi
       echo "."                                                                                                    >> $file.pml.ttl
       echo                                                                                                        >> $file.pml.ttl
       if [ "$downloadFile" == "true" ]; then
          echo "<$file>"                                                                                           >> $file.pml.ttl
-         echo "   a pmlp:Information;"                                                                            >> $file.pml.ttl
+         echo "   a nfo:FileDataObject, prov:Entity, pmlp:Information;"                                           >> $file.pml.ttl
+         echo "   prov:wasQuotedFrom      <$redirectedURL>;"                                                      >> $file.pml.ttl
+         echo "   prov:qualifiedQuotation <${quotation}>;"                                                        >> $file.pml.ttl
          echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_content>;"                                         >> $file.pml.ttl
          echo "."                                                                                                 >> $file.pml.ttl
          $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$file"                                                       >> $file.pml.ttl
@@ -238,6 +244,12 @@ while [ $# -gt 0 ]; do
          echo "   pmlj:hasVariableMapping [ pmlj:mapFrom \"$attribute\"; pmlj:mapTo \"$value\"; ];"               >> $file.pml.ttl
                   fi
                done
+         echo "."                                                                                                 >> $file.pml.ttl
+         echo                                                                                                     >> $file.pml.ttl
+         echo "<${quotation}>"                                                                                    >> $file.pml.ttl
+         echo "   a prov:Quotation;"                                                                              >> $file.pml.ttl
+         echo "   prov:entity <$redirectedURL>;"                                                                  >> $file.pml.ttl
+         echo "   prov:atTime \"$usageDateTime\"^^xsd:dateTime;"                                                  >> $file.pml.ttl
          echo "."                                                                                                 >> $file.pml.ttl
          echo                                                                                                     >> $file.pml.ttl
          echo "<${sourceUsage}_content>"                                                                          >> $file.pml.ttl
@@ -325,7 +337,7 @@ while [ $# -gt 0 ]; do
          fi
       echo                                                                                                        >> $file.pml.ttl
       echo "conv:curl_$curlMD5"                                                                                   >> $file.pml.ttl
-      echo "   a pmlp:InferenceEngine, conv:Curl;"                                                                >> $file.pml.ttl
+      echo "   a prov:Agent, pmlp:InferenceEngine, conv:Curl;"                                                    >> $file.pml.ttl
       echo "   dcterms:identifier \"$curlMD5\";"                                                                  >> $file.pml.ttl
       echo "   dcterms:description \"\"\"`curl --version`\"\"\";"                                                 >> $file.pml.ttl
       echo "."                                                                                                    >> $file.pml.ttl
