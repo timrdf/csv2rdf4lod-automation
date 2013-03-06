@@ -57,7 +57,7 @@ while [ $# -gt 0 ]; do
 
    if [ ! -f $file ]; then
       if [[ "$file" =~ http.* ]]; then
-         rapper -q -g -o ntriples $file > $TEMP         
+         rapper -q -g -o ntriples $file -I $file > $TEMP         
          $0 $flag_version $flag_verbose $TEMP
          rm $TEMP
       fi
