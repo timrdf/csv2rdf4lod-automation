@@ -16,7 +16,19 @@
             <xsl:value-of select="concat(.,'&#xa;')"/>
          </xsl:for-each-group>
       </xsl:when>
+      <xsl:when test="//grddl:transformation[@href]">
+         <!-- Needs to handle svg -->
+         <xsl:for-each-group select="//grddl:transformation" group-by="@href">
+            <xsl:value-of select="concat(@href,'&#xa;')"/>
+         </xsl:for-each-group>
+      </xsl:when>
+      <xsl:when test="//grddl:transformation[string-length(text())]">
+         <xsl:for-each-group select="//grddl:transformation" group-by="text()[1]">
+            <xsl:value-of select="concat(text()[1],'&#xa;')"/>
+         </xsl:for-each-group>
+      </xsl:when>
       <xsl:otherwise>
+         <!-- Needs to handle graffle -->
          <xsl:for-each select="//*[. = 'http://www.w3.org/2003/g/data-view#transformation']">
             <xsl:if test="starts-with(following-sibling::*[1],'http')">
                <xsl:value-of select="concat(following-sibling::*[1],'&#xa;')"/>
