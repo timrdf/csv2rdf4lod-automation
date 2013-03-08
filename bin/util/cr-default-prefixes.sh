@@ -50,6 +50,7 @@ else
    echo "prefix dbpedia:    <http://dbpedia.org/resource/>"
    echo "prefix prov:       <http://www.w3.org/ns/prov#>"
    echo "prefix sio:        <http://semanticscience.org/resource/>"
+   echo "prefix vsr:        <http://purl.org/twc/vocab/vsr#>"
    echo "prefix twi:        <http://tw.rpi.edu/instances/>"
    echo
    # curl http://prefix.cc/rdfs,void,conversion.file.sparql | grep PREFIX
