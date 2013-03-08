@@ -116,11 +116,11 @@ elif [[ `is-pwd-a.sh cr:data-root                                               
       if [[ -n "$sourceID" ]]; then
          if [[ ! -e "$sourceID/$datasetID" ]]; then
             if [[ "$w" == "-w" ]]; then
-               mkdir $sourceID/$datasetID
+               mkdir -p $sourceID/$datasetID
             else
                read -p "Q: Make directory for source-id/dataset-id: \"$sourceID/$datasetID\" ? [y/n] " -u 1 make_it
                if [[ "$make_it" == [yY] ]]; then
-                  mkdir $sourceID/$datasetID
+                  mkdir -p $sourceID/$datasetID
                fi
             fi
          fi
