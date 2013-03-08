@@ -68,6 +68,8 @@ BEGIN {
       print "@prefix doap:          <http://usefulinc.com/ns/doap#> ."
       print "@prefix nfo:           <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> ."
       print "@prefix sio:           <http://semanticscience.org/resource/> ."
+      print "@prefix vsr:           <http://purl.org/twc/vocab/vsr#> ."
+      print "@prefix dcat:          <http://www.w3.org/ns/dcat#> ."
       print "@prefix qb:            <http://purl.org/linked-data/cube#> ."
       print "@prefix dgtwc:         <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> ."
    }
