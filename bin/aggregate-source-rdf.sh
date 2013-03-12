@@ -216,14 +216,15 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "         \$sudo rm -f \"\$wwwfile\""                                                                      >> $lnwww
    echo "      else"                                                                                               >> $lnwww
    echo "         if [[ -n \"\$sudo\" ]]; then"                                                                    >> $lnwww
-   echo "            \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                                    >> $lnwww
+   echo "            echo \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                               >> $lnwww
    echo "         fi"                                                                                              >> $lnwww
    echo "         \$sudo mkdir -p \`dirname \"\$wwwfile\"\`"                                                       >> $lnwww
    echo "      fi"                                                                                                 >> $lnwww
    echo "      echo \"  \$wwwfile\""                                                                               >> $lnwww
    echo "      if [[ -n \"\$sudo\" ]]; then"                                                                       >> $lnwww
-   echo "         \$sudo ln \$symbolic \"\${pwd}\$1\" \"\$wwwfile\""                                               >> $lnwww
+   echo "         echo \$sudo ln \$symbolic \"\${pwd}\$1\" \"\$wwwfile\""                                          >> $lnwww
    echo "      fi"                                                                                                 >> $lnwww
+   echo "      \$sudo ln \$symbolic \"\${pwd}\$1\" \"\$wwwfile\""                                                  >> $lnwww
    echo "   else"                                                                                                  >> $lnwww
    echo "      echo \"  -- \$1 omitted --\""                                                                       >> $lnwww
    echo "   fi"                                                                                                    >> $lnwww
