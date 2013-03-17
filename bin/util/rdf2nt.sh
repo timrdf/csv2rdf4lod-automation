@@ -99,7 +99,6 @@ while [ $# -gt 0 ]; do
          # Find out where the file will be on the web.
           I="\"`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n $file\``\""
          II="-I \"`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n $file\``\""
-         echo base $I >&2
       fi
       
       gunzip --test $file &> /dev/null
