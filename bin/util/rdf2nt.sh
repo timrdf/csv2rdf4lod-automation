@@ -97,7 +97,7 @@ while [ $# -gt 0 ]; do
       II=""
       if [[ `which cr-pwd-type.sh` && `cr-pwd-type.sh` == 'cr:conversion-cockpit' && `which cr-ln-to-www-root.sh` ]]; then
          # Find out where the file will be on the web.
-          I="`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n $file\``"
+          I="\"`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n $file\``\""
          II="-I \"`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n $file\``\""
       fi
       
