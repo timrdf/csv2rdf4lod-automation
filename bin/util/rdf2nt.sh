@@ -119,7 +119,7 @@ while [ $# -gt 0 ]; do
          # Need to use serdi to prepend bnodes with a unique prefix.
          if [[ `which rapper` && `which serdi` ]]; then
             if [ "$verbose" == "yes" ]; then
-               echo "rapper -q -i rdfxml -o ntriples $file | serdi -i ntriples -o ntriples -p $md5 - (from $origFile)" >&2
+               echo "rapper -q -i rdfxml -o ntriples $II $file | serdi -i ntriples -o ntriples -p $md5 - (from $origFile)" >&2
             fi
             rapper -q -i rdfxml -o ntriples $II $file | serdi -i ntriples -o ntriples -p $md5 -
          elif [[ ! `which rapper` ]]; then
@@ -134,7 +134,7 @@ while [ $# -gt 0 ]; do
          # Need to use serdi to prepend bnodes with a unique prefix.
          if [[ `which serdi` ]]; then
             if [ "$verbose" == "yes" ]; then
-               echo "serdi -i ntriples -o ntriples -p $md5 $file (from $origFile)" >&2
+               echo "serdi -i ntriples -o ntriples -p $md5 $file $I (from $origFile)" >&2
             fi
             serdi -i ntriples -o ntriples -p $md5 $file $I
          else
@@ -144,7 +144,7 @@ while [ $# -gt 0 ]; do
          # Need to use serdi to prepend bnodes with a unique prefix.
          if [[ `which serdi` ]]; then
             if [ "$verbose" == "yes" ]; then
-               echo "serdi -i turtle -o ntriples -p $md5 $file (from $origFile)" >&2
+               echo "serdi -i turtle -o ntriples -p $md5 $file $I (from $origFile)" >&2
             fi
             serdi -i turtle -o ntriples -p $md5 $file $I
          else
