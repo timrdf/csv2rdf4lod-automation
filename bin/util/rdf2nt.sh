@@ -111,6 +111,7 @@ while [ $# -gt 0 ]; do
          file=$TEMP       # So we can reuse the code that handles uncompressed output.
       else
          gzipped="no"
+         origFile="$file"
       fi
 
       if [ "$serialization" == "application/rdf+xml" ]; then
