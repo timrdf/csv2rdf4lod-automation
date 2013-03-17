@@ -87,9 +87,11 @@ function lnwww {
       fi
    else
       echo "  -- $1 omitted --"
+      let "errorTally=errorTally+1"
    fi
 }
 
+errorTally=0
 while [ $# -gt 0 ]; do
    file="$1"
    shift
@@ -104,9 +106,11 @@ while [ $# -gt 0 ]; do
             lnwww $file $directory
          else  
             echo "ignoring $file"
+            let "errorTally=errorTally+1"
          fi
       fi
    else
       "WARNING: $file does not exist"
+      let "errorTally=errorTally+1"
    fi
 done
