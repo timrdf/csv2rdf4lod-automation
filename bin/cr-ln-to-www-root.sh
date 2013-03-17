@@ -2,6 +2,16 @@
 #
 #3> <> prov:wasGeneratedBy [ prov:qualifiedAssociation [ prov:hadPlan <https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/aggregate-source-rdf.sh> ] ] .
 #3> <https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/aggregate-source-rdf.sh> a prov:Plan; foaf:homepage <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/aggregate-source-rdf.sh> .
+#
+#
+# Usage:
+#
+#  cr-ln-to-www-root.sh manual/ScenarioPaperopencodingcleancopy.txt.xml.ttl.graffle
+#    Returns the local absolute file path within the htdocs directory, e.g.
+#       /var/www/source/datahub.io/file/vis-seven-scenarios-codings/version/2013-Mar-08/manual/ScenarioPaperopencodingcleancopy.txt.xml.ttl.graffle
+#
+#  cr-ln-to-www-root.sh --url-of-filepath `cr-ln-to-www-root.sh manual/ScenarioPaperopencodingcleancopy.txt.xml.ttl.graffle`
+#    Returns the web-accessible URL of the given absolute htdocs file path (which was returned when publishing as in the last example).
 
 see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
@@ -18,13 +28,20 @@ fi
 
 if [[ "$1" == "--help" || $# -lt 1 ]]; then
    echo
-   echo "usage: `basename $0` [--url-of-filepath] <file>+"
+   echo "usage: `basename $0` [-n] [--url-of-filepath] <file>+"
    echo
+   echo "                  -n : dry run; do not link/copy file to htdocs directory; report the htdocs directory."
    echo "   --url-of-filepath : print the http URL of where <file> will be published."
    exit
 fi
 
 CSV2RDF4LOD_PUBLISH_VARWWW_ROOT=${CSV2RDF4LOD_PUBLISH_VARWWW_ROOT:?"not set; source csv2rdf4lod/source-me.sh "}
+
+dryrun='no'
+if [ "$1" == "-n" ]; then
+   dryrun='yes'
+   shift
+fi
 
 uri_of_path='no'
 if [ "$1" == "--url-of-filepath" ]; then
@@ -64,7 +81,10 @@ function lnwww {
          $sudo mkdir -p `dirname "$wwwfile"`
       fi
       echo "  $wwwfile"
-      $sudo ln $symbolic "${pwd}$1" "$wwwfile"
+
+      if [[ "$dryrun" != "yes" ]]; then
+         $sudo ln $symbolic "${pwd}$1" "$wwwfile"
+      fi
    else
       echo "  -- $1 omitted --"
    fi
