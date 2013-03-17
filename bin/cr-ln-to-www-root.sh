@@ -95,19 +95,22 @@ errorTally=0
 while [ $# -gt 0 ]; do
    file="$1"
    shift
+
+   # /var/www/source/datahub.io/file/vis-seven-scenarios-codings/version/2013-Mar-08/manual/ScenarioPaperopencodingcleancopy.txt.xml.ttl.graffle
+   if [ "$uri_of_path" == "yes" ]; then
+      echo ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}${file#$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT}
+      continue
+   fi
+
    # publish/sitemap.xml
    if [ -e "$file" ]; then
-      if [ "$uri_of_path" == "yes" ]; then
-         echo ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}${file#$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT}
-      else
-         directory=`dirname $file`
-         if [[ "$directory" == 'source'    || "$directory" == "manual" || \
-               "$directory" == 'automatic' || "$directory" == "publish" ]]; then
-            lnwww $file $directory
-         else  
-            echo "ignoring $file"
-            let "errorTally=errorTally+1"
-         fi
+      directory=`dirname $file`
+      if [[ "$directory" == 'source'    || "$directory" == "manual" || \
+            "$directory" == 'automatic' || "$directory" == "publish" ]]; then
+         lnwww $file $directory
+      else  
+         echo "ignoring $file"
+         let "errorTally=errorTally+1"
       fi
    else
       "WARNING: $file does not exist"
