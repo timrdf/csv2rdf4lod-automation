@@ -103,10 +103,10 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    if [[ "$CSV2RDF4LOD_PUBLISH_NT" == "true" || "$ntriples" == "true" ]]; then
       if [[ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" || "$compress" == "true" ]]; then
          echo "publish/$sdv.nt.gz"
-         rdf2nt.sh $* | gzip                             > publish/$sdv.nt.gz
+         rdf2nt.sh --version 2 $* | gzip           > publish/$sdv.nt.gz
       else
          echo "publish/$sdv.nt"
-         rdf2nt.sh $*                                    > publish/$sdv.nt
+         rdf2nt.sh --version 2 $*                  > publish/$sdv.nt
       fi
    else
       echo "publish/$sdv.nt[.gz] - skipping; set CSV2RDF4LOD_PUBLISH_NT=true to publish as N-TRIPLES." 
@@ -119,14 +119,24 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
          serialization=`guess-syntax.sh --inspect $file mime`
 
          echo "  (including $file, format is $serialization)" 
-         if [[ "$serialization" == "text/turtle" ]]; then
-            cat $file                                  >> publish/$sdv.ttl
-         elif [[ -z "$serialization" ]]; then
+         #if [[ "$serialization" == "text/turtle" ]]; then
+         #   # Make some attempts to preserve the less-ugliness of the file.
+         #   # And, expand the relative paths correctly.
+         #   if [[ `too-big-for-rapper.sh $file` && `which serdi` ]]; then
+         #      serdi -i turtle -o turtle $file   >> publish/$sdv.ttl
+         #   elif [[ `which rapper` ]]; then
+         #      rapper -i turtle -o turtle $file  >> publish/$sdv.ttl
+         #   else
+         #      cat $file                         >> publish/$sdv.ttl
+         #      # ^^ Relative paths just broke...
+         #   fi
+         #el
+         if [[ -z "$serialization" ]]; then
             echo "WARNING: omitting $file b/c could not recognize serialization type"
          else
             # The other formats aren't really human readable, so no worries if it's ugly ttl.
             # N-Triples is Turtle...
-            rdf2nt.sh $file                            >> publish/$sdv.ttl
+            rdf2nt.sh --version 2 $file          >> publish/$sdv.ttl
          fi
       done
       if [[ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" || "$compress" == "true" ]]; then
