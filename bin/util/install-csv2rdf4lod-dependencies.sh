@@ -158,7 +158,7 @@ if [ ! `which tdbloader` ]; then
          # https://repository.apache.org/content/repositories/releases/org/apache/jena/jena-core/
          tarball='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.3.tar.gz' # 404s
          zip='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.4.zip' # 404s
-         zip='http://www.apache.org/dist/jena/binaries/apache-jena-2.10.0.zip'
+         zip='http://archive.apache.org/dist/jena/binaries/apache-jena-2.10.0.zip'
          pushd $base &> /dev/null
             echo $TODO $sudo curl -O --progress-bar $zip from `pwd`
             if [ "$dryrun" != "true" ]; then
