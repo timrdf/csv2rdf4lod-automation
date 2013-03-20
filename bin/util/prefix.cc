@@ -26,7 +26,7 @@ while [ $# -gt 0 ]; do
       prefix=${uri%%:*}
       namespace=`curl -s http://prefix.cc/$prefix.file.txt | awk '{print $2}'`
       uri=$namespace${uri#*:}
+      echo $uri
    fi
-   echo $uri
 
 done
