@@ -20,7 +20,9 @@ while [ $# -gt 0 ]; do
    uri="$1"
    shift
 
-   if [[ ! "$uri" =~ http* ]]; then
+   if [[ "$uri" =~ http* ]]; then
+      echo $uri
+   else
       prefix=${uri%%:*}
       namespace=`curl -s http://prefix.cc/$prefix.file.txt | awk '{print $2}'`
       uri=$namespace${uri#*:}

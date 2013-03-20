@@ -28,7 +28,7 @@ if [[ "$1" == "--as-ttl" ]]; then
    shift
 fi
 
-predicate="$1" # http://www.w3.org/1999/02/22-rdf-syntax-ns#type
+predicate="`prefix.cc $1`" # http://www.w3.org/1999/02/22-rdf-syntax-ns#type
 shift
 
 total=$#
