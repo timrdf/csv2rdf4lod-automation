@@ -6,7 +6,7 @@
 
 <xsl:transform version="2.0" 
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:grddl="http://www.w3.org/2003/g/data-view#">
+   xmlns:grddl="http://www.w3.org/2003/g/data-view#"> <!-- hash or no hash? examples contflict... -->
 <xsl:output method="text"/>
 
 <xsl:template match="/">
@@ -25,6 +25,11 @@
       <xsl:when test="//grddl:transformation[string-length(text())]">
          <xsl:for-each-group select="//grddl:transformation" group-by="text()[1]">
             <xsl:value-of select="concat(text()[1],'&#xa;')"/>
+         </xsl:for-each-group>
+      </xsl:when>
+      <xsl:when test="//*/@transformation[starts-with(.,'http')]">
+         <xsl:for-each-group select="//*/@transformation[starts-with(.,'http')]" group-by=".">
+            <xsl:value-of select="concat(.,'&#xa;')"/>
          </xsl:for-each-group>
       </xsl:when>
       <xsl:otherwise>
