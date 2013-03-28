@@ -143,95 +143,103 @@ else
       antecedentNodeSet="<nodeSet${requestID}_antecedent>"
       userNodeSet="<nodeSet${requestID}_user>"
 
-      echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                     > $consequent.pml.ttl
-      echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                        >> $consequent.pml.ttl
-      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                               >> $consequent.pml.ttl
-      echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                >> $consequent.pml.ttl
-      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                 >> $consequent.pml.ttl
-      echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."         >> $consequent.pml.ttl
-      echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                         >> $consequent.pml.ttl
-      echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                      >> $consequent.pml.ttl
-      echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                       >> $consequent.pml.ttl
-      echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."          >> $consequent.pml.ttl
-      echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."      >> $consequent.pml.ttl
-      echo "@prefix conv:       <http://purl.org/twc/vocab/conversion/> ."                    >> $consequent.pml.ttl
-      echo                                                                                    >> $consequent.pml.ttl
+      prov="pml"
+      echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                     > $consequent.$prov.ttl
+      echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                        >> $consequent.$prov.ttl
+      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                               >> $consequent.$prov.ttl
+      echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                >> $consequent.$prov.ttl
+      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                 >> $consequent.$prov.ttl
+      echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."         >> $consequent.$prov.ttl
+      echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                         >> $consequent.$prov.ttl
+      echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                      >> $consequent.$prov.ttl
+      echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                       >> $consequent.$prov.ttl
+      echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."          >> $consequent.$prov.ttl
+      echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."      >> $consequent.$prov.ttl
+      echo "@prefix conv:       <http://purl.org/twc/vocab/conversion/> ."                    >> $consequent.$prov.ttl
+      echo "@prefix irw: <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> ."          >> $consequent.$prov.ttl
+      echo                                                                                    >> $consequent.$prov.ttl
 
-      $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                              >> $consequent.pml.ttl
+      $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                              >> $consequent.$prov.ttl
 
-      echo                                                                                    >> $consequent.pml.ttl
-      echo $consequentURI                                                                     >> $consequent.pml.ttl
-      echo "   a pmlp:Information;"                                                           >> $consequent.pml.ttl
-      echo "   pmlp:hasModificationDateTime \"$consequentModDateTime\"^^xsd:dateTime;"        >> $consequent.pml.ttl
-      #echo "   pmlp:hasReferenceSourceUsage $sourceUsage;"                                   >> $consequent.pml.ttl
-      echo "."                                                                                >> $consequent.pml.ttl
+      echo                                                                                    >> $consequent.$prov.ttl
+      echo $consequentURI                                                                     >> $consequent.$prov.ttl
+      echo "   a pmlp:Information;"                                                           >> $consequent.$prov.ttl
+      echo "   pmlp:hasModificationDateTime \"$consequentModDateTime\"^^xsd:dateTime;"        >> $consequent.$prov.ttl
+      #echo "   pmlp:hasReferenceSourceUsage $sourceUsage;"                                   >> $consequent.$prov.ttl
+      echo "."                                                                                >> $consequent.$prov.ttl
+
+      # > > > > > > > > > > > > > > > > >
       pushd `dirname $consequent` &> /dev/null # in manual/
-      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "`basename $consequent`"                     >> `basename $consequent.pml.ttl`
+      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "`basename $consequent`"                     >> `basename $consequent.$prov.ttl`
       popd &> /dev/null
-      echo                                                                                     >> $consequent.pml.ttl
-      #echo "$sourceUsage"                                                                     >> $consequent.pml.ttl
-      #echo "   a pmlp:SourceUsage;"                                                           >> $consequent.pml.ttl
-      #echo "   pmlp:hasSource        <$antecedent>;"                                          >> $consequent.pml.ttl
-      #echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                       >> $consequent.pml.ttl
-      #echo "."                                                                                >> $consequent.pml.ttl
-      #echo                                                                                    >> $consequent.pml.ttl
+      # > > > > > > > > > > > > > > > > >
+
+      echo                                                                                     >> $consequent.$prov.ttl
+      #echo "$sourceUsage"                                                                     >> $consequent.$prov.ttl
+      #echo "   a pmlp:SourceUsage;"                                                           >> $consequent.$prov.ttl
+      #echo "   pmlp:hasSource        <$antecedent>;"                                          >> $consequent.$prov.ttl
+      #echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                       >> $consequent.$prov.ttl
+      #echo "."                                                                                >> $consequent.$prov.ttl
+      #echo                                                                                    >> $consequent.$prov.ttl
       if [[ -e "$antecedent" ]]; then
-         echo "<../$antecedent>"                                                               >> $consequent.pml.ttl
-         echo "   a pmlp:Information;"                                                         >> $consequent.pml.ttl
+         echo "<../$antecedent>"                                                               >> $consequent.$prov.ttl
+         echo "   a pmlp:Information;"                                                         >> $consequent.$prov.ttl
          if [[ -n "$antecedentModDateTime" ]]; then
-         echo "   pmlp:hasModificationDateTime \"$antecedentModDateTime\"^^xsd:dateTime;"      >> $consequent.pml.ttl
+         echo "   pmlp:hasModificationDateTime \"$antecedentModDateTime\"^^xsd:dateTime;"      >> $consequent.$prov.ttl
          fi
-         echo "."                                                                              >> $consequent.pml.ttl
+         echo "."                                                                              >> $consequent.$prov.ttl
       elif [[ "$antecedent" =~ http* ]]; then
-         echo "$consequentURI prov:wasDerivedFrom <$antecedent> ."                             >> $consequent.pml.ttl
-         echo "<$antecedent>"                                                                  >> $consequent.pml.ttl
-         echo "   a sioc:Item;"                                                                >> $consequent.pml.ttl
-         echo "."                                                                              >> $consequent.pml.ttl
+         echo "$consequentURI prov:wasDerivedFrom <$antecedent> ."                             >> $consequent.$prov.ttl
+         echo "<$antecedent>"                                                                  >> $consequent.$prov.ttl
+         echo "   a sioc:Item, irw:WebResource;"                                               >> $consequent.$prov.ttl
+         echo "."                                                                              >> $consequent.$prov.ttl
       fi
 
+      # > > > > > > > > > > > > > > > > >
       pushd `dirname $consequent` &> /dev/null # in manual/
-      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "../$antecedent"                             >> `basename $consequent.pml.ttl`
+      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "../$antecedent"                             >> `basename $consequent.$prov.ttl`
       popd &> /dev/null
+      # > > > > > > > > > > > > > > > > >
 
-      echo                                                                                    >> $consequent.pml.ttl
-      echo $nodeSet                                                                           >> $consequent.pml.ttl
-      echo "   a pmlj:NodeSet;"                                                               >> $consequent.pml.ttl
-      echo "   pmlj:hasConclusion $consequentURI;"                                            >> $consequent.pml.ttl
-      echo "   pmlj:isConsequentOf <inferenceStep$requestID>;"                                >> $consequent.pml.ttl
-      echo "."                                                                                >> $consequent.pml.ttl
-      echo "<inferenceStep$requestID>"                                                        >> $consequent.pml.ttl
-      echo "   a pmlj:InferenceStep;"                                                         >> $consequent.pml.ttl
-      echo "   pmlj:hasIndex 0;"                                                              >> $consequent.pml.ttl
-      echo "   pmlj:hasAntecedentList ( $antecedentNodeSet );"                                >> $consequent.pml.ttl
-      #echo     pmlj:hasSourceUsage     $sourceUsage;"                                        >> $consequent.pml.ttl
-      echo "   pmlj:hasInferenceEngine <$method$requestID>;"                                  >> $consequent.pml.ttl
-      echo "   pmlj:hasInferenceRule   $method_name;"                                         >> $consequent.pml.ttl
-      echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $consequent.pml.ttl
-      echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $consequent.pml.ttl
+      echo                                                                                    >> $consequent.$prov.ttl
+      echo $nodeSet                                                                           >> $consequent.$prov.ttl
+      echo "   a pmlj:NodeSet;"                                                               >> $consequent.$prov.ttl
+      echo "   pmlj:hasConclusion $consequentURI;"                                            >> $consequent.$prov.ttl
+      echo "   pmlj:isConsequentOf <inferenceStep$requestID>;"                                >> $consequent.$prov.ttl
+      echo "."                                                                                >> $consequent.$prov.ttl
+      echo "<inferenceStep$requestID>"                                                        >> $consequent.$prov.ttl
+      echo "   a pmlj:InferenceStep;"                                                         >> $consequent.$prov.ttl
+      echo "   pmlj:hasIndex 0;"                                                              >> $consequent.$prov.ttl
+      echo "   pmlj:hasAntecedentList ( $antecedentNodeSet );"                                >> $consequent.$prov.ttl
+      #echo     pmlj:hasSourceUsage     $sourceUsage;"                                        >> $consequent.$prov.ttl
+      echo "   pmlj:hasInferenceEngine <$method$requestID>;"                                  >> $consequent.$prov.ttl
+      echo "   pmlj:hasInferenceRule   $method_name;"                                         >> $consequent.$prov.ttl
+      echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $consequent.$prov.ttl
+      echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $consequent.$prov.ttl
 
       if [ ${#commandUsed} -gt 0 ]; then
-      echo "   dcterms:description \"\"\"$commandUsed\"\"\";"                                 >> $consequent.pml.ttl
+      echo "   dcterms:description \"\"\"$commandUsed\"\"\";"                                 >> $consequent.$prov.ttl
       fi
 
-      echo "."                                                                                >> $consequent.pml.ttl
-      echo                                                                                    >> $consequent.pml.ttl
-      echo "<wasControlled$requestID>"                                                        >> $consequent.pml.ttl
-      echo "   a oprov:WasControlledBy;"                                                      >> $consequent.pml.ttl
-      echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"             >> $consequent.pml.ttl
-      echo "   oprov:effect <inferenceStep$requestID>;"                                       >> $consequent.pml.ttl
-      echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                               >> $consequent.pml.ttl
-      echo "."                                                                                >> $consequent.pml.ttl
-      echo $antecedentNodeSet                                                                 >> $consequent.pml.ttl
-      echo "   a pmlj:NodeSet;"                                                               >> $consequent.pml.ttl
-      echo "   pmlj:hasConclusion <../$antecedent>;"                                          >> $consequent.pml.ttl
-      echo "."                                                                                >> $consequent.pml.ttl
-      echo ""                                                                                 >> $consequent.pml.ttl
-      echo "<$engine_name>"                                                                   >> $consequent.pml.ttl
-      echo "   a pmlp:InferenceEngine, $engine_type;"                                         >> $consequent.pml.ttl
-      echo "   dcterms:identifier \"$engine_name\";"                                          >> $consequent.pml.ttl
-      echo "."                                                                                >> $consequent.pml.ttl
-      echo                                                                                    >> $consequent.pml.ttl
-      echo "$engine_type rdfs:subClassOf pmlp:InferenceEngine ."                              >> $consequent.pml.ttl
+      echo "."                                                                                >> $consequent.$prov.ttl
+      echo                                                                                    >> $consequent.$prov.ttl
+      echo "<wasControlled$requestID>"                                                        >> $consequent.$prov.ttl
+      echo "   a oprov:WasControlledBy;"                                                      >> $consequent.$prov.ttl
+      echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"             >> $consequent.$prov.ttl
+      echo "   oprov:effect <inferenceStep$requestID>;"                                       >> $consequent.$prov.ttl
+      echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                               >> $consequent.$prov.ttl
+      echo "."                                                                                >> $consequent.$prov.ttl
+      echo $antecedentNodeSet                                                                 >> $consequent.$prov.ttl
+      echo "   a pmlj:NodeSet;"                                                               >> $consequent.$prov.ttl
+      echo "   pmlj:hasConclusion <../$antecedent>;"                                          >> $consequent.$prov.ttl
+      echo "."                                                                                >> $consequent.$prov.ttl
+      echo ""                                                                                 >> $consequent.$prov.ttl
+      echo "<$engine_name>"                                                                   >> $consequent.$prov.ttl
+      echo "   a pmlp:InferenceEngine, $engine_type;"                                         >> $consequent.$prov.ttl
+      echo "   dcterms:identifier \"$engine_name\";"                                          >> $consequent.$prov.ttl
+      echo "."                                                                                >> $consequent.$prov.ttl
+      echo                                                                                    >> $consequent.$prov.ttl
+      echo "$engine_type rdfs:subClassOf pmlp:InferenceEngine ."                              >> $consequent.$prov.ttl
       echo --------------------------------------------------------------------------------
       shift
    fi
