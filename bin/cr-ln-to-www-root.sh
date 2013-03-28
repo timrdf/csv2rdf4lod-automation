@@ -12,6 +12,9 @@
 #
 #  cr-ln-to-www-root.sh --url-of-filepath `cr-ln-to-www-root.sh manual/ScenarioPaperopencodingcleancopy.txt.xml.ttl.graffle`
 #    Returns the web-accessible URL of the given absolute htdocs file path (which was returned when publishing as in the last example).
+#
+#     cr-ln-to-www-root.sh -n --url-of-filepath source/lodspeakr-basic-menu.svg
+#     == cr-ln-to-www-root.sh --url-of-filepath `cr-ln-to-www-root.sh -n source/lodspeakr-basic-menu.svg`
 
 see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
@@ -47,6 +50,13 @@ uri_of_path='no'
 if [ "$1" == "--url-of-filepath" ]; then
    uri_of_path='yes'
    shift
+fi
+
+if [[ "$dryrun" == "yes" && "$uri_of_path" == "yes" ]]; then
+   for local_path in `$0 -n $*`; do
+      $0 --url-of-filepath $local_path
+   done
+   exit
 fi
 
 symbolic=""
