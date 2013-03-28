@@ -10,7 +10,7 @@
 
 if [[ $# -eq 0 || "$1" == "--help" ]]; then
    echo
-   echo "usage: `basename $0` [--as-ttl [type-uri]] <predicate> <some.rdf>*"
+   echo "usage: `basename $0` [--as-ttl [type-uri]] --inverse-of <predicate> <some.rdf>*"
    echo "  Print the URI subjects and objects of the given RDF file."
    echo "  --as-ttl [class-uri] - output the list as a valid Trutle file, where the nodes are typed to rdfs:Resource."
    echo "           [class-uri] - use this class instead of rdfs:Resource (must be full URI, no <>)"
@@ -25,6 +25,12 @@ if [[ "$1" == "--as-ttl" ]]; then
       class=$2
       shift
    fi
+   shift
+fi
+
+inverse=""
+if [[ "$1" == "--inverse-of" ]]; then
+   inverse="yes"
    shift
 fi
 
@@ -48,10 +54,16 @@ while [ $# -gt 0 ]; do
          # Avoids dumping to an intermediate file.
          # e.g. 2.0 GB unzipped ntriples file can be done in 1.5 minutes (as opposed to 4.5 minutes).
          gunzip -c             $file | awk -v p="<$predicate>" so="3" '{if($2 == p){ gsub("<",""); gsub(">",""); print $so }}'
+         if [[ -n "$inverse" ]]; then
+            gunzip -c             $file | awk -v p="<$predicate>" so="1" '{if($2 == p){ gsub("<",""); gsub(">",""); print $so }}'
+         fi
       else
          #echo ".${total}. .`gzipped.sh $file`. .`guess-syntax.sh $file mime`." >&2
          # Handles any syntax, compressed or not.
          rdf2nt.sh --version 2 $file | awk -v p="<$predicate>" so="3" '{if($2 == p){ gsub("<",""); gsub(">",""); print $so }}'
+         if [[ -n "$inverse" ]]; then
+            rdf2nt.sh --version 2 $file | awk -v p="<$predicate>" so="1" '{if($2 == p){ gsub("<",""); gsub(">",""); print $so }}'
+         fi
       fi
    fi
 
