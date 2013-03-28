@@ -40,6 +40,7 @@ shift
 total=$#
 while [ $# -gt 0 ]; do
    file="$1" 
+   shift
 
    if [ ! -f $file ]; then
       continue
@@ -67,5 +68,4 @@ while [ $# -gt 0 ]; do
       fi
    fi
 
-   shift
 done
