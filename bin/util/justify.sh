@@ -110,13 +110,18 @@ else
    echo
    if [ "$capture" != "no" ]; then
       echo ---------------------------------- justify ---------------------------------------
+      antecedentModDateTime=''
       if [ `man stat | grep 'BSD General Commands Manual' | wc -l` -gt 0 ]; then
          # mac version
-         antecedentModDateTime=`stat -t "%Y-%m-%dT%H:%M:%S%z" $antecedent | awk '{gsub(/"/,"");print $9}' | sed 's/^\(.*\)\(..\)$/\1:\2/'`
+         if [ -e "$antecedent" ]; then
+            antecedentModDateTime=`stat -t "%Y-%m-%dT%H:%M:%S%z" $antecedent | awk '{gsub(/"/,"");print $9}' | sed 's/^\(.*\)\(..\)$/\1:\2/'`
+         fi
          consequentModDateTime=`stat -t "%Y-%m-%dT%H:%M:%S%z" $consequent | awk '{gsub(/"/,"");print $9}' | sed 's/^\(.*\)\(..\)$/\1:\2/'`
       elif [ `man stat | grep '%y     Time of last modification' | wc -l` -gt 0 ]; then
          # some other unix version
-         antecedentModDateTime=`stat -c "%y" $antecedent | sed -e 's/ /T/' -e 's/\..* / /' -e 's/ //' -e 's/\(..\)$/:\1/'`
+         if [ -e "$antecedent" ]; then
+            antecedentModDateTime=`stat -c "%y" $antecedent | sed -e 's/ /T/' -e 's/\..* / /' -e 's/ //' -e 's/\(..\)$/:\1/'`
+         fi
          consequentModDateTime=`stat -c "%y" $consequent | sed -e 's/ /T/' -e 's/\..* / /' -e 's/ //' -e 's/\(..\)$/:\1/'`
       fi
 
