@@ -183,6 +183,7 @@ else
          fi
          echo "."                                                                              >> $consequent.pml.ttl
       elif [[ "$antecedent" =~ http* ]]; then
+         echo "$consequentURI prov:wasDerivedFrom <$antecedent> ."                             >> $consequent.pml.ttl
          echo "<$antecedent>"                                                                  >> $consequent.pml.ttl
          echo "   a sioc:Item;"                                                                >> $consequent.pml.ttl
          echo "."                                                                              >> $consequent.pml.ttl
