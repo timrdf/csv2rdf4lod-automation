@@ -196,9 +196,11 @@ else
       fi
 
       # > > > > > > > > > > > > > > > > >
+      if [[ -e "$antecedent" ]]; then
       pushd `dirname $consequent` &> /dev/null # in manual/
       $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "../$antecedent"                             >> `basename $consequent.$prov.ttl`
       popd &> /dev/null
+      fi
       # > > > > > > > > > > > > > > > > >
 
       echo                                                                                    >> $consequent.$prov.ttl
@@ -231,7 +233,11 @@ else
       echo "."                                                                                >> $consequent.$prov.ttl
       echo $antecedentNodeSet                                                                 >> $consequent.$prov.ttl
       echo "   a pmlj:NodeSet;"                                                               >> $consequent.$prov.ttl
+      if [[ -e "$antecedent" ]]; then
       echo "   pmlj:hasConclusion <../$antecedent>;"                                          >> $consequent.$prov.ttl
+      else
+      echo "   pmlj:hasConclusion <$antecedent>;"                                             >> $consequent.$prov.ttl
+      fi
       echo "."                                                                                >> $consequent.$prov.ttl
       echo ""                                                                                 >> $consequent.$prov.ttl
       echo "<$engine_name>"                                                                   >> $consequent.$prov.ttl
