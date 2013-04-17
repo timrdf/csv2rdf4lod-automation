@@ -24,7 +24,7 @@ fi
 if [ "$1" == "-qs" ]; then
    shift
    if [ `which md5 2> /dev/null` ]; then
-      md5 -qs $*
+      md5 -qs "$*"
    elif [ `which md5sum 2> /dev/null` ]; then
       TEMP="_"`basename $0``date +%s`_$$.tmp
       echo $* > $TEMP
