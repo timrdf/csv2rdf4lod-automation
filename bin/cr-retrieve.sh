@@ -29,6 +29,10 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "Possible, but not designed and not implemented."
 
 elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
+   # TODO: generalize this; https://github.com/timrdf/csv2rdf4lod-automation/issues/323
+   for sourceme in `find ../../../ -name "csv2rdf4lod-source-me-for-*"`; do
+      source $sourceme
+   done
 
    dryrun="yes"
    if [[ "$1" == "-w" || "$1" == "--write" ]]; then

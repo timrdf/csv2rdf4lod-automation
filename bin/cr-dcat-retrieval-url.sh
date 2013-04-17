@@ -53,6 +53,14 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
 elif [[ `is-pwd-a.sh                                                 cr:dataset cr:directory-of-versions` == "yes" ]]; then
 
+   # TODO: generalize this; https://github.com/timrdf/csv2rdf4lod-automation/issues/323
+   for sourceme in `find ../../ -name "csv2rdf4lod-source-me-for-*"`; do
+      source $sourceme
+   done
+   for sourceme in `find ../../../ -name "csv2rdf4lod-source-me-for-*"`; do
+      source $sourceme
+   done
+
    DIST_URL="$1"
    UUID=`$CSV2RDF4LOD_HOME/bin/util/resource-name.sh | sed 's/^_//' | awk '{print tolower($0)}'`
 
