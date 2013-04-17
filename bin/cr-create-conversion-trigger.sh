@@ -183,6 +183,9 @@ while [ $# -gt 0 ]; do
    if [ $includeDiscriminator == "yes" ]; then
       extensionlessFilename=`basename $artifact | sed 's/^\([^\.]*\)\..*$/\1/'` # failed to cast 'ce.supersector.csv' to 'ce.supersector'
       extensionlessFilename=`basename $artifact | sed 's/\.[^.]*$//'`
+      for extension in csv txt; do
+         extensionlessFilename=${extensionlessFilename%.$extension}
+      done
       # clean up %20 by replacing with underscore.
       subjectDiscriminator=`echo $extensionlessFilename | sed 's/%20/-/g; s/_/-/g' | awk '{print tolower($0)}'`
    fi
