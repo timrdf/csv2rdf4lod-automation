@@ -96,6 +96,9 @@ if [ $inspect == "true" ]; then
    elif [[ `head -$SAMPLE $url | awk '$0 ~ "rdf:about=" || $0 ~ "rdf:resource" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
       # rdf:about=
       guess="-i rdfxml"
+   elif [[ `head -$SAMPLE $url | awk '$0 ~ "rdf:RDF" || $0 ~ "xmlns:rdf=" {c++} END {printf("%s",c)}'` -gt 0 ]]; then
+      # rdf:RDF
+      guess="-i rdfxml"
    elif [[ `head -$SAMPLE $url | awk '$0 ~ /> +a +</ {c++} $0 ~ /^ *a +</ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
       # <http://> a <http://>,
       #           a <http://>,
