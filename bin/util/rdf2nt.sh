@@ -17,7 +17,7 @@ see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lo
 
 if [[ $# -eq 0 || "$1" == "--help" ]]; then
    echo
-   echo "usage: `basename $0` [--version <version>] [--verbose] <some.rdf>*"
+   echo "usage: `basename $0` [--version <version>] [--verbose] [-I <base-uri>] <some.rdf>*"
    echo "  output to stderr the N-TRIPLES union of all rdf files given as arguments"
    echo
    echo "  --version <version> : use technique identified by <version>; can be omitted to use original technique."
@@ -31,11 +31,13 @@ if [[ $# -eq 0 || "$1" == "--help" ]]; then
    echo "                      | use rapper for rdf/xml ONLY; use serdi directly for ntriples and turtle"
    echo
    echo "  --verbose           | print more."
+   echo ""
+   echo "  -I <base-uri>       | Use <base-uri> for any relative URIs."
    exit
 fi
 
-version=''
-flag_version=""
+version='2'
+flag_version="--version 2"
 if [[ "$1" == "--version" && $# -gt 1 ]]; then
    version="$2"
    flag_version="--version $2"
@@ -48,6 +50,12 @@ if [[ "$1" == "--verbose" ]]; then
    verbose='yes'
    flag_verbose="--verbose"
    shift
+fi
+
+I=""  # The base URI
+if [[ "$1" == "-I" ]]; then
+   I="$2"
+   shift 2
 fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
@@ -64,7 +72,7 @@ while [ $# -gt 0 ]; do
       continue
    fi
 
-   if [ "$file" == "${file%.*}" ]; then 
+   if [[ "$file" == "${file%.*}" || ! ( "${file##*.}" == "ttl" || "${file##*.}" == "rdf" || "${file##*.}" == "nt" ) ]]; then 
       # The file does not have an extension.
       # Literally: "The filename is the same with and without an extension"
       # Note: this does not rename the file; use rename-by-syntax.sh for that.
@@ -93,14 +101,19 @@ while [ $# -gt 0 ]; do
  
    if [ "$version" == "2" ]; then
 
-      I=""
-      II=""
-      if [[ `which cr-pwd-type.sh` && `cr-pwd-type.sh` == 'cr:conversion-cockpit' && `which cr-ln-to-www-root.sh` ]]; then
+      # $I can be set with command line arguments above.
+      if [[ -z "$I" && -e $file.sd_name ]]; then
+          I="`cat $file.sd_name`"
+      elif [[ -z "$I" && `which cr-pwd-type.sh` && `cr-pwd-type.sh` == 'cr:conversion-cockpit' && `which cr-ln-to-www-root.sh` ]]; then
          # Find out where the file will be on the web.
           I="`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n $file\``"
-         II="-I \"`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n $file\``\""
       fi
-      
+      if [[ -n "$I" ]]; then
+         II="-I $I"
+      else
+         II=""
+      fi
+
       gunzip --test $file &> /dev/null
       if [ $? -eq 0 ]; then
          gzipped="yes"
