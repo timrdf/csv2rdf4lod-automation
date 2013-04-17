@@ -16,7 +16,22 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
+me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
+
+if [[ "$1" == "--help" ]]; then
+   echo "usage: `basename $0`"
+   echo $HOME
+   echo $me
+   exit
+fi
+
+# Replaced by $HOME below if not set.
+#see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+#CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
+
+export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?$HOME}
 
 # Java dependencies; relative to $CSV2RDF4LOD_HOME
 for jar in                                              \
@@ -28,13 +43,26 @@ for jar in                                              \
            lib/poi/poi-ooxml-schemas-3.8-beta2-20110408.jar \
            lib/poi/poi-scratchpad-3.8-beta2-20110408.jar    \
            bin/dup/csv2rdf4lod.jar ; do
-   if [[ $CLASSPATH != *`basename $jar`* ]]; then
+   if [[ $CLASSPATH != *`basename $jar`* ]]; then # TODO: use situate-classpaths to do this?
       if [ ${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:="."} == "fine" ]; then
          echo "`basename $jar` not in classpath; adding $CSV2RDF4LOD_HOME/$jar"
       fi
       export CLASSPATH=$CLASSPATH:$CSV2RDF4LOD_HOME/$jar # TODO: export? : vs ; cygwin
    fi
 done
+
+# lib/javacsv2.0/javacsv.jar
+# lib/javacsv2.1/javacsv.jar
+# lib/joda-time-2.0/joda-time-2.0-javadoc.jar
+# lib/joda-time-2.0/joda-time-2.0-sources.jar
+# lib/joda-time-2.0/joda-time-2.0.jar
+# lib/openrdf-sesame-2.3.1-onejar.jar
+# lib/poi/poi-3.8-beta2-20110408.jar
+# lib/poi/poi-examples-3.8-beta2-20110408.jar
+# lib/poi/poi-excelant-3.8-beta2-20110408.jar
+# lib/poi/poi-ooxml-3.8-beta2-20110408.jar
+# lib/poi/poi-ooxml-schemas-3.8-beta2-20110408.jar
+# lib/poi/poi-scratchpad-3.8-beta2-20110408.jar
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` xls [xls...]"
