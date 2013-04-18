@@ -142,12 +142,12 @@ if [[ `is-pwd-a.sh                                                            cr
          echo "   dcterms:created `dateInXSDDateTime.sh --turtle`;" >> automatic/data.ttl
          echo "."                                                   >> automatic/data.ttl
 
-      # TODO: add accessURL to the sitemap.xml
+         # TODO: add accessURL to the sitemap.xml
 
          aggregate-source-rdf.sh --link-as-latest automatic/data.ttl
 
          mv automatic/$rq.xml.xml publish/sitemap.xml
-         
+    
          # #justify.sh $xls $csv xls2csv_`md5.sh \`which justify.sh\`` # TODO: excessive? justify.sh needs to know the broad class rule/engine
          #                                                # TODO: shouldn't you be hashing the xls2csv.sh, not justify.sh?
          #  justify.sh $xls $csv csv2rdf4lod_xls2csv_sh
