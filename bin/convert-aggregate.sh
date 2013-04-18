@@ -996,21 +996,34 @@ echo "#3> <$baseURI/id/csv2rdf4lod/$myMD5> foaf:name \"`basename $0`\" ."       
 chmod +x $vloadSH
 cat $vloadSH | sed 's/pvload.sh .*-ng/pvdelete.sh/g' | sed 's/vload [^ ]* [^^ ]* /vdelete /' | grep -v "tar xzf" | grep -v "unzip" | grep -v "rm " > $vdeleteSH # TODO:notar
 chmod +x $vdeleteSH
+loaded="no"
 if [ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" ]; then
    if [ "$CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS" == "true" ]; then
       $vdeleteSH
       $vloadSH
+      loaded="yes"
    else
       echo "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT - skipping load of full conversion; set CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS=true to automatically load full conversions into the triple store."
    fi
    if [ "$CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES" == "true" ]; then
       $vdeleteSH --sample
       $vloadSH   --sample
+      loaded="yes"
    else
       echo "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT - skipping load of conversion samples; set CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES=true to automatically load conversion samples into the triple store."
    fi
 else
    echo "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT - skipping; set CSV2RDF4LOD_PUBLISH_VIRTUOSO=true to automatically load conversions into the triple store."
+fi
+
+if [[ "$loaded" == "yes" ]]; then
+   if [ "$CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE" == "true" ]; then
+      url=`cr-dataset-uri.sh --uri`
+      echo "http://api.sindice.com/v2/ping <-- $url"
+      ping-sindice.sh -w $url
+   else
+      echo "http://api.sindice.com/v2/ping - skipping; set CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE=true to announce to Sindice."
+   fi
 fi
 
 #
