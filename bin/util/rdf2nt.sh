@@ -13,6 +13,11 @@
 # To handle more files than 'ls' can provide:
 #   find . -name "[^.]*" | xargs      rdf2nt.sh > ../all.nt
 
+HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
+export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?$HOME}
+export PATH=$PATH`$HOME/bin/util/cr-situate-paths.sh`
+
 see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
 
 if [[ $# -eq 0 || "$1" == "--help" ]]; then
@@ -161,7 +166,7 @@ while [ $# -gt 0 ]; do
             fi
             serdi -i turtle -o ntriples -p $md5 $file $I
          else
-            echo "ERROR(5): `basename $0` requires serdi. See $see"
+            echo "ERROR(5): `basename $0` requires serdi. $PATH See $see"
          fi
       else
          echo "`basename $0` TODO: $serialization $origFile $file `pwd`" >&2
