@@ -168,7 +168,7 @@ echo $cockpit/automatic/$base-uri-nodes.ttl
    # e.g. http://purl.org/twc/health/source/healthdata-tw-rpi-edu/file/cr-full-dump/version/latest/conversion/purl-org-twc-health.nt.gz
    #
    #      hosted at:
-   #                        _________"""""""_____________________""""""____________"""""""""______""""""""""""_________________________
+   #                        ________""""""""_____________________""""""____________"""""""""______""""""""""""_________________________
    #                        /var/www/source/healthdata-tw-rpi-edu/file/cr-full-dump/version/latest/conversion/purl-org-twc-health.nt.gz
 
    # NOTE: this is repeated from bin/aggregate-source-rdf.sh - be sure to align with it.

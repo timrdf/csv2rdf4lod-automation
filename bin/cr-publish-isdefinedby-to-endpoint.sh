@@ -36,7 +36,7 @@ fi
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
 sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
-datasetID=`basename $0 | sed 's/.sh$//'`
+datasetID=`basename $0 | sed -e 's/-publish//' -e 's/-to-endpoint//' -e 's/.sh$//'` # e.g. cr-publish-void-to-endpoint.sh -> cr-void
 versionID=`date +%Y-%b-%d`
 
 graphName=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID
