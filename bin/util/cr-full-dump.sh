@@ -176,6 +176,10 @@ if [ "$dryrun" != "true" ]; then
    if [[ -n "$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID" ]]; then
       echo "<$topVoID> owl:sameAs <http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID> ."              >> $cockpit/publish/$sdv.void.ttl
    fi
+   triples=`rdf2nt.sh $cockpit/publish/$dumpFileLocal | rapper -i ntriples -c -I http://blah - 2>&1 | awk '$0~/Parsing returned/{print $4}'`
+   if [[ ${#triples} -gt 0 && $triples == [0-9]* ]]; then
+      echo "<$topVoID> void:triples $triples ."                                                                                   >> $cockpit/publish/$sdv.void.ttl
+   fi
 
    #      __________________________""""""""_____________________""""""____________"""""""""______""""""""""""_________________________
    # e.g. http://purl.org/twc/health/source/healthdata-tw-rpi-edu/file/cr-full-dump/version/latest/conversion/purl-org-twc-health.nt.gz
