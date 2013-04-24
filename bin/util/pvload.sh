@@ -287,7 +287,7 @@ while [ $# -gt 0 ]; do
       rm -f ${TEMP}${unzipped}.nt
       rm -f ${TEMP}${unzipped}.load.pml.ttl 
       rm -f ${TEMP}${unzipped}.load.pml.ttl.nt
-      rm _pvload*
+      rm -f _pvload*
    fi
 
    shift
