@@ -188,34 +188,34 @@ if [ "$dryrun" != "true" ]; then
          # NOTE: this is repeated from bin/aggregate-source-rdf.sh - be sure to align with it.
          # (update: This might have been superceded by bin/aggregate-source-rdf.sh, check!)
          # (update 24 Apr 2013 - this is superceded by cr-ln-to-www-root.sh publish/lofd-tw-rpi-edu.nt.gz)
-         #sudo="sudo"
-         #if [[ `whoami` == root ]]; then
-         #   sudo=""
-         #elif [[ "`stat --format=%U "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source"`" == `whoami` ]]; then
-         #   sudo=""
-         #fi
-         #
-         #symbolic=""
-         #wd=""
-         #if [[ "$CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE" == "soft" ]]; then
-         #  symbolic="-sf "
-         #  wd=`pwd`/
-         #fi
-         #
-         #wwwFile="$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal"
-         #echo "$wwwFile"
-         #$sudo rm -f $wwwFile
-         #echo $sudo ln $symbolic "${wd}$cockpit/publish/$dumpFileLocal" $wwwFile
-         #     $sudo ln $symbolic "${wd}$cockpit/publish/$dumpFileLocal" $wwwFile
+         sudo="sudo"
+         if [[ `whoami` == root ]]; then
+            sudo=""
+         elif [[ "`stat --format=%U "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source"`" == `whoami` ]]; then
+            sudo=""
+         fi
+         
+         symbolic=""
+         wd=""
+         if [[ "$CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE" == "soft" ]]; then
+           symbolic="-sf "
+           wd=`pwd`/
+         fi
+         
+         wwwFile="$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal"
+         echo "$wwwFile"
+         $sudo rm -f $wwwFile
+         echo $sudo ln $symbolic "${wd}$cockpit/publish/$dumpFileLocal" $wwwFile
+              $sudo ln $symbolic "${wd}$cockpit/publish/$dumpFileLocal" $wwwFile
 
-   pushd $cockpit &> /dev/null
-      # Replaces duplication above:
-      cr-ln-to-www-root.sh publish/$dumpFileLocal
-      one_click_dump=`cr-ln-to-www-root.sh -n --url-of-filepath publish/$dumpFileLocal`
-
-      # In case the triples we snuck in didn't get published into /var/www
-      #cr-ln-to-www-root.sh publish/$base.void.ttl
-   popd &> /dev/null
+   #pushd $cockpit &> /dev/null
+   #   # Replaces duplication above:
+   #   cr-ln-to-www-root.sh publish/$dumpFileLocal
+   #   one_click_dump=`cr-ln-to-www-root.sh -n --url-of-filepath publish/$dumpFileLocal`
+   #
+   #   # In case the triples we snuck in didn't get published into /var/www
+   #   #cr-ln-to-www-root.sh publish/$base.void.ttl
+   #popd &> /dev/null
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
