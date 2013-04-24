@@ -13,6 +13,7 @@
 HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
 export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?$HOME}
+export PATH=$PATH`$HOME/bin/util/cr-situate-paths.sh`
 
 see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets"
 CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID=${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:?"not set; see $see"}
@@ -209,11 +210,11 @@ if [ "$dryrun" != "true" ]; then
 
    pushd $cockpit &> /dev/null
       # Replaces duplication above:
-      cr-ln-to-www-root.sh publish/lofd-tw-rpi-edu.nt.gz
-      one_click_dump=`cr-ln-to-www-root.sh -n --url-of-filepath publish/lofd-tw-rpi-edu.nt.gz`
+      cr-ln-to-www-root.sh publish/$dumpFileLocal
+      one_click_dump=`cr-ln-to-www-root.sh -n --url-of-filepath publish/$dumpFileLocal`
 
       # In case the triples we snuck in didn't get published into /var/www
-      cr-ln-to-www-root.sh publish/$base.void.ttl
+      #cr-ln-to-www-root.sh publish/$base.void.ttl
    popd &> /dev/null
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
