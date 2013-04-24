@@ -35,8 +35,17 @@ fi
 
 missing=""
 
+if [ ! `which serdi` ]; then
+   if [ -n "$missing" ]; then
+      missing=$missing":"
+   fi
+   missing=$missing/usr/local/bin
+fi
+
 if [ ! `which cr-vars.sh` ]; then
-   missing=":"
+   if [ -n "$missing" ]; then
+      missing=$missing":"
+   fi
    missing=$missing$HOME/bin
 fi
 
