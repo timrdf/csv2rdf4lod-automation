@@ -14,8 +14,11 @@ if [[ "$1" == "--help" || "$1" == "-h" ]]; then
    exit 1
 fi
 
-see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
+#see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+#CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
+HOME=$(cd ${0%/*} && echo ${PWD%/*})
+export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?$HOME}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:data-root cr:source cr:dataset cr:directory-of-versions"
