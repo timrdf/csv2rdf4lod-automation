@@ -185,20 +185,14 @@ if [ ! -d $version ]; then
          # HTML files
          touch .__CSV2RDF4LOD_csvify
          sleep 1
-         existing_files=""
          for tidy in `find source -name "*.htm.tidy" -o -name "*.html.tidy"`; do
             csv="manual/`basename ${tidy%.tidy}`.csv"
             saxon.sh ../../src/html2csv.xsl a a $tidy > $csv
             justify.sh $tidy $csv html2csv
-            existing_files="$existing_files $csv"
          done
-         if [[ -n "$existing_files" ]]; then
-            cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $existing_files
-         else
-            echo
-            echo "ERROR: No valid files found when retrieving `cr-dataset-id.sh`; not creating conversion trigger."
-         fi
-         
+
+         files=`find manual -name "*.csv"`
+         cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
       elif [[ $all_rdf == "yes" ]]; then
          echo "[INFO] All retrieved files are RDF; not creating conversion trigger."
       else
