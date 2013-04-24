@@ -187,7 +187,7 @@ if [ "$dryrun" != "true" ]; then
 
          # NOTE: this is repeated from bin/aggregate-source-rdf.sh - be sure to align with it.
          # (update: This might have been superceded by bin/aggregate-source-rdf.sh, check!)
-         # (update 24 Apr 2013 - this is superceded by cr-ln-to-www-root.sh publish/lofd-tw-rpi-edu.nt.gz)
+         # (update 24 Apr 2013 - this is superceded by cr-ln-to-www-root.sh publish/lofd-tw-rpi-edu.nt.gz, but that's not working (below))
          sudo="sudo"
          if [[ `whoami` == root ]]; then
             sudo=""
