@@ -136,12 +136,12 @@ while [ $# -gt 0 ]; do
             fi
             rapper -q -i rdfxml -o ntriples $II $file | serdi -i ntriples -o ntriples -p $md5 -
          elif [[ ! `which rapper` ]]; then
-            echo "ERROR: `basename $0` requires rapper. See $see"
+            echo "ERROR(1): `basename $0` requires rapper. See $see"
             if [[ ! `which serdi` ]]; then
-               echo "ERROR: `basename $0` requires serdi. See $see"
+               echo "ERROR(2): `basename $0` requires serdi. See $see"
             fi
          elif [[ ! `which serdi` ]]; then
-            echo "ERROR: `basename $0` requires serdi. See $see"
+            echo "ERROR(3): `basename $0` requires serdi. See $see"
          fi
       elif [ "$serialization" == "text/plain" ]; then
          # Need to use serdi to prepend bnodes with a unique prefix.
@@ -151,7 +151,7 @@ while [ $# -gt 0 ]; do
             fi
             serdi -i ntriples -o ntriples -p $md5 $file $I
          else
-            echo "ERROR: `basename $0` requires serdi. See $see"
+            echo "ERROR(4): `basename $0` requires serdi. See $see"
          fi
       elif [ "$serialization" == "text/turtle" ]; then
          # Need to use serdi to prepend bnodes with a unique prefix.
@@ -161,7 +161,7 @@ while [ $# -gt 0 ]; do
             fi
             serdi -i turtle -o ntriples -p $md5 $file $I
          else
-            echo "ERROR: `basename $0` requires serdi. See $see"
+            echo "ERROR(5): `basename $0` requires serdi. See $see"
          fi
       else
          echo "`basename $0` TODO: $serialization $origFile $file `pwd`" >&2
@@ -183,9 +183,9 @@ while [ $# -gt 0 ]; do
       if [[ `which rapper` && `which serdi` ]]; then
          rapper -q $serialization -o ntriples $file | serdi -i ntriples -p $md5 -
       elif [ `which rapper` ]; then
-         echo "ERROR: `basename $0` requires rapper. See $see"
+         echo "ERROR(6): `basename $0` requires rapper. See $see"
       else
-         echo "ERROR: `basename $0` requires serdi. See $see"
+         echo "ERROR(7): `basename $0` requires serdi. See $see"
       fi
       # serdi can, but cannot handle RDF/XML (so use rapper to preprocess it).
       # -p : prepend bnodes with $md5
