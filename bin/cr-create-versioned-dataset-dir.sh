@@ -187,7 +187,7 @@ if [ ! -d $version ]; then
          sleep 1
          existing_files=""
          for tidy in `find source -name "*.htm.tidy" -o -name "*.html.tidy"`; do
-            csv="manual/${tidy%.tidy}.csv"
+            csv="manual/`basename ${tidy%.tidy}`.csv"
             saxon.sh ../../src/html2csv.xsl a a $tidy > $csv
             justify.sh $tidy $csv html2csv
             existing_files="$existing_files $csv"
