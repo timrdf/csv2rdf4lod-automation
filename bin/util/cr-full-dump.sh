@@ -132,6 +132,7 @@ pushd $cockpit &> /dev/null
    sourceID=`cr-source-id.sh`   # Saved for later
    datasetID=`cr-dataset-id.sh` # Saved for later
    versionID=`cr-version-id.sh` # Saved for later
+   sdv=`cr-sdv.sh`
 popd &> /dev/null
 baseURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}"
 topVoID="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"
@@ -153,6 +154,7 @@ fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if [ "$dryrun" != "true" ]; then
+
    pushd $cockpit &> /dev/null
       cr-pwd.sh
       aggregate-source-rdf.sh automatic/$base-uri-nodes.ttl
@@ -162,11 +164,17 @@ if [ "$dryrun" != "true" ]; then
    # This will not be published by aggregate-source-rdf.sh, but 
    # will get picked up by cr-publish-void-to-endpoint.sh during cron.
    #
-   echo "$cockpit/publish/$base.void.ttl"
-   echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/publish/$base.void.ttl
-   echo "@prefix void: <http://rdfs.org/ns/void#> ."                                                                              >> $cockpit/publish/$base.void.ttl
-   echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/publish/$base.void.ttl
-   echo "<$topVoID> void:dataDump     <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal> ." >> $cockpit/publish/$base.void.ttl
+   #echo "$cockpit/publish/$base.void.ttl"
+   echo "$cockpit/publish/$sdv.void.ttl +"
+   #                                                                                                                              >> $cockpit/publish/$base.void.ttl
+   echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/publish/$sdv.void.ttl
+   echo "@prefix owl:  <http://www.w3.org/2002/07/owl#> ."                                                                        >> $cockpit/publish/$sdv.void.ttl
+   echo "@prefix void: <http://rdfs.org/ns/void#> ."                                                                              >> $cockpit/publish/$sdv.void.ttl
+   echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/publish/$sdv.void.ttl
+   echo "<$topVoID> void:dataDump     <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal> ." >> $cockpit/publish/$sdv.void.ttl
+   if [[ -n "$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID" ]]; then
+      echo "<$topVoID> owl:sameAs <http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID> ."              >> $cockpit/publish/$sdv.void.ttl
+   fi
 
    #      __________________________""""""""_____________________""""""____________"""""""""______""""""""""""_________________________
    # e.g. http://purl.org/twc/health/source/healthdata-tw-rpi-edu/file/cr-full-dump/version/latest/conversion/purl-org-twc-health.nt.gz
@@ -207,7 +215,6 @@ if [ "$dryrun" != "true" ]; then
       # In case the triples we snuck in didn't get published into /var/www
       cr-ln-to-www-root.sh publish/$base.void.ttl
    popd &> /dev/null
-
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
