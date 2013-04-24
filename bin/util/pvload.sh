@@ -268,26 +268,27 @@ while [ $# -gt 0 ]; do
          $vload nt ${TEMP}${unzipped}.load.pml.ttl.nt $named_graph 2>&1 | grep -v "Loading"             
          #cat /tmp/virtuoso-tmp/vload.log
       fi
-      #
-      # Clean up
-      #
-      if [ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" != "finest" ]; then
-         rm -f ${TEMP}*
-         rm -f ${TEMP}.unzipped
-         rm -f ${TEMP}.unzipped.nt
-         rm -f ${TEMP}.pml.ttl 
-         rm -f ${TEMP}.pml.ttl.nt 
-         rm -f ${TEMP}${unzipped} 
-         rm -f ${TEMP}.nt
-         rm -f ${TEMP}${unzipped}.nt
-         rm -f ${TEMP}${unzipped}.load.pml.ttl 
-         rm -f ${TEMP}${unzipped}.load.pml.ttl.nt
-         rm _pvload*
-      fi
-
       echo "\\\\\\\\\\------------------------------ `basename $0` ------------------------------/////"
    else
       echo "WARNING: `basename $0` skipping b/c no triples returned."
    fi
+
+   #
+   # Clean up
+   #
+   if [ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" != "finest" ]; then
+      rm -f ${TEMP}*
+      rm -f ${TEMP}.unzipped
+      rm -f ${TEMP}.unzipped.nt
+      rm -f ${TEMP}.pml.ttl 
+      rm -f ${TEMP}.pml.ttl.nt 
+      rm -f ${TEMP}${unzipped} 
+      rm -f ${TEMP}.nt
+      rm -f ${TEMP}${unzipped}.nt
+      rm -f ${TEMP}${unzipped}.load.pml.ttl 
+      rm -f ${TEMP}${unzipped}.load.pml.ttl.nt
+      rm _pvload*
+   fi
+
    shift
 done
