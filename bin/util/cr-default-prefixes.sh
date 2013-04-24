@@ -51,6 +51,7 @@ else
    echo "prefix prov:       <http://www.w3.org/ns/prov#>"
    echo "prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#>"
    echo "prefix sio:        <http://semanticscience.org/resource/>"
+   echo "prefix org:        <http://www.w3.org/ns/org#>"
    echo "prefix vsr:        <http://purl.org/twc/vocab/vsr#>"
    echo "prefix twi:        <http://tw.rpi.edu/instances/>"
    echo
