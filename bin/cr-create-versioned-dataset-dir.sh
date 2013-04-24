@@ -121,7 +121,7 @@ if [ ! -d $version ]; then
       if [ `ls *.gz *.zip 2> /dev/null | wc -l` -gt 0 ]; then                           # |
          # Uncompress anything that is compressed.                                      # |
          touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
-         sleep 1
+         sleep 1                                                                        # |
          for zip in `ls *.gz *.zip 2> /dev/null`; do                                    # |
             punzip.sh $zip              # We are capturing provenance of decompression. # |
          done                                                                           # |
@@ -129,17 +129,17 @@ if [ ! -d $version ]; then
       if [ `ls *.htm 2> /dev/null | wc -l` -gt 0 ]; then                                # |
          # Tidy any HTML                                                                # |
          touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
-         sleep 1
+         sleep 1                                                                        # |
          tidy.sh *.htm                                                                  # |
       fi                                                                                # |
       if [ `ls *.html 2> /dev/null | wc -l` -gt 0 ]; then                               # |
          # Tidy any HTML                                                                # |
          touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
-         sleep 1
+         sleep 1                                                                        # |
          tidy.sh *.html                                                                 # |
       fi                                                                                # |
       if [ "$CSV2RDF4LOD_RETRIEVE_DROID_SOURCES" != "false" ]; then                     # |
-         sleep 1
+         sleep 1                                                                        # |
          cr-droid.sh . > cr-droid.ttl                                                   # |
       fi                                                                                # |
       # - - - - - - - - - - - - - - - - - - - - Replace above for custom retrieval - - - -/
@@ -181,8 +181,26 @@ if [ ! -d $version ]; then
 
          files=`find source/ -name "*.csv"`
          cr-create-conversion-trigger.sh  -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
+      elif [[ `find source -name "*.htm.tidy" -o -name "*.html.tidy" | wc -l` -gt 0 && -e ../../src/html2csv.xsl ]]; then
+         # HTML files
+         touch .__CSV2RDF4LOD_csvify
+         sleep 1
+         existing_files=""
+         for tidy in `find source -name "*.htm.tidy" -o -name "*.html.tidy"`; do
+            csv="manual/echo ${tidy%.tidy}.csv"
+            saxon.sh ../../src/html2csv.xsl a a $tidy > $csv
+            justify.sh $tidy $csv html2csv
+            existing_files="$existing_files $csv"
+         done
+         if [[ -n "$existing_files" ]]; then
+            cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $existing_files
+         else
+            echo
+            echo "ERROR: No valid files found when retrieving `cr-dataset-id.sh`; not creating conversion trigger."
+         fi
+         
       elif [[ $all_rdf == "yes" ]]; then
-         echo "[INFO] All retrieved files are RDF."
+         echo "[INFO] All retrieved files are RDF; not creating conversion trigger."
       else
          # Take a best guess as to what data files should be converted.
          # Include source/* that is newer than source/.__CSV2RDF4LOD_retrieval and NOT *.pml.ttl
@@ -204,14 +222,16 @@ if [ ! -d $version ]; then
          fi
       fi
 
-      cr-convert.sh
-      for enhancementID in `cr-list-enhancement-identifiers.sh`; do
-         flag=""
-         if [ $enhancementID != "1" ]; then
-            flag="-e $enhancementID"
-         fi
-         ./convert*.sh $flag # Run enhancement (flag not used for first enhancement)
-      done
+      if [[ -e cr-convert-`cr-dataset-id.sh`.sh ]]; then
+         cr-convert-`cr-dataset-id.sh`.sh
+         for enhancementID in `cr-list-enhancement-identifiers.sh`; do
+            flag=""
+            if [ $enhancementID != "1" ]; then
+               flag="-e $enhancementID"
+            fi
+            ./cr-convert-`cr-dataset-id.sh`.sh $flag # Run enhancement (flag not used for first enhancement)
+         done
+      fi
 
    popd &> /dev/null
 else
