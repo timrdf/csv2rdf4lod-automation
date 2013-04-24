@@ -160,7 +160,7 @@ echo $cockpit/automatic/$base-uri-nodes.ttl
    #
    echo "$cockpit/publish/$base.void.ttl"
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/publish/$base.void.ttl
-   echo "@prefix void: <http://rdfs.org/ns/void#> ."                                                                              >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix void: <http://rdfs.org/ns/void#> ."                                                                              >> $cockpit/publish/$base.void.ttl
    echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/publish/$base.void.ttl
    echo "<$topVoID> void:dataDump     <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal> ." >> $cockpit/publish/$base.void.ttl
 
