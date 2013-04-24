@@ -93,7 +93,10 @@ function lnwww {
       echo ".r  $wwwfile"
 
       if [[ "$dryrun" != "yes" ]]; then
+         echo $sudo ln $symbolic "${pwd}$1" "$wwwfile"
          $sudo ln $symbolic "${pwd}$1" "$wwwfile"
+      else
+         echo "dryrun"
       fi
    else
       echo "  -- $1 omitted --"
