@@ -189,7 +189,6 @@ if [ ! -d $version ]; then
             justify.sh $tidy $csv html2csv
          done
 
-         find manual -name "*.csv"
          files=`find manual -name "*.csv"`
          cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
       elif [[ $all_rdf == "yes" ]]; then
@@ -215,8 +214,8 @@ if [ ! -d $version ]; then
          fi
       fi
 
+      cr-convert.sh
       if [[ -e cr-convert-`cr-dataset-id.sh`.sh ]]; then
-         ./cr-convert-`cr-dataset-id.sh`.sh
          for enhancementID in `cr-list-enhancement-identifiers.sh`; do
             flag=""
             if [ $enhancementID != "1" ]; then
