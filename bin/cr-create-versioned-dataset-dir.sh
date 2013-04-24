@@ -216,7 +216,7 @@ if [ ! -d $version ]; then
       fi
 
       if [[ -e cr-convert-`cr-dataset-id.sh`.sh ]]; then
-         cr-convert-`cr-dataset-id.sh`.sh
+         ./cr-convert-`cr-dataset-id.sh`.sh
          for enhancementID in `cr-list-enhancement-identifiers.sh`; do
             flag=""
             if [ $enhancementID != "1" ]; then
