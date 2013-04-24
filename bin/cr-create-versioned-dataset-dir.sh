@@ -183,14 +183,13 @@ if [ ! -d $version ]; then
          cr-create-conversion-trigger.sh  -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
       elif [[ `find source -name "*.htm.tidy" -o -name "*.html.tidy" | wc -l` -gt 0 && -e ../../src/html2csv.xsl ]]; then
          # HTML files
-         touch .__CSV2RDF4LOD_csvify
-         sleep 1
          for tidy in `find source -name "*.htm.tidy" -o -name "*.html.tidy"`; do
             csv="manual/`basename ${tidy%.tidy}`.csv"
             saxon.sh ../../src/html2csv.xsl a a $tidy > $csv
             justify.sh $tidy $csv html2csv
          done
 
+         find manual -name "*.csv"
          files=`find manual -name "*.csv"`
          cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
       elif [[ $all_rdf == "yes" ]]; then
