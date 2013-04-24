@@ -272,6 +272,9 @@ while [ $# -gt 0 ]; do
       # Clean up
       #
       if [ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" != "finest" ]; then
+         rm -f ${TEMP}*
+         rm -f ${TEMP}.unzipped
+         rm -f ${TEMP}.unzipped.nt
          rm -f ${TEMP}.pml.ttl 
          rm -f ${TEMP}.pml.ttl.nt 
          rm -f ${TEMP}${unzipped} 
