@@ -161,11 +161,19 @@ if [ ! -d $version ]; then
          fi
       done
 
-      if [ -e ../2manual.sh ]; then
-         # Leave it up to the global 2manual.sh to populate manual/ from any of the source/
-         # 2manual.sh should also create the cr-create-convert.sh.
-         chmod +x ../2manual.sh
-         ../2manual.sh
+      if [ -e ../prepare.sh || -e ../2manual.sh ]; then
+         # Leave it up to the global preparation trigger to populate manual/ from any of the source/
+         # The preparation trigger should also create the cr-create-convert.sh.
+         # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset#preparation-trigger
+         # 2manual.sh is the legacy name for the preparation trigger.
+         if [[ -e ../prepare.sh ]]; then
+            trigger=../prepare.sh
+         else
+            trigger=../2manual.sh
+         fi
+         chmod +x $trigger
+         $trigger
+         
       elif [ `find source -name "*.xls" | wc -l` -gt 0 ]; then
          # Tackle the xls files
          for xls in `find source -name "*.xls"`; do
