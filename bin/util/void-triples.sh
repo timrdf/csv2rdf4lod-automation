@@ -1,9 +1,12 @@
 #!/bin/bash
 #
-# Note taken from DataFAQs, now maintained in csv2rdf4lod-automation.
+# Note: taken from DataFAQs, now maintained in csv2rdf4lod-automation.
 
 # rapper -g -c b.ttl 
 # rapper: Parsing returned 17 triples
+
+# TODO: handles large files, uses serdi when needed:
+# rdf2nt.sh publish/lofd-tw-rpi-edu.nt.gz | rapper -i ntriples -c -I http://blah - 2>&1 | awk '$0~/Parsing returned/{print $4}'
 
 count=0
 if [ $# -gt 0 ]; then
