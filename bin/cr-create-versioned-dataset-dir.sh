@@ -161,7 +161,7 @@ if [ ! -d $version ]; then
          fi
       done
 
-      if [ -e ../prepare.sh || -e ../2manual.sh ]; then
+      if [[ -e ../prepare.sh || -e ../2manual.sh ]]; then
          # Leave it up to the global preparation trigger to populate manual/ from any of the source/
          # The preparation trigger should also create the cr-create-convert.sh.
          # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset#preparation-trigger
@@ -174,7 +174,7 @@ if [ ! -d $version ]; then
          chmod +x $trigger
          $trigger
          
-      elif [ `find source -name "*.xls" | wc -l` -gt 0 ]; then
+      elif [[ `find source -name "*.xls" | wc -l` -gt 0 ]]; then
          # Tackle the xls files
          for xls in `find source -name "*.xls"`; do
             touch .__CSV2RDF4LOD_csvify
@@ -207,13 +207,13 @@ if [ ! -d $version ]; then
 
          existing_files=""
          for name in $retrieved_files; do
-            if [ -e $name ]; then
+            if [[ -e $name ]]; then
                existing_files="$existing_files $name"
             else
                echo "[INFO] \"$name\" does not exist."
             fi
          done
-         if [ ${#existing_files} -gt 0 ]; then
+         if [[ ${#existing_files} -gt 0 ]]; then
             # Create a conversion trigger for the files obtained during retrieval.
             cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $existing_files
          else
