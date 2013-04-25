@@ -59,6 +59,8 @@ fi
 see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
+rm -f /tmp/droid-archive*
+
 if [ "$1" == "--conversion-cockpit-sources" ]; then
 
    # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
