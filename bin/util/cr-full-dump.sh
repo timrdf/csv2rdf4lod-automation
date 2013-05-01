@@ -146,7 +146,7 @@ if [ "$dryrun" != "true" ]; then
    echo "@prefix prov: <http://www.w3.org/ns/prov#> ."                                                                            >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                                                                           >> $cockpit/automatic/$base-uri-nodes.ttl
-   cat $cockpit/automatic/$base-uri-nodes.txt | awk -v dataset=$versionedDataset '{print $1,"void:inDataset <"dataset"> ."}'      >> $cockpit/automatic/$base-uri-nodes.ttl
+   cat $cockpit/automatic/$base-uri-nodes.txt | awk -v dataset=$versionedDataset '{print "<"$1,"> void:inDataset <"dataset"> ."}' >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:dataDump     <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal> ." >> $cockpit/automatic/$base-uri-nodes.ttl
 fi
