@@ -105,11 +105,18 @@ rm -rf $cockpit/source/*
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 echo "$cockpit/source/void.rdf <- ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"
-curl -sH "Accept: application/rdf+xml" -L ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void > $cockpit/source/void.rdf
-if [[ -e $opt/DataFAQs/services/sadi/ckan/add-metadata.py ]]; then
-   echo python $opt/DataFAQs/services/sadi/ckan/add-metadata.py $cockpit/source/void.rdf
+
+within_last_week=`find $sourceID/$datasetID -mindepth 4 -name void.rdf -atime +6 | tail -1`
+if [[ -n "$within_last_week" ]] then
+   curl -sH "Accept: application/rdf+xml" -L ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void > $cockpit/source/void.rdf
+   if [[ -e $opt/DataFAQs/services/sadi/ckan/add-metadata.py ]]; then
+      echo "http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID <- $cockpit/source/void.rdf"
+      python $opt/DataFAQs/services/sadi/ckan/add-metadata.py $cockpit/source/void.rdf
+   else
+      echo "ERROR: `basename $0` could not find $opt/DataFAQs/services/sadi/ckan/add-metadata.py"
+   fi
 else
-   echo WARNING: could not find $opt/DataFAQs/services/sadi/ckan/add-metadata.py
+   echo "INFO: `basename $0` skipping push to datahub.io b/c has been done in the last week."
 fi
 exit
 
