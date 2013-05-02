@@ -49,7 +49,7 @@ versionID=`date +%Y-%b-%d`
 graphName=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [--target] [-n] --clear-graph <named_graph_URI | cr:auto | .>"
+   echo "usage: `basename $0` [--target] [-n] [--clear-graph] [named_graph_URI | cr:auto | .]"
    echo ""
    echo "  Find all metadata Turtle files in any conversion cockpit, "
    echo "    archive them into a new versioned dataset, and "
@@ -89,10 +89,10 @@ fi
 #   $0 --help
 #fi
 
-if [ "$1" != "cr:auto" ]; then
-   graphName="$1"
-   shift 
-fi
+#if [ "$1" != "cr:auto" ]; then
+#   graphName="$1"
+#   shift 
+#fi
 
 if [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source` == "yes" ]]; then
    pushd .. &> /dev/null
