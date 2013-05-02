@@ -85,10 +85,6 @@ if [ "$1" == "--clear-graph" ]; then
    shift
 fi
 
-#if [ $# -lt 1 ]; then
-#   $0 --help
-#fi
-
 #if [ "$1" != "cr:auto" ]; then
 #   graphName="$1"
 #   shift 
@@ -99,9 +95,6 @@ if [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source` == "yes" ]]; then
 fi
 
 cockpit="$sourceID/$datasetID/version/$versionID"
-pwd
-echo $cockpit
-exit
 
 if [ ! -d $cockpit/source ]; then
    mkdir -p $cockpit/source
@@ -110,7 +103,9 @@ fi
 rm -rf $cockpit/source/*
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-$CSV2RDF4LOD_HOME/bin/util/cr-droid.sh --conversion-cockpit-sources
+curl -H "Accept: application/rdf+xml" -L ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void > $cockpit/source/void.rdf
+exit
+
 #tally=1
 #valid=""
 for droid in `find . -mindepth 6 -maxdepth 6 -name cr-droid.ttl`; do
