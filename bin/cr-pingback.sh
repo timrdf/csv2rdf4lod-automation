@@ -50,7 +50,7 @@ versionID=`date +%Y-%b-%d`
 graphName=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID
 
 if [[ "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [--target] [-n] [--clear-graph] [named_graph_URI | cr:auto | .]"
+   echo "usage: `basename $0` [--target] [-n] [--clear-graph] [--force] [named_graph_URI | cr:auto | .]"
    echo ""
    echo "  Find all metadata Turtle files in any conversion cockpit, "
    echo "    archive them into a new versioned dataset, and "
@@ -59,6 +59,7 @@ if [[ "$1" == "--help" ]]; then
    echo "         --target : return the name of graph that will be loaded; then quit."
    echo "               -n : perform dry run only; do not load named graph."
    echo "    --clear-graph : clear the named graph."
+   echo "          --force : send to datahub.io regardless of the 7-day throttle."
    echo
    echo "  named_graph_URI : use graph name given"
    echo "          cr:auto : use named graph $graphName"
@@ -86,6 +87,12 @@ if [ "$1" == "--clear-graph" ]; then
    shift
 fi
 
+force="false"
+if [ "$1" == "--force" ]; then
+   force="true"
+   shift
+fi
+
 #if [ "$1" != "cr:auto" ]; then
 #   graphName="$1"
 #   shift 
@@ -107,81 +114,42 @@ rm -rf $cockpit/source/*
 echo "$cockpit/source/void.rdf <- ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"
 
 within_last_week=`find $sourceID/$datasetID -mindepth 4 -name void.rdf -atime +6 | tail -1`
-if [[ -z "$within_last_week" ]]; then
+if [[ -z "$within_last_week" || "$force" == "true" ]]; then
    curl -sH "Accept: application/rdf+xml" -L ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void > $cockpit/source/void.rdf
    if [[ -e $opt/DataFAQs/services/sadi/ckan/add-metadata.py ]]; then
       echo "http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID <- $cockpit/source/void.rdf"
-      python $opt/DataFAQs/services/sadi/ckan/add-metadata.py $cockpit/source/void.rdf
+      python $opt/DataFAQs/services/sadi/ckan/add-metadata.py $cockpit/source/void.rdf > $cockpit/source/response.rdf
+      cat $cockpit/source/response.rdf
    else
       echo "ERROR: `basename $0` could not find $opt/DataFAQs/services/sadi/ckan/add-metadata.py"
    fi
 else
    echo "INFO: `basename $0` skipping push to datahub.io b/c has been done in the last week."
 fi
-exit
-
-#tally=1
-#valid=""
-for droid in `find . -mindepth 6 -maxdepth 6 -name cr-droid.ttl`; do
-   echo $droid
-   loc=`dirname $droid`
-   loc=`dirname $loc`
-   sdv=$(cd $loc && cr-sdv.sh) # Local file name in the aggregated source/ directory.
-
-   # Files are referenced relatively in the turtle file, so 
-   # moving it will lose the file it's talking about.
-   # We need to set the @base in the file's new location.
-   # e.g., "<Hospital_flatfiles.zip>" 
-   #   in:
-   #    "<Hospital_flatfiles.zip> dcterms:format <http://provenanceweb.org/formats/pronom/x-fmt/263> ."
-   #   in:
-   #     /srv/twc-healthdata/data/source/hub-healthdata-gov/hospital-compare/version/2012-Oct-10
-   #   is:
-   #     http://healthdata.tw.rpi.edu/source/hub-healthdata-gov/file/hospital-compare/version/2012-Oct-10/source/Hospital_flatfiles.zip 
-   #
-   # cr-dataset-uri.sh --uri | sed 's/\/dataset\//\/file\//' | awk '{print $0"/source/"}'
-   # gives
-   #     http://purl.org/twc/health/source/hub-healthdata-gov/file/hospital-compare/version/2012-Oct-10/source/
-   url=$(cd $loc && cr-dataset-uri.sh --uri)
-   base=`echo $url | sed 's/\/dataset\//\/file\//' | awk '{print "@base <"$0"/source/> ."}'`
-
-   #ext=${droid%*.}
-   #let "tally=tally+1
-   echo "   --> $sdv.ttl"
-   if [ "$dryRun" != "true" ]; then
-      echo $base  > $cockpit/source/$sdv.ttl
-      echo       >> $cockpit/source/$sdv.ttl
-      cat $droid >> $cockpit/source/$sdv.ttl
-   fi
-   #count=`void-triples.sh $cockpit/automatic/$tally$ext.ttl`
-   #if [ "$count" -gt 0 ]; then
-   #   valid="$valid $tic"
-   #fi
-done
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-pushd $cockpit &> /dev/null
-   echo
-   echo aggregate-source-rdf.sh --link-as-latest source/* 
-   if [ "$dryRun" != "true" ]; then
-      aggregate-source-rdf.sh --link-as-latest source/* 
-      # WARNING: ^^ publishes even with -n b/c it checks for CSV2RDF4LOD_PUBLISH_VIRTUOSO
-   fi
-popd &> /dev/null
-
-if [ "$clearGraph" == "true" ]; then
-   echo
-   echo "Deleting $graphName" >&2
-   if [ "$dryRun" != "true" ]; then
-      publish/bin/virtuoso-delete-$sourceID-$datasetID-$versionID.sh
-   fi
-fi
-
-if [ "$dryRun" != "true" ]; then
-   pushd $cockpit &> /dev/null
-      publish/bin/virtuoso-load-$sourceID-$datasetID-$versionID.sh
-   popd &> /dev/null
-fi
+#pushd $cockpit &> /dev/null
+#   echo
+#   echo aggregate-source-rdf.sh --link-as-latest source/* 
+#   if [ "$dryRun" != "true" ]; then
+#      aggregate-source-rdf.sh --link-as-latest source/* 
+#      # WARNING: ^^ publishes even with -n b/c it checks for CSV2RDF4LOD_PUBLISH_VIRTUOSO
+#   fi
+#popd &> /dev/null
+#
+#if [ "$clearGraph" == "true" ]; then
+#   echo
+#   echo "Deleting $graphName" >&2
+#   if [ "$dryRun" != "true" ]; then
+#      publish/bin/virtuoso-delete-$sourceID-$datasetID-$versionID.sh
+#   fi
+#fi
+#
+#if [ "$dryRun" != "true" ]; then
+#   pushd $cockpit &> /dev/null
+#      publish/bin/virtuoso-load-$sourceID-$datasetID-$versionID.sh
+#   popd &> /dev/null
+#fi
 
 # if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]; then
 # fi
