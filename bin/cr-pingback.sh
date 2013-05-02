@@ -23,6 +23,7 @@
 HOME=$(cd ${0%/*} && echo ${PWD%/*})
 export PATH=$PATH`$HOME/bin/util/cr-situate-paths.sh`
 export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
+opt=${HOME%/*}
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?$HOME}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
@@ -105,6 +106,11 @@ rm -rf $cockpit/source/*
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 echo "$cockpit/source/void.rdf <- ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"
 curl -sH "Accept: application/rdf+xml" -L ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void > $cockpit/source/void.rdf
+if [[ -e $opt/DataFAQs/services/sadi/ckan/add-metadata.py ]]; then
+   echo python $opt/DataFAQs/services/sadi/ckan/add-metadata.py $cockpit/source/void.rdf
+else
+   echo WARNING: could not find $opt/DataFAQs/services/sadi/ckan/add-metadata.py
+fi
 exit
 
 #tally=1
