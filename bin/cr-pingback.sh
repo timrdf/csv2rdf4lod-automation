@@ -48,7 +48,7 @@ versionID=`date +%Y-%b-%d`
 
 graphName=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID
 
-if [[ $# -lt 1 || "$1" == "--help" ]]; then
+if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n] [--clear-graph] [named_graph_URI | cr:auto | .]"
    echo ""
    echo "  Find all metadata Turtle files in any conversion cockpit, "
