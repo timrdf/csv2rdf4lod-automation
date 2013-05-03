@@ -53,6 +53,7 @@ else
    echo "prefix sio:        <http://semanticscience.org/resource/>"
    echo "prefix org:        <http://www.w3.org/ns/org#>"
    echo "prefix vsr:        <http://purl.org/twc/vocab/vsr#>"
+   echo "prefix pml:        <http://provenanceweb.org/ns/pml#>"
    echo "prefix twi:        <http://tw.rpi.edu/instances/>"
    echo
    # curl http://prefix.cc/rdfs,void,conversion.file.sparql | grep PREFIX

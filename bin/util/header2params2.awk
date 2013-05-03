@@ -72,6 +72,7 @@ BEGIN {
       print "@prefix vsr:           <http://purl.org/twc/vocab/vsr#> ."
       print "@prefix dcat:          <http://www.w3.org/ns/dcat#> ."
       print "@prefix qb:            <http://purl.org/linked-data/cube#> ."
+      print "@prefix pml:           <http://provenanceweb.org/ns/pml#> ."
       print "@prefix dgtwc:         <http://data-gov.tw.rpi.edu/2009/data-gov-twc.rdf#> ."
    }
    print "@prefix dcterms:       <http://purl.org/dc/terms/> ."
