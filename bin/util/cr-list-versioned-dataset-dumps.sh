@@ -66,6 +66,7 @@ elif [[ `is-pwd-a.sh              cr:source                                     
       $0 $*
    popd > /dev/null
 elif [[ `is-pwd-a.sh                                                 cr:dataset                         ` == "yes" ]]; then
+   pwd
    pushd version > /dev/null
       # Recursive call to base case 'cr:conversion-cockpit'
       $0 $*
