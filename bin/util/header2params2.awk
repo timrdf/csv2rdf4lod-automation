@@ -222,10 +222,19 @@ BEGIN {
    if(length(conversionID)) { 
       # NOTE: This MUST NOT be added to the raw interpretation parameters,
       #       otherwise columns will collapse together prematurely (with human approval).
+      printf("         #conversion:bundled_by [ ov:csvCol 1 ];\n");
       printf("         #conversion:label   \"%s\";\n",cellValue);
+      printf("         #conversion:equivalent_property dcterms:identifier;\n");
+      printf("         #conversion:subproperty_of      dcterms:identifier;\n");
    }
    printf("         conversion:comment \"\";\n");
+   if(length(conversionID)) { 
+      printf("         #conversion:range_template  \"[/sd]thing[.]\";\n");
+   }
    printf("         conversion:range   %s:Literal;\n",RDFS); # Either 'rdfs' or 'todo' (for raw and e*, respectively)
+   if(length(conversionID)) { 
+      printf("         #conversion:range_name  \"Thing\";\n");
+   }
    if(length(conversionID)) { 
       if( length(onlyIfCol) && onlyIfCol == i ) {
          print "         a conversion:Only_if_column;"
