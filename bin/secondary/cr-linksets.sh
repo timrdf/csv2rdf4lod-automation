@@ -12,11 +12,10 @@
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset
 #
 
-see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
-
-export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
-export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
+HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
+export PATH=$PATH`$HOME/bin/util/cr-situate-paths.sh`
+export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?$HOME}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:data-root cr:source cr:dataset cr:directory-of-versions"
@@ -182,6 +181,19 @@ if [[ `is-pwd-a.sh                                                            cr
                echo ":linkset_$ls sio:has-member <$uri> ."               >> automatic/$bubble.ttl
             done
          done
+
+         if [[ -n "$baseURI" ]]; then
+            echo "@prefix void: <http://rdfs.org/ns/void#> ."             > automatic/vocabulary.ttl
+            for term in `p-and-c.sh source/$tarball | sort -u`; do
+               if [[ ${term%#*} != $term ]]; then
+                  echo "<$baseURI/void> void:vocabulary <${term%#*}> ."  >> automatic/vocabulary.ttl
+               elif [[ ${term%/*} != $term ]]; then
+                  echo "<$baseURI/void> void:vocabulary <${term%/*}/> ." >> automatic/vocabulary.ttl
+               else
+                  echo "WARING: `basename $0`: could not determine namespace for $term"
+               fi
+            done
+         fi
 
          aggregate-source-rdf.sh automatic/*.ttl
 
