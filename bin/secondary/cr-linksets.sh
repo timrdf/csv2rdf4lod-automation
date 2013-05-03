@@ -182,6 +182,7 @@ if [[ `is-pwd-a.sh                                                            cr
             done
          done
 
+         baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
          if [[ -n "$baseURI" ]]; then
             echo "@prefix void: <http://rdfs.org/ns/void#> ."             > automatic/vocabulary.ttl
             for term in `p-and-c.sh source/$tarball | sort -u`; do
