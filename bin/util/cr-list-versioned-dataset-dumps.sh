@@ -61,14 +61,17 @@ elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets            
    done
 elif [[ `is-pwd-a.sh              cr:source                                                             ` == "yes" ]]; then
    # TODO https://github.com/timrdf/csv2rdf4lod-automation/issues/311
-   pushd dataset > /dev/null
-      # Recursive call to base case 'cr:conversion-cockpit'
-      $0 $*
-   popd > /dev/null
+   if [[ -e version ]]; then
+      pushd dataset > /dev/null
+         # Recursive call to base case 'cr:conversion-cockpit'
+         $0 $*
+      popd > /dev/null
+   fi
 elif [[ `is-pwd-a.sh                                                 cr:dataset                         ` == "yes" ]]; then
-   pwd >&2
-   pushd version > /dev/null
-      # Recursive call to base case 'cr:conversion-cockpit'
-      $0 $*
-   popd > /dev/null
+   if [[ -e version ]]; then
+      pushd version > /dev/null
+         # Recursive call to base case 'cr:conversion-cockpit'
+         $0 $*
+      popd > /dev/null
+   fi
 fi
