@@ -12,6 +12,7 @@
 #    CSV2RDF4LOD_BASE_URI              - 
 #    CSV2RDF4LOD_BASE_URI_OVERRIDE     - can override the above.
 #    CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID - to know which source-id this dataset should be placed within.
+#    CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID - to know which dataset to update on http://datahub.io/dataset/???
 #
 #    (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables)
 #
