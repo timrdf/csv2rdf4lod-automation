@@ -119,6 +119,7 @@ BEGIN {
                                     printf("#:a_bundle\n");
                                     printf("#   a conversion:ImplicitBundle;\n");
                                     printf("#   conversion:property_name \"a_property\"; # Can also be a URI, e.g. dcterms:title.\n");
+                                    printf("#   conversion:name_template \"[/sd]company/[#2]/[r]\";\n");
                                     printf("#   #conversion:type_name     \"My Class\";   # Can also be a URI, e.g. foaf:Person.\n");
                                     printf("#.\n");
    }
