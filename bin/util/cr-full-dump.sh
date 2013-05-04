@@ -133,10 +133,10 @@ for datadump in `find $cockpit/source -type f`; do
       echo $small
       if [[ -n "$small" ]]; then
          echo "(avoiding sort -u)"
-         uri-nodes.sh $datadump                                                                                                      >> $cockpit/automatic/$base-uri-nodes.txt
+         uri-nodes.sh $datadump | sort -u                                                                                            >> $cockpit/automatic/$base-uri-nodes.txt
       else
          echo "(sort -u)"
-         uri-nodes.sh $datadump | sort -u                                                                                            >> $cockpit/automatic/$base-uri-nodes.txt
+         uri-nodes.sh $datadump                                                                                                      >> $cockpit/automatic/$base-uri-nodes.txt
       fi
    fi
 done
