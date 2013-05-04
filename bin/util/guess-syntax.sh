@@ -82,11 +82,8 @@ if [ $inspect == "true" ]; then
       guess="$guess"
    elif [[ `gzipped.sh $url` == "yes" ]]; then
       TEMP="_"`basename $0``date +%s`_$$.tmp
-      echo "gunzipping $SAMPLE lines" >&2
       gunzip -c $url | head -$SAMPLE > $TEMP
-      echo "unzipped $SAMPLE lines" >&2
       guess=`$0 --inspect $TEMP` # Recursive call on uncompressed sample from the gzip.
-      echo "inspected $SAMPLE lines" >&2
       rm $TEMP
    elif [[ `head -10 $url | awk '$0 ~ /.*<html>.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
       guess="-g"
