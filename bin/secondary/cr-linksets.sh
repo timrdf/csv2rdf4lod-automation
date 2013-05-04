@@ -26,13 +26,33 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
-if [[ $# -lt 2 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` version-identifier URL [--comment-character char]"
-   echo "                                                                 [--header-line        row]"
-   echo "                                                                 [--delimiter         char]"
-   echo "   version-identifier: conversion:version_identifier for the VersionedDataset to create (use cr:auto for default)"
-   echo "   URL               : URL to retrieve the data file."
+sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
+datasetID=`basename $0 | sed 's/.sh$//'`
+versionID=`date +%Y-%b-%d`
+
+cockpit="$sourceID/$datasetID/version/$versionID"
+base=`echo $CSV2RDF4LOD_BASE_URI | perl -pi -e 's|http://||;s/\./-/g;s|/|-|g'` # e.g. lofd-tw-rpi-edu
+
+if [[ "$1" == "--help" ]]; then
+   echo "usage: `basename $0` [--target] [-n ]"
+   echo
+   echo "            --target : return the dump file location, then quit."
+   echo "                  -n : perform dry run only; do not load named graph."
    exit 1
+fi
+
+if [ "$1" == "--target" ]; then
+   # a conversion:VersionedDataset:
+   # e.g. http://purl.org/twc/health/source/tw-rpi-edu/dataset/cr-publish-dcat-to-endpoint/version/2012-Sep-07
+   echo $cockpit/publish/$dumpFileLocal
+   exit 0
+fi
+
+dryrun="false"
+if [ "$1" == "-n" ]; then
+   dryrun="true"
+   dryrun.sh $dryrun beginning
+   shift
 fi
 
 if [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
@@ -139,10 +159,12 @@ if [[ `is-pwd-a.sh                                                            cr
             if [ -n "$uri_space" ]; then
                echo "$tally/$total Searching $ours for URIs in $uri_space (for $bubble)"
                echo "$uri_space" > automatic/$bubble/urispace.txt
-               grep "^$uri_space" automatic/$ours.txt > automatic/$bubble/linkset.txt
-               for linkset in `find automatic/$bubble -name "linkset.txt" -size +1c`; do
-                  echo "$tally/$total $bubble `cat automatic/$bubble/linkset.txt | wc -l`"
-               done
+               if [[ "$dryrun" != "true" ]]; then
+                  grep "^$uri_space" automatic/$ours.txt > automatic/$bubble/linkset.txt
+                  for linkset in `find automatic/$bubble -name "linkset.txt" -size +1c`; do
+                     echo "$tally/$total $bubble `cat automatic/$bubble/linkset.txt | wc -l`"
+                  done
+               fi
             else
                echo "WARNING: no URI space found for $bubble"
             fi
@@ -186,7 +208,7 @@ if [[ `is-pwd-a.sh                                                            cr
          url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$sourceID.nt.gz"
          echo "source/$sourceID.nt.gz <- $url"
          curl -s $url > source/$sourceID.nt.gz
-         if [[ -n "$baseURI" ]]; then
+         if [[ -n "$baseURI" && "$dryrun" != "true" ]]; then
             echo "@prefix void: <http://rdfs.org/ns/void#> ."             > automatic/vocabulary.ttl
             for term in `p-and-c.sh source/$sourceID.nt.gz | sort -u`; do
                if [[ "$term" =~ http* ]]; then
@@ -207,7 +229,10 @@ if [[ `is-pwd-a.sh                                                            cr
             echo "automatic/vocabulary.ttl - skipping b/c base URI not set."
          fi
 
-         aggregate-source-rdf.sh automatic/*.ttl
+         echo aggregate-source-rdf.sh automatic/*.ttl
+         if [[ "$dryrun" != "true" ]]; then
+            aggregate-source-rdf.sh automatic/*.ttl
+         fi
 
          # #justify.sh $xls $csv xls2csv_`md5.sh \`which justify.sh\`` # TODO: excessive? justify.sh needs to know the broad class rule/engine
          #                                                # TODO: shouldn't you be hashing the xls2csv.sh, not justify.sh?
@@ -244,3 +269,5 @@ elif [[  `is-pwd-a.sh cr:data-root                                              
       $0 $* # Recursive call to base case 'cr:directory-of-versions'
    popd &> /dev/null
 fi
+
+dryrun.sh $dryrun ending

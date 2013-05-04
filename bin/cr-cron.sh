@@ -280,7 +280,7 @@ pushd $conversion_root &> /dev/null
          -n "$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID" && \
          `which cr-linksets.sh` ]]; then
       echo "pwd: `pwd`"                                                                        >> $log
-      cr-linksets.sh cr:auto cr:auto                                                      2>&1 >> $log
+      cr-linksets.sh
    else
       echo "   ERROR: Failed to invoke:"                                                       >> $log
       echo "      CSV2RDF4LOD_BASE_URI:              $CSV2RDF4LOD_BASE_URI"                    >> $log
