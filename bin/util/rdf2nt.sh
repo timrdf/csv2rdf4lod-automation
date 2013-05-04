@@ -80,6 +80,9 @@ while [ $# -gt 0 ]; do
       continue
    fi
 
+   if [[ "$verbose" == 'yes' ]]; then
+      echo "`basename $0` guessing syntax" >&2
+   fi
    if [[ "$file" == "${file%.*}" || ! ( "${file##*.}" == "ttl" || "${file##*.}" == "rdf" || "${file##*.}" == "nt" ) ]]; then 
       # The file does not have an extension.
       # Literally: "The filename is the same with and without an extension"
@@ -97,6 +100,10 @@ while [ $# -gt 0 ]; do
          serialization="-g" # Original version, let rapper guess (this can break if file too big.)
       fi
    fi
+   if [[ "$verbose" == 'yes' ]]; then
+      echo "`basename $0` guessed syntax $serialization" >&2
+   fi
+   
 
    # Determine a prefix for bnodes (to avoid bnode collision when concatenating multiple files).
    fullpath=`pwd`/$1 # Does not need to be exact; only needs to be unique.
