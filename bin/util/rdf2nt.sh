@@ -147,16 +147,16 @@ while [ $# -gt 0 ]; do
          # Need to use rapper to decompose into N-TRIPLES.
          # Need to use serdi to prepend bnodes with a unique prefix.
          if [[ `which rapper` && `which serdi` ]]; then
-            if [[ "$gzipped" != 'yes' ]]; then
-               if [ "$verbose" == "yes" ]; then
-                  echo "rapper -q -i rdfxml -o ntriples $II $file | serdi -i ntriples -o ntriples -p $md5 - (from $origFile)" >&2
-               fi
-               rapper -q -i rdfxml -o ntriples $II $file | serdi -i ntriples -o ntriples -p $md5 -
-            else
+            if [[ "$gzipped" == 'yes' ]]; then
                if [ "$verbose" == "yes" ]; then
                   echo "zcat $file | rapper -q -i rdfxml -o ntriples $II - | serdi -i ntriples -o ntriples -p $md5 -"
                fi
                zcat $file | rapper -q -i rdfxml -o ntriples $II - | serdi -i ntriples -o ntriples -p $md5 -
+            else
+               if [ "$verbose" == "yes" ]; then
+                  echo "rapper -q -i rdfxml -o ntriples $II $file | serdi -i ntriples -o ntriples -p $md5 - (from $origFile)" >&2
+               fi
+               rapper -q -i rdfxml -o ntriples $II $file | serdi -i ntriples -o ntriples -p $md5 -
             fi
          elif [[ ! `which rapper` ]]; then
             echo "ERROR(1): `basename $0` requires rapper. See $see"
@@ -169,16 +169,16 @@ while [ $# -gt 0 ]; do
       elif [ "$serialization" == "text/plain" ]; then
          # Need to use serdi to prepend bnodes with a unique prefix.
          if [[ `which serdi` ]]; then
-            if [[ "$gzipped" != 'yes' ]]; then
-               if [ "$verbose" == "yes" ]; then
-                  echo "serdi -i ntriples -o ntriples -p $md5 $file $I (from $origFile)" >&2
-               fi
-               serdi -i ntriples -o ntriples -p $md5 $file $I
-            else
+            if [[ "$gzipped" == 'yes' ]]; then
                if [ "$verbose" == "yes" ]; then
                   echo "zcat $file serdi -i ntriples -o ntriples -p $md5 - $I"
                fi
                zcat $file serdi -i ntriples -o ntriples -p $md5 - $I
+            else
+               if [ "$verbose" == "yes" ]; then
+                  echo "serdi -i ntriples -o ntriples -p $md5 $file $I (from $origFile)" >&2
+               fi
+               serdi -i ntriples -o ntriples -p $md5 $file $I
             fi
          else
             echo "ERROR(4): `basename $0` requires serdi. See $see"
@@ -186,16 +186,16 @@ while [ $# -gt 0 ]; do
       elif [ "$serialization" == "text/turtle" ]; then
          # Need to use serdi to prepend bnodes with a unique prefix.
          if [[ `which serdi` ]]; then
-            if [[ "$gzipped" != 'yes' ]]; then
-               if [ "$verbose" == "yes" ]; then
-                  echo "serdi -i turtle -o ntriples -p $md5 $file $I (from $origFile)" >&2
-               fi
-               serdi -i turtle -o ntriples -p $md5 $file $I
-            else
+            if [[ "$gzipped" == 'yes' ]]; then
                if [ "$verbose" == "yes" ]; then
                   echo "zcat $file | serdi -i turtle -o ntriples -p $md5 - $I"
                fi
                zcat $file | serdi -i turtle -o ntriples -p $md5 - $I
+            else
+               if [ "$verbose" == "yes" ]; then
+                  echo "serdi -i turtle -o ntriples -p $md5 $file $I (from $origFile)" >&2
+               fi
+               serdi -i turtle -o ntriples -p $md5 $file $I
             fi
          else
             echo "ERROR(5): `basename $0` requires serdi. $PATH See $see"
