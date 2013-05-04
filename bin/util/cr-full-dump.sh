@@ -67,63 +67,63 @@ if [ "$1" == "-n" ]; then
    shift
 fi
 
-for panel in 'source' 'automatic' 'publish' 'doc/logs'; do
-   if [ ! -d $cockpit/$panel ]; then
-      mkdir -p $cockpit/$panel
-   fi
-   echo "rm -rf $cockpit/$panel/*"
-   if [ "$dryrun" != "true" ]; then
-      rm -rf $cockpit/$panel/*
-   fi
-done
+#for panel in 'source' 'automatic' 'publish' 'doc/logs'; do
+#   if [ ! -d $cockpit/$panel ]; then
+#      mkdir -p $cockpit/$panel
+#   fi
+#   echo "rm -rf $cockpit/$panel/*"
+#   if [ "$dryrun" != "true" ]; then
+#      rm -rf $cockpit/$panel/*
+#   fi
+#done
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Collect source files into source/
-if [ "$dryrun" != "true" ]; then
-   for datadump in `cr-list-versioned-dataset-dumps.sh --warn-if-missing`; do
-      echo ln $datadump $cockpit/source/
-      if [ "$dryrun" != "true" ]; then
-         ln $datadump $cockpit/source/
-      fi
-   done
-fi
+#if [ "$dryrun" != "true" ]; then
+#   for datadump in `cr-list-versioned-dataset-dumps.sh --warn-if-missing`; do
+#      echo ln $datadump $cockpit/source/
+#      if [ "$dryrun" != "true" ]; then
+#         ln $datadump $cockpit/source/
+#      fi
+#   done
+#fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
-echo "$cockpit/publish/$dumpFileLocal"
-if [[ -n "`getconf ARG_MAX`" && \
-     `find $cockpit/source -type f | wc -l` -lt `getconf ARG_MAX` ]]; then
-   # Saves disk space, but shell can't handle infinite arguments.
-   echo "(as batch)"
-   if [ "$dryrun" != "true" ]; then
-      rdf2nt.sh --verbose `find $cockpit/source -type f` 2> $cockpit/doc/logs/rdf2nt-errors.log | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/doc/logs/gzip-errors.log
-   fi
-else
-   echo "(incrementally)"
-   # Handles infinite source/* files, but uses disk space.
-   for datadump in `find $cockpit/source -type f`; do
-      if [ "$dryrun" != "true" ]; then
-         rdf2nt.sh $datadump >> $cockpit/publish/$dumpFileLocal.tmp
-      fi
-   done
-   if [ "$dryrun" != "true" ]; then
-      cat $cockpit/publish/$dumpFileLocal.tmp | gzip > $cockpit/publish/$dumpFileLocal
-      rm $cockpit/publish/$dumpFileLocal.tmp
-   fi
-fi
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Pull out the RDF URI nodes from the full dump.
-#echo $cockpit/automatic/$base-uri-node-occurrences.txt
-#if [ "$dryrun" != "true" ]; then
-#   uri-nodes.sh $cockpit/publish/$dumpFileLocal                                       > $cockpit/automatic/$base-uri-node-occurrences.txt
+#echo "$cockpit/publish/$dumpFileLocal"
+#if [[ -n "`getconf ARG_MAX`" && \
+#     `find $cockpit/source -type f | wc -l` -lt `getconf ARG_MAX` ]]; then
+#   # Saves disk space, but shell can't handle infinite arguments.
+#   echo "(as batch)"
+#   if [ "$dryrun" != "true" ]; then
+#      rdf2nt.sh --verbose `find $cockpit/source -type f` 2> $cockpit/doc/logs/rdf2nt-errors.log | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/doc/logs/gzip-errors.log
+#   fi
+#else
+#   echo "(incrementally)"
+#   # Handles infinite source/* files, but uses disk space.
+#   for datadump in `find $cockpit/source -type f`; do
+#      if [ "$dryrun" != "true" ]; then
+#         rdf2nt.sh $datadump >> $cockpit/publish/$dumpFileLocal.tmp
+#      fi
+#   done
+#   if [ "$dryrun" != "true" ]; then
+#      cat $cockpit/publish/$dumpFileLocal.tmp | gzip > $cockpit/publish/$dumpFileLocal
+#      rm $cockpit/publish/$dumpFileLocal.tmp
+#   fi
 #fi
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# no space left on device...
-# echo $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
-# cat          $cockpit/automatic/$base-uri-node-occurrences.txt | sort    > $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## Pull out the RDF URI nodes from the full dump.
+##echo $cockpit/automatic/$base-uri-node-occurrences.txt
+##if [ "$dryrun" != "true" ]; then
+##   uri-nodes.sh $cockpit/publish/$dumpFileLocal                                       > $cockpit/automatic/$base-uri-node-occurrences.txt
+##fi
+
+## no space left on device...
+## echo $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
+## cat          $cockpit/automatic/$base-uri-node-occurrences.txt | sort    > $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
 
 for datadump in `find $cockpit/source -type f`; do
    if [ "$dryrun" != "true" ]; then
@@ -138,11 +138,11 @@ for datadump in `find $cockpit/source -type f`; do
       fi
    fi
 done
-#Too big:
-#if [ "$dryrun" != "true" ]; then
-#   cat $TEMP | sort -u                                                                                                             > $cockpit/automatic/$base-uri-nodes.txt
-#   rm -f $TEMP
-#fi
+##Too big:
+##if [ "$dryrun" != "true" ]; then
+##   cat $TEMP | sort -u                                                                                                             > $cockpit/automatic/$base-uri-nodes.txt
+##   rm -f $TEMP
+##fi
 
 pushd $cockpit &> /dev/null
    versionedDataset=`cr-dataset-uri.sh --uri`
