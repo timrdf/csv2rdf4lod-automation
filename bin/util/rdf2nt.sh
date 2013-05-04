@@ -133,15 +133,6 @@ while [ $# -gt 0 ]; do
       fi
 
       gzipped=`gzipped.sh $file`
-      #if [[ "$gzipped" == 'yes' ]]; then
-      #   TEMP="_"`basename $0``date +%s`_$$.tmp
-      #   gunzip -c $file > $TEMP
-
-      #   origFile="$file" # Remember which file we were working with.
-      #   file=$TEMP       # So we can reuse the code that handles uncompressed output.
-      #else
-      #   origFile="$file" # @deprecated
-      #fi
 
       if [ "$serialization" == "application/rdf+xml" ]; then
          # Need to use rapper to decompose into N-TRIPLES.
@@ -154,7 +145,7 @@ while [ $# -gt 0 ]; do
                zcat $file | rapper -q -i rdfxml -o ntriples $II - | serdi -b -i ntriples -o ntriples -p $md5 -
             else
                if [ "$verbose" == "yes" ]; then
-                  echo "rapper -q -i rdfxml -o ntriples $II $file | serdi -b -i ntriples -o ntriples -p $md5 - (from $origFile)" >&2
+                  echo "rapper -q -i rdfxml -o ntriples $II $file | serdi -b -i ntriples -o ntriples -p $md5 -" >&2
                fi
                rapper -q -i rdfxml -o ntriples $II $file | serdi -b -i ntriples -o ntriples -p $md5 -
             fi
@@ -176,7 +167,7 @@ while [ $# -gt 0 ]; do
                zcat $file | serdi -b -i ntriples -o ntriples -p $md5 - $I
             else
                if [ "$verbose" == "yes" ]; then
-                  echo "serdi -b -i ntriples -o ntriples -p $md5 $file $I (from $origFile)" >&2
+                  echo "serdi -b -i ntriples -o ntriples -p $md5 $file $I" >&2
                fi
                serdi -b -i ntriples -o ntriples -p $md5 $file $I
             fi
@@ -193,15 +184,15 @@ while [ $# -gt 0 ]; do
                zcat $file | serdi -b -i turtle -o ntriples -p $md5 - $I
             else
                if [ "$verbose" == "yes" ]; then
-                  echo "serdi -b -i turtle -o ntriples -p $md5 $file $I (from $origFile)" >&2
+                  echo "serdi -b -i turtle -o ntriples -p $md5 $file $I" >&2
                fi
                serdi -b -i turtle -o ntriples -p $md5 $file $I
             fi
          else
             echo "ERROR(5): `basename $0` requires serdi. $PATH See $see"
          fi
-      else
-         echo "WARNING: `basename $0` could not determine serialization for `pwd` $origFile" >&2
+      elif [[ -f "$file" ]]; then
+         echo "WARNING: `basename $0` could not determine serialization for `pwd` $file" >&2
       fi
 
       if [ -e "$TEMP" ]; then
