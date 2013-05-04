@@ -40,6 +40,7 @@ if [[ $# -eq 0 || "$1" == "--help" ]]; then
    echo "  -I <base-uri>       | Use <base-uri> for any relative URIs."
    exit
 fi
+      echo "hi with $*" >&2
 
 version='2'
 flag_version="--version 2"
