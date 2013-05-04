@@ -92,6 +92,7 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
 echo "$cockpit/publish/$dumpFileLocal"
+if [ 'debugging' == 'true' ]; then
 if [[ -n "`getconf ARG_MAX`" && \
      `find $cockpit/source -name "*.*" | wc -l` -lt `getconf ARG_MAX` ]]; then
    # Saves disk space, but shell can't handle infinite arguments.
@@ -109,6 +110,7 @@ else
       cat $cockpit/publish/$dumpFileLocal.tmp | gzip > $cockpit/publish/$dumpFileLocal
       rm $cockpit/publish/$dumpFileLocal.tmp
    fi
+fi
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
