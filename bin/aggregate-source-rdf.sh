@@ -161,7 +161,6 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "publish/$sdv.void.ttl"
    rr-create-void.sh publish/$sdv.*                   > publish/$sdv.void.ttl
 
-   echo $link_latest
    if [ "$link_latest" == "yes" ]; then
       # from:
       # source/tw-rpi-edu/cr-publish-void-to-endpoint/version/2012-Sep-26
@@ -177,24 +176,24 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       ln -s `cr-conversion-root.sh`/$sourceID/$datasetID/version/$versionID `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest
       # hard link to rename the dump file.
       if [[ "$CSV2RDF4LOD_PUBLISH_NT" == "true" || "$ntriples" == "true" ]]; then
-         echo ln `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.nt$gz  `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.nt$gz
+         echo `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.nt$gz
          ln `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.nt$gz  `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.nt$gz
       else
-         echo "skipping $sourceID/$datasetID/version/latest/publish/$sd-latest.nt$gz"
+         echo "$sourceID/$datasetID/version/latest/publish/$sd-latest.nt$gz - skipping."
       fi
       if [[ "$CSV2RDF4LOD_PUBLISH_TTL" == "true" || "$turtle" == "true" ]]; then
-         echo ln `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.ttl$gz `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl$gz
+         echo `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl$gz
          ln `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.ttl$gz `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl$gz
       else
-         echo "skipping $sourceID/$datasetID/version/latest/publish/$sd-latest.ttl$gz"
+         echo "$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl$gz - skipping."
       fi
       if [[ "$CSV2RDF4LOD_PUBLISH_RDFXML" == "true" || "$rdfxml" == "true" ]]; then
-         echo ln `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.rdf$gz `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz
+         echo `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz
          ln `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.rdf$gz `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz
       else
-         echo "skipping $sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz"
+         echo "$sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz - skipping."
       fi
-   echo
+   else
       echo "Not linking as latest."
    fi
 
