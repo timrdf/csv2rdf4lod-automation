@@ -746,6 +746,13 @@
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/AbstractDataset"/>
     <owl:disjointWith rdf:resource="http://purl.org/twc/vocab/conversion/LayerDataset"/>
   </owl:Class>
+  <owl:Class rdf:about="http://purl.org/twc/vocab/conversion/VocabularyMappings">
+    <rdfs:comment>Vocabulary mappings to other vocabularies; a mapping file with tag 'mapping/&lt;format&gt;'. Replace &lt;format&gt; with the mapping/rule language used, like R2R or RIF.</rdfs:comment>
+    <rdfs:label>VocabularyMappings</rdfs:label>
+    <rdfs:seeAlso rdf:resource="http://validator.lod-cloud.net/levels.html"/>
+    <rdfs:seeAlso rdf:resource="http://validator.lod-cloud.net/validate.php"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/wiki/TaskForces/CommunityProjects/LinkingOpenData/DataSets/CKANmetainformation#CKAN_resource_links"/>
+  </owl:Class>
   <rdf:Property rdf:about="http://purl.org/twc/vocab/conversion/base_uri">
     <rdfs:comment>The base URI used in constructing identifying URIs for instances in the converted dataset.</rdfs:comment>
     <rdfs:domain rdf:resource="http://purl.org/twc/vocab/conversion/Dataset"/>

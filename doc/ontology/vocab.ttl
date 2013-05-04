@@ -1267,6 +1267,15 @@ conversion:ServiceEndpoint
    rdfs:comment "http://www.w3.org/TR/sparql11-service-description/ does not specify a range, but we want to refer to it";
 .
 
+conversion:VocabularyMappings
+   a owl:Class;
+   rdfs:label "VocabularyMappings";
+   rdfs:comment "Vocabulary mappings to other vocabularies; a mapping file with tag 'mapping/<format>'. Replace <format> with the mapping/rule language used, like R2R or RIF.";
+   rdfs:seeAlso <http://validator.lod-cloud.net/validate.php>,
+         <http://validator.lod-cloud.net/levels.html>,
+      <http://www.w3.org/wiki/TaskForces/CommunityProjects/LinkingOpenData/DataSets/CKANmetainformation#CKAN_resource_links>;
+.
+
 conversion:enhancement_layer
    rdfs:label "enhancement_layer";
 .
