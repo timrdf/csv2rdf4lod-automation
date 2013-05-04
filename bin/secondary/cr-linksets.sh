@@ -46,7 +46,8 @@ if [[ `is-pwd-a.sh                                                            cr
    version="$1"
    version_reason=""
    url="$2"
-   url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$sourceID-cr-full-dump-latest.ttl.gz"
+   #url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$sourceID-cr-full-dump-latest.ttl.gz" # became e.g.: ieeevis-tw-rpi-edu.nt.gz
+   url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$sourceID.nt.gz"
    if [[ "$1" == "cr:auto" && ${#url} -gt 0 ]]; then
       version=`urldate.sh $url`
       #echo "Attempting to use URL modification date to name version: $version"
@@ -123,7 +124,7 @@ if [[ `is-pwd-a.sh                                                            cr
          fi
 
          #tarball=$sourceID-cr-full-dump-latest.ttl.gz # became e.g.: ieeevis-tw-rpi-edu.nt.gz
-         tarball=$sourceID-nt.gz
+         tarball=$sourceID.nt.gz
          ours=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID}
          echo "Extracting list of RDF URI nodes from our bubble: $ours"
          gunzip -c source/$tarball | awk '{print $1}' | grep "^<" | sed 's/^<//;s/>$//' | sort -u > automatic/$ours.txt
