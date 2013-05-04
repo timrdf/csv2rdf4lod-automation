@@ -171,9 +171,9 @@ while [ $# -gt 0 ]; do
          if [[ `which serdi` ]]; then
             if [[ "$gzipped" == 'yes' ]]; then
                if [ "$verbose" == "yes" ]; then
-                  echo "zcat $file serdi -b -i ntriples -o ntriples -p $md5 - $I"
+                  echo "zcat $file | serdi -b -i ntriples -o ntriples -p $md5 - $I"
                fi
-               zcat $file serdi -b -i ntriples -o ntriples -p $md5 - $I
+               zcat $file | serdi -b -i ntriples -o ntriples -p $md5 - $I
             else
                if [ "$verbose" == "yes" ]; then
                   echo "serdi -b -i ntriples -o ntriples -p $md5 $file $I (from $origFile)" >&2
