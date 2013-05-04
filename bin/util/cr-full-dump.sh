@@ -169,22 +169,39 @@ if [ "$dryrun" != "true" ]; then
    echo "$cockpit/publish/$sdv.void.ttl +"
    #                                                                                                                              >> $cockpit/publish/$base.void.ttl
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/publish/$sdv.void.ttl
+   echo "@prefix foaf:     <http://xmlns.com/foaf/0.1/> ."                                                                        >> $cockpit/publish/$sdv.void.ttl
    echo "@prefix owl:      <http://www.w3.org/2002/07/owl#> ."                                                                    >> $cockpit/publish/$sdv.void.ttl
    echo "@prefix dcterms:  <http://purl.org/dc/terms/> ."                                                                         >> $cockpit/publish/$sdv.void.ttl
    echo "@prefix tag:      <http://www.holygoat.co.uk/owl/redwood/0.1/tags/> ."                                                   >> $cockpit/publish/$sdv.void.ttl
    echo "@prefix void:     <http://rdfs.org/ns/void#> ."                                                                          >> $cockpit/publish/$sdv.void.ttl
+   echo "@prefix dcat:     <http://www.w3.org/ns/dcat#> ."                                                                        >> $cockpit/publish/$sdv.void.ttl
    echo "@prefix datafaqs: <http://purl.org/twc/vocab/datafaqs#> ."                                                               >> $cockpit/publish/$sdv.void.ttl
-   echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/publish/$sdv.void.ttl
-   echo "<$topVoID> void:dataDump     <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal> ." >> $cockpit/publish/$sdv.void.ttl
+   echo                                                                                                                           >> $cockpit/publish/$sdv.void.ttl
+   echo "<$topVoID>"                                                                                                              >> $cockpit/publish/$sdv.void.ttl
+   echo "   a void:Dataset, dcat:Dataset;"                                                                                        >> $cockpit/publish/$sdv.void.ttl
+   echo "   void:rootResource <$topVoID>;"                                                                                        >> $cockpit/publish/$sdv.void.ttl
+   echo "   void:dataDump     <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal>;"          >> $cockpit/publish/$sdv.void.ttl
+   echo "   dcat:distribution <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal>;"          >> $cockpit/publish/$sdv.void.ttl
+   if [[ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" && "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" =~ http* ]]; then
+      echo "   void:sparqlEndpoint <$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT>;"                                              >> $cockpit/publish/$sdv.void.ttl
+      echo "   dcat:distribution   <$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT>;"                                              >> $cockpit/publish/$sdv.void.ttl
+   fi
+   echo "   foaf:page <$baseURI/source/$sourceID/file/cr-sitemap/version/latest/conversion/sitemap.xml>;"                         >> $cockpit/publish/$sdv.void.ttl
+   echo "   tag:taggedWithTag <http://datahub.io/tag/lod>, <http://datahub.io/tag/prizms>, <http://datahub.io/tag/deref-vocab>;"  >> $cockpit/publish/$sdv.void.ttl
+   echo "   void:uriSpace \"$baseURI/\";"                                                                                         >> $cockpit/publish/$sdv.void.ttl
+   echo "."                                                                                                                       >> $cockpit/publish/$sdv.void.ttl
+   echo "<$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal>"                                >> $cockpit/publish/$sdv.void.ttl
+   echo "   dcterms:format   <http://www.w3.org/ns/formats/N-Triples>;"                                                           >> $cockpit/publish/$sdv.void.ttl
+   echo "   dcat:downloadURL <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal>;"           >> $cockpit/publish/$sdv.void.ttl
+   echo "."                                                                                                                       >> $cockpit/publish/$sdv.void.ttl
+   echo "<$baseURI/source/$sourceID/file/cr-sitemap/version/latest/conversion/sitemap.xml>"                                       >> $cockpit/publish/$sdv.void.ttl
+   echo "   a <http://dbpedia.org/resource/Site_map>;"                                                                            >> $cockpit/publish/$sdv.void.ttl
+   echo "   dcterms:subject <$topVoID>;"                                                                                          >> $cockpit/publish/$sdv.void.ttl
+   echo "."                                                                                                                       >> $cockpit/publish/$sdv.void.ttl
    if [[ -n "$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID" ]]; then
       echo "<$topVoID> owl:sameAs <http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID>;"               >> $cockpit/publish/$sdv.void.ttl
       echo "   a datafaqs:CKANDataset;"                                                                                           >> $cockpit/publish/$sdv.void.ttl
       echo "   dcterms:identifier \"$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID\";"                                       >> $cockpit/publish/$sdv.void.ttl
-      echo "   tag:taggedWithTag <http://datahub.io/tag/lod>, <http://datahub.io/tag/prizms>;"                                    >> $cockpit/publish/$sdv.void.ttl
-      echo "   void:uriSpace \"$baseURI/\";"                                                                                      >> $cockpit/publish/$sdv.void.ttl
-      if [[ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" && "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" =~ http* ]]; then
-         echo "   void:sparqlEndpoint <$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT>;"                                           >> $cockpit/publish/$sdv.void.ttl
-      fi
       echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
       
       # TODO: <$topVoID> void:exampleResource ?x from:
@@ -201,9 +218,10 @@ if [ "$dryrun" != "true" ]; then
    fi
    triples=`rdf2nt.sh $cockpit/publish/$dumpFileLocal | rapper -i ntriples -c -I http://blah - 2>&1 | awk '$0~/Parsing returned/{print $4}'`
    if [[ ${#triples} -gt 0 && $triples == [0-9]* ]]; then # - - - - - - - - - - Avoid publish/*.void.ttl pattern so that cr-publish-void-to-endpoint.sh doesn't find it.
-      echo "@prefix void: <http://rdfs.org/ns/void#> ."                                                                           >> $cockpit/publish/$sdv.ephemeral.ttl
-      echo "<$topVoID> void:triples $triples ."                                                                                   >> $cockpit/publish/$sdv.ephemeral.ttl
-      echo $topVoID                                                                                                                > $cockpit/publish/$sdv.ephemeral.ttl.sd_name
+      echo "@prefix void: <http://rdfs.org/ns/void#> ."                                                                              >> $cockpit/publish/$sdv.ephemeral.ttl
+      echo "@prefix dat:  <http://www.w3.org/ns/dcat#> ."                                                                            >> $cockpit/publish/$sdv.ephemeral.ttl
+      echo "<$topVoID> void:triples $triples ."                                                                                      >> $cockpit/publish/$sdv.ephemeral.ttl
+      echo $topVoID                                                                                                                   > $cockpit/publish/$sdv.ephemeral.ttl.sd_name
       pvdelete.sh $topVoID
       vload ttl $cockpit/publish/$sdv.ephemeral.ttl $topVoID -v
    fi
