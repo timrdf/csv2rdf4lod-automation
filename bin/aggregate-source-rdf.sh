@@ -47,7 +47,7 @@ fi
 
 compress="no"
 gz=''
-if [ "$1" == "--compress" ]; then
+if [[ "$1" == "--compress" || "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]]; then
    compress="yes"
    gz=".gz"
    shift
