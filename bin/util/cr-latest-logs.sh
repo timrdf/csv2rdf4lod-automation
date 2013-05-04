@@ -41,13 +41,13 @@ elif [[ `is-pwd-a.sh cr:source` == "yes" ]]; then
          echo cr-cron/`$0 $*`
       popd > /dev/null
    fi
-elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets` == "yes" ]]; then
-   for next in `directories.sh`; do
-      pushd $next > /dev/null
+elif [[ `is-pwd-a.sh cr:data-root cr:directory-of-datasets` == "yes" ]]; then
+   if [[ -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" && -d $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID ]]; then
+      pushd $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID > /dev/null
          # Recursive call to base case 'cr:conversion-cockpit'
-         echo $next/`$0 $*`
+         echo $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID/`$0 $*`
       popd > /dev/null
-   done
+   fi
 elif [[ `is-pwd-a.sh              cr:source                                                             ` == "yes" ]]; then
    # TODO
    pushd dataset > /dev/null
