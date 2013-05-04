@@ -149,14 +149,14 @@ while [ $# -gt 0 ]; do
          if [[ `which rapper` && `which serdi` ]]; then
             if [[ "$gzipped" == 'yes' ]]; then
                if [ "$verbose" == "yes" ]; then
-                  echo "zcat $file | rapper -q -i rdfxml -o ntriples $II - | serdi -i ntriples -o ntriples -p $md5 -"
+                  echo "zcat $file | rapper -q -i rdfxml -o ntriples $II - | serdi -b -i ntriples -o ntriples -p $md5 -"
                fi
-               zcat $file | rapper -q -i rdfxml -o ntriples $II - | serdi -i ntriples -o ntriples -p $md5 -
+               zcat $file | rapper -q -i rdfxml -o ntriples $II - | serdi -b -i ntriples -o ntriples -p $md5 -
             else
                if [ "$verbose" == "yes" ]; then
-                  echo "rapper -q -i rdfxml -o ntriples $II $file | serdi -i ntriples -o ntriples -p $md5 - (from $origFile)" >&2
+                  echo "rapper -q -i rdfxml -o ntriples $II $file | serdi -b -i ntriples -o ntriples -p $md5 - (from $origFile)" >&2
                fi
-               rapper -q -i rdfxml -o ntriples $II $file | serdi -i ntriples -o ntriples -p $md5 -
+               rapper -q -i rdfxml -o ntriples $II $file | serdi -b -i ntriples -o ntriples -p $md5 -
             fi
          elif [[ ! `which rapper` ]]; then
             echo "ERROR(1): `basename $0` requires rapper. See $see"
@@ -171,14 +171,14 @@ while [ $# -gt 0 ]; do
          if [[ `which serdi` ]]; then
             if [[ "$gzipped" == 'yes' ]]; then
                if [ "$verbose" == "yes" ]; then
-                  echo "zcat $file serdi -i ntriples -o ntriples -p $md5 - $I"
+                  echo "zcat $file serdi -b -i ntriples -o ntriples -p $md5 - $I"
                fi
-               zcat $file serdi -i ntriples -o ntriples -p $md5 - $I
+               zcat $file serdi -b -i ntriples -o ntriples -p $md5 - $I
             else
                if [ "$verbose" == "yes" ]; then
-                  echo "serdi -i ntriples -o ntriples -p $md5 $file $I (from $origFile)" >&2
+                  echo "serdi -b -i ntriples -o ntriples -p $md5 $file $I (from $origFile)" >&2
                fi
-               serdi -i ntriples -o ntriples -p $md5 $file $I
+               serdi -b -i ntriples -o ntriples -p $md5 $file $I
             fi
          else
             echo "ERROR(4): `basename $0` requires serdi. See $see"
@@ -188,14 +188,14 @@ while [ $# -gt 0 ]; do
          if [[ `which serdi` ]]; then
             if [[ "$gzipped" == 'yes' ]]; then
                if [ "$verbose" == "yes" ]; then
-                  echo "zcat $file | serdi -i turtle -o ntriples -p $md5 - $I"
+                  echo "zcat $file | serdi -b -i turtle -o ntriples -p $md5 - $I"
                fi
-               zcat $file | serdi -i turtle -o ntriples -p $md5 - $I
+               zcat $file | serdi -b -i turtle -o ntriples -p $md5 - $I
             else
                if [ "$verbose" == "yes" ]; then
-                  echo "serdi -i turtle -o ntriples -p $md5 $file $I (from $origFile)" >&2
+                  echo "serdi -b -i turtle -o ntriples -p $md5 $file $I (from $origFile)" >&2
                fi
-               serdi -i turtle -o ntriples -p $md5 $file $I
+               serdi -b -i turtle -o ntriples -p $md5 $file $I
             fi
          else
             echo "ERROR(5): `basename $0` requires serdi. $PATH See $see"
