@@ -91,7 +91,6 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    sd=$sourceID-$datasetID
    sdv=$sourceID-$datasetID-$versionID
 
-
    # $* is the list of RDF files that should be aggregated into publish/
 
    #    CSV2RDF4LOD_PUBLISH_TTL                                  
@@ -159,6 +158,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "publish/$sdv.void.ttl"
    rr-create-void.sh publish/$sdv.*                   > publish/$sdv.void.ttl
 
+   echo $link_latest
    if [ "$link_latest" == "yes" ]; then
       # from:
       # source/tw-rpi-edu/cr-publish-void-to-endpoint/version/2012-Sep-26
@@ -170,6 +170,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       if [ -e `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest ]; then
          rm -rf `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest
       fi
+      echo YO YO `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest
       ln -s `cr-conversion-root.sh`/$sourceID/$datasetID/version/$versionID `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest
       # hard link to rename the dump file.
       if [[ "$CSV2RDF4LOD_PUBLISH_NT" == "true" || "$ntriples" == "true" ]]; then
