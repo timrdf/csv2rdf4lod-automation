@@ -21,7 +21,10 @@
 #
 # Usage:
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+HOME=$(cd ${0%/*} && echo ${PWD%/*})
+export PATH=$PATH`$HOME/bin/util/cr-situate-paths.sh`
+export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?$HOME}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:data-root cr:source"
@@ -32,7 +35,11 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
-namedGraph="http://purl.org/twc/vocab/conversion/ConversionProcess"
+sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
+datasetID=`basename $0 | sed -e 's/-publish/aggregated/' -e 's/-to-endpoint//' -e 's/.sh$//'` # e.g. cr-publish-void-to-endpoint.sh -> cr-void
+versionID=`date +%Y-%b-%d`
+
+graphName=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n] [--clear-graph] <named_graph_URI | cr:auto | .>"
@@ -82,35 +89,49 @@ if [ "$1" != "cr:auto" ]; then
    shift 
 fi
 
+cockpit="$sourceID/$datasetID/version/$versionID"
+if [ ! -d $cockpit/source ]; then
+   mkdir -p $cockpit/source
+   mkdir -p $cockpit/automatic
+fi
+rm -rf $cockpit/source/*
+
+if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh 'cr:source'` == "yes" ]; then
+   pushd ../ &> /dev/null
+fi
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 echo "Finding all csv2rdf4lod-params in `pwd`. Will populate into $namedGraph" >&2
-if [ `is-pwd-a.sh cr:data-root` == "yes" ]; then
-   params=`find */*/version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
-elif [ `is-pwd-a.sh cr:source` == "yes" ]; then
-   params=`find   */version/* -name "*params.ttl" | xargs du -s | sort -nr | awk '$2!="total"{print $2}'`
-fi
 
-for param in $params; do
-   count=`wc $param | awk '{print $1}'`
-   echo "$count . $param" >&2
-   cat $param >> $TEMP
-   echo ""    >> $TEMP
-   echo ""    >> $TEMP
-   #if [ "$dryRun" != "true" ]; then
-   #   rapper -i turtle -o ntriples $param >> $TEMP
-   #fi
+for param in `find . -mindepth 6 -maxdepth 6 -name *.params.ttl -not -name *.global.*`; do
+   echo $param
 done
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-echo ""
-echo "Loading params into $namedGraph"                                    >&2
-echo "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $namedGraph" >&2
-if [ "$dryRun" != "true" -a $namedGraph != "." ]; then
-   ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vload nt $TEMP $namedGraph
-fi
-
-if [ -e $TEMP ]; then
-   if [ $namedGraph == "." ]; then
-      echo "dumping to stdout" >&2      
-      cat $TEMP
+pushd $cockpit &> /dev/null
+   echo
+   echo aggregate-source-rdf.sh --link-as-latest source/* 
+   if [ "$dryRun" != "true" ]; then
+      aggregate-source-rdf.sh --link-as-latest source/*
+      # WARNING: ^^ publishes even with -n b/c it checks for CSV2RDF4LOD_PUBLISH_VIRTUOSO
    fi
-   rm $TEMP 
+popd &> /dev/null
+
+if [ "$clearGraph" == "true" ]; then
+   echo
+   echo "Deleting $graphName" >&2
+   if [ "$dryRun" != "true" ]; then
+      publish/bin/virtuoso-delete-$sourceID-$datasetID-$versionID.sh
+   fi
 fi
+
+if [ "$dryRun" != "true" ]; then
+   pushd $cockpit &> /dev/null
+      publish/bin/virtuoso-load-$sourceID-$datasetID-$versionID.sh
+   popd &> /dev/null
+fi
+
+# if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]; then
+# fi
+
+dryrun.sh $dryrun ending
