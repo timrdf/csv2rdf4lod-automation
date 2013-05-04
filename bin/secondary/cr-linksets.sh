@@ -215,13 +215,13 @@ if [[ `is-pwd-a.sh                                                            cr
  
          baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
          url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$base.nt.gz"
-         echo "source/$sourceID.nt.gz <- $url"
+         echo "source/$base.nt.gz <- $url"
          curl -s $url > source/$sourceID.nt.gz
          if [[ -n "$baseURI" && "$dryrun" != "true" ]]; then
             echo automatic/vocabulary.ttl
             if [[ "$dryrun" != "true" ]]; then
                echo "@prefix void: <http://rdfs.org/ns/void#> ."                > automatic/vocabulary.ttl
-               for term in `p-and-c.sh source/$sourceID.nt.gz | sort -u`; do
+               for term in `p-and-c.sh source/$base.nt.gz | sort -u`; do
                   if [[ "$term" =~ http* ]]; then
                      if [[ ${term%#*} != $term ]]; then
                         echo " void:vocabulary <${term%#*}#>"

@@ -114,11 +114,10 @@ fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Pull out the RDF URI nodes from the full dump.
-echo $cockpit/automatic/$base-uri-node-occurrences.txt
-if [ "$dryrun" != "true" ]; then
-   # TODO: avoid putting this to disk if over a certain size.
-   uri-nodes.sh $cockpit/publish/$dumpFileLocal                                       > $cockpit/automatic/$base-uri-node-occurrences.txt
-fi
+#echo $cockpit/automatic/$base-uri-node-occurrences.txt
+#if [ "$dryrun" != "true" ]; then
+#   uri-nodes.sh $cockpit/publish/$dumpFileLocal                                       > $cockpit/automatic/$base-uri-node-occurrences.txt
+#fi
 
 # no space left on device...
 # echo $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
@@ -126,7 +125,7 @@ fi
 
 echo $cockpit/automatic/$base-uri-nodes.txt
 if [ "$dryrun" != "true" ]; then
-   cat          $cockpit/automatic/$base-uri-node-occurrences.txt | sort -u           > $cockpit/automatic/$base-uri-nodes.txt
+   uri-nodes.sh $cockpit/publish/$dumpFileLocal | sort -u                                                                          > $cockpit/automatic/$base-uri-nodes.txt
 fi
 
 pushd $cockpit &> /dev/null
