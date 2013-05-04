@@ -188,12 +188,16 @@ if [[ `is-pwd-a.sh                                                            cr
          if [[ -n "$baseURI" ]]; then
             echo "@prefix void: <http://rdfs.org/ns/void#> ."             > automatic/vocabulary.ttl
             for term in `p-and-c.sh source/$sourceID.nt.gz | sort -u`; do
-               if [[ ${term%#*} != $term ]]; then
-                  echo "<$baseURI/void> void:vocabulary <${term%#*}> ."  >> automatic/vocabulary.ttl
-               elif [[ ${term%/*} != $term ]]; then
-                  echo "<$baseURI/void> void:vocabulary <${term%/*}/> ." >> automatic/vocabulary.ttl
+               if [[ "$term" =~ http* ]]; then
+                  if [[ ${term%#*} != $term ]]; then
+                     echo "<$baseURI/void> void:vocabulary <${term%#*}> ."  >> automatic/vocabulary.ttl
+                  elif [[ ${term%/*} != $term ]]; then
+                     echo "<$baseURI/void> void:vocabulary <${term%/*}/> ." >> automatic/vocabulary.ttl
+                  else
+                     echo "WARNING: `basename $0`: could not determine namespace for $term"
+                  fi
                else
-                  echo "WARNING: `basename $0`: could not determine namespace for $term"
+                  echo "WARNING: `basename $0`: skipping non-HTTP term $term"
                fi
             done
          else
