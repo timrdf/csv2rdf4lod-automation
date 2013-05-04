@@ -48,14 +48,14 @@ if [ "$1" == "--target" ]; then
    exit 0
 fi
 
-dryrun="false"
-if [ "$1" == "-n" ]; then
-   dryrun="true"
-   dryrun.sh $dryrun beginning
-   shift
-fi
-
 if [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
+
+   dryrun="false"
+   if [ "$1" == "-n" ]; then
+      dryrun="true"
+      dryrun.sh $dryrun beginning
+      shift
+   fi
 
    CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
    baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
