@@ -12,6 +12,7 @@
 #
 # To handle more files than 'ls' can provide:
 #   find . -name "[^.]*" | xargs      rdf2nt.sh > ../all.nt
+      echo "hi with $*" >&2
 
 HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
 export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
@@ -40,7 +41,6 @@ if [[ $# -eq 0 || "$1" == "--help" ]]; then
    echo "  -I <base-uri>       | Use <base-uri> for any relative URIs."
    exit
 fi
-      echo "hi with $*" >&2
 
 version='2'
 flag_version="--version 2"
