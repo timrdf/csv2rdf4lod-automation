@@ -189,6 +189,7 @@ if [ "$dryrun" != "true" ]; then
    echo "   foaf:page <$baseURI/source/$sourceID/file/cr-sitemap/version/latest/conversion/sitemap.xml>;"                         >> $cockpit/publish/$sdv.void.ttl
    echo "   tag:taggedWithTag <http://datahub.io/tag/lod>, <http://datahub.io/tag/prizms>, <http://datahub.io/tag/deref-vocab>;"  >> $cockpit/publish/$sdv.void.ttl
    echo "   void:uriSpace \"$baseURI/\";"                                                                                         >> $cockpit/publish/$sdv.void.ttl
+   echo "   prov:wasDerivedFrom <$baseURI/source/$sourceID/file/cr-aggregated-params/version/latest/conversion/$sourceID-cr-aggregated-params-latest.ttl.gz>;" >> $cockpit/publish/$sdv.void.ttl
    echo "."                                                                                                                       >> $cockpit/publish/$sdv.void.ttl
    echo "<$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal>"                                >> $cockpit/publish/$sdv.void.ttl
    echo "   dcterms:format   <http://www.w3.org/ns/formats/N-Triples>;"                                                           >> $cockpit/publish/$sdv.void.ttl

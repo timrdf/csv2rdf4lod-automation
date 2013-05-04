@@ -172,7 +172,11 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       if [ -e `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest ]; then
          rm -rf `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest
       fi
+      if [ -e $CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/latest ]; then
+         rm -rf $CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/latest
+      fi
       ln -s `cr-conversion-root.sh`/$sourceID/$datasetID/version/$versionID `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest
+      ln -s $CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID $CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/latest
       # hard link to rename the dump file.
       if [[ "$CSV2RDF4LOD_PUBLISH_NT" == "true" || "$ntriples" == "true" ]]; then
          echo `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.nt$gz
