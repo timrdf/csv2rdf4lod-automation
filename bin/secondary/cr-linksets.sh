@@ -46,8 +46,7 @@ if [[ `is-pwd-a.sh                                                            cr
    version="$1"
    version_reason=""
    url="$2"
-   #url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$sourceID-cr-full-dump-latest.ttl.gz" # became e.g.: ieeevis-tw-rpi-edu.nt.gz
-   url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$sourceID.nt.gz"
+   url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$sourceID-cr-full-dump-latest.ttl.gz"
    if [[ "$1" == "cr:auto" && ${#url} -gt 0 ]]; then
       version=`urldate.sh $url`
       #echo "Attempting to use URL modification date to name version: $version"
@@ -123,8 +122,7 @@ if [[ `is-pwd-a.sh                                                            cr
             mkdir automatic
          fi
 
-         #tarball=$sourceID-cr-full-dump-latest.ttl.gz # became e.g.: ieeevis-tw-rpi-edu.nt.gz
-         tarball=$sourceID.nt.gz
+         tarball=$sourceID-cr-full-dump-latest.ttl.gz
          ours=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID}
          echo "Extracting list of RDF URI nodes from our bubble: $ours"
          gunzip -c source/$tarball | awk '{print $1}' | grep "^<" | sed 's/^<//;s/>$//' | sort -u > automatic/$ours.txt
@@ -132,7 +130,7 @@ if [[ `is-pwd-a.sh                                                            cr
 
          tally=0
          total=`ckan-datasets-in-group.py | wc -l | awk '{print $1}'`
-         for bubble in `ckan-datasets-in-group.py`; do
+         for bubble in `ckan-datasets-in-group.py > /dev/null`; do
             let "tally=$tally+1"
             if [ ! -e automatic/$bubble ]; then
                mkdir automatic/$bubble
@@ -151,7 +149,7 @@ if [[ `is-pwd-a.sh                                                            cr
          done
 
          DATAHUB='http://datahub.io'
-         for linkset in `find automatic -name "linkset.txt" -size +1c`; do
+         for linkset in `find automatic -name "linkset.txtAVOID" -size +1c`; do
             # e.g.: automatic/data-gov/linkset.txt
             bubble=`echo $linkset | awk -F/ '{print $2}'`
             wc -l $linkset
@@ -185,9 +183,11 @@ if [[ `is-pwd-a.sh                                                            cr
          done
 
          baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
+         url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$sourceID.nt.gz"
+         curl $url > source/$sourceID.nt.gz
          if [[ -n "$baseURI" ]]; then
             echo "@prefix void: <http://rdfs.org/ns/void#> ."             > automatic/vocabulary.ttl
-            for term in `p-and-c.sh source/$tarball | sort -u`; do
+            for term in `p-and-c.sh source/$sourceID.nt.gz | sort -u`; do
                if [[ ${term%#*} != $term ]]; then
                   echo "<$baseURI/void> void:vocabulary <${term%#*}> ."  >> automatic/vocabulary.ttl
                elif [[ ${term%/*} != $term ]]; then
