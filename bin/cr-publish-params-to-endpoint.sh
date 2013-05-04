@@ -41,7 +41,7 @@ versionID=`date +%Y-%b-%d`
 
 graphName=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID
 
-if [[ $# -lt 1 || "$1" == "--help" ]]; then
+if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n] [--clear-graph] <named_graph_URI | cr:auto | .>"
    echo ""
    echo "Find all csv2rdf4lod params ttl files and put them into a named graph on a virtuoso sparql endpoint."
@@ -53,25 +53,19 @@ if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "  named_graph_URI : use graph name given"
    echo "          cr:auto : use graph name $namedGraph"
    echo "                . : print to stdout (to not put in graph)"
-   exit 1
+   exit
 fi
 
 if [[ "$1" == "--target" ]]; then
    echo $namedGraph 
-   exit 0
+   exit
 fi
 
 dryRun="false"
 if [ "$1" == "-n" ]; then
    dryRun="true"
-   echo "" 
-   echo "       (NOTE: only performing dryrun; remove -n parameter to actually populate endpoint.)"
-   echo ""
-   shift 
-fi
-
-if [ $# -lt 1 ]; then
-   $0 --help
+   dryrun.sh $dryrun beginning
+   shift
 fi
 
 if [[ "$1" == "--clear-graph" ]]; then
@@ -84,10 +78,10 @@ if [[ "$1" == "--clear-graph" ]]; then
    shift
 fi
 
-if [ "$1" != "cr:auto" ]; then
-   namedGraph="$1"
-   shift 
-fi
+#if [ "$1" != "cr:auto" ]; then
+#   namedGraph="$1"
+#   shift 
+#fi
 
 cockpit="$sourceID/$datasetID/version/$versionID"
 if [ ! -d $cockpit/source ]; then
@@ -101,7 +95,7 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh 'cr:source'` == "yes" ]; then
 fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-echo "Finding all csv2rdf4lod-params in `pwd`. Will populate into $namedGraph" >&2
+echo "Finding all csv2rdf4lod-params in `pwd`." >&2
 
 for param in `find . -mindepth 6 -maxdepth 6 -name *.params.ttl -not -name *.global.*`; do
    echo $param
