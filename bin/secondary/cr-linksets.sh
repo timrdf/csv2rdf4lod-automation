@@ -126,7 +126,7 @@ if [[ `is-pwd-a.sh                                                            cr
    # This script is invoked from a cr:directory-of-versions, 
    # e.g. source/contactingthecongress/directory-for-the-112th-congress/version
    #
-   if [ ! -d $version ]; then
+   if [[ ! -d $version || 'debugging' == 'debugging' ]]; then
 
       # Create the directory for the new version.
       mkdir -p $version/source
