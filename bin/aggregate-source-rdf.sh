@@ -116,27 +116,29 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       echo "publish/$sdv.ttl$gz"
       rm -f publish/$sdv.ttl
       for file in $*; do
-         serialization=`guess-syntax.sh --inspect $file mime`
+         if [[ -e "$file" || "$file" =~ http* ]];
+            serialization=`guess-syntax.sh --inspect $file mime`
 
-         echo "  (including $file, format is $serialization)" 
-         #if [[ "$serialization" == "text/turtle" ]]; then
-         #   # Make some attempts to preserve the less-ugliness of the file.
-         #   # And, expand the relative paths correctly.
-         #   if [[ `too-big-for-rapper.sh $file` && `which serdi` ]]; then
-         #      serdi -i turtle -o turtle $file   >> publish/$sdv.ttl
-         #   elif [[ `which rapper` ]]; then
-         #      rapper -i turtle -o turtle $file  >> publish/$sdv.ttl
-         #   else
-         #      cat $file                         >> publish/$sdv.ttl
-         #      # ^^ Relative paths just broke...
-         #   fi
-         #el
-         if [[ -z "$serialization" ]]; then
-            echo "WARNING: omitting $file b/c could not recognize serialization type"
-         else
-            # The other formats aren't really human readable, so no worries if it's ugly ttl.
-            # N-Triples is Turtle...
-            rdf2nt.sh --version 2 $file          >> publish/$sdv.ttl
+            echo "  (including $file, format is $serialization)" 
+            #if [[ "$serialization" == "text/turtle" ]]; then
+            #   # Make some attempts to preserve the less-ugliness of the file.
+            #   # And, expand the relative paths correctly.
+            #   if [[ `too-big-for-rapper.sh $file` && `which serdi` ]]; then
+            #      serdi -i turtle -o turtle $file   >> publish/$sdv.ttl
+            #   elif [[ `which rapper` ]]; then
+            #      rapper -i turtle -o turtle $file  >> publish/$sdv.ttl
+            #   else
+            #      cat $file                         >> publish/$sdv.ttl
+            #      # ^^ Relative paths just broke...
+            #   fi
+            #el
+            if [[ -z "$serialization" ]]; then
+               echo "WARNING: omitting $file b/c could not recognize serialization type"
+            else
+               # The other formats aren't really human readable, so no worries if it's ugly ttl.
+               # N-Triples is Turtle...
+               rdf2nt.sh --version 2 $file          >> publish/$sdv.ttl
+            fi
          fi
       done
       if [[ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" || "$compress" == "true" ]]; then
