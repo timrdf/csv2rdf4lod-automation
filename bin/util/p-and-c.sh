@@ -33,6 +33,8 @@ while [ $# -gt 0 ]; do
    file="$1" 
 
    if [ ! -f $file ]; then
+      shift
+      echo "WARNING: `basename $0` skipping $file b/c it does not exist as a file." >&2
       continue
    fi
 
