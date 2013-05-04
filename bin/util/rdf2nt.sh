@@ -68,9 +68,9 @@ while [ $# -gt 0 ]; do
    file="$1" 
    shift
 
-   if [[ "$verbose" == "yes" ]]; then
+   #if [[ "$verbose" == "yes" ]]; then
       echo "$file" >&2
-   fi
+   #fi
 
    if [ ! -f $file ]; then
       if [[ "$file" =~ http.* ]]; then
