@@ -184,14 +184,17 @@ if [[ `is-pwd-a.sh                                                            cr
 
          baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
          url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$sourceID.nt.gz"
-         curl $url > source/$sourceID.nt.gz
+         echo "source/$sourceID.nt.gz <- $url"
+         curl -s $url > source/$sourceID.nt.gz
          if [[ -n "$baseURI" ]]; then
             echo "@prefix void: <http://rdfs.org/ns/void#> ."             > automatic/vocabulary.ttl
             for term in `p-and-c.sh source/$sourceID.nt.gz | sort -u`; do
                if [[ "$term" =~ http* ]]; then
                   if [[ ${term%#*} != $term ]]; then
+                     echo " void:vocabulary <${term%#*}#>"
                      echo "<$baseURI/void> void:vocabulary <${term%#*}#> ." >> automatic/vocabulary.ttl
                   elif [[ ${term%/*} != $term ]]; then
+                     echo " void:vocabulary <${term%/*}/>"
                      echo "<$baseURI/void> void:vocabulary <${term%/*}/> ." >> automatic/vocabulary.ttl
                   else
                      echo "WARNING: `basename $0`: could not determine namespace for $term"
