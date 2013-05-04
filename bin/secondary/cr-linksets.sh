@@ -130,7 +130,7 @@ if [[ `is-pwd-a.sh                                                            cr
 
          tally=0
          total=`ckan-datasets-in-group.py | wc -l | awk '{print $1}'`
-         for bubble in `ckan-datasets-in-group.py > /dev/null`; do
+         for bubble in `ckan-datasets-in-group.py`; do
             let "tally=$tally+1"
             if [ ! -e automatic/$bubble ]; then
                mkdir automatic/$bubble
@@ -149,7 +149,7 @@ if [[ `is-pwd-a.sh                                                            cr
          done
 
          DATAHUB='http://datahub.io'
-         for linkset in `find automatic -name "linkset.txtAVOID" -size +1c`; do
+         for linkset in `find automatic -name "linkset.txt" -size +1c`; do
             # e.g.: automatic/data-gov/linkset.txt
             bubble=`echo $linkset | awk -F/ '{print $2}'`
             wc -l $linkset
