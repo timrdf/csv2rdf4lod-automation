@@ -119,7 +119,7 @@ while [ $# -gt 0 ]; do
             "$directory" == 'automatic' || "$directory" == "publish" ]]; then
          lnwww $file $directory
       else  
-         echo "ignoring $file" &>
+         echo "ignoring $file" >&2
          let "errorTally=errorTally+1"
       fi
    else
