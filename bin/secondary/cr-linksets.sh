@@ -155,18 +155,22 @@ if [[ `is-pwd-a.sh                                                            cr
             if [ ! -e automatic/$bubble ]; then
                mkdir automatic/$bubble
             fi
-            uri_space=`ckan-urispace-of-dataset.py $bubble`
-            if [ -n "$uri_space" ]; then
-               echo "$tally/$total Searching $ours for URIs in $uri_space (for $bubble)"
-               echo "$uri_space" > automatic/$bubble/urispace.txt
-               if [[ "$dryrun" != "true" ]]; then
-                  grep "^$uri_space" automatic/$ours.txt > automatic/$bubble/linkset.txt
-                  for linkset in `find automatic/$bubble -name "linkset.txt" -size +1c`; do
-                     echo "$tally/$total $bubble `cat automatic/$bubble/linkset.txt | wc -l`"
-                  done
+            if [[ "$dryrun" != "true" ]]; then
+               uri_space=`ckan-urispace-of-dataset.py $bubble`
+               if [ -n "$uri_space" ]; then
+                  echo "$tally/$total Searching $ours for URIs in $uri_space (for $bubble)"
+                  echo "$uri_space" > automatic/$bubble/urispace.txt
+                  if [[ "$dryrun" != "true" ]]; then
+                     grep "^$uri_space" automatic/$ours.txt > automatic/$bubble/linkset.txt
+                     for linkset in `find automatic/$bubble -name "linkset.txt" -size +1c`; do
+                        echo "$tally/$total $bubble `cat automatic/$bubble/linkset.txt | wc -l`"
+                     done
+                  fi
+               else
+                  echo "WARNING: no URI space found for $bubble"
                fi
             else
-               echo "WARNING: no URI space found for $bubble"
+               echo "$tally/$total [dryrun] Searching $ours for URIs in bubble $bubble"
             fi
          done
 
