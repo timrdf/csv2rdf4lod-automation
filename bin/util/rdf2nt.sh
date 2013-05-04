@@ -12,7 +12,6 @@
 #
 # To handle more files than 'ls' can provide:
 #   find . -name "[^.]*" | xargs      rdf2nt.sh > ../all.nt
-      echo "hi with $*" >&2
 
 HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
 export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
@@ -69,12 +68,11 @@ while [ $# -gt 0 ]; do
    file="$1" 
    shift
 
-   #if [[ "$verbose" == "yes" ]]; then
-      echo "$file" >&2
-   #fi
-
    if [ ! -f $file ]; then
       if [[ "$file" =~ http.* ]]; then
+         if [[ "$verbose" == 'yes' ]]; then
+            echo "`basename $0` retrieving $file from web." >&2
+         fi
          rapper -q -g -o ntriples $file -I $file > $TEMP         
          $0 $flag_version $flag_verbose $TEMP
          rm $TEMP
@@ -113,10 +111,16 @@ while [ $# -gt 0 ]; do
 
       # $I can be set with command line arguments above.
       if [[ -z "$I" && -e $file.sd_name ]]; then
-          I="`cat $file.sd_name`"
+         if [[ "$verbose" == 'yes' ]]; then
+            echo "`basename $0` using -I basename from .sd_name" >&2
+         fi
+         I="`cat $file.sd_name`"
       elif [[ -z "$I" && `which cr-pwd-type.sh` && `cr-pwd-type.sh` == 'cr:conversion-cockpit' && `which cr-ln-to-www-root.sh` ]]; then
          # Find out where the file will be on the web.
-          I="`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n $file\``"
+         if [[ "$verbose" == 'yes' ]]; then
+            echo "`basename $0` using -I basename from conversion cockpit conventions." >&2
+         fi
+         I="`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n $file\``"
       fi
       if [[ -n "$I" ]]; then
          II="-I $I"
