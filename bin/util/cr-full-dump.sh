@@ -125,18 +125,23 @@ fi
 # echo $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
 # cat          $cockpit/automatic/$base-uri-node-occurrences.txt | sort    > $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
 
-rm -f $TEMP
-for datadump in `find $cockpit/source -name "*.*"`; do
+for datadump in `find $cockpit/source -type f`; do
    if [ "$dryrun" != "true" ]; then
       # Do it piecemeal to avoid strain on sort's memory.
       echo "$cockpit/automatic/$base-uri-nodes.txt <-- $datadump"
-      uri-nodes.sh $datadump | sort -u >> $TEMP
+      small=`find \`dirname $datadump\` -size -20M -name \`basename $datadump\``
+      if [[ -n "$small" ]]; then
+         uri-nodes.sh $datadump                                                                                                      >> $cockpit/automatic/$base-uri-nodes.txt
+      else
+         uri-nodes.sh $datadump | sort -u                                                                                            >> $cockpit/automatic/$base-uri-nodes.txt
+      fi
    fi
 done
-if [ "$dryrun" != "true" ]; then
-   cat $TEMP | sort -u                                                                                                             > $cockpit/automatic/$base-uri-nodes.txt
-   rm -f $TEMP
-fi
+#Too big:
+#if [ "$dryrun" != "true" ]; then
+#   cat $TEMP | sort -u                                                                                                             > $cockpit/automatic/$base-uri-nodes.txt
+#   rm -f $TEMP
+#fi
 
 pushd $cockpit &> /dev/null
    versionedDataset=`cr-dataset-uri.sh --uri`

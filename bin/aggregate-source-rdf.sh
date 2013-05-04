@@ -105,10 +105,10 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    if [[ "$CSV2RDF4LOD_PUBLISH_NT" == "true" || "$ntriples" == "true" ]]; then
       if [[ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" || "$compress" == "true" ]]; then
          echo "publish/$sdv.nt.gz"
-         rdf2nt.sh --version 2 $* | gzip           > publish/$sdv.nt.gz
+         rdf2nt.sh $* | gzip           > publish/$sdv.nt.gz
       else
          echo "publish/$sdv.nt"
-         rdf2nt.sh --version 2 $*                  > publish/$sdv.nt
+         rdf2nt.sh $*                  > publish/$sdv.nt
       fi
    else
       echo "publish/$sdv.nt[.gz] - skipping; set CSV2RDF4LOD_PUBLISH_NT=true to publish as N-TRIPLES." 
@@ -139,7 +139,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
             else
                # The other formats aren't really human readable, so no worries if it's ugly ttl.
                # N-Triples is Turtle...
-               rdf2nt.sh --version 2 $file          >> publish/$sdv.ttl
+               rdf2nt.sh $file         >> publish/$sdv.ttl
             fi
          fi
       done
