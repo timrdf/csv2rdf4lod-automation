@@ -116,6 +116,7 @@ fi
 # Pull out the RDF URI nodes from the full dump.
 echo $cockpit/automatic/$base-uri-node-occurrences.txt
 if [ "$dryrun" != "true" ]; then
+   # TODO: avoid putting this to disk if over a certain size.
    uri-nodes.sh $cockpit/publish/$dumpFileLocal                                       > $cockpit/automatic/$base-uri-node-occurrences.txt
 fi
 
@@ -228,8 +229,9 @@ if [ "$dryrun" != "true" ]; then
    fi
    triples=`rdf2nt.sh $cockpit/publish/$dumpFileLocal | rapper -i ntriples -c -I http://blah - 2>&1 | awk '$0~/Parsing returned/{print $4}'`
    if [[ ${#triples} -gt 0 && $triples == [0-9]* ]]; then # - - - - - - - - - - Avoid publish/*.void.ttl pattern so that cr-publish-void-to-endpoint.sh doesn't find it.
-      echo "@prefix void: <http://rdfs.org/ns/void#> ."                                                                              >> $cockpit/publish/$sdv.ephemeral.ttl
-      echo "@prefix dat:  <http://www.w3.org/ns/dcat#> ."                                                                            >> $cockpit/publish/$sdv.ephemeral.ttl
+      echo "@prefix dcterms: <http://purl.org/dc/terms/> ."                                                                          >> $cockpit/publish/$sdv.ephemeral.ttl
+      echo "@prefix void:    <http://rdfs.org/ns/void#> ."                                                                           >> $cockpit/publish/$sdv.ephemeral.ttl
+      echo "@prefix dat:     <http://www.w3.org/ns/dcat#> ."                                                                         >> $cockpit/publish/$sdv.ephemeral.ttl
       echo "<$topVoID> void:triples $triples ."                                                                                      >> $cockpit/publish/$sdv.ephemeral.ttl
       echo "<$topVoID> dcterms:date `dateInXSDDateTime.sh --turtle` ."                                                               >> $cockpit/publish/$sdv.ephemeral.ttl
       echo $topVoID                                                                                                                   > $cockpit/publish/$sdv.ephemeral.ttl.sd_name
