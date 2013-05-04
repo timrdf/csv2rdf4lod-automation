@@ -28,7 +28,8 @@ while [ $# -gt 0 ];do
    if [ ! -f $file ]; then
       continue
    fi
-   gunzip --test $file &> /dev/null
+   #gunzip --test $file &> /dev/null # Slow
+   gunzip --list $file &> /dev/null # Faster
    if [ $? -eq 0 ]; then
       gzipped="yes"
    else
