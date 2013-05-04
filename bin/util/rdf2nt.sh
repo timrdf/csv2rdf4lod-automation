@@ -169,7 +169,7 @@ while [ $# -gt 0 ]; do
             echo "ERROR(5): `basename $0` requires serdi. $PATH See $see"
          fi
       else
-         echo "`basename $0` TODO: $serialization $origFile $file `pwd`" >&2
+         echo "WARNING: `basename $0` could not determine serialization for `pwd` $origFile" >&2
       fi
 
       if [ -e "$TEMP" ]; then
