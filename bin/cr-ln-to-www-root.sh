@@ -91,12 +91,12 @@ function lnwww {
          $sudo mkdir -p `dirname "$wwwfile"`
       fi
 
-      echo $sudo ln $symbolic "${pwd}$1" "$wwwfile"
+      echo $sudo ln $symbolic "${pwd}$1" "$wwwfile" >&2
       if [[ "$dryrun" != "yes" ]]; then
            $sudo ln $symbolic "${pwd}$1" "$wwwfile"
       fi
    else
-      echo "  -- $1 omitted --"
+      echo "  -- $1 omitted --" >&2
       let "errorTally=errorTally+1"
    fi
 }
@@ -119,7 +119,7 @@ while [ $# -gt 0 ]; do
             "$directory" == 'automatic' || "$directory" == "publish" ]]; then
          lnwww $file $directory
       else  
-         echo "ignoring $file"
+         echo "ignoring $file" &>
          let "errorTally=errorTally+1"
       fi
    else
