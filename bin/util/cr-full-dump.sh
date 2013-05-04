@@ -97,7 +97,7 @@ if [[ -n "`getconf ARG_MAX`" && \
    # Saves disk space, but shell can't handle infinite arguments.
    echo "(batch)"
    if [ "$dryrun" != "true" ]; then
-      rdf2nt.sh `find $cockpit/source -name "*.*"` 2> $cockpit/doc/logs/rdf2nt-errors.log | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/doc/logs/gzip-errors.log
+      rdf2nt.sh --verbose `find $cockpit/source -name "*.*"` 2> $cockpit/doc/logs/rdf2nt-errors.log | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/doc/logs/gzip-errors.log
    fi
 else
    echo "(incremental)"

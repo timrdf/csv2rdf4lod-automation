@@ -68,6 +68,10 @@ while [ $# -gt 0 ]; do
    file="$1" 
    shift
 
+   if [[ "$verbose" == "yes" ]]; then
+      echo "$file" >&2
+   fi
+
    if [ ! -f $file ]; then
       if [[ "$file" =~ http.* ]]; then
          rapper -q -g -o ntriples $file -I $file > $TEMP         
