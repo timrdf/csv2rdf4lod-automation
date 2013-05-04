@@ -116,7 +116,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       echo "publish/$sdv.ttl$gz"
       rm -f publish/$sdv.ttl
       for file in $*; do
-         if [[ -e "$file" || "$file" =~ http* ]];
+         if [[ -e "$file" || "$file" =~ http* ]]; then
             serialization=`guess-syntax.sh --inspect $file mime`
 
             echo "  (including $file, format is $serialization)" 
