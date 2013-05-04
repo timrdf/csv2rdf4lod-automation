@@ -129,8 +129,9 @@ for datadump in `find $cockpit/source -type f`; do
    if [ "$dryrun" != "true" ]; then
       # Do it piecemeal to avoid strain on sort's memory.
       echo "$cockpit/automatic/$base-uri-nodes.txt <-- $datadump"
-      small=`find \`dirname $datadump\` -size -20M -name \`basename $datadump\``
+      small=`find \`dirname $datadump\` -name \`basename $datadump\` -size -20M`
       if [[ -n "$small" ]]; then
+         echo "(avoiding sort -u)"
          uri-nodes.sh $datadump                                                                                                      >> $cockpit/automatic/$base-uri-nodes.txt
       else
          uri-nodes.sh $datadump | sort -u                                                                                            >> $cockpit/automatic/$base-uri-nodes.txt
