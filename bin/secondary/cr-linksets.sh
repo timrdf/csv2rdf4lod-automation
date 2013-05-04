@@ -209,7 +209,7 @@ if [[ `is-pwd-a.sh                                                            cr
          done
 
          baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
-         url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$sourceID.nt.gz"
+         url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$base.nt.gz"
          echo "source/$sourceID.nt.gz <- $url"
          curl -s $url > source/$sourceID.nt.gz
          if [[ -n "$baseURI" && "$dryrun" != "true" ]]; then
