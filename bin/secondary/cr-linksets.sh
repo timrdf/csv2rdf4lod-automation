@@ -63,7 +63,7 @@ if [[ `is-pwd-a.sh                                                            cr
 
    #-#-#-#-#-#-#-#-#
    sourceID=`cr-source-id.sh` # Should be same as $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
-   version="$1"
+   version="$versionID"
    version_reason=""
    url="$2"
    url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$sourceID-cr-full-dump-latest.ttl.gz"
