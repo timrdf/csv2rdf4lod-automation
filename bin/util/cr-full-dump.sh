@@ -168,6 +168,7 @@ if [ "$dryrun" != "true" ]; then
    #echo "$cockpit/publish/$base.void.ttl"
    echo "$cockpit/publish/$sdv.void.ttl +"
    #                                                                                                                              >> $cockpit/publish/$base.void.ttl
+   mappings="$baseURI/source/$sourceID/file/cr-aggregated-params/version/latest/conversion/$sourceID-cr-aggregated-params-latest.ttl.gz"
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/publish/$sdv.void.ttl
    echo "@prefix foaf:     <http://xmlns.com/foaf/0.1/> ."                                                                        >> $cockpit/publish/$sdv.void.ttl
    echo "@prefix owl:      <http://www.w3.org/2002/07/owl#> ."                                                                    >> $cockpit/publish/$sdv.void.ttl
@@ -187,10 +188,15 @@ if [ "$dryrun" != "true" ]; then
       echo "   dcat:distribution   <$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT>;"                                              >> $cockpit/publish/$sdv.void.ttl
    fi
    echo "   foaf:page <$baseURI/source/$sourceID/file/cr-sitemap/version/latest/conversion/sitemap.xml>;"                         >> $cockpit/publish/$sdv.void.ttl
-   echo "   tag:taggedWithTag <http://datahub.io/tag/lod>, <http://datahub.io/tag/prizms>, <http://datahub.io/tag/deref-vocab>;"  >> $cockpit/publish/$sdv.void.ttl
+   echo "   tag:taggedWithTag <http://datahub.io/tag/lod>, <http://datahub.io/tag/prizms>,"                                       >> $cockpit/publish/$sdv.void.ttl
+   echo "                     <http://datahub.io/tag/vocab-mappings>, <http://datahub.io/tag/deref-vocab>;"                       >> $cockpit/publish/$sdv.void.ttl
+   echo "                     <http://datahub.io/tag/provenance-metadata>;"                                                       >> $cockpit/publish/$sdv.void.ttl
    echo "   void:uriSpace \"$baseURI/\";"                                                                                         >> $cockpit/publish/$sdv.void.ttl
-   echo "   prov:wasDerivedFrom <$baseURI/source/$sourceID/file/cr-aggregated-params/version/latest/conversion/$sourceID-cr-aggregated-params-latest.ttl.gz>;" >> $cockpit/publish/$sdv.void.ttl
+   echo "   prov:wasDerivedFrom <$mappings>;"                                                                                     >> $cockpit/publish/$sdv.void.ttl
    echo "."                                                                                                                       >> $cockpit/publish/$sdv.void.ttl
+   echo "<$mappings>"                                                                                                             >> $cockpit/publish/$sdv.void.ttl
+   echo "   dcterms:description \"mappings/twc-conversion\";"                                                                     >> $cockpit/publish/$sdv.void.ttl
+   echo "   a conversion:VocabularyMappings ."                                                                                    >> $cockpit/publish/$sdv.void.ttl
    echo "<$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal>"                                >> $cockpit/publish/$sdv.void.ttl
    echo "   dcterms:format   <http://www.w3.org/ns/formats/N-Triples>;"                                                           >> $cockpit/publish/$sdv.void.ttl
    echo "   dcat:downloadURL <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal>;"           >> $cockpit/publish/$sdv.void.ttl
@@ -222,6 +228,7 @@ if [ "$dryrun" != "true" ]; then
       echo "@prefix void: <http://rdfs.org/ns/void#> ."                                                                              >> $cockpit/publish/$sdv.ephemeral.ttl
       echo "@prefix dat:  <http://www.w3.org/ns/dcat#> ."                                                                            >> $cockpit/publish/$sdv.ephemeral.ttl
       echo "<$topVoID> void:triples $triples ."                                                                                      >> $cockpit/publish/$sdv.ephemeral.ttl
+      echo "<$topVoID> dcterms:date `dateInXSDDateTime.sh --turtle` ."                                                               >> $cockpit/publish/$sdv.ephemeral.ttl
       echo $topVoID                                                                                                                   > $cockpit/publish/$sdv.ephemeral.ttl.sd_name
       pvdelete.sh $topVoID
       vload ttl $cockpit/publish/$sdv.ephemeral.ttl $topVoID -v
