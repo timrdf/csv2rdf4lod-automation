@@ -125,9 +125,17 @@ fi
 # echo $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
 # cat          $cockpit/automatic/$base-uri-node-occurrences.txt | sort    > $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
 
-echo $cockpit/automatic/$base-uri-nodes.txt
+rm -f $TEMP
+for datadump in `find $cockpit/source`; do
+   if [ "$dryrun" != "true" ]; then
+      # Do it piecemeal to avoid strain on sort's memory.
+      echo "$cockpit/automatic/$base-uri-nodes.txt <-- $datadump"
+      uri-nodes.sh $datadump | sort -u >> $TEMP
+   fi
+done
 if [ "$dryrun" != "true" ]; then
-   uri-nodes.sh $cockpit/publish/$dumpFileLocal | sort -u                                                                          > $cockpit/automatic/$base-uri-nodes.txt
+   cat $TEMP | sort -u                                                                                                             > $cockpit/automatic/$base-uri-nodes.txt
+   rm -f $TEMP
 fi
 
 pushd $cockpit &> /dev/null

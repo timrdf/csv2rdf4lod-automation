@@ -367,7 +367,7 @@ echo $graph > $pSDV.sd_name
 #
 # sameas subset
 #
-if [ ${CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS:-"."} == "true" ]; then
+if [ "$CSV2RDF4LOD_PUBLISH_SUBSET_SAMEAS" == "true" ]; then
    numSameAs=`grep owl:sameAs $allTTL | wc -l | awk '{print $1}'`
    if [ $numSameAs -gt 0 ]; then
       echo "$allSAMEAS ($numSameAs triples)" | tee -a $CSV2RDF4LOD_LOG
