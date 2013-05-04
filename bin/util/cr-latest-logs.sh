@@ -27,6 +27,13 @@ elif [[ `is-pwd-a.sh cr:directory-of-versions` == "yes" ]]; then
          echo $next/`$0 $*`
       popd > /dev/null
    done
+elif [[ `is-pwd-a.sh cr:dataset` == "yes" ]]; then
+   if [ -d version ]; then
+      pushd version > /dev/null
+         # Recursive call to base case 'cr:conversion-cockpit'
+         $0 $*
+      popd > /dev/null
+   fi
 elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets` == "yes" ]]; then
    for next in `directories.sh`; do
       pushd $next > /dev/null
@@ -37,11 +44,6 @@ elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets` == "yes" ]
 elif [[ `is-pwd-a.sh              cr:source                                                             ` == "yes" ]]; then
    # TODO
    pushd dataset > /dev/null
-      # Recursive call to base case 'cr:conversion-cockpit'
-      $0 $*
-   popd > /dev/null
-elif [[ `is-pwd-a.sh                                                 cr:dataset                         ` == "yes" ]]; then
-   pushd version > /dev/null
       # Recursive call to base case 'cr:conversion-cockpit'
       $0 $*
    popd > /dev/null
