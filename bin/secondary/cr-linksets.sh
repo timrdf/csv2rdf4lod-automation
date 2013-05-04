@@ -31,7 +31,6 @@ datasetID=`basename $0 | sed 's/.sh$//'`
 versionID=`date +%Y-%b-%d`
 
 cockpit="$sourceID/$datasetID/version/$versionID"
-base=`echo $CSV2RDF4LOD_BASE_URI | perl -pi -e 's|http://||;s/\./-/g;s|/|-|g'` # e.g. lofd-tw-rpi-edu
 
 if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n ]"
@@ -59,13 +58,19 @@ if [[ `is-pwd-a.sh                                                            cr
 
    CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
    baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
+   base=`echo $baseURI | perl -pi -e 's|http://||;s/\./-/g;s|/|-|g'` # e.g. lofd-tw-rpi-edu
    CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
    #-#-#-#-#-#-#-#-#
    sourceID=`cr-source-id.sh` # Should be same as $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
    version="$versionID"
    version_reason=""
-   url="$2"
+
+   # While $sourceID-cr-full-dump-latest.ttl.gz contains the "one triple per resource",
+   #                                $base.nt.gz contains all triples.
+   #
+   # We use the first to find connections to other bubbles and the second to determine vocabulary use.
+
    url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$sourceID-cr-full-dump-latest.ttl.gz"
    if [[ "$1" == "cr:auto" && ${#url} -gt 0 ]]; then
       version=`urldate.sh $url`
