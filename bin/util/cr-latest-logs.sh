@@ -6,7 +6,7 @@ see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-ACCEPTABLE_PWDs="cr:dataset cr:directory-of-versions cr:conversion-cockpit"
+ACCEPTABLE_PWDs="cr:dataset cr:source cr:directory-of-versions cr:conversion-cockpit"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
@@ -32,6 +32,13 @@ elif [[ `is-pwd-a.sh cr:dataset` == "yes" ]]; then
       pushd version > /dev/null
          # Recursive call to base case 'cr:conversion-cockpit'
          echo version/`$0 $*`
+      popd > /dev/null
+   fi
+elif [[ `is-pwd-a.sh cr:source` == "yes" ]]; then
+   if [ -d cr-cron ]; then
+      pushd cr-cron > /dev/null
+         # Recursive call to base case 'cr:conversion-cockpit'
+         echo cr-cron/`$0 $*`
       popd > /dev/null
    fi
 elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets` == "yes" ]]; then
