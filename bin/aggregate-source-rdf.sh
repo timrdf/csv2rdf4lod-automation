@@ -141,9 +141,11 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
             fi
          fi
       done
-      if [[ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" || "$compress" == "true" ]]; then
-         cat publish/$sdv.ttl | gzip > publish/$sdv.ttl.gz
-         rm publish/$sdv.ttl
+      if [[ -e publish/$sdv.ttl ]]; then
+         if [[ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" || "$compress" == "true" ]]; then
+            cat publish/$sdv.ttl | gzip > publish/$sdv.ttl.gz
+            rm publish/$sdv.ttl
+         fi
       fi
    else
       echo "publish/$sdv.ttl[.gz] - skipping; set CSV2RDF4LOD_PUBLISH_TTL=true to publish as Turtle." 
