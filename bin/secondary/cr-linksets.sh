@@ -152,10 +152,10 @@ if [[ `is-pwd-a.sh                                                            cr
          total=`ckan-datasets-in-group.py | wc -l | awk '{print $1}'`
          for bubble in `ckan-datasets-in-group.py`; do
             let "tally=$tally+1"
-            if [ ! -e automatic/$bubble ]; then
-               mkdir automatic/$bubble
-            fi
             if [[ "$dryrun" != "true" ]]; then
+               if [ ! -e automatic/$bubble ]; then
+                  mkdir automatic/$bubble
+               fi
                uri_space=`ckan-urispace-of-dataset.py $bubble`
                if [ -n "$uri_space" ]; then
                   echo "$tally/$total Searching $ours for URIs in $uri_space (for $bubble)"
