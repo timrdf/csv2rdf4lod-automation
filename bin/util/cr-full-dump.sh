@@ -234,8 +234,8 @@ if [ "$dryrun" != "true" ]; then
       echo "   a datafaqs:CKANDataset;"                                                                                           >> $cockpit/publish/$sdv.void.ttl
       echo "   dcterms:identifier \"$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID\";"                                       >> $cockpit/publish/$sdv.void.ttl
       echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
-      
    fi
+
    triples=`rdf2nt.sh $cockpit/publish/$dumpFileLocal | rapper -i ntriples -c -I http://blah - 2>&1 | awk '$0~/Parsing returned/{print $4}'`
    if [[ ${#triples} -gt 0 && $triples == [0-9]* ]]; then # - - - - - - - - - - Avoid publish/*.void.ttl pattern so that cr-publish-void-to-endpoint.sh doesn't find it.
       echo "@prefix dcterms: <http://purl.org/dc/terms/> ."                                                                          >> $cockpit/publish/$sdv.ephemeral.ttl
