@@ -47,10 +47,13 @@ fi
 
 compress="no"
 gz=''
-if [[ "$1" == "--compress" || "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]]; then
+if [[ "$1" == "--compress" ]]; then
    compress="yes"
    gz=".gz"
    shift
+elif [[ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]]; then
+   compress="yes"
+   gz=".gz"
 fi
 
 turtle="no"
