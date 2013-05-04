@@ -106,7 +106,7 @@ for param in `find . -mindepth 6 -maxdepth 6 -name *.params.ttl -not -name *.glo
 
    echo "   --> $path.ttl"
    if [ "$dryRun" != "true" ]; then
-      ln $param $cockpit/source/$path.ttl
+      cat $param | grep -v "delimits_cell" > $cockpit/source/$path.ttl
    fi
 done
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
