@@ -91,7 +91,7 @@ function lnwww {
          $sudo mkdir -p `dirname "$wwwfile"`
       fi
 
-      #echo $sudo ln $symbolic "${pwd}$1" "$wwwfile" >&2
+      echo " $wwwfile"
       if [[ "$dryrun" != "yes" ]]; then
            $sudo ln $symbolic "${pwd}$1" "$wwwfile"
       fi
