@@ -176,18 +176,21 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       # hard link to rename the dump file.
       if [[ "$CSV2RDF4LOD_PUBLISH_NT" == "true" || "$ntriples" == "true" ]]; then
          echo `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.nt$gz
+         rm -f `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.nt$gz
          ln `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.nt$gz  `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.nt$gz
       else
          echo "$sourceID/$datasetID/version/latest/publish/$sd-latest.nt$gz - skipping."
       fi
       if [[ "$CSV2RDF4LOD_PUBLISH_TTL" == "true" || "$turtle" == "true" ]]; then
          echo `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl$gz
+         rm -f `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl$gz
          ln `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.ttl$gz `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl$gz
       else
          echo "$sourceID/$datasetID/version/latest/publish/$sd-latest.ttl$gz - skipping."
       fi
       if [[ "$CSV2RDF4LOD_PUBLISH_RDFXML" == "true" || "$rdfxml" == "true" ]]; then
          echo `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz
+         rm -f `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz
          ln `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sdv.rdf$gz `cr-conversion-root.sh`/$sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz
       else
          echo "$sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz - skipping."
