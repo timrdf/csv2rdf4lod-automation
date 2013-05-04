@@ -170,13 +170,14 @@ if [ "$dryrun" != "true" ]; then
    #                                                                                                                              >> $cockpit/publish/$base.void.ttl
    mappings="$baseURI/source/$sourceID/file/cr-aggregated-params/version/latest/conversion/$sourceID-cr-aggregated-params-latest.ttl.gz"
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix foaf:     <http://xmlns.com/foaf/0.1/> ."                                                                        >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix owl:      <http://www.w3.org/2002/07/owl#> ."                                                                    >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix dcterms:  <http://purl.org/dc/terms/> ."                                                                         >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix tag:      <http://www.holygoat.co.uk/owl/redwood/0.1/tags/> ."                                                   >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix void:     <http://rdfs.org/ns/void#> ."                                                                          >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix dcat:     <http://www.w3.org/ns/dcat#> ."                                                                        >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix datafaqs: <http://purl.org/twc/vocab/datafaqs#> ."                                                               >> $cockpit/publish/$sdv.void.ttl
+   echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                                                                      >> $cockpit/publish/$sdv.void.ttl
+   echo "@prefix owl:        <http://www.w3.org/2002/07/owl#> ."                                                                  >> $cockpit/publish/$sdv.void.ttl
+   echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                                                       >> $cockpit/publish/$sdv.void.ttl
+   echo "@prefix tag:        <http://www.holygoat.co.uk/owl/redwood/0.1/tags/> ."                                                 >> $cockpit/publish/$sdv.void.ttl
+   echo "@prefix void:       <http://rdfs.org/ns/void#> ."                                                                        >> $cockpit/publish/$sdv.void.ttl
+   echo "@prefix dcat:       <http://www.w3.org/ns/dcat#> ."                                                                      >> $cockpit/publish/$sdv.void.ttl
+   echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."                                                           >> $cockpit/publish/$sdv.void.ttl
+   echo "@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> ."                                                             >> $cockpit/publish/$sdv.void.ttl
    echo                                                                                                                           >> $cockpit/publish/$sdv.void.ttl
    echo "<$topVoID>"                                                                                                              >> $cockpit/publish/$sdv.void.ttl
    echo "   a void:Dataset, dcat:Dataset;"                                                                                        >> $cockpit/publish/$sdv.void.ttl
@@ -205,23 +206,25 @@ if [ "$dryrun" != "true" ]; then
    echo "   a <http://dbpedia.org/resource/Site_map>;"                                                                            >> $cockpit/publish/$sdv.void.ttl
    echo "   dcterms:subject <$topVoID>;"                                                                                          >> $cockpit/publish/$sdv.void.ttl
    echo "."                                                                                                                       >> $cockpit/publish/$sdv.void.ttl
+   # TODO: <$topVoID> void:exampleResource ?x from:
+   #
+   pushd $cockpit/automatic &> /dev/null
+      echo "prefix dcterms: <http://purl.org/dc/terms/>"                                                                                            > exampleResource.rq
+      echo "prefix void:    <http://rdfs.org/ns/void#>"                                                                                            >> exampleResource.rq
+      echo "select distinct ?ex ?date"                                                                                                             >> exampleResource.rq
+      echo "where { "                                                                                                                              >> exampleResource.rq
+      echo "  ?s void:exampleResource ?ex; dcterms:modified ?date ."                                                                               >> exampleResource.rq
+      echo "  filter(!regex(str(?ex),'thing_'))"                                                                                                   >> exampleResource.rq
+      echo " }"                                                                                                                                    >> exampleResource.rq
+      echo "order by ?date"                                                                                                                        >> exampleResource.rq
+      echo "limit 1"                                                                                                                               >> exampleResource.rq
+   popd &> /dev/null
    if [[ -n "$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID" ]]; then
       echo "<$topVoID> owl:sameAs <http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID>;"               >> $cockpit/publish/$sdv.void.ttl
       echo "   a datafaqs:CKANDataset;"                                                                                           >> $cockpit/publish/$sdv.void.ttl
       echo "   dcterms:identifier \"$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID\";"                                       >> $cockpit/publish/$sdv.void.ttl
       echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
       
-      # TODO: <$topVoID> void:exampleResource ?x from:
-      #
-      # prefix dcterms: <http://purl.org/dc/terms/>
-      # prefix void:    <http://rdfs.org/ns/void#>
-      # select distinct ?ex ?date
-      # where { 
-      #   ?s void:exampleResource ?ex; dcterms:modified ?date .
-      #   filter(!regex(str(?ex),'thing_'))
-      #  }
-      # order by ?date
-      # limit 1
    fi
    triples=`rdf2nt.sh $cockpit/publish/$dumpFileLocal | rapper -i ntriples -c -I http://blah - 2>&1 | awk '$0~/Parsing returned/{print $4}'`
    if [[ ${#triples} -gt 0 && $triples == [0-9]* ]]; then # - - - - - - - - - - Avoid publish/*.void.ttl pattern so that cr-publish-void-to-endpoint.sh doesn't find it.
