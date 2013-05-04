@@ -122,7 +122,8 @@ if [[ `is-pwd-a.sh                                                            cr
             mkdir automatic
          fi
 
-         tarball=$sourceID-cr-full-dump-latest.ttl.gz
+         #tarball=$sourceID-cr-full-dump-latest.ttl.gz # became e.g.: ieeevis-tw-rpi-edu.nt.gz
+         tarball=$sourceID-nt.gz
          ours=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID}
          echo "Extracting list of RDF URI nodes from our bubble: $ours"
          gunzip -c source/$tarball | awk '{print $1}' | grep "^<" | sed 's/^<//;s/>$//' | sort -u > automatic/$ours.txt
@@ -191,9 +192,11 @@ if [[ `is-pwd-a.sh                                                            cr
                elif [[ ${term%/*} != $term ]]; then
                   echo "<$baseURI/void> void:vocabulary <${term%/*}/> ." >> automatic/vocabulary.ttl
                else
-                  echo "WARING: `basename $0`: could not determine namespace for $term"
+                  echo "WARNING: `basename $0`: could not determine namespace for $term"
                fi
             done
+         else
+            echo "automatic/vocabulary.ttl - skipping b/c base URI not set."
          fi
 
          aggregate-source-rdf.sh automatic/*.ttl
