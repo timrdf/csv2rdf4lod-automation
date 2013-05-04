@@ -96,13 +96,13 @@ if [[ -n "`getconf ARG_MAX`" && \
      `find $cockpit/source -name "*.*" | wc -l` -lt `getconf ARG_MAX` ]]; then
    # Saves disk space, but shell can't handle infinite arguments.
    if [ "$dryrun" != "true" ]; then
-      rdf2nt.sh --version 2 `find $cockpit/source` 2> $cockpit/doc/logs/rdf2nt-errors.log | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/doc/logs/gzip-errors.log
+      rdf2nt.sh `find $cockpit/source` 2> $cockpit/doc/logs/rdf2nt-errors.log | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/doc/logs/gzip-errors.log
    fi
 else
    # Handles infinite source/* files, but uses disk space.
    for datadump in `find $cockpit/source`; do
       if [ "$dryrun" != "true" ]; then
-         rdf2nt.sh --version 2 $datadump >> $cockpit/publish/$dumpFileLocal.tmp
+         rdf2nt.sh $datadump >> $cockpit/publish/$dumpFileLocal.tmp
       fi
    done
    if [ "$dryrun" != "true" ]; then
