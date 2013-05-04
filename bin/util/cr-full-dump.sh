@@ -236,6 +236,7 @@ if [ "$dryrun" != "true" ]; then
       echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
    fi
 
+   echo "$cockpit/publish/$sdv.ephemeral.ttl (void:triples)"
    triples=`rdf2nt.sh $cockpit/publish/$dumpFileLocal | rapper -i ntriples -c -I http://blah - 2>&1 | awk '$0~/Parsing returned/{print $4}'`
    if [[ ${#triples} -gt 0 && $triples == [0-9]* ]]; then # - - - - - - - - - - Avoid publish/*.void.ttl pattern so that cr-publish-void-to-endpoint.sh doesn't find it.
       echo "@prefix dcterms: <http://purl.org/dc/terms/> ."                                                                          >> $cockpit/publish/$sdv.ephemeral.ttl

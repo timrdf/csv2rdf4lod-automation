@@ -121,6 +121,9 @@ while [ $# -gt 0 ]; do
             echo "`basename $0` using -I basename from conversion cockpit conventions." >&2
          fi
          I="`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n $file\``"
+      else
+         # Always need a -I since we can be sending it via stdin
+         I='file:///localhost/$file'
       fi
       if [[ -n "$I" ]]; then
          II="-I $I"
@@ -128,17 +131,20 @@ while [ $# -gt 0 ]; do
          II=""
       fi
 
-      gunzip --test $file &> /dev/null
-      if [ $? -eq 0 ]; then
-         gzipped="yes"
+      gzipped=`gzipped.sh $file`
+      if [[ "$gzipped" == 'yes' ]]; then
          TEMP="_"`basename $0``date +%s`_$$.tmp
          gunzip -c $file > $TEMP
 
          origFile="$file" # Remember which file we were working with.
          file=$TEMP       # So we can reuse the code that handles uncompressed output.
+
+         cat="gunzip -c $file |" # Avoiding disk
+         in='-'
       else
-         gzipped="no"
-         origFile="$file"
+         origFile="$file" # @deprecated
+         cat=""
+         in='$file'
       fi
 
       if [ "$serialization" == "application/rdf+xml" ]; then
@@ -173,7 +179,7 @@ while [ $# -gt 0 ]; do
             if [ "$verbose" == "yes" ]; then
                echo "serdi -i turtle -o ntriples -p $md5 $file $I (from $origFile)" >&2
             fi
-            serdi -i turtle -o ntriples -p $md5 $file $I
+            $cat serdi -i turtle -o ntriples -p $md5 $in $I
          else
             echo "ERROR(5): `basename $0` requires serdi. $PATH See $see"
          fi
