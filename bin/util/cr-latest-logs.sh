@@ -31,7 +31,7 @@ elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets` == "yes" ]
    for next in `directories.sh`; do
       pushd $next > /dev/null
          # Recursive call to base case 'cr:conversion-cockpit'
-         $0 $*
+         echo $next/`$0 $*`
       popd > /dev/null
    done
 elif [[ `is-pwd-a.sh              cr:source                                                             ` == "yes" ]]; then
