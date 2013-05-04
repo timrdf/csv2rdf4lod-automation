@@ -190,7 +190,7 @@ if [[ `is-pwd-a.sh                                                            cr
             for term in `p-and-c.sh source/$sourceID.nt.gz | sort -u`; do
                if [[ "$term" =~ http* ]]; then
                   if [[ ${term%#*} != $term ]]; then
-                     echo "<$baseURI/void> void:vocabulary <${term%#*}> ."  >> automatic/vocabulary.ttl
+                     echo "<$baseURI/void> void:vocabulary <${term%#*}#> ." >> automatic/vocabulary.ttl
                   elif [[ ${term%/*} != $term ]]; then
                      echo "<$baseURI/void> void:vocabulary <${term%/*}/> ." >> automatic/vocabulary.ttl
                   else
