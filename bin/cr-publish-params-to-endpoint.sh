@@ -97,7 +97,7 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 echo "Finding all csv2rdf4lod-params in `pwd`." >&2
 
-for param in `find . -mindepth 6 -maxdepth 6 -name *.params.ttl -not -name *.global.*`; do
+for param in `find . -mindepth 6 -maxdepth 6 -name *.params.ttl -not -name *.global.* -not -name *.raw.params.*`; do
    echo $param
    # e.g. ./datahub-io/corpwatch/version/2013-Apr-24/automatic/companies.csv.raw.params.ttl
    path=`md5.sh -qs $param`
