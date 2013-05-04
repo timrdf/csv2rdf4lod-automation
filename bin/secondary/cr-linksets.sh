@@ -192,8 +192,8 @@ if [[ `is-pwd-a.sh                                                            cr
                if [[ "$term" =~ http* ]]; then
                   if [[ ${term%#*} != $term ]]; then
                      echo " void:vocabulary <${term%#*}#>"
-                     echo "<$baseURI/void> void:vocabulary <${term%#*}#> ." >> automatic/vocabulary.ttl
-                  elif [[ ${term%/*} != $term ]]; then
+                     echo "<$baseURI/void> void:vocabulary <${term%#*}> ."  >> automatic/vocabulary.ttl # No trailing '#'
+                  elif [[ ${term%/*} != $term ]]; then     # http://www.w3.org/TR/2011/NOTE-void-20110303/#vocabularies
                      echo " void:vocabulary <${term%/*}/>"
                      echo "<$baseURI/void> void:vocabulary <${term%/*}/> ." >> automatic/vocabulary.ttl
                   else
