@@ -190,6 +190,8 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       else
          echo "skipping $sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz"
       fi
+   echo
+      echo "Not linking as latest."
    fi
 
    plan='https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/aggregate-source-rdf.sh'
