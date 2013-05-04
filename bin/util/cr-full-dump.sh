@@ -132,10 +132,10 @@ for datadump in `find $cockpit/source -type f`; do
       small=`find \`dirname $datadump\` -name \`basename $datadump\` -size -20M`
       echo $small
       if [[ -n "$small" ]]; then
-         echo "(avoiding sort -u)"
+         echo "(sort -u)"
          uri-nodes.sh $datadump | sort -u                                                                                            >> $cockpit/automatic/$base-uri-nodes.txt
       else
-         echo "(sort -u)"
+         echo "(avoiding sort -u)"
          uri-nodes.sh $datadump                                                                                                      >> $cockpit/automatic/$base-uri-nodes.txt
       fi
    fi
