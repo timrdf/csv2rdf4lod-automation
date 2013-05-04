@@ -101,7 +101,7 @@ if [[ -n "`getconf ARG_MAX`" && \
    fi
 else
    # Handles infinite source/* files, but uses disk space.
-   for datadump in `find $cockpit/source`; do
+   for datadump in `find $cockpit/source -name "*.*"`; do
       if [ "$dryrun" != "true" ]; then
          rdf2nt.sh $datadump >> $cockpit/publish/$dumpFileLocal.tmp
       fi
@@ -126,7 +126,7 @@ fi
 # cat          $cockpit/automatic/$base-uri-node-occurrences.txt | sort    > $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
 
 rm -f $TEMP
-for datadump in `find $cockpit/source`; do
+for datadump in `find $cockpit/source -name "*.*"`; do
    if [ "$dryrun" != "true" ]; then
       # Do it piecemeal to avoid strain on sort's memory.
       echo "$cockpit/automatic/$base-uri-nodes.txt <-- $datadump"
