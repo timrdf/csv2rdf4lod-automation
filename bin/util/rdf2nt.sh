@@ -80,9 +80,6 @@ while [ $# -gt 0 ]; do
       continue
    fi
 
-   if [[ "$verbose" == 'yes' ]]; then
-      echo "`basename $0` guessing syntax" >&2
-   fi
    if [[ "$file" == "${file%.*}" || ! ( "${file##*.}" == "ttl" || "${file##*.}" == "rdf" || "${file##*.}" == "nt" ) ]]; then 
       # The file does not have an extension.
       # Literally: "The filename is the same with and without an extension"
@@ -99,9 +96,6 @@ while [ $# -gt 0 ]; do
       else
          serialization="-g" # Original version, let rapper guess (this can break if file too big.)
       fi
-   fi
-   if [[ "$verbose" == 'yes' ]]; then
-      echo "`basename $0` guessed syntax $serialization" >&2
    fi
    
 
@@ -139,15 +133,15 @@ while [ $# -gt 0 ]; do
       fi
 
       gzipped=`gzipped.sh $file`
-      if [[ "$gzipped" == 'yes' ]]; then
-         TEMP="_"`basename $0``date +%s`_$$.tmp
-         gunzip -c $file > $TEMP
+      #if [[ "$gzipped" == 'yes' ]]; then
+      #   TEMP="_"`basename $0``date +%s`_$$.tmp
+      #   gunzip -c $file > $TEMP
 
-         origFile="$file" # Remember which file we were working with.
-         file=$TEMP       # So we can reuse the code that handles uncompressed output.
-      else
-         origFile="$file" # @deprecated
-      fi
+      #   origFile="$file" # Remember which file we were working with.
+      #   file=$TEMP       # So we can reuse the code that handles uncompressed output.
+      #else
+      #   origFile="$file" # @deprecated
+      #fi
 
       if [ "$serialization" == "application/rdf+xml" ]; then
          # Need to use rapper to decompose into N-TRIPLES.
