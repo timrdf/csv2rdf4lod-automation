@@ -90,13 +90,10 @@ function lnwww {
       else
          $sudo mkdir -p `dirname "$wwwfile"`
       fi
-      echo ".r  $wwwfile"
 
+      echo $sudo ln $symbolic "${pwd}$1" "$wwwfile"
       if [[ "$dryrun" != "yes" ]]; then
-         echo $sudo ln $symbolic "${pwd}$1" "$wwwfile"
-         $sudo ln $symbolic "${pwd}$1" "$wwwfile"
-      else
-         echo "dryrun"
+           $sudo ln $symbolic "${pwd}$1" "$wwwfile"
       fi
    else
       echo "  -- $1 omitted --"
