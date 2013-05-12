@@ -124,7 +124,8 @@ else
    explainVersionID="Came from directory name ../ (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Directory-Conventions)"
 fi
 
-CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source my-csv2rdf4lod-source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source my-csv2rdf4lod-source-me.sh or see $see"}
 
 TMP_SH=`date +%s`_$$.sh.tmp
 
@@ -139,7 +140,7 @@ echo "# $datasetID $versionID ($lastModDate)"                                   
 
 echo "#--------------------------------------------------------------"                                                  >> $TMP_SH
 echo ""                                                                                                                 >> $TMP_SH
-echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $TMP_SH
+echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source my-csv2rdf4lod-source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $TMP_SH
 echo ""                                                                                                                 >> $TMP_SH
 echo "# The identifiers used to name the dataset that will be converted."                                               >> $TMP_SH
 echo "#            (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-process-phase:-name)"          >> $TMP_SH
@@ -183,6 +184,9 @@ while [ $# -gt 0 ]; do
    if [ $includeDiscriminator == "yes" ]; then
       extensionlessFilename=`basename $artifact | sed 's/^\([^\.]*\)\..*$/\1/'` # failed to cast 'ce.supersector.csv' to 'ce.supersector'
       extensionlessFilename=`basename $artifact | sed 's/\.[^.]*$//'`
+      for extension in csv txt; do
+         extensionlessFilename=${extensionlessFilename%.$extension}
+      done
       # clean up %20 by replacing with underscore.
       subjectDiscriminator=`echo $extensionlessFilename | sed 's/%20/-/g; s/_/-/g' | awk '{print tolower($0)}'`
    fi
