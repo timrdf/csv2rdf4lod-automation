@@ -136,7 +136,7 @@ for datadump in `find $cockpit/source -type f`; do
       #   echo "(avoiding sort -u)"
       #   uri-nodes.sh $datadump                                                                                                      >> $cockpit/automatic/$base-uri-nodes.txt
       #fi
-      rdf2nt.sh $datadump | tdbloader --quiet --loc=$cockpit/automatic/tdb -           # $cockpit/automatic/tdb
+      uri-nodes.sh --as-ttl $datadump | tdbloader --quiet --loc=$cockpit/automatic/tdb -           # $cockpit/automatic/tdb
    fi
 done
 ##Too big:
