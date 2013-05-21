@@ -2,11 +2,6 @@
 #
 # <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-linksets.sh> .
 #
-# This script sets up a new version of a dataset when given a URL to a tabular file and some options
-# describing its structure (comment character, header line, and delimter).
-#
-# If you have a non-tabular file, or custom software to retrieve data, then this script can be 
-# used as a template for the retrieve.sh that is placed in the version directory.
 #
 # See:
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset
@@ -66,8 +61,8 @@ if [[ `is-pwd-a.sh                                                            cr
    version="$versionID"
    version_reason=""
 
-   # While $sourceID-cr-full-dump-latest.ttl.gz contains the "one triple per resource",
-   #                                $base.nt.gz contains all triples.
+   # While $sourceID-cr-full-dump-latest.ttl.gz contains "one triple per resource",
+   #                                $base.nt.gz contains *all* triples.
    #
    # We use the first to find connections to other bubbles and the second to determine vocabulary use.
 
@@ -93,33 +88,8 @@ if [[ `is-pwd-a.sh                                                            cr
    fi
    shift 2
 
-   #-#-#-#-#-#-#-#-#
-   commentCharacter="#"
-   if [ "$1" == "--comment-character" -a $# -ge 2 ]; then
-      commentCharacter="$2"
-      shift 2
-   fi
-
-   #-#-#-#-#-#-#-#-#
-   headerLine=1
-   if [ "$1" == "--header-line" -a $# -ge 2 ]; then
-      headerLine="$2"
-      shift 2
-   fi
-
-   #-#-#-#-#-#-#-#-#
-   delimiter='\t'
-   delimiter=','
-   if [ "$1" == "--delimiter" -a $# -ge 2 ]; then
-      delimiter="$2"
-      shift 2
-   fi
-
    echo "INFO url       : $url"
    echo "INFO version   : $version $version_reason"
-   echo "INFO comment   : $commentCharacter"
-   echo "INFO header    : $headerLine"
-   echo "INFO delimiter : $delimiter"
    echo
 
    #
