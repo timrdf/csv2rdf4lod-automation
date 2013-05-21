@@ -140,7 +140,7 @@ while [ $# -gt 0 ]; do
          if [[ `which rapper` && `which serdi` ]]; then
             if [[ "$gzipped" == 'yes' ]]; then
                if [ "$verbose" == "yes" ]; then
-                  echo "zcat $file | rapper -q -i rdfxml -o ntriples $II - | serdi -b -i ntriples -o ntriples -p $md5 -"
+                  echo "zcat $file | rapper -q -i rdfxml -o ntriples $II - | serdi -b -i ntriples -o ntriples -p $md5 -" >&2
                fi
                zcat $file | rapper -q -i rdfxml -o ntriples $II - | serdi -b -i ntriples -o ntriples -p $md5 -
             else
@@ -150,19 +150,19 @@ while [ $# -gt 0 ]; do
                rapper -q -i rdfxml -o ntriples $II $file | serdi -b -i ntriples -o ntriples -p $md5 -
             fi
          elif [[ ! `which rapper` ]]; then
-            echo "ERROR(1): `basename $0` requires rapper. See $see"
+            echo "ERROR(1): `basename $0` requires rapper. See $see" >&2
             if [[ ! `which serdi` ]]; then
-               echo "ERROR(2): `basename $0` requires serdi. See $see"
+               echo "ERROR(2): `basename $0` requires serdi. See $see" >&2
             fi
          elif [[ ! `which serdi` ]]; then
-            echo "ERROR(3): `basename $0` requires serdi. See $see"
+            echo "ERROR(3): `basename $0` requires serdi. See $see" >&2
          fi
       elif [ "$serialization" == "text/plain" ]; then
          # Need to use serdi to prepend bnodes with a unique prefix.
          if [[ `which serdi` ]]; then
             if [[ "$gzipped" == 'yes' ]]; then
                if [ "$verbose" == "yes" ]; then
-                  echo "zcat $file | serdi -b -i ntriples -o ntriples -p $md5 - $I"
+                  echo "zcat $file | serdi -b -i ntriples -o ntriples -p $md5 - $I" >&2
                fi
                zcat $file | serdi -b -i ntriples -o ntriples -p $md5 - $I
             else
@@ -172,14 +172,14 @@ while [ $# -gt 0 ]; do
                serdi -b -i ntriples -o ntriples -p $md5 $file $I
             fi
          else
-            echo "ERROR(4): `basename $0` requires serdi. See $see"
+            echo "ERROR(4): `basename $0` requires serdi. See $see" >&2
          fi
       elif [ "$serialization" == "text/turtle" ]; then
          # Need to use serdi to prepend bnodes with a unique prefix.
          if [[ `which serdi` ]]; then
             if [[ "$gzipped" == 'yes' ]]; then
                if [ "$verbose" == "yes" ]; then
-                  echo "zcat $file | serdi -b -i turtle -o ntriples -p $md5 - $I"
+                  echo "zcat $file | serdi -b -i turtle -o ntriples -p $md5 - $I" >&2
                fi
                zcat $file | serdi -b -i turtle -o ntriples -p $md5 - $I
             else
@@ -189,7 +189,7 @@ while [ $# -gt 0 ]; do
                serdi -b -i turtle -o ntriples -p $md5 $file $I
             fi
          else
-            echo "ERROR(5): `basename $0` requires serdi. $PATH See $see"
+            echo "ERROR(5): `basename $0` requires serdi. $PATH See $see" >&2
          fi
       elif [[ -f "$file" ]]; then
          echo "WARNING: `basename $0` could not determine serialization for `pwd` $file" >&2
@@ -211,9 +211,9 @@ while [ $# -gt 0 ]; do
       if [[ `which rapper` && `which serdi` ]]; then
          rapper -q $serialization -o ntriples $file | serdi -i ntriples -p $md5 -
       elif [ `which rapper` ]; then
-         echo "ERROR(6): `basename $0` requires rapper. See $see"
+         echo "ERROR(6): `basename $0` requires rapper. See $see" >&2
       else
-         echo "ERROR(7): `basename $0` requires serdi. See $see"
+         echo "ERROR(7): `basename $0` requires serdi. See $see" >&2
       fi
       # serdi can, but cannot handle RDF/XML (so use rapper to preprocess it).
       # -p : prepend bnodes with $md5
