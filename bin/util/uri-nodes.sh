@@ -48,7 +48,7 @@ while [ $# -gt 0 ]; do
       echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."
       echo
       if [[ -n "$verbose" ]]; then
-         echo $0 $* | awk -v class=$class '$1 ~ /^</ {print $1,"a",class,"."}'
+         echo "$0 $* | awk -v class=$class '$1 ~ /^</ {print $1,"a",class,"."}'"
       fi
       $0 $* | awk -v class=$class '$1 ~ /^</ {print $1,"a",class,"."}'
    else
@@ -56,14 +56,14 @@ while [ $# -gt 0 ]; do
          # Avoids dumping to an intermediate file.
          # e.g. 2.0 GB unzipped ntriples file can be done in 1.5 minutes (as opposed to 4.5 minutes).
          if [[ -n "$verbose" ]]; then
-            echo gunzip -c $file | awk '$1 ~ /^<.*/ { print $1 } $3 ~ /^<.*/ { print $3 }' | sed 's/^<//;s/>$//'
+            echo "gunzip -c $file | awk '$1 ~ /^<.*/ { print $1 } $3 ~ /^<.*/ { print $3 }' | sed 's/^<//;s/>$//'"
          fi
          gunzip -c $file | awk '$1 ~ /^<.*/ { print $1 } $3 ~ /^<.*/ { print $3 }' | sed 's/^<//;s/>$//'
       else
          #echo ".${total}. .`gzipped.sh $file`. .`guess-syntax.sh $file mime`." >&2
          # Handles any syntax, compressed or not.
          if [[ -n "$verbose" ]]; then
-            echo rdf2nt.sh $file | awk '$1 ~ /^<.*/ { print $1 } $3 ~ /^<.*/ { print $3 }' | sed 's/^<//;s/>$//'
+            echo "rdf2nt.sh $file | awk '$1 ~ /^<.*/ { print $1 } $3 ~ /^<.*/ { print $3 }' | sed 's/^<//;s/>$//'"
          fi
          rdf2nt.sh $file | awk '$1 ~ /^<.*/ { print $1 } $3 ~ /^<.*/ { print $3 }' | sed 's/^<//;s/>$//'
       fi
