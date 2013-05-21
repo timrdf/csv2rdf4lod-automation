@@ -121,7 +121,7 @@ while [ $# -gt 0 ]; do
          if [[ "$verbose" == 'yes' ]]; then
             echo "`basename $0` using -I basename from conversion cockpit conventions." >&2
          fi
-         I="`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n $file\``"
+         I="`cr-ln-to-www-root.sh -n --url-of-filepath $file`"
       else
          # Always need a -I since we can be sending it via stdin
          I='file:///localhost/$file'
