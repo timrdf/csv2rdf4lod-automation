@@ -50,7 +50,9 @@ if   [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source`                    
    # Avoid this; $0 could return any bad error and it would not be valid.
    for dataset_id in `cr-list-datasets.sh `; do
       pushd $dataset_id &> /dev/null
-         echo `cr-source-id.sh`/`$0 *` # Call this script again
+         for version_id in `$0 *`; do
+            echo `cr-source-id.sh`/version/$version_id # Call this script again
+         done
       popd &> /dev/null
    done
 elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh           cr:dataset`                                      == "yes" ]]; then
