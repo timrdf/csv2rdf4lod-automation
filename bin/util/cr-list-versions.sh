@@ -51,7 +51,7 @@ if   [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source`                    
    for dataset_id in `cr-list-datasets.sh `; do
       pushd $dataset_id &> /dev/null
          for version_id in `$0 *`; do
-            echo `cr-source-id.sh`/version/$version_id # Call this script again
+            echo `cr-source-id.sh`/$dataset_id/version/$version_id # Call this script again
          done
       popd &> /dev/null
    done
