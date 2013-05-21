@@ -119,7 +119,7 @@ while [ $# -gt 0 ]; do
             "$directory" == 'automatic' || "$directory" == "publish" ]]; then
          lnwww $file $directory
       else  
-         echo "ignoring $file" >&2
+         echo "`basename $0` ignoring b/c not in source/manual/automatic/publish convention: $file" >&2
          let "errorTally=errorTally+1"
       fi
    else
