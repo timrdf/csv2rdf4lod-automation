@@ -67,7 +67,7 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
-for panel in 'source' 'automatic' 'publish' 'doc/logs'; do
+for panel in 'source' 'automatic/tdb' 'publish' 'doc/logs'; do
    if [ ! -d $cockpit/$panel ]; then
       mkdir -p $cockpit/$panel
    fi
@@ -88,9 +88,6 @@ if [ "$dryrun" != "true" ]; then
    done
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-echo quitting
-exit
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
@@ -132,13 +129,14 @@ for datadump in `find $cockpit/source -type f`; do
    if [ "$dryrun" != "true" ]; then
       # Do it piecemeal to avoid strain on sort's memory.
       echo "$cockpit/automatic/$base-uri-nodes.txt <-- $datadump"
-      small=`find \`dirname $datadump\` -name \`basename $datadump\` -size -20M`
-      if [[ -n "$small" ]]; then
-         uri-nodes.sh $datadump | sort -u                                                                                            >> $cockpit/automatic/$base-uri-nodes.txt
-      else
-         echo "(avoiding sort -u)"
-         uri-nodes.sh $datadump                                                                                                      >> $cockpit/automatic/$base-uri-nodes.txt
-      fi
+      #small=`find \`dirname $datadump\` -name \`basename $datadump\` -size -20M`
+      #if [[ -n "$small" ]]; then
+      #   uri-nodes.sh $datadump | sort -u                                                                                            >> $cockpit/automatic/$base-uri-nodes.txt
+      #else
+      #   echo "(avoiding sort -u)"
+      #   uri-nodes.sh $datadump                                                                                                      >> $cockpit/automatic/$base-uri-nodes.txt
+      #fi
+      rdf2nt.sh $datadump | tdbloader --quiet --loc=$cockpit/automatic/tdb -           # $cockpit/automatic/tdb
    fi
 done
 ##Too big:
@@ -146,6 +144,9 @@ done
 ##   cat $TEMP | sort -u                                                                                                             > $cockpit/automatic/$base-uri-nodes.txt
 ##   rm -f $TEMP
 ##fi
+
+echo quitting
+exit 
 
 pushd $cockpit &> /dev/null
    versionedDataset=`cr-dataset-uri.sh --uri`
