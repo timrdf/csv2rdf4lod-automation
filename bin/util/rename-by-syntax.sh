@@ -20,11 +20,14 @@ see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [--list-extensionless] [-v] [--replace-extension] file [file...]"
+   echo
+   echo "usage: `basename $0` [--list-extensionless] [-v] [--replace-extension] [--mark-invalid] <file>+"
+   echo
    echo "   --list-extensionless : return a list of files without file extensions."
    echo "                     -v : return the new name of the file."
    echo "    --replace-extension : [not implemented]"
-   echo "                   file : The file to identify RDF syntax and rename with appropriate extension."
+   echo "         --mark-invalid : Rename any file that is not valid RDF by appending '.invalid'"
+   echo "                 <file> : The file to identify RDF syntax and rename with appropriate extension."
    exit 1
 fi
 
@@ -50,20 +53,42 @@ if [[ "$1" == "--replace-extension" ]]; then
    shift
 fi
 
+mark_invalid="false"
+if [[ "$1" == "--mark-invalid" ]]; then
+   mark_invalid="true"
+   shift
+fi
+
 while [ $# -gt 0 ]; do
    file="$1"
+   shift
    if [ -e "$file" ]; then
-      extension=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect $file extension`
-      if [[ "$extension" == "ttl" || "$extension" == "rdf" || "$extension" == "nt" ]]; then
-         mv $file $file.$extension
-         if [ "$verbose" == "true" ]; then
-            echo $file.$extension
+      if [[ `valid-rdf.sh $file` != "yes" ]]; then
+         if [[ "$mark_invalid" == "true" ]]; then
+            if [ "$verbose" == "true" ]; then
+               echo "$file".invalid
+            fi
+            mv "$file" "$file".invalid
          fi
       else
-         if [ "$verbose" == "true" ]; then
-            echo $file
+         extension=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect $file extension`
+         if [[ "$extension" == "ttl" || "$extension" == "rdf" || "$extension" == "nt" ]]; then
+            existing_extension=${file##*.}
+            if [[ "$existing_extension" != $extension && -n "$existing_extension" ]]; then
+               mv "$file" "$file.$extension"
+               if [ "$verbose" == "true" ]; then
+                  echo $file.$extension
+               fi
+            else
+               if [ "$verbose" == "true" ]; then
+                  echo $file
+               fi
+            fi
+         else
+            if [ "$verbose" == "true" ]; then
+               echo $file
+            fi
          fi
       fi
    fi
-   shift
 done
