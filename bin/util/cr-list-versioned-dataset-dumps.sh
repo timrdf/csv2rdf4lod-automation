@@ -41,15 +41,15 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       if [ -z "$found" ]; then                     # Stop after we've found one.
          if [ -e publish/"$sdv.$extension" ]; then # Prefer uncompressed over compressed.
             found="`pwd`/publish/$sdv.$extension"
-            echo $found
          elif [ -e publish/"$sdv.$extension.gz" ]; then
             found="`pwd`/publish/$sdv.$extension.gz"
-            echo $found
          fi
       fi
    done
    if [[ "$warn" == "yes" && -z "$found" ]]; then
       echo "WARNING: `basename $0` did not find a data dump for `cr-pwd.sh`" >&2
+   elif [[ -n "$found" ]]; then
+      echo $found
    fi
 
 elif [[ `is-pwd-a.sh cr:data-root cr:source cr:directory-of-datasets            cr:directory-of-versions` == "yes" ]]; then
