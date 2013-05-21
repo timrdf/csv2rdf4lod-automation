@@ -44,51 +44,64 @@ replace_extension="false"
 
 usage_message="usage: `basename $0` [-cp classpath] the.xsl input_extension output_extension [-w] [-od path/to/output/to] [-v a=1 b=2 ... -in] some.$input_extension [another.$input_extension ...]" 
 
-if [ $# -lt 3 ]; then
-  echo $usage_message 
-	exit 1
+if [[ $# -lt 3 ]]; then
+   echo $usage_message 
+   exit 1
 fi
 add_cp="NOCLASSPATH"
-if [ $1 = "-cp" ]; then
-  add_cp="$2"
-  shift 2
+if [[ $1 == "-cp" ]]; then
+   add_cp="$2"
+   shift 2
 fi
 
-if [ $# -lt 3 ]; then
-  echo $usage_message 
-	exit 1
+if [[ $# -lt 3 ]]; then
+   echo $usage_message 
+   exit 1
 fi
 xsl="$1"
 input_extension="$2"
 output_extension="$3"
 shift 3
 
-if [ $# -lt 1 ]; then
-  echo $usage_message 
-	exit 1
-fi
-overwrite="no"
-if [ $1 = "-w" ]; then
-  overwrite="yes"
-  shift
+cxsl=""
+if [[ ! `grep "xmlns:" $xsl` ]]; then
+   # http://saxon.sourceforge.net/saxon7.9/using-xsl.html#Compiling
+   #
+   # java net.sf.saxon.Compile <stylesheet> <output-compiled-stylesheet>
+   #
+   # -c:filename           Use compiled stylesheet from file
+   #
+   # java net.sf.saxon.Transform -c:path/to/some.xsl.c path/to/some.xml
+   cxsl="-c:$xsl"
+   xsl=""
 fi
 
-if [ $# -lt 1 ]; then
-  echo $usage_message 
-	exit 1
+if [[ $# -lt 1 ]]; then
+   echo $usage_message 
+   exit 1
+fi
+overwrite="no"
+if [[ $1 = "-w" ]]; then
+   overwrite="yes"
+   shift
+fi
+
+if [[ $# -lt 1 ]]; then
+   echo $usage_message 
+   exit 1
 fi
 output_dir_set="false"
-if [ $1 = "-od" ]; then
+if [[ $1 = "-od" ]]; then
    output_dir_set="true"
    output_dir="$2"
-	if [ ! -d $output_dir ]; then
+   if [[ ! -d $output_dir ]]; then
       mkdir $output_dir
-	fi
-	shift 2
+   fi
+   shift 2
 fi
 
 vars=""
-if [ "$1" = "-v" ]; then
+if [[ "$1" = "-v" ]]; then
    shift
    while [ "$1" != "-in" ]; do
       vars="$vars $1"
@@ -97,13 +110,13 @@ if [ "$1" = "-v" ]; then
    shift # peel "-in"
 fi
 
-if [ $# -lt 1 ]; then
-  echo $usage_message 
-	exit 1
+if [[ $# -lt 1 ]]; then
+   echo $usage_message 
+   exit 1
 fi
 multiple_files="false"
-if [ $# -gt 1 ]; then
-  multiple_files="true"
+if [[ $# -gt 1 ]]; then
+   multiple_files="true"
 fi
 
 #if [ "debug" == "nodebug" ]; then
@@ -128,46 +141,45 @@ script_home="`cd \"$D\" 2>/dev/null && pwd || echo \"$D\"`"
 
 cp=""
 if [ "$add_cp" != "NOCLASSPATH" ]; then
-	#cp="$add_cp":$saxon8
-	cp="$add_cp":$CLASSPATH
+   #cp="$add_cp":$saxon8
+   cp="$add_cp":$CLASSPATH
 fi
 
 memory_option="-Xmx1024m"
 class="net.sf.saxon.Transform"
 while [ $# -gt 0 ]; do
-	artifact="$1"
+   artifact="$1"
+   shift
 
-	if [ `echo $artifact | sed 's/^.*\.\(.*\)$/\1/' | grep $input_extension | wc -l` -gt 0 -a $replace_extension = "yes" ]; then
+   if [ `echo $artifact | sed 's/^.*\.\(.*\)$/\1/' | grep $input_extension | wc -l` -gt 0 -a $replace_extension = "yes" ]; then
     # If the extension is the expected $input_extension and extention should be replaced
-		base=`basename $artifact | sed 's/^\(.*\)\..*$/\1/'` # Strip all after last period.
-	else
-		# The extension was not $input_extension OR extention should be appended (i.e. not replaced)
-		base=`basename $artifact`
-	fi
-	if [ $output_dir_set = "false" ]; then
-		# If output directory not provided, write to file at same location as artifact
-		output_dir=`dirname $artifact` 
-	fi
-	outfile=$output_dir/$base.$output_extension
+      base=`basename $artifact | sed 's/^\(.*\)\..*$/\1/'` # Strip all after last period.
+   else
+      # The extension was not $input_extension OR extention should be appended (i.e. not replaced)
+      base=`basename $artifact`
+   fi
+   if [ $output_dir_set = "false" ]; then
+      # If output directory not provided, write to file at same location as artifact
+      output_dir=`dirname $artifact` 
+   fi
+   outfile=$output_dir/$base.$output_extension
 
    #echo saxon9: $saxon9 CP: $cp
 
-	if [ $multiple_files = "true" -o $output_dir_set = "true" ]; then
+   if [ $multiple_files = "true" -o $output_dir_set = "true" ]; then
       if [ ! -e $outfile -o $overwrite = "yes" ]; then
-		   echo $base $outfile
-			java $memory_option $cp $class -dtd:off $artifact $xsl $vars > $outfile
-         java $memory_option $cp $class -dtd:off $artifact $xsl $vars > $outfile
+         echo $base $outfile
+        #echo java $memory_option $cp $class -dtd:off $cxsl $artifact $xsl $vars _to_ $outfile
+              java $memory_option $cp $class -dtd:off $cxsl $artifact $xsl $vars    > $outfile
       else 
          echo "$base    WARNING: $outfile already exists. Did not overwrite."
       fi
-	else
-		# Only one file was given
-		if [ $overwrite = "yes" ]; then
-			java $memory_option $cp $class -dtd:off $artifact $xsl $vars > $outfile
-		else
-			java $memory_option $cp $class -dtd:off $artifact $xsl $vars
-	  fi
-	fi
-
-  shift
+   else
+      # Only one file was given
+      if [ $overwrite = "yes" ]; then
+         java $memory_option $cp $class -dtd:off $cxsl $artifact $xsl $vars > $outfile
+      else
+         java $memory_option $cp $class -dtd:off $cxsl $artifact $xsl $vars
+     fi
+   fi
 done
