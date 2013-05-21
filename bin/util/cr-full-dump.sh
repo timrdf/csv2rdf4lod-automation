@@ -115,35 +115,13 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-## Pull out the RDF URI nodes from the full dump.
-##echo $cockpit/automatic/$base-uri-node-occurrences.txt
-##if [ "$dryrun" != "true" ]; then
-##   uri-nodes.sh $cockpit/publish/$dumpFileLocal                                       > $cockpit/automatic/$base-uri-node-occurrences.txt
-##fi
-
-## no space left on device...
-## echo $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
-## cat          $cockpit/automatic/$base-uri-node-occurrences.txt | sort    > $cockpit/automatic/$base-uri-node-occurrences-sorted.txt
-
 for datadump in `find $cockpit/source -type f`; do
    if [ "$dryrun" != "true" ]; then
-      # Do it piecemeal to avoid strain on sort's memory.
-      echo "$cockpit/automatic/$base-uri-nodes.txt <-- $datadump"
-      # @deprecated; use tdbloader instead since it uses disk and handles uniqueness.
-      #small=`find \`dirname $datadump\` -name \`basename $datadump\` -size -20M`
-      #if [[ -n "$small" ]]; then
-      #   uri-nodes.sh $datadump | sort -u                                                                                            >> $cockpit/automatic/$base-uri-nodes.txt
-      #else
-      #   echo "(avoiding sort -u)"
-      #   uri-nodes.sh $datadump                                                                                                      >> $cockpit/automatic/$base-uri-nodes.txt
-      #fi
-      uri-nodes.sh '--as-nt' $datadump | tdbloader --quiet --loc=$cockpit/automatic/tdb -           # $cockpit/automatic/tdb
+      echo "tdb <-- $datadump"
+      uri-nodes.sh '--as-nt' $datadump | tdbloader --quiet --loc=$cockpit/automatic/tdb -
+      # CONSIDER: capturing the occurrence frequency of the nodes; needs modeling and tallying.
    fi
 done
-echo "select ?node where { ?node a <http://www.w3.org/2000/01/rdf-schema#Resource> }" | tdbquery --loc=$cockpit/automatic/tdb >> $cockpit/automatic/$base-uri-nodes.txt
-
-echo quitting
-exit 
 
 pushd $cockpit &> /dev/null
    versionedDataset=`cr-dataset-uri.sh --uri`
@@ -163,9 +141,13 @@ if [ "$dryrun" != "true" ]; then
    echo "@prefix prov: <http://www.w3.org/ns/prov#> ."                                                                            >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                                                                           >> $cockpit/automatic/$base-uri-nodes.ttl
-   cat $cockpit/automatic/$base-uri-nodes.txt | awk -v dataset=$versionedDataset '{print "<"$1"> void:inDataset <"dataset"> ."}'  >> $cockpit/automatic/$base-uri-nodes.ttl
+   query="select ?node where { ?node a <http://www.w3.org/2000/01/rdf-schema#Resource> }"
+   echo $query | tdbquery --loc=$cockpit/automatic/tdb --query=- --results=csv | awk -v ds=$versionedDataset '{if(NR>1){print "<"$1"> void:inDataset <"ds"> ."}}' >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:dataDump     <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal> ." >> $cockpit/automatic/$base-uri-nodes.ttl
+   tdb_size=`du -sh $cockpit/automatic/tdb`
+   echo "Removing $tdb_size $cockpit/automatic/tdb"
+   rm -f $cockpit/automatic/tdb/*
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
