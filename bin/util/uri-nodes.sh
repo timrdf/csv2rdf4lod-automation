@@ -35,6 +35,17 @@ if [[ "$1" == "--as-ttl" ]]; then
    shift
 fi
 
+as_nt=''
+class="<http://www.w3.org/2000/01/rdf-schema#Resource>"
+if [[ "$1" == "--as-nt" ]]; then
+   as_nt="$2"
+   if [[ "$#" -gt 1 && ! -e "$2" ]]; then
+      class=$2
+      shift
+   fi
+   shift
+fi
+
 total=$#
 while [ $# -gt 0 ]; do
    file="$1" 
@@ -47,6 +58,8 @@ while [ $# -gt 0 ]; do
       echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."
       echo
       $0 $* | awk -v class=$class '{if(NF==1) {print "<"$1">","a",class,"."}}'
+   elif [[ -n "$as_nt" ]]; then
+      $0 $* | awk -v class=$class '{if(NF==1) {print "<"$1">","<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>",class,"."}}'
    else
       if [[ $total -eq 1 && `gzipped.sh $file` == "yes" && `guess-syntax.sh $file mime` == "text/plain" ]]; then
          # Avoids dumping to an intermediate file.

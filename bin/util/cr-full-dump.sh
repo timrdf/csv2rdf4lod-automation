@@ -129,6 +129,7 @@ for datadump in `find $cockpit/source -type f`; do
    if [ "$dryrun" != "true" ]; then
       # Do it piecemeal to avoid strain on sort's memory.
       echo "$cockpit/automatic/$base-uri-nodes.txt <-- $datadump"
+      # @deprecated; use tdbloader instead since it uses disk and handles uniqueness.
       #small=`find \`dirname $datadump\` -name \`basename $datadump\` -size -20M`
       #if [[ -n "$small" ]]; then
       #   uri-nodes.sh $datadump | sort -u                                                                                            >> $cockpit/automatic/$base-uri-nodes.txt
@@ -136,14 +137,10 @@ for datadump in `find $cockpit/source -type f`; do
       #   echo "(avoiding sort -u)"
       #   uri-nodes.sh $datadump                                                                                                      >> $cockpit/automatic/$base-uri-nodes.txt
       #fi
-      uri-nodes.sh --as-ttl $datadump | tdbloader --quiet --loc=$cockpit/automatic/tdb -           # $cockpit/automatic/tdb
+      uri-nodes.sh '--as-nt' $datadump | tdbloader --quiet --loc=$cockpit/automatic/tdb -           # $cockpit/automatic/tdb
    fi
 done
-##Too big:
-##if [ "$dryrun" != "true" ]; then
-##   cat $TEMP | sort -u                                                                                                             > $cockpit/automatic/$base-uri-nodes.txt
-##   rm -f $TEMP
-##fi
+echo "select ?node where { ?node a <http://www.w3.org/2000/01/rdf-schema#Resource> }" | tdbquery --loc=$cockpit/automatic/tdb >> $cockpit/automatic/$base-uri-nodes.txt
 
 echo quitting
 exit 
