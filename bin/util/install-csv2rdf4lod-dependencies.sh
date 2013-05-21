@@ -66,40 +66,41 @@ function offer_install_with_apt {
    # See also https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/install-csv2rdf4lod-dependencies.sh
    # See also https://github.com/timrdf/DataFAQs/blob/master/bin/install-datafaqs-dependencies.sh
    # See also Prizms bin/install.sh
-
-   command="$1"
-   package="$2"
-   if [ `which apt-get` ]; then
-      if [[ -n "$command" && -n "$package" ]]; then
-         if [ ! `which $command` ]; then
-            if [ "$dryrun" != "true" ]; then
-               echo
-            fi
-            echo $TODO $sudo apt-get install $package
-            if [ "$dryrun" != "true" ]; then
-               read -p "Could not find $command on path. Try to install with command shown above? (y/n): " -u 1 install_it
-               if [[ "$install_it" == [yY] ]]; then
-                  echo $sudo apt-get install $package
-                       $sudo apt-get install $package
+   if [[ -n "$sudo" ]]; then
+      command="$1"
+      package="$2"
+      if [ `which apt-get` ]; then
+         if [[ -n "$command" && -n "$package" ]]; then
+            if [ ! `which $command` ]; then
+               if [ "$dryrun" != "true" ]; then
+                  echo
                fi
+               echo $TODO $sudo apt-get install $package
+               if [ "$dryrun" != "true" ]; then
+                  read -p "Could not find $command on path. Try to install with command shown above? (y/n): " -u 1 install_it
+                  if [[ "$install_it" == [yY] ]]; then
+                     echo $sudo apt-get install $package
+                          $sudo apt-get install $package
+                  fi
+               fi
+            else
+               echo "[okay] $command already available at `which $command`"
             fi
-         else
-            echo "[okay] $command already available at `which $command`"
          fi
+      else
+         echo "[WARNING] Sorry, we need apt-get to install $command / $package for you."
       fi
-   else
-      echo "[WARNING] Sorry, we need apt-get to install $command / $package for you."
+      which $command >& /dev/null
+      return $?
    fi
-   which $command >& /dev/null
-   return $?
 }
 
-if [ "$dryrun" != "true" ]; then
+if [[ "$dryrun" != "true" && -n "$sudo" ]]; then
    echo $sudo apt-get update &> /dev/null
         $sudo apt-get update &> /dev/null
 fi
 
-offer_install_with_apt 'git'    'git-core'      # These are dryrun safe.
+offer_install_with_apt 'git'    'git-core'      # These are dryrun safe and are only done if $sudo.
 offer_install_with_apt 'java'   'openjdk-6-jre' # openjdk-6-jdk ?
 offer_install_with_apt 'awk'    'gawk'          #
 offer_install_with_apt 'curl'   'curl'          #
@@ -107,7 +108,7 @@ offer_install_with_apt 'rapper' 'raptor-utils'  #
 offer_install_with_apt 'unzip'  'unzip'         #
 offer_install_with_apt 'screen' 'screen'        #
 
-if [ ! `which serdi` ]; then
+if [[ ! `which serdi` && -n "$sudo" ]]; then
    if [ "$dryrun" != "true" ]; then
       echo
       read -p "Try to install serdi at $base? [y/N] " -u 1 install_it
@@ -215,7 +216,7 @@ fi
 
 cannot_locate=`echo 'yo' | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }' 2>&1 | grep "Can't locate"`
 perl_packages="YAML URI::Escape Data::Dumper HTTP:Config LWP:UserAgent IO::Socket::SSL Text:CSV Text::CSV_XS"
-if [[ "$cannot_locate" =~ *Can*t*locate* ]]; then
+if [[ "$cannot_locate" =~ *Can*t*locate* && -n "$sudo" ]]; then
    echo ${#cannot_locate} $cannot_locate
    if [[ "$dryrun" != "true" ]]; then
    echo
@@ -282,106 +283,107 @@ fi
 
 
 
+if [[ -n "$sudo" ]]; then
+   # config and db in /var/lib/virtuoso
+   # programs in /usr/bin /usr/lib
+   # inti.d script in /etc/init.d
 
-# config and db in /var/lib/virtuoso
-# programs in /usr/bin /usr/lib
-# inti.d script in /etc/init.d
+   # http://blog.bodhizazen.net/linux/apt-get-how-to-fix-very-broken-packages/
+   # var/lib/dpkg/info:
+   # virtuoso-opensource.conffiles  virtuoso-opensource.md5sums    virtuoso-opensource.postrm     
+   # virtuoso-opensource.list       virtuoso-opensource.postinst   virtuoso-opensource.prerm 
 
-# http://blog.bodhizazen.net/linux/apt-get-how-to-fix-very-broken-packages/
-# var/lib/dpkg/info:
-# virtuoso-opensource.conffiles  virtuoso-opensource.md5sums    virtuoso-opensource.postrm     
-# virtuoso-opensource.list       virtuoso-opensource.postinst   virtuoso-opensource.prerm 
+   # change localhost to map to that IP (shown in /etc/hosts)
+   # comment 127.0.0.1    localhost and add 'localhost' to the other IP
 
-# change localhost to map to that IP (shown in /etc/hosts)
-# comment 127.0.0.1    localhost and add 'localhost' to the other IP
+   # /etc/apache2/sites-available/default ~=  /etc/apache2/sites-available/std.common
 
-# /etc/apache2/sites-available/default ~=  /etc/apache2/sites-available/std.common
+   # a2enmod proxy
+   # service apache2 restart
 
-# a2enmod proxy
-# service apache2 restart
+   # "No protocol handler was valid for the URL /sparql. If you are using a DSO version of mod_proxy" ==>
+   #   apt-get install libapache2-mod-proxy-html
+   #   a2enmod proxy-html
 
-# "No protocol handler was valid for the URL /sparql. If you are using a DSO version of mod_proxy" ==>
-#   apt-get install libapache2-mod-proxy-html
-#   a2enmod proxy-html
-
-virtuoso_installed="no"
-if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
-      -e '/usr/bin/isql-v'                   && \
-      -e '/etc/init.d/virtuoso-opensource'   && \
-      -e '/var/lib/virtuoso/db/virtuoso.log' ]]; then
-   virtuoso_installed="yes"
-fi
-if [[ "$dryrun" != "true" && "$virtuoso_installed" == "no" ]]; then
-   echo
-   echo $div
-   read -p "Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
-fi
-if [[ "$virtuoso_installed" == "no" ]]; then
-      if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
-      # http://sourceforge.net/projects/virtuoso/
-      url='http://sourceforge.net/projects/virtuoso/files/latest/download'
-      pushd /opt &> /dev/null # $base
-         # Not really working:
-            #redirect=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/[^z]*$/\n/g' | awk '{printf("%s\n",$2)}'`
-            # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
-            #tarball=`basename $redirect`
-            # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
-            #echo "${redirect}.----------"
-            #echo to
-            #echo "${tarball}.----------"
-         redirect=$url
-         tarball='virtuoso.tar.gz'
-         if [ ! -e $tarball ]; then
-            if [ "$dryrun" != "true" ]; then
-               sudo touch pid.$$
-            fi
-            echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
-            if [ "$dryrun" != "true" ]; then
-               sudo curl -L -o $tarball --progress-bar $url
-               echo $TODO sudo tar xzf $tarball
-                          sudo tar xzf $tarball
-               #$sudo rm $tarball
-               #virtuoso_root=$base/${tarball%.tar.gz} # $base
-               virtuoso_root=`find . -maxdepth 1 -cnewer pid.$$ -name "virtuoso*" -type d`
-               # ^ e.g. 'virtuoso-opensource-6.1.6/'
-               if [ -d $virtuoso_root ]; then
-                  pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
-                     echo
-                     echo
-                     echo $TODO sudo aptitude build-dep virtuoso-opensource # NOTE: if this is run on a TWC VM with 
-                                sudo aptitude build-dep virtuoso-opensource # /etc/hosts localhost 127.0.0.1, it will fail.
-                     echo
-                     echo
-                     echo $TODO sudo dpkg-buildpackage -rfakeroot
-                                sudo dpkg-buildpackage -rfakeroot
-                  popd &> /dev/null
-                  pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
-                  echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb
-                  sudo dpkg -i ${pkg}_amd64.deb
-               fi
-               echo
-            fi
-            # Administering Virtuoso is discussed at:
-            #   https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore
-            #   https://github.com/jimmccusker/twc-healthdata/wiki/VM-Installation-Notes
-            #
-            # Debian package build results in:
-            #
-            #   /usr/bin/isql-v
-            #   /var/lib/virtuoso/db/virtuoso.ini
-            #   /usr/bin and /var and /usr/lib
-            #   endpoint: http://aquarius.tw.rpi.edu/projects/healthdata/sparql
-            #
-            # Restart virtuoso with sudo /etc/init.d/virtuoso-opensource restart
-            # Monitor virtuoso with sudo tail -f /var/lib/virtuoso/db/virtuoso.log
-            #                                    ^^ this shows "... Server online at 1111 (pid ...)"
-         fi
-      popd &> /dev/null
+   virtuoso_installed="no"
+   if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
+         -e '/usr/bin/isql-v'                   && \
+         -e '/etc/init.d/virtuoso-opensource'   && \
+         -e '/var/lib/virtuoso/db/virtuoso.log' ]]; then
+      virtuoso_installed="yes"
    fi
-else
-   echo "[okay] virtuoso is already installed at /etc/init.d/virtuoso-opensource + /var/lib/virtuoso/db/virtuoso.ini + /usr/bin/isql-v + /var/lib/virtuoso/db/virtuoso.log"
-fi
+   if [[ "$dryrun" != "true" && "$virtuoso_installed" == "no" ]]; then
+      echo
+      echo $div
+      read -p "Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
+   fi
+   if [[ "$virtuoso_installed" == "no" ]]; then
+         if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
+         # http://sourceforge.net/projects/virtuoso/
+         url='http://sourceforge.net/projects/virtuoso/files/latest/download'
+         pushd /opt &> /dev/null # $base
+            # Not really working:
+               #redirect=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/[^z]*$/\n/g' | awk '{printf("%s\n",$2)}'`
+               # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
+               #tarball=`basename $redirect`
+               # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
+               #echo "${redirect}.----------"
+               #echo to
+               #echo "${tarball}.----------"
+            redirect=$url
+            tarball='virtuoso.tar.gz'
+            if [ ! -e $tarball ]; then
+               if [ "$dryrun" != "true" ]; then
+                  sudo touch pid.$$
+               fi
+               echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
+               if [ "$dryrun" != "true" ]; then
+                  sudo curl -L -o $tarball --progress-bar $url
+                  echo $TODO sudo tar xzf $tarball
+                             sudo tar xzf $tarball
+                  #$sudo rm $tarball
+                  #virtuoso_root=$base/${tarball%.tar.gz} # $base
+                  virtuoso_root=`find . -maxdepth 1 -cnewer pid.$$ -name "virtuoso*" -type d`
+                  # ^ e.g. 'virtuoso-opensource-6.1.6/'
+                  if [ -d $virtuoso_root ]; then
+                     pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
+                        echo
+                        echo
+                        echo $TODO sudo aptitude build-dep virtuoso-opensource # NOTE: if this is run on a TWC VM with 
+                                   sudo aptitude build-dep virtuoso-opensource # /etc/hosts localhost 127.0.0.1, it will fail.
+                        echo
+                        echo
+                        echo $TODO sudo dpkg-buildpackage -rfakeroot
+                                   sudo dpkg-buildpackage -rfakeroot
+                     popd &> /dev/null
+                     pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
+                     echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb
+                     sudo dpkg -i ${pkg}_amd64.deb
+                  fi
+                  echo
+               fi
+               # Administering Virtuoso is discussed at:
+               #   https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore
+               #   https://github.com/jimmccusker/twc-healthdata/wiki/VM-Installation-Notes
+               #
+               # Debian package build results in:
+               #
+               #   /usr/bin/isql-v
+               #   /var/lib/virtuoso/db/virtuoso.ini
+               #   /usr/bin and /var and /usr/lib
+               #   endpoint: http://aquarius.tw.rpi.edu/projects/healthdata/sparql
+               #
+               # Restart virtuoso with sudo /etc/init.d/virtuoso-opensource restart
+               # Monitor virtuoso with sudo tail -f /var/lib/virtuoso/db/virtuoso.log
+               #                                    ^^ this shows "... Server online at 1111 (pid ...)"
+            fi
+         popd &> /dev/null
+      fi
+   else
+      echo "[okay] virtuoso is already installed at /etc/init.d/virtuoso-opensource + /var/lib/virtuoso/db/virtuoso.ini + /usr/bin/isql-v + /var/lib/virtuoso/db/virtuoso.log"
+   fi
 
+fi
 
 
 
