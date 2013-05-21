@@ -67,6 +67,8 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Clean up from last run.
 for panel in 'source' 'automatic' 'automatic/tdb' 'publish' 'doc/logs'; do
    if [ ! -d $cockpit/$panel ]; then
       mkdir -p $cockpit/$panel
@@ -115,19 +117,21 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Gather list of unique URI nodes.
 for datadump in `find $cockpit/source -type f`; do
    if [ "$dryrun" != "true" ]; then
-      echo "tdb <-- $datadump"
+      echo "tdb <--(URI nodes)-- $datadump"
       uri-nodes.sh '--as-nt' $datadump | tdbloader --quiet --loc=$cockpit/automatic/tdb -
       # CONSIDER: capturing the occurrence frequency of the nodes; needs modeling and tallying.
    fi
 done
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 pushd $cockpit &> /dev/null
    versionedDataset=`cr-dataset-uri.sh --uri`
-   sourceID=`cr-source-id.sh`   # Saved for later
-   datasetID=`cr-dataset-id.sh` # Saved for later
-   versionID=`cr-version-id.sh` # Saved for later
+   #sourceID=`cr-source-id.sh`   # Saved for later
+   #datasetID=`cr-dataset-id.sh` # Saved for later
+   #versionID=`cr-version-id.sh` # Saved for later @deprecate set in beginning.
    sdv=`cr-sdv.sh`
 popd &> /dev/null
 baseURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}"
@@ -141,13 +145,14 @@ if [ "$dryrun" != "true" ]; then
    echo "@prefix prov: <http://www.w3.org/ns/prov#> ."                                                                            >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                                                                           >> $cockpit/automatic/$base-uri-nodes.ttl
+   loc=$cockpit/automatic/tdb
    query="select ?node where { ?node a <http://www.w3.org/2000/01/rdf-schema#Resource> }"
-   echo $query | tdbquery --loc=$cockpit/automatic/tdb --query=- --results=csv | awk -v ds=$versionedDataset '{if(NR>1){print "<"$1"> void:inDataset <"ds"> ."}}' >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo $query | tdbquery --loc=$loc --query=- --results=csv | sed 's/\s//' | awk -v ds=$versionedDataset '{if(NR>1){print "<"$1"> void:inDataset <"ds"> ."}}' >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:rootResource <$topVoID> ."                                                                               >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:dataDump     <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal> ." >> $cockpit/automatic/$base-uri-nodes.ttl
-   tdb_size=`du -sh $cockpit/automatic/tdb`
-   echo "Removing $tdb_size $cockpit/automatic/tdb"
-   rm -f $cockpit/automatic/tdb/*
+   #tdb_size=`du -sh $cockpit/automatic/tdb`
+   #echo "Removing $tdb_size $cockpit/automatic/tdb"
+   #rm -f $cockpit/automatic/tdb/*
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
