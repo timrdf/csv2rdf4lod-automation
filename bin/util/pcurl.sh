@@ -123,7 +123,7 @@ while [ $# -gt 0 ]; do
    fi
 
    #echo getting last mod xsddatetime
-   urlINFO=`curl -I --globoff $url 2> /dev/null`
+   urlINFO=`curl -I --globoff $url 2> /dev/null | grep -v 'Set-Cookie'`
    urlModDateTime=`urldate.sh -field Last-Modified: -format dateTime $url`
    #echo "PCURL: URL modification date:  $urlModDateTime"
 
