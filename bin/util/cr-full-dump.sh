@@ -67,7 +67,7 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
-for panel in 'source' 'automatic/tdb' 'publish' 'doc/logs'; do
+for panel in 'source' 'automatic' 'automatic/tdb' 'publish' 'doc/logs'; do
    if [ ! -d $cockpit/$panel ]; then
       mkdir -p $cockpit/$panel
    fi
