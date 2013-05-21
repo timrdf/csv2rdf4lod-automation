@@ -46,10 +46,7 @@ while [ $# -gt 0 ]; do
    if [[ -n "$as_ttl" ]]; then
       echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."
       echo
-      if [[ -n "$verbose" ]]; then
-         echo "$0 $* | awk -v class=$class '$1 ~ /^</ {print $1,"a",class,"."}'"
-      fi
-      $0 $* | awk -v class=$class '$1 ~ /^</ {print $1,"a",class,"."}'
+      $0 $* | awk -v class=$class '{if(NF==1) {print "<"$1">","a",class,"."}}'
    else
       if [[ $total -eq 1 && `gzipped.sh $file` == "yes" && `guess-syntax.sh $file mime` == "text/plain" ]]; then
          # Avoids dumping to an intermediate file.
