@@ -31,8 +31,6 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
-TEMP="_"`basename $0``date +%s`_$$.tmp
-
 sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
 datasetID=`basename $0 | sed 's/.sh$//'`
 versionID='latest' # Doing it every day is a waste of space for this use case. `date +%Y-%b-%d`
@@ -67,27 +65,31 @@ if [ "$1" == "-n" ]; then
    shift
 fi
 
-#for panel in 'source' 'automatic' 'publish' 'doc/logs'; do
-#   if [ ! -d $cockpit/$panel ]; then
-#      mkdir -p $cockpit/$panel
-#   fi
-#   echo "rm -rf $cockpit/$panel/*"
-#   if [ "$dryrun" != "true" ]; then
-#      rm -rf $cockpit/$panel/*
-#   fi
-#done
+TEMP="_"`basename $0``date +%s`_$$.tmp
+
+for panel in 'source' 'automatic' 'publish' 'doc/logs'; do
+   if [ ! -d $cockpit/$panel ]; then
+      mkdir -p $cockpit/$panel
+   fi
+   echo "rm -rf $cockpit/$panel/*"
+   if [ "$dryrun" != "true" ]; then
+      rm -rf $cockpit/$panel/*
+   fi
+done
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Collect source files into source/
-#if [ "$dryrun" != "true" ]; then
-#   for datadump in `cr-list-versioned-dataset-dumps.sh --warn-if-missing`; do
-#      echo ln $datadump $cockpit/source/
-#      if [ "$dryrun" != "true" ]; then
-#         ln $datadump $cockpit/source/
-#      fi
-#   done
-#fi
+if [ "$dryrun" != "true" ]; then
+   for datadump in `cr-list-versioned-dataset-dumps.sh --warn-if-missing`; do
+      echo ln $datadump $cockpit/source/
+      if [ "$dryrun" != "true" ]; then
+         ln $datadump $cockpit/source/
+      fi
+   done
+fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+exit
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
@@ -130,9 +132,7 @@ for datadump in `find $cockpit/source -type f`; do
       # Do it piecemeal to avoid strain on sort's memory.
       echo "$cockpit/automatic/$base-uri-nodes.txt <-- $datadump"
       small=`find \`dirname $datadump\` -name \`basename $datadump\` -size -20M`
-      echo $small
       if [[ -n "$small" ]]; then
-         echo "(sort -u)"
          uri-nodes.sh $datadump | sort -u                                                                                            >> $cockpit/automatic/$base-uri-nodes.txt
       else
          echo "(avoiding sort -u)"
