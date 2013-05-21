@@ -93,27 +93,27 @@ fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
-#echo "$cockpit/publish/$dumpFileLocal"
-#if [[ -n "`getconf ARG_MAX`" && \
-#     `find $cockpit/source -type f | wc -l` -lt `getconf ARG_MAX` ]]; then
-#   # Saves disk space, but shell can't handle infinite arguments.
-#   echo "(as batch)"
-#   if [ "$dryrun" != "true" ]; then
-#      rdf2nt.sh --verbose `find $cockpit/source -type f` 2> $cockpit/doc/logs/rdf2nt-errors.log | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/doc/logs/gzip-errors.log
-#   fi
-#else
-#   echo "(incrementally)"
-#   # Handles infinite source/* files, but uses disk space.
-#   for datadump in `find $cockpit/source -type f`; do
-#      if [ "$dryrun" != "true" ]; then
-#         rdf2nt.sh $datadump >> $cockpit/publish/$dumpFileLocal.tmp
-#      fi
-#   done
-#   if [ "$dryrun" != "true" ]; then
-#      cat $cockpit/publish/$dumpFileLocal.tmp | gzip > $cockpit/publish/$dumpFileLocal
-#      rm $cockpit/publish/$dumpFileLocal.tmp
-#   fi
-#fi
+echo "$cockpit/publish/$dumpFileLocal"
+if [[ -n "`getconf ARG_MAX`" && \
+     `find $cockpit/source -type f | wc -l` -lt `getconf ARG_MAX` ]]; then
+   # Saves disk space, but shell can't handle infinite arguments.
+   echo "(as batch)"
+   if [ "$dryrun" != "true" ]; then
+      rdf2nt.sh --verbose `find $cockpit/source -type f` 2> $cockpit/doc/logs/rdf2nt-errors.log | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/doc/logs/gzip-errors.log
+   fi
+else
+   echo "(incrementally)"
+   # Handles infinite source/* files, but uses disk space.
+   for datadump in `find $cockpit/source -type f`; do
+      if [ "$dryrun" != "true" ]; then
+         rdf2nt.sh $datadump >> $cockpit/publish/$dumpFileLocal.tmp
+      fi
+   done
+   if [ "$dryrun" != "true" ]; then
+      cat $cockpit/publish/$dumpFileLocal.tmp | gzip > $cockpit/publish/$dumpFileLocal
+      rm $cockpit/publish/$dumpFileLocal.tmp
+   fi
+fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -127,11 +127,11 @@ for datadump in `find $cockpit/source -type f`; do
 done
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Create the URI node listing RDF file.
 pushd $cockpit &> /dev/null
    versionedDataset=`cr-dataset-uri.sh --uri`
-   #sourceID=`cr-source-id.sh`   # Saved for later
-   #datasetID=`cr-dataset-id.sh` # Saved for later
-   #versionID=`cr-version-id.sh` # Saved for later @deprecate set in beginning.
    sdv=`cr-sdv.sh`
 popd &> /dev/null
 baseURI="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}"
@@ -150,15 +150,15 @@ if [ "$dryrun" != "true" ]; then
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                             >> $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                                              >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:rootResource <$topVoID> ."                                                  >> $cockpit/automatic/$base-uri-nodes.ttl
-   echo "<$topVoID> void:dataDump     <$dataDump> ."                                                 >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "<$topVoID> void:dataDump     <$dumpFileLocal> ."                                            >> $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                                              >> $cockpit/automatic/$base-uri-nodes.ttl
    loc=$cockpit/automatic/tdb
    query="select ?node where { ?node a <http://www.w3.org/2000/01/rdf-schema#Resource> }"
    echo $query | tdbquery --loc=$loc --query=- --results=csv | sed 's/\s//' \
                | awk -v dump=$dumpFileLocal '{if(NR>1){print "<"dump"> dcterms:subject <"$1"> ."}}'  >> $cockpit/automatic/$base-uri-nodes.ttl
-   #tdb_size=`du -sh $cockpit/automatic/tdb`
-   #echo "Removing $tdb_size $cockpit/automatic/tdb"
-   #rm -f $cockpit/automatic/tdb/*
+   tdb_size=`du -sh $cockpit/automatic/tdb`
+   echo "Removing $tdb_size $cockpit/automatic/tdb"
+   rm -f $cockpit/automatic/tdb/*
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -169,6 +169,9 @@ if [ "$dryrun" != "true" ]; then
    pushd $cockpit &> /dev/null
       cr-pwd.sh
       aggregate-source-rdf.sh automatic/$base-uri-nodes.ttl
+      #ttl_size=`du -sh automatic/$base-uri-nodes.ttl`
+      #echo "Removing $ttl_size automatic/$base-uri-nodes.ttl"
+      #rm -f automatic/$base-uri-nodes.ttl
    popd &> /dev/null
 
    # Sneak the top-level VoID into the void file.
@@ -281,7 +284,7 @@ if [ "$dryrun" != "true" ]; then
               $sudo ln $symbolic "${wd}$cockpit/publish/$dumpFileLocal" $wwwFile
 
    #pushd $cockpit &> /dev/null
-   #   # Replaces duplication above:
+   #   # Replaces duplication above (but, isnt' working...):
    #   cr-ln-to-www-root.sh publish/$dumpFileLocal
    #   one_click_dump=`cr-ln-to-www-root.sh -n --url-of-filepath publish/$dumpFileLocal`
    #
