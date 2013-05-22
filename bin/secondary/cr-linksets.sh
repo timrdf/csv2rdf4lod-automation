@@ -104,6 +104,7 @@ if [[ `is-pwd-a.sh                                                            cr
       # Go into the directory that stores the original data obtained from the source organization.
       echo INFO `cr-pwd.sh`/$version/source
       pushd $version/source &> /dev/null
+         rm -f *
          touch .__CSV2RDF4LOD_retrieval # Make a timestamp so we know what files were created during retrieval.
          # - - - - - - - - - - - - - - - - - - - - Replace below for custom retrieval  - - - \
          pcurl.sh $url                                                                     # |
@@ -128,7 +129,7 @@ if [[ `is-pwd-a.sh                                                            cr
          #gunzip -c source/$tarball | awk '{print $1}' | grep "^<" | sed 's/^<//;s/>$//' | sort -u > automatic/$ours.csv
          rdf2nt.sh source/$tarball | grep "<http://purl.org/dc/terms/subject>" | awk '{print $3}' | sed 's/^<//;s/>$//' | grep -v "^$baseURI" | sort -u > automatic/$ours.csv
 
-         echo "`wc -l automatic/$ours.csv | awk '{print $1}'` RDF URI nodes in our bubble"
+         echo "`wc -l automatic/$ours.csv | awk '{print $1}'` external RDF URI nodes in our bubble"
 
          tally=0
          total=`ckan-datasets-in-group.py | wc -l | awk '{print $1}'`
