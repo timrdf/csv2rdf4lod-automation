@@ -49,13 +49,13 @@ if [[ "$1" == "--clear-cache" ]]; then
    rm $prefix_cc
 fi
 
-if [[ ! -e ~/.prefix.cc ]]; then
-   curl http://prefix.cc/popular/all.file.ttl | grep -v "^#@prefix" > $prefix_cc
+if [[ ! -e $prefix_cc ]]; then
+   curl -sL http://prefix.cc/popular/all.file.ttl | grep -v "^#@prefix" > $prefix_cc
 fi
 
 cp $prefix_cc $TEMP
 rdf2nt.sh $* >> $TEMP
-cat $TEMP | serd -i turtle -o turtle $TEMP
+cat $TEMP | serdi -i turtle -o turtle $TEMP
 rm $TEMP
 
 
