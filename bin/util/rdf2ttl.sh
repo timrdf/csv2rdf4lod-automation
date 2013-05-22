@@ -55,7 +55,7 @@ fi
 
 cp $prefix_cc $TEMP
 rdf2nt.sh $* >> $TEMP
-cat $TEMP | serdi -i turtle -o turtle $TEMP
+serdi -i turtle -o turtle $TEMP
 rm $TEMP
 
 
