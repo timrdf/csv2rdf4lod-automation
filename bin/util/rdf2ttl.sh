@@ -49,7 +49,10 @@ if [[ "$1" == "--clear-cache" ]]; then
    rm $prefix_cc
 fi
 
+
+
 if [[ ! -e "$prefix_cc" ]]; then
+   touch "$prefix_cc"
    curl -sL http://prefix.cc/popular/all.file.ttl | grep -v "^#@prefix" > "$prefix_cc"
 fi
 
