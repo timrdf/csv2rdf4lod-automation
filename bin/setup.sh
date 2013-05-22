@@ -441,8 +441,8 @@ export CSV2RDF4LOD_PUBLISH_RDFXML="false"
 #
 # (done in convert-aggregate.sh)
 #
-export CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS="true"
 export CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS="false"
+export CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS="true"
 
 #
 # Customize: include subset of conversion that describes the 
