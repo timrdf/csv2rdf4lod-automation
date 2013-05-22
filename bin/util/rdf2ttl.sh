@@ -45,6 +45,7 @@ fi
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
 prefix_cc="~/.`basename $0`.prefix.cc"
+prefix_cc=".prefix.cc"
 if [[ "$1" == "--clear-cache" ]]; then
    rm $prefix_cc
 fi
