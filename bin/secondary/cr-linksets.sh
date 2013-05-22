@@ -126,7 +126,7 @@ if [[ `is-pwd-a.sh                                                            cr
          ours=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID}
          echo "Extracting list of RDF URI nodes from our bubble: $ours"
          #gunzip -c source/$tarball | awk '{print $1}' | grep "^<" | sed 's/^<//;s/>$//' | sort -u > automatic/$ours.csv
-         rdf2nt.sh source/$tarball | grep "<http://purl.org/dc/terms/subject>" | awk '{print $3}' | sed 's/^<//;s/>$//' > automatic/$ours.csv
+         rdf2nt.sh source/$tarball | grep "<http://purl.org/dc/terms/subject>" | awk '{print $3}' | sed 's/^<//;s/>$//' | grep -v "^$baseURI" | sort -u > automatic/$ours.csv
 
          echo "`wc -l automatic/$ours.csv | awk '{print $1}'` RDF URI nodes in our bubble"
 
