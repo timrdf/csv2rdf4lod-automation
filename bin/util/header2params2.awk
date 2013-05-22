@@ -169,9 +169,9 @@ BEGIN {
    #
    if( cellDelimiter != "\t" ) {
                                     printf("      conversion:delimits_cell \"%s\";\n",cellDelimiter);
-                                    printf("      #conversion:delimits_cell \"	\"; # tab\n");
+                                    printf("      #conversion:delimits_cell \"	\"; # tab\n"); # TODO: Jena likes "\u0009" better.
    }else {
-                                    printf("      conversion:delimits_cell \"	\"; # tab\n");
+                                    printf("      conversion:delimits_cell \"	\"; # tab\n"); # TODO: Jena likes "\u0009" better.
    }
                                     printf("      #conversion:delimits_cell \"|\";   # pipe\n");
                                     printf("      #conversion:delimits_cell \",\";   # comma\n");
