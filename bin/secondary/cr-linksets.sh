@@ -118,10 +118,17 @@ if [[ `is-pwd-a.sh                                                            cr
          fi
 
          tarball=$sourceID-cr-full-dump-latest.ttl.gz
+         # <http://ieeevis.tw.rpi.edu/void> <http://rdfs.org/ns/void#rootResource> <http://ieeevis.tw.rpi.edu/void> .
+         # <http://ieeevis.tw.rpi.edu/void> <http://rdfs.org/ns/void#dataDump> <http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/file/cr-full-dump/version/latest/conversion/ieeevis-tw-rpi-edu.nt.gz> .
+         # <http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/file/cr-full-dump/version/latest/conversion/ieeevis-tw-rpi-edu.nt.gz> <http://purl.org/dc/terms/subject> <a> .
+         # <http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/file/cr-full-dump/version/latest/conversion/ieeevis-tw-rpi-edu.nt.gz> <http://purl.org/dc/terms/subject> <b> .
+         # <http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/file/cr-full-dump/version/latest/conversion/ieeevis-tw-rpi-edu.nt.gz> <http://purl.org/dc/terms/subject> ... .
          ours=${CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID}
          echo "Extracting list of RDF URI nodes from our bubble: $ours"
-         gunzip -c source/$tarball | awk '{print $1}' | grep "^<" | sed 's/^<//;s/>$//' | sort -u > automatic/$ours.txt
-         echo "`wc -l automatic/$ours.txt | awk '{print $1}'` RDF URI nodes in our bubble"
+         #gunzip -c source/$tarball | awk '{print $1}' | grep "^<" | sed 's/^<//;s/>$//' | sort -u > automatic/$ours.csv
+         rdf2nt.sh source/$tarball | grep "<http://purl.org/dc/terms/subject>" | awk '{print $3}' | sed 's/^<//;s/>$//' > automatic/$ours.csv
+
+         echo "`wc -l automatic/$ours.csv | awk '{print $1}'` RDF URI nodes in our bubble"
 
          tally=0
          total=`ckan-datasets-in-group.py | wc -l | awk '{print $1}'`
@@ -136,7 +143,7 @@ if [[ `is-pwd-a.sh                                                            cr
                   echo "$tally/$total Searching $ours for URIs in $uri_space (for $bubble)"
                   echo "$uri_space" > automatic/$bubble/urispace.txt
                   if [[ "$dryrun" != "true" ]]; then
-                     grep "^$uri_space" automatic/$ours.txt > automatic/$bubble/linkset.txt
+                     grep "^$uri_space" automatic/$ours.csv > automatic/$bubble/linkset.txt
                      for linkset in `find automatic/$bubble -name "linkset.txt" -size +1c`; do
                         echo "$tally/$total $bubble `cat automatic/$bubble/linkset.txt | wc -l`"
                      done
