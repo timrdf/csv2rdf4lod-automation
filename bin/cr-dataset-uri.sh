@@ -48,6 +48,9 @@ if [[ "$1" == "uri" || "$1" == "--uri" ]]; then
       echo $CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID
    fi
    exit 0
+elif [[ "$1" == "abstract-uri" || "$1" == "--abstract-uri" ]]; then
+   echo ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/`cr-source-id.sh`/dataset/`cr-dataset-id.sh`
+   exit 0
 fi
 
 base_uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
