@@ -76,6 +76,7 @@ else
    # We failed to guess based on the file name.
    guess="-g"
 fi
+filename_guess="$guess"
 if [ $inspect == "true" ]; then
    SAMPLE=1000
    if [[ ! -f $url ]]; then
@@ -90,7 +91,7 @@ if [ $inspect == "true" ]; then
    elif [[ `head -$SAMPLE $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
       # @prefix
       guess="-i turtle"                   #      <     >     <     >     <     >      .
-   elif [[   `head -$SAMPLE $url | awk '$0 ~ /^[^<]*<[^>]+>[^>]*<[^>]+>[^>]*<[^>]+>[^<]*\.[^<]*$/ && $0 !~ "rdf:about=" && $0 !~ "rdf:nodeID=" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
+   elif [[   `head -$SAMPLE $url | awk '$0 ~ /^[^<]*<[^>]+>[^>]*<[^>]+>[^>]*<[^>]+>[^<]*\.[^<]*$/ && $0 !~ "rdf:about=" && $0 !~ "rdf:nodeID=" {c++} END {printf("%s",c)}'` -gt 1 ]]; then
       # <> <> <>
       guess="-i ntriples"
    elif [[ `head -$SAMPLE $url | awk '$0 ~ "rdf:about=" || $0 ~ "rdf:resource" {c++} END {printf("%s",c)}'` -gt 2 ]]; then
@@ -108,7 +109,7 @@ if [ $inspect == "true" ]; then
       #echo "ntriples: `head -$SAMPLE $url | awk '$0 ~ /[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*/{c++}END{printf("%s",c)}'`"
       #echo "turtle:   `head -$SAMPLE $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'`"
       #echo "rdfxml:   `head -$SAMPLE $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'`"
-      guess="-g"
+      guess="$filename_guess"
    fi
 fi
 
