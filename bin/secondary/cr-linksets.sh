@@ -160,6 +160,7 @@ if [[ `is-pwd-a.sh                                                            cr
          done
 
          DATAHUB='http://datahub.io'
+         linkset_time=`dateInXSDDateTime.sh --turtle`
          for linkset in `find automatic -name "linkset.txt" -size +1c`; do
             # e.g.: automatic/data-gov/linkset.txt
             bubble=`echo $linkset | awk -F/ '{print $2}'`
@@ -189,7 +190,7 @@ if [[ `is-pwd-a.sh                                                            cr
             #echo ""                                                        >> automatic/$bubble.ttl
             echo ":$datasetTIMEdataset"                                    >> automatic/$bubble.ttl
             echo "   a void:Linkset, void:Dataset;"                        >> automatic/$bubble.ttl
-            echo "   dcterms:created `dateInXSDDateTime.sh --turtle`;"     >> automatic/$bubble.ttl
+            echo "   dcterms:created $linkset_time;"                       >> automatic/$bubble.ttl
             echo "   void:inDataset <`cr-dataset-uri.sh --uri`>;"          >> automatic/$bubble.ttl
             echo "   void:target "                                         >> automatic/$bubble.ttl
             echo "     <$DATAHUB/dataset/$ours>,"                          >> automatic/$bubble.ttl
