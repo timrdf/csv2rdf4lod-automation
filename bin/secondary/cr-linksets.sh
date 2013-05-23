@@ -173,7 +173,8 @@ if [[ `is-pwd-a.sh                                                            cr
             echo "@prefix : <`cr-dataset-uri.sh --abstract`/> ."            > automatic/$bubble.ttl
             cr-default-prefixes.sh --turtle                                >> automatic/$bubble.ttl
             echo                                                           >> automatic/$bubble.ttl
-            echo "<$DATAHUB/dataset/$ours>"                                >> automatic/$bubble.ttl
+            echo "<$baseURI/void>"                                         >> automatic/$bubble.ttl
+            echo "   owl:sameAs <$DATAHUB/dataset/$ours>;"                 >> automatic/$bubble.ttl
             echo "   a datafaqs:CKANDataset;"                              >> automatic/$bubble.ttl
             echo "   void:subset :linkset_$datasetTIMEdataset ."           >> automatic/$bubble.ttl
             echo ""                                                        >> automatic/$bubble.ttl
