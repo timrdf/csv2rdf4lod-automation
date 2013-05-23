@@ -97,12 +97,12 @@ echo "$cockpit/publish/$dumpFileLocal"
 if [[ -n "`getconf ARG_MAX`" && \
      `find $cockpit/source -type f | wc -l` -lt `getconf ARG_MAX` ]]; then
    # Saves disk space, but shell can't handle infinite arguments.
-   echo "(as batch)"
+   echo "Aggregating versioned dataset dumps into monolith (as batch)"
    if [ "$dryrun" != "true" ]; then
       rdf2nt.sh --verbose `find $cockpit/source -type f` 2> $cockpit/doc/logs/rdf2nt-errors.log | gzip > $cockpit/publish/$dumpFileLocal 2> $cockpit/doc/logs/gzip-errors.log
    fi
 else
-   echo "(incrementally)"
+   echo "Aggregating versioned dataset dumps into monolith (incrementally)"
    # Handles infinite source/* files, but uses disk space.
    for datadump in `find $cockpit/source -type f`; do
       if [ "$dryrun" != "true" ]; then
