@@ -175,6 +175,8 @@ if [ "$dryrun" != "true" ]; then
       #ttl_size=`du -sh automatic/$base-uri-nodes.ttl`
       #echo "Removing $ttl_size automatic/$base-uri-nodes.ttl"
       #rm -f automatic/$base-uri-nodes.ttl
+
+      # TODO: consider avoiding the graph load (or, hack it and pvdelete e.g. http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/cr-full-dump/version/latest)
    popd &> /dev/null
 
    # Sneak the top-level VoID into the void file.
@@ -200,7 +202,7 @@ if [ "$dryrun" != "true" ]; then
    fi
    echo "   foaf:page <$baseURI/source/$sourceID/file/cr-sitemap/version/latest/conversion/sitemap.xml>;"                         >> $cockpit/publish/$sdv.void.ttl
    echo "   tag:taggedWithTag <http://datahub.io/tag/lod>, <http://datahub.io/tag/prizms>,"                                       >> $cockpit/publish/$sdv.void.ttl
-   echo "                     <http://datahub.io/tag/vocab-mappings>, <http://datahub.io/tag/deref-vocab>;"                       >> $cockpit/publish/$sdv.void.ttl
+   echo "                     <http://datahub.io/tag/vocab-mappings>, <http://datahub.io/tag/deref-vocab>,"                       >> $cockpit/publish/$sdv.void.ttl
    echo "                     <http://datahub.io/tag/provenance-metadata>;"                                                       >> $cockpit/publish/$sdv.void.ttl
    echo "   void:uriSpace \"$baseURI/\";"                                                                                         >> $cockpit/publish/$sdv.void.ttl
    echo "   prov:wasDerivedFrom <$mappings>;"                                                                                     >> $cockpit/publish/$sdv.void.ttl
@@ -218,17 +220,26 @@ if [ "$dryrun" != "true" ]; then
    echo "."                                                                                                                       >> $cockpit/publish/$sdv.void.ttl
    # TODO: <$topVoID> void:exampleResource ?x from:
    #
-   pushd $cockpit/automatic &> /dev/null
-      echo "prefix dcterms: <http://purl.org/dc/terms/>"                                                                                            > exampleResource.rq
-      echo "prefix void:    <http://rdfs.org/ns/void#>"                                                                                            >> exampleResource.rq
-      echo "select distinct ?ex ?date"                                                                                                             >> exampleResource.rq
-      echo "where { "                                                                                                                              >> exampleResource.rq
-      echo "  ?s void:exampleResource ?ex; dcterms:modified ?date ."                                                                               >> exampleResource.rq
-      echo "  filter(!regex(str(?ex),'thing_'))"                                                                                                   >> exampleResource.rq
-      echo " }"                                                                                                                                    >> exampleResource.rq
-      echo "order by ?date"                                                                                                                        >> exampleResource.rq
-      echo "limit 1"                                                                                                                               >> exampleResource.rq
-   popd &> /dev/null
+   echo "prefix dcterms: <http://purl.org/dc/terms/>"                                                                              > $cockpit/automatic/exampleResource.rq
+   echo "prefix void:    <http://rdfs.org/ns/void#>"                                                                              >> $cockpit/automatic/exampleResource.rq
+   echo "select distinct ?ex ?date"                                                                                               >> $cockpit/automatic/exampleResource.rq
+   echo "where { "                                                                                                                >> $cockpit/automatic/exampleResource.rq
+   echo "  ?s void:exampleResource ?ex; dcterms:modified ?date ."                                                                 >> $cockpit/automatic/exampleResource.rq
+   echo "  filter(!regex(str(?ex),'thing_'))"                                                                                     >> $cockpit/automatic/exampleResource.rq
+   echo "}"                                                                                                                       >> $cockpit/automatic/exampleResource.rq
+   echo "order by desc(?date)"                                                                                                    >> $cockpit/automatic/exampleResource.rq
+   echo "limit 1"                                                                                                                 >> $cockpit/automatic/exampleResource.rq
+   cache-queries.sh $CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT -o csv -q $cockpit/automatic/exampleResource.rq -od $cockpit/source/exampleResource
+   exampleResource=`cat source/exampleResource/exampleResource.rq.csv | sed 's/"//g' | grep "^http" | awk -F, '{print $1}'`
+   if [[ -n "$exampleResource" && $exampleResource ~= http* ]]; then
+      echo "Example resource: $exampleResource"
+      echo "<$topVoID>"                                                                                                           >> $cockpit/publish/$sdv.void.ttl
+      echo "   void:exampleResource <$exampleResource>;"                                                                          >> $cockpit/publish/$sdv.void.ttl
+      echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
+   else
+      echo "WARNING: `basename $0` could not determine example resource."
+   fi
+
    if [[ -n "$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID" ]]; then
       echo "<$topVoID> owl:sameAs <http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID>;"               >> $cockpit/publish/$sdv.void.ttl
       echo "   a datafaqs:CKANDataset;"                                                                                           >> $cockpit/publish/$sdv.void.ttl
