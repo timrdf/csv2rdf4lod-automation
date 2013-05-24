@@ -94,7 +94,7 @@ for sparql in $queryFiles; do
       request=$endpoint"?query="$query"&"$outputVarName"="$escapedOutput 
       #echo $request
 
-      resultsFile=$results/$sparql.`echo $output | tr '/+-' '_'`
+      resultsFile=$results/`basename $sparql`.`echo $output | tr '/+-' '_'`
       curl "$request" > $resultsFile 2> /dev/null
 
       requestID=`resource-name.sh`
