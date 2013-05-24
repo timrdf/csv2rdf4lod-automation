@@ -231,7 +231,7 @@ if [ "$dryrun" != "true" ]; then
    echo "limit 1"                                                                                                                 >> $cockpit/automatic/exampleResource.rq
    cache-queries.sh $CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT -o csv -q $cockpit/automatic/exampleResource.rq -od $cockpit/source/exampleResource
    exampleResource=`cat source/exampleResource/exampleResource.rq.csv | sed 's/"//g' | grep "^http" | awk -F, '{print $1}'`
-   if [[ -n "$exampleResource" && $exampleResource ~= http* ]]; then
+   if [[ -n "$exampleResource" && $exampleResource =~ http* ]]; then
       echo "Example resource: $exampleResource"
       echo "<$topVoID>"                                                                                                           >> $cockpit/publish/$sdv.void.ttl
       echo "   void:exampleResource <$exampleResource>;"                                                                          >> $cockpit/publish/$sdv.void.ttl
