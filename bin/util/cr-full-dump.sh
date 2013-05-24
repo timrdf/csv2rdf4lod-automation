@@ -116,6 +116,9 @@ else
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+# Hack: Where is this directory coming from?
+rm -rf $cockpit/source/.droid6
+
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Gather list of unique URI nodes.
 for datadump in `find $cockpit/source -type f`; do
