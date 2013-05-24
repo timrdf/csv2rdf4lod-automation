@@ -183,14 +183,8 @@ if [ "$dryrun" != "true" ]; then
    #                                                                                                                              >> $cockpit/publish/$base.void.ttl
    mappings="$baseURI/source/$sourceID/file/cr-aggregated-params/version/latest/conversion/$sourceID-cr-aggregated-params-latest.ttl.gz"
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                                                          >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                                                                      >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix owl:        <http://www.w3.org/2002/07/owl#> ."                                                                  >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                                                       >> $cockpit/publish/$sdv.void.ttl
+   cr-default-prefixes.sh --turtle                                                                                                >> $cockpit/publish/$sdv.void.ttl
    echo "@prefix tag:        <http://www.holygoat.co.uk/owl/redwood/0.1/tags/> ."                                                 >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix void:       <http://rdfs.org/ns/void#> ."                                                                        >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix dcat:       <http://www.w3.org/ns/dcat#> ."                                                                      >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."                                                           >> $cockpit/publish/$sdv.void.ttl
-   echo "@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> ."                                                             >> $cockpit/publish/$sdv.void.ttl
    echo                                                                                                                           >> $cockpit/publish/$sdv.void.ttl
    echo "<$topVoID>"                                                                                                              >> $cockpit/publish/$sdv.void.ttl
    echo "   a void:Dataset, dcat:Dataset;"                                                                                        >> $cockpit/publish/$sdv.void.ttl
