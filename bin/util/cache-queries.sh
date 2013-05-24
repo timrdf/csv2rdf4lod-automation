@@ -118,7 +118,7 @@ for sparql in $queryFiles; do
       $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                              >> $resultsFile.pml.ttl
       echo                                                                                    >> $resultsFile.pml.ttl
       pushd $results &> /dev/null
-      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$sparql.$output"                            >> `basename $resultsFile.pml.ttl`
+      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$resultsFile"                               >> `basename $resultsFile.pml.ttl`
       popd &> /dev/null
       echo                                                                                    >> $resultsFile.pml.ttl
       echo "<$sparql.$output>"                                                                >> $resultsFile.pml.ttl
