@@ -218,9 +218,21 @@ if [ "$dryrun" != "true" ]; then
    echo "   a <http://dbpedia.org/resource/Site_map>;"                                                                            >> $cockpit/publish/$sdv.void.ttl
    echo "   dcterms:subject <$topVoID>;"                                                                                          >> $cockpit/publish/$sdv.void.ttl
    echo "."                                                                                                                       >> $cockpit/publish/$sdv.void.ttl
+
+   if [[ -n "$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID" ]]; then
+      echo "<$topVoID> owl:sameAs <http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID>;"               >> $cockpit/publish/$sdv.void.ttl
+      echo "   a datafaqs:CKANDataset;"                                                                                           >> $cockpit/publish/$sdv.void.ttl
+      echo "   dcterms:identifier \"$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID\";"                                       >> $cockpit/publish/$sdv.void.ttl
+      echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
+   fi
+
    #
+   # Ephemeral metadata
+   #
+   cr-default-prefixes.sh --turtle                                                                                                 > $cockpit/publish/$sdv.ephemeral.ttl 
+   echo $topVoID                                                                                                                   > $cockpit/publish/$sdv.ephemeral.ttl.sd_name
+
    # <$topVoID> void:exampleResource ?x from:
-   #
    echo "prefix dcterms: <http://purl.org/dc/terms/>"                                                                              > $cockpit/automatic/exampleResource.rq
    echo "prefix void:    <http://rdfs.org/ns/void#>"                                                                              >> $cockpit/automatic/exampleResource.rq
    echo "select distinct ?ex ?date"                                                                                               >> $cockpit/automatic/exampleResource.rq
@@ -233,31 +245,22 @@ if [ "$dryrun" != "true" ]; then
    cache-queries.sh $CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT -o csv -q $cockpit/automatic/exampleResource.rq -od $cockpit/source/exampleResource
    exampleResource=`cat $cockpit/source/exampleResource/exampleResource.rq.csv | sed 's/"//g' | grep "^http" | awk -F, '{print $1}' | tail -1`
    if [[ -n "$exampleResource" && "$exampleResource" =~ http* ]]; then
-      echo "Example resource: $exampleResource"
-      echo "<$topVoID>"                                                                                                           >> $cockpit/publish/$sdv.void.ttl
-      echo "   void:exampleResource <$exampleResource>;"                                                                          >> $cockpit/publish/$sdv.void.ttl
-      echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
+      echo "$cockpit/publish/$sdv.ephemeral.ttl (void:exampleResource $exampleResource)"
+      echo "<$topVoID>"                                                                                                           >> $cockpit/publish/$sdv.ephemeral.ttl
+      echo "   void:exampleResource <$exampleResource>;"                                                                          >> $cockpit/publish/$sdv.ephemeral.ttl 
+      echo "."                                                                                                                    >> $cockpit/publish/$sdv.ephemeral.ttl 
    else
       echo "WARNING: `basename $0` could not determine example resource."
    fi
 
-   if [[ -n "$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID" ]]; then
-      echo "<$topVoID> owl:sameAs <http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID>;"               >> $cockpit/publish/$sdv.void.ttl
-      echo "   a datafaqs:CKANDataset;"                                                                                           >> $cockpit/publish/$sdv.void.ttl
-      echo "   dcterms:identifier \"$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID\";"                                       >> $cockpit/publish/$sdv.void.ttl
-      echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
-   fi
-
+   # void:triples
    echo "$cockpit/publish/$sdv.ephemeral.ttl (void:triples)"
    triples=`rdf2nt.sh $cockpit/publish/$dumpFileLocal | rapper -i ntriples -c -I http://blah - 2>&1 | awk '$0~/Parsing returned/{print $4}'`
    if [[ ${#triples} -gt 0 && $triples == [0-9]* ]]; then # - - - - - - - - - - Avoid publish/*.void.ttl pattern so that cr-publish-void-to-endpoint.sh doesn't find it.
-      echo "@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> ."                                                                  >> $cockpit/publish/$sdv.ephemeral.ttl
-      echo "@prefix dcterms: <http://purl.org/dc/terms/> ."                                                                          >> $cockpit/publish/$sdv.ephemeral.ttl
-      echo "@prefix void:    <http://rdfs.org/ns/void#> ."                                                                           >> $cockpit/publish/$sdv.ephemeral.ttl
-      echo "@prefix dat:     <http://www.w3.org/ns/dcat#> ."                                                                         >> $cockpit/publish/$sdv.ephemeral.ttl
-      echo "<$topVoID> void:triples $triples ."                                                                                      >> $cockpit/publish/$sdv.ephemeral.ttl
-      echo "<$topVoID> dcterms:date `dateInXSDDateTime.sh --turtle` ."                                                               >> $cockpit/publish/$sdv.ephemeral.ttl
-      echo $topVoID                                                                                                                   > $cockpit/publish/$sdv.ephemeral.ttl.sd_name
+      echo "<$topVoID> void:triples $triples ."                                                                                   >> $cockpit/publish/$sdv.ephemeral.ttl
+      echo "<$topVoID> dcterms:date `dateInXSDDateTime.sh --turtle` ."                                                            >> $cockpit/publish/$sdv.ephemeral.ttl
+   fi
+   if [[ `valid-rdf.sh $cockpit/publish/$sdv.ephemeral.ttl` == 'yes' && `void-triples.sh $cockpit/publish/$sdv.ephemeral.ttl` == [1-9][0-9]* ]]; then
       pvdelete.sh $topVoID
       vload ttl $cockpit/publish/$sdv.ephemeral.ttl $topVoID -v
    fi
