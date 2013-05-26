@@ -216,7 +216,8 @@ if [ "$dryrun" != "true" ]; then
    echo "."                                                                                                                       >> $cockpit/publish/$sdv.void.ttl
    echo "<$baseURI/source/$sourceID/file/cr-sitemap/version/latest/conversion/sitemap.xml>"                                       >> $cockpit/publish/$sdv.void.ttl
    echo "   a <http://dbpedia.org/resource/Site_map>;"                                                                            >> $cockpit/publish/$sdv.void.ttl
-   echo "   dcterms:subject <$topVoID>;"                                                                                          >> $cockpit/publish/$sdv.void.ttl
+   echo "   dcterms:subject   <$topVoID>;"                                                                                        >> $cockpit/publish/$sdv.void.ttl
+   echo "   foaf:primaryTopic <$topVoID>;"                                                                                        >> $cockpit/publish/$sdv.void.ttl
    echo "."                                                                                                                       >> $cockpit/publish/$sdv.void.ttl
 
    if [[ -n "$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID" ]]; then
