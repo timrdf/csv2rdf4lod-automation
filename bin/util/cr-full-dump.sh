@@ -209,6 +209,7 @@ if [ "$dryrun" != "true" ]; then
    echo "."                                                                                                                       >> $cockpit/publish/$sdv.void.ttl
    echo "<$mappings>"                                                                                                             >> $cockpit/publish/$sdv.void.ttl
    echo "   dcterms:description \"mappings/twc-conversion\";"                                                                     >> $cockpit/publish/$sdv.void.ttl
+   echo "   dcterms:format   <http://www.w3.org/ns/formats/Turtle>;"                                                              >> $cockpit/publish/$sdv.void.ttl
    echo "   a conversion:VocabularyMappings ."                                                                                    >> $cockpit/publish/$sdv.void.ttl
    echo "<$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal>"                                >> $cockpit/publish/$sdv.void.ttl
    echo "   dcterms:format   <http://www.w3.org/ns/formats/N-Triples>;"                                                           >> $cockpit/publish/$sdv.void.ttl
