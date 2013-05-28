@@ -204,7 +204,7 @@ if [ ! -d $version ]; then
          for json in `find source -name "*.json"`; do
             csv="manual/`basename ${json%.json}`.csv"
             python ../../src/json2csv.py $json > $csv
-            justify.sh $tidy $csv custom_json2csv
+            justify.sh $json $csv custom_json2csv
          done
 
          files=`find manual -name "*.csv"`
