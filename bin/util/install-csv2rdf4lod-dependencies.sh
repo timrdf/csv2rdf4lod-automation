@@ -107,7 +107,7 @@ offer_install_with_apt 'curl'   'curl'          #
 offer_install_with_apt 'rapper' 'raptor-utils'  #
 offer_install_with_apt 'unzip'  'unzip'         #
 offer_install_with_apt 'screen' 'screen'        #
-offer_install_with_apt 'tidy'   'tidy tidy-doc' #
+offer_install_with_apt 'tidy'   'tidy'          #
 
 if [[ ! `which serdi` && -n "$sudo" ]]; then
    if [ "$dryrun" != "true" ]; then
