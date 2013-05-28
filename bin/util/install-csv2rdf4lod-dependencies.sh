@@ -93,7 +93,7 @@ function offer_install_with_apt {
       which $command >& /dev/null
       return $?
    else
-      echo "[WARNING] Skipping apt-get $package b/c no sudo." >&2
+      echo "[WARNING] Skipping apt-get $1 $2 b/c no sudo." >&2
    fi
 }
 
