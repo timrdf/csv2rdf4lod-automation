@@ -88,10 +88,12 @@ function offer_install_with_apt {
             fi
          fi
       else
-         echo "[WARNING] Sorry, we need apt-get to install $command / $package for you."
+         echo "[WARNING] Sorry, we need apt-get to install $command / $package for you." >&2
       fi
       which $command >& /dev/null
       return $?
+   else
+      echo "[WARNING] Skipping apt-get b/c no sudo." >&2
    fi
 }
 
