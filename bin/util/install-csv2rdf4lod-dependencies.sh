@@ -42,6 +42,7 @@ fi
 
 sudo=""
 if [ "$1" == "--avoid-sudo" ]; then
+   avoiding_sudo="yes"
    shift
 elif [ "$1" == "--use-sudo" ]; then
    sudo="sudo "
@@ -88,12 +89,12 @@ function offer_install_with_apt {
             fi
          fi
       else
-         echo "[WARNING] Sorry, we need apt-get to install $command / $package for you." >&2
+         echo "[WARNING] Sorry, we need apt-get to install $command / $package for you."
       fi
       which $command >& /dev/null
       return $?
    else
-      echo "[WARNING] Skipping apt-get $1 $2 b/c no sudo." >&2
+      echo "[WARNING] Skipping apt-get $1 $2 b/c no sudo."
    fi
 }
 
