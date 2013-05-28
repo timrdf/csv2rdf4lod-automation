@@ -199,6 +199,16 @@ if [ ! -d $version ]; then
 
          files=`find manual -name "*.csv"`
          cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
+      elif [[ `find source -name "*.json" | wc -l` -gt 0 && -e ../../src/json2csv.py ]]; then
+         # JSON files
+         for json in `find source -name "*.json"`; do
+            csv="manual/`basename ${json%.json}`.csv"
+            python ../../src/json2csv.py $json > $csv
+            justify.sh $tidy $csv custom_json2csv
+         done
+
+         files=`find manual -name "*.csv"`
+         cr-create-conversion-trigger.sh -w --comment-character "$commentCharacter" --header-line $headerLine --delimiter ${delimiter:-","} $files
       elif [[ $all_rdf == "yes" ]]; then
          echo "[INFO] All retrieved files are RDF; not creating conversion trigger."
       else
