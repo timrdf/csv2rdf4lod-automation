@@ -69,6 +69,10 @@ while [ $# -gt 0 ]; do
                echo "$file".invalid
             fi
             mv "$file" "$file".invalid
+         else
+            if [ "$verbose" == "true" ]; then
+               echo "$file"
+            fi
          fi
       else
          extension=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect $file extension`
