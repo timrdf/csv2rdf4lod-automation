@@ -77,7 +77,7 @@ function offer_install_with_apt {
                   echo
                fi
                echo $TODO $sudo apt-get install $package
-               if [ "$dryrun" != "true" ]; then
+               if [[ "$dryrun" != "true" ]]; then
                   read -p "Could not find $command on path. Try to install with command shown above? (y/n): " -u 1 install_it
                   if [[ "$install_it" == [yY] ]]; then
                      echo $sudo apt-get install $package
@@ -144,7 +144,11 @@ if [[ ! `which serdi` && -n "$sudo" ]]; then
       #fi
    fi
 else
-   echo "[okay] serdi available at `which serdi`"
+   if [[ `which serdi` ]]; then
+      echo "[okay] serdi available at `which serdi`"
+   else
+      echo $TODO serdi
+   fi
 fi
 
 
