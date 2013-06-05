@@ -338,14 +338,14 @@ if [[ -n "$sudo" ]]; then
             tarball='virtuoso.tar.gz'
             if [ ! -e $tarball ]; then
                if [ "$dryrun" != "true" ]; then
-                  sudo touch pid.$$
-               fi
+                  sudo touch pid.$$ # So we know the directory created
+               fi                                              # |
                echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
-               if [ "$dryrun" != "true" ]; then
-                  sudo curl -L -o $tarball --progress-bar $url
-                  echo $TODO sudo tar xzf $tarball
-                             sudo tar xzf $tarball
-                  #$sudo rm $tarball
+               if [ "$dryrun" != "true" ]; then                # |
+                  sudo curl -L -o $tarball --progress-bar $url # |
+                  echo $TODO sudo tar xzf $tarball             # |
+                             sudo tar xzf $tarball             # |
+                  #$sudo rm $tarball                           #\|/
                   #virtuoso_root=$base/${tarball%.tar.gz} # $base
                   virtuoso_root=`find . -maxdepth 1 -cnewer pid.$$ -name "virtuoso*" -type d`
                   # ^ e.g. 'virtuoso-opensource-6.1.6/'
@@ -442,8 +442,10 @@ for egg in $eggs; do
       echo $pdiv
       echo $TODO $sudo easy_install -U $egg
       if [ "$dryrun" != "true" ]; then
-         read -p "Try to install python module $egg using the command above? (y/n) " -u 1 install_it
+         echo
+         read -p "Q: Try to install python module $egg using the command above? (y/n) " -u 1 install_it
          if [[ "$install_it" == [yY] ]]; then
+            echo
                  $sudo easy_install -U $egg
                 # SUDO IS NOT REQUIRED HERE.
             # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
