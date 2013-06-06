@@ -392,11 +392,11 @@ if [[ "$virtuoso_installed" == "no" ]]; then
          popd &> /dev/null
       elif [[ "$distributor" == "Debian" ]]; then # squeeze
          # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSDebianNotes
-         echo sudo apt-get update
+         echo $TODO sudo apt-get update
          if [[ "$dryrun" != "true" ]]; then
               sudo apt-get update
          fi
-         echo sudo aptitude install virtuoso-opensource
+         echo $TODO sudo aptitude install virtuoso-opensource
          if [[ "$dryrun" != "true" ]]; then
               sudo aptitude install virtuoso-opensource
          fi
