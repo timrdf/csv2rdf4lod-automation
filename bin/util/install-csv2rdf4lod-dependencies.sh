@@ -31,6 +31,8 @@ if [[ "$1" == "--help" ]]; then
    exit
 fi
 
+echo $0 $* >&2
+
 dryrun="false"
 TODO=''
 if [ "$1" == "-n" ]; then
