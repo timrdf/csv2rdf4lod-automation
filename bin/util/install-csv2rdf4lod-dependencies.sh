@@ -345,7 +345,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
             redirect=$url
             tarball='virtuoso.tar.gz'
             if [ ! -e $tarball ]; then
-               if [ "$dryrun" != "true" ]; then
+               if [[ "$dryrun" != "true" ]]; then
                   sudo touch pid.$$ # So we know the directory that was created from the tarball
                fi                                              # |
                echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
@@ -393,9 +393,13 @@ if [[ "$virtuoso_installed" == "no" ]]; then
       elif [[ "$distributor" == "Debian" ]]; then # squeeze
          # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSDebianNotes
          echo sudo apt-get update
+         if [[ "$dryrun" != "true" ]]; then
               sudo apt-get update
+         fi
          echo sudo aptitude install virtuoso-opensource
+         if [[ "$dryrun" != "true" ]]; then
               sudo aptitude install virtuoso-opensource
+         fi
       fi
    fi # Told to install or dry running as sudo
 else
