@@ -294,42 +294,46 @@ fi
 
 
 
-#if [[ -n "$sudo" ]]; then
-   # config and db in /var/lib/virtuoso
-   # programs in /usr/bin /usr/lib
-   # inti.d script in /etc/init.d
+# config and db in /var/lib/virtuoso
+# programs in /usr/bin /usr/lib
+# inti.d script in /etc/init.d
 
-   # http://blog.bodhizazen.net/linux/apt-get-how-to-fix-very-broken-packages/
-   # var/lib/dpkg/info:
-   # virtuoso-opensource.conffiles  virtuoso-opensource.md5sums    virtuoso-opensource.postrm     
-   # virtuoso-opensource.list       virtuoso-opensource.postinst   virtuoso-opensource.prerm 
+# http://blog.bodhizazen.net/linux/apt-get-how-to-fix-very-broken-packages/
+# var/lib/dpkg/info:
+# virtuoso-opensource.conffiles  virtuoso-opensource.md5sums    virtuoso-opensource.postrm     
+# virtuoso-opensource.list       virtuoso-opensource.postinst   virtuoso-opensource.prerm 
 
-   # change localhost to map to that IP (shown in /etc/hosts)
-   # comment 127.0.0.1    localhost and add 'localhost' to the other IP
+# change localhost to map to that IP (shown in /etc/hosts)
+# comment 127.0.0.1    localhost and add 'localhost' to the other IP
 
-   # /etc/apache2/sites-available/default ~=  /etc/apache2/sites-available/std.common
+# /etc/apache2/sites-available/default ~=  /etc/apache2/sites-available/std.common
 
-   # a2enmod proxy
-   # service apache2 restart
+# a2enmod proxy
+# service apache2 restart
 
-   # "No protocol handler was valid for the URL /sparql. If you are using a DSO version of mod_proxy" ==>
-   #   apt-get install libapache2-mod-proxy-html
-   #   a2enmod proxy-html
+# "No protocol handler was valid for the URL /sparql. If you are using a DSO version of mod_proxy" ==>
+#   apt-get install libapache2-mod-proxy-html
+#   a2enmod proxy-html
 
-   virtuoso_installed="no"
-   if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
-         -e '/usr/bin/isql-v'                   && \
-         -e '/etc/init.d/virtuoso-opensource'   && \
-         -e '/var/lib/virtuoso/db/virtuoso.log' ]]; then
-      virtuoso_installed="yes"
-   fi
-   if [[ "$dryrun" != "true" && "$virtuoso_installed" == "no" ]]; then
-      echo
-      echo $div
-      read -p "Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
-   fi
-   if [[ "$virtuoso_installed" == "no" ]]; then
-      if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
+virtuoso_installed="no"
+if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
+      -e '/usr/bin/isql-v'                   && \
+      -e '/etc/init.d/virtuoso-opensource'   && \
+      -e '/var/lib/virtuoso/db/virtuoso.log' ]]; then
+   virtuoso_installed="yes"
+fi
+if [[ "$dryrun" != "true" && "$virtuoso_installed" == "no" ]]; then
+   echo
+   echo $div
+   read -p "Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
+fi
+if [[ "$virtuoso_installed" == "no" ]]; then
+   if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
+
+      distributor=`lsb_release --short --id` # e.g. Ubuntu, or Debian
+      codename=`lsb_release --short --codename` # e.g. lucid, or squeeze
+
+      if [[ "$distributor" == "Ubuntu" ]]; then # lucid
          url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
          pushd /opt &> /dev/null # $base
             # Not really working:
@@ -386,11 +390,17 @@ fi
                #                                    ^^ this shows "... Server online at 1111 (pid ...)"
             fi
          popd &> /dev/null
+      elif [[ "$distributor" == "Debian" ]]; then # squeeze
+         # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSDebianNotes
+         echo sudo apt-get update
+              sudo apt-get update
+         echo sudo aptitude install virtuoso-opensource
+              sudo aptitude install virtuoso-opensource
       fi
-   else
-      echo "[okay] virtuoso is already installed at /etc/init.d/virtuoso-opensource + /var/lib/virtuoso/db/virtuoso.ini + /usr/bin/isql-v + /var/lib/virtuoso/db/virtuoso.log"
-   fi
-#fi
+   fi # Told to install or dry running as sudo
+else
+   echo "[okay] virtuoso is already installed at /etc/init.d/virtuoso-opensource + /var/lib/virtuoso/db/virtuoso.ini + /usr/bin/isql-v + /var/lib/virtuoso/db/virtuoso.log"
+fi
 
 
 
