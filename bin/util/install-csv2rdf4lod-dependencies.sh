@@ -101,7 +101,7 @@ function offer_install_with_apt {
 }
 
 if [[ "$dryrun" != "true" && -n "$sudo" ]]; then
-   echo $sudo apt-get update &> /dev/null
+   echo $sudo apt-get update
         $sudo apt-get update &> /dev/null
 fi
 
