@@ -228,8 +228,8 @@ perl_packages="YAML URI::Escape Data::Dumper HTTP:Config LWP:UserAgent IO::Socke
 if [[ "$cannot_locate" =~ *Can*t*locate* && -n "$sudo" ]]; then
    echo ${#cannot_locate} $cannot_locate
    if [[ "$dryrun" != "true" ]]; then
-   echo
-   echo $div
+      echo
+      echo $div
       read -p "Try to install perl modules (e.g. YAML)? (Y/n) " -u 1 install_perl
    fi
    if [[ "$install_perl" == [yY] || "$dryrun" == "true" && -n "$cannot_locate" ]]; then
@@ -283,8 +283,10 @@ if [[ "$cannot_locate" =~ *Can*t*locate* && -n "$sudo" ]]; then
       fi
    fi
 else
-   echo
-   echo $div
+   if [[ "$dryrun" != "true" ]]; then
+      echo
+      echo $div
+   fi
    for package in $perl_packages; do
       echo "[okay] perl -MCPAN install $package"
    done
