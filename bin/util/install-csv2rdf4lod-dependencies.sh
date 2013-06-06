@@ -290,7 +290,7 @@ fi
 
 
 
-if [[ -n "$sudo" ]]; then
+#if [[ -n "$sudo" ]]; then
    # config and db in /var/lib/virtuoso
    # programs in /usr/bin /usr/lib
    # inti.d script in /etc/init.d
@@ -325,23 +325,20 @@ if [[ -n "$sudo" ]]; then
       read -p "Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
    fi
    if [[ "$virtuoso_installed" == "no" ]]; then
-         if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
-         # http://sourceforge.net/projects/virtuoso/
-         url='http://sourceforge.net/projects/virtuoso/files/latest/download'
+      if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
+         url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
          pushd /opt &> /dev/null # $base
             # Not really working:
                #redirect=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/[^z]*$/\n/g' | awk '{printf("%s\n",$2)}'`
                # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
                #tarball=`basename $redirect`
                # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
-               #echo "${redirect}.----------"
-               #echo to
-               #echo "${tarball}.----------"
+               #echo "${redirect}.----------" #echo to #echo "${tarball}.----------"
             redirect=$url
             tarball='virtuoso.tar.gz'
             if [ ! -e $tarball ]; then
                if [ "$dryrun" != "true" ]; then
-                  sudo touch pid.$$ # So we know the directory created
+                  sudo touch pid.$$ # So we know the directory that was created from the tarball
                fi                                              # |
                echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
                if [ "$dryrun" != "true" ]; then                # |
@@ -389,8 +386,7 @@ if [[ -n "$sudo" ]]; then
    else
       echo "[okay] virtuoso is already installed at /etc/init.d/virtuoso-opensource + /var/lib/virtuoso/db/virtuoso.ini + /usr/bin/isql-v + /var/lib/virtuoso/db/virtuoso.log"
    fi
-
-fi
+#fi
 
 
 
