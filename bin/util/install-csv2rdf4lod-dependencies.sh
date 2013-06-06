@@ -154,8 +154,7 @@ fi
 
 
 
-
-if [[ ! `which tdbloader` || ! "`which tdbloader`" =~ /home/`whoami`/opt/* ]]; then
+if [[ ! `which tdbloader` ]]; then # || ! "`which tdbloader`" =~ /home/`whoami`/opt/*
    if [ "$dryrun" != "true" ]; then
       echo
       echo $div
