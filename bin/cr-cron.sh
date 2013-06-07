@@ -329,7 +329,7 @@ pushd $conversion_root &> /dev/null
       echo "      CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID: $CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID" >> $log
       echo "                                   path: `which cr-pingback.sh`"                  >> $log
    fi
-   echo "END cron cr-sitemap.sh `date`"                                                       >> $log
+   echo "END cron cr-pingback.sh `date`"                                                      >> $log
    echo                                                                                       >> $log
 
 
