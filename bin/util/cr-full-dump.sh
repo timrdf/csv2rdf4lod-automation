@@ -262,7 +262,11 @@ if [ "$dryrun" != "true" ]; then
       echo "<$topVoID> void:triples $triples ."                                                                                   >> $cockpit/publish/$sdv.ephemeral.ttl
       echo "<$topVoID> dcterms:date `dateInXSDDateTime.sh --turtle` ."                                                            >> $cockpit/publish/$sdv.ephemeral.ttl
    fi
-   if [[ `valid-rdf.sh $cockpit/publish/$sdv.ephemeral.ttl` == 'yes' && `void-triples.sh $cockpit/publish/$sdv.ephemeral.ttl` == [1-9][0-9]* ]]; then
+   if [[   `valid-rdf.sh $cockpit/publish/$sdv.ephemeral.ttl` != 'yes' ]]; then
+      echo "WARNING: `basename $0` did not load ephemeral attributes of $topVoID b/c valid = `valid-rdf.sh $cockpit/publish/$sdv.ephemeral.ttl`"
+   elif [[ `void-triples.sh $cockpit/publish/$sdv.ephemeral.ttl` != [1-9][0-9]* ]]; then
+      echo "WARNING: `basename $0` did not load ephemeral attributes of $topVoID b/c triples = `valid-rdf.sh $cockpit/publish/$sdv.ephemeral.ttl`"
+   else
       pvdelete.sh $topVoID
       vload ttl $cockpit/publish/$sdv.ephemeral.ttl $topVoID -v
    fi
