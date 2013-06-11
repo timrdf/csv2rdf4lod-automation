@@ -264,8 +264,8 @@ if [ "$dryrun" != "true" ]; then
    fi
    if [[   `valid-rdf.sh $cockpit/publish/$sdv.ephemeral.ttl` != 'yes' ]]; then
       echo "WARNING: `basename $0` did not load ephemeral attributes of $topVoID b/c valid = `valid-rdf.sh $cockpit/publish/$sdv.ephemeral.ttl`"
-   elif [[ `void-triples.sh $cockpit/publish/$sdv.ephemeral.ttl` != [1-9][0-9]* ]]; then
-      echo "WARNING: `basename $0` did not load ephemeral attributes of $topVoID b/c triples = `valid-rdf.sh $cockpit/publish/$sdv.ephemeral.ttl`"
+   elif [[ `void-triples.sh $cockpit/publish/$sdv.ephemeral.ttl` =~ ^[1-9]+[0-9]*$ ]]; then # was: != [1-9][0-9]* ]]; then
+      echo "WARNING: `basename $0` did not load ephemeral attributes of $topVoID b/c triples = `void-triples.sh $cockpit/publish/$sdv.ephemeral.ttl`"
    else
       pvdelete.sh $topVoID
       vload ttl $cockpit/publish/$sdv.ephemeral.ttl $topVoID -v
