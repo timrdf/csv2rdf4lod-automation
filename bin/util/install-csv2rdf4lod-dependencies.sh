@@ -333,7 +333,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
       distributor=`lsb_release --short --id` # e.g. Ubuntu, or Debian
       codename=`lsb_release --short --codename` # e.g. lucid, or squeeze
 
-      if [[ "$distributor" == "Ubuntu" ]]; then # lucid
+      if [[ "$distributor" == "Ubuntu" || "$distributor" == "Debian" ]]; then # lucid
          url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
          pushd /opt &> /dev/null # $base
             # Not really working:
