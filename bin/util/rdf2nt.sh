@@ -124,7 +124,7 @@ while [ $# -gt 0 ]; do
          I="`cr-ln-to-www-root.sh -n --url-of-filepath $file`"
       else
          # Always need a -I since we can be sending it via stdin
-         I='file:///localhost/$file'
+         I="file:///localhost/$file"
       fi
       if [[ -n "$I" ]]; then
          II="-I $I"

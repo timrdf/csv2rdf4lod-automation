@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/rdf2ttl.sh> .
-#3>    prov:wasDerivedFrom <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/rdf2nt.sh> .
+#3>    prov:wasDerivedFrom   <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/rdf2nt.sh> .
 #
 # Accept one or more RDF files in RDF/XML, Turtle, or N-TRIPLES and output N-TRIPLES to stdout.
 # The output N-TRIPLES will have collision-safe bnodes (b/c their identifiers are prepended with a filepath hash).
@@ -57,9 +57,9 @@ if [[ ! -e "$prefix_cc" ]]; then
    curl -sL http://prefix.cc/popular/all.file.ttl | grep -v "^#@prefix" > "$prefix_cc"
 fi
 
-cp $prefix_cc $TEMP
-rdf2nt.sh $* >> $TEMP
-serdi -i turtle -o turtle $TEMP
+cp $prefix_cc             $TEMP # <-- consider: cr-default-prefixes.sh --turtle
+rdf2nt.sh $*           >> $TEMP
+serdi -i turtle -o turtle $TEMP # <-- consider: rapper -g -o turtle posted.nt.ttl > $TEMP
 rm $TEMP
 
 
