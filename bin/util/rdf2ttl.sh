@@ -57,10 +57,36 @@ if [[ ! -e "$prefix_cc" ]]; then
    curl -sL http://prefix.cc/popular/all.file.ttl | grep -v "^#@prefix" > "$prefix_cc"
 fi
 
-cp $prefix_cc             $TEMP # <-- consider: cr-default-prefixes.sh --turtle
-rdf2nt.sh $*           >> $TEMP
-serdi -i turtle -o turtle $TEMP # <-- consider: rapper -g -o turtle posted.nt.ttl > $TEMP
+# Establish the prefixes to use
+if [[ -e "$prefix_cc" ]]; then
+   cp $prefix_cc                     $TEMP
+elif [[ `which cr-default-prefixes.sh` ]]; then
+   cr-default-prefixes.sh --turtle > $TEMP
+else
+   echo "NOTE: N-Triples still look like N-Triples; neither prefix.cc nor cr-default-prefixes.sh were available." >&2
+fi
+
+# Append all N-TRIPLES
+rdf2nt.sh $*                      >> $TEMP
+
+# Abbrevaite N-TRIPLES into Turtle
+if [[ `which serdi` ]]; then
+   serdi  -i turtle -o turtle        $TEMP
+elif [[ `which rapper` ]]; then
+   rapper -i turtle -o turtle        $TEMP
+else
+   cat $TEMP
+   echo "NOTE: N-Triples still look like N-Triples; neither serdi nor rapper were available." >&2
+fi
 rm $TEMP
+
+
+
+
+
+
+
+
 
 
 
