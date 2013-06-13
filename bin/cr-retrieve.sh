@@ -83,6 +83,11 @@ elif [[ `is-pwd-a.sh                                                            
       # There is no version yet, there is no dcat.ttl, but there is a retrieve.sh
       chmod +x retrieve.*
       ./retrieve.*
+   elif [[ -e retrieve.sh ]]; then
+      if [[ ! -x retrieve.sh ]]; then
+         chmod +x retrieve.sh
+      fi
+      ./retrieve.sh
    else
       echo "[WARNING]: did not know how to handle `cr-pwd.sh`; no access metadata available."
    fi
