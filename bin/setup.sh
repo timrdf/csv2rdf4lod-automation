@@ -177,6 +177,19 @@ export CSV2RDF4LOD_CONVERT_DATA_ROOT="/projects/lobd/data/source"
 export CSV2RDF4LOD_CONVERT_DATA_ROOT=""
 
 #
+# Customize: 'git pull' the converter repository every time 
+#             the conversion trigger is pulled.
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (used in convert.sh)
+#
+# a conversion:ProjectLevelEnvironmentVariable
+# a conversion:ActivityLevelEnvironmentVariable
+export CSV2RDF4LOD_CONVERT_ALWAYS_UPDATE_CONVERTER="true"
+export CSV2RDF4LOD_CONVERT_ALWAYS_UPDATE_CONVERTER="false"
+
+#
 # Customize: Prevent the naive interpretation of tabular data ("raw" layer).
 # Variable type: Machine ? Project ? User ? Activity ?
 #

@@ -54,6 +54,15 @@ if [ `cr-pwd-type.sh` != 'cr:conversion-cockpit' ]; then # aka ${0#./} != `basen
    pushd `dirname $0`
 fi
 
+if [[ "$CSV2RDF4LOD_CONVERT_ALWAYS_UPDATE_CONVERTER" == "true" ]]; then
+   pushd `which cr-vars.sh | sed 's/\/bin\/cr-vars.sh//'` &> /dev/null
+   if [[ -e .git ]]; then
+      echo "NOTE: updating csv2rdf4lod-automation because \$CSV2RDF4LOD_CONVERT_ALWAYS_UPDATE_CONVERTER is 'true'" 
+      git pull
+   fi
+   popd &> /dev/null
+fi
+
 eParamsDir=manual # Enhancement parameter templates are placed in manual/ b/c a human will be modifying them.
 
 extensionlessFilename=`echo $datafile | sed 's/^\([^\.]*\)\..*$/\1/'`
