@@ -212,6 +212,7 @@ BEGIN {
 
 { # length(conversionID) {
    cellValue=$0;
+   gsub(/"/,"\\\"",cellValue)
 
    # If we know there is no header, we can give an example value.
    headerOrExample = (length(header) && header <= 0) ? "conversion:eg " : "ov:csvHeader  "; 
