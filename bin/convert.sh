@@ -130,12 +130,14 @@ fi
 if [ ! -e "$eParamsDir/$datafile.e$eID.params.ttl" ]; then
    runEnhancement=no
 fi
-if [[ "$destDir/$datafile.e$eID.ttl" -nt "$eParamsDir/$datafile.e$eID.params.ttl"        ]]; then             # File, version specific params
-   if [[ "0" == "1" && "$destDir/$datafile.e$eID.ttl" -nt $CSV2RDF4LOD_HOME/bin/dup/csv2rdf4lod.jar ]]; then  # Converter jar TODO
-      echo "E$eID output newer than converter and enhancement parameters; skipping." | tee -a $CSV2RDF4LOD_LOG
+if [[ "$destDir/$datafile.e$eID.ttl" -nt "$eParamsDir/$datafile.e$eID.params.ttl" ]]; then             # File, version specific params
+   if [[ "$cr_justdoit" == "yes" ]]; then
+      echo "E$eID output $destDir/$datafile.e$eID.ttl is newer than enhancement parameters $eParamsDir/$datafile.e$eID.params.ttl, but you --force'd so we'll do it anyway."
+   elif [[ "0" == "1" && "$destDir/$datafile.e$eID.ttl" -nt $CSV2RDF4LOD_HOME/lib/csv2rdf4lod.jar ]]; then  # Converter jar TODO
+      echo "E$eID output $destDir/$datafile.e$eID.ttl newer than converter and enhancement parameters $eParamsDir/$datafile.e$eID.params.ttl; skipping." | tee -a $CSV2RDF4LOD_LOG
       runEnhancement=no
    else 
-      echo "E$eID output newer than enhancement parameters; skipping." | tee -a $CSV2RDF4LOD_LOG
+      echo "E$eID output $destDir/$datafile.e$eID.ttl newer than enhancement parameters $eParamsDir/$datafile.e$eID.params.ttl; skipping." | tee -a $CSV2RDF4LOD_LOG
       runEnhancement=no
    fi
 fi
@@ -355,7 +357,7 @@ do
 done
 # If none were found, hard code to the expected place.
 if [ ${#converterJarPath} -eq 0 ]; then
-   converterJarPath=$CSV2RDF4LOD_HOME/bin/dup/csv2rdf4lod.jar
+   converterJarPath=$CSV2RDF4LOD_HOME/lib/csv2rdf4lod.jar
 fi
 
 converterJarMD5="csv2rdf4lod_`$CSV2RDF4LOD_HOME/bin/util/md5.sh $converterJarPath`"

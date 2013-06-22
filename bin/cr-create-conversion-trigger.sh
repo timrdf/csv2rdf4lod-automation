@@ -140,7 +140,8 @@ echo "# $datasetID $versionID ($lastModDate)"                                   
 
 echo "#--------------------------------------------------------------"                                                  >> $TMP_SH
 echo ""                                                                                                                 >> $TMP_SH
-echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source my-csv2rdf4lod-source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}' >> $TMP_SH
+echo 'see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"'                                  >> $TMP_SH
+echo 'CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source my-csv2rdf4lod-source-me.sh or see \$see"}'                 >> $TMP_SH
 echo ""                                                                                                                 >> $TMP_SH
 echo "# The identifiers used to name the dataset that will be converted."                                               >> $TMP_SH
 echo "#            (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-process-phase:-name)"          >> $TMP_SH
@@ -150,8 +151,15 @@ echo "datasetID=\"$datasetID\"             # $explainDatasetID"                 
 echo "datasetVersion=\"$versionID\"        # DEPRECATED"                                                                >> $TMP_SH
 echo "versionID=\"$versionID\"             # $explainVersionID renaming datasetVersion (deprecating datasetVersion)"    >> $TMP_SH
 echo "eID=\"1\"                             # enhancement identifier"                                                   >> $TMP_SH
-echo "if [[ \${1:-\".\"} == \"-e\" && \$# -ge 2 ]]; then"                                                               >> $TMP_SH
+echo "if [[ \"\$1\" == \"-e\" && \$# -ge 2 ]]; then"                                                                    >> $TMP_SH
 echo "   eID=\"\$2\" # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Generating-enhancement-parameters"     >> $TMP_SH
+echo "   shift 2"                                                                                                       >> $TMP_SH
+echo "fi"                                                                                                               >> $TMP_SH
+echo ""                                                                                                                 >> $TMP_SH
+echo "cr_justdoit=\"no\""                                                                                               >> $TMP_SH
+echo "if [[ \"\$1\" == \"--force\" ]]; then"                                                                            >> $TMP_SH
+echo "   cr_justdoit=\"yes\" # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-trigger#--force"    >> $TMP_SH
+echo "   shift"                                                                                                         >> $TMP_SH
 echo "fi"                                                                                                               >> $TMP_SH
 echo ""                                                                                                                 >> $TMP_SH
 echo "if [ -d doc/logs ]; then"                                                                                         >> $TMP_SH
