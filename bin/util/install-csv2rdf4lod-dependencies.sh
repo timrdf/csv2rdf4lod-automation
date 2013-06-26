@@ -106,7 +106,8 @@ if [[ "$dryrun" != "true" && -n "$sudo" ]]; then
 fi
 
 offer_install_with_apt 'git'    'git-core'      # These are dryrun safe and are only done if $sudo.
-offer_install_with_apt 'java'   'openjdk-6-jre' # openjdk-6-jdk ?
+#offer_install_with_apt 'java'   'openjdk-6-jre' # openjdk-6-jdk ?
+offer_install_with_apt 'javac'  'openjdk-6-jdk' # openjdk-6-jdk ?
 offer_install_with_apt 'awk'    'gawk'          #
 offer_install_with_apt 'curl'   'curl'          #
 offer_install_with_apt 'rapper' 'raptor-utils'  #
