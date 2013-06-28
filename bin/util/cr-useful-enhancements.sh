@@ -9,6 +9,7 @@ CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?$HOME}
 
 while [ $# -gt 0 ]; do
    eparams="$1"
+   shift
    if [ -e $eparams ]; then
       java edu.rpi.tw.data.csv.impl.UsefulEnhancements $eparams
    fi
