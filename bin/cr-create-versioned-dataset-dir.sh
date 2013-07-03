@@ -107,7 +107,7 @@ echo
 # This script is invoked from a cr:directory-of-versions, 
 # e.g. source/contactingthecongress/directory-for-the-112th-congress/version
 #
-if [ ! -d $version ]; then
+if [[ ! -d $version || ! -d $version/source || `find $version -empty -type d -name source` ]]; then
 
    # Create the directory for the new version.
    mkdir -p $version/source
