@@ -69,7 +69,7 @@ elif [[ `is-pwd-a.sh                                                            
       if [ -e "$dcat" ]; then
          url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
          google_key=''
-         if [[ "$url" ~= https://docs.google.com/spreadsheet* ]]; then
+         if [[ "$url" =~ https://docs.google.com/spreadsheet* ]]; then
             google_key=`echo $url | sed 's/^.*key=//;s/#.*$//'`
             if [ "$dryrun" != "yes" ]; then
                cat $0.template_gs > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
