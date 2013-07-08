@@ -68,16 +68,29 @@ elif [[ `is-pwd-a.sh                                                            
       fi
       if [ -e "$dcat" ]; then
          url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
-         echo "downloadURL: $url"
-         if [ "$dryrun" != "yes" ]; then
-            #echo template from $0 pwd: `pwd`
-            cat $0.template > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
-            perl -pi -e "s|DOWNLOAD_URL|$url|" retrieve.sh
-            chmod +x retrieve.sh
-            ./retrieve.sh
+         google_key=''
+         if [[ "$url" ~= https://docs.google.com/spreadsheet* ]]; then
+            google_key=`echo $url | sed 's/^.*key=//;s/#.*$//'`
+            if [ "$dryrun" != "yes" ]; then
+               cat $0.template_gs > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
+               perl -pi -e "s|SPREADSHEET_KEY|$google_key|" retrieve.sh
+               chmod +x retrieve.sh
+               ./retrieve.sh
+            else
+               echo "`cr-dataset-uri.sh --uri`:"
+               echo "   Will retrieve google spreadsheet $google_key b/c not yet retrieved $url"
+            fi
          else
-            echo "`cr-dataset-uri.sh --uri`:"
-            echo "   Will retrieve b/c not yet retrieved $url"
+            if [ "$dryrun" != "yes" ]; then
+               #echo template from $0 pwd: `pwd`
+               cat $0.template > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
+               perl -pi -e "s|DOWNLOAD_URL|$url|" retrieve.sh
+               chmod +x retrieve.sh
+               ./retrieve.sh
+            else
+               echo "`cr-dataset-uri.sh --uri`:"
+               echo "   Will retrieve b/c not yet retrieved $url"
+            fi
          fi
       fi
    elif [[ ${#latest_version} -eq 0 && ! -e dcat.ttl && ! -e ../dcat.ttl && -e "ls retrieve.*" ]]; then
