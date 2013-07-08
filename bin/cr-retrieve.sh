@@ -14,6 +14,14 @@ if [[ "$1" == "--help" || "$1" == "-h" ]]; then
    exit 1
 fi
 
+if [ -e ../../../../csv2rdf4lod-source-me.sh ]; then
+   # Include project-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
+   source ../../../../csv2rdf4lod-source-me.sh
+else
+   see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-(considerations-for-a-distributed-workflow)'
+   echo "#3> <> rdfs:seeAlso <$see> ." > ../../../../csv2rdf4lod-source-me.sh
+fi
+
 #see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 #CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 HOME=$(cd ${0%/*} && echo ${PWD%/*})
