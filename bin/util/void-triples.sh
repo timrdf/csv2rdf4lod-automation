@@ -7,6 +7,7 @@
 
 # TODO: handles large files, uses serdi when needed:
 # rdf2nt.sh publish/lofd-tw-rpi-edu.nt.gz | rapper -i ntriples -c -I http://blah - 2>&1 | awk '$0~/Parsing returned/{print $4}'
+# gunzip -c publish/c2tc-rl-af-mil-demo-2013-Jul-23.ttl.gz
 
 count=0
 if [ $# -gt 0 ]; then
