@@ -140,9 +140,9 @@ while [ $# -gt 0 ]; do
          if [[ `which rapper` && `which serdi` ]]; then
             if [[ "$gzipped" == 'yes' ]]; then
                if [ "$verbose" == "yes" ]; then
-                  echo "zcat $file | rapper -q -i rdfxml -o ntriples $II - | serdi -b -i ntriples -o ntriples -p $md5 -" >&2
+                  echo "gunzip -c $file | rapper -q -i rdfxml -o ntriples $II - | serdi -b -i ntriples -o ntriples -p $md5 -" >&2
                fi
-               zcat $file | rapper -q -i rdfxml -o ntriples $II - | serdi -b -i ntriples -o ntriples -p $md5 -
+               gunzip -c $file | rapper -q -i rdfxml -o ntriples $II - | serdi -b -i ntriples -o ntriples -p $md5 -
             else
                if [ "$verbose" == "yes" ]; then
                   echo "rapper -q -i rdfxml -o ntriples $II $file | serdi -b -i ntriples -o ntriples -p $md5 -" >&2
@@ -162,9 +162,9 @@ while [ $# -gt 0 ]; do
          if [[ `which serdi` ]]; then
             if [[ "$gzipped" == 'yes' ]]; then
                if [ "$verbose" == "yes" ]; then
-                  echo "zcat $file | serdi -b -i ntriples -o ntriples -p $md5 - $I" >&2
+                  echo "gunzip -c $file | serdi -b -i ntriples -o ntriples -p $md5 - $I" >&2
                fi
-               zcat $file | serdi -b -i ntriples -o ntriples -p $md5 - $I
+               gunzip -c $file | serdi -b -i ntriples -o ntriples -p $md5 - $I
             else
                if [ "$verbose" == "yes" ]; then
                   echo "serdi -b -i ntriples -o ntriples -p $md5 $file $I" >&2
@@ -179,9 +179,9 @@ while [ $# -gt 0 ]; do
          if [[ `which serdi` ]]; then
             if [[ "$gzipped" == 'yes' ]]; then
                if [ "$verbose" == "yes" ]; then
-                  echo "zcat $file | serdi -b -i turtle -o ntriples -p $md5 - $I" >&2
+                  echo "gunzip -c $file | serdi -b -i turtle -o ntriples -p $md5 - $I" >&2
                fi
-               zcat $file | serdi -b -i turtle -o ntriples -p $md5 - $I
+               gunzip -c $file | serdi -b -i turtle -o ntriples -p $md5 - $I
             else
                if [ "$verbose" == "yes" ]; then
                   echo "serdi -b -i turtle -o ntriples -p $md5 $file $I" >&2
