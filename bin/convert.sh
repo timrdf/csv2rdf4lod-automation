@@ -200,13 +200,13 @@ if [ $runEnhancement == "yes" ]; then
          runEnhancement="no"
       fi
    else
-      if [ `valid-rdf.sh $eParamsDir/$datafile.e$eID.params.ttl` == "no" ]; then
+      if [ `valid-rdf.sh "$eParamsDir/$datafile.e$eID.params.ttl"` == "no" ]; then
          echo
          echo "WARNING; invalid RDF syntax in $eParamsDir/$datafile.e$eID.params.ttl"
          echo
       fi
-      useful=`java edu.rpi.tw.data.csv.impl.UsefulEnhancements $eParamsDir/$datafile.e$eID.params.ttl 2> /dev/null`
-      if [ "$useful" == "false" -a ! -e ../e$eID.params.ttl -a ! -e ../$datafile.e$eID.params.ttl ]; then
+      useful=`java edu.rpi.tw.data.csv.impl.UsefulEnhancements "$eParamsDir/$datafile.e$eID.params.ttl" 2> /dev/null`
+      if [ "$useful" == "false" -a ! -e ../e$eID.params.ttl -a ! -e "../$datafile.e$eID.params.ttl" ]; then
          # local enhancement parameters are not useful
          # there is no file-version global enhancement parameters
          # there is no version global enhancement parameters
@@ -246,7 +246,7 @@ fi
 #
 
 # Regenerate raw parameters EACH TIME.
-java $csvHeadersClasspath $data $csvHeadersParams | awk $paramsParams -f $h2p > $destDir/$datafile.raw.params.ttl
+java $csvHeadersClasspath "$data" $csvHeadersParams | awk $paramsParams -f $h2p > "$destDir/$datafile.raw.params.ttl"
 
 # Generate the enhancement parameters only when not present.
 global=""
@@ -274,14 +274,14 @@ if [ -e ../../../e$eID.params.ttl ]; then # There are enhancement parameters tha
       chmod -w $eParamsDir/$datafile.global.e$eID.params.ttl
       runEnhancement="yes"
    fi
-elif [ -e ../$datafile.e$eID.params.ttl ]; then # There are enhancement parameters that apply to ALL versions of THIS file.
+elif [ -e "../$datafile.e$eID.params.ttl" ]; then # There are enhancement parameters that apply to ALL versions of THIS file.
    global="global."
-   if [ ! -e manual/$datafile.e$eID.params.ttl ]; then # TODO: manual should be $eParamsDir
+   if [ ! -e "manual/$datafile.e$eID.params.ttl" ]; then # TODO: manual should be $eParamsDir
       # Link to file-SPECIFIC global params file (instead of making a new one)
       echo "NOTE: global parameters found; linking manual/$datafile.e$eID.params.ttl to ../$datafile.e$eID.params.ttl -- editing it edits the global parameters." | tee -a $CSV2RDF4LOD_LOG
-      ln ../$datafile.e$eID.params.ttl manual/$datafile.e$eID.params.ttl # TODO: manual should be $eParamsDir
+      ln "../$datafile.e$eID.params.ttl" "manual/$datafile.e$eID.params.ttl" # TODO: manual should be $eParamsDir
    fi
-   if [ ! -e $eParamsDir/$datafile.global.e$eID.params.ttl -o ../$datafile.e$eID.params.ttl -nt $eParamsDir/$datafile.global.e$eID.params.ttl ]; then
+   if [ ! -e "$eParamsDir/$datafile.global.e$eID.params.ttl" -o "../$datafile.e$eID.params.ttl" -nt "$eParamsDir/$datafile.global.e$eID.params.ttl" ]; then
       # The file-specific copy doesn't exist or is older than the file-SPECIFIC parameters.
       echo "constructing $eParamsDir/$datafile.global.e$eID.params.ttl from file-dependent global params ../$datafile.e$eID.params.ttl" | tee -a $CSV2RDF4LOD_LOG
       chmod +w $eParamsDir/$datafile.global.e$eID.params.ttl 2> /dev/null
@@ -300,43 +300,43 @@ elif [ -e ../$datafile.e$eID.params.ttl ]; then # There are enhancement paramete
    fi
 elif [ -e ../e$eID.params.ttl ]; then # There are enhancement parameters that apply to ALL files of ALL versions.
    global="global."
-   if [ ! -e manual/$datafile.e$eID.params.ttl ]; then # No enhancement parameters have been specified for THIS file. # TODO: manual should be $eParamsDir
+   if [ ! -e "manual/$datafile.e$eID.params.ttl" ]; then # No enhancement parameters have been specified for THIS file. # TODO: manual should be $eParamsDir
       # Link to file-INDEPENDENT global params file (instead of making a new one)
       echo "NOTE: global parameters found; linking manual/$datafile.e$eID.params.ttl to ../$datafile.e$eID.params.ttl -- editing it edits the global parameters." | tee -a $CSV2RDF4LOD_LOG
       ln ../e$eID.params.ttl manual/$datafile.e$eID.params.ttl # TODO: manual should be $eParamsDir
    fi
-   if [ ! -e $eParamsDir/$datafile.global.e$eID.params.ttl -o ../e$eID.params.ttl -nt $eParamsDir/$datafile.global.e$eID.params.ttl ]; then
+   if [ ! -e "$eParamsDir/$datafile.global.e$eID.params.ttl" -o "../e$eID.params.ttl" -nt "$eParamsDir/$datafile.global.e$eID.params.ttl" ]; then
       # The file-specific copy doesn't exist or is older than the file-INDEPENDENT parameters.
-      echo "constructing $eParamsDir/$datafile.${global}e$eID.params.ttl from file-independent global params ../e$eID.params.ttl" | tee -a $CSV2RDF4LOD_LOG
-      chmod +w $eParamsDir/$datafile.global.e$eID.params.ttl 2> /dev/null
-      echo "#"                                                                                        > $eParamsDir/$datafile.global.e$eID.params.ttl
-      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
-      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
-      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
-      echo "# WARNING: do not edit these; they are automatically generated from ../e$eID.params.ttl" >> $eParamsDir/$datafile.global.e$eID.params.ttl
-      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
-      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
-      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
-      echo "#"                                                                                       >> $eParamsDir/$datafile.global.e$eID.params.ttl
-      cat ../e$eID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/update-e-params-subject-discrim.awk baseURI="$CSV2RDF4LOD_BASE_URI" sourceID=$sourceID dataset_identifier=$datasetID datasetVersion=$datasetVersion layerID="$eID" subjectDiscriminator=$subjectDiscriminator >> $eParamsDir/$datafile.global.e$eID.params.ttl 
-      chmod -w $eParamsDir/$datafile.global.e$eID.params.ttl
+      echo "constructing "$eParamsDir/$datafile.${global}e$eID.params.ttl" from file-independent global params ../e$eID.params.ttl" | tee -a $CSV2RDF4LOD_LOG
+      chmod +w "$eParamsDir/$datafile.global.e$eID.params.ttl" 2> /dev/null
+      echo "#"                                                                                        > "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                       >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                       >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                       >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "# WARNING: do not edit these; they are automatically generated from ../e$eID.params.ttl" >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                       >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                       >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                       >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                       >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      cat ../e$eID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/update-e-params-subject-discrim.awk baseURI="$CSV2RDF4LOD_BASE_URI" sourceID=$sourceID dataset_identifier=$datasetID datasetVersion=$datasetVersion layerID="$eID" subjectDiscriminator=$subjectDiscriminator >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      chmod -w "$eParamsDir/$datafile.global.e$eID.params.ttl"
       runEnhancement="yes"
    fi
-elif [ ! -e $eParamsDir/$datafile.e$eID.params.ttl ]; then # No global enhancement parameters present (neither file-independent nor file-specific)
+elif [ ! -e "$eParamsDir/$datafile.e$eID.params.ttl" ]; then # No global enhancement parameters present (neither file-independent nor file-specific)
    # Create local file-specific enhancement parameters file.
    let prevEID=$eID-1
-   if [ -e $eParamsDir/$datafile.e$prevEID.params.ttl ]; then 
+   if [ -e "$eParamsDir/$datafile.e$prevEID.params.ttl" ]; then 
       # Use the PREVIOUS enhancement parameters as a starting point.
       echo "E$eID enhancement parameters missing; creating template from E$prevEID enhancement parameters." | tee -a $CSV2RDF4LOD_LOG
       echo "Edit $eParamsDir/$datafile.e$eID.params.ttl and rerun to produce E$eID enhancement"             | tee -a $CSV2RDF4LOD_LOG
-      cat $eParamsDir/$datafile.e$prevEID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/e-params-increment.awk eID=$eID > $eParamsDir/$datafile.e$eID.params.ttl
+      cat "$eParamsDir/$datafile.e$prevEID.params.ttl" | awk -f $CSV2RDF4LOD_HOME/bin/util/e-params-increment.awk eID=$eID > $eParamsDir/$datafile.e$eID.params.ttl
    else
       # Start fresh directly from the CSV headers.
       echo "E$eID enhancement parameters missing; creating default template."                    | tee -a $CSV2RDF4LOD_LOG
       echo "Edit $eParamsDir/$datafile.e$eID.params.ttl and rerun to produce E$eID enhancement." | tee -a $CSV2RDF4LOD_LOG
 
       # NOTE: command also done above (when checking if e params are different from template provided).
-      java $csvHeadersClasspath $data $csvHeadersParams | awk -v conversionID="$eID" $paramsParams -f $h2p > $eParamsDir/$datafile.e$eID.params.ttl
+      java $csvHeadersClasspath "$data" $csvHeadersParams | awk -v conversionID="$eID" $paramsParams -f $h2p > "$eParamsDir/$datafile.e$eID.params.ttl"
    fi
 fi
 
@@ -498,7 +498,7 @@ fi
 #provenance=`ls source/$extensionlessFilename*.pml.ttl | head -1 2> /dev/null`
 #provenance=`find source -name "$extensionlessFilename*.pml.ttl" | wc -l`
 #if [ ${#provenance} -a -f $provenance ]; then
-if [ -f $data.pml.ttl -a ${CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR:-"."} == "true" ]; then
+if [ -f "$data.pml.ttl" -a "$CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR" == "true" ]; then
    prov="-prov `pwd`/$data.pml.ttl"
    echo "E$eID (PROV) $prov" | tee -a $CSV2RDF4LOD_LOG
    #$csv2rdf `pwd`/$data -ep `pwd`/$eParamsDir/$datafile.e$eID.params.ttl $prov > $destDir/$extensionlessFilename.e$eID.pml.ttl
@@ -506,8 +506,8 @@ if [ -f $data.pml.ttl -a ${CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR:-"."} == "tru
    # LATEST, but makes a semi-verbatim copy of e1... 
    #$csv2rdf `pwd`/$data -ep `pwd`/$eParamsDir/$datafile.e$eID.params.ttl $prov $overrideBaseURI -id $converterJarMD5 > $destDir/$datafile.e$eID.pml.ttl
    #if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
-   echo $destDir/$datafile.e$eID.ttl.pml.ttl
-   $csv2rdf $data        -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $prov $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl.pml.ttl -id $converterJarMD5 > $destDir/$datafile.e$eID.ttl.pml.ttl # 2>&1 | tee -a $CSV2RDF4LOD_LOG
+   echo "$destDir/$datafile.e$eID.ttl.pml.ttl"
+   $csv2rdf "$data"     -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $prov $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl.pml.ttl -id $converterJarMD5 > $destDir/$datafile.e$eID.ttl.pml.ttl # 2>&1 | tee -a $CSV2RDF4LOD_LOG
    if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
 #else
 #   echo "Skipping provenance pass. ($data.pml.ttl and CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR=$CSV2RDF4LOD_CONVERT_PROVENANCE_GRANULAR)"
@@ -521,7 +521,7 @@ fi
 # This is very much fading code.
 #
 #
-if [ ${CSV2RDF4LOD_LOAD_TDB_INDIV:-"."} == "true" ]; then
+if [ "$CSV2RDF4LOD_LOAD_TDB_INDIV" == "true" ]; then
    # Loading individual raw/enhancements into separate tdb directories is helpful for debugging, 
    # demonstration of raw v e$eID, and provenance fragment construction. It is not intended for final publication.
    if [ `which tdbloader` ]; then
