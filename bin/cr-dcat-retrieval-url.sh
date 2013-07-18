@@ -35,7 +35,7 @@ see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-ACCEPTABLE_PWDs="cr:data-root cr:dataset cr:directory-of-versions"
+ACCEPTABLE_PWDs="cr:data-root cr:dataset cr:directory-of-versions cr:conversion-cockpit"
 if [ `$CSV2RDF4LOD_HOME/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    $CSV2RDF4LOD_HOME/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
@@ -47,20 +47,7 @@ if [[ "$1" == '-w' ]]; then
    shift
 fi
 
-if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
-
-   echo "Possible, but not designed and not implemented."
-
-elif [[ `is-pwd-a.sh                                                 cr:dataset cr:directory-of-versions` == "yes" ]]; then
-
-   # TODO: generalize this; https://github.com/timrdf/csv2rdf4lod-automation/issues/323
-   for sourceme in `find ../../ -name "csv2rdf4lod-source-me-for-*"`; do
-      source $sourceme
-   done
-   for sourceme in `find ../../../ -name "csv2rdf4lod-source-me-for-*"`; do
-      source $sourceme
-   done
-
+function write_access_metadata {
    DIST_URL="$1"
    UUID=`$CSV2RDF4LOD_HOME/bin/util/resource-name.sh | sed 's/^_//' | awk '{print tolower($0)}'`
 
@@ -89,6 +76,36 @@ elif [[ `is-pwd-a.sh                                                 cr:dataset 
    echo "   dcat:distribution :download_$UUID;"                                       >> access.ttl
    echo "."                                                                           >> access.ttl
    echo `cr-pwd.sh`/access.ttl >&2
+}
+
+if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
+
+   if [[ ! -e ../access.ttl && ! -e ../../access.ttl ]]; then
+      source ../../../../csv2rdf4lod-source-me-for-*
+      write_access_metadata "$1"
+   else
+      echo "WARNING: not creating access metadata b/c a global access already exists."
+   fi
+
+elif [[ `is-pwd-a.sh                                                 cr:dataset cr:directory-of-versions` == "yes" ]]; then
+
+   # TODO: generalize this; https://github.com/timrdf/csv2rdf4lod-automation/issues/323
+   if [ -e ../../csv2rdf4lod-source-me.sh ]; then
+      # Include project-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
+      source ../../csv2rdf4lod-source-me.sh
+   else
+      see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-(considerations-for-a-distributed-workflow)'
+      echo "#3> <> rdfs:seeAlso <$see> ." > ../../../../csv2rdf4lod-source-me.sh
+   fi
+
+   for sourceme in `find ../../ -name "csv2rdf4lod-source-me-for-*"`; do
+      source $sourceme
+   done
+   for sourceme in `find ../../../ -name "csv2rdf4lod-source-me-for-*"`; do
+      source $sourceme
+   done
+
+   write_access_metadata "$1"
 
 elif [[ `is-pwd-a.sh                        cr:directory-of-datasets                                    ` == "yes" ]]; then
    for next in `directories.sh`; do
