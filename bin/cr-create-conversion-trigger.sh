@@ -50,6 +50,14 @@ if [[ $# -lt 1 || "$1" == "--help" ]]; then
    exit 1
 fi
 
+if [ -e ../../../../csv2rdf4lod-source-me.sh ]; then
+   # Include project-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
+   source ../../../../csv2rdf4lod-source-me.sh
+else
+   see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-(considerations-for-a-distributed-workflow)'
+   echo "#3> <> rdfs:seeAlso <$see> ." > ../../../../csv2rdf4lod-source-me.sh
+fi
+
 if [ "$1" == "-w" ]; then
    writeSH=yes
    shift
