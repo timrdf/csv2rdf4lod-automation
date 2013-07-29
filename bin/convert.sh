@@ -130,6 +130,9 @@ if [ -e "$destDir/$datafile.raw.ttl" -o "$CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER" ==
       echo "INFO: runRaw=no; runE=yes b/c auto/raw.ttl exists or OMIT RAW is true"
    fi
 else
+   if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "fine" ]]; then
+      echo "INFO: runRaw=yes; runE=no b/c auto/raw.ttl does not exist or OMIT RAW is not true"
+   fi
    CSV2RDF4LOD_LOG="doc/logs/csv2rdf4lod_log_raw_`date +%Y-%m-%dT%H_%M_%S`.txt"
 fi
 
