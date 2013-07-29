@@ -29,6 +29,17 @@
 # @param datafile       - the local filename of the csv.
 #
 
+see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
+export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
+export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
+
+if [ `cr-pwd-type.sh` != 'cr:conversion-cockpit' ]; then # aka ${0#./} != `basename $0`
+   pushd `dirname $0`
+fi
+
+
+# https://github.com/timrdf/csv2rdf4lod-automation/issues/323
 if [ -e ../../../../csv2rdf4lod-source-me.sh ]; then
    # Include project-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
    source ../../../../csv2rdf4lod-source-me.sh
@@ -45,14 +56,6 @@ if [ -f ../csv2rdf4lod-source-me.sh ]; then
    source ../csv2rdf4lod-source-me.sh
 fi
 
-see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
-export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
-export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
-
-if [ `cr-pwd-type.sh` != 'cr:conversion-cockpit' ]; then # aka ${0#./} != `basename $0`
-   pushd `dirname $0`
-fi
 
 if [[ "$CSV2RDF4LOD_CONVERT_ALWAYS_UPDATE_CONVERTER" == "true" ]]; then
    pushd `which cr-vars.sh | sed 's/\/bin\/cr-vars.sh//'` &> /dev/null
