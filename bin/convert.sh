@@ -126,12 +126,18 @@ if [ -e "$destDir/$datafile.raw.ttl" -o "$CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER" ==
    runEnhancement=yes
    eID=${eID:?"enhancement identifier not set; re-produce convert*.sh using cr-create-convert-sh.sh, pass it an eID, or add the line: eID=\"1\""}
    CSV2RDF4LOD_LOG="doc/logs/csv2rdf4lod_log_e${eID}_`date +%Y-%m-%dT%H_%M_%S`.txt"
+   if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "fine" ]]; then
+      echo "INFO: runRaw=no; runE=yes b/c auto/raw.ttl exists or OMIT RAW is true"
+   fi
 else
    CSV2RDF4LOD_LOG="doc/logs/csv2rdf4lod_log_raw_`date +%Y-%m-%dT%H_%M_%S`.txt"
 fi
 
 if [ ! -e "$eParamsDir/$datafile.e$eID.params.ttl" ]; then
    runEnhancement=no
+   if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "fine" ]]; then
+      echo "INFO: runE=no b/c eparams does not exist."
+   fi
 fi
 if [[ "$destDir/$datafile.e$eID.ttl" -nt "$eParamsDir/$datafile.e$eID.params.ttl" ]]; then             # File, version specific params
    if [[ "$cr_justdoit" == "yes" ]]; then
