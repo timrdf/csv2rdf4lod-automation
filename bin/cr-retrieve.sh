@@ -14,14 +14,6 @@ if [[ "$1" == "--help" || "$1" == "-h" ]]; then
    exit 1
 fi
 
-if [ -e ../../../../csv2rdf4lod-source-me.sh ]; then
-   # Include project-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
-   source ../../../../csv2rdf4lod-source-me.sh
-else
-   see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-(considerations-for-a-distributed-workflow)'
-   echo "#3> <> rdfs:seeAlso <$see> ." > ../../../../csv2rdf4lod-source-me.sh
-fi
-
 #see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 #CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 HOME=$(cd ${0%/*} && echo ${PWD%/*})
@@ -40,8 +32,16 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "Possible, but not designed and not implemented."
 
 elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
+
    # TODO: generalize this; https://github.com/timrdf/csv2rdf4lod-automation/issues/323
-   for sourceme in `find ../../../ -name "csv2rdf4lod-source-me-for-*"`; do
+   if [ -e `cr-conversion-root.sh`/csv2rdf4lod-source-me.sh ]; then
+      source `cr-conversion-root.sh`/csv2rdf4lod-source-me.sh
+   else
+      see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-(considerations-for-a-distributed-workflow)'
+      echo "#3> <> rdfs:seeAlso <$see> ." > `cr-conversion-root.sh`/csv2rdf4lod-source-me.sh
+   fi
+   # Include project-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
+   for sourceme in `find `cr-conversion-root.sh` -maxdepth 1 -name "csv2rdf4lod-source-me-for-*"`; do
       source $sourceme
    done
 
