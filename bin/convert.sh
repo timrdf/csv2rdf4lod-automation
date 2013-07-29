@@ -127,11 +127,11 @@ if [ -e "$destDir/$datafile.raw.ttl" -o "$CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER" ==
    eID=${eID:?"enhancement identifier not set; re-produce convert*.sh using cr-create-convert-sh.sh, pass it an eID, or add the line: eID=\"1\""}
    CSV2RDF4LOD_LOG="doc/logs/csv2rdf4lod_log_e${eID}_`date +%Y-%m-%dT%H_%M_%S`.txt"
    if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "fine" ]]; then
-      echo "INFO: runRaw=no; runE=yes b/c auto/raw.ttl exists or OMIT RAW is true"
+      echo "INFO: runRaw=no; runE=yes b/c auto/raw.ttl exists or OMIT RAW is true ($CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER)"
    fi
 else
    if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "fine" ]]; then
-      echo "INFO: runRaw=yes; runE=no b/c auto/raw.ttl does not exist or OMIT RAW is not true"
+      echo "INFO: runRaw=yes; runE=no b/c auto/raw.ttl does not exist or OMIT RAW is not true ($CSV2RDF4LOD_CONVERT_OMIT_RAW_LAYER)"
    fi
    CSV2RDF4LOD_LOG="doc/logs/csv2rdf4lod_log_raw_`date +%Y-%m-%dT%H_%M_%S`.txt"
 fi
