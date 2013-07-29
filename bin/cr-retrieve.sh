@@ -4,7 +4,6 @@
 #3>    prov:wasRevisionOf    <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-cockpit.sh> .
 
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
-   echo
    echo "usage: `basename $0` [-w] [--skip-if-exists]"
    echo
    echo "  Create publish/bin/publish.sh and invoke for every conversion cockpit within the current directory tree."
@@ -21,15 +20,55 @@ export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?$HOME}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-ACCEPTABLE_PWDs="cr:data-root cr:source cr:dataset cr:directory-of-versions"
+ACCEPTABLE_PWDs="cr:data-root cr:source cr:dataset cr:directory-of-versions cr:conversion-cockpit"
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
 fi
 
+function retrieve_from_metadata {
+   dcat="$1"
+   versionID="$2"
+   url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
+   google_key=''
+   if [[ "$url" =~ https://docs.google.com/spreadsheet* ]]; then
+      google_key=`echo $url | sed 's/^.*key=//;s/#.*$//'`
+      if [ "$dryrun" != "yes" ]; then
+         cat $0.template_gs > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
+         perl -pi -e "s|SPREADSHEET_KEY|$google_key|" retrieve.sh
+         if [[ ${#versionID} -gt 0 ]]; then
+            perl -pi -e "s|auto|$versionID|" retrieve.sh
+         fi
+         chmod +x retrieve.sh
+         ./retrieve.sh
+      else
+         echo "`cr-dataset-uri.sh --uri`:"
+         echo "   Will retrieve google spreadsheet $google_key b/c not yet retrieved $url"
+      fi
+   else
+      if [ "$dryrun" != "yes" ]; then
+         #echo template from $0 pwd: `pwd`
+         cat $0.template > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
+         perl -pi -e "s|DOWNLOAD_URL|$url|" retrieve.sh
+         if [[ ${#versionID} -gt 0 ]]; then
+            perl -pi -e "s|cr:auto|$versionID|" retrieve.sh
+         fi
+         chmod +x retrieve.sh
+         ./retrieve.sh
+      else
+         echo "`cr-dataset-uri.sh --uri`:"
+         echo "   Will retrieve b/c not yet retrieved $url"
+      fi
+   fi
+}
+
 if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
-   echo "Possible, but not designed and not implemented."
+   if [[ -e access.ttl && ! -e source ]]; then
+      access=access.ttl #`basename $PWD`/access.ttl
+      versionID=`basename $PWD`
+      retrieve_from_metadata $access $versionID
+   fi
 
 elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
 
@@ -75,6 +114,15 @@ elif [[ `is-pwd-a.sh                                                            
          dcat='../dcat.ttl'
       fi
       if [ -e "$dcat" ]; then
+
+
+
+
+         #
+         #
+         #
+         # 
+         # DEPRECATED; replaced by function 'retrieve_from_metadata' above.
          url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
          google_key=''
          if [[ "$url" =~ https://docs.google.com/spreadsheet* ]]; then
@@ -100,6 +148,12 @@ elif [[ `is-pwd-a.sh                                                            
                echo "   Will retrieve b/c not yet retrieved $url"
             fi
          fi
+         # DEPRECATED; replaced by function 'retrieve_from_metadata' above.
+         #
+         #
+         #
+         #
+
       fi
    elif [[ ${#latest_version} -eq 0 && ! -e dcat.ttl && ! -e ../dcat.ttl && -e "ls retrieve.*" ]]; then
       # There is no version yet, there is no dcat.ttl, but there is a retrieve.sh
