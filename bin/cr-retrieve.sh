@@ -41,7 +41,7 @@ elif [[ `is-pwd-a.sh                                                            
       echo "#3> <> rdfs:seeAlso <$see> ." > `cr-conversion-root.sh`/csv2rdf4lod-source-me.sh
    fi
    # Include project-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
-   for sourceme in `find `cr-conversion-root.sh` -maxdepth 1 -name "csv2rdf4lod-source-me-for-*"`; do
+   for sourceme in `find \`cr-conversion-root.sh\` -maxdepth 1 -name "csv2rdf4lod-source-me-for-*"`; do
       source $sourceme
    done
 
