@@ -156,6 +156,35 @@ fi
 
 $CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh > $CSV2RDF4LOD_LOG
 
+function find_tab_based_global_eparams {
+   datafile_lowercase=`echo "$1" | awk '{print tolower($0)}'`
+   matches=''
+   let numMatches=0
+   for tab in `find .. -maxdepth 1 -name "*.e$eID.params.ttl"`; do
+      tag=`basename $tab | sed 's/.e1.params.ttl$//; s/-/./g' | awk '{print tolower($0)}'`
+      # e.g. user.following
+      #      user.profile
+      #
+      # to match $datafile whose path is one of:
+      #
+      #   manual/Sample_PoC_Schema_DataSet_0810.xls_Courses.csv
+      #   manual/Sample_PoC_Schema_DataSet_0810.xls_User_Following.csv
+      #   manual/Sample_PoC_Schema_DataSet_0810.xls_Group_Member.csv
+      #   manual/Sample_PoC_Schema_DataSet_0810.xls_User_Learning.csv
+      #   manual/Sample_PoC_Schema_DataSet_0810.xls_Group_Owner.csv
+      #   manual/Sample_PoC_Schema_DataSet_0810.xls_User_Profile.csv
+      if [[ `echo $datafile_lowercase | awk -v pattern=$tag '$0 ~ pattern {print "yes"}'` == 'yes' ]]; then
+         let 'numMatches=numMatches+1'
+         matches="$matches $tab"
+      fi
+   done
+   if [[ "$numMatches" -eq 1 ]]; then
+      echo $matches
+   elif [[ "$numMatches" -gt 1 ]]; then
+      echo "NOTE: Could not determine tab-based global enhancement parameters b/c too many matches: $matches" >&2
+   fi
+}
+
 #
 #
 # Prepare for creating the enhancement parameters (manual/$datafile.e1.params.ttl)
@@ -261,6 +290,7 @@ fi
 java $csvHeadersClasspath "$data" $csvHeadersParams | awk $paramsParams -f $h2p > "$destDir/$datafile.raw.params.ttl"
 
 # Generate the enhancement parameters only when not present.
+tag_based_eparams=`find_tab_based_global_eparams $datafile`
 global=""
 if [ -e ../../../e$eID.params.ttl ]; then # There are enhancement parameters that apply to ALL files of ALL versions of ALL datasets.
    global="global."
@@ -331,6 +361,36 @@ elif [ -e ../e$eID.params.ttl ]; then # There are enhancement parameters that ap
       echo "#"                                                                                       >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
       echo "#"                                                                                       >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
       cat ../e$eID.params.ttl | awk -f $CSV2RDF4LOD_HOME/bin/util/update-e-params-subject-discrim.awk baseURI="$CSV2RDF4LOD_BASE_URI" sourceID=$sourceID dataset_identifier=$datasetID datasetVersion=$datasetVersion layerID="$eID" subjectDiscriminator=$subjectDiscriminator >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      chmod -w "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      runEnhancement="yes"
+   fi
+elif [ -e "$tag_based_eparams" ]; then                       # Global enhancement parameters found via filename substring.
+   global="global."
+   if [ ! -e "manual/$datafile.e$eID.params.ttl" ]; then # No enhancement parameters have been specified for THIS file. # TODO: manual should be $eParamsDir
+      # Link to file-INDEPENDENT global params file (instead of making a new one)
+      echo "NOTE: global parameters found via filename substring; linking manual/$datafile.e$eID.params.ttl to $tag_based_eparams -- editing it edits the global parameters." | tee -a $CSV2RDF4LOD_LOG
+      ln $tag_based_eparams $eParamsDir/$datafile.e$eID.params.ttl # TODO: manual should be $eParamsDir
+   fi
+   if [ ! -e "$eParamsDir/$datafile.global.e$eID.params.ttl" -o "$tag_based_eparams" -nt "$eParamsDir/$datafile.global.e$eID.params.ttl" ]; then
+      # The file-specific copy doesn't exist or is older than the file-INDEPENDENT parameters.
+      echo "constructing "$eParamsDir/$datafile.${global}e$eID.params.ttl" from tag-based global params $tag_based_eparams" | tee -a $CSV2RDF4LOD_LOG
+      chmod +w "$eParamsDir/$datafile.global.e$eID.params.ttl" 2> /dev/null
+      echo "#"                                                                                       > "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                      >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                      >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                      >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "# WARNING: do not edit these; they are automatically generated from $tag_based_eparams" >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                      >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                      >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                      >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      echo "#"                                                                                      >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
+      cat $tag_based_eparams | awk -f $CSV2RDF4LOD_HOME/bin/util/update-e-params-subject-discrim.awk \
+                               baseURI="$CSV2RDF4LOD_BASE_URI"                                       \
+                               sourceID=$sourceID                                                    \
+                               dataset_identifier=$datasetID                                         \
+                               datasetVersion=$datasetVersion                                        \
+                               layerID="$eID"                                                        \
+                               subjectDiscriminator=$subjectDiscriminator >> "$eParamsDir/$datafile.global.e$eID.params.ttl"
       chmod -w "$eParamsDir/$datafile.global.e$eID.params.ttl"
       runEnhancement="yes"
    fi
@@ -437,7 +497,7 @@ if [ $runRaw == "yes" ]; then
    #   # Would require eparams - which are not available in raw.
    #   #$csv2rdf $data   -ego   -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.example.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
    #   echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY=='true'"                                                                       2>&1 | tee -a $CSV2RDF4LOD_LOG
-   if [ ${CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
+   if [ "$CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY" == 'true' ]; then
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY=='true'"                                                                        2>&1 | tee -a $CSV2RDF4LOD_LOG
    else
       $csv2rdf $data $prov -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl -wm $destDir/$datafile.raw.void.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
