@@ -248,10 +248,12 @@ BEGIN {
 }
 
 END {
-   print "      #conversion:enhance [            "
-   print "      #   ov:csvRow 3,4,5;             "
+   print "      #conversion:enhance ["
+   print "      #   ov:csvRow 3,4,5;"
+   print "      #   conversion:fromRow 3;"
+   print "      #   conversion:toRow   5;"
    print "      #   a conversion:ExampleResource;"
-   print "      #];                              "
+   print "      #];"
 
    print "   ];"
    printf(".");
