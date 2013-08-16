@@ -286,8 +286,10 @@ fi
 #
 #
 
-# Regenerate raw parameters EACH TIME.
-java $csvHeadersClasspath "$data" $csvHeadersParams | awk $paramsParams -f $h2p > "$destDir/$datafile.raw.params.ttl"
+if [[ "$runRaw" == 'yes' ]]; then
+   # Regenerate raw parameters EACH TIME we create raw.
+   java $csvHeadersClasspath "$data" $csvHeadersParams | awk $paramsParams -f $h2p > "$destDir/$datafile.raw.params.ttl"
+fi
 
 # Generate the enhancement parameters only when not present.
 tag_based_eparams=`find_tab_based_global_eparams $datafile`
@@ -451,9 +453,9 @@ if [ $runRaw == "yes" -o $runEnhancement == "yes" ]; then
    
    # Keep track of the files we processed, so we can ln to the public www directory in convert-aggregate.sh.
    TMP_list="_csv2rdf4lod_file_list_"`basename $0``date +%s`_$$.tmp
-   cat $destDir/_CSV2RDF4LOD_file_list.txt > $TMP_list 2> /dev/null
+   cat $destDir/._CSV2RDF4LOD_file_list.txt > $TMP_list 2> /dev/null
    echo $data >> $TMP_list
-   cat $TMP_list | sort -u > $destDir/_CSV2RDF4LOD_file_list.txt
+   cat $TMP_list | sort -u > $destDir/._CSV2RDF4LOD_file_list.txt
    rm $TMP_list
 fi
 
@@ -533,14 +535,14 @@ if [ $runEnhancement == "yes" ]; then
    echo "E$eID CONVERSION" | tee -a $CSV2RDF4LOD_LOG
 
    # Sample ------------------------------
-   if [ ${CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS:-"2"} -gt 0 -a ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} != 'true' ]; then
+   if [ ${CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS:-"2"} -gt 0 -a "$CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY" != 'true' ]; then
       $csv2rdf $data $prov $sampleN -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.sample.ttl  -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
       echo "Finished converting $sampleN sample rows."                                                                                                                          2>&1 | tee -a $CSV2RDF4LOD_LOG
    fi
 
    # Full ------------------------------
-   if [ ${CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY:='.'} == 'true' ]; then
+   if [ "$CSV2RDF4LOD_CONVERT_EXAMPLE_SUBSET_ONLY" == 'true' ]; then
       # TODO: add .example back in. took out so it'd get into the publish/tdb/ for testing.
       $csv2rdf $data    -ego  -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
@@ -550,7 +552,7 @@ if [ $runEnhancement == "yes" ]; then
    else
       $csv2rdf $data $prov -ep $eParamsDir/$datafile.${global}e$eID.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.e$eID.ttl -wm $destDir/$datafile.e$eID.void.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
-      if [[ ${CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR:-"."} == "true" && `which fstack.py` ]]; then
+      if [[ "$CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR" == "true" && `which fstack.py` ]]; then
          echo "Calculating FRBR Stack of output RDF; set CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR=='false' to prevent FRBR stacks."                                          2>&1 | tee -a $CSV2RDF4LOD_LOG
          echo "#-fstack  no enhancement $runEnhancement $destDir/$datafile.e$eID.ttl @ `dateInXSDDateTime.sh`" >> $destDir/$datafile.e$eID.void.ttl
          item_i=`fstack.py --print-item $data`

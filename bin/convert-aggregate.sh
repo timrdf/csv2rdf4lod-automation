@@ -533,8 +533,8 @@ done
 echo "##################################################"                                              >> $lnwwwrootSH
 echo "# Link all INPUT CSV files from the /file/ directory structure to the web directory."            >> $lnwwwrootSH
 echo "# (this could be from manual/ or source/"                                                        >> $lnwwwrootSH
-if [ -e $convertDir/_CSV2RDF4LOD_file_list.txt ]; then
-   for inputFile in `cat $convertDir/_CSV2RDF4LOD_file_list.txt`; do # convert.sh builds this list b/c it knows what files were converted.
+if [ -e $convertDir/._CSV2RDF4LOD_file_list.txt ]; then
+   for inputFile in `cat $convertDir/._CSV2RDF4LOD_file_list.txt`; do # convert.sh builds this list b/c it knows what files were converted.
       echo "if [ -e \"$inputFile\" ]; then "                                                           >> $lnwwwrootSH
       echo "   wwwfile=\"\$wwwroot/source/$sourceID/file/$datasetID/version/$versionID/$inputFile\""   >> $lnwwwrootSH
       echo "   if [ -e \"\$wwwfile\" ]; then "                                                         >> $lnwwwrootSH
