@@ -50,7 +50,7 @@ elif [ "$1" == "--use-sudo" ]; then
    sudo="sudo "
    i_can_sudo=`sudo -v &> /dev/null`
    if [[ ! "$i_can_sudo" ]]; then
-      echo "WARNING: `basename $0` was asked to --use-sudo, but `whoami` does not have that privilege."
+      echo "WARNING: `basename $0` was asked to --use-sudo, but `whoami` does not have that privilege." >&2
    fi
    shift
 elif [ "$dryrun" != "true" ]; then
@@ -175,7 +175,7 @@ if [[ ! `which tdbloader` ]]; then # || ! "`which tdbloader`" =~ /home/`whoami`/
          zip='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.4.zip' # 404s
          zip='http://archive.apache.org/dist/jena/binaries/apache-jena-2.10.0.zip'
          pushd $base &> /dev/null
-            echo $TODO $sudo curl -O --progress-bar $zip from `pwd`
+            echo $TODO curl -O --progress-bar $zip from `pwd`
             if [ "$dryrun" != "true" ]; then
                # For 2.7.3's tarball, which does not work anymore.
                #$sudo curl -O --progress-bar $tarball
@@ -186,10 +186,10 @@ if [[ ! `which tdbloader` ]]; then # || ! "`which tdbloader`" =~ /home/`whoami`/
                #jenaroot=$base/${tarball%.tar.gz}
 
                # For 2.7.4's zip...
-               $sudo curl -O --progress-bar $zip
+               curl -O --progress-bar $zip
                zip=`basename $zip`
-               echo $sudo unzip $zip
-                    $sudo unzip $zip
+               echo unzip $zip
+                    unzip $zip
                jenaroot=$base/${zip%.zip}
             fi
          popd &> /dev/null
