@@ -48,6 +48,10 @@ if [ "$1" == "--avoid-sudo" ]; then
    shift
 elif [ "$1" == "--use-sudo" ]; then
    sudo="sudo "
+   i_can_sudo=`sudo -v &> /dev/null`
+   if [[ ! "$i_can_sudo" ]]; then
+      echo "WARNING: `basename $0` was asked to --use-sudo, but `whoami` does not have that privilege."
+   fi
    shift
 elif [ "$dryrun" != "true" ]; then
    read -p "Install as sudo? (if 'N', will install as `whoami`) [y/N] " -u 1 use_sudo
