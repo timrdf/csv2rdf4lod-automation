@@ -326,9 +326,19 @@ if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
       -e '/usr/bin/isql-v'                   && \
       -e '/etc/init.d/virtuoso-opensource'   && \
       -e '/var/lib/virtuoso/db/virtuoso.log' ]]; then
+   # done via dpkg
    virtuoso_installed="yes"
    echo "[okay] virtuoso installed"
 fi
+if [[ -e '/etc/virtuoso-opensource-6.1/virtuoso.ini'        && \ 
+      -e '/var/lib/virtuoso-opensource-6.1/db/virtuoso.log' && \ 
+      -e '/etc/init.d/virtuoso-opensource-6.1'              && \ 
+      -e '/usr/bin/isql-vt' ]]; then 
+   # done via aptitude
+   virtuoso_installed="yes"
+   echo "[okay] virtuoso installed"
+fi
+
 if [[ "$dryrun" != "true" && "$virtuoso_installed" == "no" ]]; then
    echo
    echo $div
