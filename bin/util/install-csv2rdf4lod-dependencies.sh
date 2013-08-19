@@ -8,7 +8,7 @@ base=${this%/bin/util/install-csv2rdf4lod-dependencies.sh}
 base=${base%/*}
 
 if [[ "$base" == *prizms/repos ]]; then
-   # In case we are installed as part of Prizms, 
+   # In case we are installed as part of Prizms,
    # install next to where Prizms is installed.
    base=${base%/prizms/repos}
 fi
@@ -183,7 +183,7 @@ if [[ ! `which tdbloader` ]]; then # || ! "`which tdbloader`" =~ /home/`whoami`/
 
                # For 2.7.4's zip...
                $sudo curl -O --progress-bar $zip
-               zip=`basename $zip`   
+               zip=`basename $zip`
                echo $sudo unzip $zip
                     $sudo unzip $zip
                jenaroot=$base/${zip%.zip}
@@ -280,7 +280,7 @@ if [[ "$cannot_locate" =~ *Can*t*locate* && -n "$sudo" ]]; then
       fi
       echo $TODO perl -MCPAN install Text::CSV_XS
       if [ "$dryrun" != "true" ]; then
-         $sudo perl -MCPAN -e install Text::CSV_XS 
+         $sudo perl -MCPAN -e install Text::CSV_XS
       fi
    fi
 else
@@ -301,8 +301,8 @@ fi
 
 # http://blog.bodhizazen.net/linux/apt-get-how-to-fix-very-broken-packages/
 # var/lib/dpkg/info:
-# virtuoso-opensource.conffiles  virtuoso-opensource.md5sums    virtuoso-opensource.postrm     
-# virtuoso-opensource.list       virtuoso-opensource.postinst   virtuoso-opensource.prerm 
+# virtuoso-opensource.conffiles  virtuoso-opensource.md5sums    virtuoso-opensource.postrm
+# virtuoso-opensource.list       virtuoso-opensource.postinst   virtuoso-opensource.prerm
 
 # change localhost to map to that IP (shown in /etc/hosts)
 # comment 127.0.0.1    localhost and add 'localhost' to the other IP
@@ -322,6 +322,7 @@ if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
       -e '/etc/init.d/virtuoso-opensource'   && \
       -e '/var/lib/virtuoso/db/virtuoso.log' ]]; then
    virtuoso_installed="yes"
+   echo "[okay] virtuoso installed"
 fi
 if [[ "$dryrun" != "true" && "$virtuoso_installed" == "no" ]]; then
    echo
@@ -332,8 +333,9 @@ if [[ "$virtuoso_installed" == "no" ]]; then
    if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
 
       distributor=`lsb_release --short --id` # e.g. Ubuntu, or Debian
-      codename=`lsb_release --short --codename` # e.g. lucid, or squeeze
+      codename=`lsb_release --short --codename` # e.g. lucid, precise, or squeeze
 
+      echo "Virtuoso not installed; OS type $distributor $codename"
       if [[ "$distributor" == "Ubuntu" || "$distributor" == "Debian" ]]; then # lucid
          url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
          pushd /opt &> /dev/null # $base
@@ -345,8 +347,10 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                #echo "${redirect}.----------" #echo to #echo "${tarball}.----------"
             redirect=$url
             tarball='virtuoso.tar.gz'
+            virtuoso_root='' # Set from tarball extraction or recovered from pid.$$
             if [ ! -e $tarball ]; then
                if [[ "$dryrun" != "true" ]]; then
+                  rm -f pid.*
                   sudo touch pid.$$ # So we know the directory that was created from the tarball
                fi                                              # |
                echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
@@ -358,38 +362,80 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                   #virtuoso_root=$base/${tarball%.tar.gz} # $base
                   virtuoso_root=`find . -maxdepth 1 -cnewer pid.$$ -name "virtuoso*" -type d`
                   # ^ e.g. 'virtuoso-opensource-6.1.6/'
-                  if [ -d $virtuoso_root ]; then
-                     pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
-                        echo
-                        echo
-                        echo $TODO sudo aptitude build-dep virtuoso-opensource # NOTE: if this is run on a TWC VM with 
-                                   sudo aptitude build-dep virtuoso-opensource # /etc/hosts localhost 127.0.0.1, it will fail.
-                        echo
-                        echo
-                        echo $TODO sudo dpkg-buildpackage -rfakeroot
-                                   sudo dpkg-buildpackage -rfakeroot
-                     popd &> /dev/null
-                     pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
-                     echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb
-                     sudo dpkg -i ${pkg}_amd64.deb
-                  fi
-                  echo
+                  echo $virtuoso_root > sudo tee pid.$$
                fi
-               # Administering Virtuoso is discussed at:
-               #   https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore
-               #   https://github.com/jimmccusker/twc-healthdata/wiki/VM-Installation-Notes
-               #
-               # Debian package build results in:
-               #
-               #   /usr/bin/isql-v
-               #   /var/lib/virtuoso/db/virtuoso.ini
-               #   /usr/bin and /var and /usr/lib
-               #   endpoint: http://aquarius.tw.rpi.edu/projects/healthdata/sparql
-               #
-               # Restart virtuoso with sudo /etc/init.d/virtuoso-opensource restart
-               # Monitor virtuoso with sudo tail -f /var/lib/virtuoso/db/virtuoso.log
-               #                                    ^^ this shows "... Server online at 1111 (pid ...)"
+            else # Tarball exists.
+               virtuoso_root=`cat pid.*`
+               echo "$tarball exists; virtuso root should be: $virtuoso_root"
             fi
+            if [ "$dryrun" != "true" ]; then
+               if [ -d "$virtuoso_root" ]; then
+                  pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
+                     echo
+                     echo
+                     echo "$TODO sudo apt-get update"
+                                 sudo apt-get update
+                     echo
+                     echo
+                     echo "$TODO sudo apt-get install aptitude"
+                                 sudo apt-get install aptitude
+                     echo
+                     echo
+                     echo "$TODO sudo aptitude install dpkg-dev build-essential libreadline-gplv2-dev" 
+                                 sudo aptitude install dpkg-dev build-essential
+                     # Ubuntu 12 can't install libreadline5-dev, replaced by libreadline-gplv2-dev
+
+                     echo
+                     echo
+                     echo "$TODO sudo aptitude build-dep virtuoso-opensource" # NOTE: if this is run on a TWC VM with
+                                 sudo aptitude build-dep virtuoso-opensource # /etc/hosts localhost 127.0.0.1, it will fail.
+
+#  sudo aptitude build-dep virtuoso-opensource
+# The following NEW packages will be installed:
+#   libreadline-dev{b} libreadline6-dev{ab} 
+# 0 packages upgraded, 2 newly installed, 0 to remove and 17 not upgraded.
+# Need to get 0 B/265 kB of archives. After unpacking 823 kB will be used.
+# The following packages have unmet dependencies:
+#  libreadline-gplv2-dev : Conflicts: libreadline-dev but 6.2-8 is to be installed.
+#  libreadline6-dev : Conflicts: libreadline-gplv2-dev but 5.2-11 is installed.
+#  libreadline-dev : Conflicts: libreadline-gplv2-dev but 5.2-11 is installed.
+# The following actions will resolve these dependencies:
+# 
+#      Remove the following packages:
+# 1)     libreadline-gplv2-dev 
+# ...
+# The following NEW packages will be installed:
+#   libreadline-dev libreadline6-dev{a} 
+# The following packages will be REMOVED:
+#   libreadline-gplv2-dev{a} libreadline5{u} 
+
+# FIDO: sudo aptitude install  virtuoso-opensource
+
+                     echo
+                     echo
+                     echo "$TODO sudo dpkg-buildpackage -rfakeroot"
+                                 sudo dpkg-buildpackage -rfakeroot
+                  popd &> /dev/null
+                  pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
+                  echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb
+                  sudo dpkg -i ${pkg}_amd64.deb
+               fi
+               echo
+            fi
+            # Administering Virtuoso is discussed at:
+            #   https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore
+            #   https://github.com/jimmccusker/twc-healthdata/wiki/VM-Installation-Notes
+            #
+            # Debian package build results in:
+            #
+            #   /usr/bin/isql-v
+            #   /var/lib/virtuoso/db/virtuoso.ini
+            #   /usr/bin and /var and /usr/lib
+            #   endpoint: http://aquarius.tw.rpi.edu/projects/healthdata/sparql
+            #
+            # Restart virtuoso with sudo /etc/init.d/virtuoso-opensource restart
+            # Monitor virtuoso with sudo tail -f /var/lib/virtuoso/db/virtuoso.log
+            #                                    ^^ this shows "... Server online at 1111 (pid ...)"
          popd &> /dev/null
       elif [[ "$distributor" == "Debian" ]]; then # squeeze
          # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSDebianNotes
@@ -436,7 +482,7 @@ if [[ -z "$sudo" ]]; then
       fi
    else
       echo "[okay] ~/.pydistutils.cfg"
-   fi 
+   fi
    # PYTHONPATH needs to be set to look into install_lib from ^^
    export PYTHONPATH=$base/python/lib/site-packages:$PYTHONPATH
    if [ "$dryrun" != "true" ]; then
@@ -447,8 +493,8 @@ if [[ -z "$sudo" ]]; then
 fi
 offer_install_with_apt 'easy_install' 'python-setuptools' # dryrun aware
 V=`python --version 2>&1 | sed 's/Python \(.\..\).*$/\1/'`
-eggs="surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil ckanclient" 
-for egg in $eggs; do 
+eggs="surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil ckanclient"
+for egg in $eggs; do
    # See also https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/install-csv2rdf4lod-dependencies.sh
    # See also https://github.com/timrdf/DataFAQs/blob/master/bin/install-datafaqs-dependencies.sh
    eggReg=`echo $egg | sed 's/-/./g;s/_/./g'`

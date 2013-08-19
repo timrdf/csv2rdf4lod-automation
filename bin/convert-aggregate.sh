@@ -175,7 +175,7 @@ if [ $convertedRawSamples == "yes" ]; then
    echo $pSDV.raw.sample.ttl | tee -a $CSV2RDF4LOD_LOG
    cat automatic/*.raw.sample.ttl > $pSDV.raw.sample.ttl
 else
-   echo "INFO: no automatic/*raw.sample.ttl found." 
+   echo 'publish/*.raw.sample.ttl - omitted'
 fi
 
 #
@@ -199,13 +199,18 @@ for eIDD in $enhancementLevels; do # eIDD to avoid overwritting currently-reques
       filesToCompress="$filesToCompress $eTTL"
    fi
 
-   # Sample the aggregated enhancements.
-   echo $eTTLsample | tee -a $CSV2RDF4LOD_LOG
-   if [ $anyEsDone == "no" ]; then
-      cat automatic/*.e$eIDD.sample.ttl  > $eTTLsample
-      anyEsDone="yes"
+   convertedEnhancedSamples="no"; for raw in `find automatic -name "*.$eIDD.sample.ttl"`; do convertedEnhancedSamples="yes"; done
+   if [[ "$convertedEnhancedSamples" == 'yes' ]]; then
+      # Sample the aggregated enhancements.
+      echo $eTTLsample | tee -a $CSV2RDF4LOD_LOG
+      if [ $anyEsDone == "no" ]; then
+         cat automatic/*.e$eIDD.sample.ttl  > $eTTLsample
+         anyEsDone="yes"
+      else
+         cat automatic/*.e$eIDD.sample.ttl >> $eTTLsample
+      fi
    else
-      cat automatic/*.e$eIDD.sample.ttl >> $eTTLsample
+      echo 'publish/*.e'$eIDD'.sample.ttl - omitted'
    fi
 
    conversionIDs="$conversionIDs e$eIDD"
@@ -268,16 +273,16 @@ if [ "$CSV2RDF4LOD_PUBLISH_SUBSET_VOID" != "false" ]; then
       echo "  (including $void)" | tee -a $CSV2RDF4LOD_LOG
       cat $void >> $allVOID.TEMP
    done
-   #if [ -e $allVOID.TEMP ]; then # VoID should aways be there.
+   if [ -e $allVOID.TEMP ]; then # VoID should aways be there. (but not if examples and sample subsets are true)
       if [ `which rapper` ]; then
          rapper -q -i turtle -o turtle $allVOID.TEMP > $allVOID
          rm -f $allVOID.TEMP
       else
          mv $allVOID.TEMP $allVOID
       fi
-   #else
-   #   echo "$allVOID - (none)" | tee -a $CSV2RDF4LOD_LOG
-   #fi
+   else
+      echo "$allVOID - (none)" | tee -a $CSV2RDF4LOD_LOG
+   fi
 else
    echo "$allVOID - skipping; set CSV2RDF4LOD_PUBLISH_SUBSET_VOID=true in source-me.sh to publish Meta." | tee -a $CSV2RDF4LOD_LOG
 fi
