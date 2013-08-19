@@ -47,10 +47,11 @@ if [ "$1" == "--avoid-sudo" ]; then
    avoiding_sudo="yes"
    shift
 elif [ "$1" == "--use-sudo" ]; then
-   sudo="sudo "
    i_can_sudo=`sudo -v &> /dev/null`
    if [[ ! "$i_can_sudo" ]]; then
       echo "WARNING: `basename $0` was asked to --use-sudo, but `whoami` does not have that privilege." >&2
+   else
+      sudo="sudo "
    fi
    shift
 elif [ "$dryrun" != "true" ]; then
