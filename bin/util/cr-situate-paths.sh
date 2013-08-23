@@ -35,27 +35,27 @@ fi
 
 missing=""
 
-if [ ! `which serdi` ]; then
+if [ ! `which serdi &> /dev/null` ]; then
    missing=$missing:/usr/local/bin
 fi
 
-if [ ! `which cr-vars.sh` ]; then
+if [ ! `which cr-vars.sh &> /dev/null` ]; then
    missing=$missing:$HOME/bin
 fi
 
-if [ ! `which prefixes2flags.sh` ]; then
+if [ ! `which prefixes2flags.sh &> /dev/null` ]; then
    missing=$missing:$HOME/bin/dup
 fi
 
-if [ ! `which pcurl.sh` ]; then #export PATH=$PATH:$HOME/bin/util
+if [ ! `which pcurl.sh &> /dev/null` ]; then #export PATH=$PATH:$HOME/bin/util
    missing=$missing:$HOME/bin/util
 fi
 
-if [ ! `which vload` ]; then
+if [ ! `which vload &> /dev/null` ]; then
    missing=$missing:$HOME/bin/util/virtuoso
 fi
 
-if [ ! `which cr-linksets.sh` ]; then
+if [ ! `which cr-linksets.sh &> /dev/null` ]; then
    missing=$missing:$HOME/bin/secondary
 fi
 
