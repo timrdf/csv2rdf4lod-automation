@@ -32,7 +32,7 @@ if [[ `is-pwd-a.sh                                                            cr
 
    #dir=`dateInXSDDateTime.sh | sed -e 's/T.*$//' -e 's/-/ /g' | awk '{abbr["01"]="Jan";abbr["02"]="Feb";abbr["03"]="Mar";abbr["04"]="Apr";abbr["05"]="May";abbr["06"]="Jun";abbr["07"]="Jul";abbr["08"]="Aug";abbr["09"]="Sep";abbr["10"]="Oct";abbr["11"]="Nov";abbr["12"]="Dec"; printf("%s-%s-%s",$1,abbr[$2],$3)}'`
 
-   dir=`date +%Y-%b-%d`
+   dir=`date +%Y-%b-%d` # More detailed: date +%Y-%m-%d-%H-%M_%N
    if [ ! -e $dir -a ${1:-"."} == '-w' ]; then
       mkdir $dir
       echo $dir
