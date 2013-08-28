@@ -45,17 +45,18 @@ fi
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
 prefix_cc="~/.`basename $0`.prefix.cc"
-prefix_cc=".prefix.cc"
+#prefix_cc=".prefix.cc"
 if [[ "$1" == "--clear-cache" ]]; then
    rm $prefix_cc
 fi
 
 
 
-if [[ ! -e "$prefix_cc" ]]; then
-   touch "$prefix_cc"
-   curl -sL http://prefix.cc/popular/all.file.ttl | grep -v "^#@prefix" > "$prefix_cc"
-fi
+#if [[ ! -e "$prefix_cc" ]]; then
+#   #touch "$prefix_cc"
+#   echo "`basename $0`: prefix cache does not exist at $prefix_cc, retrieving from prefic.cc..." >&2
+##   curl -sL http://prefix.cc/popular/all.file.ttl | grep -v "^#@prefix" > "$prefix_cc"
+#fi
 
 # Establish the prefixes to use
 if [[ -e "$prefix_cc" ]]; then
