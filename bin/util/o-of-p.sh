@@ -51,8 +51,8 @@ while [ $# -gt 0 ]; do
       echo
       $0 $predicate $* | awk -v class=$class '$1 ~ /^</ {print $1,"a",class,"."}'
    else
-      echo hi >&2
       if [[ $total -eq 1 && `gzipped.sh $file` == "yes" && `guess-syntax.sh $file mime` == "text/plain" ]]; then
+         echo ".${total}. .`gzipped.sh $file`. .`guess-syntax.sh $file mime`." >&2
          # Avoids dumping to an intermediate file.
          # e.g. 2.0 GB unzipped ntriples file can be done in 1.5 minutes (as opposed to 4.5 minutes).
          gunzip -c             $file | awk -v p="<$predicate>" '{if($2 == p){ gsub("<",""); gsub(">",""); print $3 }}'
@@ -60,11 +60,11 @@ while [ $# -gt 0 ]; do
             gunzip -c             $file | awk -v p="<$predicate>" '{if($2 == p){ gsub("<",""); gsub(">",""); print $1 }}'
          fi
       else
-         #echo ".${total}. .`gzipped.sh $file`. .`guess-syntax.sh $file mime`." >&2
+         echo ".${total}. .`gzipped.sh $file`. .`guess-syntax.sh $file mime`." >&2
          # Handles any syntax, compressed or not.
-         rdf2nt.sh --version 2 $file | awk -v p="<$predicate>" '{if($2 == p){ gsub("<",""); gsub(">",""); print $3 }}'
+         rdf2nt.sh $file | awk -v p="<$predicate>" '{if($2 == p){ gsub("<",""); gsub(">",""); print $3 }}'
          if [[ -n "$inverse" ]]; then
-            rdf2nt.sh --version 2 $file | awk -v p="<$predicate>" '{if($2 == p){ gsub("<",""); gsub(">",""); print $1 }}'
+            rdf2nt.sh $file | awk -v p="<$predicate>" '{if($2 == p){ gsub("<",""); gsub(">",""); print $1 }}'
          fi
       fi
    fi
