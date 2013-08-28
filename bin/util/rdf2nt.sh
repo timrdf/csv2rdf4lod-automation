@@ -123,6 +123,7 @@ while [ $# -gt 0 ]; do
             echo "`basename $0` using -I basename from conversion cockpit conventions." >&2
          fi
          I="`cr-ln-to-www-root.sh -n --url-of-filepath $file`"
+         echo "asked cr-ln for --url-of-filepath of $file, got $I" >&2
       else
          # Always need a -I since we can be sending it via stdin
          I="file:///localhost/$file"
