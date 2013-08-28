@@ -117,16 +117,15 @@ while [ $# -gt 0 ]; do
             echo "`basename $0` using -I basename from .sd_name" >&2
          fi
          I="`cat $file.sd_name`"
-      elif [[ -z "$I" && `which cr-pwd-type.sh` && `cr-pwd-type.sh` == 'cr:conversion-cockpit' && `which cr-ln-to-www-root.sh` ]]; then
+      elif [[ -z "$I" && `which cr-pwd-type.sh` && `cr-pwd-type.sh` == 'cr:conversion-cockpit' && -d "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT" && `which cr-ln-to-www-root.sh` ]]; then
          # Find out where the file will be on the web.
          if [[ "$verbose" == 'yes' ]]; then
             echo "`basename $0` using -I basename from conversion cockpit conventions." >&2
          fi
          I="`cr-ln-to-www-root.sh -n --url-of-filepath $file`"
-         echo "asked cr-ln for --url-of-filepath of $file, got $I" >&2
       else
          # Always need a -I since we can be sending it via stdin
-         I="file:///localhost/$file"
+         I="file:///localhost/`resource-name.sh`/$file"
       fi
       if [[ -n "$I" ]]; then
          II="-I $I"
