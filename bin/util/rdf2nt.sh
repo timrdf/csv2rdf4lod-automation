@@ -97,7 +97,7 @@ while [ $# -gt 0 ]; do
          serialization="-g" # Original version, let rapper guess (this can break if file too big.)
       fi
    fi
-   echo "`basename $0` guessed syntax: $serialization" >&2
+   #echo "`basename $0` guessed syntax: $serialization" >&2
    
 
    # Determine a prefix for bnodes (to avoid bnode collision when concatenating multiple files).
