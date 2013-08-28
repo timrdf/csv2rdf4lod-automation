@@ -60,7 +60,7 @@ while [ $# -gt 0 ]; do
             gunzip -c             $file | awk -v p="<$predicate>" '{if($2 == p){ gsub("<",""); gsub(">",""); print $1 }}'
          fi
       else
-         echo ".${total}. .`gzipped.sh $file`. .`guess-syntax.sh $file mime`." >&2
+         echo "using rdf2nt .${total}. .`gzipped.sh $file`. .`guess-syntax.sh $file mime`." >&2
          # Handles any syntax, compressed or not.
          rdf2nt.sh $file | awk -v p="<$predicate>" '{if($2 == p){ gsub("<",""); gsub(">",""); print $3 }}'
          if [[ -n "$inverse" ]]; then
