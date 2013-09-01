@@ -27,6 +27,8 @@
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset
 #
 
+this=$(cd ${0%/*} && echo $PWD/${0##*/})
+
 see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
@@ -43,7 +45,7 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
-if [[ $# -lt 2 || "$1" == "--help" ]]; then
+if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0` version-identifier URL [--comment-character char]"
    echo "                                                                 [--header-line        row]"
    echo "                                                                 [--delimiter         char]"
@@ -62,17 +64,22 @@ if [[ "$1" == "cr:auto" && ${#url} -gt 0 ]]; then
    #echo "Attempting to use URL modification date to name version: $version"
    version_reason="(URL's modification date)"
 fi
-if [ ${#version} -ne 11 -a "$1" == "cr:auto" ]; then # 11!?
+if [[ ${#version} -eq 0                        || \
+      ${#version} -ne 11 && "$1" == "cr:auto"  || \
+                            "$1" == "cr:today" || \
+                            "$1" == "cr:force" ]]; then
+   # We couldn't determine the date from the URL (11 length from e.g. "2013-Aug-12")
+   # Or, there was no URL given.
+   # Or, we're told to use today's date.
    version=`cr-make-today-version.sh 2>&1 | head -1`
    #echo "Using today's date to name version: $version"
    version_reason="(Today's date)"
 fi
-if [ "$1" == "cr:today" ]; then
-   version=`cr-make-today-version.sh 2>&1 | head -1`
-   #echo "Using today's date to name version: $version"
-   version_reason="(Today's date)"
+if [[ -e "$version" && "$1" == "cr:force"  ]]; then
+   version=`date +%Y-%m-%d-%H-%M_%s`
 fi
 if [ ${#version} -gt 0 -a `echo $version | grep ":" | wc -l | awk '{print $1}'` -gt 0 ]; then
+   # No colons allowed?
    echo "Version identifier invalid."
    exit 1
 fi
@@ -121,7 +128,9 @@ if [[ ! -d $version || ! -d $version/source || `find $version -empty -type d -na
    pushd $version/source &> /dev/null
       touch .__CSV2RDF4LOD_retrieval # Make a timestamp so we know what files were created during retrieval.
       # - - - - - - - - - - - - - - - - - - - - Replace below for custom retrieval  - - - \
-      pcurl.sh $url                                                                     # |
+      if [[ "$url" =~ http* ]]; then                                                    # |
+         pcurl.sh $url                                                                  # |
+      fi                                                                                # | 
       if [ `ls *.gz *.zip 2> /dev/null | wc -l` -gt 0 ]; then                           # |
          # Uncompress anything that is compressed.                                      # |
          touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
