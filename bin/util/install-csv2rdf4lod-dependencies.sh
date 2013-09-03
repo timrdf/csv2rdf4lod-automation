@@ -120,7 +120,7 @@ offer_install_with_apt 'unzip'  'unzip'         #
 offer_install_with_apt 'screen' 'screen'        #
 offer_install_with_apt 'tidy'   'tidy'          #
 
-if [[ ! `which serdi` && -n "$sudo" ]]; then
+if [[ ! `which serdi` ]]; then
    if [ "$dryrun" != "true" ]; then
       echo
       read -p "Try to install serdi at $base? [y/N] " -u 1 install_it
@@ -131,20 +131,24 @@ if [[ ! `which serdi` && -n "$sudo" ]]; then
          # http://drobilla.net/software/serd/
          bz2='http://download.drobilla.net/serd-0.18.2.tar.bz2'
          echo $TODO curl -O $bz2 from `pwd`
-         if [ "$dryrun" != "true" ]; then
-            $sudo curl -O $bz2
-            bz2=`basename $bz2`
-            if [ ! -e ${bz2%.tar.bz2} ]; then
-               echo tar -xjf $bz2
-               $sudo tar -xjf $bz2
-               $sudo rm $bz2
-               pushd ${bz2%.tar.bz2} &> /dev/null
-                  $sudo ./waf configure
-                  $sudo ./waf
-                  $sudo ./waf install
-               popd &> /dev/null
+         if [[ "$dryrun" != "true" ]]; then
+            if [[ -n "$sudo" ]]; then
+               $sudo curl -O $bz2
+               bz2=`basename $bz2`
+               if [[ ! -e ${bz2%.tar.bz2} ]]; then
+                  echo $sudo tar -xjf $bz2
+                  $sudo tar -xjf $bz2
+                  $sudo rm $bz2
+                  pushd ${bz2%.tar.bz2} &> /dev/null
+                     $sudo ./waf configure     # These need sudo (
+                     $sudo ./waf               # These need sudo
+                     $sudo ./waf install       # These need sudo
+                  popd &> /dev/null
+               fi
+               $sudo rm -f `basename $bz2`
+            else
+               echo "[WARNING] could not install serdi because `whoami` does not have sudo permissions."
             fi
-            $sudo rm -f `basename $bz2`
          fi
       popd &> /dev/null
       #else
@@ -152,11 +156,7 @@ if [[ ! `which serdi` && -n "$sudo" ]]; then
       #fi
    fi
 else
-   if [[ `which serdi` ]]; then
-      echo "[okay] serdi available at `which serdi`"
-   else
-      echo $TODO serdi
-   fi
+   echo "[okay] serdi available at `which serdi`"
 fi
 
 
