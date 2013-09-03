@@ -33,6 +33,8 @@ function retrieve_from_metadata {
    google_key=''
    if [[ "$url" =~ https://docs.google.com/spreadsheet* ]]; then
       google_key=`echo $url | sed 's/^.*key=//;s/#.*$//'`
+      # e.g. https://docs.google.com/spreadsheet/ccc?key=tejNArOGrsY_mV1VeZhYCYg#gid=0
+      #      -> 'tejNArOGrsY_mV1VeZhYCYg'
       if [ "$dryrun" != "yes" ]; then
          cat $0.template_gs > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
          perl -pi -e "s|SPREADSHEET_KEY|$google_key|" retrieve.sh

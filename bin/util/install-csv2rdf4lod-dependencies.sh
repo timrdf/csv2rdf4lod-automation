@@ -124,7 +124,7 @@ offer_install_with_apt 'tidy'   'tidy'          #
 if [[ ! `which serdi` ]]; then
    if [ "$dryrun" != "true" ]; then
       echo
-      read -p "Try to install serdi at $base? [y/N] " -u 1 install_it
+      read -p "Q: Try to install serdi at $base? [y/N] " -u 1 install_it
    fi
    if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
       #if [ `which gcc` ]; then
@@ -237,7 +237,7 @@ if [[ "$cannot_locate" =~ *Can*t*locate* && -n "$sudo" ]]; then
    if [[ "$dryrun" != "true" ]]; then
       echo
       echo $div
-      read -p "Try to install perl modules (e.g. YAML)? (Y/n) " -u 1 install_perl
+      read -p "Q: Try to install perl modules (e.g. YAML)? (Y/n) " -u 1 install_perl
    fi
    if [[ "$install_perl" == [yY] || "$dryrun" == "true" && -n "$cannot_locate" ]]; then
       #echo $TODO perl -MCPAN install YAML
@@ -343,7 +343,7 @@ fi
 if [[ "$dryrun" != "true" && "$virtuoso_installed" == "no" ]]; then
    echo
    echo $div
-   read -p "Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
+   read -p "Q: Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
 fi
 if [[ "$virtuoso_installed" == "no" ]]; then
    if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
