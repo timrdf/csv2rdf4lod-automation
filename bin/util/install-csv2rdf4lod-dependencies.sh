@@ -86,7 +86,7 @@ function offer_install_with_apt {
                fi
                echo $TODO $sudo apt-get install $package
                if [[ "$dryrun" != "true" ]]; then
-                  read -p "Could not find $command on path. Try to install with command shown above? (y/n): " -u 1 install_it
+                  read -p "Q: Could not find $command on path. Try to install with command shown above? (y/n): " -u 1 install_it
                   if [[ "$install_it" == [yY] ]]; then
                      echo $sudo apt-get install $package
                           $sudo apt-get install $package
@@ -167,7 +167,7 @@ if [[ ! `which tdbloader` ]]; then # || ! "`which tdbloader`" =~ /home/`whoami`/
    if [ "$dryrun" != "true" ]; then
       echo
       echo $div
-      read -p "Could not find tdbloader on path. Try to install jena at $base? (y/n): " -u 1 install_it
+      read -p "Q: Could not find tdbloader on path. Try to install jena at $base? (y/n): " -u 1 install_it
    fi
    if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
       jenaroot=`find $base -type d -name "apache-jena*"`
