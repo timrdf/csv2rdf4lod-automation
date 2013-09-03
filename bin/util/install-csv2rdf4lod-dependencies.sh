@@ -48,7 +48,8 @@ if [ "$1" == "--avoid-sudo" ]; then
    shift
 elif [ "$1" == "--use-sudo" ]; then
    i_can_sudo=`sudo -v &> /dev/null`
-   if [[ ! "$i_can_sudo" ]]; then
+   sudo_status=$?
+   if [[ $sudo_status -ne 0 ]]; then
       echo "WARNING: `basename $0` was asked to --use-sudo, but `whoami` does not have that privilege." >&2
    else
       sudo="sudo "
