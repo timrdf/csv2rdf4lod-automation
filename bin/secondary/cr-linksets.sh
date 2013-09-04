@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-linksets.sh> .
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-linksets.sh> .
 #
 #
 # See:
@@ -207,7 +207,7 @@ if [[ `is-pwd-a.sh                                                            cr
  
          url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$base.nt.gz"
          echo "source/$base.nt.gz <- $url"
-         curl -s $url > source/$base.nt.gz
+         curl --progress-bar -L $url > source/$base.nt.gz
          if [[ -n "$baseURI" && "$dryrun" != "true" ]]; then
             echo automatic/vocabulary.ttl
             if [[ "$dryrun" != "true" ]]; then
