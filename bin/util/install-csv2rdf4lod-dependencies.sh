@@ -527,7 +527,7 @@ for egg in $eggs; do
       echo $TODO $sudo easy_install -U $egg
       if [[ "$dryrun" != "true" ]]; then
          if [[ "$egg" == "rdflib" ]]; then
-            eggV='3.2.3'
+            eggV='3.4.0'
          else
             eggV=''
          fi
