@@ -517,7 +517,7 @@ for egg in $eggs; do
    # See also https://github.com/timrdf/DataFAQs/blob/master/bin/install-datafaqs-dependencies.sh
    eggReg=`echo $egg | sed 's/-/./g;s/_/./g'`
    echo "$egg -> $eggReg" >&2
-   echo find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 | grep -i "dist-packages.$eggReg" $eggReg >&2
+   echo find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 | grep -i "dist-packages.$eggReg" >&2
    find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 | grep -i "dist-packages.$eggReg" &> /dev/null
    status=$?
    echo status $status >&2
