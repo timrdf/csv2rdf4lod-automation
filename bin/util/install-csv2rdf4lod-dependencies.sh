@@ -511,7 +511,7 @@ if [[ -z "$sudo" ]]; then
 fi
 offer_install_with_apt 'easy_install' 'python-setuptools' # dryrun aware
 V=`python --version 2>&1 | sed 's/Python \(.\..\).*$/\1/'`
-eggs="rdflib surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil ckanclient"
+eggs="rdflib pyparsing surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil ckanclient"
 for egg in $eggs; do
    # See also https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/install-csv2rdf4lod-dependencies.sh
    # See also https://github.com/timrdf/DataFAQs/blob/master/bin/install-datafaqs-dependencies.sh
@@ -529,6 +529,8 @@ for egg in $eggs; do
       fi
       if [[ "$egg" == "rdflib" ]]; then
          eggV='==3.4.0'
+      elif [[ "$egg" == "pyparsing" ]]; then
+         eggV='==1.5.7'
       else
          eggV=''
       fi
