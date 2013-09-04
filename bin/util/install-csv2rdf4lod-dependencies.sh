@@ -276,6 +276,8 @@ if [[ "$cannot_locate" =~ *Can*t*locate* && -n "$sudo" ]]; then
       echo $TODO perl -MCPAN install IO::Socket::SSL
       if [ "$dryrun" != "true" ]; then
          $sudo perl -MCPAN -e install IO::Socket::SSL
+         # used in:
+         #   bin/util/pcurl.sh
       fi
       echo $TODO perl -MCPAN install Text::CSV
       if [ "$dryrun" != "true" ]; then
@@ -509,7 +511,7 @@ if [[ -z "$sudo" ]]; then
 fi
 offer_install_with_apt 'easy_install' 'python-setuptools' # dryrun aware
 V=`python --version 2>&1 | sed 's/Python \(.\..\).*$/\1/'`
-eggs="surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil ckanclient"
+eggs="rdflib surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil ckanclient"
 for egg in $eggs; do
    # See also https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/install-csv2rdf4lod-dependencies.sh
    # See also https://github.com/timrdf/DataFAQs/blob/master/bin/install-datafaqs-dependencies.sh
@@ -524,11 +526,16 @@ for egg in $eggs; do
       fi
       echo $TODO $sudo easy_install -U $egg
       if [[ "$dryrun" != "true" ]]; then
+         if [[ "$egg" == "rdflib" ]]; then
+            eggV='3.2.3'
+         else
+            eggV=''
+         fi
          echo
          read -p "Q: Try to install python module $egg using the command above? (y/n) " -u 1 install_it
          if [[ "$install_it" == [yY] ]]; then
             echo
-                 $sudo easy_install -U $egg
+                 $sudo easy_install -U $egg $eggV
                 # SUDO IS NOT REQUIRED HERE.
             # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
             pdiv=""
