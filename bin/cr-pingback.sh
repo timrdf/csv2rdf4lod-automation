@@ -119,6 +119,8 @@ if [[ -z "$within_last_week" || "$force" == "true" ]]; then
    curl -sH "Accept: application/rdf+xml" -L ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void > $cockpit/source/void.rdf
    if [[ -e $opt/DataFAQs/services/sadi/ckan/add-metadata.py ]]; then
       echo "http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID <- $cockpit/source/void.rdf"
+      valid-rdf.sh -v $cockpit/source/void.rdf
+      void-triples.sh $cockpit/source/void.rdf
       python $opt/DataFAQs/services/sadi/ckan/add-metadata.py $cockpit/source/void.rdf > $cockpit/source/response.rdf
       cat $cockpit/source/response.rdf
    else
