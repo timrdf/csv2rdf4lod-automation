@@ -516,16 +516,12 @@ for egg in $eggs; do
    # See also https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/install-csv2rdf4lod-dependencies.sh
    # See also https://github.com/timrdf/DataFAQs/blob/master/bin/install-datafaqs-dependencies.sh
    eggReg=`echo $egg | sed 's/-/./g;s/_/./g'`
-   echo "$egg -> $eggReg" >&2
-   echo find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 | grep -i "dist-packages.$eggReg" >&2
-   find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 | grep -i "dist-packages.$eggReg" &> /dev/null
-   status=$?
-   echo status $status >&2
    #there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d | grep -i $eggReg`
-   echo find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d -name "$eggReg*" >&2
    there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d -name "$eggReg*"`
+   there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 | grep -i "dist-packages.$eggReg" &> /dev/null`
    status=$?
-   if [[ -z "$there" || ! -e "$there" || ! "$there" =~ *.egg ]]; then # TODO: this path is $base/python/lib/site-packages if -z $sudo
+   #if [[ -z "$there" || ! -e "$there" || ! "$there" =~ *.egg ]]; then # TODO: this path is $base/python/lib/site-packages if -z $sudo
+   if [[ ! $status ]]; then # TODO: this path is $base/python/lib/site-packages if -z $sudo
       # TODO: not recognizing that 'ckanclient' is missing.
       if [[ "$dryrun" != "true" ]]; then
          echo $pdiv
