@@ -528,7 +528,7 @@ for egg in $eggs; do
          echo $pdiv
       fi
       if [[ "$egg" == "rdflib" ]]; then
-         eggV='==3.4.0'
+         eggV='' #==3.4.0'
       else
          eggV=''
       fi
