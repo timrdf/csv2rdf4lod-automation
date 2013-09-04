@@ -522,7 +522,7 @@ for egg in $eggs; do
    echo find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d -name "$eggReg*" >&2
    there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d -name "$eggReg*"`
    status=$?
-   if [[ -e "$there" && "$there" =~ /usr/*.egg ]]; then # TODO: this path is $base/python/lib/site-packages if -z $sudo
+   if [[ -z "$there" || ! -e "$there" || ! "$there" =~ *.egg ]]; then # TODO: this path is $base/python/lib/site-packages if -z $sudo
       # TODO: not recognizing that 'ckanclient' is missing.
       if [[ "$dryrun" != "true" ]]; then
          echo $pdiv
