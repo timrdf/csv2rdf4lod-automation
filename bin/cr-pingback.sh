@@ -121,6 +121,7 @@ if [[ -z "$within_last_week" || "$force" == "true" ]]; then
       echo "http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID <- $cockpit/source/void.rdf"
       echo "add-metadata.py's input:"
       valid-rdf.sh -v $cockpit/source/void.rdf
+      guess-syntax.sh $cockpit/source/void.rdf
       void-triples.sh $cockpit/source/void.rdf
       python $opt/DataFAQs/services/sadi/ckan/add-metadata.py $cockpit/source/void.rdf > $cockpit/source/response.rdf
       echo "add-metadata.py's output:"
