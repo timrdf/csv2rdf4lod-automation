@@ -528,17 +528,17 @@ for egg in $eggs; do
          echo $pdiv
       fi
       if [[ "$egg" == "rdflib" ]]; then
-         eggV='3.4.0'
+         eggV='==3.4.0'
       else
          eggV=''
       fi
-      echo $TODO $sudo easy_install -U $egg $eggV
+      echo $TODO $sudo easy_install -U $egg$eggV
       if [[ "$dryrun" != "true" ]]; then
          echo
          read -p "Q: Try to install python module $egg using the command above? (y/n) " -u 1 install_it
          if [[ "$install_it" == [yY] ]]; then
             echo
-                 $sudo easy_install -U $egg $eggV
+                 $sudo easy_install -U $egg$eggV
                 # SUDO IS NOT REQUIRED HERE.
             # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
             pdiv=""
