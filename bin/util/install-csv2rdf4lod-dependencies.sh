@@ -538,7 +538,7 @@ for egg in $eggs; do
          read -p "Q: Try to install python module $egg using the command above? (y/n) " -u 1 install_it
          if [[ "$install_it" == [yY] ]]; then
             echo
-                 $sudo easy_install -U $egg$eggV
+                 $sudo easy_install -U "$egg$eggV"
                 # SUDO IS NOT REQUIRED HERE.
             # see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete
             pdiv=""
