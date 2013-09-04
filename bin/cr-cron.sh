@@ -273,22 +273,23 @@ pushd $conversion_root &> /dev/null
    #
    # Search the RDF Node URIs in our dataset that come from other Linked Data cloud bubbbles' namespaces.
    # This needs to be run AFTER cr-full-dump.sh
-   echo "BEGIN cron cr-linksets.sh `date`"                                                     >> $log
-   echo "#3> <#cr-linksets> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ." >> $log
+   echo "BEGIN cron cr-linksets.sh `date`"                                                                                 >> $log
+   echo "#3> <#cr-linksets> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ."                             >> $log
    if [[ -n "$CSV2RDF4LOD_BASE_URI"                               && \
          -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"                  && \
          -n "$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID" && \
          `which cr-linksets.sh` ]]; then
-      echo "pwd: `pwd`"                                                                        >> $log
+      echo "pwd: `pwd`"                                                                                                    >> $log
       cr-linksets.sh
    else
-      echo "   ERROR: Failed to invoke:"                                                       >> $log
-      echo "      CSV2RDF4LOD_BASE_URI:              $CSV2RDF4LOD_BASE_URI"                    >> $log
-      echo "      CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID: $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"       >> $log
-      echo "                                   path: `which cr-full-dump.sh`"                  >> $log
+      echo "   ERROR: Failed to invoke:"                                                                                   >> $log
+      echo "      CSV2RDF4LOD_BASE_URI:              $CSV2RDF4LOD_BASE_URI"                                                >> $log
+      echo "      CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID: $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"                                   >> $log
+      echo "      CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID: $CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID" >> $log
+      echo "                                   path: `which cr-linksets.sh`"                                               >> $log
    fi
-   echo "END cron cr-linksets.sh `date`"                                                       >> $log
-   echo                                                                                        >> $log
+   echo "END cron cr-linksets.sh `date`"                                                                                   >> $log
+   echo                                                                                                                    >> $log
 
 
    #
