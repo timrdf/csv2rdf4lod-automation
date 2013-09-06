@@ -90,6 +90,11 @@ elif [[ `is-pwd-a.sh                                                            
       echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO after sourcing $sourceme `basename $0`
    done
 
+   if [ -e `cr-conversion-root.sh`/csv2rdf4lod-source-me-as-`whoami`.sh ]; then
+      source `cr-conversion-root.sh`/csv2rdf4lod-source-me-as-`whoami`.sh
+      echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO after sourcing `whoami` `basename $0`
+   fi
+
    echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO after sourcing `basename $0`
 
    dryrun="yes"
