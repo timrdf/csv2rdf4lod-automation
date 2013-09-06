@@ -1,7 +1,8 @@
 #!/bin/bash
 #
 #3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/bin/util/virtuoso>;
-#3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore> .
+#3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore>;
+#3>    rdfs:seeAlso          <https://github.com/timrdf/prizms/issues/79> .
 
 virtuoso_install_method=''
 
