@@ -40,7 +40,7 @@ for virtuoso in `find /etc -maxdepth 1 -type d -name "virtuoso-*"`; do
       ini="$virtuoso/virtuoso.ini"
    elif [[ ! -e $virtuoso/virtuoso.ini ]]; then
       echo "   ini file DNE" >&2
-   elif [[ ! -z $ini ]]; then
+   elif [[ ! -z "$ini" ]]; then
       echo "   ini  not empty: $ini" >&2
    else
       echo "   huh" >&2
