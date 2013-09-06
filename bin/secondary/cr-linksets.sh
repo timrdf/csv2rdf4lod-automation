@@ -107,8 +107,10 @@ if [[ `is-pwd-a.sh                                                            cr
          rm -f *
          touch .__CSV2RDF4LOD_retrieval # Make a timestamp so we know what files were created during retrieval.
          # - - - - - - - - - - - - - - - - - - - - Replace below for custom retrieval  - - - \
+         echo pcurl.sh $url                                                                # |
          pcurl.sh $url                                                                     # |
          # - - - - - - - - - - - - - - - - - - - - Replace above for custom retrieval - - - -/
+         echo done pcurl.sh $url
       popd &> /dev/null
 
       # Go into the conversion cockpit of the new version.
