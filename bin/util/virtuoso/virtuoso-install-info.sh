@@ -40,7 +40,6 @@ for virtuoso in `find /etc -maxdepth 1 -type d -name "virtuoso-*"`; do
    fi
 done
 for virtuoso in `find /etc/init.d -maxdepth 1 -name "virtuoso-opensource-*"`; do
-   echo init_d trying $virtuoso >&2
    if [[ -z "$init_d" ]]; then
       init_d="$virtuoso"
       if [[ -e /var/lib/`basename $virtuoso`/db/virtuoso.log ]]; then
@@ -54,7 +53,9 @@ if [[ -e "$ini" && -e "$init_d" && -e "$isql" ]]; then
    virtuoso_install_method='aptitude'
 fi
 
-if [[ "$1" == 'method' ]]; then
+if [[ "$1" == '--help' ]]; then
+   echo "usage: `basename $0` {--help,method,ini,init_d,log}"
+elif [[ "$1" == 'method' ]]; then
    echo $virtuoso_install_method
 elif [[ "$1" == 'ini' ]]; then
    echo $ini
