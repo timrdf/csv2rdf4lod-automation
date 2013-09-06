@@ -21,36 +21,38 @@ if [[ -e "$ini" && -e "$init_d" && -e "$isql" ]]; then
    virtuoso_install_method='dpkg'
 fi
 
-# When Virtuoso is installed with:
-#   sudo aptitude install virtuoso-opensource
+if [[ -z "$virtuoso_install_method" ]]; then
+   # When Virtuoso is installed with:
+   #   sudo aptitude install virtuoso-opensource
 
-# /etc/virtuoso-opensource-6.1/virtuoso.ini
-# /var/lib/virtuoso-opensource-6.1/db/virtuoso.log
-# /etc/init.d/virtuoso-opensource-6.1
-# /usr/bin/isql-vt
+   # /etc/virtuoso-opensource-6.1/virtuoso.ini
+   # /var/lib/virtuoso-opensource-6.1/db/virtuoso.log
+   # /etc/init.d/virtuoso-opensource-6.1
+   # /usr/bin/isql-vt
 
-ini=''
-log=''
-init_d=''
-isql=''
+   ini=''
+   log=''
+   init_d=''
+   isql=''
 
-for virtuoso in `find /etc -maxdepth 1 -type d -name "virtuoso-*"`; do
-   if [[ -e $virtuoso/virtuoso.ini && -z "$ini" ]]; then
-      ini="$virtuoso/virtuoso.ini"
-   fi
-done
-for virtuoso in `find /etc/init.d -maxdepth 1 -name "virtuoso-opensource-*"`; do
-   if [[ -z "$init_d" ]]; then
-      init_d="$virtuoso"
-      if [[ -e /var/lib/`basename $virtuoso`/db/virtuoso.log ]]; then
-         log=/var/lib/`basename $virtuoso`/db/virtuoso.log
+   for virtuoso in `find /etc -maxdepth 1 -type d -name "virtuoso-*"`; do
+      if [[ -e $virtuoso/virtuoso.ini && -z "$ini" ]]; then
+         ini="$virtuoso/virtuoso.ini"
       fi
-   fi
-done
-isql='/usr/bin/isql-vt'
+   done
+   for virtuoso in `find /etc/init.d -maxdepth 1 -name "virtuoso-opensource-*"`; do
+      if [[ -z "$init_d" ]]; then
+         init_d="$virtuoso"
+         if [[ -e /var/lib/`basename $virtuoso`/db/virtuoso.log ]]; then
+            log=/var/lib/`basename $virtuoso`/db/virtuoso.log
+         fi
+      fi
+   done
+   isql='/usr/bin/isql-vt'
 
-if [[ -e "$ini" && -e "$init_d" && -e "$isql" ]]; then
-   virtuoso_install_method='aptitude'
+   if [[ -e "$ini" && -e "$init_d" && -e "$isql" ]]; then
+      virtuoso_install_method='aptitude'
+   fi
 fi
 
 if [[ "$1" == '--help' ]]; then
