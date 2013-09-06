@@ -59,6 +59,8 @@ if [ -f ../csv2rdf4lod-source-me.sh ]; then
    source ../csv2rdf4lod-source-me.sh
 fi
 
+echo $CSV2RDF4LOD_PUBLISH_VIRTUOSO after sourcing
+
 
 if [[ "$CSV2RDF4LOD_CONVERT_ALWAYS_UPDATE_CONVERTER" == "true" ]]; then
    pushd `which cr-vars.sh | sed 's/\/bin\/cr-vars.sh//'` &> /dev/null
