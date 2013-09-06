@@ -43,7 +43,7 @@ for virtuoso in `find /etc -maxdepth 1 -type d -name "virtuoso-*"`; do
    elif [[ ! -z $ini ]]; then
       echo "   ini  not empty: $ini" >&2
    else
-      echo "   huh"
+      echo "   huh" >&2
    fi
 done
 for virtuoso in `find /etc/init.d -maxdepth 1 -type d -name "virtuoso-opensource-*"`; do
