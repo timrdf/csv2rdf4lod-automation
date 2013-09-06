@@ -15,6 +15,7 @@ virtuoso_install_method=''
 # /usr/bin/isql-v
 
 ini='/var/lib/virtuoso/db/virtuoso.ini'
+log='/var/lib/virtuoso/db/virtuoso.log'
 init_d='/etc/init.d/virtuoso-opensource'
 isql='/usr/bin/isql-v'
 
