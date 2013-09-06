@@ -69,6 +69,8 @@ elif [[ "$1" == 'ini' ]]; then
    echo $ini
 elif [[ "$1" == 'init_d' ]]; then
    echo $init_d
+elif [[ "$1" == 'isql' ]]; then
+   echo $isql
 elif [[ "$1" == 'log' ]]; then
    echo $log
 else
