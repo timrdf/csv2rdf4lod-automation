@@ -42,6 +42,7 @@ fi
 # https://github.com/timrdf/csv2rdf4lod-automation/issues/323
 if [ -e ../../../../csv2rdf4lod-source-me.sh ]; then
    # Include project-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
+   echo "source ../../../../csv2rdf4lod-source-me.sh" >&2
    source ../../../../csv2rdf4lod-source-me.sh
 else
    see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-(considerations-for-a-distributed-workflow)'
@@ -49,10 +50,12 @@ else
 fi
 if [ -f ../../csv2rdf4lod-source-me.sh ]; then
    # Include source-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
+   echo "source ../../csv2rdf4lod-source-me.sh" >&2
    source ../../csv2rdf4lod-source-me.sh
 fi
 if [ -f ../csv2rdf4lod-source-me.sh ]; then
    # Include dataset-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
+   echo "source ../csv2rdf4lod-source-me.sh" >&2
    source ../csv2rdf4lod-source-me.sh
 fi
 
