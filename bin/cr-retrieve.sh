@@ -86,8 +86,8 @@ elif [[ `is-pwd-a.sh                                                            
    fi
    # Include project-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
    for sourceme in `find \`cr-conversion-root.sh\` -maxdepth 1 -name "csv2rdf4lod-source-me-for-*"`; do
-      echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO after sourcing $sourceme `basename $0`
       source $sourceme
+      echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO after sourcing $sourceme `basename $0`
    done
 
    echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO after sourcing `basename $0`
