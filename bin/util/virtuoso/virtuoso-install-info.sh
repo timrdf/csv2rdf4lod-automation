@@ -35,11 +35,13 @@ init_d=''
 isql=''
 
 for virtuoso in `find /etc -maxdepth 1 -type d -name "virtuoso-*"`; do
+   echo ini trying $virtuoso >&2
    if [[ -e $virtuoso/virtuoso.ini && -z "$ini" ]]; then
       ini="$virtuoso/virtuoso.ini"
    fi
 done
 for virtuoso in `find /etc/init.d -maxdepth 1 -type d -name "virtuoso-opensource-*"`; do
+   echo init_d trying $virtuoso >&2
    if [[ -z "$init_d" ]]; then
       init_d="$virtuoso"
       if [[ -e /var/lib/`basename $virtuoso`/db/virtuoso.log ]]; then
