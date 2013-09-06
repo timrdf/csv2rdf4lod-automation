@@ -38,8 +38,6 @@ if [ `cr-pwd-type.sh` != 'cr:conversion-cockpit' ]; then # aka ${0#./} != `basen
    pushd `dirname $0`
 fi
 
-echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO before sourcing
-
 # https://github.com/timrdf/csv2rdf4lod-automation/issues/323
 if [ -e ../../../../csv2rdf4lod-source-me.sh ]; then
    # Include project-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
@@ -59,9 +57,6 @@ if [ -f ../csv2rdf4lod-source-me.sh ]; then
    echo "source ../csv2rdf4lod-source-me.sh" | tee -a $CSV2RDF4LOD_LOG
    source ../csv2rdf4lod-source-me.sh
 fi
-
-echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO after sourcing
-
 
 if [[ "$CSV2RDF4LOD_CONVERT_ALWAYS_UPDATE_CONVERTER" == "true" ]]; then
    pushd `which cr-vars.sh | sed 's/\/bin\/cr-vars.sh//'` &> /dev/null
