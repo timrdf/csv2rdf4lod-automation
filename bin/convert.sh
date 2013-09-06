@@ -42,7 +42,7 @@ fi
 # https://github.com/timrdf/csv2rdf4lod-automation/issues/323
 if [ -e ../../../../csv2rdf4lod-source-me.sh ]; then
    # Include project-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
-   echo "source ../../../../csv2rdf4lod-source-me.sh" >&2
+   echo "source ../../../../csv2rdf4lod-source-me.sh" | tee -a $CSV2RDF4LOD_LOG
    source ../../../../csv2rdf4lod-source-me.sh
 else
    see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-(considerations-for-a-distributed-workflow)'
@@ -50,16 +50,16 @@ else
 fi
 if [ -f ../../csv2rdf4lod-source-me.sh ]; then
    # Include source-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
-   echo "source ../../csv2rdf4lod-source-me.sh" >&2
+   echo "source ../../csv2rdf4lod-source-me.sh" | tee -a $CSV2RDF4LOD_LOG
    source ../../csv2rdf4lod-source-me.sh
 fi
 if [ -f ../csv2rdf4lod-source-me.sh ]; then
    # Include dataset-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
-   echo "source ../csv2rdf4lod-source-me.sh" >&2
+   echo "source ../csv2rdf4lod-source-me.sh" | tee -a $CSV2RDF4LOD_LOG
    source ../csv2rdf4lod-source-me.sh
 fi
 
-echo $CSV2RDF4LOD_PUBLISH_VIRTUOSO after sourcing
+echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO after sourcing
 
 
 if [[ "$CSV2RDF4LOD_CONVERT_ALWAYS_UPDATE_CONVERTER" == "true" ]]; then
