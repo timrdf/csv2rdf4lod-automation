@@ -39,7 +39,7 @@ for virtuoso in `find /etc -maxdepth 1 -type d -name "virtuoso-*"`; do
       ini="$virtuoso/virtuoso.ini"
    fi
 done
-for virtuoso in `find /etc/init.d -maxdepth 1 -type d -name "virtuoso-opensource-*"`; do
+for virtuoso in `find /etc/init.d -maxdepth 1 -name "virtuoso-opensource-*"`; do
    echo init_d trying $virtuoso >&2
    if [[ -z "$init_d" ]]; then
       init_d="$virtuoso"
