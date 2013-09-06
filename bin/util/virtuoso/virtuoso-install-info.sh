@@ -35,15 +35,8 @@ init_d=''
 isql=''
 
 for virtuoso in `find /etc -maxdepth 1 -type d -name "virtuoso-*"`; do
-   echo ini trying $virtuoso >&2
    if [[ -e $virtuoso/virtuoso.ini && -z "$ini" ]]; then
       ini="$virtuoso/virtuoso.ini"
-   elif [[ ! -e $virtuoso/virtuoso.ini ]]; then
-      echo "   ini file DNE" >&2
-   elif [[ ! -z "$ini" ]]; then
-      echo "   ini  not empty: $ini" >&2
-   else
-      echo "   huh" >&2
    fi
 done
 for virtuoso in `find /etc/init.d -maxdepth 1 -type d -name "virtuoso-opensource-*"`; do
