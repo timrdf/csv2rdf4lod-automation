@@ -55,6 +55,10 @@ fi
 
 if [[ "$1" == '--help' ]]; then
    echo "usage: `basename $0` {--help,method,ini,init_d,log}"
+   $0 method
+   $0 ini
+   $0 init_d
+   $0 log 
 elif [[ "$1" == 'method' ]]; then
    echo $virtuoso_install_method
 elif [[ "$1" == 'ini' ]]; then
