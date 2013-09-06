@@ -74,17 +74,23 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
 elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
 
+   echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO before sourcing `basename $0`
+
    # TODO: generalize this; https://github.com/timrdf/csv2rdf4lod-automation/issues/323
    if [ -e `cr-conversion-root.sh`/csv2rdf4lod-source-me.sh ]; then
       source `cr-conversion-root.sh`/csv2rdf4lod-source-me.sh
+      echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO after sourcing root `basename $0`
    else
       see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-(considerations-for-a-distributed-workflow)'
       echo "#3> <> rdfs:seeAlso <$see> ." > `cr-conversion-root.sh`/csv2rdf4lod-source-me.sh
    fi
    # Include project-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
    for sourceme in `find \`cr-conversion-root.sh\` -maxdepth 1 -name "csv2rdf4lod-source-me-for-*"`; do
+      echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO after sourcing $sourceme `basename $0`
       source $sourceme
    done
+
+   echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO after sourcing `basename $0`
 
    dryrun="yes"
    if [[ "$1" == "-w" || "$1" == "--write" ]]; then
