@@ -38,6 +38,7 @@ if [ `cr-pwd-type.sh` != 'cr:conversion-cockpit' ]; then # aka ${0#./} != `basen
    pushd `dirname $0`
 fi
 
+echo VIRT is $CSV2RDF4LOD_PUBLISH_VIRTUOSO before sourcing
 
 # https://github.com/timrdf/csv2rdf4lod-automation/issues/323
 if [ -e ../../../../csv2rdf4lod-source-me.sh ]; then
