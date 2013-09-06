@@ -89,13 +89,14 @@ for sparql in $queryFiles; do
    echo $sparql
    for output in $outputTypes; do
       printf "  $output"
+      # TODO: use bin//util/cr-urlencode.sh
       query=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
       escapedOutput=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'` # | sed 's/%0A$//'`
       request=$endpoint"?query="$query"&"$outputVarName"="$escapedOutput 
       #echo $request
 
       resultsFile=$results/`basename $sparql`.`echo $output | tr '/+-' '_'`
-      curl "$request" > $resultsFile 2> /dev/null
+      curl -L "$request" > $resultsFile 2> /dev/null
 
       requestID=`resource-name.sh`
       requestDate=`dateInXSDDateTime.sh`
