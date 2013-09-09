@@ -70,6 +70,11 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       access=access.ttl #`basename $PWD`/access.ttl
       versionID=`basename $PWD`
       retrieve_from_metadata $access $versionID
+   elif [[ -e retrieve.sh ]]; then
+      if [[ ! -x retrieve.sh ]]; then
+         chmod +x retrieve.sh
+      fi
+      ./retrieve.sh
    fi
 
 elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
