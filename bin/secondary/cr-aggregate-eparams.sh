@@ -15,7 +15,7 @@
 #   limitations under the License.
 #
 #3> <> a conversion:RetrievalTrigger;
-#3>    prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-params-to-endpoint.sh>;
+#3>    prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-aggregate-eparams.sh>;
 #3>    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets> .
 #
 # Usage:
@@ -39,17 +39,13 @@ datasetID=`basename $0 | sed -e 's/-publish/-aggregated/' -e 's/-to-endpoint//' 
 versionID=`date +%Y-%b-%d`
 
 if [[ "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [--target] [-n] [--clear-graph] <named_graph_URI | cr:auto | .>"
+   echo "usage: `basename $0` [--target] [-n] [version-identifier]"
    echo ""
-   echo "Find all csv2rdf4lod params ttl files and put them into a named graph on a virtuoso sparql endpoint."
+   echo "Create a dataset from the aggregation of all csv2rdf4lod conversion parameter files."
    echo ""
    echo "         --target : return the name of graph that will be loaded; then quit."
    echo "               -n : perform dry run only; do not load named graph."
-   echo "    --clear-graph : clear the named graph."
    echo
-   echo "  named_graph_URI : use graph name given"
-   echo "          cr:auto : use graph name $namedGraph"
-   echo "                . : print to stdout (to not put in graph)"
    exit
 fi
 
