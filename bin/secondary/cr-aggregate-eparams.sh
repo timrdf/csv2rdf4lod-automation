@@ -27,7 +27,7 @@ export PATH=$PATH`$HOME/bin/util/cr-situate-paths.sh`
 export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-ACCEPTABLE_PWDs="cr:data-root cr:source"
+ACCEPTABLE_PWDs="cr:bone"
 if [ `is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
