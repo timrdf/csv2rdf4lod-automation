@@ -16,30 +16,27 @@
 #
 #3> <> a conversion:RetrievalTrigger;
 #3>    prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-aggregate-eparams.sh>;
-#3>    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets> .
-#
-# Usage:
+#3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets> .
 
 HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
 export PATH=$PATH`$HOME/bin/util/cr-situate-paths.sh`
 export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?$HOME}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:data-root cr:source"
-if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
-   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
+if [ `is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+   pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
 fi
 
-TEMP="_"`basename $0``date +%s`_$$.tmp
-
 if [[ "$1" == "--help" ]]; then
+   section='#aggregation-39-dataset-conversion-metadata-prov-o-dcterms-void'
    echo "usage: `basename $0` [-n] [version-identifier]"
    echo ""
    echo "Create a dataset from the aggregation of all csv2rdf4lod conversion parameter files."
    echo ""
    echo "               -n : perform dry run only; do not load named graph."
+   echo "see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets$section"
    echo
    exit
 fi
@@ -51,55 +48,54 @@ if [ "$1" == "-n" ]; then
    shift
 fi
 
+# "SDV" naming
 if [[ -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" ]]; then
    sourceID="$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"
-elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:data-root` == "yes" ]]; then
-   see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/Secondary-Derivative-Datasets#csv2rdf4lod_publish_our_source_id'
-   sourceID=${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:?"not set; see $see"}
+elif [[ `is-pwd-a.sh 'cr:data-root'` == "yes" ]]; then
+   section='#csv2rdf4lod_publish_our_source_id'
+   see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Secondary-Derivative-Datasets$section"
+   sourceID=${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:?"not set and ambiguous based on level in data root; see $see"}
 else
    sourceID=`cr-source-id.sh`
 fi
 datasetID=`basename $0 | sed -e 's/.sh$//'`
-versionID=${1:-`date +%Y-%b-%d`}
-
-echo $sourceID $datasetID $versionID
-exit
-
-cockpit="$sourceID/$datasetID/version/$versionID"
-if [ ! -d $cockpit/source ]; then
-   mkdir -p $cockpit/source
-   mkdir -p $cockpit/automatic
-fi
-rm -rf $cockpit/source/*
-
-if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh 'cr:source'` == "yes" ]; then
-   pushd ../ &> /dev/null
+if [[ "$1" != "" ]]; then
+   versionID="$1"
+elif [[ `is-pwd-a.sh 'cr:conversion-cockpit'` == "yes" ]]; then
+   versionID=`cr-version-id.sh`
+else
+   versionID=`date +%Y-%b-%d`
 fi
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-echo "Finding all csv2rdf4lod-params in `pwd`." >&2
-
-for param in `find . -mindepth 6 -maxdepth 6 -name *.params.ttl -not -name *.global.* -not -name *.raw.params.*`; do
-   echo $param
-   # e.g. ./datahub-io/corpwatch/version/2013-Apr-24/automatic/companies.csv.raw.params.ttl
-   path=`md5.sh -qs $param`
-
-   # NOTE: assumes no relative paths, which is the case for 97% of the params.
-
-   echo "   --> $path.ttl"
+pushd `cr-conversion-root.sh` &> /dev/null
+   cockpit="$sourceID/$datasetID/version/$versionID"
    if [ "$dryrun" != "true" ]; then
-      cat $param | grep -v "delimits_cell" > $cockpit/source/$path.ttl
+      mkdir -p $cockpit/source $cockpit/automatic &> /dev/null
+      rm -rf $cockpit/source/*                    &> /dev/null
    fi
-done
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-pushd $cockpit &> /dev/null
-   echo
-   echo aggregate-source-rdf.sh --link-as-latest source/* 
-   if [ "$dryrun" != "true" ]; then
-      aggregate-source-rdf.sh --link-as-latest source/*
-      # NOTE: ^^ publishes even with -n b/c it checks for CSV2RDF4LOD_PUBLISH_VIRTUOSO
-   fi
+   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+   echo "Aggregating all csv2rdf4lod conversion parameters in `pwd` into $cockpit/source/." >&2
+
+   for param in `find . -mindepth 6 -maxdepth 6 -name *.params.ttl -not -name *.global.* -not -name *.raw.params.*`; do
+      # e.g. ./datahub-io/corpwatch/version/2013-Apr-24/automatic/companies.csv.raw.params.ttl
+      echo $param
+      path=`md5.sh -qs $param`
+      echo "   --> $path.ttl"
+      if [ "$dryrun" != "true" ]; then
+         cat $param | grep -v "delimits_cell" > $cockpit/source/$path.ttl
+         # TODO: concatentation assumes no relative paths, which is the case for 97% of the params.
+      fi
+   done
+   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   pushd $cockpit &> /dev/null
+      echo
+      echo aggregate-source-rdf.sh --link-as-latest source/* 
+      if [ "$dryrun" != "true" ]; then
+         aggregate-source-rdf.sh --link-as-latest source/*
+      fi
+   popd &> /dev/null
+
 popd &> /dev/null
-
 dryrun.sh $dryrun ending
