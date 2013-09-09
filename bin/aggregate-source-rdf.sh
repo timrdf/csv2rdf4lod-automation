@@ -201,7 +201,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       fi
    else
       because=''
-      if [[ "$versionID" != "latest" ]]; then
+      if [[ "$versionID" == "latest" ]]; then
          because=" (because version is already 'latest')"
       fi
       echo "Not linking as latest$because."
