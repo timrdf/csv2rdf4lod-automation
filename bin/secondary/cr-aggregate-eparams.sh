@@ -57,7 +57,7 @@ elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source` == "yes" ]]; then
    sourceID=`cr-source-id.sh`
 fi
 datasetID=`basename $0 | sed -e 's/.sh$//'`
-versionID=${2:-`date +%Y-%b-%d`}
+versionID=${1:-`date +%Y-%b-%d`}
 
 echo $sourceID $datasetID $versionID
 exit
