@@ -18,7 +18,11 @@
 #3>    prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-aggregate-eparams.sh>;
 #3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets> .
 
-HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
+me="$0"
+if [[ `readlink $0` != "" ]]; then
+   me=`readline $0`
+fi
+HOME=$(cd ${me%/*/*} && echo ${PWD%/*})
 export PATH=$PATH`$HOME/bin/util/cr-situate-paths.sh`
 export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
 
