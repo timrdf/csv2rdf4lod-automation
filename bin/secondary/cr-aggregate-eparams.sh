@@ -53,7 +53,10 @@ fi
 
 if [[ -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" ]]; then
    sourceID="$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"
-elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source` == "yes" ]]; then
+elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:data-root` == "yes" ]]; then
+   see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/Secondary-Derivative-Datasets#csv2rdf4lod_publish_our_source_id'
+   sourceID=${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:?"not set; see $see"}
+else
    sourceID=`cr-source-id.sh`
 fi
 datasetID=`basename $0 | sed -e 's/.sh$//'`
