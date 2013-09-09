@@ -20,7 +20,7 @@
 
 me="$0"
 if [[ `readlink $0` != "" ]]; then
-   me=`readline $0`
+   me=`readlink $0`
 fi
 HOME=$(cd ${me%/*/*} && echo ${PWD%/*})
 export PATH=$PATH`$HOME/bin/util/cr-situate-paths.sh`
