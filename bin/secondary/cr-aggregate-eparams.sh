@@ -34,32 +34,33 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
-sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
-datasetID=`basename $0 | sed -e 's/-publish/-aggregated/' -e 's/-to-endpoint//' -e 's/.sh$//'` # e.g. cr-publish-void-to-endpoint.sh -> cr-void
-versionID=`date +%Y-%b-%d`
-
 if [[ "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [--target] [-n] [version-identifier]"
+   echo "usage: `basename $0` [-n] [version-identifier]"
    echo ""
    echo "Create a dataset from the aggregation of all csv2rdf4lod conversion parameter files."
    echo ""
-   echo "         --target : return the name of graph that will be loaded; then quit."
    echo "               -n : perform dry run only; do not load named graph."
    echo
    exit
 fi
 
-if [[ "$1" == "--target" ]]; then
-   echo $namedGraph 
-   exit
-fi
-
-dryRun="false"
+dryrun="false"
 if [ "$1" == "-n" ]; then
-   dryRun="true"
+   dryrun="true"
    dryrun.sh $dryrun beginning
    shift
 fi
+
+if [[ -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" ]]; then
+   sourceID="$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"
+elif [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source` == "yes" ]]; then
+   sourceID=`cr-source-id.sh`
+fi
+datasetID=`basename $0 | sed -e 's/.sh$//'`
+versionID=${2:-`date +%Y-%b-%d`}
+
+echo $sourceID $datasetID $versionID
+exit
 
 cockpit="$sourceID/$datasetID/version/$versionID"
 if [ ! -d $cockpit/source ]; then
@@ -83,7 +84,7 @@ for param in `find . -mindepth 6 -maxdepth 6 -name *.params.ttl -not -name *.glo
    # NOTE: assumes no relative paths, which is the case for 97% of the params.
 
    echo "   --> $path.ttl"
-   if [ "$dryRun" != "true" ]; then
+   if [ "$dryrun" != "true" ]; then
       cat $param | grep -v "delimits_cell" > $cockpit/source/$path.ttl
    fi
 done
@@ -92,7 +93,7 @@ done
 pushd $cockpit &> /dev/null
    echo
    echo aggregate-source-rdf.sh --link-as-latest source/* 
-   if [ "$dryRun" != "true" ]; then
+   if [ "$dryrun" != "true" ]; then
       aggregate-source-rdf.sh --link-as-latest source/*
       # NOTE: ^^ publishes even with -n b/c it checks for CSV2RDF4LOD_PUBLISH_VIRTUOSO
    fi
