@@ -161,7 +161,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "publish/$sdv.void.ttl"
    rr-create-void.sh publish/$sdv.*                   > publish/$sdv.void.ttl
 
-   if [ "$link_latest" == "yes" ]; then
+   if [[ "$link_latest" == "yes" && "$versionID" != "latest" ]]; then
       # from:
       # source/tw-rpi-edu/cr-publish-void-to-endpoint/version/2012-Sep-26
       #
