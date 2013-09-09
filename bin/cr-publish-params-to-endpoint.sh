@@ -14,10 +14,8 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-params-to-endpoint.sh
-#
-# See also:
-# https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-params-to-endpoint.sh>;
+#3>    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets> .
 #
 # Usage:
 
@@ -38,8 +36,6 @@ TEMP="_"`basename $0``date +%s`_$$.tmp
 sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
 datasetID=`basename $0 | sed -e 's/-publish/-aggregated/' -e 's/-to-endpoint//' -e 's/.sh$//'` # e.g. cr-publish-void-to-endpoint.sh -> cr-void
 versionID=`date +%Y-%b-%d`
-
-graphName=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/$sourceID/dataset/$datasetID/version/$versionID
 
 if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--target] [-n] [--clear-graph] <named_graph_URI | cr:auto | .>"
@@ -67,21 +63,6 @@ if [ "$1" == "-n" ]; then
    dryrun.sh $dryrun beginning
    shift
 fi
-
-if [[ "$1" == "--clear-graph" ]]; then
-   echo ""
-   echo "Deleting $namedGraph"                                         >&2
-   echo  "  ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph" >&2
-   if [ "$dryRun" != "true" -a $namedGraph != "." ]; then
-      ${CSV2RDF4LOD_HOME}/bin/util/virtuoso/vdelete $namedGraph 
-   fi
-   shift
-fi
-
-#if [ "$1" != "cr:auto" ]; then
-#   namedGraph="$1"
-#   shift 
-#fi
 
 cockpit="$sourceID/$datasetID/version/$versionID"
 if [ ! -d $cockpit/source ]; then
@@ -116,25 +97,8 @@ pushd $cockpit &> /dev/null
    echo aggregate-source-rdf.sh --link-as-latest source/* 
    if [ "$dryRun" != "true" ]; then
       aggregate-source-rdf.sh --link-as-latest source/*
-      # WARNING: ^^ publishes even with -n b/c it checks for CSV2RDF4LOD_PUBLISH_VIRTUOSO
+      # NOTE: ^^ publishes even with -n b/c it checks for CSV2RDF4LOD_PUBLISH_VIRTUOSO
    fi
 popd &> /dev/null
-
-if [ "$clearGraph" == "true" ]; then
-   echo
-   echo "Deleting $graphName" >&2
-   if [ "$dryRun" != "true" ]; then
-      publish/bin/virtuoso-delete-$sourceID-$datasetID-$versionID.sh
-   fi
-fi
-
-if [ "$dryRun" != "true" ]; then
-   pushd $cockpit &> /dev/null
-      publish/bin/virtuoso-load-$sourceID-$datasetID-$versionID.sh
-   popd &> /dev/null
-fi
-
-# if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]; then
-# fi
 
 dryrun.sh $dryrun ending
