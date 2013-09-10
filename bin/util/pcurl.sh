@@ -44,6 +44,13 @@ if [ $# -lt 1 ]; then
    exit 1
 fi
 
+function log {
+   message="$1"
+   if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
+      echo $message
+   fi
+}
+
 see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
@@ -122,20 +129,20 @@ while [ $# -gt 0 ]; do
       #echo "PCURL: basename localname $localName"
    fi
 
-   #echo getting last mod xsddatetime
+   log "getting last mod xsddatetime"
    urlINFO=`curl -I --globoff $url 2> /dev/null | grep -v 'Set-Cookie'`
    urlModDateTime=`urldate.sh -field Last-Modified: -format dateTime $url`
-   #echo "PCURL: URL modification date:  $urlModDateTime"
+   log "PCURL: URL modification date:  $urlModDateTime"
 
-   #echo getting redirect name
+   log "getting redirect name"
    redirectedURL=`filename-v3.pl $url`
    redirectedURLINFO=`curl -I --globoff $redirectedURL 2> /dev/null`
    redirectedModDate=`urldate.sh -field Last-Modified: -format dateTime $redirectedURL`
-   #echo "PCURL: http redirect basename `basename $redirectedURL`"
+   log "PCURL: http redirect basename `basename $redirectedURL`"
 
-   #echo getting last mod
+   log "getting last mod"
    documentVersion=`urldate.sh -field Last-Modified: $url`
-   #echo "PCURL: URL mod date: $documentVersion"
+   log "PCURL: URL mod date: $documentVersion"
    if [ ${#documentVersion} -le 3 ]; then
       documentVersion="undated"
       #echo "version: $documentVersion"
@@ -144,21 +151,21 @@ while [ $# -gt 0 ]; do
    file=`basename $redirectedURL`$extension
    if [ ${#localName} -gt 0 ]; then
       file=$localName$extension
-      #echo "PCURL: local name overriding redirected name"
+      log "PCURL: local name overriding redirected name"
    fi
    #file=${localName}-$documentVersion${extension}
-   #echo "INFO `basename $0`: local file name will be $file"
+   log "INFO `basename $0`: local file name will be $file"
 
    if [ ! -e $file -a ${#documentVersion} -gt 0 ]; then 
       requestID=`resource-name.sh`
       usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'`
 
-      #echo "$url (mod $urlModDateTime)"
-      #echo "$redirectedURL (mod $redirectedModDate) to $file (@ $usageDateTime)"
+      log "$url (mod $urlModDateTime)"
+      log "$redirectedURL (mod $redirectedModDate) to $file (@ $usageDateTime)"
       # TODO: curl -H "Accept: application/rdf+xml, */*; q=0.1", but 406
       # http://dowhatimean.net/2008/03/what-is-your-rdf-browsers-accept-header
       prefRDF="" #"-H 'Accept: application/rdf+xml, */*; q=0.1'"
-      #echo curl $prefRDF -L $url 
+      log "curl $prefRDF -L $url"
       if [ "$downloadFile" == "true" ]; then
          echo "curl -sL --globoff --insecure $url $formFields ($file)"
                curl -sL --globoff --insecure $url $formFields > $file
