@@ -111,15 +111,16 @@ if [[ "$dryrun" != "true" && -n "$sudo" ]]; then
         $sudo apt-get update &> /dev/null
 fi
 
-offer_install_with_apt 'git'    'git-core'      # These are dryrun safe and are only done if $sudo.
+offer_install_with_apt 'git'     'git-core'      # These are dryrun safe and are only done if $sudo.
 #offer_install_with_apt 'java'   'openjdk-6-jre' # openjdk-6-jdk ?
-offer_install_with_apt 'javac'  'openjdk-6-jdk' # openjdk-6-jdk ?
-offer_install_with_apt 'awk'    'gawk'          #
-offer_install_with_apt 'curl'   'curl'          #
-offer_install_with_apt 'rapper' 'raptor-utils'  #
-offer_install_with_apt 'unzip'  'unzip'         #
-offer_install_with_apt 'screen' 'screen'        #
-offer_install_with_apt 'tidy'   'tidy'          #
+offer_install_with_apt 'javac'   'openjdk-6-jdk' # openjdk-6-jdk ?
+offer_install_with_apt 'awk'     'gawk'          #
+offer_install_with_apt 'curl'    'curl'          #
+offer_install_with_apt 'rapper'  'raptor-utils'  #
+offer_install_with_apt 'unzip'   'unzip'         #
+offer_install_with_apt 'screen'  'screen'        #
+offer_install_with_apt 'tidy'    'tidy'          #
+offer_install_with_apt 'a2enmod' 'apache2'       #
 
 if [[ ! `which serdi` ]]; then
    if [ "$dryrun" != "true" ]; then
