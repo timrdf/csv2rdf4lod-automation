@@ -60,7 +60,8 @@ function write_access_metadata {
    echo "@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> ."                 >> access.ttl
    echo "@prefix :           <$CSV2RDF4LOD_BASE_URI/id/> ."                           >> access.ttl
    echo                                                                               >> access.ttl
-   echo "<$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/dataset/`cr-dataset-id.sh`>" >> access.ttl
+   #echo "<$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/dataset/`cr-dataset-id.sh`>" >> access.ttl
+   echo "<`cr-dataset-uri.sh --uri`>"                                                 >> access.ttl
    echo "   a void:Dataset, dcat:Dataset;"                                            >> access.ttl
    echo "   conversion:source_identifier  \"`cr-source-id.sh`\";"                     >> access.ttl
    echo "   conversion:dataset_identifier \"`cr-dataset-id.sh`\";"                    >> access.ttl
