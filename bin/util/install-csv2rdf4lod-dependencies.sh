@@ -325,6 +325,10 @@ fi
 #   apt-get install libapache2-mod-proxy-html
 #   a2enmod proxy-html
 
+# "ERROR: APACHE_PID_FILE needs to be defined in /etc/apache2/envvars"
+# is fixed with: sudo cp /etc/apache2/envvars.dpkg-dist /etc/apache2/envvars
+# see http://maryytech.over-blog.com/article-error-apache_pid_file-needs-to-be-defined-in-etc-apache2-envvars-59623091.html
+
 virtuoso_installed="no"
 if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
       -e '/usr/bin/isql-v'                   && \
@@ -351,11 +355,12 @@ fi
 if [[ "$virtuoso_installed" == "no" ]]; then
    if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
 
-      distributor=`lsb_release --short --id` # e.g. Ubuntu, or Debian
+      distributor=`lsb_release --short --id`    # e.g. Ubuntu,         or Debian
       codename=`lsb_release --short --codename` # e.g. lucid, precise, or squeeze
+                                                #      10.04   12.04
 
       echo "Virtuoso not installed; OS type $distributor $codename"
-      if [[ "$distributor" == "Ubuntu" || "$distributor" == "Debian" ]]; then # lucid
+      if [[ ( "$distributor" == "Ubuntu" && "$codename" == 'lucid' ) || "$distributor" == "Debian" ]]; then # lucid
          url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
          pushd /opt &> /dev/null # $base
             # Not really working:
@@ -456,7 +461,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
             # Monitor virtuoso with sudo tail -f /var/lib/virtuoso/db/virtuoso.log
             #                                    ^^ this shows "... Server online at 1111 (pid ...)"
          popd &> /dev/null
-      elif [[ "$distributor" == "Debian" ]]; then # squeeze
+      elif [[ ( "$distributor" == "Ubuntu" && "$codename" == 'precise' ) || "$distributor" == "Debian" ]]; then # squeeze
          # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSDebianNotes
          echo $TODO sudo apt-get update
          if [[ "$dryrun" != "true" ]]; then
