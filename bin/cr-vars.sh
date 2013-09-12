@@ -118,6 +118,7 @@ if [ "$1" != "CLEAR" ]; then
 
    echo
    echo "CSV2RDF4LOD_PUBLISH                                      ${CSV2RDF4LOD_PUBLISH:-"(will default to: true)"}"
+   echo "CSV2RDF4LOD_PUBLISH_VC_REPOSITORY                        ${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY:-"(will default to: false)"}"
    echo "CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED                 ${CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED:-"(will default to: true)"}"
 
    echo "CSV2RDF4LOD_PUBLISH_TTL                                  ${CSV2RDF4LOD_PUBLISH_TTL:-"(will default to: true)"}"
@@ -265,6 +266,7 @@ else
    # "  "
 
    export CSV2RDF4LOD_PUBLISH=""
+   export CSV2RDF4LOD_PUBLISH_VC_REPOSITORY=""
    export CSV2RDF4LOD_PUBLISH_DELAY_UNTIL_ENHANCED=""
    export CSV2RDF4LOD_PUBLISH_TTL=""
    export CSV2RDF4LOD_PUBLISH_TTL_LAYERS=""
