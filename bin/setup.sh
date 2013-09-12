@@ -351,7 +351,7 @@ export CSV2RDF4LOD_PUBLISH="true"
 # (done in )
 #
 export CSV2RDF4LOD_PUBLISH_VC_REPOSITORY="https://github.com/timrdf/ieeevis.git"
-export CSV2RDF4LOD_PUBLISH_VC_REPOSITORY="false"
+export CSV2RDF4LOD_PUBLISH_VC_REPOSITORY=""
 
 
 #
