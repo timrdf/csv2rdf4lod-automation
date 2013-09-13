@@ -92,6 +92,7 @@ if [ "$dryrun" != "true" ]; then
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+if [[ 'test' == 'debug' ]]; then
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
 echo "$cockpit/publish/$dumpFileLocal"
@@ -165,14 +166,14 @@ if [ "$dryrun" != "true" ]; then
    rm -f $cockpit/automatic/tdb/*
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
+fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if [ "$dryrun" != "true" ]; then
 
    pushd $cockpit &> /dev/null
       cr-pwd.sh
-      aggregate-source-rdf.sh automatic/$base-uri-nodes.ttl
+#TODO      aggregate-source-rdf.sh automatic/$base-uri-nodes.ttl
       #ttl_size=`du -sh automatic/$base-uri-nodes.ttl`
       #echo "Removing $ttl_size automatic/$base-uri-nodes.ttl"
       #rm -f automatic/$base-uri-nodes.ttl
@@ -229,7 +230,8 @@ if [ "$dryrun" != "true" ]; then
       echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
    fi
 
-   if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" =~ *git ]]; then
+   echo $CSV2RDF4LOD_PUBLISH_VC_REPOSITORY
+   if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" == *git ]]; then
       # e.g.     git@github.com:tetherless-world/hub.git (location)
       #      https://github.com/tetherless-world/hub.git (anon)
       #      https://github.com/tetherless-world/hub     (browse)
@@ -237,11 +239,11 @@ if [ "$dryrun" != "true" ]; then
       # e.g.     git@github.com:timrdf/ieeevis.git       (location)
       #      https://github.com/timrdf/ieeevis.git       (anon)
       #      https://github.com/timrdf/ieeevis           (browse)
-      if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" =~ http* ]]; then
+      if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" == http* ]]; then
          git="git@${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY#http*//}"
          git_anon="$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY"
          browse="${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY%.git}"
-      elif [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" =~ git* ]]; then
+      elif [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" == git* ]]; then
          git="$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY"
          git_anon="https://${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY#git@}"
          browse="${git_anon%.git}"
