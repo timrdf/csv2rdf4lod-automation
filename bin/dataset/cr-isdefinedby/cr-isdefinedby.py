@@ -34,7 +34,7 @@ def retrieve(endpoint, pattern):
 
       query = pattern+" limit "+str(limit)+" offset "+str(offset) 
       datasetURL = endpoint + "?" + urllib.urlencode([("query",query)]) + "&format=text%2Fcsv&timeout=0&debug=on"
-      print >> sys.stderr, str(limit) + " " + str(offset)
+      print >> sys.stderr, str(limit) + " " + str(offset) + " " + datasetURL
 
       for line in csv.reader(urllib.urlopen(datasetURL),delimiter=","):
          term = line[0]
