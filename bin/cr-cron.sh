@@ -148,28 +148,6 @@ pushd $conversion_root &> /dev/null
 
 
    #
-   # Analyze the retrieved files and determine their file format.
-   echo "BEGIN cron cr-publish-droid-to-endpoint.sh `date`"                                      >> $log
-   echo "#3> <#cr-publish-droid> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ." >> $log
-   if [[ -n "$CSV2RDF4LOD_BASE_URI"              && \
-         -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" && \
-         `which cr-publish-droid-to-endpoint.sh` && \
-         `which cr-droid.sh` ]]; then
-      echo "pwd:    `pwd`"                                                                       >> $log
-      echo "script: `which cr-publish-droid-to-endpoint.sh`"                                     >> $log
-      cr-publish-droid-to-endpoint.sh cr:auto                                               2>&1 >> $log
-   else
-      echo "   ERROR: Failed to invoke cr-publish-droid-to-endpoint.sh:"                         >> $log
-      echo "      CSV2RDF4LOD_BASE_URI:              $CSV2RDF4LOD_BASE_URI"                      >> $log
-      echo "      CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID: $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"         >> $log
-      echo "      cr-publish-droid-to-endpoint.sh path: `which cr-publish-droid-to-endpoint.sh`" >> $log
-      echo "      cr-droid.sh path:                     `which cr-droid.sh`"                     >> $log
-   fi
-   echo "END cron cr-publish-droid-to-endpoint.sh `date`"                                        >> $log
-   echo                                                                                          >> $log
-
-
-   #
    # The VoID metadata organizes the RDF datasets created by converting each original dataset.
    echo "BEGIN cron cr-publish-void-to-endpoint.sh `date`"                                     >> $log
    echo "#3> <#cr-publish-void> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ." >> $log
