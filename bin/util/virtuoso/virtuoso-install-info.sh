@@ -62,6 +62,7 @@ if [[ "$1" == '--help' ]]; then
    echo "method: `$0 method`"
    echo "ini:    `$0 ini`"
    echo "init_d: `$0 init_d`"
+   echo "isql:   `$0 isql `"
    echo "log:    `$0 log `"
 elif [[ "$1" == 'method' ]]; then
    echo $virtuoso_install_method
