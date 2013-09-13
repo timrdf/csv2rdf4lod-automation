@@ -51,6 +51,7 @@ if [[ "$1" == "--help" ]]; then
    exit 1
 fi
 
+
 if [ "$1" == "--target" ]; then
    # a conversion:VersionedDataset:
    # e.g. http://purl.org/twc/health/source/tw-rpi-edu/dataset/cr-publish-dcat-to-endpoint/version/2012-Sep-07
@@ -225,6 +226,35 @@ if [ "$dryrun" != "true" ]; then
       echo "<$topVoID> owl:sameAs <http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID>;"               >> $cockpit/publish/$sdv.void.ttl
       echo "   a datafaqs:CKANDataset;"                                                                                           >> $cockpit/publish/$sdv.void.ttl
       echo "   dcterms:identifier \"$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID\";"                                       >> $cockpit/publish/$sdv.void.ttl
+      echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
+   fi
+
+   if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" =~ *git ]]; then
+      # e.g.     git@github.com:tetherless-world/hub.git (location)
+      #      https://github.com/tetherless-world/hub.git (anon)
+      #      https://github.com/tetherless-world/hub     (browse)
+      #
+      # e.g.     git@github.com:timrdf/ieeevis.git       (location)
+      #      https://github.com/timrdf/ieeevis.git       (anon)
+      #      https://github.com/timrdf/ieeevis           (browse)
+      if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" =~ http* ]]; then
+         git="git@${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY#http*//}"
+         git_anon="$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY"
+         browse="${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY%.git}"
+      elif [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" =~ git* ]]; then
+         git="$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY"
+         git_anon="https://${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY#git@}"
+         browse="${git_anon%.git}"
+      fi
+      echo "<$topVoID>"                                                                                                           >> $cockpit/publish/$sdv.void.ttl
+      echo "    a doap:Project;"                                                                                                  >> $cockpit/publish/$sdv.void.ttl
+      echo "    doap:repository <$topVoID/repo/git>;"                                                                             >> $cockpit/publish/$sdv.void.ttl
+      echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
+      echo "<$topVoID/repo/git>"                                                                                                  >> $cockpit/publish/$sdv.void.ttl
+      echo "   a doap:GitRepository, doap:Repository;"                                                                            >> $cockpit/publish/$sdv.void.ttl
+      echo "   doap:location  <$git>;"                                                                                            >> $cockpit/publish/$sdv.void.ttl
+      echo "   doap:anon-root <$git_anon>;"                                                                                       >> $cockpit/publish/$sdv.void.ttl
+      echo "   doap:browse    <$browse>;"                                                                                         >> $cockpit/publish/$sdv.void.ttl
       echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
    fi
 
