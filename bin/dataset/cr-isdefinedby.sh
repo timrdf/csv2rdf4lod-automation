@@ -80,7 +80,7 @@ if [[ `is-pwd-a.sh                                                              
 
 elif [[ `is-pwd-a.sh                                                              cr:directory-of-versions` == "yes" ]]; then
 
-   if [[ ! -d $version || ! -d $version/source || `find $version -empty -type d -name source` ]]
+   if [[ ! -d $version || ! -d $version/source || `find $version -empty -type d -name source` ]]; then
 
       endpoint="$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT"
       if [ ${#endpoint} -eq 0 ]; then
