@@ -143,7 +143,7 @@ elif [[ `is-pwd-a.sh                                                            
 
          echo INFO `cr-pwd.sh`/automatic
          # Convert the XML SPARQL bindings to the sitemap XML format.
-         saxon.sh $this.xsl xml xml -od automatic source/$rq.xml
+         saxon.sh ../../src/cr-sitemap.xsl xml xml -od automatic source/$rq.xml
 
          echo automatic/data.ttl
          echo "@prefix : <`cr-dataset-uri.sh --uri`> ."              > automatic/data.ttl
