@@ -147,27 +147,6 @@ pushd $conversion_root &> /dev/null
    echo                                              >> $log
 
 
-   #
-   # The VoID metadata organizes the RDF datasets created by converting each original dataset.
-   echo "BEGIN cron cr-publish-void-to-endpoint.sh `date`"                                     >> $log
-   echo "#3> <#cr-publish-void> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ." >> $log
-   if [[ -n "$CSV2RDF4LOD_BASE_URI"              && \
-         -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" && \
-         `which cr-publish-void-to-endpoint.sh` ]]; then
-      echo "pwd:    `pwd`"                                                                     >> $log
-      echo "script: `which cr-publish-void-to-endpoint.sh`"                                    >> $log
-      echo cr-publish-void-to-endpoint.sh cr:auto                                              >> $log
-      cr-publish-void-to-endpoint.sh cr:auto                                              2>&1 >> $log
-   else
-      echo "   ERROR: Failed to invoke cr-publish-void-to-endpoint.sh:"                        >> $log
-      echo "      CSV2RDF4LOD_BASE_URI:              $CSV2RDF4LOD_BASE_URI"                    >> $log
-      echo "      CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID: $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"       >> $log
-      echo "      cr-publish-void-to-endpoint.sh path: `which cr-publish-void-to-endpoint.sh`" >> $log
-   fi
-   echo "END cron cr-publish-void-to-endpoint.sh `date`"                                       >> $log
-   echo                                                                                        >> $log
-
-
    # TODO: fix https://github.com/timrdf/csv2rdf4lod-automation/issues/313 and reinstate this.
    #
    # Turtle In Comments often has PROV-O assertions about the files in which they are embedded.
