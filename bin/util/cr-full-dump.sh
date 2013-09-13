@@ -253,13 +253,17 @@ if [ "$dryrun" != "true" ]; then
       if [[ -n "$git" ]]; then
          echo "<$topVoID>"                                                                                                        >> $cockpit/publish/$sdv.void.ttl
          echo "    a doap:Project;"                                                                                               >> $cockpit/publish/$sdv.void.ttl
-         echo "    doap:repository <$topVoID/repo/git>;"                                                                          >> $cockpit/publish/$sdv.void.ttl
+         echo "    doap:repository   <$topVoID/repo/git>;"                                                                        >> $cockpit/publish/$sdv.void.ttl
+         echo "    dcat:distribution <$topVoID/repo/git>;"                                                                        >> $cockpit/publish/$sdv.void.ttl
          echo "."                                                                                                                 >> $cockpit/publish/$sdv.void.ttl
          echo "<$topVoID/repo/git>"                                                                                               >> $cockpit/publish/$sdv.void.ttl
-         echo "   a doap:GitRepository, doap:Repository;"                                                                         >> $cockpit/publish/$sdv.void.ttl
-         echo "   doap:location  <$git>;"                                                                                         >> $cockpit/publish/$sdv.void.ttl
-         echo "   doap:anon-root <$git_anon>;"                                                                                    >> $cockpit/publish/$sdv.void.ttl
-         echo "   doap:browse    <$browse>;"                                                                                      >> $cockpit/publish/$sdv.void.ttl
+         echo "   a doap:GitRepository, doap:Repository, dcat:Distribution;"                                                      >> $cockpit/publish/$sdv.void.ttl
+         echo "   dcterms:title    \"Version Control Repository\";"                                                               >> $cockpit/publish/$sdv.void.ttl
+         echo "   doap:location    <$git>;"                                                                                       >> $cockpit/publish/$sdv.void.ttl
+         echo "   doap:anon-root   <$git_anon>;"                                                                                  >> $cockpit/publish/$sdv.void.ttl
+         echo "   doap:downloadURL <$git_anon>;"                                                                                  >> $cockpit/publish/$sdv.void.ttl
+         echo "   doap:browse      <$browse>;"                                                                                    >> $cockpit/publish/$sdv.void.ttl
+         echo "   dcat:accessURL   <$browse>;"                                                                                    >> $cockpit/publish/$sdv.void.ttl
          echo "."                                                                                                                 >> $cockpit/publish/$sdv.void.ttl
       fi
    fi
