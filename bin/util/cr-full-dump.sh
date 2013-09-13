@@ -92,7 +92,6 @@ if [ "$dryrun" != "true" ]; then
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-if [[ 'test' == 'debug' ]]; then
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Build up full dump file into publish/
 echo "$cockpit/publish/$dumpFileLocal"
@@ -166,14 +165,13 @@ if [ "$dryrun" != "true" ]; then
    rm -f $cockpit/automatic/tdb/*
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if [ "$dryrun" != "true" ]; then
 
    pushd $cockpit &> /dev/null
       cr-pwd.sh
-#TODO      aggregate-source-rdf.sh automatic/$base-uri-nodes.ttl
+      aggregate-source-rdf.sh automatic/$base-uri-nodes.ttl
       #ttl_size=`du -sh automatic/$base-uri-nodes.ttl`
       #echo "Removing $ttl_size automatic/$base-uri-nodes.ttl"
       #rm -f automatic/$base-uri-nodes.ttl
