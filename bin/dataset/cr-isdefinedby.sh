@@ -60,7 +60,7 @@ if [[ `is-pwd-a.sh                                                              
 
    versionID=`cr-version-id.sh`
    pushd ../ &> /dev/null
-      $0 $n $versionID 
+      $this $n $versionID 
    popd &> /dev/null
 
 elif [[ `is-pwd-a.sh                                                              cr:directory-of-versions` == "yes" ]]; then
