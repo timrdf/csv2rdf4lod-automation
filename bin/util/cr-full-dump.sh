@@ -231,7 +231,7 @@ if [ "$dryrun" != "true" ]; then
    fi
 
    echo $CSV2RDF4LOD_PUBLISH_VC_REPOSITORY
-   if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" == *git ]]; then
+   if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" =~ *git ]]; then
       # e.g.     git@github.com:tetherless-world/hub.git (location)
       #      https://github.com/tetherless-world/hub.git (anon)
       #      https://github.com/tetherless-world/hub     (browse)
@@ -239,11 +239,11 @@ if [ "$dryrun" != "true" ]; then
       # e.g.     git@github.com:timrdf/ieeevis.git       (location)
       #      https://github.com/timrdf/ieeevis.git       (anon)
       #      https://github.com/timrdf/ieeevis           (browse)
-      if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" == http* ]]; then
+      if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" =~ http* ]]; then
          git="git@${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY#http*//}"
          git_anon="$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY"
          browse="${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY%.git}"
-      elif [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" == git* ]]; then
+      elif [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" =~ git* ]]; then
          git="$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY"
          git_anon="https://${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY#git@}"
          browse="${git_anon%.git}"
