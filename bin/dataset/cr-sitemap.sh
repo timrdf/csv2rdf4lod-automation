@@ -21,7 +21,7 @@ export PATH=$PATH`$HOME/bin/util/cr-situate-paths.sh`
 export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-ACCEPTABLE_PWDs="cr:data-root cr:source cr:dataset cr:directory-of-versions"
+ACCEPTABLE_PWDs="cr:data-root cr:source cr:dataset cr:directory-of-versions cr:conversion-cockpit"
 if [ `is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
@@ -41,7 +41,14 @@ if [[ "$1" == "--help" ]]; then
    exit 1
 fi
 
-if [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
+if [[ `is-pwd-a.sh                                                                                      cr:conversion-cockpit` == "yes" ]]; then
+
+   versionID=`cr-version-id.sh`
+   pushd ../ &> /dev/null
+      $this $versionID
+   popd &> /dev/null
+
+elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
 
    CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
    baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
