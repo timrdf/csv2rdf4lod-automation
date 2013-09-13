@@ -85,9 +85,9 @@ elif [[ `is-pwd-a.sh                                                            
    fi
    rm -rf $cockpit/source/* # opposite of "if exists, quit" above.
 
-   echo "[INFO] python $CSV2RDF4LOD_HOME/bin/cr-publish-isdefinedby-to-endpoint.py $endpoint"
+   echo "[INFO] python ../src/cr-isdefinedby.py $endpoint"
    if [ "$dryRun" != "true" ]; then
-      python $CSV2RDF4LOD_HOME/bin/cr-publish-isdefinedby-to-endpoint.py $endpoint > $cockpit/automatic/isdefinedby.nt
+      python ../src/cr-isdefinedby.py $endpoint > $cockpit/automatic/isdefinedby.nt
       pushd $cockpit &> /dev/null
          aggregate-source-rdf.sh --link-as-latest automatic/* 
          # ^^ publishes if CSV2RDF4LOD_PUBLISH_VIRTUOSO
