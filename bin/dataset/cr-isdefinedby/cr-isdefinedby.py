@@ -55,10 +55,10 @@ if __name__=='__main__':
 
    prefixes = 'prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
 
-   #optional = ' optional {?p rdfs:isDefinedBy ?def} filter(!bound(?def))' # SPARQL 1.o
-   optional = ' filter not exists { ?p rdfs:isDefinedBy [] } '             # SPARQL 1.1
+   #optional = 'optional {?p rdfs:isDefinedBy ?def} filter(!bound(?def))' # SPARQL 1.0
+   optional = 'filter not exists { ?p rdfs:isDefinedBy [] } '             # SPARQL 1.1
    retrieve(sys.argv[1], prefixes + 'select distinct ?p where { graph ?g { [] ?p [] } ' + optional + '}')
 
-   #optional = ' optional {?c rdfs:isDefinedBy ?def} filter(!bound(?def))' # SPARQL 1.0
-   optional = ' filter not exists { ?c rdfs:isDefinedBy [] } '             # SPARQL 1.1
+   #optional = 'optional {?c rdfs:isDefinedBy ?def} filter(!bound(?def))' # SPARQL 1.0
+   optional = 'filter not exists { ?c rdfs:isDefinedBy [] } '             # SPARQL 1.1
    retrieve(sys.argv[1], prefixes + 'select distinct ?c where { graph ?g { [] a ?c } ' + optional + '}')
