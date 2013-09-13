@@ -156,10 +156,17 @@ elif [[ `is-pwd-a.sh                                                            
          echo "   a dcat:Dataset;"                                     >> automatic/data.ttl
          echo "   dcterms:created `dateInXSDDateTime.sh --turtle`;"    >> automatic/data.ttl
          echo SITEMAP $sitemap
-         if [[ $sitemap == http* ]]; then
-            echo "   dcat:distribution [ dcat:accessURL <$sitemap> ];" >> automatic/data.ttl
-         fi
          echo "."                                                      >> automatic/data.ttl
+         if [[ $sitemap == http* && "$CSV2RDF4LOD_BASE_URI" == http* ]]; then
+            dist=$CSV2RDF4LOD_BASE_URI/id/dcat-distribution/accessURL/`md5.sh -qs $sitemap`
+            echo "<`cr-dataset-uri.sh --uri`>"                         >> automatic/data.ttl
+            echo "   dcat:distribution <$dist>; "                      >> automatic/data.ttl
+            echo "."                                                   >> automatic/data.ttl
+            echo "<$dist> a dcat:Distribution;"                        >> automatic/data.ttl
+            echo "   dcat:accessURL <$sitemap> ."                      >> automatic/data.ttl
+         else
+            echo "WARNING: not asserting dcat:distribution for sitemap b/c sitemap $sitemap is not http or base URI $CSV2RDF4LOD_BASE_URI is empty"
+         fi
 
          aggregate-source-rdf.sh --link-as-latest automatic/data.ttl
     
