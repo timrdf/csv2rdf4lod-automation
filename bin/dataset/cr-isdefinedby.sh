@@ -54,7 +54,7 @@ elif [[ `is-pwd-a.sh 'cr:conversion-cockpit'` == "yes" ]]; then
 else
    versionID=`date +%Y-%b-%d`
 fi
-if [[ -n "$versionID" ]]; then
+if [[ -n "$versionID" && -e "$versionID" ]]; then
    iteration=`find -mindepth 1 -maxdepth 1 -name "$versionID*" | wc -l | awk '{print $1}'`
    if [[ "$iteration" -gt 0 ]]; then
       let "iteration=$iteration+1"
