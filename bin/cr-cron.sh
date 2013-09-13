@@ -232,26 +232,6 @@ pushd $conversion_root &> /dev/null
 
 
    #
-   # Find all asserted properties and classes, and assert rdfs:isDefinedBy to their namespace.
-   echo "BEGIN cron cr-publish-isdefinedby-to-endpoint.sh `date`"                            >> $log
-   echo "#3> <#cr-publish-isdefinedby> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ." >> $log
-   if [[ -n "$CSV2RDF4LOD_BASE_URI"                && \
-         -n "$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT" && \
-         `which cr-publish-isdefinedby-to-endpoint.sh` ]]; then
-      # The SPARQL endpoint is needed b/c we query for all asserted properties and classes.
-      echo "pwd: `pwd`"                                                                      >> $log
-      cr-publish-isdefinedby-to-endpoint.sh cr:auto                                     2>&1 >> $log
-   else
-      echo "   ERROR: Failed to invoke cr-publish-isdefinedby-to-endpoint.sh:"               >> $log
-      echo "      CSV2RDF4LOD_BASE_URI:                $CSV2RDF4LOD_BASE_URI"                >> $log
-      echo "      CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT: $CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT" >> $log
-      echo "                        path:    `which cr-publish-isdefinedby-to-endpoint.sh`"  >> $log
-   fi
-   echo "END cron cr-publish-isdefinedby-to-endpoint.sh `date`"                              >> $log
-   echo                                                                                      >> $log
-
-
-   #
    # Gather all versioned dataset dump files into a "one click" download.
    echo "BEGIN cron cr-full-dump.sh `date`"                                              >> $log
    echo "#3> <#cr-full-dump> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ." >> $log
