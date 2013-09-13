@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-sitemap.sh>;
+#3> <> a conversion:RetrievalTrigger, conversion:Idempotent;
+#3>    prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-sitemap.sh>;
 #3>    prov:wasDerivedFrom   <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-linksets.sh>;
 #3>    rdfs:seeAlso          <http://sindice.com/developers/publishing> .
 #
@@ -14,27 +15,29 @@
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset
 #
 
-see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
-
-export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
-export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
+[ -n "`readlink $0`" ] && this=`readlink $0` || this=$0
+HOME=$(cd ${this%/*/*} && echo ${PWD%/*})
+export PATH=$PATH`$HOME/bin/util/cr-situate-paths.sh`
+export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:data-root cr:source cr:dataset cr:directory-of-versions"
-if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
-   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
+if [ `is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+   pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
 fi
 
-TEMP="_"`basename $0``date +%s`_$$.tmp
-
-if [[ $# -lt 2 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` version-identifier URL [--comment-character char]"
-   echo "                                                                 [--header-line        row]"
-   echo "                                                                 [--delimiter         char]"
-   echo "   version-identifier: conversion:version_identifier for the VersionedDataset to create (use cr:auto for default)"
-   echo "   URL               : URL to retrieve the data file."
+if [[ "$1" == "--help" ]]; then
+   section='#aggregation-39-dataset-conversion-metadata-prov-o-dcterms-void'
+   echo "usage: `basename $0` [-n] [version-identifier]"
+   echo ""
+   echo "Create a dataset from the aggregation of all csv2rdf4lod conversion parameter files."
+   echo ""
+   echo "                   -n : perform dry run only."
+   echo "   version-identifier : the version identifier to use for the dataset to be created."
+   echo
+   echo "see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets$section"
+   echo
    exit 1
 fi
 
@@ -131,7 +134,7 @@ if [[ `is-pwd-a.sh                                                            cr
 
          echo INFO `cr-pwd.sh`/automatic
          # Convert the XML SPARQL bindings to the sitemap XML format.
-         saxon.sh $me.xsl xml xml -od automatic source/$rq.xml
+         saxon.sh $this.xsl xml xml -od automatic source/$rq.xml
 
          echo automatic/data.ttl
          echo "@prefix : <`cr-dataset-uri.sh --uri`> ."              > automatic/data.ttl

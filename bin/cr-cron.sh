@@ -211,27 +211,6 @@ pushd $conversion_root &> /dev/null
 
 
    #
-   # Create a sitemap for each conversion:VersionedDataset.
-   echo "BEGIN cron cr-sitemap.sh `date`"                                                     >> $log
-   echo "#3> <#cr-sitemap> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ." >> $log
-   if [[ -n "$CSV2RDF4LOD_BASE_URI"                && \
-         -n "$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT" && \
-         -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"   && \
-         `which cr-sitemap.sh` ]]; then
-      echo "pwd: `pwd`"                                                                       >> $log
-      cr-sitemap.sh cr:auto cr:auto                                                      2>&1 >> $log
-   else
-      echo "   ERROR: Failed to invoke:"                                                      >> $log
-      echo "      CSV2RDF4LOD_BASE_URI:                $CSV2RDF4LOD_BASE_URI"                 >> $log
-      echo "      CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT: $CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT"  >> $log
-      echo "      CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:   $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"    >> $log
-      echo "                                   path: `which cr-sitemap.sh`"                   >> $log
-   fi
-   echo "END cron cr-sitemap.sh `date`"                                                       >> $log
-   echo                                                                                       >> $log
-
-
-   #
    # Submit this site's latest lodcloud-specific metadata to datahub.io.
    echo "BEGIN cron cr-pingback.sh `date`"                                                     >> $log
    echo "#3> <#cr-pingback> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ." >> $log
