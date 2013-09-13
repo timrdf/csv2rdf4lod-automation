@@ -228,7 +228,7 @@ if [ "$dryrun" != "true" ]; then
       echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
    fi
 
-   echo $CSV2RDF4LOD_PUBLISH_VC_REPOSITORY
+   echo "VC: $CSV2RDF4LOD_PUBLISH_VC_REPOSITORY"
    if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" == *git ]]; then
       # e.g.     git@github.com:tetherless-world/hub.git (location)
       #      https://github.com/tetherless-world/hub.git (anon)
@@ -240,11 +240,13 @@ if [ "$dryrun" != "true" ]; then
       git=''
       if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" == http* ]]; then
          git="git@${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY#http*//}"
+         git=`echo $git | sed 's/.com\//.com:/'`
          git_anon="$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY"
          browse="${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY%.git}"
       elif [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" == git* ]]; then
          git="$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY"
          git_anon="https://${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY#git@}"
+         git_anon=`echo $git_anon | sed 's/.com:/.com\//'`
          browse="${git_anon%.git}"
       fi
       echo $git $git_anon $browse
