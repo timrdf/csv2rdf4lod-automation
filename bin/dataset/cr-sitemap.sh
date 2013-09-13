@@ -127,19 +127,19 @@ elif [[ `is-pwd-a.sh                                                            
          me=${me%.*}
 
          rq=`basename $0`
-         rq=automatic/${rq%.*}.rq
+         rq=${rq%.*}.rq
          echo INFO `cr-pwd.sh`/source
-         echo "prefix dcterms:    <http://purl.org/dc/terms/>"                      > $rq
-         echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>"         >> $rq
-         echo ""                                                                   >> $rq
-         echo "select distinct ?versioned (max(?mod) as ?modified)"                >> $rq
-         echo "where {"                                                            >> $rq
-         echo "   ?versioned a conversion:VersionedDataset; dcterms:modified ?mod" >> $rq
-         echo "}"                                                                  >> $rq
-         echo "order by ?modified"                                                 >> $rq
+         echo "prefix dcterms:    <http://purl.org/dc/terms/>"                      > automatic/$rq
+         echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>"         >> automatic/$rq
+         echo ""                                                                   >> automatic/$rq
+         echo "select distinct ?versioned (max(?mod) as ?modified)"                >> automatic/$rq
+         echo "where {"                                                            >> automatic/$rq
+         echo "   ?versioned a conversion:VersionedDataset; dcterms:modified ?mod" >> automatic/$rq
+         echo "}"                                                                  >> automatic/$rq
+         echo "order by ?modified"                                                 >> automatic/$rq
           
          # Execute the fixed query against the endpoint, and store in source/
-         cache-queries.sh $CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT -o xml -q $rq -od source
+         cache-queries.sh $CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT -o xml -q automatic/$rq -od source
 
          echo INFO `cr-pwd.sh`/automatic
          # Convert the XML SPARQL bindings to the sitemap XML format.
