@@ -54,6 +54,14 @@ elif [[ `is-pwd-a.sh 'cr:conversion-cockpit'` == "yes" ]]; then
 else
    versionID=`date +%Y-%b-%d`
 fi
+if [[ -n "$versionID" ]]; then
+   iteration=`find -mindepth 1 -maxdepth 1 -name "$version*" | wc -l | awk '{print $1}'`
+   if [[ "$iteration" -gt 0 ]]; then
+      let "iteration=$iteration+1"
+      iteration="_$iteration"
+   fi
+   versionID="$versionID$iteration"
+fi
 
 if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0` [version-identifier] [URL]"
