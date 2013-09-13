@@ -114,12 +114,14 @@ elif [[ `is-pwd-a.sh                                                            
    # This script is invoked from a cr:directory-of-versions, 
    # e.g. source/contactingthecongress/directory-for-the-112th-congress/version
    #
-   if [ ! -d $version ]; then
+   if [ ! -d "$version" || "$version" == "latest" ]; then
 
-      mkdir $version
+      mkdir $version &> /dev/null
 
       # Go into the conversion cockpit of the new version.
       pushd $version &> /dev/null
+
+         rm -rf source automatic
 
          me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
          me=${me%.*}
