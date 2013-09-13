@@ -122,7 +122,7 @@ elif [[ `is-pwd-a.sh                                                            
       pushd $version &> /dev/null
 
          rm -rf source automatic
-         mkdir automatic
+         mkdir automatic publish
 
          me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
          me=${me%.*}
