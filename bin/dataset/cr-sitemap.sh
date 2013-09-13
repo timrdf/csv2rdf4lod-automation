@@ -145,21 +145,22 @@ elif [[ `is-pwd-a.sh                                                            
          echo INFO `cr-pwd.sh`/automatic
          # Convert the XML SPARQL bindings to the sitemap XML format.
          saxon.sh ../../src/cr-sitemap.xsl xml xml -od automatic source/$rq.xml
+         mv automatic/$rq.xml.xml publish/sitemap.xml
 
+         sitemap=`cr-ln-to-www-root.sh publish/sitemap.xml`
          echo automatic/data.ttl
-         echo "@prefix : <`cr-dataset-uri.sh --uri`> ."              > automatic/data.ttl
-         cr-default-prefixes.sh --turtle                            >> automatic/data.ttl
-         echo                                                       >> automatic/data.ttl
-         echo "<`cr-dataset-uri.sh --uri`>"                         >> automatic/data.ttl
-         echo "   a dcat:Dataset;"                                  >> automatic/data.ttl
-         echo "   dcterms:created `dateInXSDDateTime.sh --turtle`;" >> automatic/data.ttl
-         echo "."                                                   >> automatic/data.ttl
-
-         # TODO: add accessURL to the sitemap.xml
+         echo "@prefix : <`cr-dataset-uri.sh --uri`> ."                 > automatic/data.ttl
+         cr-default-prefixes.sh --turtle                               >> automatic/data.ttl
+         echo                                                          >> automatic/data.ttl
+         echo "<`cr-dataset-uri.sh --uri`>"                            >> automatic/data.ttl
+         echo "   a dcat:Dataset;"                                     >> automatic/data.ttl
+         echo "   dcterms:created `dateInXSDDateTime.sh --turtle`;"    >> automatic/data.ttl
+         if [[ $sitemap =~ http* ]]; then
+            echo "   dcat:distribution [ dcat:accessURL <$sitemap> ];" >> automatic/data.ttl
+         fi
+         echo "."                                                      >> automatic/data.ttl
 
          aggregate-source-rdf.sh --link-as-latest automatic/data.ttl
-
-         mv automatic/$rq.xml.xml publish/sitemap.xml
     
          # #justify.sh $xls $csv xls2csv_`md5.sh \`which justify.sh\`` # TODO: excessive? justify.sh needs to know the broad class rule/engine
          #                                                # TODO: shouldn't you be hashing the xls2csv.sh, not justify.sh?
