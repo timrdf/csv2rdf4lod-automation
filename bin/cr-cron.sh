@@ -130,25 +130,6 @@ pushd $conversion_root &> /dev/null
 
 
    #
-   # DCAT files provide the data download URLs.
-   echo "BEGIN cron cr-publish-dcat-to-endpoint.sh `date`"                                     >> $log
-   echo "#3> <#cr-publish-dcat> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ." >> $log
-   if [[ -n "$CSV2RDF4LOD_BASE_URI"              && \
-         -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" && \
-         `which cr-publish-dcat-to-endpoint.sh` ]]; then
-      echo "pwd: `pwd`"                                                                        >> $log
-      cr-publish-dcat-to-endpoint.sh cr:auto                                              2>&1 >> $log
-   else
-      echo "   ERROR: Failed to invoke cr-publish-dcat-to-endpoint.sh:"                        >> $log
-      echo "      CSV2RDF4LOD_BASE_URI:              $CSV2RDF4LOD_BASE_URI"                    >> $log
-      echo "      CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID: $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"       >> $log
-      echo "      cr-publish-dcat-to-endpoint.sh path: `which cr-publish-dcat-to-endpoint.sh`" >> $log
-   fi
-   echo "END cron cr-publish-dcat-to-endpoint.sh `date`"                                       >> $log
-   echo                                                                                        >> $log
-
-
-   #
    # cr-retrieve.sh follows the DCAT descriptions to download the files.
    echo "BEGIN cron cr-retrieve.sh `date`"           >> $log
    echo "#3> <#cr-retrieve> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ." >> $log
