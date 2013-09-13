@@ -41,8 +41,8 @@ def retrieve(endpoint, pattern):
          if term is 'p' or term is 'c':
             nonempty = False
          else:
-            print '<{0}> <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <{1}> .\n'.format(term,ns(term))
-            print '<{0}> <http://www.w3.org/ns/prov#wasAttributedTo>        <{1}> .\n'.format(term,domain(term))
+            print '<{0}> <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <{1}> .'.format(term,ns(term))
+            print '<{0}> <http://www.w3.org/ns/prov#wasAttributedTo>        <{1}> .'.format(term,domain(term))
             nonempty = True
 
       offset += limit
