@@ -95,14 +95,18 @@ elif [[ `is-pwd-a.sh                                                            
       source `cr-conversion-root.sh`/csv2rdf4lod-source-me-as-`whoami`.sh
    fi
 
+   w_param=''
    dryrun="yes"
    if [[ "$1" == "-w" || "$1" == "--write" ]]; then
+      w_param='-w'
       dryrun="no"
       shift
    fi
 
+   skip_param=''
    skip_if_exists="no"
    if [[ "$1" == "--skip-if-exists" ]]; then
+      skip_param='--skip-if-exists'
       skip_if_exists="yes"
       shift
    fi
@@ -175,6 +179,12 @@ elif [[ `is-pwd-a.sh                                                            
          chmod +x retrieve.sh
       fi
       ./retrieve.sh
+   elif [[ `find . -mindepth 2 -maxdepth 2 -name retrieve.sh | wc -l | awk '{print $1}'` -gt 0 ]]; then
+      for trigger in `find . -mindepth 2 -maxdepth 2 -name retrieve.sh`; do
+         pushd `dirname $trigger` &> /dev/null
+            $0 $w_param $skip_param
+         popd &> /dev/null
+      done 
    else
       echo "[WARNING]: did not know how to handle `cr-pwd.sh`; no access metadata available."
    fi
