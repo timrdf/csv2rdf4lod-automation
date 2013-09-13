@@ -64,7 +64,8 @@ pushd `cr-conversion-root.sh` &> /dev/null
 
    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
    echo "Aggregating all DCAT access metadata in `pwd` into $cockpit/source/." >&2
-   for dcat in `find . -mindepth 3 -maxdepth 4 -name "*dcat.ttl"`; do
+   # from e.g. ./hub/countries/access.ttl to ./hub/countries/version/2013-Sep-06/access.ttl
+   for dcat in `find . -mindepth 3 -maxdepth 5 -name "*dcat.ttl" -or -name "access.ttl"`; do
       echo ${dcat#./}
       sdv=$(cd `dirname $dcat` && cr-sdv.sh)
       if [ "$dryrun" != "true" ]; then
