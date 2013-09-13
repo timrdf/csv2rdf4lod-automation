@@ -124,9 +124,13 @@ elif [[ `is-pwd-a.sh                                                            
       exit 1
    fi
 
-   if [[ "$worthwhile" == "no" ]]; then
-      
+   if [[ "$worthwhile" != 'yes' ]]; then
+      echo
+      echo "Note: version $versionID of dataset `cr-dataset-id.sh` did not become worthwhile; removing retrieval attempt."
+      echo
+      rm -rf $cockpit
    fi
+
    dryrun.sh $dryrun ending
 elif [[ `is-pwd-a.sh                                                 cr:dataset`                          == "yes" ]]; then
    if [ ! -e version ]; then
