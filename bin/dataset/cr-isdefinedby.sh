@@ -109,7 +109,8 @@ elif [[ `is-pwd-a.sh                                                            
       if [ "$dryRun" != "true" ]; then
          python ../src/cr-isdefinedby.py $endpoint > $cockpit/automatic/isdefinedby.nt
          pushd $cockpit &> /dev/null
-            aggregate-source-rdf.sh --link-as-latest automatic/* 
+            #aggregate-source-rdf.sh --link-as-latest automatic/* 
+            aggregate-source-rdf.sh automatic/* 
             # ^^ publishes if CSV2RDF4LOD_PUBLISH_VIRTUOSO
          popd &> /dev/null
       fi
