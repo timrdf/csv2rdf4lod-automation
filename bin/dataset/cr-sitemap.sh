@@ -114,7 +114,7 @@ elif [[ `is-pwd-a.sh                                                            
    # This script is invoked from a cr:directory-of-versions, 
    # e.g. source/contactingthecongress/directory-for-the-112th-congress/version
    #
-   if [ ! -d "$version" || "$version" == "latest" ]; then
+   if [[ ! -d "$version" || "$version" == "latest" ]]; then
 
       mkdir $version &> /dev/null
 
