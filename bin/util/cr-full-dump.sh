@@ -259,9 +259,9 @@ if [ "$dryrun" != "true" ]; then
          echo "<$topVoID/repo/git>"                                                                                               >> $cockpit/publish/$sdv.void.ttl
          echo "   a doap:GitRepository, doap:Repository, dcat:Distribution;"                                                      >> $cockpit/publish/$sdv.void.ttl
          echo "   dcterms:title    \"Version Control Repository\";"                                                               >> $cockpit/publish/$sdv.void.ttl
-         echo "   doap:location    <$git>;"                                                                                       >> $cockpit/publish/$sdv.void.ttl
-         echo "   doap:anon-root   <$git_anon>;"                                                                                  >> $cockpit/publish/$sdv.void.ttl
-         echo "   doap:downloadURL <$git_anon>;"                                                                                  >> $cockpit/publish/$sdv.void.ttl
+         echo "   doap:location    \"$git\";"                                                                                     >> $cockpit/publish/$sdv.void.ttl
+         echo "   doap:anon-root   \"$git_anon\";"                                                                                >> $cockpit/publish/$sdv.void.ttl
+         echo "   doap:downloadURL \"$git_anon\";"                                                                                >> $cockpit/publish/$sdv.void.ttl
          echo "   doap:browse      <$browse>;"                                                                                    >> $cockpit/publish/$sdv.void.ttl
          echo "   dcat:accessURL   <$browse>;"                                                                                    >> $cockpit/publish/$sdv.void.ttl
          echo "."                                                                                                                 >> $cockpit/publish/$sdv.void.ttl
