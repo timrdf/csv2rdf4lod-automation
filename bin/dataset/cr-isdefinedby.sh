@@ -46,7 +46,7 @@ elif [[ `is-pwd-a.sh 'cr:data-root'` == "yes" ]]; then
 else
    sourceID=`cr-source-id.sh`
 fi
-datasetID=`basename $me | sed -e 's/.sh$//'`
+datasetID=`basename $this | sed -e 's/.sh$//'`
 if [[ "$1" != "" ]]; then
    versionID="$1"
 elif [[ `is-pwd-a.sh 'cr:conversion-cockpit'` == "yes" ]]; then
