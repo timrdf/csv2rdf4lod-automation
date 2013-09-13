@@ -36,9 +36,24 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
-sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
-datasetID=`basename $0 | sed -e 's/-publish//' -e 's/-to-endpoint//' -e 's/.sh$//'` # e.g. cr-publish-void-to-endpoint.sh -> cr-void
-versionID=`date +%Y-%b-%d`
+# "SDV" naming
+if [[ -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" ]]; then
+   sourceID="$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"
+elif [[ `is-pwd-a.sh 'cr:data-root'` == "yes" ]]; then
+   section='#csv2rdf4lod_publish_our_source_id'
+   see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/Secondary-Derivative-Datasets$section"
+   sourceID=${CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID:?"not set and ambiguous based on level in data root; see $see"}
+else
+   sourceID=`cr-source-id.sh`
+fi
+datasetID=`basename $me | sed -e 's/.sh$//'`
+if [[ "$1" != "" ]]; then
+   versionID="$1"
+elif [[ `is-pwd-a.sh 'cr:conversion-cockpit'` == "yes" ]]; then
+   versionID=`cr-version-id.sh`
+else
+   versionID=`date +%Y-%b-%d`
+fi
 
 if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0` [version-identifier] [URL]"
