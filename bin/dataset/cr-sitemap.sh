@@ -127,7 +127,7 @@ elif [[ `is-pwd-a.sh                                                            
          me=${me%.*}
 
          rq=`basename $0`
-         rq=${rq%.*}.rq
+         rq=automatic/${rq%.*}.rq
          echo INFO `cr-pwd.sh`/source
          echo "prefix dcterms:    <http://purl.org/dc/terms/>"                      > $rq
          echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>"         >> $rq
