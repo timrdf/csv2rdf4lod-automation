@@ -88,6 +88,7 @@ if [[ `is-pwd-a.sh                                                              
 
 elif [[ `is-pwd-a.sh                                                              cr:directory-of-versions` == "yes" ]]; then
 
+   worthwhile="no"
    if [[ ! -d $version || ! -d $version/source || `find $version -empty -type d -name source` ]]; then
 
       endpoint="$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT"
@@ -108,11 +109,14 @@ elif [[ `is-pwd-a.sh                                                            
       echo "[INFO] python ../src/cr-isdefinedby.py $endpoint"
       if [ "$dryRun" != "true" ]; then
          python ../src/cr-isdefinedby.py $endpoint > $cockpit/automatic/isdefinedby.nt
-         pushd $cockpit &> /dev/null
-            #aggregate-source-rdf.sh --link-as-latest automatic/* 
-            aggregate-source-rdf.sh automatic/* 
-            # ^^ publishes if CSV2RDF4LOD_PUBLISH_VIRTUOSO
-         popd &> /dev/null
+         if [[ `grep "isDefinedBy" $cockpit/automatic/isdefinedby.nt` ]]; then
+            worthwhile="yes"
+            pushd $cockpit &> /dev/null
+               #aggregate-source-rdf.sh --link-as-latest automatic/* 
+               aggregate-source-rdf.sh automatic/* 
+               # ^^ publishes if CSV2RDF4LOD_PUBLISH_VIRTUOSO
+            popd &> /dev/null
+         fi
       fi
 
    else
@@ -120,6 +124,9 @@ elif [[ `is-pwd-a.sh                                                            
       exit 1
    fi
 
+   if [[ "$worthwhile" == "no" ]]; then
+      
+   fi
    dryrun.sh $dryrun ending
 elif [[ `is-pwd-a.sh                                                 cr:dataset`                          == "yes" ]]; then
    if [ ! -e version ]; then
