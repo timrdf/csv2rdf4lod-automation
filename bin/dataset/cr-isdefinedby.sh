@@ -80,33 +80,35 @@ if [[ `is-pwd-a.sh                                                              
 
 elif [[ `is-pwd-a.sh                                                              cr:directory-of-versions` == "yes" ]]; then
 
-   endpoint="$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT"
-   if [ ${#endpoint} -eq 0 ]; then
-      endpoint="$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT"
-   fi
-   if [ ${#endpoint} -eq 0 ]; then
-      echo "ERROR: no endpoint defined. Define CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT"
-      exit 1
-   fi
+   if [[ ! -d $version || ! -d $version/source || `find $version -empty -type d -name source` ]]
 
-   if [ -e $versionID ]; then
+      endpoint="$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT"
+      if [ ${#endpoint} -eq 0 ]; then
+         endpoint="$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT"
+      fi
+      if [ ${#endpoint} -eq 0 ]; then
+         echo "ERROR: no endpoint defined. Define CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT"
+         exit 1
+      fi
+
+      cockpit="$versionID"
+      if [ ! -d $cockpit/automatic ]; then
+         mkdir -p $cockpit/automatic # TODO: pull down as csv, convert with eparams.
+      fi
+      rm -rf $cockpit/source/* # opposite of "if exists, quit" above.
+
+      echo "[INFO] python ../src/cr-isdefinedby.py $endpoint"
+      if [ "$dryRun" != "true" ]; then
+         python ../src/cr-isdefinedby.py $endpoint > $cockpit/automatic/isdefinedby.nt
+         pushd $cockpit &> /dev/null
+            aggregate-source-rdf.sh --link-as-latest automatic/* 
+            # ^^ publishes if CSV2RDF4LOD_PUBLISH_VIRTUOSO
+         popd &> /dev/null
+      fi
+
+   else
       echo "[INFO] `basename $0`: version $versionID already exists; skipping."
       exit 1
-   fi
-
-   cockpit="$versionID"
-   if [ ! -d $cockpit/automatic ]; then
-      mkdir -p $cockpit/automatic # TODO: pull down as csv, convert with eparams.
-   fi
-   rm -rf $cockpit/source/* # opposite of "if exists, quit" above.
-
-   echo "[INFO] python ../src/cr-isdefinedby.py $endpoint"
-   if [ "$dryRun" != "true" ]; then
-      python ../src/cr-isdefinedby.py $endpoint > $cockpit/automatic/isdefinedby.nt
-      pushd $cockpit &> /dev/null
-         aggregate-source-rdf.sh --link-as-latest automatic/* 
-         # ^^ publishes if CSV2RDF4LOD_PUBLISH_VIRTUOSO
-      popd &> /dev/null
    fi
 
    dryrun.sh $dryrun ending
