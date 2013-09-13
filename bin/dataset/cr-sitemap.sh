@@ -155,7 +155,8 @@ elif [[ `is-pwd-a.sh                                                            
          echo "<`cr-dataset-uri.sh --uri`>"                            >> automatic/data.ttl
          echo "   a dcat:Dataset;"                                     >> automatic/data.ttl
          echo "   dcterms:created `dateInXSDDateTime.sh --turtle`;"    >> automatic/data.ttl
-         if [[ $sitemap =~ http* ]]; then
+         echo SITEMAP $sitemap
+         if [[ $sitemap == http* ]]; then
             echo "   dcat:distribution [ dcat:accessURL <$sitemap> ];" >> automatic/data.ttl
          fi
          echo "."                                                      >> automatic/data.ttl
