@@ -147,7 +147,7 @@ elif [[ `is-pwd-a.sh                                                            
          saxon.sh ../../src/cr-sitemap.xsl xml xml -od automatic source/$rq.xml
          mv automatic/$rq.xml.xml publish/sitemap.xml
 
-         sitemap=`cr-ln-to-www-root.sh publish/sitemap.xml`
+         sitemap=`cr-ln-to-www-root.sh -n --url-of-filepath publish/sitemap.xml`
          echo automatic/data.ttl
          echo "@prefix : <`cr-dataset-uri.sh --uri`> ."                 > automatic/data.ttl
          cr-default-prefixes.sh --turtle                               >> automatic/data.ttl
