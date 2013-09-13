@@ -24,8 +24,8 @@
 
 [ -n "`readlink $0`" ] && this=`readlink $0` || this=$0
 HOME=$(cd ${this%/*/*/*} && pwd)
-export PATH=$PATH`$HOME/bin/install/paths.sh`
-export CLASSPATH=$CLASSPATH`$HOME/bin/install/classpaths.sh`
+export PATH=$PATH`$HOME/bin/util/cr-situate-paths.sh`
+export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
 
 echo $this
 echo $HOME
