@@ -43,22 +43,10 @@ sourceID=$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID
 datasetID=`basename $0 | sed -e 's/-publish//' -e 's/-to-endpoint//' -e 's/.sh$//'` # e.g. cr-publish-void-to-endpoint.sh -> cr-void
 versionID=`date +%Y-%b-%d`
 
-exit
-
-if [[ $# -lt 1 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [--target] [-n] --clear-graph <named_graph_URI | cr:auto | .>"
-   echo ""
-   echo "  Query CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT for all classes and predicates used,"
-   echo "    assert rdfs:isDefinedBy to its namespace and prov:wasAttributedTo to its domain."
-   echo "      load it into a virtuoso sparql endpoint."
-   echo ""
-   echo "         --target : return the name of graph that will be loaded; then quit."
-   echo "               -n : perform dry run only; do not load named graph."
-   echo "    --clear-graph : clear the named graph."
-   echo
-   echo "  named_graph_URI : use graph name given"
-   echo "          cr:auto : use named graph $graphName"
-   echo "                . : print to stdout"
+if [[ "$1" == "--help" ]]; then
+   echo "usage: `basename $0` [version-identifier] [URL]"
+   echo "   version-identifier: conversion:version_identifier for the VersionedDataset to create. Can be '', 'cr:auto', 'cr:today', 'cr:force'."
+   echo "   URL               : URL to use during retrieval."
    exit 1
 fi
 
