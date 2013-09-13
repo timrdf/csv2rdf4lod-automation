@@ -122,6 +122,7 @@ elif [[ `is-pwd-a.sh                                                            
       pushd $version &> /dev/null
 
          rm -rf source automatic
+         mkdir automatic
 
          me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
          me=${me%.*}
