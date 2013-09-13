@@ -55,7 +55,7 @@ if __name__=='__main__':
 
    prefixes = 'prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
 
-   optional = ''
+   optional = ' optional {?p rdfs:isDefinedBy ?def} filter(!bound(?def))'
    retrieve(sys.argv[1], prefixes + 'select distinct ?p where { graph ?g { [] ?p [] } ' + optional + '}')
 
    optional = ' optional {?c rdfs:isDefinedBy ?def} filter(!bound(?def))'
