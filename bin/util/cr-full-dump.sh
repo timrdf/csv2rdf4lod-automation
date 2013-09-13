@@ -267,6 +267,7 @@ if [ "$dryrun" != "true" ]; then
          echo "."                                                                                                                 >> $cockpit/publish/$sdv.void.ttl
       fi
    fi
+   # NOTE: the $sdv.void.ttl file augmentations don't get loaded until the aggregate-void script runs again. - - - - - - - - - - - - ^
 
    #
    # Ephemeral metadata
