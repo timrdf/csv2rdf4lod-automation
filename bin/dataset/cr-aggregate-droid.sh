@@ -99,9 +99,13 @@ pushd `cr-conversion-root.sh` &> /dev/null
 
    pushd $cockpit &> /dev/null
       echo
-      echo aggregate-source-rdf.sh --link-as-latest source/* 
-      if [ "$dryrun" != "true" ]; then
-         aggregate-source-rdf.sh --link-as-latest source/*
+      echo aggregate-source-rdf.sh --link-as-latest automatic/meta.ttl source/* 
+      if [ "$dryRun" != "true" ]; then
+         cr-default-prefixes.sh --turtle                                     > automatic/meta.ttl
+         echo "<`cr-dataset-uri.sh --uri`> a conversion:AggregateDataset ." >> automatic/meta.ttl
+         cat automatic/meta.ttl | grep -v "@prefix"
+
+         aggregate-source-rdf.sh --link-as-latest automatic/meta.ttl source/* 
       fi
    popd &> /dev/null
 

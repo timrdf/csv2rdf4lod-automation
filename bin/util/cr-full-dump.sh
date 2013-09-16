@@ -144,17 +144,19 @@ topVoID="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"
 echo $cockpit/automatic/$base-uri-nodes.ttl
 if [ "$dryrun" != "true" ]; then
    dataDump="$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal"
-   echo "@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> ."                                  > $cockpit/automatic/$base-uri-nodes.ttl
-   echo "@prefix dcterms: <http://purl.org/dc/terms/> ."                                             >> $cockpit/automatic/$base-uri-nodes.ttl
-   echo "@prefix foaf:    <http://xmlns.com/foaf/0.1/> ."                                            >> $cockpit/automatic/$base-uri-nodes.ttl
-   echo "@prefix void:    <http://rdfs.org/ns/void#> ."                                              >> $cockpit/automatic/$base-uri-nodes.ttl
-   echo "@prefix prov:    <http://www.w3.org/ns/prov#> ."                                            >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                               > $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                          >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                                         >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix void:       <http://rdfs.org/ns/void#> ."                                           >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                                         >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."                              >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "@base <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/> ."         >> $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                                              >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                             >> $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                                              >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:rootResource <$topVoID> ."                                                  >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:dataDump     <$dumpFileLocal> ."                                            >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "<$versionedDataset> a conversion:AggregateDataset ."                                        >> $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                                              >> $cockpit/automatic/$base-uri-nodes.ttl
    loc=$cockpit/automatic/tdb
    query="select ?node where { ?node a <http://www.w3.org/2000/01/rdf-schema#Resource> }"

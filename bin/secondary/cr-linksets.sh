@@ -173,34 +173,35 @@ if [[ `is-pwd-a.sh                                                            cr
             datasetTIMEdataset=`md5.sh -qs $DATAHUB/dataset/$ours\`date +%s\`$DATAHUB/dataset/$bubble`
 
             echo automatic/$bubble.ttl
-            echo "@prefix : <`cr-dataset-uri.sh --abstract`/> ."            > automatic/$bubble.ttl
-            cr-default-prefixes.sh --turtle                                >> automatic/$bubble.ttl
-            echo                                                           >> automatic/$bubble.ttl
-            echo "<$baseURI/void>"                                         >> automatic/$bubble.ttl
-            echo "   owl:sameAs <$DATAHUB/dataset/$ours>;"                 >> automatic/$bubble.ttl
-            echo "   a datafaqs:CKANDataset;"                              >> automatic/$bubble.ttl
-            echo "   void:subset :$datasetTIMEdataset ."                   >> automatic/$bubble.ttl
-            echo ""                                                        >> automatic/$bubble.ttl
-            #echo ":$datasetDATASET"                                        >> automatic/$bubble.ttl
-            #echo "   a void:Dataset;"                                      >> automatic/$bubble.ttl
-            #echo "   void:subset           :$datasetTIMEdataset;"          >> automatic/$bubble.ttl
-            #echo "   prov:generalizationOf :$datasetTIMEdataset;"          >> automatic/$bubble.ttl
-            #echo "   void:target"                                          >> automatic/$bubble.ttl
-            #echo "      <$DATAHUB/dataset/$ours>, "                        >> automatic/$bubble.ttl
-            #echo "      <$DATAHUB/dataset/$bubble>;"                       >> automatic/$bubble.ttl
-            #echo "."                                                       >> automatic/$bubble.ttl
-            #echo ""                                                        >> automatic/$bubble.ttl
-            echo ":$datasetTIMEdataset"                                    >> automatic/$bubble.ttl
-            echo "   a void:Linkset, void:Dataset;"                        >> automatic/$bubble.ttl
-            echo "   dcterms:created $linkset_time;"                       >> automatic/$bubble.ttl
-            echo "   void:inDataset <`cr-dataset-uri.sh --uri`>;"          >> automatic/$bubble.ttl
-            echo "   void:target "                                         >> automatic/$bubble.ttl
-            echo "     <$DATAHUB/dataset/$ours>,"                          >> automatic/$bubble.ttl
-            echo "     <$DATAHUB/dataset/$bubble>;"                        >> automatic/$bubble.ttl
-            echo "   void:triples     $size;"                              >> automatic/$bubble.ttl
-            echo "   sio:member-count $size;"                              >> automatic/$bubble.ttl
-            echo "."                                                       >> automatic/$bubble.ttl
-            echo                                                           >> automatic/$bubble.ttl
+            echo "@prefix : <`cr-dataset-uri.sh --abstract`/> ."              > automatic/$bubble.ttl
+            cr-default-prefixes.sh --turtle                                  >> automatic/$bubble.ttl
+            echo                                                             >> automatic/$bubble.ttl
+            echo "<$baseURI/void>"                                           >> automatic/$bubble.ttl
+            echo "   owl:sameAs <$DATAHUB/dataset/$ours>;"                   >> automatic/$bubble.ttl
+            echo "   a datafaqs:CKANDataset;"                                >> automatic/$bubble.ttl
+            echo "   void:subset :$datasetTIMEdataset ."                     >> automatic/$bubble.ttl
+            echo ""                                                          >> automatic/$bubble.ttl
+            #echo ":$datasetDATASET"                                          >> automatic/$bubble.ttl
+            #echo "   a void:Dataset;"                                        >> automatic/$bubble.ttl
+            #echo "   void:subset           :$datasetTIMEdataset;"            >> automatic/$bubble.ttl
+            #echo "   prov:generalizationOf :$datasetTIMEdataset;"            >> automatic/$bubble.ttl
+            #echo "   void:target"                                            >> automatic/$bubble.ttl
+            #echo "      <$DATAHUB/dataset/$ours>, "                          >> automatic/$bubble.ttl
+            #echo "      <$DATAHUB/dataset/$bubble>;"                         >> automatic/$bubble.ttl
+            #echo "."                                                         >> automatic/$bubble.ttl
+            #echo ""                                                          >> automatic/$bubble.ttl
+            echo ":$datasetTIMEdataset"                                      >> automatic/$bubble.ttl
+            echo "   a void:Linkset, void:Dataset;"                          >> automatic/$bubble.ttl
+            echo "   dcterms:created $linkset_time;"                         >> automatic/$bubble.ttl
+            echo "   void:inDataset <`cr-dataset-uri.sh --uri`>;"            >> automatic/$bubble.ttl
+            echo "   void:target "                                           >> automatic/$bubble.ttl
+            echo "     <$DATAHUB/dataset/$ours>,"                            >> automatic/$bubble.ttl
+            echo "     <$DATAHUB/dataset/$bubble>;"                          >> automatic/$bubble.ttl
+            echo "   void:triples     $size;"                                >> automatic/$bubble.ttl
+            echo "   sio:member-count $size;"                                >> automatic/$bubble.ttl
+            echo "."                                                         >> automatic/$bubble.ttl
+            echo "<`cr-dataset-uri.sh --uri`> a conversion:LinksetDataset ." >> automatic/$bubble.ttl
+            echo                                                             >> automatic/$bubble.ttl
             for uri in `cat automatic/$bubble/linkset.txt`; do
                echo "<$uri> void:inDataset :linkset_$datasetTIMEdataset ." >> automatic/$bubble.ttl
                echo ":linkset_$datasetTIMEdataset sio:has-member <$uri> ." >> automatic/$bubble.ttl
