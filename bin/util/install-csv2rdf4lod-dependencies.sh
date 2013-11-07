@@ -466,11 +466,17 @@ if [[ "$virtuoso_installed" == "no" ]]; then
          # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSDebianNotes
          echo $TODO sudo apt-get update
          if [[ "$dryrun" != "true" ]]; then
-              sudo apt-get update
+            sudo apt-get update
+         fi
+         if [[ ! `which aptitude` ]]; then
+            echo $TODO sudo apt-get install aptitude
+            if [[ "$dryrun" != "true" ]]; then
+               sudo apt-get install aptitude
+            fi
          fi
          echo $TODO sudo aptitude install virtuoso-opensource
          if [[ "$dryrun" != "true" ]]; then
-              sudo aptitude install virtuoso-opensource
+            sudo aptitude install virtuoso-opensource
          fi
       fi
    fi # Told to install or dry running as sudo
