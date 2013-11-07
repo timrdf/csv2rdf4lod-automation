@@ -461,7 +461,8 @@ if [[ "$virtuoso_installed" == "no" ]]; then
             # Monitor virtuoso with sudo tail -f /var/lib/virtuoso/db/virtuoso.log
             #                                    ^^ this shows "... Server online at 1111 (pid ...)"
          popd &> /dev/null
-      elif [[ ( "$distributor" == "Ubuntu" && "$codename" == 'precise' ) || "$distributor" == "Debian" ]]; then # squeeze
+      elif [[ ( "$distributor" == "Ubuntu" ) || "$distributor" == "Debian" ]]; then # Debian squeeze
+                                                                                    # Ubuntu precise, raring
          # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSDebianNotes
          echo $TODO sudo apt-get update
          if [[ "$dryrun" != "true" ]]; then
