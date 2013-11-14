@@ -341,6 +341,20 @@ export CSV2RDF4LOD_PUBLISH="false"
 export CSV2RDF4LOD_PUBLISH="true"
 
 #
+# Customize: If not 'false', publish the given URL as the version control 
+#            repository that this project uses to maintain its metadata and triggers.
+#
+# See https://github.com/timrdf/prizms/wiki/VoID#prizms-node-dataset-as-a-doapproject
+#
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (done in )
+#
+export CSV2RDF4LOD_PUBLISH_VC_REPOSITORY="https://github.com/timrdf/ieeevis.git"
+export CSV2RDF4LOD_PUBLISH_VC_REPOSITORY=""
+
+
+#
 # Customize: Aggregate and publish with just raw conversion or 
 #            wait until we have usefully-enhanced conversion?
 # Variable type: Machine ? Project ? User ? Activity ?

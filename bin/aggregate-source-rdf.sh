@@ -161,7 +161,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "publish/$sdv.void.ttl"
    rr-create-void.sh publish/$sdv.*                   > publish/$sdv.void.ttl
 
-   if [ "$link_latest" == "yes" ]; then
+   if [[ "$link_latest" == "yes" && "$versionID" != "latest" ]]; then
       # from:
       # source/tw-rpi-edu/cr-publish-void-to-endpoint/version/2012-Sep-26
       #
@@ -200,7 +200,11 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
          echo "$sourceID/$datasetID/version/latest/publish/$sd-latest.rdf$gz - skipping."
       fi
    else
-      echo "Not linking as latest."
+      because=''
+      if [[ "$versionID" == "latest" ]]; then
+         because=" (because version is already 'latest')"
+      fi
+      echo "Not linking as latest$because."
    fi
 
    plan='https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/aggregate-source-rdf.sh'

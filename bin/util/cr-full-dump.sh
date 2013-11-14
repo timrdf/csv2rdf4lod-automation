@@ -51,6 +51,7 @@ if [[ "$1" == "--help" ]]; then
    exit 1
 fi
 
+
 if [ "$1" == "--target" ]; then
    # a conversion:VersionedDataset:
    # e.g. http://purl.org/twc/health/source/tw-rpi-edu/dataset/cr-publish-dcat-to-endpoint/version/2012-Sep-07
@@ -143,17 +144,19 @@ topVoID="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"
 echo $cockpit/automatic/$base-uri-nodes.ttl
 if [ "$dryrun" != "true" ]; then
    dataDump="$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/$dumpFileLocal"
-   echo "@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> ."                                  > $cockpit/automatic/$base-uri-nodes.ttl
-   echo "@prefix dcterms: <http://purl.org/dc/terms/> ."                                             >> $cockpit/automatic/$base-uri-nodes.ttl
-   echo "@prefix foaf:    <http://xmlns.com/foaf/0.1/> ."                                            >> $cockpit/automatic/$base-uri-nodes.ttl
-   echo "@prefix void:    <http://rdfs.org/ns/void#> ."                                              >> $cockpit/automatic/$base-uri-nodes.ttl
-   echo "@prefix prov:    <http://www.w3.org/ns/prov#> ."                                            >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                               > $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                          >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                                         >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix void:       <http://rdfs.org/ns/void#> ."                                           >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                                         >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."                              >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "@base <$baseURI/source/$sourceID/file/$datasetID/version/$versionID/conversion/> ."         >> $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                                              >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "#3> <> prov:wasAttributedTo [ foaf:name \"`basename $0`\" ]; ."                             >> $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                                              >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:rootResource <$topVoID> ."                                                  >> $cockpit/automatic/$base-uri-nodes.ttl
    echo "<$topVoID> void:dataDump     <$dumpFileLocal> ."                                            >> $cockpit/automatic/$base-uri-nodes.ttl
+   echo "<$versionedDataset> a conversion:AggregateDataset ."                                        >> $cockpit/automatic/$base-uri-nodes.ttl
    echo                                                                                              >> $cockpit/automatic/$base-uri-nodes.ttl
    loc=$cockpit/automatic/tdb
    query="select ?node where { ?node a <http://www.w3.org/2000/01/rdf-schema#Resource> }"
@@ -164,7 +167,6 @@ if [ "$dryrun" != "true" ]; then
    rm -f $cockpit/automatic/tdb/*
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if [ "$dryrun" != "true" ]; then
@@ -227,6 +229,47 @@ if [ "$dryrun" != "true" ]; then
       echo "   dcterms:identifier \"$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID\";"                                       >> $cockpit/publish/$sdv.void.ttl
       echo "."                                                                                                                    >> $cockpit/publish/$sdv.void.ttl
    fi
+
+   echo "VC: $CSV2RDF4LOD_PUBLISH_VC_REPOSITORY"
+   if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" == *git ]]; then
+      # e.g.     git@github.com:tetherless-world/hub.git (location)
+      #      https://github.com/tetherless-world/hub.git (anon)
+      #      https://github.com/tetherless-world/hub     (browse)
+      #
+      # e.g.     git@github.com:timrdf/ieeevis.git       (location)
+      #      https://github.com/timrdf/ieeevis.git       (anon)
+      #      https://github.com/timrdf/ieeevis           (browse)
+      git=''
+      if [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" == http* ]]; then
+         git="git@${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY#http*//}"
+         git=`echo $git | sed 's/.com\//.com:/'`
+         git_anon="$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY"
+         browse="${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY%.git}"
+      elif [[ "$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY" == git* ]]; then
+         git="$CSV2RDF4LOD_PUBLISH_VC_REPOSITORY"
+         git_anon="https://${CSV2RDF4LOD_PUBLISH_VC_REPOSITORY#git@}"
+         git_anon=`echo $git_anon | sed 's/.com:/.com\//'`
+         browse="${git_anon%.git}"
+      fi
+      echo $git $git_anon $browse
+      if [[ -n "$git" ]]; then
+         echo "<$topVoID>"                                                                                                        >> $cockpit/publish/$sdv.void.ttl
+         echo "    a doap:Project;"                                                                                               >> $cockpit/publish/$sdv.void.ttl
+         echo "    doap:repository   <$topVoID/repo/git>;"                                                                        >> $cockpit/publish/$sdv.void.ttl
+         echo "    dcat:distribution <$topVoID/repo/git>;"                                                                        >> $cockpit/publish/$sdv.void.ttl
+         echo "."                                                                                                                 >> $cockpit/publish/$sdv.void.ttl
+         echo "<$topVoID/repo/git>"                                                                                               >> $cockpit/publish/$sdv.void.ttl
+         echo "   a doap:GitRepository, doap:Repository, dcat:Distribution;"                                                      >> $cockpit/publish/$sdv.void.ttl
+         echo "   dcterms:title    \"Version Control Repository\";"                                                               >> $cockpit/publish/$sdv.void.ttl
+         echo "   doap:location    \"$git\";"                                                                                     >> $cockpit/publish/$sdv.void.ttl
+         echo "   doap:anon-root   \"$git_anon\";"                                                                                >> $cockpit/publish/$sdv.void.ttl
+         echo "   doap:downloadURL \"$git_anon\";"                                                                                >> $cockpit/publish/$sdv.void.ttl
+         echo "   doap:browse      <$browse>;"                                                                                    >> $cockpit/publish/$sdv.void.ttl
+         echo "   dcat:accessURL   <$browse>;"                                                                                    >> $cockpit/publish/$sdv.void.ttl
+         echo "."                                                                                                                 >> $cockpit/publish/$sdv.void.ttl
+      fi
+   fi
+   # NOTE: the $sdv.void.ttl file augmentations don't get loaded until the aggregate-void script runs again. - - - - - - - - - - - - ^
 
    #
    # Ephemeral metadata

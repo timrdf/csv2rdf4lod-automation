@@ -14,7 +14,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-list-versions.sh
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-list-versions.sh> .
 #
 # List the versions in this dataset, sorted by the last-modified time of its directory.
 #

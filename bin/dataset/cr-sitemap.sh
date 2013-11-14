@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-sitemap.sh>;
+#3> <> a conversion:RetrievalTrigger, conversion:Idempotent;
+#3>    prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-sitemap.sh>;
 #3>    prov:wasDerivedFrom   <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-linksets.sh>;
 #3>    rdfs:seeAlso          <http://sindice.com/developers/publishing> .
 #
@@ -14,31 +15,40 @@
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset
 #
 
-see="https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
-
-export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
-export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
+[ -n "`readlink $0`" ] && this=`readlink $0` || this=$0
+HOME=$(cd ${this%/*/*} && echo ${PWD%/*})
+export PATH=$PATH`$HOME/bin/util/cr-situate-paths.sh`
+export CLASSPATH=$CLASSPATH`$HOME/bin/util/cr-situate-classpaths.sh`
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-ACCEPTABLE_PWDs="cr:data-root cr:source cr:dataset cr:directory-of-versions"
-if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
-   ${CSV2RDF4LOD_HOME}/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
+ACCEPTABLE_PWDs="cr:data-root cr:source cr:dataset cr:directory-of-versions cr:conversion-cockpit"
+if [ `is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
+   pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
 fi
 
-TEMP="_"`basename $0``date +%s`_$$.tmp
-
-if [[ $# -lt 2 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` version-identifier URL [--comment-character char]"
-   echo "                                                                 [--header-line        row]"
-   echo "                                                                 [--delimiter         char]"
-   echo "   version-identifier: conversion:version_identifier for the VersionedDataset to create (use cr:auto for default)"
-   echo "   URL               : URL to retrieve the data file."
+if [[ "$1" == "--help" ]]; then
+   section='#aggregation-39-dataset-conversion-metadata-prov-o-dcterms-void'
+   echo "usage: `basename $0` [-n] [version-identifier]"
+   echo ""
+   echo "Create a dataset from the aggregation of all csv2rdf4lod conversion parameter files."
+   echo ""
+   echo "                   -n : perform dry run only."
+   echo "   version-identifier : the version identifier to use for the dataset to be created."
+   echo
+   echo "see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets$section"
+   echo
    exit 1
 fi
 
-if [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
+if [[ `is-pwd-a.sh                                                                                      cr:conversion-cockpit` == "yes" ]]; then
+
+   versionID=`cr-version-id.sh`
+   pushd ../ &> /dev/null
+      $this $versionID
+   popd &> /dev/null
+
+elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
 
    CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
    baseURI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
@@ -104,12 +114,15 @@ if [[ `is-pwd-a.sh                                                            cr
    # This script is invoked from a cr:directory-of-versions, 
    # e.g. source/contactingthecongress/directory-for-the-112th-congress/version
    #
-   if [ ! -d $version ]; then
+   if [[ ! -d "$version" || "$version" == "latest" ]]; then
 
-      mkdir $version
+      mkdir $version &> /dev/null
 
       # Go into the conversion cockpit of the new version.
       pushd $version &> /dev/null
+
+         rm -rf source automatic
+         mkdir automatic publish
 
          me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
          me=${me%.*}
@@ -117,36 +130,45 @@ if [[ `is-pwd-a.sh                                                            cr
          rq=`basename $0`
          rq=${rq%.*}.rq
          echo INFO `cr-pwd.sh`/source
-         echo "prefix dcterms:    <http://purl.org/dc/terms/>"                      > $rq
-         echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>"         >> $rq
-         echo ""                                                                   >> $rq
-         echo "select distinct ?versioned (max(?mod) as ?modified)"                >> $rq
-         echo "where {"                                                            >> $rq
-         echo "   ?versioned a conversion:VersionedDataset; dcterms:modified ?mod" >> $rq
-         echo "}"                                                                  >> $rq
-         echo "order by ?modified"                                                 >> $rq
+         echo "prefix dcterms:    <http://purl.org/dc/terms/>"                      > automatic/$rq
+         echo "prefix conversion: <http://purl.org/twc/vocab/conversion/>"         >> automatic/$rq
+         echo ""                                                                   >> automatic/$rq
+         echo "select distinct ?versioned (max(?mod) as ?modified)"                >> automatic/$rq
+         echo "where {"                                                            >> automatic/$rq
+         echo "   ?versioned a conversion:VersionedDataset; dcterms:modified ?mod" >> automatic/$rq
+         echo "}"                                                                  >> automatic/$rq
+         echo "order by ?modified"                                                 >> automatic/$rq
           
          # Execute the fixed query against the endpoint, and store in source/
-         cache-queries.sh $CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT -o xml -q $rq -od source
+         cache-queries.sh $CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT -o xml -q automatic/$rq -od source
 
          echo INFO `cr-pwd.sh`/automatic
          # Convert the XML SPARQL bindings to the sitemap XML format.
-         saxon.sh $me.xsl xml xml -od automatic source/$rq.xml
+         saxon.sh ../../src/cr-sitemap.xsl xml xml -od automatic source/$rq.xml
+         mv automatic/$rq.xml.xml publish/sitemap.xml
 
+         sitemap=`cr-ln-to-www-root.sh -n --url-of-filepath publish/sitemap.xml`
          echo automatic/data.ttl
-         echo "@prefix : <`cr-dataset-uri.sh --uri`> ."              > automatic/data.ttl
-         cr-default-prefixes.sh --turtle                            >> automatic/data.ttl
-         echo                                                       >> automatic/data.ttl
-         echo "<`cr-dataset-uri.sh --uri`>"                         >> automatic/data.ttl
-         echo "   a dcat:Dataset;"                                  >> automatic/data.ttl
-         echo "   dcterms:created `dateInXSDDateTime.sh --turtle`;" >> automatic/data.ttl
-         echo "."                                                   >> automatic/data.ttl
-
-         # TODO: add accessURL to the sitemap.xml
+         echo "@prefix : <`cr-dataset-uri.sh --uri`> ."                 > automatic/data.ttl
+         cr-default-prefixes.sh --turtle                               >> automatic/data.ttl
+         echo                                                          >> automatic/data.ttl
+         echo "<`cr-dataset-uri.sh --uri`>"                            >> automatic/data.ttl
+         echo "   a dcat:Dataset;"                                     >> automatic/data.ttl
+         echo "   dcterms:created `dateInXSDDateTime.sh --turtle`;"    >> automatic/data.ttl
+         echo SITEMAP $sitemap
+         echo "."                                                      >> automatic/data.ttl
+         if [[ $sitemap == http* && "$CSV2RDF4LOD_BASE_URI" == http* ]]; then
+            dist=$CSV2RDF4LOD_BASE_URI/id/dcat-distribution/accessURL/`md5.sh -qs $sitemap`
+            echo "<`cr-dataset-uri.sh --uri`>"                         >> automatic/data.ttl
+            echo "   dcat:distribution <$dist>; "                      >> automatic/data.ttl
+            echo "."                                                   >> automatic/data.ttl
+            echo "<$dist> a dcat:Distribution;"                        >> automatic/data.ttl
+            echo "   dcat:accessURL <$sitemap> ."                      >> automatic/data.ttl
+         else
+            echo "WARNING: not asserting dcat:distribution for sitemap b/c sitemap $sitemap is not http or base URI $CSV2RDF4LOD_BASE_URI is empty"
+         fi
 
          aggregate-source-rdf.sh --link-as-latest automatic/data.ttl
-
-         mv automatic/$rq.xml.xml publish/sitemap.xml
     
          # #justify.sh $xls $csv xls2csv_`md5.sh \`which justify.sh\`` # TODO: excessive? justify.sh needs to know the broad class rule/engine
          #                                                # TODO: shouldn't you be hashing the xls2csv.sh, not justify.sh?

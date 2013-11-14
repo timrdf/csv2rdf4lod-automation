@@ -70,6 +70,11 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       access=access.ttl #`basename $PWD`/access.ttl
       versionID=`basename $PWD`
       retrieve_from_metadata $access $versionID
+   elif [[ -e retrieve.sh ]]; then
+      if [[ ! -x retrieve.sh ]]; then
+         chmod +x retrieve.sh
+      fi
+      ./retrieve.sh
    fi
 
 elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
@@ -86,24 +91,38 @@ elif [[ `is-pwd-a.sh                                                            
       source $sourceme
    done
 
+   if [ -e `cr-conversion-root.sh`/csv2rdf4lod-source-me-as-`whoami`.sh ]; then
+      source `cr-conversion-root.sh`/csv2rdf4lod-source-me-as-`whoami`.sh
+   fi
+
+   w=''
    dryrun="yes"
    if [[ "$1" == "-w" || "$1" == "--write" ]]; then
+      w='-w'
       dryrun="no"
       shift
    fi
 
-   skip_if_exists="no"
+   skip_if_exists=""
    if [[ "$1" == "--skip-if-exists" ]]; then
-      skip_if_exists="yes"
+      skip_if_exists="$1"
       shift
    fi
 
    latest_version=`cr-list-versions.sh`
-   if [[ "$skip_if_exists" == "yes" && ${#latest_version} -gt 0 ]]; then
+   if [[ `find . -mindepth 2 -maxdepth 2 -name retrieve.sh | wc -l | awk '{print $1}'` -gt 0 ]]; then
+      for trigger in `find . -mindepth 2 -maxdepth 2 -name retrieve.sh`; do
+         if [[ `cr-idempotent.sh $trigger` == 'yes' ]]; then
+            pushd `dirname $trigger` &> /dev/null
+               $0 $w $skip_if_exists
+            popd &> /dev/null
+         fi
+      done 
+   elif [[ -n "$skip_if_exists" && ${#latest_version} -gt 0 ]]; then
       not='not retrieving b/c --skip-if-exists was specified'
       echo "INFO: `basename $0`: version for `cr-source-id.sh`/`cr-dataset-id.sh` already exists ($latest_version); $not."
    elif [[ -e access.ttl || -e dcat.ttl || -e ../access.ttl || -e ../dcat.ttl ]]; then
-      # dcat.ttl was a bad choice of name. It should be named after it's purpose, not the specific vocab.
+      # dcat.ttl was a bad choice of name. It should be named after its purpose, not the specific vocab.
       # that currently achieves it. Still triggering on dcat.ttl for backward compatibility.
       dcat='' # RDF file containing distribution information - which file to download for this dataset?
       if [ -e access.ttl ]; then

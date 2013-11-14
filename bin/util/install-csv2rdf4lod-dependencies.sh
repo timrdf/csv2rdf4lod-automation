@@ -111,15 +111,16 @@ if [[ "$dryrun" != "true" && -n "$sudo" ]]; then
         $sudo apt-get update &> /dev/null
 fi
 
-offer_install_with_apt 'git'    'git-core'      # These are dryrun safe and are only done if $sudo.
+offer_install_with_apt 'git'     'git-core'      # These are dryrun safe and are only done if $sudo.
 #offer_install_with_apt 'java'   'openjdk-6-jre' # openjdk-6-jdk ?
-offer_install_with_apt 'javac'  'openjdk-6-jdk' # openjdk-6-jdk ?
-offer_install_with_apt 'awk'    'gawk'          #
-offer_install_with_apt 'curl'   'curl'          #
-offer_install_with_apt 'rapper' 'raptor-utils'  #
-offer_install_with_apt 'unzip'  'unzip'         #
-offer_install_with_apt 'screen' 'screen'        #
-offer_install_with_apt 'tidy'   'tidy'          #
+offer_install_with_apt 'javac'   'openjdk-6-jdk' # openjdk-6-jdk ?
+offer_install_with_apt 'awk'     'gawk'          #
+offer_install_with_apt 'curl'    'curl'          #
+offer_install_with_apt 'rapper'  'raptor-utils'  #
+offer_install_with_apt 'unzip'   'unzip'         #
+offer_install_with_apt 'screen'  'screen'        #
+offer_install_with_apt 'tidy'    'tidy'          #
+offer_install_with_apt 'a2enmod' 'apache2'       #
 
 if [[ ! `which serdi` ]]; then
    if [ "$dryrun" != "true" ]; then
@@ -324,6 +325,10 @@ fi
 #   apt-get install libapache2-mod-proxy-html
 #   a2enmod proxy-html
 
+# "ERROR: APACHE_PID_FILE needs to be defined in /etc/apache2/envvars"
+# is fixed with: sudo cp /etc/apache2/envvars.dpkg-dist /etc/apache2/envvars
+# see http://maryytech.over-blog.com/article-error-apache_pid_file-needs-to-be-defined-in-etc-apache2-envvars-59623091.html
+
 virtuoso_installed="no"
 if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
       -e '/usr/bin/isql-v'                   && \
@@ -350,11 +355,12 @@ fi
 if [[ "$virtuoso_installed" == "no" ]]; then
    if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
 
-      distributor=`lsb_release --short --id` # e.g. Ubuntu, or Debian
+      distributor=`lsb_release --short --id`    # e.g. Ubuntu,         or Debian
       codename=`lsb_release --short --codename` # e.g. lucid, precise, or squeeze
+                                                #      10.04   12.04
 
       echo "Virtuoso not installed; OS type $distributor $codename"
-      if [[ "$distributor" == "Ubuntu" || "$distributor" == "Debian" ]]; then # lucid
+      if [[ ( "$distributor" == "Ubuntu" && "$codename" == 'lucid' ) || "$distributor" == "Debian" ]]; then # lucid
          url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
          pushd /opt &> /dev/null # $base
             # Not really working:
@@ -455,15 +461,22 @@ if [[ "$virtuoso_installed" == "no" ]]; then
             # Monitor virtuoso with sudo tail -f /var/lib/virtuoso/db/virtuoso.log
             #                                    ^^ this shows "... Server online at 1111 (pid ...)"
          popd &> /dev/null
-      elif [[ "$distributor" == "Debian" ]]; then # squeeze
+      elif [[ ( "$distributor" == "Ubuntu" ) || "$distributor" == "Debian" ]]; then # Debian squeeze
+                                                                                    # Ubuntu precise, raring
          # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSDebianNotes
          echo $TODO sudo apt-get update
          if [[ "$dryrun" != "true" ]]; then
-              sudo apt-get update
+            sudo apt-get update
+         fi
+         if [[ ! `which aptitude` ]]; then
+            echo $TODO sudo apt-get install aptitude
+            if [[ "$dryrun" != "true" ]]; then
+               sudo apt-get install aptitude
+            fi
          fi
          echo $TODO sudo aptitude install virtuoso-opensource
          if [[ "$dryrun" != "true" ]]; then
-              sudo aptitude install virtuoso-opensource
+            sudo aptitude install virtuoso-opensource
          fi
       fi
    fi # Told to install or dry running as sudo

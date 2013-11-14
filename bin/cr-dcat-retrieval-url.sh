@@ -49,36 +49,42 @@ fi
 
 function write_access_metadata {
    DIST_URL="$1"
-   UUID=`$CSV2RDF4LOD_HOME/bin/util/resource-name.sh | sed 's/^_//' | awk '{print tolower($0)}'`
+   #UUID=`$CSV2RDF4LOD_HOME/bin/util/resource-name.sh | sed 's/^_//' | awk '{print tolower($0)}'`
+   UUID=`md5.sh -qs $DIST_URL`
 
-   echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                > access.ttl
-   echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."               >> access.ttl
-   echo "@prefix dcat:       <http://www.w3.org/ns/dcat#> ."                          >> access.ttl
-   echo "@prefix void:       <http://rdfs.org/ns/void#> ."                            >> access.ttl
-   echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."     >> access.ttl
-   echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                          >> access.ttl
-   echo "@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> ."                 >> access.ttl
-   echo "@prefix :           <$CSV2RDF4LOD_BASE_URI/id/> ."                           >> access.ttl
-   echo                                                                               >> access.ttl
-   echo "<$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/dataset/`cr-dataset-id.sh`>" >> access.ttl
-   echo "   a void:Dataset, dcat:Dataset;"                                            >> access.ttl
-   echo "   conversion:source_identifier  \"`cr-source-id.sh`\";"                     >> access.ttl
-   echo "   conversion:dataset_identifier \"`cr-dataset-id.sh`\";"                    >> access.ttl
-   echo "   prov:wasDerivedFrom :download_$UUID;"                                     >> access.ttl
-   echo "."                                                                           >> access.ttl
-   echo                                                                               >> access.ttl
-   echo ":download_$UUID"                                                             >> access.ttl
-   echo "   a dcat:Distribution;"                                                     >> access.ttl
-   if [[ "$DIST_URL" =~ https://docs.google.com/spreadsheet* ]]; then
-      echo "   a nfo:Spreadsheet;"                                                    >> access.ttl
+   if [ ! -e access.ttl ]; then
+      echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."             > access.ttl
+      echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."            >> access.ttl
+      echo "@prefix dcat:       <http://www.w3.org/ns/dcat#> ."                       >> access.ttl
+      echo "@prefix void:       <http://rdfs.org/ns/void#> ."                         >> access.ttl
+      echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."  >> access.ttl
+      echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                       >> access.ttl
+      echo "@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> ."              >> access.ttl
+      echo "@prefix :           <$CSV2RDF4LOD_BASE_URI/id/> ."                        >> access.ttl
    fi
-   echo "   dcat:downloadURL <$DIST_URL>;"                                            >> access.ttl
-   echo "."                                                                           >> access.ttl
-   echo                                                                               >> access.ttl
-   echo "<dataset/$UUID>"                                                             >> access.ttl
-   echo "   a dcat:Dataset;"                                                          >> access.ttl
-   echo "   dcat:distribution :download_$UUID;"                                       >> access.ttl
-   echo "."                                                                           >> access.ttl
+   if [[ ! `grep $UUID access.ttl` ]]; then
+      echo                                                                               >> access.ttl
+      #echo "<$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/dataset/`cr-dataset-id.sh`>" >> access.ttl
+      echo "<`cr-dataset-uri.sh --uri`>"                                                 >> access.ttl
+      echo "   a void:Dataset, dcat:Dataset;"                                            >> access.ttl
+      echo "   conversion:source_identifier  \"`cr-source-id.sh`\";"                     >> access.ttl
+      echo "   conversion:dataset_identifier \"`cr-dataset-id.sh`\";"                    >> access.ttl
+      echo "   prov:wasDerivedFrom :download_$UUID;"                                     >> access.ttl
+      echo "."                                                                           >> access.ttl
+      echo                                                                               >> access.ttl
+      echo ":download_$UUID"                                                             >> access.ttl
+      echo "   a dcat:Distribution;"                                                     >> access.ttl
+      if [[ "$DIST_URL" =~ https://docs.google.com/spreadsheet* ]]; then
+         echo "   a nfo:Spreadsheet;"                                                    >> access.ttl
+      fi
+      echo "   dcat:downloadURL <$DIST_URL>;"                                            >> access.ttl
+      echo "."                                                                           >> access.ttl
+      echo                                                                               >> access.ttl
+      echo "<dataset/$UUID>"                                                             >> access.ttl
+      echo "   a dcat:Dataset;"                                                          >> access.ttl
+      echo "   dcat:distribution :download_$UUID;"                                       >> access.ttl
+      echo "."                                                                           >> access.ttl
+   fi
    echo `cr-pwd.sh`/access.ttl >&2
 }
 
@@ -109,7 +115,10 @@ elif [[ `is-pwd-a.sh                                                 cr:dataset 
       source $sourceme
    done
 
-   write_access_metadata "$1"
+   while [ $# -gt 0 ]; do
+      write_access_metadata "$1"
+      shift
+   done
 
 elif [[ `is-pwd-a.sh                        cr:directory-of-datasets                                    ` == "yes" ]]; then
    for next in `directories.sh`; do
