@@ -266,8 +266,8 @@ fi
 #
 #
 
-if [ -e $CSV2RDF4LOD_HOME/bin/logging/$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL.properties ]; then
-   javaprops="-Djava.util.logging.config.file=$CSV2RDF4LOD_HOME/bin/logging/$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL.properties"
+if [ -e $CSV2RDF4LOD_HOME/bin/logging/${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-none}.properties ]; then
+   javaprops="-Djava.util.logging.config.file=$CSV2RDF4LOD_HOME/bin/logging/${CSV2RDF4LOD_CONVERT_DEBUG_LEVEL:-none}.properties"
 else
    javaprops=""
 fi
