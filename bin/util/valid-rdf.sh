@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-#>3 <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/valid-rdf.sh> .
+#>3 <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/valid-rdf.sh>;
+#3>    rdfs:seeAlso <http://www.rdfabout.com/demo/validator/>
+#3> .
 
 printFile="no"
 if [[ "$1" == "-v" || "$1" == "--verbose" ]]; then
