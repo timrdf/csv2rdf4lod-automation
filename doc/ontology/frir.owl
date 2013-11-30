@@ -16,7 +16,8 @@
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <owl:Ontology rdf:about="http://purl.org/twc/ontology/frir.owl">
-        <owl:imports rdf:resource="http://dvcs.w3.org/hg/prov/raw-file/tip/ontology/ProvenanceOntology.owl"/>
+        <owl:imports rdf:resource="http://www.w3.org/ns/prov-o#"/>
+        <owl:imports rdf:resource="http://www.w3.org/ns/prov-o-inverses#"/>
         <owl:imports rdf:resource="http://purl.org/vocab/frbr/core"/>
         <owl:imports rdf:resource="http://www.semanticdesktop.org/ontologies/nfo"/>
     </owl:Ontology>
