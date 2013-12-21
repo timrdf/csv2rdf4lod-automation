@@ -5,12 +5,15 @@
 this=$(cd ${0%/*} && echo $PWD/${0##*/})
 sibling=`dirname $this`
 base=${this%/bin/util/install-csv2rdf4lod-dependencies.sh}
+echo $base >&2
 base=${base%/*}
+echo $base >&2
 
 if [[ "$base" == *prizms/repos ]]; then
    # In case we are installed as part of Prizms,
    # install next to where Prizms is installed.
    base=${base%/prizms/repos}
+   echo $base >&2
 fi
 
 div="-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
