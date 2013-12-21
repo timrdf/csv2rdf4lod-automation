@@ -365,7 +365,8 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                                                 #      10.04   12.04
 
       echo "$TODO Virtuoso not installed; OS type $distributor $codename" >&2
-      if [[ ( "$distributor" == "Ubuntu" && "$codename" == 'lucid' ) || "$distributor" == "Debian" ]]; then # lucid
+      #if [[ ( "$distributor" == "Ubuntu" && "$codename" == 'lucid' ) || "$distributor" == "Debian" ]]; then # lucid
+      if [[ "$distributor" == "Debian" ]]; then # lucid
          url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
          pushd /opt &> /dev/null # $base
             # Not really working:
