@@ -329,6 +329,7 @@ fi
 # is fixed with: sudo cp /etc/apache2/envvars.dpkg-dist /etc/apache2/envvars
 # see http://maryytech.over-blog.com/article-error-apache_pid_file-needs-to-be-defined-in-etc-apache2-envvars-59623091.html
 
+echo "VIRTUOSO check"
 virtuoso_installed="no"
 if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
       -e '/usr/bin/isql-v'                   && \
