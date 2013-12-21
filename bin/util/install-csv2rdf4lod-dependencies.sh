@@ -329,26 +329,28 @@ fi
 # is fixed with: sudo cp /etc/apache2/envvars.dpkg-dist /etc/apache2/envvars
 # see http://maryytech.over-blog.com/article-error-apache_pid_file-needs-to-be-defined-in-etc-apache2-envvars-59623091.html
 
-echo "VIRTUOSO check" >&2
-virtuoso_installed="no"
-if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
-      -e '/usr/bin/isql-v'                   && \
-      -e '/etc/init.d/virtuoso-opensource'   && \
-      -e '/var/lib/virtuoso/db/virtuoso.log' ]]; then
-   # done via dpkg
-   virtuoso_installed="yes"
-   echo "[okay] virtuoso installed"
-fi
-if [[ -e '/etc/virtuoso-opensource-6.1/virtuoso.ini'        && \
-      -e '/var/lib/virtuoso-opensource-6.1/db/virtuoso.log' && \
-      -e '/etc/init.d/virtuoso-opensource-6.1'              && \
-      -e '/usr/bin/isql-vt' ]]; then 
-   # done via aptitude
-   virtuoso_installed="yes"
-   echo "[okay] virtuoso installed"
-fi
+echo "VIRTUOSO check $base" >&2
+#virtuoso_installed="no"
+#if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
+#      -e '/usr/bin/isql-v'                   && \
+#      -e '/etc/init.d/virtuoso-opensource'   && \
+#      -e '/var/lib/virtuoso/db/virtuoso.log' ]]; then
+#   # done via dpkg
+#   virtuoso_installed="yes"
+#   echo "[okay] virtuoso installed" >&2
+#fi
+#if [[ -e '/etc/virtuoso-opensource-6.1/virtuoso.ini'        && \
+#      -e '/var/lib/virtuoso-opensource-6.1/db/virtuoso.log' && \
+#      -e '/etc/init.d/virtuoso-opensource-6.1'              && \
+#      -e '/usr/bin/isql-vt' ]]; then 
+#   # done via aptitude
+#   virtuoso_installed="yes"
+#   echo "[okay] virtuoso installed" >&2
+#fi
 
-if [[ "$dryrun" != "true" && "$virtuoso_installed" == "no" ]]; then
+virtuoso_installed=`virtuoso-install-info.sh`
+
+if [[ "$virtuoso_installed" == "no" && "$dryrun" != "true"]]; then
    echo
    echo $div
    read -p "Q: Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
@@ -482,7 +484,11 @@ if [[ "$virtuoso_installed" == "no" ]]; then
       fi
    fi # Told to install or dry running as sudo
 else
-   echo "[okay] virtuoso is already installed at /etc/init.d/virtuoso-opensource + /var/lib/virtuoso/db/virtuoso.ini + /usr/bin/isql-v + /var/lib/virtuoso/db/virtuoso.log"
+   echo "[okay] virtuoso is already installed via `virtuoso-install-info.sh method`" >&2
+#                  virtuoso_install_method=`$PRIZMS_HOME/repos/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh method`
+#                             VIRTUOSO_INI=`$PRIZMS_HOME/repos/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh ini`
+#                          VIRTUOSO_INIT_D=`$PRIZMS_HOME/repos/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh init_d`
+#                            VIRTUOSO_ISQL=`$PRIZMS_HOME/repos/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh isql`
 fi
 
 
