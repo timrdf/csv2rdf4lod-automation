@@ -13,7 +13,6 @@ if [[ "$base" == *prizms/repos ]]; then
    # In case we are installed as part of Prizms,
    # install next to where Prizms is installed.
    base=${base%/prizms/repos}
-   echo $base >&2
 fi
 
 div="-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
@@ -351,6 +350,7 @@ echo "VIRTUOSO check $base" >&2
 #   echo "[okay] virtuoso installed" >&2
 #fi
 
+echo $home/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh >&2
 virtuoso_installed=`$home/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh`
 
 if [[ "$virtuoso_installed" == "no" && "$dryrun" != "true"]]; then
