@@ -4,11 +4,10 @@
 
 this=$(cd ${0%/*} && echo $PWD/${0##*/})
 sibling=`dirname $this`
-echo $sibling >&2
 base=${this%/bin/util/install-csv2rdf4lod-dependencies.sh}
-echo $base >&2
 base=${base%/*}
-echo $base >&2
+home=${base}
+echo $home >&2
 
 if [[ "$base" == *prizms/repos ]]; then
    # In case we are installed as part of Prizms,
@@ -352,7 +351,7 @@ echo "VIRTUOSO check $base" >&2
 #   echo "[okay] virtuoso installed" >&2
 #fi
 
-virtuoso_installed=`$base/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh`
+virtuoso_installed=`$home/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh`
 
 if [[ "$virtuoso_installed" == "no" && "$dryrun" != "true"]]; then
    echo
@@ -488,7 +487,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
       fi
    fi # Told to install or dry running as sudo
 else
-   echo "[okay] virtuoso is already installed via `$base/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh method`" >&2
+   echo "[okay] virtuoso is already installed via `$home/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh method`" >&2
 #                  virtuoso_install_method=`$PRIZMS_HOME/repos/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh method`
 #                             VIRTUOSO_INI=`$PRIZMS_HOME/repos/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh ini`
 #                          VIRTUOSO_INIT_D=`$PRIZMS_HOME/repos/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh init_d`
