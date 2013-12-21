@@ -4,6 +4,7 @@
 
 this=$(cd ${0%/*} && echo $PWD/${0##*/})
 sibling=`dirname $this`
+echo $sibling >&2
 base=${this%/bin/util/install-csv2rdf4lod-dependencies.sh}
 echo $base >&2
 base=${base%/*}
