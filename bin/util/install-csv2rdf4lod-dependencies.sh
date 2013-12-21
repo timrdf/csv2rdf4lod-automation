@@ -353,7 +353,7 @@ echo "VIRTUOSO check $base" >&2
 echo $home/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh >&2
 virtuoso_installed=`$home/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh`
 
-if [[ "$virtuoso_installed" == "no" && "$dryrun" != "true"]]; then
+if [[ "$virtuoso_installed" == "no" && "$dryrun" != "true" ]]; then
    echo
    echo $div
    read -p "Q: Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
