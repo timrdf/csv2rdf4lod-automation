@@ -332,6 +332,7 @@ fi
 # see http://maryytech.over-blog.com/article-error-apache_pid_file-needs-to-be-defined-in-etc-apache2-envvars-59623091.html
 
 echo "VIRTUOSO check $base" >&2
+#REPLACED in favor of encapsulated virutuoso-install-info.sh
 #virtuoso_installed="no"
 #if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
 #      -e '/usr/bin/isql-v'                   && \
@@ -350,9 +351,7 @@ echo "VIRTUOSO check $base" >&2
 #   echo "[okay] virtuoso installed" >&2
 #fi
 
-echo $home/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh >&2
 virtuoso_installed=`$home/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh`
-
 if [[ "$virtuoso_installed" == "no" && "$dryrun" != "true" ]]; then
    echo
    echo $div
@@ -365,7 +364,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
       codename=`lsb_release --short --codename` # e.g. lucid, precise, or squeeze
                                                 #      10.04   12.04
 
-      echo "Virtuoso not installed; OS type $distributor $codename"
+      echo "$TODO Virtuoso not installed; OS type $distributor $codename" >&2
       if [[ ( "$distributor" == "Ubuntu" && "$codename" == 'lucid' ) || "$distributor" == "Debian" ]]; then # lucid
          url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
          pushd /opt &> /dev/null # $base
