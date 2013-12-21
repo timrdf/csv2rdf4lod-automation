@@ -348,7 +348,7 @@ echo "VIRTUOSO check $base" >&2
 #   echo "[okay] virtuoso installed" >&2
 #fi
 
-virtuoso_installed=`virtuoso-install-info.sh`
+virtuoso_installed=`$base/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh`
 
 if [[ "$virtuoso_installed" == "no" && "$dryrun" != "true"]]; then
    echo
@@ -484,7 +484,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
       fi
    fi # Told to install or dry running as sudo
 else
-   echo "[okay] virtuoso is already installed via `virtuoso-install-info.sh method`" >&2
+   echo "[okay] virtuoso is already installed via `$base/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh method`" >&2
 #                  virtuoso_install_method=`$PRIZMS_HOME/repos/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh method`
 #                             VIRTUOSO_INI=`$PRIZMS_HOME/repos/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh ini`
 #                          VIRTUOSO_INIT_D=`$PRIZMS_HOME/repos/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh init_d`
