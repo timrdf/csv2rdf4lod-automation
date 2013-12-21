@@ -331,26 +331,6 @@ fi
 # is fixed with: sudo cp /etc/apache2/envvars.dpkg-dist /etc/apache2/envvars
 # see http://maryytech.over-blog.com/article-error-apache_pid_file-needs-to-be-defined-in-etc-apache2-envvars-59623091.html
 
-echo "VIRTUOSO check $base" >&2
-#REPLACED in favor of encapsulated virutuoso-install-info.sh
-#virtuoso_installed="no"
-#if [[ -e '/var/lib/virtuoso/db/virtuoso.ini' && \
-#      -e '/usr/bin/isql-v'                   && \
-#      -e '/etc/init.d/virtuoso-opensource'   && \
-#      -e '/var/lib/virtuoso/db/virtuoso.log' ]]; then
-#   # done via dpkg
-#   virtuoso_installed="yes"
-#   echo "[okay] virtuoso installed" >&2
-#fi
-#if [[ -e '/etc/virtuoso-opensource-6.1/virtuoso.ini'        && \
-#      -e '/var/lib/virtuoso-opensource-6.1/db/virtuoso.log' && \
-#      -e '/etc/init.d/virtuoso-opensource-6.1'              && \
-#      -e '/usr/bin/isql-vt' ]]; then 
-#   # done via aptitude
-#   virtuoso_installed="yes"
-#   echo "[okay] virtuoso installed" >&2
-#fi
-
 virtuoso_installed=`$home/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-install-info.sh`
 if [[ "$virtuoso_installed" == "no" && "$dryrun" != "true" ]]; then
    echo
