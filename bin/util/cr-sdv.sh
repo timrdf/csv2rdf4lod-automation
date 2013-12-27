@@ -3,8 +3,14 @@
 #3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cr-sdv.sh> .
 
 if [ "$1" == "--help" ]; then
-   echo "usage: `basename $0` [--fast]"
-   echo "  --fast : use a faster technique to determine the 'sdv' value"
+   echo "usage: `basename $0` [--fast] [--attribute-value]"
+   echo "  --fast            : use a faster technique to determine the 'sdv' value"
+   echo "  --attribute-value : output cr-source-id= etc. format"
+   exit
+fi
+
+if [ "$1" == "--attribute-value" ]; then
+   echo cr-base-uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} cr-source-id=`cr-source-id.sh` cr-dataset-id=`cr-dataset-id.sh` cr-version-id=`cr-version-id.sh`
    exit
 fi
 
