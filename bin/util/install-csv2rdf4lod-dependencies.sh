@@ -136,29 +136,31 @@ if [[ ! `which rapper` ]]; then
          gz='http://download.librdf.org/source/raptor2-2.0.12.tar.gz'
          echo $TODO curl -O $gz from `pwd`
          if [[ "$dryrun" != "true" ]]; then
-            if [[ -n "$sudo" ]]; then
-               if [[ ! -e `basename $gz` ]]; then
-                  $sudo curl -O $gz
-               fi
-               gz=`basename $gz`
-               if [[ ! -e ${gz%.tar.gz} ]]; then
-                  echo tar xvfz $gz
-                       tar xvfz $gz
-                  rm $gz
-                  pushd ${gz%.tar.gz} &> /dev/null
-                     echo ./configure --prefix=$base/raptor >&2
-                          ./configure --prefix=$base/raptor
-                     echo make >&2
-                          make 
-                     echo make install >&2
-                          make install
-                     #$sudo ./waf install       # These need sudo
-                  popd &> /dev/null
-               fi
-               #$sudo rm -f `basename $gz`
-            else
-               echo "[WARNING] could not install rapper because `whoami` does not have sudo permissions."
+            if [[ ! -e `basename $gz` ]]; then
+               curl -O $gz
             fi
+            gz=`basename $gz`
+            if [[ ! -e ${gz%.tar.gz} ]]; then
+               echo tar xvfz $gz
+                    tar xvfz $gz
+               rm $gz
+               pushd ${gz%.tar.gz} &> /dev/null
+                  if [[ -n "$sudo" ]]; then
+                     config_prefix=""
+                  else
+                     config_prefix="--prefix=$base/raptor"
+                  fi 
+                  echo ./configure $config_prefix >&2
+                       ./configure $config_prefix
+                  echo make >&2
+                       make 
+                  echo make install >&2
+                       make install
+               popd &> /dev/null
+            fi
+            #$sudo rm -f `basename $gz`
+         else
+            echo "[WARNING] could not install rapper because `whoami` does not have sudo permissions."
          fi
       popd &> /dev/null
    fi
