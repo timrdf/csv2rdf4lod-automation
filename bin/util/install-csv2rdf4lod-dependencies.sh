@@ -128,7 +128,7 @@ offer_install_with_apt 'a2enmod' 'apache2'       #
 if [[ ! `which rapper` ]]; then
    if [ "$dryrun" != "true" ]; then
       echo
-      read -p "Q: Try to install rapper at $base? [y/N] " -u 1 install_it
+      read -p "Q: Try to install rapper at $base/raptor? [y/N] " -u 1 install_it
    fi
    if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
       pushd $base &> /dev/null
