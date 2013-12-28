@@ -150,12 +150,12 @@ if [[ ! `which rapper` ]]; then
                   else
                      config_prefix="--prefix=$base/raptor"
                   fi 
-                  echo ./configure $config_prefix >&2
-                       ./configure $config_prefix
-                  echo make >&2
-                       make 
-                  echo make install >&2
-                       make install
+                  echo $sudo ./configure $config_prefix >&2
+                       $sudo ./configure $config_prefix
+                  echo $sudo make >&2
+                       $sudo make 
+                  echo $sudo make install >&2
+                       $sudo make install
                popd &> /dev/null
             fi
             #$sudo rm -f `basename $gz`
