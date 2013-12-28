@@ -146,9 +146,12 @@ if [[ ! `which rapper` ]]; then
                        tar xvfz $gz
                   rm $gz
                   pushd ${gz%.tar.gz} &> /dev/null
-                     echo NEED TO DO from `pwd` >&2
                      echo ./configure --prefix=$base >&2
                           ./configure --prefix=$base
+                     echo make >&2
+                          make 
+                     echo make install >&2
+                          make install
                      #$sudo ./waf install       # These need sudo
                   popd &> /dev/null
                fi
