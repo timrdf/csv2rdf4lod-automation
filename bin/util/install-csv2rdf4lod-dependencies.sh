@@ -118,11 +118,46 @@ offer_install_with_apt 'git'     'git-core'      # These are dryrun safe and are
 offer_install_with_apt 'javac'   'openjdk-6-jdk' # openjdk-6-jdk ?
 offer_install_with_apt 'awk'     'gawk'          #
 offer_install_with_apt 'curl'    'curl'          #
-offer_install_with_apt 'rapper'  'raptor-utils'  #
+#ffer_install_with_apt 'rapper'  'raptor-utils'  # # Only does v1.4, not 2
+                                                 # sudo apt-get --purge remove raptor-utils
 offer_install_with_apt 'unzip'   'unzip'         #
 offer_install_with_apt 'screen'  'screen'        #
 offer_install_with_apt 'tidy'    'tidy'          #
 offer_install_with_apt 'a2enmod' 'apache2'       #
+
+if [[ ! `which rapper` ]]; then
+   if [ "$dryrun" != "true" ]; then
+      echo
+      read -p "Q: Try to install rapper at $base? [y/N] " -u 1 install_it
+   fi
+   if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
+      pushd $base &> /dev/null
+         # http://download.librdf.org/source/
+         gz='http://download.librdf.org/source/raptor2-2.0.12.tar.gz'
+         echo $TODO curl -O $gz from `pwd`
+         if [[ "$dryrun" != "true" ]]; then
+            if [[ -n "$sudo" ]]; then
+               $sudo curl -O $gz
+               gz=`basename $gz`
+               if [[ ! -e ${gz%.tar.gz} ]]; then
+                  echo $sudo tar -xjf $gz
+                  $sudo tar -xjf $gz
+                  $sudo rm $gz
+                  pushd ${gz%.tar.gz} &> /dev/null
+                     echo NEED TO DO >&2
+                     #$sudo ./waf install       # These need sudo
+                  popd &> /dev/null
+               fi
+               $sudo rm -f `basename $gz`
+            else
+               echo "[WARNING] could not install rapper because `whoami` does not have sudo permissions."
+            fi
+         fi
+      popd &> /dev/null
+   fi
+else
+   echo "[okay] serdi available at `which serdi`"
+fi
 
 if [[ ! `which serdi` ]]; then
    if [ "$dryrun" != "true" ]; then
