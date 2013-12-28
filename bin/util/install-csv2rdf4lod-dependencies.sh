@@ -141,9 +141,8 @@ if [[ ! `which rapper` ]]; then
                gz=`basename $gz`
                if [[ ! -e ${gz%.tar.gz} ]]; then
                   echo NEED TO DO from `pwd` >&2
-                  #echo $sudo tar -xjf $gz
-                  #$sudo tar -xjf $gz
-                  #$sudo rm $gz
+                  echo tar xvfz $gz >&2
+                       tar xvfz $gz
                   pushd ${gz%.tar.gz} &> /dev/null
                      echo NEED TO DO from `pwd` >&2
                      #$sudo ./waf install       # These need sudo
