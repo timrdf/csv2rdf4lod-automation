@@ -140,15 +140,16 @@ if [[ ! `which rapper` ]]; then
                $sudo curl -O $gz
                gz=`basename $gz`
                if [[ ! -e ${gz%.tar.gz} ]]; then
-                  echo $sudo tar -xjf $gz
-                  $sudo tar -xjf $gz
-                  $sudo rm $gz
+                  echo NEED TO DO from `pwd` >&2
+                  #echo $sudo tar -xjf $gz
+                  #$sudo tar -xjf $gz
+                  #$sudo rm $gz
                   pushd ${gz%.tar.gz} &> /dev/null
-                     echo NEED TO DO >&2
+                     echo NEED TO DO from `pwd` >&2
                      #$sudo ./waf install       # These need sudo
                   popd &> /dev/null
                fi
-               $sudo rm -f `basename $gz`
+               #$sudo rm -f `basename $gz`
             else
                echo "[WARNING] could not install rapper because `whoami` does not have sudo permissions."
             fi
