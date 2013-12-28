@@ -137,12 +137,14 @@ if [[ ! `which rapper` ]]; then
          echo $TODO curl -O $gz from `pwd`
          if [[ "$dryrun" != "true" ]]; then
             if [[ -n "$sudo" ]]; then
-               $sudo curl -O $gz
+               if [[ ! -e `basename $gz` ]]; then
+                  $sudo curl -O $gz
+               fi
                gz=`basename $gz`
                if [[ ! -e ${gz%.tar.gz} ]]; then
-                  echo NEED TO DO from `pwd` >&2
-                  echo tar xvfz $gz >&2
+                  echo tar xvfz $gz
                        tar xvfz $gz
+                  rm $gz
                   pushd ${gz%.tar.gz} &> /dev/null
                      echo NEED TO DO from `pwd` >&2
                      #$sudo ./waf install       # These need sudo
