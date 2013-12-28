@@ -146,8 +146,8 @@ if [[ ! `which rapper` ]]; then
                        tar xvfz $gz
                   rm $gz
                   pushd ${gz%.tar.gz} &> /dev/null
-                     echo ./configure --prefix=$base >&2
-                          ./configure --prefix=$base
+                     echo ./configure --prefix=$base/raptor >&2
+                          ./configure --prefix=$base/raptor
                      echo make >&2
                           make 
                      echo make install >&2
