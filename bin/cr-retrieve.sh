@@ -27,9 +27,11 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
 fi
 
 function retrieve_from_metadata {
+   echo $0 $PWD has access metadata function called >&2
    dcat="$1"
    versionID="$2"
    url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
+   echo $0 $PWD has access metadata function called for $url >&2
    # TODO: download them all, e.g. grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'
    google_key=''
    if [[ "$url" =~ https://docs.google.com/spreadsheet* ]]; then
