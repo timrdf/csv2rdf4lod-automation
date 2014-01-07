@@ -30,6 +30,7 @@ function retrieve_from_metadata {
    dcat="$1"
    versionID="$2"
    url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
+   # TODO: download them all, e.g. grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'
    google_key=''
    if [[ "$url" =~ https://docs.google.com/spreadsheet* ]]; then
       google_key=`echo $url | sed 's/^.*key=//;s/#.*$//'`
