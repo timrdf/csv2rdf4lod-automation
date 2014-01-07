@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/is-pwd-a.sh
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/is-pwd-a.sh>;
+#3>    prov:alternateOf      <java:edu.rpi.tw.data.sdv.SDVOrganization>;
+#3>  .
 #
 #   Copyright 2012 Timothy Lebo
 #
