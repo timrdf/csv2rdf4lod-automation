@@ -34,7 +34,6 @@ function retrieve_from_metadata {
       # TODO: download them all, e.g. grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'
       google_key=''
       if [[ "$url" =~ https://docs.google.com/spreadsheet* ]]; then
-         echo $0 $PWD has access metadata a google spreadsheet >&2
          #google_key=`echo $url | sed 's/^.*key=//;s/#.*$//'`
          # e.g. https://docs.google.com/spreadsheet/ccc?key=tejNArOGrsY_mV1VeZhYCYg#gid=0
          #      -> 'tejNArOGrsY_mV1VeZhYCYg'
@@ -88,7 +87,6 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
 elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
 
-   echo $0 $PWD >&2
    # TODO: generalize this; https://github.com/timrdf/csv2rdf4lod-automation/issues/323
    if [ -e `cr-conversion-root.sh`/csv2rdf4lod-source-me.sh ]; then
       source `cr-conversion-root.sh`/csv2rdf4lod-source-me.sh
@@ -132,7 +130,6 @@ elif [[ `is-pwd-a.sh                                                            
       not='not retrieving b/c --skip-if-exists was specified'
       echo "INFO: `basename $0`: version for `cr-source-id.sh`/`cr-dataset-id.sh` already exists ($latest_version); $not."
    elif [[ -e access.ttl || -e dcat.ttl || -e ../access.ttl || -e ../dcat.ttl ]]; then
-      echo $0 $PWD has access metadata >&2
       # dcat.ttl was a bad choice of name. It should be named after its purpose, not the specific vocab.
       # that currently achieves it. Still triggering on dcat.ttl for backward compatibility.
       dcat='' # RDF file containing distribution information - which file to download for this dataset?
