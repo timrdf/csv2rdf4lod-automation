@@ -67,6 +67,8 @@ cxsl=""
 if [[ ! `grep "xmlns:" $xsl` ]]; then
    # http://saxon.sourceforge.net/saxon7.9/using-xsl.html#Compiling
    #
+   # export CLASSPATH=$CLASSPATH`cr-situate-classpaths.sh`
+   #
    # java net.sf.saxon.Compile <stylesheet> <output-compiled-stylesheet>
    #
    # -c:filename           Use compiled stylesheet from file
