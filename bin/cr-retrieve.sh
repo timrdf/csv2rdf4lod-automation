@@ -33,6 +33,7 @@ function retrieve_from_metadata {
    # TODO: download them all, e.g. grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'
    google_key=''
    if [[ "$url" =~ https://docs.google.com/spreadsheet* ]]; then
+      echo $0 $PWD has access metadata a google spreadsheet >&2
       #google_key=`echo $url | sed 's/^.*key=//;s/#.*$//'`
       # e.g. https://docs.google.com/spreadsheet/ccc?key=tejNArOGrsY_mV1VeZhYCYg#gid=0
       #      -> 'tejNArOGrsY_mV1VeZhYCYg'
