@@ -33,9 +33,12 @@ function retrieve_from_metadata {
    # TODO: download them all, e.g. grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'
    google_key=''
    if [[ "$url" =~ https://docs.google.com/spreadsheet* ]]; then
-      google_key=`echo $url | sed 's/^.*key=//;s/#.*$//'`
+      #google_key=`echo $url | sed 's/^.*key=//;s/#.*$//'`
       # e.g. https://docs.google.com/spreadsheet/ccc?key=tejNArOGrsY_mV1VeZhYCYg#gid=0
       #      -> 'tejNArOGrsY_mV1VeZhYCYg'
+      google_key=`echo "$url" | sed 's/^.*key=//;s/&.*$//;s/#.*$//'`
+      # e.g. https://docs.google.com/spreadsheet/ccc?key=0An84UEjofnaydFRrUF9YWk03Y3NHNjJqUEg0NUhUZXc&usp=sharing#gid=0
+      #      -> '0An84UEjofnaydFRrUF9YWk03Y3NHNjJqUEg0NUhUZXc'
       if [ "$dryrun" != "yes" ]; then
          cat $0.template_gs > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
          perl -pi -e "s|SPREADSHEET_KEY|$google_key|" retrieve.sh
