@@ -90,12 +90,17 @@ function write_access_metadata {
 
 if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
-   if [[ ! -e ../access.ttl && ! -e ../../access.ttl ]]; then
-      source ../../../../csv2rdf4lod-source-me-for-*
+   #if [[ ! -e ../access.ttl && ! -e ../../access.ttl ]]; then
+   #   source ../../../../csv2rdf4lod-source-me-for-*
+   #   write_access_metadata "$1"
+   #else
+   #   echo "WARNING: not creating access metadata b/c a global access already exists."
+   #fi
+
+   while [ $# -gt 0 ]; do
       write_access_metadata "$1"
-   else
-      echo "WARNING: not creating access metadata b/c a global access already exists."
-   fi
+      shift
+   done
 
 elif [[ `is-pwd-a.sh                                                 cr:dataset cr:directory-of-versions` == "yes" ]]; then
 
