@@ -28,46 +28,48 @@ fi
 
 function retrieve_from_metadata {
    dcat="$1"
-   echo $0 $PWD has access metadata function called $dcat >&2
    versionID="$2"
-   url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
-   echo $0 $PWD has access metadata function called for $url >&2
-   # TODO: download them all, e.g. grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'
-   google_key=''
-   if [[ "$url" =~ https://docs.google.com/spreadsheet* ]]; then
-      echo $0 $PWD has access metadata a google spreadsheet >&2
-      #google_key=`echo $url | sed 's/^.*key=//;s/#.*$//'`
-      # e.g. https://docs.google.com/spreadsheet/ccc?key=tejNArOGrsY_mV1VeZhYCYg#gid=0
-      #      -> 'tejNArOGrsY_mV1VeZhYCYg'
-      google_key=`echo "$url" | sed 's/^.*key=//;s/&.*$//;s/#.*$//'`
-      # e.g. https://docs.google.com/spreadsheet/ccc?key=0An84UEjofnaydFRrUF9YWk03Y3NHNjJqUEg0NUhUZXc&usp=sharing#gid=0
-      #      -> '0An84UEjofnaydFRrUF9YWk03Y3NHNjJqUEg0NUhUZXc'
-      if [ "$dryrun" != "yes" ]; then
-         cat $0.template_gs > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
-         perl -pi -e "s|SPREADSHEET_KEY|$google_key|" retrieve.sh
-         if [[ ${#versionID} -gt 0 ]]; then
-            perl -pi -e "s|auto|$versionID|" retrieve.sh
+   if [[ -e "$dcat" ]]; then
+      url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
+      # TODO: download them all, e.g. grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'
+      google_key=''
+      if [[ "$url" =~ https://docs.google.com/spreadsheet* ]]; then
+         echo $0 $PWD has access metadata a google spreadsheet >&2
+         #google_key=`echo $url | sed 's/^.*key=//;s/#.*$//'`
+         # e.g. https://docs.google.com/spreadsheet/ccc?key=tejNArOGrsY_mV1VeZhYCYg#gid=0
+         #      -> 'tejNArOGrsY_mV1VeZhYCYg'
+         google_key=`echo "$url" | sed 's/^.*key=//;s/&.*$//;s/#.*$//'`
+         # e.g. https://docs.google.com/spreadsheet/ccc?key=0An84UEjofnaydFRrUF9YWk03Y3NHNjJqUEg0NUhUZXc&usp=sharing#gid=0
+         #      -> '0An84UEjofnaydFRrUF9YWk03Y3NHNjJqUEg0NUhUZXc'
+         if [ "$dryrun" != "yes" ]; then
+            cat $0.template_gs > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
+            perl -pi -e "s|SPREADSHEET_KEY|$google_key|" retrieve.sh
+            if [[ ${#versionID} -gt 0 ]]; then
+               perl -pi -e "s|auto|$versionID|" retrieve.sh
+            fi
+            chmod +x retrieve.sh
+            ./retrieve.sh
+         else
+            echo "`cr-dataset-uri.sh --uri`:"
+            echo "   Will retrieve google spreadsheet $google_key b/c not yet retrieved $url"
          fi
-         chmod +x retrieve.sh
-         ./retrieve.sh
       else
-         echo "`cr-dataset-uri.sh --uri`:"
-         echo "   Will retrieve google spreadsheet $google_key b/c not yet retrieved $url"
+         if [ "$dryrun" != "yes" ]; then
+            #echo template from $0 pwd: `pwd`
+            cat $0.template > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
+            perl -pi -e "s|DOWNLOAD_URL|$url|" retrieve.sh
+            if [[ ${#versionID} -gt 0 ]]; then
+               perl -pi -e "s|cr:auto|$versionID|" retrieve.sh
+            fi
+            chmod +x retrieve.sh
+            ./retrieve.sh
+         else
+            echo "`cr-dataset-uri.sh --uri`:"
+            echo "   Will retrieve b/c not yet retrieved $url"
+         fi
       fi
    else
-      if [ "$dryrun" != "yes" ]; then
-         #echo template from $0 pwd: `pwd`
-         cat $0.template > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
-         perl -pi -e "s|DOWNLOAD_URL|$url|" retrieve.sh
-         if [[ ${#versionID} -gt 0 ]]; then
-            perl -pi -e "s|cr:auto|$versionID|" retrieve.sh
-         fi
-         chmod +x retrieve.sh
-         ./retrieve.sh
-      else
-         echo "`cr-dataset-uri.sh --uri`:"
-         echo "   Will retrieve b/c not yet retrieved $url"
-      fi
+      echo "$dcat" does not exist
    fi
 }
 
@@ -144,7 +146,7 @@ elif [[ `is-pwd-a.sh                                                            
          dcat='../dcat.ttl'
       fi
       if [ -e "$dcat" ]; then
-         retrieve_from_metadata $access "" # versionID
+         retrieve_from_metadata $dcat "" # versionID
       fi
    elif [[ ${#latest_version} -eq 0 && ! -e dcat.ttl && ! -e ../dcat.ttl && -e "ls retrieve.*" ]]; then
       # There is no version yet, there is no dcat.ttl, but there is a retrieve.sh
