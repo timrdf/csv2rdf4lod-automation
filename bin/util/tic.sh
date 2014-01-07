@@ -1,7 +1,5 @@
 #/bin/bash
 #
-# https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/tic.sh
-#
 #   Copyright 2012 Timothy Lebo
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,8 +17,10 @@
 #3> @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 #3> @prefix dcterms: <http://purl.org/dc/terms/> .
 #3> @prefix doap:    <http://usefulinc.com/ns/doap#> .
+#3> @prefix prov: <http://www.w3.org/ns/prov#>.
 #3>
-#3> <> a doap:Project;
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/tic.sh>;
+#3>   a doap:Project;
 #3>   dcterms:description "Script to extract Turtle from comments.";
 #3>   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/tic-turtle-in-comments>;
 #3> .
