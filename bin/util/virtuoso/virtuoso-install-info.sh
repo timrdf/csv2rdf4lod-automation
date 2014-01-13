@@ -71,7 +71,8 @@ if [[ -z "$virtuoso_install_method" ]]; then
 fi
 
 if [[ "$1" == '--help' ]]; then
-   echo "usage: `basename $0` {--help, method, ini, init_d, log}"
+   echo "usage: `basename $0` {--help, method, ini, log, isql, init_d}"
+   echo 
    echo "method: `$0 method`"
    echo "isql:   `$0 isql `"
    echo "ini:    `$0 ini`"
@@ -81,12 +82,12 @@ elif [[ "$1" == 'method' ]]; then
    echo $virtuoso_install_method
 elif [[ "$1" == 'ini' ]]; then
    echo $ini
-elif [[ "$1" == 'init_d' ]]; then
-   echo $init_d
-elif [[ "$1" == 'isql' ]]; then
-   echo $isql
 elif [[ "$1" == 'log' ]]; then
    echo $log
+elif [[ "$1" == 'isql' ]]; then
+   echo $isql
+elif [[ "$1" == 'init_d' ]]; then
+   echo $init_d
 else
    if [[ -n "$virtuoso_install_method" ]]; then
       echo "yes"
