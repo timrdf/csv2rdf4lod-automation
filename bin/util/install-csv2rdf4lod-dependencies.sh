@@ -428,12 +428,13 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                   echo $virtuoso_root | sudo tee $tarball.url.pid.$$
                fi
             else # Tarball exists.
-               virtuoso_root=`cat $tarball.url.pid.*`
+               virtuoso_root=`cat $tarball.url.pid.* | tail -1`
                echo "$tarball exists; virtuso root should be: $virtuoso_root"
             fi
             if [ "$dryrun" != "true" ]; then
                if [ -d "$virtuoso_root" ]; then
                   pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
+
                      echo
                      echo
                      echo "$TODO sudo apt-get update"
@@ -442,47 +443,75 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                      echo
                      echo "$TODO sudo apt-get install aptitude"
                                  sudo apt-get install aptitude
-                     echo
-                     echo
-                     echo "$TODO sudo aptitude install dpkg-dev build-essential libreadline-gplv2-dev" 
-                                 sudo aptitude install dpkg-dev build-essential
-                     # Ubuntu 12 can't install libreadline5-dev, replaced by libreadline-gplv2-dev
 
-                     echo
-                     echo
-                     echo "$TODO sudo aptitude build-dep virtuoso-opensource" # NOTE: if this is run on a TWC VM with
-                                 sudo aptitude build-dep virtuoso-opensource # /etc/hosts localhost 127.0.0.1, it will fail.
+                     #
+                     # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSUbuntuNotes#Rebuilding using Ubuntu packages
+                     method_vt='ubuntu-packages' 
+                     
+                     # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSUbuntuNotes#Building from Upstream Source
+                     method_vt='upstream-source' 
+                     #
 
-                     #  sudo aptitude build-dep virtuoso-opensource
-                     # The following NEW packages will be installed:
-                     #   libreadline-dev{b} libreadline6-dev{ab} 
-                     # 0 packages upgraded, 2 newly installed, 0 to remove and 17 not upgraded.
-                     # Need to get 0 B/265 kB of archives. After unpacking 823 kB will be used.
-                     # The following packages have unmet dependencies:
-                     #  libreadline-gplv2-dev : Conflicts: libreadline-dev but 6.2-8 is to be installed.
-                     #  libreadline6-dev : Conflicts: libreadline-gplv2-dev but 5.2-11 is installed.
-                     #  libreadline-dev : Conflicts: libreadline-gplv2-dev but 5.2-11 is installed.
-                     # The following actions will resolve these dependencies:
-                     # 
-                     #      Remove the following packages:
-                     # 1)     libreadline-gplv2-dev 
-                     # ...
-                     # The following NEW packages will be installed:
-                     #   libreadline-dev libreadline6-dev{a} 
-                     # The following packages will be REMOVED:
-                     #   libreadline-gplv2-dev{a} libreadline5{u} 
+                     if [[ "$method_vt" == 'ubuntu-packages' ]]; then
+                        echo
+                        echo
+                        echo "$TODO sudo aptitude install dpkg-dev build-essential libreadline-gplv2-dev" 
+                                    sudo aptitude install dpkg-dev build-essential
+                        # Ubuntu 12 can't install libreadline5-dev, replaced by libreadline-gplv2-dev
 
-                     # FIDO: sudo aptitude install  virtuoso-opensource
+                        echo
+                        echo
+                        echo "$TODO sudo aptitude build-dep virtuoso-opensource" # NOTE: if this is run on a TWC VM with
+                                    sudo aptitude build-dep virtuoso-opensource # /etc/hosts localhost 127.0.0.1, it will fail.
 
-                     echo
-                     echo
-                     echo "$TODO sudo dpkg-buildpackage -rfakeroot"
-                     sleep 2
-                                 sudo dpkg-buildpackage -rfakeroot
+                        #  sudo aptitude build-dep virtuoso-opensource
+                        # The following NEW packages will be installed:
+                        #   libreadline-dev{b} libreadline6-dev{ab} 
+                        # 0 packages upgraded, 2 newly installed, 0 to remove and 17 not upgraded.
+                        # Need to get 0 B/265 kB of archives. After unpacking 823 kB will be used.
+                        # The following packages have unmet dependencies:
+                        #  libreadline-gplv2-dev : Conflicts: libreadline-dev but 6.2-8 is to be installed.
+                        #  libreadline6-dev : Conflicts: libreadline-gplv2-dev but 5.2-11 is installed.
+                        #  libreadline-dev : Conflicts: libreadline-gplv2-dev but 5.2-11 is installed.
+                        # The following actions will resolve these dependencies:
+                        # 
+                        #      Remove the following packages:
+                        # 1)     libreadline-gplv2-dev 
+                        # ...
+                        # The following NEW packages will be installed:
+                        #   libreadline-dev libreadline6-dev{a} 
+                        # The following packages will be REMOVED:
+                        #   libreadline-gplv2-dev{a} libreadline5{u} 
+
+                        # FIDO: sudo aptitude install  virtuoso-opensource
+
+                        echo
+                        echo
+                        echo "$TODO sudo dpkg-buildpackage -rfakeroot (from $virtuoso_root)"
+                        sleep 2
+                                    sudo dpkg-buildpackage -rfakeroot
+
+                     elif [[ "$method_vt" == 'upstream-source' ]]; then
+                        echo $TODO sudo apt-get install autoconf automake libtool flex bison gperf gawk m4 make odbcinst libxml2-dev libssl-dev libreadline-dev
+                                   sudo apt-get install autoconf automake libtool flex bison gperf gawk m4 make odbcinst libxml2-dev libssl-dev libreadline-dev
+
+                        echo $TODO ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
+                                   ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
+                        #
+                        # In the above command, we specify a prefix of /usr/local to Virtuoso's ./configure script. 
+                        # This specifies a base directory under which Virtuoso will create/use the following structure:
+                        # 
+                        # /usr/local/lib/ -- various libraries for Sesame, JDBC, Jena, Hibernate, and hosting
+                        # /usr/local/bin/ -- where the main executables (virtuoso-t, isql) live
+                        # /usr/local/share/virtuoso/vad/ -- used to store VAD archives prior to installation in an instance
+                        # /usr/local/share/virtuoso/doc/ -- local offline documentation
+                        # /usr/local/var/lib/virtuoso/db/ -- the default location for a Virtuoso instance
+                        # /usr/local/var/lib/virtuoso/vsp/ -- various VSP scripts which comprise the default homepage until the Conductor is installed
+                     fi
                   popd &> /dev/null
                   pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
-                  echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb
-                  sudo dpkg -i ${pkg}_amd64.deb
+                  echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb    # TODO: We're assuming the architecture here.
+                  sudo dpkg -i ${pkg}_amd64.deb                                               # TODO: We're assuming the architecture here.
                fi
                echo
             fi
