@@ -400,7 +400,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
 
             tarball_versioned=`basename $redirect`
             # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
-            echo ">>>$redirect<<< -> >>>$tarball_versioned<<<" >&2
+            #echo ">>>$redirect<<< -> >>>$tarball_versioned<<<" >&2
 
             tarball='virtuoso.tar.gz'
             if [[ "$redirect" =~ http* && "$tarball_versioned" =~ virtuoso-opensource* ]]; then
@@ -433,6 +433,14 @@ if [[ "$virtuoso_installed" == "no" ]]; then
             fi
             if [ "$dryrun" != "true" ]; then
                if [ -d "$virtuoso_root" ]; then
+                  #
+                  # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSUbuntuNotes#Rebuilding using Ubuntu packages
+                  method_vt='ubuntu-packages' 
+                  
+                  # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSUbuntuNotes#Building from Upstream Source
+                  method_vt='upstream-source' 
+                  #
+
                   pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
 
                      echo
@@ -443,14 +451,6 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                      echo
                      echo "$TODO sudo apt-get install aptitude"
                                  sudo apt-get install aptitude
-
-                     #
-                     # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSUbuntuNotes#Rebuilding using Ubuntu packages
-                     method_vt='ubuntu-packages' 
-                     
-                     # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSUbuntuNotes#Building from Upstream Source
-                     method_vt='upstream-source' 
-                     #
 
                      if [[ "$method_vt" == 'ubuntu-packages' ]]; then
                         echo
@@ -497,6 +497,12 @@ if [[ "$virtuoso_installed" == "no" ]]; then
 
                         echo $TODO sudo ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
                                    sudo ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
+                        
+                        echo $TODO sudo nice make
+                             $TODO sudo nice make
+
+                        echo $TODO sudo make install
+                             $TODO sudo make install
                         #
                         # In the above command, we specify a prefix of /usr/local to Virtuoso's ./configure script. 
                         # This specifies a base directory under which Virtuoso will create/use the following structure:
@@ -509,9 +515,12 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                         # /usr/local/var/lib/virtuoso/vsp/ -- various VSP scripts which comprise the default homepage until the Conductor is installed
                      fi
                   popd &> /dev/null
-                  pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
-                  echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb    # TODO: We're assuming the architecture here.
-                  sudo dpkg -i ${pkg}_amd64.deb                                               # TODO: We're assuming the architecture here.
+
+                  if [[ "$method_vt" == 'ubuntu-packages' ]]; then
+                     pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
+                     echo dpkg -i ${pkg}_amd64.deb # e.g. virtuoso-opensource_6.1.6_amd64.deb    # TODO: We're assuming the architecture here.
+                     sudo dpkg -i ${pkg}_amd64.deb                                               # TODO: We're assuming the architecture here.
+                  fi
                fi
                echo
             fi
