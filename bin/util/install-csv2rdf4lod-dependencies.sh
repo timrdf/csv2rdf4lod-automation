@@ -400,7 +400,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
 
             tarball_versioned=`basename $redirect`
             # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
-            echo "${redirect} -> $tarball_versioned" >&2
+            echo ">>>$redirect<<< -> >>>$tarball_versioned<<<" >&2
 
             tarball='virtuoso.tar.gz'
             if [[ "$redirect" =~ http* && "$tarball_versioned" =~ virtuoso-opensource*.tar.gz ]]; then
