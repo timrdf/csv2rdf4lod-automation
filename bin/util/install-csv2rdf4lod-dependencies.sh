@@ -393,18 +393,25 @@ if [[ "$virtuoso_installed" == "no" ]]; then
          # Using aptitude on Ubuntu lucid only installs Virtuoso 6.0, so we need to install it ourselves.
          url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
          pushd /opt &> /dev/null # $base
-               # Not really working:
-               redirect_smart=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/[^z]*$/\n/g' | awk '{printf("%s\n",$2)}'`
-               # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
-               tarball_smart=`basename $redirect_smart`
-               # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
-               echo "${redirect_smart} -> $tarball_smart" >&2
-            redirect=$url
+
+            # Find out the local name of the tarball that we will download (the version is in the local name).
+            redirect=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/[^z]*$/\n/g' | awk '{printf("%s\n",$2)}'`
+            # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
+
+            tarball_versioned=`basename $redirect`
+            # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
+            echo "${redirect} -> $tarball_versioned" >&2
+
             tarball='virtuoso.tar.gz'
+            if [[ "$redirect" =~ http* && "$tarball_versioned" =~ virtuoso-opensource*.tar.gz ]]; then
+               ln -s $tarball_versioned $tarball
+               tarball=$tarball_versioned
+               sleep 2
+            fi
             virtuoso_root='' # Set from tarball extraction or recovered from $tarball.pid.$$
             if [ ! -e $tarball ]; then
                if [[ "$dryrun" != "true" ]]; then
-                  rm -f pid.*
+                  rm -f *url.pid.*
                   echo $url | sudo tee $tarball.url.pid.$$
                   sudo touch $tarball.url.pid.$$ # So we know the directory that was created from the tarball
                fi                                              # |
@@ -417,7 +424,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                   #virtuoso_root=$base/${tarball%.tar.gz} # $base
                   virtuoso_root=`find . -maxdepth 1 -cnewer $tarball.url.pid.$$ -name "virtuoso*" -type d`
                   # ^ e.g. 'virtuoso-opensource-6.1.6/'
-                  echo $virtuoso_root > sudo tee $tarball.url.pid.$$
+                  echo $virtuoso_root | sudo tee $tarball.url.pid.$$
                fi
             else # Tarball exists.
                virtuoso_root=`cat $tarball.url.pid.*`
@@ -469,6 +476,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                      echo
                      echo
                      echo "$TODO sudo dpkg-buildpackage -rfakeroot"
+                     sleep 2
                                  sudo dpkg-buildpackage -rfakeroot
                   popd &> /dev/null
                   pkg=`echo $virtuoso_root | sed 's/e-/e_/'`
