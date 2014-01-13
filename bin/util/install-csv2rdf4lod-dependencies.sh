@@ -396,7 +396,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                # Not really working:
                redirect_smart=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/[^z]*$/\n/g' | awk '{printf("%s\n",$2)}'`
                # ^ e.g. http://superb-dca3.dl.sourceforge.net/project/virtuoso/virtuoso/6.1.6/virtuoso-opensource-6.1.6.tar.gz
-               tarball_smart=`basename $redirect`
+               tarball_smart=`basename $redirect_smart`
                # ^ e.g. virtuoso-opensource-6.1.6.tar.gz
                echo "${redirect_smart} -> $tarball_smart" >&2
             redirect=$url
