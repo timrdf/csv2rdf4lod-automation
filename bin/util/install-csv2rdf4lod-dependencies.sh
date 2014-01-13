@@ -404,7 +404,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
 
             tarball='virtuoso.tar.gz'
             if [[ "$redirect" =~ http* && "$tarball_versioned" =~ virtuoso-opensource* ]]; then
-               sudo ln -s $tarball_versioned $tarball
+               sudo ln -sf $tarball_versioned $tarball
                url="$redirect"
                tarball="$tarball_versioned"
                sleep 2
@@ -495,8 +495,8 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                         echo $TODO sudo apt-get install autoconf automake libtool flex bison gperf gawk m4 make odbcinst libxml2-dev libssl-dev libreadline-dev
                                    sudo apt-get install autoconf automake libtool flex bison gperf gawk m4 make odbcinst libxml2-dev libssl-dev libreadline-dev
 
-                        echo $TODO ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
-                                   ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
+                        echo $TODO sudo ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
+                                   sudo ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
                         #
                         # In the above command, we specify a prefix of /usr/local to Virtuoso's ./configure script. 
                         # This specifies a base directory under which Virtuoso will create/use the following structure:
