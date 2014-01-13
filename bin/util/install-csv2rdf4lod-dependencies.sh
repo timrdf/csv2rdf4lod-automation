@@ -405,14 +405,15 @@ if [[ "$virtuoso_installed" == "no" ]]; then
             tarball='virtuoso.tar.gz'
             if [[ "$redirect" =~ http* && "$tarball_versioned" =~ virtuoso-opensource* ]]; then
                sudo ln -s $tarball_versioned $tarball
-               tarball=$tarball_versioned
+               url="$redirect"
+               tarball="$tarball_versioned"
                sleep 2
             fi
             virtuoso_root='' # Set from tarball extraction or recovered from $tarball.pid.$$
             if [ ! -e $tarball ]; then
                if [[ "$dryrun" != "true" ]]; then
                   rm -f *url.pid.*
-                  echo $url | sudo tee $tarball.url.pid.$$
+                  echo $url | sudo tee $tarball.url
                   sudo touch $tarball.url.pid.$$ # So we know the directory that was created from the tarball
                fi                                              # |
                echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
