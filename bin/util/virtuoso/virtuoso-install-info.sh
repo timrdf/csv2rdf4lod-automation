@@ -73,10 +73,10 @@ fi
 if [[ "$1" == '--help' ]]; then
    echo "usage: `basename $0` {--help, method, ini, init_d, log}"
    echo "method: `$0 method`"
-   echo "ini:    `$0 ini`"
-   echo "init_d: `$0 init_d`"
    echo "isql:   `$0 isql `"
+   echo "ini:    `$0 ini`"
    echo "log:    `$0 log `"
+   echo "init_d: `$0 init_d`"
 elif [[ "$1" == 'method' ]]; then
    echo $virtuoso_install_method
 elif [[ "$1" == 'ini' ]]; then
