@@ -407,11 +407,8 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                sudo ln -s $tarball_versioned $tarball
                tarball=$tarball_versioned
                sleep 2
-            else
-               echo not cool >&2
             fi
             virtuoso_root='' # Set from tarball extraction or recovered from $tarball.pid.$$
-            exit
             if [ ! -e $tarball ]; then
                if [[ "$dryrun" != "true" ]]; then
                   rm -f *url.pid.*
