@@ -403,7 +403,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
             echo ">>>$redirect<<< -> >>>$tarball_versioned<<<" >&2
 
             tarball='virtuoso.tar.gz'
-            if [[ "$redirect" =~ http* && "$tarball_versioned" =~ virtuoso-opensource*.tar.gz ]]; then
+            if [[ "$redirect" =~ http* && "$tarball_versioned" =~ virtuoso-opensource* ]]; then
                sudo ln -s $tarball_versioned $tarball
                tarball=$tarball_versioned
                sleep 2
