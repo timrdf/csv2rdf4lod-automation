@@ -389,8 +389,9 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                                                 #      10.04   12.04
 
       echo "$TODO Virtuoso not installed; OS type $distributor $codename" >&2
-      #if [[ ( "$distributor" == "Ubuntu" && "$codename" == 'lucid' ) || "$distributor" == "Debian" ]]; then # lucid
-      if [[ "$distributor" == "Debian" ]]; then # lucid
+      if [[ ( "$distributor" == "Ubuntu" && "$codename" == 'lucid' ) || \ 
+              "$distributor" == "Debian" ]]; then # lucid
+         # Using aptitude on Ubuntu lucid only installs Virtuoso 6.0, so we need to install it ourselves.
          url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
          pushd /opt &> /dev/null # $base
             # Not really working:
@@ -444,26 +445,26 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                      echo "$TODO sudo aptitude build-dep virtuoso-opensource" # NOTE: if this is run on a TWC VM with
                                  sudo aptitude build-dep virtuoso-opensource # /etc/hosts localhost 127.0.0.1, it will fail.
 
-#  sudo aptitude build-dep virtuoso-opensource
-# The following NEW packages will be installed:
-#   libreadline-dev{b} libreadline6-dev{ab} 
-# 0 packages upgraded, 2 newly installed, 0 to remove and 17 not upgraded.
-# Need to get 0 B/265 kB of archives. After unpacking 823 kB will be used.
-# The following packages have unmet dependencies:
-#  libreadline-gplv2-dev : Conflicts: libreadline-dev but 6.2-8 is to be installed.
-#  libreadline6-dev : Conflicts: libreadline-gplv2-dev but 5.2-11 is installed.
-#  libreadline-dev : Conflicts: libreadline-gplv2-dev but 5.2-11 is installed.
-# The following actions will resolve these dependencies:
-# 
-#      Remove the following packages:
-# 1)     libreadline-gplv2-dev 
-# ...
-# The following NEW packages will be installed:
-#   libreadline-dev libreadline6-dev{a} 
-# The following packages will be REMOVED:
-#   libreadline-gplv2-dev{a} libreadline5{u} 
+                     #  sudo aptitude build-dep virtuoso-opensource
+                     # The following NEW packages will be installed:
+                     #   libreadline-dev{b} libreadline6-dev{ab} 
+                     # 0 packages upgraded, 2 newly installed, 0 to remove and 17 not upgraded.
+                     # Need to get 0 B/265 kB of archives. After unpacking 823 kB will be used.
+                     # The following packages have unmet dependencies:
+                     #  libreadline-gplv2-dev : Conflicts: libreadline-dev but 6.2-8 is to be installed.
+                     #  libreadline6-dev : Conflicts: libreadline-gplv2-dev but 5.2-11 is installed.
+                     #  libreadline-dev : Conflicts: libreadline-gplv2-dev but 5.2-11 is installed.
+                     # The following actions will resolve these dependencies:
+                     # 
+                     #      Remove the following packages:
+                     # 1)     libreadline-gplv2-dev 
+                     # ...
+                     # The following NEW packages will be installed:
+                     #   libreadline-dev libreadline6-dev{a} 
+                     # The following packages will be REMOVED:
+                     #   libreadline-gplv2-dev{a} libreadline5{u} 
 
-# FIDO: sudo aptitude install  virtuoso-opensource
+                     # FIDO: sudo aptitude install  virtuoso-opensource
 
                      echo
                      echo
