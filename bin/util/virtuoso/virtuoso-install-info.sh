@@ -24,10 +24,10 @@ if [[ -z "$virtuoso_install_method" ]]; then
    #   sudo aptitude install virtuoso-opensource
    #
    # stuff shows up at:
+   # /usr/bin/isql-vt
    # /etc/virtuoso-opensource-6.1/virtuoso.ini
    # /var/lib/virtuoso-opensource-6.1/db/virtuoso.log
    # /etc/init.d/virtuoso-opensource-6.1
-   # /usr/bin/isql-vt
 
    isql=''
    ini=''
@@ -51,6 +51,22 @@ if [[ -z "$virtuoso_install_method" ]]; then
 
    if [[ -e "$isql" && -e "$ini" && -e "$init_d" ]]; then
       virtuoso_install_method='aptitude'
+   fi
+fi
+
+if [[ -z "$virtuoso_install_method" ]]; then
+   # When Virtuoso is installed with:
+   #   sudo aptitude install virtuoso-opensource
+   #
+   # stuff shows up at:
+   # /usr/local/bin/virtuoso-t
+   isql='/usr/local/bin/isql-v'
+   ini='/usr/local/var/lib/virtuoso/db/virtuoso.ini'
+   log='/usr/local/var/lib/virtuoso/db/virtuoso.log'
+   init_d=''
+
+   if [[ -e "$isql" && -e "$ini" ]]; then
+      virtuoso_install_method='upstream-source'
    fi
 fi
 
