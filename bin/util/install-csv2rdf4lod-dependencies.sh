@@ -401,11 +401,12 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                #echo "${redirect}.----------" #echo to #echo "${tarball}.----------"
             redirect=$url
             tarball='virtuoso.tar.gz'
-            virtuoso_root='' # Set from tarball extraction or recovered from pid.$$
+            virtuoso_root='' # Set from tarball extraction or recovered from $tarball.pid.$$
             if [ ! -e $tarball ]; then
                if [[ "$dryrun" != "true" ]]; then
                   rm -f pid.*
-                  sudo touch pid.$$ # So we know the directory that was created from the tarball
+                  echo $url | sudo tee $tarball.url.pid.$$
+                  sudo touch $tarball.url.pid.$$ # So we know the directory that was created from the tarball
                fi                                              # |
                echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
                if [ "$dryrun" != "true" ]; then                # |
@@ -414,12 +415,12 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                              sudo tar xzf $tarball             # |
                   #$sudo rm $tarball                           #\|/
                   #virtuoso_root=$base/${tarball%.tar.gz} # $base
-                  virtuoso_root=`find . -maxdepth 1 -cnewer pid.$$ -name "virtuoso*" -type d`
+                  virtuoso_root=`find . -maxdepth 1 -cnewer $tarball.url.pid.$$ -name "virtuoso*" -type d`
                   # ^ e.g. 'virtuoso-opensource-6.1.6/'
-                  echo $virtuoso_root > sudo tee pid.$$
+                  echo $virtuoso_root > sudo tee $tarball.url.pid.$$
                fi
             else # Tarball exists.
-               virtuoso_root=`cat pid.*`
+               virtuoso_root=`cat $tarball.url.pid.*`
                echo "$tarball exists; virtuso root should be: $virtuoso_root"
             fi
             if [ "$dryrun" != "true" ]; then
