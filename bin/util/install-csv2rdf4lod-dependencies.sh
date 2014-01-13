@@ -408,7 +408,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                tarball=$tarball_versioned
                sleep 2
             else
-               echo not cool
+               echo not cool >&2
             fi
             virtuoso_root='' # Set from tarball extraction or recovered from $tarball.pid.$$
             exit
