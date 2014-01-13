@@ -8,34 +8,31 @@ virtuoso_install_method=''
 
 # When Virtuoso is installed with:
 #   dpkg -i ${pkg}_amd64.deb
-
-# /var/lib/virtuoso/db/virtuoso.ini
-# /var/lib/virtuoso/db/virtuoso.log
-# /etc/init.d/virtuoso-opensource
-# /usr/bin/isql-v
-
+# 
+# stuff shows up at:
+isql='/usr/bin/isql-v'
 ini='/var/lib/virtuoso/db/virtuoso.ini'
 log='/var/lib/virtuoso/db/virtuoso.log'
 init_d='/etc/init.d/virtuoso-opensource'
-isql='/usr/bin/isql-v'
 
-if [[ -e "$ini" && -e "$init_d" && -e "$isql" ]]; then
+if [[ -e "$isql" && -e "$ini" && -e "$init_d" ]]; then
    virtuoso_install_method='dpkg'
 fi
 
 if [[ -z "$virtuoso_install_method" ]]; then
    # When Virtuoso is installed with:
    #   sudo aptitude install virtuoso-opensource
-
+   #
+   # stuff shows up at:
    # /etc/virtuoso-opensource-6.1/virtuoso.ini
    # /var/lib/virtuoso-opensource-6.1/db/virtuoso.log
    # /etc/init.d/virtuoso-opensource-6.1
    # /usr/bin/isql-vt
 
+   isql=''
    ini=''
    log=''
    init_d=''
-   isql=''
 
    for virtuoso in `find /etc -maxdepth 1 -type d -name "virtuoso-*"`; do
       if [[ -e $virtuoso/virtuoso.ini && -z "$ini" ]]; then
@@ -52,7 +49,7 @@ if [[ -z "$virtuoso_install_method" ]]; then
    done
    isql='/usr/bin/isql-vt'
 
-   if [[ -e "$ini" && -e "$init_d" && -e "$isql" ]]; then
+   if [[ -e "$isql" && -e "$ini" && -e "$init_d" ]]; then
       virtuoso_install_method='aptitude'
    fi
 fi
