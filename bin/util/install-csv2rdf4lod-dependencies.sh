@@ -389,8 +389,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                                                 #      10.04   12.04
 
       echo "$TODO Virtuoso not installed; OS type $distributor $codename" >&2
-      if [[ ( "$distributor" == "Ubuntu" && "$codename" == 'lucid' ) || \ 
-              "$distributor" == "Debian" ]]; then # lucid
+      if [[ ( "$distributor" == "Ubuntu" && "$codename" == 'lucid' ) || "$distributor" == "Debian" ]]; then # lucid
          # Using aptitude on Ubuntu lucid only installs Virtuoso 6.0, so we need to install it ourselves.
          url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
          pushd /opt &> /dev/null # $base
