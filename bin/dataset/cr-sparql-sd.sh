@@ -90,8 +90,11 @@ pushd `cr-conversion-root.sh` &> /dev/null
          if [ "$dryrun" != "true" ]; then
             if [[ `valid-rdf.sh source/sparql.rdf` == 'yes' ]]; then
                aggregate-source-rdf.sh source/sparql.rdf
-               #pvdelete.sh http://localhost:8890/sparql
-               #vload rdf source/sparql.rdf http://localhost:8890/sparql -v
+               varwww=`cr-ln-to-www-root.sh -n source/sparql.rdf`
+               echo ln guess $varwww
+               url=`cr-ln-to-www-root.sh --url-of-filepath $varwww`
+               echo TODO: pvdelete.sh http://localhost:8890/sparql
+               echo TODO: pvload.sh $url -ng http://localhost:8890/sparql
             else
                echo "`basename $this` WARNING: SPARQL Service Description from "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" was not valid."
             fi
