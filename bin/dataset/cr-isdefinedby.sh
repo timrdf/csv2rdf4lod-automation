@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#3> <> a conversion:RetrievalTrigger;
+#3> <> a conversion:RetrievalTrigger, conversion:Idempotent;
 #3>    prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-isdefinedby-to-endpoint.sh>;
 #3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets> .
 #
