@@ -114,7 +114,7 @@ rm -rf $cockpit/source/*
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 echo "$cockpit/source/void.rdf <- ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"
 
-within_last_week=`find $sourceID/$datasetID -mindepth 4 -name void.rdf -atime +6 | tail -1`
+within_last_week=`find $sourceID/$datasetID -mindepth 4 -name void.rdf -mtime -6 | tail -1`
 if [[ -z "$within_last_week" || "$force" == "true" ]]; then
    curl -sH "Accept: application/rdf+xml" -L ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void > $cockpit/source/void.rdf
    if [[ -e $opt/DataFAQs/services/sadi/ckan/add-metadata.py ]]; then
