@@ -1,9 +1,10 @@
 #!/bin/bash
 #
-#3> <> a conversion:RetrievalTrigger, conversion:Idempotent;
-#3>    prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/dataset/cr-aggregate-dcat.sh>;
-#3>    prov:wasDerivedFrom   <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/secondary/cr-aggregate-eparams.sh>;
-#3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets> .
+#3> <> a conversion:RetrievalTrigger;
+#3>    prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/dataset/cr-sparql-sd.sh>;
+#3>    prov:wasDerivedFrom   <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/dataset/cr-aggregate-dcat.sh>;
+#3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets>;
+#3> .
 
 [ -n "`readlink $0`" ] && this=`readlink $0` || this=$0
 HOME=$(cd ${this%/*/*} && echo ${PWD%/*})
@@ -18,13 +19,13 @@ if [ `is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
 fi
 
 if [[ "$1" == "--help" ]]; then
-   section='#aggregation-39-dataset-conversion-metadata-prov-o-dcterms-void'
+   see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/Secondary-Derivative-Datasets#cr-sparql-sd'
    echo "usage: `basename $0` [-n] [version-identifier]"
    echo ""
    echo "Create a dataset from the aggregation of all csv2rdf4lod conversion parameter files."
    echo ""
    echo "               -n : perform dry run only; do not load named graph."
-   echo "see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Aggregating-subsets-of-converted-datasets$section"
+   echo "see $see"
    echo
    exit
 fi
@@ -63,28 +64,35 @@ pushd `cr-conversion-root.sh` &> /dev/null
    fi
 
    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-   echo "Aggregating all DCAT access metadata in `pwd` into $cockpit/source/." >&2
+   #echo "Aggregating all DCAT access metadata in `pwd` into $cockpit/source/." >&2
    # from e.g. ./hub/countries/access.ttl to ./hub/countries/version/2013-Sep-06/access.ttl
-   for dcat in `find . -mindepth 3 -maxdepth 5 -name "*dcat.ttl" -or -name "access.ttl"`; do
-      echo ${dcat#./}
-      sdv=$(cd `dirname $dcat` && cr-sdv.sh)
-      if [ "$dryrun" != "true" ]; then
-         ln $dcat $cockpit/source/$sdv.dcat.ttl
-      fi
-   done
+   #for dcat in `find . -mindepth 3 -maxdepth 5 -name "*dcat.ttl" -or -name "access.ttl"`; do
+   #   echo ${dcat#./}
+   #   sdv=$(cd `dirname $dcat` && cr-sdv.sh)
+   #   if [ "$dryrun" != "true" ]; then
+   #      ln $dcat $cockpit/source/$sdv.dcat.ttl
+   #   fi
+   #done
    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-   pushd $cockpit &> /dev/null
-      echo
-      echo aggregate-source-rdf.sh --link-as-latest automatic/meta.ttl source/* 
-      if [ "$dryrun" != "true" ]; then
-         cr-default-prefixes.sh --turtle                                     > automatic/meta.ttl
-         echo "<`cr-dataset-uri.sh --uri`> a conversion:AggregateDataset ." >> automatic/meta.ttl
-         cat automatic/meta.ttl | grep -v "@prefix"
+   if [[ -n "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" && "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" =~ http* ]]; then
 
-         aggregate-source-rdf.sh --link-as-latest automatic/meta.ttl source/*
-      fi
-   popd &> /dev/null
+      pushd $cockpit &> /dev/null
+         echo
+         echo aggregate-source-rdf.sh --link-as-latest automatic/meta.ttl source/* 
+         curl -H "Accept: application/rdf+xml" -L "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" | \
+            perl -pi -e "s|http://localhost:8890/sparql|$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT|" > source/sparql.rdf
+         # We don't use aggregate-source-rdf.sh b/c it would use the SDV URI organization, and we need the result in
+         # the named graph http://localhost:8890/sparql
+         # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore#modifying-the-sparql-service-description
+
+         if [ "$dryrun" != "true" ]; then
+            cat source/sparql.rdf
+         fi
+      popd &> /dev/null
+   else
+      echo "`basename $this` WARNING: did not create SPARQL Service Description b/c CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT was not http*."
+   fi
 
 popd &> /dev/null
 dryrun.sh $dryrun ending
