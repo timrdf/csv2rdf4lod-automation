@@ -90,11 +90,10 @@ pushd `cr-conversion-root.sh` &> /dev/null
             if [[ `valid-rdf.sh source/sparql-sd.rdf` == 'yes' ]]; then
                cr-ln-to-www-root.sh    source/sparql-sd.rdf # TODO: aggregate-source-rdf.sh should do this, no?
                varwww=`cr-ln-to-www-root.sh -n source/sparql-sd.rdf`
-               echo ln guess $varwww
                aggregate-source-rdf.sh source/sparql-sd.rdf
                url=`cr-ln-to-www-root.sh --url-of-filepath $varwww`
-               echo TODO: pvdelete.sh http://localhost:8890/sparql
-               echo TODO: pvload.sh $url -ng http://localhost:8890/sparql
+               pvdelete.sh        http://localhost:8890/sparql # localhost is intentional here; it's where Virtuoso pulls its SPARQL SD from.
+               pvload.sh $url -ng http://localhost:8890/sparql # localhost is intentional here; it's where Virtuoso pulls its SPARQL SD from.
             else
                echo "`basename $this` WARNING: SPARQL Service Description from "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" was not valid."
             fi
