@@ -66,6 +66,9 @@ if [[ -z "$virtuoso_install_method" ]]; then
    ini='/usr/local/var/lib/virtuoso/db/virtuoso.ini'
    log='/usr/local/var/lib/virtuoso/db/virtuoso.log'
    init_d=''
+   if [[ -e '/etc/init.d/virtuoso-opensource' ]]; then
+      init_d='/etc/init.d/virtuoso-opensource'
+   fi
 
    if [[ -e "$isql" && -e "$ini" ]]; then
       virtuoso_install_method='upstream-source'
