@@ -1,5 +1,7 @@
 #! /bin/sh
 #
+#3> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/virtuoso/init.d> .
+#
 # virtuoso  OpenLink Virtuoso Open-Source Edition
 #
 #     Written by OpenLink Virtuoso Maintainer 
