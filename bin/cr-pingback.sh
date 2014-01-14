@@ -105,11 +105,13 @@ fi
 
 cockpit="$sourceID/$datasetID/version/$versionID"
 
-if [ ! -d $cockpit/source ]; then
-   mkdir -p $cockpit/source
-   mkdir -p $cockpit/automatic
+if [[ -n "$cockpit" && -e "$cockpit" ]]; then
+   if [ ! -d $cockpit/source ]; then
+      mkdir -p $cockpit/source
+      mkdir -p $cockpit/automatic
+   fi
+   rm -rf $cockpit/source/*
 fi
-rm -rf $cockpit/source/*
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 echo "$cockpit/source/void.rdf <- ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"
