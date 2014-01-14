@@ -92,8 +92,8 @@ pushd `cr-conversion-root.sh` &> /dev/null
                varwww=`cr-ln-to-www-root.sh -n source/sparql-sd.rdf`
                aggregate-source-rdf.sh source/sparql-sd.rdf
                url=`cr-ln-to-www-root.sh --url-of-filepath $varwww`
-               pvdelete.sh        http://localhost:8890/sparql # localhost is intentional here; it's where Virtuoso pulls its SPARQL SD from.
-               pvload.sh $url -ng http://localhost:8890/sparql # localhost is intentional here; it's where Virtuoso pulls its SPARQL SD from.
+               #pvdelete.sh        http://localhost:8890/sparql # localhost is intentional here; it's where Virtuoso pulls its SPARQL SD from.
+               #pvload.sh $url -ng http://localhost:8890/sparql # localhost is intentional here; it's where Virtuoso pulls its SPARQL SD from.
             else
                echo "`basename $this` WARNING: SPARQL Service Description from "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" was not valid."
             fi
