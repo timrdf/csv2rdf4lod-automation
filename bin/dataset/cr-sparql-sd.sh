@@ -86,8 +86,15 @@ pushd `cr-conversion-root.sh` &> /dev/null
          # the named graph http://localhost:8890/sparql
          # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore#modifying-the-sparql-service-description
 
+         cat source/sparql.rdf
          if [ "$dryrun" != "true" ]; then
-            cat source/sparql.rdf
+            if [[ `valid-rdf.sh source/sparql.rdf` == 'yes' ]]; then
+               aggregate-source-rdf.sh source/sparql.rdf
+               #pvdelete.sh http://localhost:8890/sparql
+               #vload rdf source/sparql.rdf http://localhost:8890/sparql -v
+            else
+               echo "`basename $this` WARNING: SPARQL Service Description from "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" was not valid."
+            fi
          fi
       popd &> /dev/null
    else
