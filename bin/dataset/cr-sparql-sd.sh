@@ -79,19 +79,19 @@ pushd `cr-conversion-root.sh` &> /dev/null
 
       pushd $cockpit &> /dev/null
          echo
-         echo aggregate-source-rdf.sh --link-as-latest automatic/meta.ttl source/* 
          curl -H "Accept: application/rdf+xml" -L "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" | \
-            perl -pi -e "s|http://localhost:8890/sparql|$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT|" > source/sparql.rdf
+            perl -pi -e "s|http://localhost:8890/sparql|$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT|" > source/sparql-sd.rdf
          # We don't use aggregate-source-rdf.sh b/c it would use the SDV URI organization, and we need the result in
          # the named graph http://localhost:8890/sparql
          # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore#modifying-the-sparql-service-description
 
-         cat source/sparql.rdf
+         cat source/sparql-sd.rdf
          if [ "$dryrun" != "true" ]; then
-            if [[ `valid-rdf.sh source/sparql.rdf` == 'yes' ]]; then
-               aggregate-source-rdf.sh source/sparql.rdf
-               varwww=`cr-ln-to-www-root.sh -n source/sparql.rdf`
+            if [[ `valid-rdf.sh source/sparql-sd.rdf` == 'yes' ]]; then
+               cr-ln-to-www-root.sh    source/sparql-sd.rdf # TODO: aggregate-source-rdf.sh should do this, no?
+               varwww=`cr-ln-to-www-root.sh -n source/sparql-sd.rdf`
                echo ln guess $varwww
+               aggregate-source-rdf.sh source/sparql-sd.rdf
                url=`cr-ln-to-www-root.sh --url-of-filepath $varwww`
                echo TODO: pvdelete.sh http://localhost:8890/sparql
                echo TODO: pvload.sh $url -ng http://localhost:8890/sparql
