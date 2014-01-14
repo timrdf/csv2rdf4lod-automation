@@ -14,6 +14,7 @@ isql='/usr/bin/isql-v'
 ini='/var/lib/virtuoso/db/virtuoso.ini'
 log='/var/lib/virtuoso/db/virtuoso.log'
 init_d='/etc/init.d/virtuoso-opensource'
+virtuoso_t=''
 
 if [[ -e "$isql" && -e "$ini" && -e "$init_d" ]]; then
    virtuoso_install_method='dpkg'
@@ -29,6 +30,7 @@ if [[ -z "$virtuoso_install_method" ]]; then
    # /var/lib/virtuoso-opensource-6.1/db/virtuoso.log
    # /etc/init.d/virtuoso-opensource-6.1
 
+   virtuoso_t=''
    isql=''
    ini=''
    log=''
@@ -59,7 +61,7 @@ if [[ -z "$virtuoso_install_method" ]]; then
    #   sudo aptitude install virtuoso-opensource
    #
    # stuff shows up at:
-   # /usr/local/bin/virtuoso-t
+   virtuoso_t='/usr/local/bin/virtuoso-t'
    isql='/usr/local/bin/isql-v'
    ini='/usr/local/var/lib/virtuoso/db/virtuoso.ini'
    log='/usr/local/var/lib/virtuoso/db/virtuoso.log'
@@ -74,12 +76,15 @@ if [[ "$1" == '--help' ]]; then
    echo "usage: `basename $0` {--help, method, ini, log, isql, init_d}"
    echo 
    echo "method: `$0 method`"
-   echo "isql:   `$0 isql `"
-   echo "ini:    `$0 ini`"
-   echo "log:    `$0 log `"
-   echo "init_d: `$0 init_d`"
+   echo "virtuoso_t: `$0 virtuoso_t `"
+   echo "isql:       `$0 isql `"
+   echo "ini:        `$0 ini`"
+   echo "log:        `$0 log `"
+   echo "init_d:     `$0 init_d`"
 elif [[ "$1" == 'method' ]]; then
    echo $virtuoso_install_method
+elif [[ "$1" == 'virtuoso_t' ]]; then
+   echo $virtuoso_t
 elif [[ "$1" == 'ini' ]]; then
    echo $ini
 elif [[ "$1" == 'log' ]]; then
