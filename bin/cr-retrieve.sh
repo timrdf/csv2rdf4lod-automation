@@ -119,8 +119,16 @@ elif [[ `is-pwd-a.sh                                                            
 
    latest_version=`cr-list-versions.sh`
    if [[ `find . -mindepth 2 -maxdepth 2 -name retrieve.sh | wc -l | awk '{print $1}'` -gt 0 ]]; then
+      echo "INFO: `basename $0`: found custom retrieval trigger in `cr-pwd-type.sh`."
+      # A version-specific custom retreival trigger.
+      #
+      # e.g. working directory:
+      # data/source/us/cr-sparql-sd/version
+      #
+      # find returns:
+      # ./latest/retrieve.sh
       for trigger in `find . -mindepth 2 -maxdepth 2 -name retrieve.sh`; do
-         if [[ `cr-idempotent.sh $trigger` == 'yes' ]]; then
+         if [[ `cr-idempotent.sh $trigger` == 'yes' || ! -e `dirname $trigger`/source ]]; then
             pushd `dirname $trigger` &> /dev/null
                $0 $w $skip_if_exists
             popd &> /dev/null
