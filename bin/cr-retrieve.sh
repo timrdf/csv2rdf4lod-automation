@@ -118,9 +118,14 @@ elif [[ `is-pwd-a.sh                                                            
    fi
 
    latest_version=`cr-list-versions.sh`
-   if [[ `find . -mindepth 2 -maxdepth 2 -name retrieve.sh | wc -l | awk '{print $1}'` -gt 0 ]]; then
+   if [[ -e retrieve.sh && `cr-idempotent.sh retrieve.sh` == 'yes' ]]; then
+      if [[ ! -x retrieve.sh ]]; then
+         chmod +x retrieve.sh
+      fi
+      ./retrieve.sh
+   elif [[ `find . -mindepth 2 -maxdepth 2 -name retrieve.sh | wc -l | awk '{print $1}'` -gt 0 ]]; then
       echo "INFO: `basename $0`: found custom retrieval trigger in `cr-pwd-type.sh`."
-      # A version-specific custom retreival trigger.
+      # A version-specific custom retrieval trigger.
       #
       # e.g. working directory: data/source/us/cr-sparql-sd/version
       #      find returns:                                        ./latest/retrieve.sh   # depth = 2
@@ -131,11 +136,6 @@ elif [[ `is-pwd-a.sh                                                            
             popd &> /dev/null
          fi
       done 
-   elif [[ -e retrieve.sh && `cr-idempotent.sh retrieve.sh` == 'yes' ]]; then
-      if [[ ! -x retrieve.sh ]]; then
-         chmod +x retrieve.sh
-      fi
-      ./retrieve.sh
    elif [[ -n "$skip_if_exists" && ${#latest_version} -gt 0 ]]; then
       not='not retrieving b/c --skip-if-exists was specified'
       echo "INFO: `basename $0`: version for `cr-source-id.sh`/`cr-dataset-id.sh` already exists ($latest_version); $not."
