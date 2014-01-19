@@ -111,7 +111,7 @@ for sparql in $queryFiles; do
    for output in $outputTypes; do
 
       limit=''
-      offset=''
+      offset='0'
       if [[ -n "$limit_offset" ]]; then # limit_offset is either: '' (no), 'yes', or a caller-provided number e.g. '100000'
          limit=`cat $sparql | grep -i '^limit' | awk '{print $2}' | head -1`
          if [[ "$limit" =~ [0-9]+ ]]; then
@@ -127,12 +127,11 @@ for sparql in $queryFiles; do
             limit="$limit_offset"
          fi
          if [[ "$limit" =~ [0-9]+ ]]; then
-            offset='0'
             iteration='1'
          fi
       fi
       # limit  is either '' or a number e.g. '100000'
-      # offset is either '' or '0'
+      # offset is always '0'
       echo "  (will exhaust with limit/offset: $limit/$offset)"
 
       while [ -n "$offset" ]; do
@@ -155,7 +154,11 @@ for sparql in $queryFiles; do
          #echo $request
 
          resultsFile=$results/`basename $sparql`$qi.`echo $output | tr '/+-' '_'`
-         printf "  $output -> $resultsFile"
+         if [[ "$offset" -eq 0 ]]; then
+            printf "  $output -> $resultsFile"
+         else
+            printf "  $output -> $resultsFile"
+         fi
          curl -L "$request" > $resultsFile 2> /dev/null
 
          #
