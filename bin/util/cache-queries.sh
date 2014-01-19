@@ -108,11 +108,17 @@ fi
 
 for sparql in $queryFiles; do
    echo $sparql
-   limit=`cat $sparql | grep -i '^limit' | awk '{print $2}' | head -1`
-   if [[ "$limit" =~ [0-9]+ ]]; then
-      echo "limit: $limit (a number)" >&2
-   else
-      echo "limit: $limit (not a number)" >&2
+
+   # limit_offset is either: '' (no), 'yes', or a number e.g. '100000'
+   if [[ -n "$limit_offset" ]]; then
+      limit=`cat $sparql | grep -i '^limit' | awk '{print $2}' | head -1`
+      if [[ "$limit" =~ [0-9]+ ]]; then
+         echo "Found limit in $sparql: $limit" >&2
+      fi
+      if [[ "$limit_offset" =~ [0-9]+ ]]; then
+         echo "Overriding LIMIT to $limit_offset"
+         limit="$limit_offset"
+      fi
    fi
    for output in $outputTypes; do
       query=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
