@@ -111,26 +111,35 @@ for sparql in $queryFiles; do
    echo $sparql
    for output in $outputTypes; do
 
-      # limit_offset is either: '' (no), 'yes', or a number e.g. '100000'
-      if [[ -n "$limit_offset" ]]; then
+      limit=''
+      offset=''
+      if [[ -n "$limit_offset" ]]; then # limit_offset is either: '' (no), 'yes', or a caller-provided number e.g. '100000'
          limit=`cat $sparql | grep -i '^limit' | awk '{print $2}' | head -1`
          if [[ "$limit" =~ [0-9]+ ]]; then
             echo "Found limit in $sparql: $limit" >&2
+         else
+            echo "No LIMIT in $sparql; assuming default of 10000" >&2
+            limit='10000'
          fi
          if [[ "$limit_offset" =~ [0-9]+ ]]; then
             echo "Overriding LIMIT to $limit_offset"
             limit="$limit_offset"
          fi
+         if [[ "$limit" =~ [0-9]+ ]]; then
+            offset='0'
+         fi
       fi
+      # limit  is either '' or a number e.g. '100000'
+      # offset is either '' or '0'
 
       query=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
-      query2=`cr-urlencode.sh --from-file "$sparql"` # TODO: move to this
+      query2=`cr-urlencode.sh --from-file "$sparql"` # TODO: move to this.
       #echo "$query"  >&2
       #echo           >&2
       #echo "$query2" >&2
       escapedOutput=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'` # | sed 's/%0A$//'`
-      escapedOutput2=`cr-urlencode.sh $output`
-      echo "escapedOutput $escapedOutput vs. escapedOutput2 $escapedOutput2"
+      escapedOutput2=`cr-urlencode.sh $output`       # TODO: move to this.
+
       request="$endpoint?query=$query&$outputVarName=$escapedOutput"
       #echo $request
 
