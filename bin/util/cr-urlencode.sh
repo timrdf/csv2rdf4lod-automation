@@ -17,7 +17,7 @@ if [[ $# -eq 0 || "$1" == "--help" ]]; then
 fi
 
 from_file="no"
-if [[ "$1" == "--files" ]]; then
+if [[ "$1" == "--from-file" ]]; then
    from_file="yes"
    shift
 fi
