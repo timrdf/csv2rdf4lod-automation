@@ -242,11 +242,9 @@ for sparql in $queryFiles; do
       # If query results are "valid", and we were asked to exhaust the query with limit/offset...
       if [[ `valid-rdf.sh $resultsFile` == 'yes' ]]; then
          if [[ -n "$offset" ]]; then   
-            if [[ "$offset" -gt 0 ]]; then
-               let "offset=$offset+$limit"
-               let "iteration=$iteration+1"
-               echo "Should go again for iteration $iteration with offset $offset."
-            fi
+            let "offset=$offset+$limit"
+            let "iteration=$iteration+1"
+            echo "Should go again for iteration $iteration with offset $offset."
          fi
       fi 
    done
