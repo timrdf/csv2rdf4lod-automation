@@ -138,21 +138,22 @@ for sparql in $queryFiles; do
 
       requestID=`resource-name.sh`
       requestDate=`dateInXSDDateTime.sh`
-      echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                     > $resultsFile.prov.ttl
-      echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                        >> $resultsFile.prov.ttl
-      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                               >> $resultsFile.prov.ttl
-      echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                >> $resultsFile.prov.ttl
-      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                 >> $resultsFile.prov.ttl
-      echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."         >> $resultsFile.prov.ttl
-      echo "@prefix pmlb:       <http://inference-web.org/2.b/pml-provenance.owl#> ."         >> $resultsFile.prov.ttl
-      echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."          >> $resultsFile.prov.ttl
-      echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."      >> $resultsFile.prov.ttl
-      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                               >> $resultsFile.prov.ttl
-      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                 >> $resultsFile.prov.ttl
-      echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                         >> $resultsFile.prov.ttl
-      echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                      >> $resultsFile.prov.ttl
-      echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                       >> $resultsFile.prov.ttl
-      echo "@prefix conv:    <http://purl.org/twc/vocab/conversion/> ."                       >> $resultsFile.prov.ttl
+      #echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                     > $resultsFile.prov.ttl
+      #echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                        >> $resultsFile.prov.ttl
+      #echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                               >> $resultsFile.prov.ttl
+      #echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                >> $resultsFile.prov.ttl
+      #echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                 >> $resultsFile.prov.ttl
+      #echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."         >> $resultsFile.prov.ttl
+      #echo "@prefix pmlb:       <http://inference-web.org/2.b/pml-provenance.owl#> ."         >> $resultsFile.prov.ttl
+      #echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."          >> $resultsFile.prov.ttl
+      #echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."      >> $resultsFile.prov.ttl
+      #echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                               >> $resultsFile.prov.ttl
+      #echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                 >> $resultsFile.prov.ttl
+      #echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                         >> $resultsFile.prov.ttl
+      #echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                      >> $resultsFile.prov.ttl
+      #echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                       >> $resultsFile.prov.ttl
+      #echo "@prefix conv:    <http://purl.org/twc/vocab/conversion/> ."                       >> $resultsFile.prov.ttl
+      $CSV2RDF4LOD_HOME/bin/util/cr-default-prefixes.sh --turtle                               > $resultsFile.prov.ttl
       echo                                                                                    >> $resultsFile.prov.ttl
       $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                              >> $resultsFile.prov.ttl
       echo                                                                                    >> $resultsFile.prov.ttl
