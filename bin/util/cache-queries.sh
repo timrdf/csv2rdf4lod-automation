@@ -119,7 +119,7 @@ for sparql in $queryFiles; do
       query=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
       echo "$query" >&2
       echo  >&2
-      query2=`cr-urlencode.sh \`cat $sparql\``
+      query2=`cr-urlencode.sh "\`cat $sparql\`"`
       echo "$query2" >&2
       if [[ "$query" == "$query2" ]]; then
          echo "urlencoding is the same."
