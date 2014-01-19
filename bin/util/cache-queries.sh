@@ -73,7 +73,7 @@ fi
 queryFiles=""
 if [ $# -gt 0 -a "$1" == "-q" ]; then
    shift
-   while [[ $# -gt 0 -a ( "$1" != '-od' && "$1" != '--limit-offset' ) ]]; do
+   while [[ $# -gt 0 && ( "$1" != '-od' && "$1" != '--limit-offset' ) ]]; do
       queryFiles="$queryFiles $1"
       shift 
    done
@@ -108,6 +108,7 @@ fi
 
 for sparql in $queryFiles; do
    echo $sparql
+   # cat ../../src/svn-files.rq | grep -i '^limit' | awk '{print $2}'
    for output in $outputTypes; do
       # TODO: use bin//util/cr-urlencode.sh
       query=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
