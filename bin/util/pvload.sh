@@ -1,5 +1,9 @@
 #!/bin/bash
 #
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/pvload.sh>;
+#3>    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/vload#pvloadsh>;
+#3> .
+#
 #   Copyright 2012 Timothy Lebo
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
