@@ -108,7 +108,8 @@ fi
 
 for sparql in $queryFiles; do
    echo $sparql
-   # cat ../../src/svn-files.rq | grep -i '^limit' | awk '{print $2}'
+   limit=`cat $sparql | grep -i '^limit' | awk '{print $2}' | head -1`
+   echo "limit: $limit" >&2
    for output in $outputTypes; do
       # TODO: use bin//util/cr-urlencode.sh
       query=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
