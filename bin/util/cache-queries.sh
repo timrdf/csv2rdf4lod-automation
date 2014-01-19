@@ -109,9 +109,10 @@ fi
 for sparql in $queryFiles; do
    echo $sparql
    limit=`cat $sparql | grep -i '^limit' | awk '{print $2}' | head -1`
-   echo "limit: $limit" >&2
    if [[ "$limit" =~ [0-9]+ ]]; then
-      echo "is a number."
+      echo "limit: $limit (a number)" >&2
+   else
+      echo "limit: $limit (not a number)" >&2
    fi
    for output in $outputTypes; do
       # TODO: use bin//util/cr-urlencode.sh
