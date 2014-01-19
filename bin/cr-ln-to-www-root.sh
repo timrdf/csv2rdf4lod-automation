@@ -86,14 +86,17 @@ function lnwww {
    wwwfile="$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/$publish${1#publish}"
    if [ -e "$1" -o "$2" == 'publish' ]; then
       if [ -e "$wwwfile" ]; then
+         echo $sudo rm -f "$wwwfile"
          $sudo rm -f "$wwwfile"
       else
+         echo $sudo mkdir -p `dirname "$wwwfile"`
          $sudo mkdir -p `dirname "$wwwfile"`
       fi
 
       echo " $wwwfile"
       if [[ "$dryrun" != "yes" ]]; then
-           $sudo ln $symbolic "${pwd}$1" "$wwwfile"
+         echo $sudo ln $symbolic "${pwd}$1" "$wwwfile"
+         $sudo ln $symbolic "${pwd}$1" "$wwwfile"
       fi
    else
       echo "  -- $1 omitted --" >&2
