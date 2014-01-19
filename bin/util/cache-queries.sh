@@ -115,19 +115,14 @@ for sparql in $queryFiles; do
       echo "limit: $limit (not a number)" >&2
    fi
    for output in $outputTypes; do
-      # TODO: use bin/util/cr-urlencode.sh
       query=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
-      echo "$query" >&2
-      echo  >&2
-      query2=`cr-urlencode.sh "\`cat $sparql\`"`
-      echo "$query2" >&2
-      if [[ "$query" == "$query2" ]]; then
-         echo "urlencoding is the same."
-      else
-         echo "urlencoding is not the same."
-      fi
+      query2=`cr-urlencode.sh --from-file "$sparql"` # TODO: move to this
+      #echo "$query"  >&2
+      #echo           >&2
+      #echo "$query2" >&2
       escapedOutput=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'` # | sed 's/%0A$//'`
-      request=$endpoint"?query="$query"&"$outputVarName"="$escapedOutput 
+
+      request="$endpoint?query=$query&$outputVarName=$escapedOutput"
       #echo $request
 
       resultsFile=$results/`basename $sparql`.`echo $output | tr '/+-' '_'`
