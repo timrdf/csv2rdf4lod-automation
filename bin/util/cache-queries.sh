@@ -157,7 +157,7 @@ for sparql in $queryFiles; do
          if [[ "$offset" -eq 0 ]]; then
             printf "  $output -> $resultsFile"
          else
-            printf "  $output -> $resultsFile"
+            echo   "     $iteration $limit/$offset"
          fi
          curl -L "$request" > $resultsFile 2> /dev/null
 
