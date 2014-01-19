@@ -18,9 +18,11 @@ outputTypes="sparql xml"
 
 if [ $# -lt 1 ]; then
    echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] [-q a.sparql b.sparql ...]* [-od path/to/output/dir]"
-   echo "    execute SPARQL queries against an endpoint requesting the given output formats"
-   echo "            -p  : the URL parameter name used to request a different output/format."
-   echo "    default -p  : output"
+   echo
+   echo "    Executes SPARQL queries against an endpoint requesting the given output formats."
+   echo
+   echo "            -p  : the URL parameter name used to request a different output/format from <endpoint>."
+   echo "    default -p  : 'output'"
    echo "            -o  : the URL parameter value(s) to request."
    echo "    default -o  : $outputTypes"
    echo "    default -q  : *.sparql *.rq"
@@ -66,7 +68,7 @@ fi
 queryFiles=""
 if [ $# -gt 0 -a "$1" == "-q" ]; then
    shift
-   while [ $# -gt 0 -a "$1" != "-od" ]; do
+   while [[ $# -gt 0 -a ( "$1" != '-od' && "$1" != '--limit-offset' ) ]]; do
       queryFiles="$queryFiles $1"
       shift 
    done
@@ -75,6 +77,20 @@ else
       queryFiles="$queryFiles $sparql"
    done
 fi
+
+limit_offset=''
+if [[ "$1" == '--limit-offset' ]]; then
+   limit_offset='yes' 
+   if [[ "$2" =~ -* ]]; then
+      echo "`basename $0` will use default LIMIT, or the LIMIT defined in the file." >&2
+   else
+      limit_offset="$2" # An actual number.
+      shift
+   fi
+   shift
+fi
+
+echo "limit_offset: $limit_offset" >&2
 
 results="results"
 if [ "$1" == "-od" -a $# -gt 1 ]; then
