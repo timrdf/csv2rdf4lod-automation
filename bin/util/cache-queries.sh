@@ -115,10 +115,11 @@ for sparql in $queryFiles; do
       if [[ -n "$limit_offset" ]]; then # limit_offset is either: '' (no), 'yes', or a caller-provided number e.g. '100000'
          limit=`cat $sparql | grep -i '^limit' | awk '{print $2}' | head -1`
          if [[ "$limit" =~ [0-9]+ ]]; then
-            echo "We found a limit" > /dev/null
             #echo "Found limit in $sparql: $limit" >&2
+            limit_is_in_query='yes'
          else
             #echo "No LIMIT in $sparql; assuming default of 10000" >&2
+            limit_is_in_query='no'
             limit='10000'
          fi
          if [[ "$limit_offset" =~ [0-9]+ ]]; then
@@ -167,13 +168,19 @@ for sparql in $queryFiles; do
       $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "`basename $resultsFile`"                    >> `basename $resultsFile.prov.ttl`
       popd &> /dev/null
       echo                                                                                    >> $resultsFile.prov.ttl
+      echo                                                                                    >> $resultsFile.prov.ttl
+      echo "<`basename $resultsFile`>"                                                        >> $resultsFile.prov.ttl
+      echo "   a prov:Entity;"                                                                >> $resultsFile.prov.ttl
+      echo "   prov:wasQuotedFrom <$request>;"                                                >> $resultsFile.prov.ttl
+      echo "."                                                                                >> $resultsFile.prov.ttl
+      echo                                                                                    >> $resultsFile.prov.ttl
       echo "<$sparql.$output>"                                                                >> $resultsFile.prov.ttl
       echo "   a pmlp:Information;"                                                           >> $resultsFile.prov.ttl
       echo "   pmlp:hasModificationDateTime \"$requestDate\"^^xsd:dateTime;"                  >> $resultsFile.prov.ttl
       echo "   pmlp:hasReferenceSourceUsage <sourceusage$requestID>;"                         >> $resultsFile.prov.ttl
       echo "."                                                                                >> $resultsFile.prov.ttl
       echo                                                                                    >> $resultsFile.prov.ttl
-      echo "<sourceusage$requestID>"                                                          >> $resultsFile.prov.ttl
+      echo "<sourceusage_$requestID>"                                                         >> $resultsFile.prov.ttl
       echo "   a pmlp:SourceUsage;"                                                           >> $resultsFile.prov.ttl
       echo "   pmlp:hasSource        <$request>;"                                             >> $resultsFile.prov.ttl
       echo "   pmlp:hasUsageDateTime \"$requestDate\"^^xsd:dateTime;"                         >> $resultsFile.prov.ttl
@@ -189,12 +196,12 @@ for sparql in $queryFiles; do
       echo "   a pmlp:InferenceEngine, pmlp:WebService;"                                      >> $resultsFile.prov.ttl
       echo "."                                                                                >> $resultsFile.prov.ttl
       echo                                                                                    >> $resultsFile.prov.ttl
-      echo "<nodeset$requestID>"                                                              >> $resultsFile.prov.ttl
+      echo "<nodeset_$requestID>"                                                             >> $resultsFile.prov.ttl
       echo "   a pmlj:NodeSet;"                                                               >> $resultsFile.prov.ttl
       echo "   pmlj:hasConclusion <$sparql.$output>;"                                         >> $resultsFile.prov.ttl
       echo "   pmlj:isConsequentOf <inferenceStep_$requestID>;"                               >> $resultsFile.prov.ttl
       echo "."                                                                                >> $resultsFile.prov.ttl
-      echo "<inferenceStep$requestID>"                                                        >> $resultsFile.prov.ttl
+      echo "<inferenceStep_$requestID>"                                                       >> $resultsFile.prov.ttl
       echo "   a pmlj:InferenceStep;"                                                         >> $resultsFile.prov.ttl
       echo "   pmlj:hasIndex 0;"                                                              >> $resultsFile.prov.ttl
       echo "   pmlj:hasAntecedentList ("                                                      >> $resultsFile.prov.ttl
@@ -218,7 +225,7 @@ for sparql in $queryFiles; do
       echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                               >> $resultsFile.prov.ttl
       echo "."                                                                                >> $resultsFile.prov.ttl
       echo ""                                                                                 >> $resultsFile.prov.ttl
-      echo "<query$requestID>"                                                                >> $resultsFile.prov.ttl
+      echo "<query_$requestID>"                                                               >> $resultsFile.prov.ttl
       echo "   a pmlb:AttributeValuePair;"                                                    >> $resultsFile.prov.ttl
       echo "   pmlb:attribute \"query\";"                                                     >> $resultsFile.prov.ttl
       echo "   pmlb:value     \"\"\"`cat $sparql`\"\"\";"                                     >> $resultsFile.prov.ttl
