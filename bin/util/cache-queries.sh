@@ -100,84 +100,84 @@ for sparql in $queryFiles; do
 
       requestID=`resource-name.sh`
       requestDate=`dateInXSDDateTime.sh`
-      echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                     > $resultsFile.pml.ttl
-      echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                        >> $resultsFile.pml.ttl
-      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                               >> $resultsFile.pml.ttl
-      echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                >> $resultsFile.pml.ttl
-      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                 >> $resultsFile.pml.ttl
-      echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."         >> $resultsFile.pml.ttl
-      echo "@prefix pmlb:       <http://inference-web.org/2.b/pml-provenance.owl#> ."         >> $resultsFile.pml.ttl
-      echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."          >> $resultsFile.pml.ttl
-      echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."      >> $resultsFile.pml.ttl
-      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                               >> $resultsFile.pml.ttl
-      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                 >> $resultsFile.pml.ttl
-      echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                         >> $resultsFile.pml.ttl
-      echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                      >> $resultsFile.pml.ttl
-      echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                       >> $resultsFile.pml.ttl
-      echo "@prefix conv:    <http://purl.org/twc/vocab/conversion/> ."                       >> $resultsFile.pml.ttl
-      echo                                                                                    >> $resultsFile.pml.ttl
-      $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                              >> $resultsFile.pml.ttl
-      echo                                                                                    >> $resultsFile.pml.ttl
+      echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                     > $resultsFile.prov.ttl
+      echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                        >> $resultsFile.prov.ttl
+      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                               >> $resultsFile.prov.ttl
+      echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                >> $resultsFile.prov.ttl
+      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                 >> $resultsFile.prov.ttl
+      echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."         >> $resultsFile.prov.ttl
+      echo "@prefix pmlb:       <http://inference-web.org/2.b/pml-provenance.owl#> ."         >> $resultsFile.prov.ttl
+      echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."          >> $resultsFile.prov.ttl
+      echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."      >> $resultsFile.prov.ttl
+      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                               >> $resultsFile.prov.ttl
+      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                 >> $resultsFile.prov.ttl
+      echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                         >> $resultsFile.prov.ttl
+      echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                      >> $resultsFile.prov.ttl
+      echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                       >> $resultsFile.prov.ttl
+      echo "@prefix conv:    <http://purl.org/twc/vocab/conversion/> ."                       >> $resultsFile.prov.ttl
+      echo                                                                                    >> $resultsFile.prov.ttl
+      $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                              >> $resultsFile.prov.ttl
+      echo                                                                                    >> $resultsFile.prov.ttl
       pushd $results &> /dev/null
-      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "`basename $resultsFile`"                    >> `basename $resultsFile.pml.ttl`
+      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "`basename $resultsFile`"                    >> `basename $resultsFile.prov.ttl`
       popd &> /dev/null
-      echo                                                                                    >> $resultsFile.pml.ttl
-      echo "<$sparql.$output>"                                                                >> $resultsFile.pml.ttl
-      echo "   a pmlp:Information;"                                                           >> $resultsFile.pml.ttl
-      echo "   pmlp:hasModificationDateTime \"$requestDate\"^^xsd:dateTime;"                  >> $resultsFile.pml.ttl
-      echo "   pmlp:hasReferenceSourceUsage <sourceusage$requestID>;"                         >> $resultsFile.pml.ttl
-      echo "."                                                                                >> $resultsFile.pml.ttl
-      echo                                                                                    >> $resultsFile.pml.ttl
-      echo "<sourceusage$requestID>"                                                          >> $resultsFile.pml.ttl
-      echo "   a pmlp:SourceUsage;"                                                           >> $resultsFile.pml.ttl
-      echo "   pmlp:hasSource        <$request>;"                                             >> $resultsFile.pml.ttl
-      echo "   pmlp:hasUsageDateTime \"$requestDate\"^^xsd:dateTime;"                         >> $resultsFile.pml.ttl
-      echo "."                                                                                >> $resultsFile.pml.ttl
-      echo                                                                                    >> $resultsFile.pml.ttl
-      echo "<$request>"                                                                       >> $resultsFile.pml.ttl
-      echo "   a pmlj:Query, pmlp:Source;"                                                    >> $resultsFile.pml.ttl
-      echo "   pmlj:isFromEngine <$endpoint>;"                                                >> $resultsFile.pml.ttl
-      echo "   pmlj:hasAnswer    <nodeset$requestID>;"                                        >> $resultsFile.pml.ttl
-      echo "."                                                                                >> $resultsFile.pml.ttl
-      echo                                                                                    >> $resultsFile.pml.ttl
-      echo "<$endpoint>"                                                                      >> $resultsFile.pml.ttl
-      echo "   a pmlp:InferenceEngine, pmlp:WebService;"                                      >> $resultsFile.pml.ttl
-      echo "."                                                                                >> $resultsFile.pml.ttl
-      echo                                                                                    >> $resultsFile.pml.ttl
-      echo "<nodeset$requestID>"                                                              >> $resultsFile.pml.ttl
-      echo "   a pmlj:NodeSet;"                                                               >> $resultsFile.pml.ttl
-      echo "   pmlj:hasConclusion <$sparql.$output>;"                                         >> $resultsFile.pml.ttl
-      echo "   pmlj:isConsequentOf <inferenceStep_$requestID>;"                               >> $resultsFile.pml.ttl
-      echo "."                                                                                >> $resultsFile.pml.ttl
-      echo "<inferenceStep$requestID>"                                                        >> $resultsFile.pml.ttl
-      echo "   a pmlj:InferenceStep;"                                                         >> $resultsFile.pml.ttl
-      echo "   pmlj:hasIndex 0;"                                                              >> $resultsFile.pml.ttl
-      echo "   pmlj:hasAntecedentList ("                                                      >> $resultsFile.pml.ttl
-      echo "      [ a pmlj:NodeSet; pmlp:hasConclusion <query$requestID> ]"                   >> $resultsFile.pml.ttl
-      echo "      [ a pmlj:NodeSet; pmlp:hasConclusion ["                                     >> $resultsFile.pml.ttl
-      echo "            a pmlb:AttributeValuePair;"                                           >> $resultsFile.pml.ttl
-      echo "            pmlb:attribute \"output\"; pmlb:value \"$output\""                    >> $resultsFile.pml.ttl
-      echo "          ]"                                                                      >> $resultsFile.pml.ttl
-      echo "      ]"                                                                          >> $resultsFile.pml.ttl
-      echo "   );"                                                                            >> $resultsFile.pml.ttl
-      echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $resultsFile.pml.ttl
-      echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $resultsFile.pml.ttl
-      #echo "      pmlj:hasSourceUsage     $sourceUsage;"                                     >> $resultsFile.pml.ttl
-      #echo "      pmlj:hasInferenceEngine <$engine_name$requestID>;"                         >> $resultsFile.pml.ttl
-      #echo "      pmlj:hasInferenceRule   conv:${engine_name}_Method;"                       >> $resultsFile.pml.ttl
-      echo "."                                                                                >> $resultsFile.pml.ttl
-      echo "<wasControlled_$requestID>"                                                       >> $resultsFile.pml.ttl
-      echo "   a oprov:WasControlledBy;"                                                      >> $resultsFile.pml.ttl
-      echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"             >> $resultsFile.pml.ttl
-      echo "   oprov:effect <inferenceStep$requestID>;"                                       >> $resultsFile.pml.ttl
-      echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                               >> $resultsFile.pml.ttl
-      echo "."                                                                                >> $resultsFile.pml.ttl
-      echo ""                                                                                 >> $resultsFile.pml.ttl
-      echo "<query$requestID>"                                                                >> $resultsFile.pml.ttl
-      echo "   a pmlb:AttributeValuePair;"                                                    >> $resultsFile.pml.ttl
-      echo "   pmlb:attribute \"query\";"                                                     >> $resultsFile.pml.ttl
-      echo "   pmlb:value     \"\"\"`cat $sparql`\"\"\";"                                     >> $resultsFile.pml.ttl
-      echo "."                                                                                >> $resultsFile.pml.ttl
+      echo                                                                                    >> $resultsFile.prov.ttl
+      echo "<$sparql.$output>"                                                                >> $resultsFile.prov.ttl
+      echo "   a pmlp:Information;"                                                           >> $resultsFile.prov.ttl
+      echo "   pmlp:hasModificationDateTime \"$requestDate\"^^xsd:dateTime;"                  >> $resultsFile.prov.ttl
+      echo "   pmlp:hasReferenceSourceUsage <sourceusage$requestID>;"                         >> $resultsFile.prov.ttl
+      echo "."                                                                                >> $resultsFile.prov.ttl
+      echo                                                                                    >> $resultsFile.prov.ttl
+      echo "<sourceusage$requestID>"                                                          >> $resultsFile.prov.ttl
+      echo "   a pmlp:SourceUsage;"                                                           >> $resultsFile.prov.ttl
+      echo "   pmlp:hasSource        <$request>;"                                             >> $resultsFile.prov.ttl
+      echo "   pmlp:hasUsageDateTime \"$requestDate\"^^xsd:dateTime;"                         >> $resultsFile.prov.ttl
+      echo "."                                                                                >> $resultsFile.prov.ttl
+      echo                                                                                    >> $resultsFile.prov.ttl
+      echo "<$request>"                                                                       >> $resultsFile.prov.ttl
+      echo "   a pmlj:Query, pmlp:Source;"                                                    >> $resultsFile.prov.ttl
+      echo "   pmlj:isFromEngine <$endpoint>;"                                                >> $resultsFile.prov.ttl
+      echo "   pmlj:hasAnswer    <nodeset$requestID>;"                                        >> $resultsFile.prov.ttl
+      echo "."                                                                                >> $resultsFile.prov.ttl
+      echo                                                                                    >> $resultsFile.prov.ttl
+      echo "<$endpoint>"                                                                      >> $resultsFile.prov.ttl
+      echo "   a pmlp:InferenceEngine, pmlp:WebService;"                                      >> $resultsFile.prov.ttl
+      echo "."                                                                                >> $resultsFile.prov.ttl
+      echo                                                                                    >> $resultsFile.prov.ttl
+      echo "<nodeset$requestID>"                                                              >> $resultsFile.prov.ttl
+      echo "   a pmlj:NodeSet;"                                                               >> $resultsFile.prov.ttl
+      echo "   pmlj:hasConclusion <$sparql.$output>;"                                         >> $resultsFile.prov.ttl
+      echo "   pmlj:isConsequentOf <inferenceStep_$requestID>;"                               >> $resultsFile.prov.ttl
+      echo "."                                                                                >> $resultsFile.prov.ttl
+      echo "<inferenceStep$requestID>"                                                        >> $resultsFile.prov.ttl
+      echo "   a pmlj:InferenceStep;"                                                         >> $resultsFile.prov.ttl
+      echo "   pmlj:hasIndex 0;"                                                              >> $resultsFile.prov.ttl
+      echo "   pmlj:hasAntecedentList ("                                                      >> $resultsFile.prov.ttl
+      echo "      [ a pmlj:NodeSet; pmlp:hasConclusion <query$requestID> ]"                   >> $resultsFile.prov.ttl
+      echo "      [ a pmlj:NodeSet; pmlp:hasConclusion ["                                     >> $resultsFile.prov.ttl
+      echo "            a pmlb:AttributeValuePair;"                                           >> $resultsFile.prov.ttl
+      echo "            pmlb:attribute \"output\"; pmlb:value \"$output\""                    >> $resultsFile.prov.ttl
+      echo "          ]"                                                                      >> $resultsFile.prov.ttl
+      echo "      ]"                                                                          >> $resultsFile.prov.ttl
+      echo "   );"                                                                            >> $resultsFile.prov.ttl
+      echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $resultsFile.prov.ttl
+      echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $resultsFile.prov.ttl
+      #echo "      pmlj:hasSourceUsage     $sourceUsage;"                                     >> $resultsFile.prov.ttl
+      #echo "      pmlj:hasInferenceEngine <$engine_name$requestID>;"                         >> $resultsFile.prov.ttl
+      #echo "      pmlj:hasInferenceRule   conv:${engine_name}_Method;"                       >> $resultsFile.prov.ttl
+      echo "."                                                                                >> $resultsFile.prov.ttl
+      echo "<wasControlled_$requestID>"                                                       >> $resultsFile.prov.ttl
+      echo "   a oprov:WasControlledBy;"                                                      >> $resultsFile.prov.ttl
+      echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"             >> $resultsFile.prov.ttl
+      echo "   oprov:effect <inferenceStep$requestID>;"                                       >> $resultsFile.prov.ttl
+      echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                               >> $resultsFile.prov.ttl
+      echo "."                                                                                >> $resultsFile.prov.ttl
+      echo ""                                                                                 >> $resultsFile.prov.ttl
+      echo "<query$requestID>"                                                                >> $resultsFile.prov.ttl
+      echo "   a pmlb:AttributeValuePair;"                                                    >> $resultsFile.prov.ttl
+      echo "   pmlb:attribute \"query\";"                                                     >> $resultsFile.prov.ttl
+      echo "   pmlb:value     \"\"\"`cat $sparql`\"\"\";"                                     >> $resultsFile.prov.ttl
+      echo "."                                                                                >> $resultsFile.prov.ttl
    done
    echo ""
 done 
