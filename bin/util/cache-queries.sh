@@ -86,9 +86,9 @@ if [ ! -d $results ]; then
 fi
 
 for sparql in $queryFiles; do
-   echo $sparql
+   echo "$sparql -> $resultsFile"
    for output in $outputTypes; do
-      printf "  $output -> $resultsFile"
+      printf "  $output"
       # TODO: use bin//util/cr-urlencode.sh
       query=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
       escapedOutput=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'` # | sed 's/%0A$//'`
