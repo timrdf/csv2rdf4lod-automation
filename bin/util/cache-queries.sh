@@ -131,7 +131,7 @@ for sparql in $queryFiles; do
       fi
       # limit  is either '' or a number e.g. '100000'
       # offset is either '' or '0'
-      echo "`basename $0` will exhaust $sparql with limit/offset $limit/$offset"
+      echo "  (will exhaust $sparql with limit/offset: $limit/$offset)"
 
       query=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
       query2=`cr-urlencode.sh --from-file "$sparql"` # TODO: move to this.
