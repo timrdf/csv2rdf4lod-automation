@@ -87,7 +87,7 @@ limit_offset=''
 if [[ "$1" == '--limit-offset' ]]; then
    limit_offset='yes' 
    if [[ "$2" =~ -* ]]; then
-      echo "`basename $0` will use default LIMIT, or the LIMIT defined in the file." >&2
+      echo "`basename $0` will use default LIMIT, or the LIMIT defined in the file ($2)." >&2
    else
       echo "`basename $0` accepting LIMIT override: $2" >&2
       limit_offset="$2" # An actual number.
