@@ -109,26 +109,28 @@ fi
 
 for sparql in $queryFiles; do
    echo $sparql
-
-   # limit_offset is either: '' (no), 'yes', or a number e.g. '100000'
-   if [[ -n "$limit_offset" ]]; then
-      limit=`cat $sparql | grep -i '^limit' | awk '{print $2}' | head -1`
-      if [[ "$limit" =~ [0-9]+ ]]; then
-         echo "Found limit in $sparql: $limit" >&2
-      fi
-      if [[ "$limit_offset" =~ [0-9]+ ]]; then
-         echo "Overriding LIMIT to $limit_offset"
-         limit="$limit_offset"
-      fi
-   fi
    for output in $outputTypes; do
+
+      # limit_offset is either: '' (no), 'yes', or a number e.g. '100000'
+      if [[ -n "$limit_offset" ]]; then
+         limit=`cat $sparql | grep -i '^limit' | awk '{print $2}' | head -1`
+         if [[ "$limit" =~ [0-9]+ ]]; then
+            echo "Found limit in $sparql: $limit" >&2
+         fi
+         if [[ "$limit_offset" =~ [0-9]+ ]]; then
+            echo "Overriding LIMIT to $limit_offset"
+            limit="$limit_offset"
+         fi
+      fi
+
       query=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
       query2=`cr-urlencode.sh --from-file "$sparql"` # TODO: move to this
       #echo "$query"  >&2
       #echo           >&2
       #echo "$query2" >&2
       escapedOutput=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'` # | sed 's/%0A$//'`
-
+      escapedOutput2=`cr-urlencode.sh $output`
+      echo "escapedOutput $escapedOutput vs. escapedOutput2 $escapedOutput2"
       request="$endpoint?query=$query&$outputVarName=$escapedOutput"
       #echo $request
 
@@ -136,17 +138,11 @@ for sparql in $queryFiles; do
       printf "  $output -> $resultsFile"
       curl -L "$request" > $resultsFile 2> /dev/null
 
+      #
+      # Record the provenance of the query request
+      #
       requestID=`resource-name.sh`
       requestDate=`dateInXSDDateTime.sh`
-      #echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                     > $resultsFile.prov.ttl
-      #echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                        >> $resultsFile.prov.ttl
-      #echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                               >> $resultsFile.prov.ttl
-      #echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                >> $resultsFile.prov.ttl
-      #echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                 >> $resultsFile.prov.ttl
-      #echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."          >> $resultsFile.prov.ttl
-      #echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                               >> $resultsFile.prov.ttl
-      #echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                 >> $resultsFile.prov.ttl
-      #echo "@prefix conv:    <http://purl.org/twc/vocab/conversion/> ."                       >> $resultsFile.prov.ttl
       $CSV2RDF4LOD_HOME/bin/util/cr-default-prefixes.sh --turtle                               > $resultsFile.prov.ttl
       echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                       >> $resultsFile.prov.ttl
       echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."         >> $resultsFile.prov.ttl
