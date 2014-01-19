@@ -128,24 +128,32 @@ for sparql in $queryFiles; do
          fi
          if [[ "$limit" =~ [0-9]+ ]]; then
             offset='0'
+            iteration='1'
          fi
       fi
       # limit  is either '' or a number e.g. '100000'
       # offset is either '' or '0'
       echo "  (will exhaust with limit/offset: $limit/$offset)"
 
-      query=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
-      query2=`cr-urlencode.sh --from-file "$sparql"` # TODO: move to this.
-      #echo "$query"  >&2
-      #echo           >&2
-      #echo "$query2" >&2
-      escapedOutput=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'` # | sed 's/%0A$//'`
-      escapedOutput2=`cr-urlencode.sh $output`       # TODO: move to this.
+      queryOLD=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
+      query=`cr-urlencode.sh --from-file "$sparql"` # TODO: move to this.
+      qi='' # '' -> '_2' -> '_3' ...
+      queryOFFSET=''
+      if [[ -n "$offset" ]]; then   
+         if [[ "$offset" -gt 0 ]]; then
+            let "offset=$offset+$limit"
+            let "iteration=$iteration+1"
+            qi=".$iteration"
+            queryOFFSET=''
+         fi
+      fi
+      escapedOutputOLD=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'` # | sed 's/%0A$//'`
+      escapedOutput=`cr-urlencode.sh $output`       # TODO: move to this.
 
       request="$endpoint?query=$query&$outputVarName=$escapedOutput"
       #echo $request
 
-      resultsFile=$results/`basename $sparql`.`echo $output | tr '/+-' '_'`
+      resultsFile=$results/`basename $sparql`$qi.`echo $output | tr '/+-' '_'`
       printf "  $output -> $resultsFile"
       curl -L "$request" > $resultsFile 2> /dev/null
 
@@ -230,6 +238,17 @@ for sparql in $queryFiles; do
       echo "   pmlb:attribute \"query\";"                                                     >> $resultsFile.prov.ttl
       echo "   pmlb:value     \"\"\"`cat $sparql`\"\"\";"                                     >> $resultsFile.prov.ttl
       echo "."                                                                                >> $resultsFile.prov.ttl
+
+      # If query results are "valid", and we were asked to exhaust the query with limit/offset...
+      if [[ `valid-rdf.sh $resultsFile` == 'yes' ]]; then
+         if [[ -n "$offset" ]]; then   
+            if [[ "$offset" -gt 0 ]]; then
+               let "offset=$offset+$limit"
+               let "iteration=$iteration+1"
+               echo "Should go again for iteration $iteration with offset $offset."
+            fi
+         fi
+      fi 
    done
    echo ""
 done 
