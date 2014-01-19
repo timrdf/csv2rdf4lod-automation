@@ -142,20 +142,20 @@ for sparql in $queryFiles; do
          if [[ -n "$offset" ]]; then   
             if [[ "$offset" -gt 0 ]]; then
                qi=".$iteration"
-               queryOFFSET=''
+               queryOFFSET=`cr-urlencode.sh " offset $offset "`
             fi
          fi
          escapedOutputOLD=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'` # | sed 's/%0A$//'`
          escapedOutput=`cr-urlencode.sh $output`       # TODO: move to this.
 
-         request="$endpoint?query=$query&$outputVarName=$escapedOutput"
+         request="$endpoint?query=$query$queryOFFSET&$outputVarName=$escapedOutput"
          #echo $request
 
          resultsFile=$results/`basename $sparql`$qi.`echo $output | tr '/+-' '_'`
          if [[ "$offset" -eq 0 ]]; then
             printf "  $output -> $resultsFile"
          else
-            echo   "  `echo $output | sed 's/./ /g'`   $iteration $limit/$offset"
+            echo   "  `echo $output | sed 's/./ /g'`    $iteration $limit/$offset"
          fi
          curl -L "$request" > $resultsFile 2> /dev/null
 
