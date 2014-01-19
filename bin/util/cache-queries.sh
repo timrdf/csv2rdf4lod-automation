@@ -97,8 +97,6 @@ if [[ "$1" == '--limit-offset' ]]; then
    shift
 fi
 
-echo "limit_offset: $limit_offset" >&2
-
 results="results"
 if [ "$1" == "-od" -a $# -gt 1 ]; then
    shift
