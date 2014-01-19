@@ -6,9 +6,9 @@
 #
 
 if [[ $# -eq 0 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [--help] [--files] <string>+"
+   echo "usage: `basename $0` [--help] [--from-file] <string>+"
    echo
-   echo "      --files : interpret <string> as a filename whose contents should be urlencoded."
+   echo "      --from-file : interpret <string> as a filename whose contents should be urlencoded."
    echo
    echo "  e.g."
    echo "      cr-urlencode.sh 'prefix xsd:    <http://www.w3.org/2001/XMLSchema#>'"
@@ -16,9 +16,9 @@ if [[ $# -eq 0 || "$1" == "--help" ]]; then
    exit
 fi
 
-as_files="no"
+from_file="no"
 if [[ "$1" == "--files" ]]; then
-   as_files="yes"
+   from_file="yes"
    shift
 fi
 
@@ -45,7 +45,7 @@ rawurlencode() { # http://stackoverflow.com/questions/296536/urlencode-from-a-ba
 #rawurlencode "$target"
 #echo $request
 if [[ $# -gt 0 ]]; then
-   if [[ "$as_files" == 'yes' ]]; then
+   if [[ "$from_file" == 'yes' ]]; then
       rawurlencode "`cat "$1"`"
    else
       rawurlencode "$1"
