@@ -6,12 +6,20 @@
 #
 
 if [[ $# -eq 0 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [--help] <string>+"
+   echo "usage: `basename $0` [--help] [--files] <string>+"
+   echo
+   echo "      --files : interpret <string> as a filename whose contents should be urlencoded."
    echo
    echo "  e.g."
    echo "      cr-urlencode.sh 'prefix xsd:    <http://www.w3.org/2001/XMLSchema#>'"
    echo "      -> prefix%20xsd%3a%20%20%20%20%3chttp%3a%2f%2fwww.w3.org%2f2001%2fXMLSchema%23%3e"
    exit
+fi
+
+as_files="no"
+if [[ "$1" == "--files" ]]; then
+   as_files="yes"
+   shift
 fi
 
 rawurlencode() { # http://stackoverflow.com/questions/296536/urlencode-from-a-bash-script
@@ -37,7 +45,11 @@ rawurlencode() { # http://stackoverflow.com/questions/296536/urlencode-from-a-ba
 #rawurlencode "$target"
 #echo $request
 if [[ $# -gt 0 ]]; then
-   rawurlencode "$1"
+   if [[ "$as_files" == 'yes' ]]; then
+      rawurlencode "`cat "$1"`"
+   else
+      rawurlencode "$1"
+   fi
 fi
 
 # Using Perl (but depends on URI::Escape)
