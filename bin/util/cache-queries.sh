@@ -141,8 +141,6 @@ for sparql in $queryFiles; do
          queryOFFSET=''
          if [[ -n "$offset" ]]; then   
             if [[ "$offset" -gt 0 ]]; then
-               let "offset=$offset+$limit"
-               let "iteration=$iteration+1"
                qi=".$iteration"
                queryOFFSET=''
             fi
