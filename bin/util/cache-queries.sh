@@ -157,7 +157,7 @@ for sparql in $queryFiles; do
          if [[ "$offset" -eq 0 ]]; then
             printf "  $output -> $resultsFile"
          else
-            echo   "     $iteration $limit/$offset"
+            echo   "  `echo $output | sed 's/./ /g'`   $iteration $limit/$offset"
          fi
          curl -L "$request" > $resultsFile 2> /dev/null
 
@@ -251,7 +251,6 @@ for sparql in $queryFiles; do
                fi
                let "offset=$offset+$limit"
                let "iteration=$iteration+1"
-               echo "$iteration $limit/$offset."
             fi
          else
             offset=''
