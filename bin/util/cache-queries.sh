@@ -1,5 +1,9 @@
 #!/bin/bash
 #
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/cache-queries.sh>;
+#3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-cache-queries.sh>;
+#3> .
+#
 #   Copyright 2012 Timothy Lebo
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +21,7 @@
 outputTypes="sparql xml"
 
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] [-q a.sparql b.sparql ...]* [-od path/to/output/dir]"
+   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] [-q a.sparql b.sparql ...]* [--limit-offset] [-od path/to/output/dir]"
    echo
    echo "    Executes SPARQL queries against an endpoint requesting the given output formats."
    echo
@@ -26,6 +30,7 @@ if [ $# -lt 1 ]; then
    echo "            -o  : the URL parameter value(s) to request."
    echo "    default -o  : $outputTypes"
    echo "    default -q  : *.sparql *.rq"
+   echo " --limit-offset : iterate with LIMIT / OFFSET until no more useful results."
    echo "            -od : output directory"
    echo "    default -od : results/"
    exit 1
