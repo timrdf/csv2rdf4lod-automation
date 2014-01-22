@@ -170,22 +170,32 @@ pushd $conversion_root &> /dev/null
 
 
    #
+   # cr-publish.sh 
+   # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Triggers#4-publication-triggers
+   echo "BEGIN cron cr-publish.sh `date`"                                                     >> $log
+   echo "#3> <#cr-publish> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ." >> $log
+   cr-publish.sh --idempotent 2>&1                                                            >> $log
+   echo "END cron cr-publish.sh `date`"                                                       >> $log
+   echo                                                                                       >> $log
+
+
+   #
    # Gather all versioned dataset dump files into a "one click" download.
-   echo "BEGIN cron cr-full-dump.sh `date`"                                              >> $log
+   echo "BEGIN cron cr-full-dump.sh `date`"                                                     >> $log
    echo "#3> <#cr-full-dump> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ." >> $log
    if [[ -n "$CSV2RDF4LOD_BASE_URI"              && \
          -n "$CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" && \
          `which cr-full-dump.sh` ]]; then
-      echo "pwd: `pwd`"                                                                  >> $log
-      cr-full-dump.sh                                                               2>&1 >> $log
+      echo "pwd: `pwd`"                                                                         >> $log
+      cr-full-dump.sh                                                               2>&1        >> $log
    else
-      echo "   ERROR: Failed to invoke:"                                                 >> $log
-      echo "      CSV2RDF4LOD_BASE_URI:              $CSV2RDF4LOD_BASE_URI"              >> $log
-      echo "      CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID: $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID" >> $log
-      echo "                                   path: `which cr-full-dump.sh`"            >> $log
+      echo "   ERROR: Failed to invoke:"                                                        >> $log
+      echo "      CSV2RDF4LOD_BASE_URI:              $CSV2RDF4LOD_BASE_URI"                     >> $log
+      echo "      CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID: $CSV2RDF4LOD_PUBLISH_OUR_SOURCE_ID"        >> $log
+      echo "                                   path: `which cr-full-dump.sh`"                   >> $log
    fi
-   echo "END cron cr-full-dump.sh `date`"                                                >> $log
-   echo                                                                                  >> $log
+   echo "END cron cr-full-dump.sh `date`"                                                       >> $log
+   echo                                                                                         >> $log
 
 
    #
