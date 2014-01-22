@@ -1,5 +1,8 @@
 #!/bin/bash
 #
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish.sh>;
+#3> .
+#
 #   Copyright 2012 Timothy Lebo
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,12 +18,13 @@
 #   limitations under the License.
 
 if [[ "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [-n]"
+   echo "usage: `basename $0` [-n] [--idempotent]"
    echo ""
    echo "  Run each conversion cockpit's publish/bin/publish.sh"
    echo "    Processing is controlled by CSV2RDF4LOD_ environment variables in the usual way."
    echo ""
-   echo "   -n:         dry run; do not actually run scripts."
+   echo "             -n: dry run; do not actually run scripts."
+   echo "   --idempotent: only run idempotent publication triggers."
    exit 1
 fi
 
@@ -41,16 +45,48 @@ if [ "$1" == "-n" ]; then
    shift 
 fi
 
-for script in `find . -name "publish.sh"`; do 
-   pushd ${script%publish/bin/publish.sh} &> /dev/null
-      if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
-         if [ "$dryrun" != "true" ]; then
-            publish/bin/publish.sh
-         else
-            cr-pwd.sh
+idempotent="whatever"
+if [ "$1" == "--idempotent" ]; then
+   idempotent="demanded"
+   echo "`basename $0` only pulling idempotent publication triggers." >&2
+   shift 
+fi
+
+# Additional functionality for custom publication triggers:
+#   https://github.com/timrdf/csv2rdf4lod-automation/wiki/Triggers#4-publication-triggers
+
+for trigger in `find . -name "publish.sh"`; do 
+
+   if [[ "${trigger%publish/bin/publish.sh}" != $trigger ]]; then
+      # The original need was to step into each conversion cockpit to 
+      # invoke the extant publication trigger.
+      pushd ${trigger%publish/bin/publish.sh} &> /dev/null
+         if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
+            if [[ $idempotent == 'whatever' || $idempotent == 'demanded' && `cr-idempotent.sh publish.sh` == 'yes' ]]; then
+               if [ "$dryrun" != "true" ]; then
+                  publish/bin/publish.sh
+               else
+                  cr-pwd.sh
+               fi
+            fi
          fi
+      popd &> /dev/null
+   else
+      # The newer need is to handle custom publication triggers anywhere
+      # within the dataset abstraction hierarchy.
+      # e.g. https://github.com/tetherless-world/opendap/blob/master/data/source/us/opendap-prov/version/retrieve.sh#L77
+      #      for https://github.com/tetherless-world/opendap/wiki/OPeNDAP-Provenance
+      if [[ $idempotent == 'whatever' || $idempotent == 'demanded' && `cr-idempotent.sh $trigger` == 'yes' ]]; then
+         pushd `dirname $trigger` &> /dev/null
+            if [ "$dryrun" != "true" ]; then
+               chmod +x `basename $trigger`
+               ./`basename $trigger`
+            else
+               cr-pwd.sh
+            fi
+         popd &> /dev/null
       fi
-   popd &> /dev/null
+   fi
 done
 
 dryrun.sh $dryrun ending
