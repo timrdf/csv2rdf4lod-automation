@@ -50,7 +50,7 @@ fi
 idempotent="whatever"
 if [ "$1" == "--idempotent" ]; then
    idempotent="demanded"
-   echo "`basename $0` only pulling idempotent publication triggers." >&2
+   echo "INFO: `basename $0` only pulling idempotent publication triggers." >&2
    shift 
 fi
 
@@ -58,6 +58,10 @@ fi
 #   https://github.com/timrdf/csv2rdf4lod-automation/wiki/Triggers#4-publication-triggers
 
 for trigger in `find . -name "publish.sh"`; do 
+
+   if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == 'fine' ]]; then
+      echo $trigger
+   fi
 
    if [[ "${trigger%publish/bin/publish.sh}" != $trigger ]]; then
       # The original need was to step into each conversion cockpit to 
