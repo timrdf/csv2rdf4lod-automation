@@ -76,6 +76,9 @@ for trigger in `find . -maxdepth $bottom -name "publish.sh"`; do
    fi
 
    if [[ "${trigger%publish/bin/publish.sh}" != $trigger ]]; then
+      if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == 'fine' ]]; then
+         echo "Going into ${trigger%publish/bin/publish.sh}"
+      fi
       # The original need was to step into each conversion cockpit to 
       # invoke the extant publication trigger.
       pushd ${trigger%publish/bin/publish.sh} &> /dev/null
