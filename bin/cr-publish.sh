@@ -25,6 +25,8 @@ if [[ "$1" == "--help" ]]; then
    echo ""
    echo "             -n: dry run; do not actually run scripts."
    echo "   --idempotent: only run idempotent publication triggers."
+   echo ""
+   echo "See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Triggers#4-publication-triggers"
    exit 1
 fi
 
