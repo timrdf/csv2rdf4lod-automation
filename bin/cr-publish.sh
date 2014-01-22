@@ -82,6 +82,9 @@ for trigger in `find . -maxdepth $bottom -name "publish.sh"`; do
          if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
             if [[ $idempotent == 'whatever' || $idempotent == 'demanded' && `cr-idempotent.sh publish.sh` == 'yes' ]]; then
                if [ "$dryrun" != "true" ]; then
+                  if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == 'fine' ]]; then
+                     echo "PUBLISHING"
+                  fi
                   publish/bin/publish.sh
                else
                   cr-pwd.sh
