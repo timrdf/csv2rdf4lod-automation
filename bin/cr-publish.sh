@@ -72,7 +72,7 @@ for trigger in `find . -maxdepth $bottom -name "publish.sh"`; do
 
    if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == 'fine' ]]; then
       echo $trigger
-      echo "${trigger%publish/bin/publish.sh} =?= $trigger"
+      echo "${trigger%publish/bin/publish.sh} ?(!=) $trigger"
    fi
 
    if [[ "${trigger%publish/bin/publish.sh}" != $trigger ]]; then
