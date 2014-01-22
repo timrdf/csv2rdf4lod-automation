@@ -57,7 +57,18 @@ fi
 # Additional functionality for custom publication triggers:
 #   https://github.com/timrdf/csv2rdf4lod-automation/wiki/Triggers#4-publication-triggers
 
-for trigger in `find . -maxdepth 6 -name "publish.sh"`; do 
+bottom='7' # cr:data-root: ./git2prov-org/github_tetherless-world_opendap/version/2013-Dec-21/publish/bin/publish.sh
+if [[ `cr-pwd-type.sh` == 'cr:source' ]]; then
+   bottom='6'
+elif [[ `cr-pwd-type.sh` == 'cr:dataset' ]]; then
+   bottom='5'
+elif [[ `cr-pwd-type.sh` == 'cr:directory-of-versions' ]]; then
+   bottom='4'
+elif [[ `cr-pwd-type.sh` == 'cr:conversion-cockpit' ]]; then
+   bottom='3'
+fi
+
+for trigger in `find . -maxdepth $bottom -name "publish.sh"`; do 
 
    if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == 'fine' ]]; then
       echo $trigger
