@@ -57,7 +57,7 @@ fi
 # Additional functionality for custom publication triggers:
 #   https://github.com/timrdf/csv2rdf4lod-automation/wiki/Triggers#4-publication-triggers
 
-for trigger in `find . -name "publish.sh"`; do 
+for trigger in `find . -maxdepth 6 -name "publish.sh"`; do 
 
    if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == 'fine' ]]; then
       echo $trigger
