@@ -83,7 +83,7 @@ for trigger in `find . -maxdepth $bottom -name "publish.sh"`; do
       # invoke the extant publication trigger.
       pushd ${trigger%publish/bin/publish.sh} &> /dev/null
          if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
-            if [[ $idempotent == 'whatever' || $idempotent == 'demanded' && `cr-idempotent.sh publish.sh` == 'yes' ]]; then
+            if [[ $idempotent == 'whatever' || $idempotent == 'demanded' && `cr-idempotent.sh publish/bin/publish.sh` == 'yes' ]]; then
                if [ "$dryrun" != "true" ]; then
                   publish/bin/publish.sh
                else
