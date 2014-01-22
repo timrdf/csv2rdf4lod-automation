@@ -79,14 +79,14 @@ for trigger in `find . -maxdepth $bottom -name "publish.sh"`; do
       # The original need was to step into each conversion cockpit to 
       # invoke the extant publication trigger.
       pushd ${trigger%publish/bin/publish.sh} &> /dev/null
+         if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == 'fine' ]]; then
+            echo "COCKPIT?"
+         fi
          if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
             if [[ $idempotent == 'whatever' || $idempotent == 'demanded' && `cr-idempotent.sh publish.sh` == 'yes' ]]; then
                if [ "$dryrun" != "true" ]; then
                   publish/bin/publish.sh
                else
-                  if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == 'fine' ]]; then
-                     echo "COCKPIT"
-                  fi
                   cr-pwd.sh
                fi
             fi
