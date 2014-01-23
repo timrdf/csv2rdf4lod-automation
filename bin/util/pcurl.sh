@@ -19,7 +19,7 @@
 # Usage:
 #
 #   pcurl.sh http://www.whitehouse.gov/files/disclosures/visitors/WhiteHouse-WAVES-Key-1209.txt
-#   (produces WhiteHouse-WAVES-Key-1209.txt and WhiteHouse-WAVES-Key-1209.txt.pml.ttl)
+#   (produces WhiteHouse-WAVES-Key-1209.txt and WhiteHouse-WAVES-Key-1209.txt.prov.ttl)
 #
 # Three ways to name the local file:
 #   1) basename of original URL given (deprecated)
@@ -30,7 +30,7 @@
 #
 # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-pcurl.sh
 
-usage_message="usage: `basename $0` [-I] [--repeat a.pml.ttl] [url [-F \"a=b\"]* [-n name] [-e extension]]     [url [-F \"a=b\"]* [-n name] [-e extension]]*" #todo: [-from a.pml] " 
+usage_message="usage: `basename $0` [-I] [--repeat a.prov.ttl] [url [-F \"a=b\"]* [-n name] [-e extension]]     [url [-F \"a=b\"]* [-n name] [-e extension]]*" #todo: [-from a.prov] " 
 
 if [ $# -lt 1 ]; then
    echo $usage_message 
@@ -70,10 +70,10 @@ while [ $# -gt 0 ]; do
 
    if [ "$1" == "--repeat" ]; then
       if [ $# -gt 1 ]; then
-         local_pml="$2"
+         local_prov="$2"
          shift 2
-         if [ -e $local_pml ]; then
-            sources=`rapper -g -o ntriples $local_pml 2>/dev/null | awk '$3 == "<http://inference-web.org/2.0/pml-provenance.owl#Source>"{if(saw[$1]!=$1){saw[$1]=$1;gsub(/<|>/,"");printf("%s",$1)}}'`
+         if [ -e $local_prov ]; then
+            sources=`rapper -g -o ntriples $local_prov 2>/dev/null | awk '$3 == "<http://inference-web.org/2.0/pml-provenance.owl#Source>"{if(saw[$1]!=$1){saw[$1]=$1;gsub(/<|>/,"");printf("%s",$1)}}'`
             for url in $sources; do
                echo "repeating retrieval of $url"
                $CSV2RDF4LOD_HOME/bin/util/pcurl.sh $url # Recursive call
@@ -81,10 +81,10 @@ while [ $# -gt 0 ]; do
             # TODO: dig in to find -e -n params
             # TODO: dig in to find POST att=values
          else
-            echo "error: a.pml.ttl not specified"
+            echo "error: a.prov.ttl not specified"
          fi
       else
-         echo "error: a.pml.ttl not specified"
+         echo "error: a.prov.ttl not specified"
          shift
       fi
    fi
@@ -181,175 +181,175 @@ while [ $# -gt 0 ]; do
       inferenceStep="inferenceStep$requestID"
       wasControlled="wasControlledBy$requestID"
 
-      echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                                         > $file.pml.ttl
-      echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                                            >> $file.pml.ttl
-      echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                                    >> $file.pml.ttl
-      echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."                             >> $file.pml.ttl
-      echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."                          >> $file.pml.ttl
-      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                                                   >> $file.pml.ttl
-      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                                     >> $file.pml.ttl
-      echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                                             >> $file.pml.ttl
-      echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                                          >> $file.pml.ttl
-      echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                                           >> $file.pml.ttl
-      echo "@prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> ."                       >> $file.pml.ttl
-      echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."                              >> $file.pml.ttl
-      echo "@prefix conv:       <http://purl.org/twc/vocab/conversion/> ."                                        >> $file.pml.ttl
-      echo "@prefix httphead:   <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> ."                     >> $file.pml.ttl
-      echo "@prefix httpget:    <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> ."                      >> $file.pml.ttl
-      echo "@prefix httppost:   <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> ."                     >> $file.pml.ttl
-      echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                                                   >> $file.pml.ttl
-      echo                                                                                                        >> $file.pml.ttl
-      $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                                                  >> $file.pml.ttl
-      echo                                                                                                        >> $file.pml.ttl
-      echo "<$url>"                                                                                               >> $file.pml.ttl
-      echo "   a pmlp:Source, prov:Entity;"                                                                       >> $file.pml.ttl
+      echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                                         > $file.prov.ttl
+      echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                                            >> $file.prov.ttl
+      echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                                    >> $file.prov.ttl
+      echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."                             >> $file.prov.ttl
+      echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."                          >> $file.prov.ttl
+      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                                                   >> $file.prov.ttl
+      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                                     >> $file.prov.ttl
+      echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                                             >> $file.prov.ttl
+      echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                                          >> $file.prov.ttl
+      echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                                           >> $file.prov.ttl
+      echo "@prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> ."                       >> $file.prov.ttl
+      echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."                              >> $file.prov.ttl
+      echo "@prefix conv:       <http://purl.org/twc/vocab/conversion/> ."                                        >> $file.prov.ttl
+      echo "@prefix httphead:   <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> ."                     >> $file.prov.ttl
+      echo "@prefix httpget:    <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> ."                      >> $file.prov.ttl
+      echo "@prefix httppost:   <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> ."                     >> $file.prov.ttl
+      echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                                                   >> $file.prov.ttl
+      echo                                                                                                        >> $file.prov.ttl
+      $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                                                  >> $file.prov.ttl
+      echo                                                                                                        >> $file.prov.ttl
+      echo "<$url>"                                                                                               >> $file.prov.ttl
+      echo "   a pmlp:Source, prov:Entity;"                                                                       >> $file.prov.ttl
          if [ "$redirectedURL" != "$url" ]; then
             if [ ${#urlModDateTime} -gt 3 ]; then
-               echo "   pmlp:hasModificationDateTime \"$urlModDateTime\"^^xsd:dateTime;"                          >> $file.pml.ttl
-               echo "   dcterms:modified             \"$urlModDateTime\"^^xsd:dateTime;"                          >> $file.pml.ttl
+               echo "   pmlp:hasModificationDateTime \"$urlModDateTime\"^^xsd:dateTime;"                          >> $file.prov.ttl
+               echo "   dcterms:modified             \"$urlModDateTime\"^^xsd:dateTime;"                          >> $file.prov.ttl
             fi
-            echo "   irw:redirectsTo <$redirectedURL>;"                                                           >> $file.pml.ttl
+            echo "   irw:redirectsTo <$redirectedURL>;"                                                           >> $file.prov.ttl
          fi
-      echo "."                                                                                                    >> $file.pml.ttl
-      echo                                                                                                        >> $file.pml.ttl
-      echo "<$redirectedURL>"                                                                                     >> $file.pml.ttl
-      echo "   a pmlp:Source, prov:Entity;"                                                                       >> $file.pml.ttl
+      echo "."                                                                                                    >> $file.prov.ttl
+      echo                                                                                                        >> $file.prov.ttl
+      echo "<$redirectedURL>"                                                                                     >> $file.prov.ttl
+      echo "   a pmlp:Source, prov:Entity;"                                                                       >> $file.prov.ttl
          if [ ${#redirectedModDate} -gt 3 ]; then
-            echo "   pmlp:hasModificationDateTime \"$redirectedModDate\"^^xsd:dateTime;"                          >> $file.pml.ttl
-            echo "   dcterms:modified             \"$redirectedModDate\"^^xsd:dateTime;"                          >> $file.pml.ttl
+            echo "   pmlp:hasModificationDateTime \"$redirectedModDate\"^^xsd:dateTime;"                          >> $file.prov.ttl
+            echo "   dcterms:modified             \"$redirectedModDate\"^^xsd:dateTime;"                          >> $file.prov.ttl
          fi
-      echo "."                                                                                                    >> $file.pml.ttl
-      echo                                                                                                        >> $file.pml.ttl
+      echo "."                                                                                                    >> $file.prov.ttl
+      echo                                                                                                        >> $file.prov.ttl
       if [ "$downloadFile" == "true" ]; then
-         echo "<$file>"                                                                                           >> $file.pml.ttl
-         echo "   a nfo:FileDataObject, prov:Entity, pmlp:Information;"                                           >> $file.pml.ttl
-         echo "   prov:wasQuotedFrom      <$redirectedURL>;"                                                      >> $file.pml.ttl
-         echo "   prov:qualifiedQuotation <${quotation}>;"                                                        >> $file.pml.ttl
-         echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_content>;"                                         >> $file.pml.ttl
-         echo "."                                                                                                 >> $file.pml.ttl
-         $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$file"                                                       >> $file.pml.ttl
-         echo                                                                                                     >> $file.pml.ttl
-         echo "<${nodeSet}_content>"                                                                              >> $file.pml.ttl
-         echo "   a pmlj:NodeSet;"                                                                                >> $file.pml.ttl
-         echo "   pmlj:hasConclusion <$file>;"                                                                    >> $file.pml.ttl
-         echo "   pmlj:isConsequentOf <${inferenceStep}_content>;"                                                >> $file.pml.ttl
-         echo "."                                                                                                 >> $file.pml.ttl
-         echo "<${inferenceStep}_content>"                                                                        >> $file.pml.ttl
-         echo "   a pmlj:InferenceStep;"                                                                          >> $file.pml.ttl
-         echo "   pmlj:hasIndex 0;"                                                                               >> $file.pml.ttl
-         echo "   pmlj:hasAntecedentList ();"                                                                     >> $file.pml.ttl
-         echo "   pmlj:hasSourceUsage     <${sourceUsage}_content>;"                                              >> $file.pml.ttl
-         echo "   pmlj:hasInferenceEngine conv:curl_$curlMD5;"                                                    >> $file.pml.ttl
-         echo "   pmlj:hasInferenceRule   http`echo $HTTP_TYPE | awk '{print tolower($0)}'`:HTTP_1_1_$HTTP_TYPE;" >> $file.pml.ttl
-         echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                  >> $file.pml.ttl
-         echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                  >> $file.pml.ttl
+         echo "<$file>"                                                                                           >> $file.prov.ttl
+         echo "   a nfo:FileDataObject, prov:Entity, pmlp:Information;"                                           >> $file.prov.ttl
+         echo "   prov:wasQuotedFrom      <$redirectedURL>;"                                                      >> $file.prov.ttl
+         echo "   prov:qualifiedQuotation <${quotation}>;"                                                        >> $file.prov.ttl
+         echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_content>;"                                         >> $file.prov.ttl
+         echo "."                                                                                                 >> $file.prov.ttl
+         $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$file"                                                       >> $file.prov.ttl
+         echo                                                                                                     >> $file.prov.ttl
+         echo "<${nodeSet}_content>"                                                                              >> $file.prov.ttl
+         echo "   a pmlj:NodeSet;"                                                                                >> $file.prov.ttl
+         echo "   pmlj:hasConclusion <$file>;"                                                                    >> $file.prov.ttl
+         echo "   pmlj:isConsequentOf <${inferenceStep}_content>;"                                                >> $file.prov.ttl
+         echo "."                                                                                                 >> $file.prov.ttl
+         echo "<${inferenceStep}_content>"                                                                        >> $file.prov.ttl
+         echo "   a pmlj:InferenceStep;"                                                                          >> $file.prov.ttl
+         echo "   pmlj:hasIndex 0;"                                                                               >> $file.prov.ttl
+         echo "   pmlj:hasAntecedentList ();"                                                                     >> $file.prov.ttl
+         echo "   pmlj:hasSourceUsage     <${sourceUsage}_content>;"                                              >> $file.prov.ttl
+         echo "   pmlj:hasInferenceEngine conv:curl_$curlMD5;"                                                    >> $file.prov.ttl
+         echo "   pmlj:hasInferenceRule   http`echo $HTTP_TYPE | awk '{print tolower($0)}'`:HTTP_1_1_$HTTP_TYPE;" >> $file.prov.ttl
+         echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                  >> $file.prov.ttl
+         echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                  >> $file.prov.ttl
                for field in $formFields; do
                   if [ $field != "-F" ]; then
                      attribute=`echo $field | awk -F\= '{print $1}'`
                          value=`echo $field | awk -F\= '{print $2}'`
                      echo "metaBinding: $field is $attribute and $value"
-         echo "   pmlj:hasVariableMapping [ pmlj:mapFrom \"$attribute\"; pmlj:mapTo \"$value\"; ];"               >> $file.pml.ttl
+         echo "   pmlj:hasVariableMapping [ pmlj:mapFrom \"$attribute\"; pmlj:mapTo \"$value\"; ];"               >> $file.prov.ttl
                   fi
                done
-         echo "."                                                                                                 >> $file.pml.ttl
-         echo                                                                                                     >> $file.pml.ttl
-         echo "<${quotation}>"                                                                                    >> $file.pml.ttl
-         echo "   a prov:Quotation;"                                                                              >> $file.pml.ttl
-         echo "   prov:entity <$redirectedURL>;"                                                                  >> $file.pml.ttl
-         echo "   prov:atTime \"$usageDateTime\"^^xsd:dateTime;"                                                  >> $file.pml.ttl
-         echo "."                                                                                                 >> $file.pml.ttl
-         echo                                                                                                     >> $file.pml.ttl
-         echo "<${sourceUsage}_content>"                                                                          >> $file.pml.ttl
-         echo "   a pmlp:SourceUsage;"                                                                            >> $file.pml.ttl
-         echo "   pmlp:hasSource        <$redirectedURL>;"                                                        >> $file.pml.ttl
-         echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                                        >> $file.pml.ttl
-         echo "."                                                                                                 >> $file.pml.ttl
-         echo                                                                                                     >> $file.pml.ttl
-         echo "<${wasControlled}_content>"                                                                        >> $file.pml.ttl
-         echo "   a oprov:WasControlledBy;"                                                                       >> $file.pml.ttl
-         echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                              >> $file.pml.ttl
-         echo "   oprov:effect <${inferenceStep}_content>;"                                                       >> $file.pml.ttl
-         echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                                                >> $file.pml.ttl
-         echo "."                                                                                                 >> $file.pml.ttl
+         echo "."                                                                                                 >> $file.prov.ttl
+         echo                                                                                                     >> $file.prov.ttl
+         echo "<${quotation}>"                                                                                    >> $file.prov.ttl
+         echo "   a prov:Quotation;"                                                                              >> $file.prov.ttl
+         echo "   prov:entity <$redirectedURL>;"                                                                  >> $file.prov.ttl
+         echo "   prov:atTime \"$usageDateTime\"^^xsd:dateTime;"                                                  >> $file.prov.ttl
+         echo "."                                                                                                 >> $file.prov.ttl
+         echo                                                                                                     >> $file.prov.ttl
+         echo "<${sourceUsage}_content>"                                                                          >> $file.prov.ttl
+         echo "   a pmlp:SourceUsage;"                                                                            >> $file.prov.ttl
+         echo "   pmlp:hasSource        <$redirectedURL>;"                                                        >> $file.prov.ttl
+         echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                                        >> $file.prov.ttl
+         echo "."                                                                                                 >> $file.prov.ttl
+         echo                                                                                                     >> $file.prov.ttl
+         echo "<${wasControlled}_content>"                                                                        >> $file.prov.ttl
+         echo "   a oprov:WasControlledBy;"                                                                       >> $file.prov.ttl
+         echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                              >> $file.prov.ttl
+         echo "   oprov:effect <${inferenceStep}_content>;"                                                       >> $file.prov.ttl
+         echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                                                >> $file.prov.ttl
+         echo "."                                                                                                 >> $file.prov.ttl
       fi
-      echo " "                                                                                                    >> $file.pml.ttl
-      echo "<info${requestID}_url_header>"                                                                        >> $file.pml.ttl
-      echo "   a pmlp:Information, conv:HTTPHeader;"                                                              >> $file.pml.ttl
-      echo "   pmlp:hasRawString \"\"\"$urlINFO\"\"\";"                                                           >> $file.pml.ttl
-      echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_url_header>;"                                         >> $file.pml.ttl
-      echo "."                                                                                                    >> $file.pml.ttl
-      echo " "                                                                                                    >> $file.pml.ttl
-      echo "<${nodeSet}_url_header>"                                                                              >> $file.pml.ttl
-      echo "   a pmlj:NodeSet;"                                                                                   >> $file.pml.ttl
-      echo "   pmlj:hasConclusion <info${requestID}_url_header>;"                                                 >> $file.pml.ttl
-      echo "   pmlj:isConsequentOf <${inferenceStep}_url_header>;"                                                >> $file.pml.ttl
-      echo "."                                                                                                    >> $file.pml.ttl
-      echo "<${inferenceStep}_url_header>"                                                                        >> $file.pml.ttl
-      echo "   a pmlj:InferenceStep;"                                                                             >> $file.pml.ttl
-      echo "   pmlj:hasIndex 0;"                                                                                  >> $file.pml.ttl
-      echo "   pmlj:hasAntecedentList ();"                                                                        >> $file.pml.ttl
-      echo "   pmlj:hasSourceUsage     <${sourceUsage}_url_header>;"                                              >> $file.pml.ttl
-      echo "   pmlj:hasInferenceEngine conv:curl_$curlMD5;"                                                       >> $file.pml.ttl
-      echo "   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;"                                                   >> $file.pml.ttl
-      echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                     >> $file.pml.ttl
-      echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                     >> $file.pml.ttl
-      echo "."                                                                                                    >> $file.pml.ttl
-      echo                                                                                                        >> $file.pml.ttl
-      echo "<${sourceUsage}_url_header>"                                                                          >> $file.pml.ttl
-      echo "   a pmlp:SourceUsage;"                                                                               >> $file.pml.ttl
-      echo "   pmlp:hasSource        <$url>;"                                                                     >> $file.pml.ttl
-      echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                                           >> $file.pml.ttl
-      echo "."                                                                                                    >> $file.pml.ttl
-      echo "<${wasControlled}_url_header>"                                                                        >> $file.pml.ttl
-      echo "   a oprov:WasControlledBy;"                                                                          >> $file.pml.ttl
-      echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                                 >> $file.pml.ttl
-      echo "   oprov:effect <${nodeSet}_url_header>;"                                                             >> $file.pml.ttl
-      echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                                                   >> $file.pml.ttl
-      echo "."                                                                                                    >> $file.pml.ttl
-      echo                                                                                                        >> $file.pml.ttl
+      echo " "                                                                                                    >> $file.prov.ttl
+      echo "<info${requestID}_url_header>"                                                                        >> $file.prov.ttl
+      echo "   a pmlp:Information, conv:HTTPHeader;"                                                              >> $file.prov.ttl
+      echo "   pmlp:hasRawString \"\"\"$urlINFO\"\"\";"                                                           >> $file.prov.ttl
+      echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_url_header>;"                                         >> $file.prov.ttl
+      echo "."                                                                                                    >> $file.prov.ttl
+      echo " "                                                                                                    >> $file.prov.ttl
+      echo "<${nodeSet}_url_header>"                                                                              >> $file.prov.ttl
+      echo "   a pmlj:NodeSet;"                                                                                   >> $file.prov.ttl
+      echo "   pmlj:hasConclusion <info${requestID}_url_header>;"                                                 >> $file.prov.ttl
+      echo "   pmlj:isConsequentOf <${inferenceStep}_url_header>;"                                                >> $file.prov.ttl
+      echo "."                                                                                                    >> $file.prov.ttl
+      echo "<${inferenceStep}_url_header>"                                                                        >> $file.prov.ttl
+      echo "   a pmlj:InferenceStep;"                                                                             >> $file.prov.ttl
+      echo "   pmlj:hasIndex 0;"                                                                                  >> $file.prov.ttl
+      echo "   pmlj:hasAntecedentList ();"                                                                        >> $file.prov.ttl
+      echo "   pmlj:hasSourceUsage     <${sourceUsage}_url_header>;"                                              >> $file.prov.ttl
+      echo "   pmlj:hasInferenceEngine conv:curl_$curlMD5;"                                                       >> $file.prov.ttl
+      echo "   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;"                                                   >> $file.prov.ttl
+      echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                     >> $file.prov.ttl
+      echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                     >> $file.prov.ttl
+      echo "."                                                                                                    >> $file.prov.ttl
+      echo                                                                                                        >> $file.prov.ttl
+      echo "<${sourceUsage}_url_header>"                                                                          >> $file.prov.ttl
+      echo "   a pmlp:SourceUsage;"                                                                               >> $file.prov.ttl
+      echo "   pmlp:hasSource        <$url>;"                                                                     >> $file.prov.ttl
+      echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                                           >> $file.prov.ttl
+      echo "."                                                                                                    >> $file.prov.ttl
+      echo "<${wasControlled}_url_header>"                                                                        >> $file.prov.ttl
+      echo "   a oprov:WasControlledBy;"                                                                          >> $file.prov.ttl
+      echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                                 >> $file.prov.ttl
+      echo "   oprov:effect <${nodeSet}_url_header>;"                                                             >> $file.prov.ttl
+      echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                                                   >> $file.prov.ttl
+      echo "."                                                                                                    >> $file.prov.ttl
+      echo                                                                                                        >> $file.prov.ttl
          if [ "$redirectedURL" != "$url" ]; then
-            echo "<info${requestID}_redirected_url_header>"                                                       >> $file.pml.ttl
-            echo "   a pmlp:Information, conv:HTTPHeader;"                                                        >> $file.pml.ttl
-            echo "   pmlp:hasRawString \"\"\"$redirectedURLINFO\"\"\";"                                           >> $file.pml.ttl
-            echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_redirected_url_header>;"                        >> $file.pml.ttl
-            echo "."                                                                                              >> $file.pml.ttl
-            echo                                                                                                  >> $file.pml.ttl
-            echo "<${nodeSet}_redirected_url_header>"                                                             >> $file.pml.ttl
-            echo "   a pmlj:NodeSet;"                                                                             >> $file.pml.ttl
-            echo "   pmlj:hasConclusion <info${requestID}_redirected_url_header>;"                                >> $file.pml.ttl
-            echo "   pmlj:isConsequentOf <${inferenceStep}_redirected_url_header>;"                               >> $file.pml.ttl
-            echo "."                                                                                              >> $file.pml.ttl
-            echo "<${inferenceStep}_redirected_url_header>"                                                       >> $file.pml.ttl
-            echo "   a pmlj:InferenceStep;"                                                                       >> $file.pml.ttl
-            echo "   pmlj:hasIndex 0;"                                                                            >> $file.pml.ttl
-            echo "   pmlj:hasAntecedentList ();"                                                                  >> $file.pml.ttl
-            echo "   pmlj:hasSourceUsage     <${sourceUsage}_redirected_url_header>;"                             >> $file.pml.ttl
-            echo "   pmlj:hasInferenceEngine conv:curl_$curlMD5;"                                                 >> $file.pml.ttl
-            echo "   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;"                                             >> $file.pml.ttl
-            echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"               >> $file.pml.ttl
-            echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"               >> $file.pml.ttl
-            echo "."                                                                                              >> $file.pml.ttl
-            echo                                                                                                  >> $file.pml.ttl
-            echo "<${sourceUsage}_redirected_url_header>"                                                         >> $file.pml.ttl
-            echo "   a pmlp:SourceUsage;"                                                                         >> $file.pml.ttl
-            echo "   pmlp:hasSource        <$redirectedURL>;"                                                     >> $file.pml.ttl
-            echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                                     >> $file.pml.ttl
-            echo "."                                                                                              >> $file.pml.ttl
-            echo "<${wasControlled}_redirected_url_header>"                                                       >> $file.pml.ttl
-            echo "   a oprov:WasControlledBy;"                                                                    >> $file.pml.ttl
-            echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                           >> $file.pml.ttl
-            echo "   oprov:effect <${inferenceStep}_redirected_url_header>;"                                      >> $file.pml.ttl
-            echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                                             >> $file.pml.ttl
-            echo "."                                                                                              >> $file.pml.ttl
+            echo "<info${requestID}_redirected_url_header>"                                                       >> $file.prov.ttl
+            echo "   a pmlp:Information, conv:HTTPHeader;"                                                        >> $file.prov.ttl
+            echo "   pmlp:hasRawString \"\"\"$redirectedURLINFO\"\"\";"                                           >> $file.prov.ttl
+            echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_redirected_url_header>;"                        >> $file.prov.ttl
+            echo "."                                                                                              >> $file.prov.ttl
+            echo                                                                                                  >> $file.prov.ttl
+            echo "<${nodeSet}_redirected_url_header>"                                                             >> $file.prov.ttl
+            echo "   a pmlj:NodeSet;"                                                                             >> $file.prov.ttl
+            echo "   pmlj:hasConclusion <info${requestID}_redirected_url_header>;"                                >> $file.prov.ttl
+            echo "   pmlj:isConsequentOf <${inferenceStep}_redirected_url_header>;"                               >> $file.prov.ttl
+            echo "."                                                                                              >> $file.prov.ttl
+            echo "<${inferenceStep}_redirected_url_header>"                                                       >> $file.prov.ttl
+            echo "   a pmlj:InferenceStep;"                                                                       >> $file.prov.ttl
+            echo "   pmlj:hasIndex 0;"                                                                            >> $file.prov.ttl
+            echo "   pmlj:hasAntecedentList ();"                                                                  >> $file.prov.ttl
+            echo "   pmlj:hasSourceUsage     <${sourceUsage}_redirected_url_header>;"                             >> $file.prov.ttl
+            echo "   pmlj:hasInferenceEngine conv:curl_$curlMD5;"                                                 >> $file.prov.ttl
+            echo "   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;"                                             >> $file.prov.ttl
+            echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"               >> $file.prov.ttl
+            echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"               >> $file.prov.ttl
+            echo "."                                                                                              >> $file.prov.ttl
+            echo                                                                                                  >> $file.prov.ttl
+            echo "<${sourceUsage}_redirected_url_header>"                                                         >> $file.prov.ttl
+            echo "   a pmlp:SourceUsage;"                                                                         >> $file.prov.ttl
+            echo "   pmlp:hasSource        <$redirectedURL>;"                                                     >> $file.prov.ttl
+            echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                                     >> $file.prov.ttl
+            echo "."                                                                                              >> $file.prov.ttl
+            echo "<${wasControlled}_redirected_url_header>"                                                       >> $file.prov.ttl
+            echo "   a oprov:WasControlledBy;"                                                                    >> $file.prov.ttl
+            echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                           >> $file.prov.ttl
+            echo "   oprov:effect <${inferenceStep}_redirected_url_header>;"                                      >> $file.prov.ttl
+            echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                                             >> $file.prov.ttl
+            echo "."                                                                                              >> $file.prov.ttl
          fi
-      echo                                                                                                        >> $file.pml.ttl
-      echo "conv:curl_$curlMD5"                                                                                   >> $file.pml.ttl
-      echo "   a prov:Agent, pmlp:InferenceEngine, conv:Curl;"                                                    >> $file.pml.ttl
-      echo "   dcterms:identifier \"$curlMD5\";"                                                                  >> $file.pml.ttl
-      echo "   dcterms:description \"\"\"`curl --version`\"\"\";"                                                 >> $file.pml.ttl
-      echo "."                                                                                                    >> $file.pml.ttl
-      echo                                                                                                        >> $file.pml.ttl
-      echo "conv:Curl rdfs:subClassOf pmlp:InferenceEngine ."                                                     >> $file.pml.ttl
+      echo                                                                                                        >> $file.prov.ttl
+      echo "conv:curl_$curlMD5"                                                                                   >> $file.prov.ttl
+      echo "   a prov:Agent, pmlp:InferenceEngine, conv:Curl;"                                                    >> $file.prov.ttl
+      echo "   dcterms:identifier \"$curlMD5\";"                                                                  >> $file.prov.ttl
+      echo "   dcterms:description \"\"\"`curl --version`\"\"\";"                                                 >> $file.prov.ttl
+      echo "."                                                                                                    >> $file.prov.ttl
+      echo                                                                                                        >> $file.prov.ttl
+      echo "conv:Curl rdfs:subClassOf pmlp:InferenceEngine ."                                                     >> $file.prov.ttl
    elif [ ! -e $file ]; then
       echo "could not obtain dataset version."
    else 
