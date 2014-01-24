@@ -1,7 +1,8 @@
 #!/bin/bash
 #
 #3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-retrieve.sh>;
-#3>    prov:wasRevisionOf    <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-cockpit.sh> .
+#3>    prov:wasRevisionOf    <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish-cockpit.sh>;
+#3>    prov:alternateOf      <https://github.com/timrdf/prizms/blob/master/src/python/prov-pingback.py> .
 #
 # Environment variables needed:
 #

@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 #3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-publish.sh>;
+#3>    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Triggers#4-publication-triggers;
 #3> .
 #
 #   Copyright 2012 Timothy Lebo
