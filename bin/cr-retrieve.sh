@@ -136,6 +136,19 @@ elif [[ `is-pwd-a.sh                                                            
             popd &> /dev/null
          fi
       done 
+   elif [[ `find . -mindepth 2 -maxdepth 2 -name access.ttl | wc -l | awk '{print $1}'` -gt 0 ]]; then
+      echo "INFO: `basename $0`: found version-specific access metadata for `cr-pwd-type.sh`."
+      # A version-specific access metadata.
+      #
+      # e.g. working directory: data/source/us/cr-sparql-sd/version
+      #      find returns:                                        ./latest/access.ttl   # depth = 2
+      for access in `find . -mindepth 2 -maxdepth 2 -name access.ttl`; do
+         if [[ ! -e `dirname $access`/source ]]; then
+            pushd `dirname $access` &> /dev/null
+               $0 $w $skip_if_exists
+            popd &> /dev/null
+         fi
+      done 
    elif [[ -n "$skip_if_exists" && ${#latest_version} -gt 0 ]]; then
       not='not retrieving b/c --skip-if-exists was specified'
       echo "INFO: `basename $0`: version for `cr-source-id.sh`/`cr-dataset-id.sh` already exists ($latest_version); $not."
