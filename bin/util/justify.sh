@@ -163,7 +163,7 @@ else
 
       echo                                                                                    >> $consequent.$prov.ttl
       echo $consequentURI                                                                     >> $consequent.$prov.ttl
-      echo "   a pmlp:Information;"                                                           >> $consequent.$prov.ttl
+      echo "   a pmlp:Information, prov:Entity;"                                              >> $consequent.$prov.ttl
       echo "   pmlp:hasModificationDateTime \"$consequentModDateTime\"^^xsd:dateTime;"        >> $consequent.$prov.ttl
       #echo "   pmlp:hasReferenceSourceUsage $sourceUsage;"                                   >> $consequent.$prov.ttl
       echo "."                                                                                >> $consequent.$prov.ttl
@@ -183,15 +183,16 @@ else
       #echo                                                                                    >> $consequent.$prov.ttl
       if [[ -e "$antecedent" ]]; then
          echo "<../$antecedent>"                                                               >> $consequent.$prov.ttl
-         echo "   a pmlp:Information;"                                                         >> $consequent.$prov.ttl
+         echo "   a pmlp:Information, prov:Entity;"                                            >> $consequent.$prov.ttl
          if [[ -n "$antecedentModDateTime" ]]; then
          echo "   pmlp:hasModificationDateTime \"$antecedentModDateTime\"^^xsd:dateTime;"      >> $consequent.$prov.ttl
          fi
          echo "."                                                                              >> $consequent.$prov.ttl
+         echo "$consequentURI prov:wasDerivedFrom <../$antecedent> ."                          >> $consequent.$prov.ttl
       elif [[ "$antecedent" =~ http* ]]; then
          echo "$consequentURI prov:wasDerivedFrom <$antecedent> ."                             >> $consequent.$prov.ttl
          echo "<$antecedent>"                                                                  >> $consequent.$prov.ttl
-         echo "   a sioc:Item, irw:WebResource;"                                               >> $consequent.$prov.ttl
+         echo "   a sioc:Item, irw:WebResource, prov:Entity;"                                  >> $consequent.$prov.ttl
          echo "."                                                                              >> $consequent.$prov.ttl
       fi
 
@@ -241,7 +242,7 @@ else
       echo "."                                                                                >> $consequent.$prov.ttl
       echo ""                                                                                 >> $consequent.$prov.ttl
       echo "<$engine_name>"                                                                   >> $consequent.$prov.ttl
-      echo "   a pmlp:InferenceEngine, $engine_type;"                                         >> $consequent.$prov.ttl
+      echo "   a pmlp:InferenceEngine, $engine_type, prov:Entity;"                            >> $consequent.$prov.ttl
       echo "   dcterms:identifier \"$engine_name\";"                                          >> $consequent.$prov.ttl
       echo "."                                                                                >> $consequent.$prov.ttl
       echo                                                                                    >> $consequent.$prov.ttl
