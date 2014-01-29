@@ -124,7 +124,7 @@ elif [[ `is-pwd-a.sh                                                            
       fi
       ./retrieve.sh
    elif [[ `find . -mindepth 2 -maxdepth 2 -name retrieve.sh | wc -l | awk '{print $1}'` -gt 0 ]]; then
-      echo "INFO: `basename $0`: found custom retrieval trigger in `cr-pwd-type.sh`."
+      echo "INFO: `basename $0`: found custom retrieval trigger in `cr-pwd-type.sh`: `cr-source-id.sh` `cr-dataset-id.sh`."
       # A version-specific custom retrieval trigger.
       #
       # e.g. working directory: data/source/us/cr-sparql-sd/version
