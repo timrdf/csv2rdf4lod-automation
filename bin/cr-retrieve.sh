@@ -117,6 +117,23 @@ elif [[ `is-pwd-a.sh                                                            
       shift
    fi
 
+
+   # It seems as though the pattern should be to find most-specific cases and work backwards,
+   # allowing all cases to trigger.
+
+   # A version-specific access metadata, with no custom retrieval trigger.
+   #
+   # e.g. working directory: data/source/us/cr-sparql-sd/version
+   #      find returns:                                        ./latest/access.ttl   # depth = 2
+   for access in `find . -mindepth 2 -maxdepth 2 -name access.ttl`; do
+      if [[ ! -e `dirname $access`/source && ! -e `dirname $access`/retrieve.sh ]]; then
+         echo "INFO: `basename $0`: found un-retrieved version-specific access metadata for `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh`: $access."
+         pushd `dirname $access` &> /dev/null
+            $0 $w $skip_if_exists
+         popd &> /dev/null
+      fi
+   done 
+
    latest_version=`cr-list-versions.sh`
    if [[ -e retrieve.sh && `cr-idempotent.sh retrieve.sh` == 'yes' ]]; then
       if [[ ! -x retrieve.sh ]]; then
@@ -124,27 +141,15 @@ elif [[ `is-pwd-a.sh                                                            
       fi
       ./retrieve.sh
    elif [[ `find . -mindepth 2 -maxdepth 2 -name retrieve.sh | wc -l | awk '{print $1}'` -gt 0 ]]; then
-      echo "INFO: `basename $0`: found custom retrieval trigger in `cr-pwd-type.sh`: `cr-source-id.sh` `cr-dataset-id.sh`."
+      echo "INFO: `basename $0`: found custom retrieval triggers in `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh`."
       # A version-specific custom retrieval trigger.
       #
       # e.g. working directory: data/source/us/cr-sparql-sd/version
       #      find returns:                                        ./latest/retrieve.sh   # depth = 2
       for trigger in `find . -mindepth 2 -maxdepth 2 -name retrieve.sh`; do
+         echo "INFO: `basename $0`: found custom retrieval trigger in `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh` $trigger."
          if [[ `cr-idempotent.sh $trigger` == 'yes' || ! -e `dirname $trigger`/source ]]; then
             pushd `dirname $trigger` &> /dev/null
-               $0 $w $skip_if_exists
-            popd &> /dev/null
-         fi
-      done 
-   elif [[ `find . -mindepth 2 -maxdepth 2 -name access.ttl | wc -l | awk '{print $1}'` -gt 0 ]]; then
-      echo "INFO: `basename $0`: found version-specific access metadata for `cr-pwd-type.sh`."
-      # A version-specific access metadata.
-      #
-      # e.g. working directory: data/source/us/cr-sparql-sd/version
-      #      find returns:                                        ./latest/access.ttl   # depth = 2
-      for access in `find . -mindepth 2 -maxdepth 2 -name access.ttl`; do
-         if [[ ! -e `dirname $access`/source ]]; then
-            pushd `dirname $access` &> /dev/null
                $0 $w $skip_if_exists
             popd &> /dev/null
          fi
