@@ -72,19 +72,33 @@ function retrieve_from_metadata {
    fi
 }
 
+sdv=`cr-sdv.sh --slashes --fast`
+wasInformed='a prov:Activity; prov:wasInformedBy <#cr-retrieve>;'
+
+function log_start {
+   echo "#3> <retrieval/$sdv> $wasInformed prov:startedAtTime `dateInXSDDateTime.sh --turtle` ."
+}
+function log_end {
+   echo "#3> <retrieval/$sdv> prov:endedAtTime `dateInXSDDateTime.sh --turtle` ."
+}
+
 if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
    if [[ -e access.ttl && ! -e source ]]; then
       access=access.ttl #`basename $PWD`/access.ttl
       versionID=`basename $PWD`
       echo "INFO: `basename $0`: retrieving un-retrieved version-specific access metadata for `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh` `cr-version-id.sh`: $access. 92"
+      log_start
       retrieve_from_metadata $access $versionID
+      log_end
    elif [[ -e retrieve.sh && ! -e source ]]; then
       if [[ ! -x retrieve.sh ]]; then
          chmod +x retrieve.sh
       fi
       echo "INFO: `basename $0`: pulling un-retrieved retrieval trigger for `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh` `cr-version-id.sh`: $access. 93"
+      log_start
       ./retrieve.sh
+      log_end
    fi
 
 elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
@@ -143,7 +157,9 @@ elif [[ `is-pwd-a.sh                                                            
          chmod +x retrieve.sh
       fi
       echo "INFO: `basename $0`: pulling custom retrieval trigger in `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh`. 95"
+      log_start
       ./retrieve.sh
+      log_end
    elif [[ `find . -mindepth 2 -maxdepth 2 -name retrieve.sh | wc -l | awk '{print $1}'` -gt 0 ]]; then
       # A version-specific custom retrieval trigger.
       #
@@ -177,19 +193,25 @@ elif [[ `is-pwd-a.sh                                                            
       fi
       if [ -e "$access" ]; then
          echo "INFO: `basename $0`: retrieving un-retrieved version-specific access metadata for `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh` `cr-version-id.sh`: $access. 97"
+         log_start
          retrieve_from_metadata $access "" # versionID
+         log_end
       fi
    elif [[ ${#latest_version} -eq 0 && ! -e dcat.ttl && ! -e ../dcat.ttl && -e "ls retrieve.*" ]]; then
       # There is no version yet, there is no dcat.ttl, but there is a retrieve.sh
       chmod +x retrieve.*
       echo "INFO: `basename $0`: pulling custom retrieval trigger in `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh`. 98"
+      log_start
       ./retrieve.*
+      log_end
    elif [[ -e retrieve.sh ]]; then
       if [[ ! -x retrieve.sh ]]; then
          chmod +x retrieve.sh
       fi
       echo "INFO: `basename $0`: pulling custom retrieval trigger in `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh`. 99"
+      log_start
       ./retrieve.sh
+      log_end
    else
       echo "[WARNING]: did not know how to handle `cr-pwd.sh`; no access metadata available."
    fi
