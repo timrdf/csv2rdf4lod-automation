@@ -77,11 +77,13 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    if [[ -e access.ttl && ! -e source ]]; then
       access=access.ttl #`basename $PWD`/access.ttl
       versionID=`basename $PWD`
+      echo "INFO: `basename $0`: retrieving un-retrieved version-specific access metadata for `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh` `cr-version-id.sh`: $access. 92"
       retrieve_from_metadata $access $versionID
-   elif [[ -e retrieve.sh ]]; then
+   elif [[ -e retrieve.sh && ! -e source ]]; then
       if [[ ! -x retrieve.sh ]]; then
          chmod +x retrieve.sh
       fi
+      echo "INFO: `basename $0`: pulling un-retrieved retrieval trigger for `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh` `cr-version-id.sh`: $access. 93"
       ./retrieve.sh
    fi
 
@@ -121,13 +123,14 @@ elif [[ `is-pwd-a.sh                                                            
    # It seems as though the pattern should be to find most-specific cases and work backwards,
    # allowing all cases to trigger.
 
-   # A version-specific access metadata, with no custom retrieval trigger.
+
+   # Version-specific access metadata, with no custom retrieval trigger.
    #
    # e.g. working directory: data/source/us/cr-sparql-sd/version
    #      find returns:                                        ./latest/access.ttl   # depth = 2
    for access in `find . -mindepth 2 -maxdepth 2 -name access.ttl`; do
       if [[ ! -e `dirname $access`/source && ! -e `dirname $access`/retrieve.sh ]]; then
-         echo "INFO: `basename $0`: found un-retrieved version-specific access metadata for `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh`: $access."
+         echo "INFO: `basename $0`: found un-retrieved version-specific access metadata for `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh`: $access. 94"
          pushd `dirname $access` &> /dev/null
             $0 $w $skip_if_exists
          popd &> /dev/null
@@ -139,19 +142,21 @@ elif [[ `is-pwd-a.sh                                                            
       if [[ ! -x retrieve.sh ]]; then
          chmod +x retrieve.sh
       fi
+      echo "INFO: `basename $0`: pulling custom retrieval trigger in `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh`. 95"
       ./retrieve.sh
    elif [[ `find . -mindepth 2 -maxdepth 2 -name retrieve.sh | wc -l | awk '{print $1}'` -gt 0 ]]; then
-      echo "INFO: `basename $0`: found custom retrieval triggers in `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh`."
       # A version-specific custom retrieval trigger.
       #
       # e.g. working directory: data/source/us/cr-sparql-sd/version
       #      find returns:                                        ./latest/retrieve.sh   # depth = 2
       for trigger in `find . -mindepth 2 -maxdepth 2 -name retrieve.sh`; do
-         echo "INFO: `basename $0`: found custom retrieval trigger in `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh` $trigger."
+         echo "INFO: `basename $0`: found custom retrieval trigger in `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh` $trigger. 96"
          if [[ `cr-idempotent.sh $trigger` == 'yes' || ! -e `dirname $trigger`/source ]]; then
             pushd `dirname $trigger` &> /dev/null
                $0 $w $skip_if_exists
             popd &> /dev/null
+         else
+            echo "INFO: `basename $0`: (but it wasn't idempotent, or it has already been retrieved) `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh` $trigger."
          fi
       done 
    elif [[ -n "$skip_if_exists" && ${#latest_version} -gt 0 ]]; then
@@ -160,27 +165,30 @@ elif [[ `is-pwd-a.sh                                                            
    elif [[ -e access.ttl || -e dcat.ttl || -e ../access.ttl || -e ../dcat.ttl ]]; then
       # dcat.ttl was a bad choice of name. It should be named after its purpose, not the specific vocab.
       # that currently achieves it. Still triggering on dcat.ttl for backward compatibility.
-      dcat='' # RDF file containing distribution information - which file to download for this dataset?
+      access='' # RDF file containing distribution information - which file to download for this dataset?
       if [ -e access.ttl ]; then
-         dcat='access.ttl'
+         access='access.ttl'
       elif [ -e dcat.ttl ]; then
-         dcat='dcat.ttl'
+         access='dcat.ttl'
       elif [ -e ../access.ttl ]; then
-         dcat='../access.ttl'
+         access='../access.ttl'
       elif [ -e ../dcat.ttl ]; then
-         dcat='../dcat.ttl'
+         access='../dcat.ttl'
       fi
-      if [ -e "$dcat" ]; then
-         retrieve_from_metadata $dcat "" # versionID
+      if [ -e "$access" ]; then
+         echo "INFO: `basename $0`: retrieving un-retrieved version-specific access metadata for `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh` `cr-version-id.sh`: $access. 97"
+         retrieve_from_metadata $access "" # versionID
       fi
    elif [[ ${#latest_version} -eq 0 && ! -e dcat.ttl && ! -e ../dcat.ttl && -e "ls retrieve.*" ]]; then
       # There is no version yet, there is no dcat.ttl, but there is a retrieve.sh
       chmod +x retrieve.*
+      echo "INFO: `basename $0`: pulling custom retrieval trigger in `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh`. 98"
       ./retrieve.*
    elif [[ -e retrieve.sh ]]; then
       if [[ ! -x retrieve.sh ]]; then
          chmod +x retrieve.sh
       fi
+      echo "INFO: `basename $0`: pulling custom retrieval trigger in `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh`. 99"
       ./retrieve.sh
    else
       echo "[WARNING]: did not know how to handle `cr-pwd.sh`; no access metadata available."
