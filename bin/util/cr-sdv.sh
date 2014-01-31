@@ -6,12 +6,22 @@ if [ "$1" == "--help" ]; then
    echo "usage: `basename $0` [--fast] [--attribute-value]"
    echo "  --fast            : use a faster technique to determine the 'sdv' value"
    echo "  --attribute-value : output cr-source-id= etc. format"
+   echo "  --slashes         : output with slash delimiters instead of dashes"
+   echo
+   echo "try also:"
+   echo "  cr-dataset-uri.sh --uri"
    exit
 fi
 
 if [ "$1" == "--attribute-value" ]; then
    echo cr-base-uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} cr-source-id=`cr-source-id.sh` cr-dataset-id=`cr-dataset-id.sh` cr-version-id=`cr-version-id.sh`
    exit
+fi
+
+delim="-"
+if [ "$1" == "--slashes" ]; then
+   delim="/"
+   shift
 fi
 
 if [ "$1" != '--fast' ]; then
@@ -23,9 +33,9 @@ if [ "$1" != '--fast' ]; then
    versionID=`cr-version-id.sh`
 
    if [ ${#versionID} -gt 0 ]; then
-      echo `cr-source-id.sh`-`cr-dataset-id.sh`-`cr-version-id.sh`
+      echo `cr-source-id.sh`$delim`cr-dataset-id.sh`$delim`cr-version-id.sh`
    elif [ ${#datasetID} -gt 0 ]; then
-      echo `cr-source-id.sh`-`cr-dataset-id.sh`
+      echo `cr-source-id.sh`$delim`cr-dataset-id.sh`
    elif [ ${#sourceID} -gt 0 ]; then
       echo `cr-source-id.sh`
    fi
@@ -51,21 +61,21 @@ else
       # e.g. pwd: /srv/twc-healthdata/data/source/hub-healthdata-gov/food-recalls/version/2012-May-08
       # desired result: hub-healthdata-gov-food-recalls-2012-May-08
 
-      pwd | awk -F/ '{print $(NF-3)"-"$(NF-2)"-"$NF}' # Will break on https://github.com/timrdf/csv2rdf4lod-automation/issues/311
+      pwd | awk -F/ -v delim=$delim '{print $(NF-3)""delim""$(NF-2)""delim""$NF}' # Will break on https://github.com/timrdf/csv2rdf4lod-automation/issues/311
 
    elif [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
       
       # e.g. pwd: /srv/twc-healthdata/data/source/hub-healthdata-gov/food-recalls/version
       # desired output: hub-healthdata-gov-food-recalls
 
-      pwd | awk -F/ '{print $(NF-2)"-"$(NF-1)}' # Will break on https://github.com/timrdf/csv2rdf4lod-automation/issues/311
+      pwd | awk -F/ -v delim=$delim '{print $(NF-2)""delim""$(NF-1)}' # Will break on https://github.com/timrdf/csv2rdf4lod-automation/issues/311
 
    elif [[ `is-pwd-a.sh                                                 cr:dataset                         ` == "yes" ]]; then
      
       # e.g. pwd: /srv/twc-healthdata/data/source/hub-healthdata-gov/food-recalls
       # desired output: hub-healthdata-gov-food-recalls
  
-      pwd | awk -F/ '{print $(NF-1)"-"$NF}' # Will break on https://github.com/timrdf/csv2rdf4lod-automation/issues/311
+      pwd | awk -F/ -v delim=$delim '{print $(NF-1)""delim""$NF}' # Will break on https://github.com/timrdf/csv2rdf4lod-automation/issues/311
 
    elif [[ `is-pwd-a.sh                        cr:directory-of-datasets                                    ` == "yes" ]]; then
       
