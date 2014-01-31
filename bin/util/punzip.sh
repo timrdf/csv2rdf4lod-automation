@@ -16,10 +16,10 @@
 #
 # Usage:
 #
-# punzip.sh                            US-44-009-result.zip --> data.csv             and data.csv.pml.ttl
-# punzip.sh -n US-44-009-result -e csv US-44-009-result.zip --> US-44-009-result.csv and US-44-009-result.csv.pml.ttl
-# punzip.sh                     -e csv US-44-009-result.zip --> data.csv.csv         and data.csv.csv.pml.ttl 
-# punzip.sh -n US-44-009-result        US-44-009-result.zip --> US-44-009-result     and US-44-009-result.pml.ttl
+# punzip.sh                            US-44-009-result.zip --> data.csv             and data.csv.prov.ttl
+# punzip.sh -n US-44-009-result -e csv US-44-009-result.zip --> US-44-009-result.csv and US-44-009-result.csv.prov.ttl
+# punzip.sh                     -e csv US-44-009-result.zip --> data.csv.csv         and data.csv.csv.prov.ttl 
+# punzip.sh -n US-44-009-result        US-44-009-result.zip --> US-44-009-result     and US-44-009-result.prov.ttl
 
 usage_message="usage: `basename $0` [-n filename] [-e file_extension] .zip [.zip ...]" 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
@@ -140,82 +140,84 @@ while [ $# -gt 0 ]; do
       nodeSet="<nodeSet$requestID>"
       zipNodeSet="<nodeSet${requestID}_zip_antecedent>"
 
-      echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                       > $file.pml.ttl
-      echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                          >> $file.pml.ttl
-      echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                  >> $file.pml.ttl
-      echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."            >> $file.pml.ttl
-      echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."           >> $file.pml.ttl
-      echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."        >> $file.pml.ttl
-      echo "@prefix conv:       <http://purl.org/twc/vocab/conversion/> ."                      >> $file.pml.ttl
-      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                                 >> $file.pml.ttl
-      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                   >> $file.pml.ttl
-      echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                           >> $file.pml.ttl
-      echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                        >> $file.pml.ttl
-      echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                         >> $file.pml.ttl
-      echo                                                                                      >> $file.pml.ttl
-      $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                                >> $file.pml.ttl
-      echo                                                                                      >> $file.pml.ttl
-      echo $fileURI                                                                             >> $file.pml.ttl
-      echo "   a pmlp:Information;"                                                             >> $file.pml.ttl
-      echo "   pmlp:hasReferenceSourceUsage $sourceUsage;"                                      >> $file.pml.ttl
-      echo "."                                                                                  >> $file.pml.ttl
-      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$file"                                        >> $file.pml.ttl
-      echo                                                                                      >> $file.pml.ttl
-      echo "$sourceUsage"                                                                       >> $file.pml.ttl
-      echo "   a pmlp:SourceUsage;"                                                             >> $file.pml.ttl
-      echo "   pmlp:hasSource        <$zip>;"                                                   >> $file.pml.ttl
-      echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                         >> $file.pml.ttl
-      echo "."                                                                                  >> $file.pml.ttl
-      echo                                                                                      >> $file.pml.ttl
-      echo "<$zip>"                                                                             >> $file.pml.ttl
-      echo "   a pmlp:Source;"                                                                  >> $file.pml.ttl
+      echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                       > $file.prov.ttl
+      echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                          >> $file.prov.ttl
+      echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                  >> $file.prov.ttl
+      echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."            >> $file.prov.ttl
+      echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."           >> $file.prov.ttl
+      echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."        >> $file.prov.ttl
+      echo "@prefix conv:       <http://purl.org/twc/vocab/conversion/> ."                      >> $file.prov.ttl
+      echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                                 >> $file.prov.ttl
+      echo "@prefix sioc:       <http://rdfs.org/sioc/ns#> ."                                   >> $file.prov.ttl
+      echo "@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> ."                           >> $file.prov.ttl
+      echo "@prefix prov:       <http://www.w3.org/ns/prov#>."                                  >> $file.prov.ttl
+      echo "@prefix oprov:      <http://openprovenance.org/ontology#> ."                        >> $file.prov.ttl
+      echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                         >> $file.prov.ttl
+      echo                                                                                      >> $file.prov.ttl
+      $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                                >> $file.prov.ttl
+      echo                                                                                      >> $file.prov.ttl
+      echo $fileURI                                                                             >> $file.prov.ttl
+      echo "   a pmlp:Information, prov:Entity;"                                                >> $file.prov.ttl
+      echo "   prov:wasQuotedFrom <$zip>;"                                                      >> $file.prov.ttl
+      echo "   pmlp:hasReferenceSourceUsage $sourceUsage;"                                      >> $file.prov.ttl
+      echo "."                                                                                  >> $file.prov.ttl
+      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$file"                                        >> $file.prov.ttl
+      echo                                                                                      >> $file.prov.ttl
+      echo "$sourceUsage"                                                                       >> $file.prov.ttl
+      echo "   a pmlp:SourceUsage;"                                                             >> $file.prov.ttl
+      echo "   pmlp:hasSource        <$zip>;"                                                   >> $file.prov.ttl
+      echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                         >> $file.prov.ttl
+      echo "."                                                                                  >> $file.prov.ttl
+      echo                                                                                      >> $file.prov.ttl
+      echo "<$zip>"                                                                             >> $file.prov.ttl
+      echo "   a prov:Entity, pmlp:Source;"                                                     >> $file.prov.ttl
       if [ ${#zipModDateTime} -gt 0 ]; then
-      echo "   pmlp:hasModificationDateTime \"$zipModDateTime\"^^xsd:dateTime;"                 >> $file.pml.ttl
+      echo "   pmlp:hasModificationDateTime \"$zipModDateTime\"^^xsd:dateTime;"                 >> $file.prov.ttl
       fi
-      echo "."                                                                                  >> $file.pml.ttl
-      echo                                                                                      >> $file.pml.ttl
-      echo $nodeSet                                                                             >> $file.pml.ttl
-      echo "   a pmlj:NodeSet;"                                                                 >> $file.pml.ttl
-      echo "   pmlj:hasConclusion $fileURI;"                                                    >> $file.pml.ttl
-      echo "   pmlj:isConsequentOf ["                                                           >> $file.pml.ttl
-      echo "      a pmlj:InferenceStep;"                                                        >> $file.pml.ttl
-      echo "      pmlj:hasIndex 0;"                                                             >> $file.pml.ttl
-      echo "      pmlj:hasAntecedentList ( $zipNodeSet );"                                      >> $file.pml.ttl
-      echo "      pmlj:hasSourceUsage     $sourceUsage;"                                        >> $file.pml.ttl
-      echo "      pmlj:hasInferenceEngine conv:unzip_sh_md5_$myMD5;"                            >> $file.pml.ttl
-      echo "      pmlj:hasInferenceRule   conv:spaceless_unzip;"                                >> $file.pml.ttl
-      echo "      oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;">> $file.pml.ttl
-      echo "      hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;">> $file.pml.ttl
-      echo "   ];"                                                                              >> $file.pml.ttl
-      echo "."                                                                                  >> $file.pml.ttl
-      echo                                                                                      >> $file.pml.ttl
-      echo $zipNodeSet                                                                          >> $file.pml.ttl
-      echo "   a pmlj:NodeSet;"                                                                 >> $file.pml.ttl
-      echo "   pmlj:hasConclusion <$zip>;"                                                      >> $file.pml.ttl
-      echo "."                                                                                  >> $file.pml.ttl
-      echo                                                                                      >> $file.pml.ttl
-      echo "conv:unzip_sh_md5_$myMD5"                                                           >> $file.pml.ttl
-      echo "   a pmlp:InferenceEngine, conv:Unzip_sh;"                                          >> $file.pml.ttl
-      echo "   dcterms:identifier \"md5_$myMD5\";"                                              >> $file.pml.ttl
-      echo "."                                                                                  >> $file.pml.ttl
-      echo                                                                                      >> $file.pml.ttl
-      echo "conv:Unzip_sh rdfs:subClassOf pmlp:InferenceEngine ."                               >> $file.pml.ttl
-      echo                                                                                      >> $file.pml.ttl
-      echo "conv:unzip_md5_$myMD5"                                                              >> $file.pml.ttl
-      echo "   a pmlp:InferenceEngine, conv:Unzip;"                                             >> $file.pml.ttl
-      echo "   dcterms:identifier \"md5_$unzipMD5\";"                                           >> $file.pml.ttl
-      echo "   nfo:hasHash <md5_$unzipMD5>;"                                                    >> $file.pml.ttl
-      echo "   dcterms:description \"\"\"`$unzipper --version 2>&1`\"\"\";"                     >> $file.pml.ttl
-      echo "."                                                                                  >> $file.pml.ttl
-      echo                                                                                      >> $file.pml.ttl
-      echo "<md5_$unzipMD5>"                                                                    >> $file.pml.ttl
-      echo "   a nfo:FileHash; "                                                                >> $file.pml.ttl
-      echo "   nfo:hashAlgorithm \"md5\";"                                                      >> $file.pml.ttl
-      echo "   nfo:hasHash \"$unzipMD5\";"                                                      >> $file.pml.ttl
-      echo "."                                                                                  >> $file.pml.ttl
-      echo                                                                                      >> $file.pml.ttl
-      echo "conv:Unzip rdfs:subClassOf pmlp:InferenceEngine ."                                  >> $file.pml.ttl
-      echo                                                                                      >> $file.pml.ttl
+      echo "."                                                                                  >> $file.prov.ttl
+      echo                                                                                      >> $file.prov.ttl
+      echo $nodeSet                                                                             >> $file.prov.ttl
+      echo "   a pmlj:NodeSet;"                                                                 >> $file.prov.ttl
+      echo "   pmlj:hasConclusion $fileURI;"                                                    >> $file.prov.ttl
+      echo "   pmlj:isConsequentOf ["                                                           >> $file.prov.ttl
+      echo "      a pmlj:InferenceStep;"                                                        >> $file.prov.ttl
+      echo "      pmlj:hasIndex 0;"                                                             >> $file.prov.ttl
+      echo "      pmlj:hasAntecedentList ( $zipNodeSet );"                                      >> $file.prov.ttl
+      echo "      pmlj:hasSourceUsage     $sourceUsage;"                                        >> $file.prov.ttl
+      echo "      pmlj:hasInferenceEngine conv:unzip_sh_md5_$myMD5;"                            >> $file.prov.ttl
+      echo "      pmlj:hasInferenceRule   conv:spaceless_unzip;"                                >> $file.prov.ttl
+      echo "      oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;">> $file.prov.ttl
+      echo "      hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;">> $file.prov.ttl
+      echo "   ];"                                                                              >> $file.prov.ttl
+      echo "."                                                                                  >> $file.prov.ttl
+      echo                                                                                      >> $file.prov.ttl
+      echo $zipNodeSet                                                                          >> $file.prov.ttl
+      echo "   a pmlj:NodeSet;"                                                                 >> $file.prov.ttl
+      echo "   pmlj:hasConclusion <$zip>;"                                                      >> $file.prov.ttl
+      echo "."                                                                                  >> $file.prov.ttl
+      echo                                                                                      >> $file.prov.ttl
+      echo "conv:unzip_sh_md5_$myMD5"                                                           >> $file.prov.ttl
+      echo "   a pmlp:InferenceEngine, conv:Unzip_sh;"                                          >> $file.prov.ttl
+      echo "   dcterms:identifier \"md5_$myMD5\";"                                              >> $file.prov.ttl
+      echo "."                                                                                  >> $file.prov.ttl
+      echo                                                                                      >> $file.prov.ttl
+      echo "conv:Unzip_sh rdfs:subClassOf pmlp:InferenceEngine ."                               >> $file.prov.ttl
+      echo                                                                                      >> $file.prov.ttl
+      echo "conv:unzip_md5_$myMD5"                                                              >> $file.prov.ttl
+      echo "   a pmlp:InferenceEngine, conv:Unzip;"                                             >> $file.prov.ttl
+      echo "   dcterms:identifier \"md5_$unzipMD5\";"                                           >> $file.prov.ttl
+      echo "   nfo:hasHash <md5_$unzipMD5>;"                                                    >> $file.prov.ttl
+      echo "   dcterms:description \"\"\"`$unzipper --version 2>&1`\"\"\";"                     >> $file.prov.ttl
+      echo "."                                                                                  >> $file.prov.ttl
+      echo                                                                                      >> $file.prov.ttl
+      echo "<md5_$unzipMD5>"                                                                    >> $file.prov.ttl
+      echo "   a nfo:FileHash; "                                                                >> $file.prov.ttl
+      echo "   nfo:hashAlgorithm \"md5\";"                                                      >> $file.prov.ttl
+      echo "   nfo:hasHash \"$unzipMD5\";"                                                      >> $file.prov.ttl
+      echo "."                                                                                  >> $file.prov.ttl
+      echo                                                                                      >> $file.prov.ttl
+      echo "conv:Unzip rdfs:subClassOf pmlp:InferenceEngine ."                                  >> $file.prov.ttl
+      echo                                                                                      >> $file.prov.ttl
       if [[ $file =~ .*.tar ]]; then
          echo "Recursively uncompressing $file"
          $0 $file 
