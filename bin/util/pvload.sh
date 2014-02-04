@@ -108,7 +108,7 @@ while [ $# -gt 0 ]; do
    echo "                   --> (Named Graph) $named_graph"
 
    separate_provenance="no"
-   prov_graph=''
+   prov_graph=$named_graph
    echo "rest: $*"
    if [[ "$1" == '--separate-provenance' ]]; then
       separate_provenance="yes"
@@ -118,8 +118,6 @@ while [ $# -gt 0 ]; do
             shift 
          elif [[ "$3" == 'one' ]]; then
             prov_graph="$CSV2RDF4LOD_BASE_URI/graph-prov"
-         else
-            prov_graph=$named_graph
          fi
          shift 
       else
