@@ -95,7 +95,17 @@ rm -rf $cockpit/source/*
 
 echo "INFO `basename $0` grepping for ^#3>..."
 
+date
 tics=`grep --recursive --files-with-matches --max-count=1 "^#3>" *` # <---- TODO: This takes forever; use heuristic to grep first 100 lines (and if none, move on).
+echo $tics
+date
+
+#echo
+#for file in `find .`; do
+#   
+#done
+#exit
+
 tally=1
 #valid=""
 for tic in $tics; do
