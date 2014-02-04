@@ -113,7 +113,7 @@ while [ $# -gt 0 ]; do
    if [[ "$1" == '--separate-provenance' ]]; then
       separate_provenance="yes"
       if [[ "$2" == '--into' ]]; then
-         if [[ "$3" =~ http* ]]; then
+         if [[ "$3" =~ http* && -n "$3" ]]; then
             prov_graph="$3"
             shift 
          elif [[ "$3" == 'one' ]]; then
