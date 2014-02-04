@@ -64,7 +64,6 @@ while [ $# -gt 0 ]; do
    echo "/////------------------------------ `basename $0` ------------------------------\\\\\\\\\\"
 
    url="$1"
-   shift
    requestID=`resource-name.sh`
 
    #
@@ -87,6 +86,7 @@ while [ $# -gt 0 ]; do
    usageDateTimeSlug=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh coin:slug`
 
    #echo "PVLOAD: url                $url"
+   # $1 is still <url>
    flag=$2
    if [[ "$flag" == "-ng" && $# -ge 2 && "$3" != '--separate-provenance' ]]; then # Override the default named graph name (the URL of the source).
       named_graph="$3"
@@ -108,11 +108,12 @@ while [ $# -gt 0 ]; do
    separate_provenance="no"
    prov_graph=''
    echo "rest: $*"
-   if [[ "$1" == '--separate-provenance' ]]; then
+   # $1 is still <url>
+   if [[ "$2" == '--separate-provenance' ]]; then
       separate_provenance="yes"
-      if [[ "$2" == '--into' ]]; then
+      if [[ "$3" == '--into' ]]; then
          if [[ $# -gt 2 ]]; then
-            prov_graph="$3"
+            prov_graph="$4"
             shift 
          fi
          shift 
@@ -328,4 +329,6 @@ while [ $# -gt 0 ]; do
       rm -f ${TEMP}${unzipped}.load.prov.ttl.nt
       rm -f _pvload*
    fi
+
+   shift
 done
