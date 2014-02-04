@@ -82,6 +82,10 @@ fi
 
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
+
+# TODO: why doesnt' this link the original files to /var/www? cr-sparql-sd had to do it by itself...
+
+
 if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
    if [ ! -d publish/bin ]; then
