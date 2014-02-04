@@ -81,6 +81,10 @@ for ext in ttl nt rdf; do
          echo "<$dataDump>"                                                           >> $TEMP
          echo "   dcterms:format <$format> ."                                         >> $TEMP
       fi
+      if [[ -n "$gz" ]]; then
+         echo "<$dataDump>"                                                           >> $TEMP
+         echo "   dcterms:format <http://provenanceweb.org/format/mime/application/gzip> ." >> $TEMP
+      fi
    fi
 done
 
