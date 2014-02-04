@@ -58,8 +58,8 @@ escapedEndpointNEW=`cr-urlencode.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOI
 escapedEndpoint=`echo ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'`
 
 if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "fine" ]]; then
-   echo "new: $escapedEndpointNEW"
-   echo "old: $escapedEndpoint"
+   echo "new: --$escapedEndpointNEW--"
+   echo "old: --$escapedEndpoint--"
 fi
 
 logID=`resource-name.sh`
