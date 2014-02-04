@@ -29,7 +29,7 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
 fi
 
 write="-"
-if [ "$1"} == "-w" ]; then
+if [ "$1" == "-w" ]; then
    write="-w"
    shift
 fi
@@ -65,6 +65,18 @@ if [ ${#file} -gt 0 ]; then
 fi
 
 cr-dataset-uri.sh --void                                                           >> $TEMP
+
+sdv=`cr-sdv.sh`
+[[ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == 'true' ]] && gz=".gz" || gz=""
+found=''
+for ext in ttl nt rdf; do
+   if [[ -e publish/$sdv.ttl$gz && "$found" != 'yes' ]]; then
+      echo ""                                                                         >> $TEMP
+      dataDump=`cr-ln-to-www-root.sh -n --url-of-filepath publish/$sdv.$ext$gz`
+      echo "<$versionedDataset> void:dataDump <$dataDump> ."                          >> $TEMP
+      found='yes' 
+   fi
+done
 
 if [ $write == "-w" ]; then
    cat $TEMP > $file.void.ttl # TODO: populate-void*.sh only looks in publish/, so it'll miss this...
