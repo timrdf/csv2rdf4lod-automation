@@ -71,10 +71,16 @@ sdv=`cr-sdv.sh`
 found=''
 for ext in ttl nt rdf; do
    if [[ -e publish/$sdv.ttl$gz && "$found" != 'yes' ]]; then
+      found='yes' 
       echo ""                                                                         >> $TEMP
       dataDump=`cr-ln-to-www-root.sh -n --url-of-filepath publish/$sdv.$ext$gz`
-      echo "<$versionedDataset> void:dataDump <$dataDump> ."                          >> $TEMP
-      found='yes' 
+      echo "<$versionedDataset>"                                                      >> $TEMP
+      echo "   void:dataDump <$dataDump> ."                                           >> $TEMP
+      format=`bin/util/guess-syntax.sh --tell http://www.w3.org/ns/formats $ext`
+      if [[ -n "$format" ]]; then
+         echo "<$dataDump>"                                                           >> $TEMP
+         echo "   dcterms:format <$format> ."                                         >> $TEMP
+      fi
    fi
 done
 

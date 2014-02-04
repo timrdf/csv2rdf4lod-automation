@@ -44,6 +44,14 @@ if [ "$1" == "--tell" ]; then
       elif [ "$mime" == "text/plain" ]; then
          echo ntriples
       fi
+   elif [[ "$tool" == 'http://www.w3.org/ns/formats' ]]; then
+      if [[ "$mime" == "text/turtle" || "$mime" == 'ttl' ]]; then
+         echo http://www.w3.org/ns/formats/Turtle
+      elif [[ "$mime" == "text/plain" || "$mime" == 'nt' ]]; then
+         echo http://www.w3.org/ns/formats/N3
+      elif [[ "$mime" == "application/rdf+xml" || "$mime" == 'rdf' ]]; then
+         echo http://www.w3.org/ns/formats/RDF_XML
+      fi
    fi
    # TODO: rapper, jena, extension
    exit
