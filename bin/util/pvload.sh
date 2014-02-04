@@ -102,6 +102,7 @@ while [ $# -gt 0 ]; do
 
    separate_provenance="no"
    prov_graph=''
+   echo "rest: $*"
    if [[ "$1" == '--separate-provenance' ]]; then
       separate_provenance="yes"
       if [[ "$2" == '--into' ]]; then
