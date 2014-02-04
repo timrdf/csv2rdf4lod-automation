@@ -123,7 +123,7 @@ while [ $# -gt 0 ]; do
          fi
          shift 
       else
-         prov_graph=$CSV2RDF4LOD_BASE_URI/graph-prov/${named_graph#http:/}
+         prov_graph=$CSV2RDF4LOD_BASE_URI/graph-prov/${named_graph#http://}
       fi
       shift
    fi
