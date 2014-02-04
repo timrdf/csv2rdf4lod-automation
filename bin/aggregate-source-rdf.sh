@@ -131,12 +131,11 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
                # Make some attempts to preserve the less-ugliness of the file.
                # And, expand the relative paths correctly.
                if [[ `too-big-for-rapper.sh $file` == 'yes' && `which serdi` ]]; then
-                  serdi -i turtle -o turtle $file       >> publish/$sdv.ttl
+                  serdi -i turtle -o turtle $file               >> publish/$sdv.ttl
                elif [[ `which rapper` ]]; then
-                  shh='2> /dev/null'
-                  rapper -i turtle -o turtle $file $shh >> publish/$sdv.ttl
+                  rapper -i turtle -o turtle $file 2> /dev/null >> publish/$sdv.ttl
                else
-                  cat $file                             >> publish/$sdv.ttl
+                  cat $file                                     >> publish/$sdv.ttl
                fi
             elif [[ -z "$serialization" ]]; then
                echo "WARNING: omitting $file b/c could not recognize serialization type."
