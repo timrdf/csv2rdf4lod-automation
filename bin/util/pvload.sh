@@ -19,7 +19,7 @@
 #   limitations under the License.
 #
 
-usage_message="usage: `basename $0` [--help] [-n] url [-ng named_graph] [--separate-provenance [--into <prov_graph>]]" 
+usage_message="usage: `basename $0` [--help] [-n] url [-ng named_graph] [--separate-provenance [--into (<prov_graph> | 'one')]]" 
 
 if [[ "$1" == "--help" || $# -lt 1 ]]; then
    echo $usage_message 
@@ -116,6 +116,8 @@ while [ $# -gt 0 ]; do
          if [[ "$3" =~ http* ]]; then
             prov_graph="$3"
             shift 
+         elif [[ "$3" == 'one' ]]; then
+            prov_graph="$CSV2RDF4LOD_BASE_URI/graph-prov"
          else
             prov_graph=$named_graph
          fi
