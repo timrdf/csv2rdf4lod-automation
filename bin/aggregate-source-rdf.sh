@@ -126,17 +126,17 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
             serialization=`guess-syntax.sh --inspect $file mime`
 
             echo "  (including $file, format is $serialization)" 
+            # TODO: check for accompanying .prov.ttl for the prov:wasQuotedFrom the file.
             if [[ "$serialization" == "text/turtle" && `cr-relatively-safe.sh $file` == 'yes' ]]; then
                # Make some attempts to preserve the less-ugliness of the file.
                # And, expand the relative paths correctly.
-               # TODO: check for accompanying .prov.ttl for the prov:wasQuotedFrom the file.
                if [[ `too-big-for-rapper.sh $file` == 'yes' && `which serdi` ]]; then
-                  serdi -i turtle -o turtle $file   >> publish/$sdv.ttl
+                  serdi -i turtle -o turtle $file       >> publish/$sdv.ttl
                elif [[ `which rapper` ]]; then
-                  rapper -i turtle -o turtle $file  >> publish/$sdv.ttl
+                  shh='2> /dev/null'
+                  rapper -i turtle -o turtle $file $shh >> publish/$sdv.ttl
                else
-                  cat $file                         >> publish/$sdv.ttl
-                  # ^^ Relative paths just broke...
+                  cat $file                             >> publish/$sdv.ttl
                fi
             elif [[ -z "$serialization" ]]; then
                echo "WARNING: omitting $file b/c could not recognize serialization type."
