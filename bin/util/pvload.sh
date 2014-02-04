@@ -118,6 +118,7 @@ while [ $# -gt 0 ]; do
             shift 
          elif [[ "$3" == 'one' ]]; then
             prov_graph="$CSV2RDF4LOD_BASE_URI/graph-prov"
+            shift 
          fi
          shift 
       else
