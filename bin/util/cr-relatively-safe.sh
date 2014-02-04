@@ -21,9 +21,11 @@ while [ $# -gt 0 ]; do
       error=`rapper -q $syntax -c $1 2>&1 | grep Error` # TODO: does not handle gz
       if [[ ! `                                   grep --max-count=1 '<file:' "$file"` && \
               `rapper $syntax -o turtle "$file" | grep --max-count=1 '<file:'` ]]; then
-         answer='cowboy'
+         # The file does not contain "<file:" as is, 
+         # but it does after it gets parsed.
+         answer='no'
       else
-         answer='yoyo'
+         answer='yes'
       fi
    fi
    echo $answer
