@@ -115,11 +115,16 @@ while [ $# -gt 0 ]; do
          if [[ $# -gt 2 ]]; then
             prov_graph="$4"
             shift 
+         else
+            prov_graph=$named_graph
          fi
          shift 
+      else
+         prov_graph=$CSV2RDF4LOD_BASE_URI/graph-prov/${g#http:/}
       fi
       shift
    fi
+   echo "                   --> (PROV Graph) $prov_graph"
 
    #
    # Normalize into ntriples (note, this step is not worth describing in the provenance).
