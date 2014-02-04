@@ -90,7 +90,9 @@ while [ $# -gt 0 ]; do
    if [[ "$flag" == "-ng" && $# -ge 2 && "$3" != '--separate-provenance' ]]; then # Override the default named graph name (the URL of the source).
       named_graph="$3"
       echo "PVLOAD: -ng             $named_graph"; 
+      echo "PVLOAD: $*"; 
       shift 2
+      echo "PVLOAD: $*"; 
    elif [[ "$flag" == "-ng" && $# -lt 2 ]]; then
       echo "ERROR: -ng given with no value."
       exit 1
