@@ -19,8 +19,8 @@ while [ $# -gt 0 ]; do
    elif [[ `too-big-for-rapper.sh $file` == 'no' && `which rapper` ]]; then
       syntax=`guess-syntax.sh --inspect $1 rapper`
       error=`rapper -q $syntax -c $1 2>&1 | grep Error` # TODO: does not handle gz
-      if [[ ! `                                   grep --max-count=1 '<file:' "$file"` && \
-              `rapper $syntax -o turtle "$file" | grep --max-count=1 '<file:'` ]]; then
+      if [[ ! `                                                grep --max-count=1 '<file:' "$file"` && \
+              `rapper $syntax -o turtle "$file" 2> /dev/null | grep --max-count=1 '<file:'` ]]; then
          # The file does not contain "<file:" as is, 
          # but it does after it gets parsed.
          answer='no'
