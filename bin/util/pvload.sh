@@ -64,6 +64,7 @@ while [ $# -gt 0 ]; do
    echo "/////------------------------------ `basename $0` ------------------------------\\\\\\\\\\"
 
    url="$1"
+   shift
    requestID=`resource-name.sh`
 
    #
@@ -327,6 +328,4 @@ while [ $# -gt 0 ]; do
       rm -f ${TEMP}${unzipped}.load.prov.ttl.nt
       rm -f _pvload*
    fi
-
-   shift
 done
