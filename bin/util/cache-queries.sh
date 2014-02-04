@@ -132,11 +132,13 @@ for sparql in $queryFiles; do
       fi
       # limit  is either '' or a number e.g. '100000'
       # offset is always '0'
-      echo "  (will exhaust with limit/offset: $limit/$offset)"
+      if [[ -n "$limit" ]]; then
+         echo "  (will exhaust with limit/offset: $limit/$offset)"
+      fi
 
       while [ -n "$offset" ]; do
-         queryOLD=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
-         query=`cr-urlencode.sh --from-file "$sparql"` # TODO: move to this.
+         #queryOLD=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
+         query=`cr-urlencode.sh --from-file "$sparql"`
          qi='' # '' -> '_2' -> '_3' ...
          queryOFFSET=''
          if [[ -n "$offset" ]]; then   
@@ -145,8 +147,8 @@ for sparql in $queryFiles; do
                queryOFFSET=`cr-urlencode.sh " offset $offset "`
             fi
          fi
-         escapedOutputOLD=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'` # | sed 's/%0A$//'`
-         escapedOutput=`cr-urlencode.sh $output`       # TODO: move to this.
+         #escapedOutputOLD=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'` # | sed 's/%0A$//'`
+         escapedOutput=`cr-urlencode.sh $output`
 
          request="$endpoint?query=$query$queryOFFSET&$outputVarName=$escapedOutput"
          #echo $request
@@ -243,14 +245,17 @@ for sparql in $queryFiles; do
 
          # If query results are "valid", and we were asked to exhaust the query with limit/offset...
          if [[ `valid-rdf.sh $resultsFile` == 'yes' ]]; then
-            if [[ -n "$offset" ]]; then   
+            if [[ -n "$offset" && -n "$limit" ]]; then   
                if [[ "$offset" -eq 0 ]]; then
                   echo
                fi
                let "offset=$offset+$limit"
                let "iteration=$iteration+1"
+            else
+               offset=''
             fi
          else
+            # TODO: clean up last query result since it wasn't valid.
             offset=''
          fi 
       done
