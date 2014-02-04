@@ -70,7 +70,7 @@ fi
 # Append all N-TRIPLES
 rdf2nt.sh $*                      >> $TEMP
 
-# Abbrevaite N-TRIPLES into Turtle
+# Abbreviate N-TRIPLES into Turtle
 if [[ `which serdi` ]]; then
    serdi  -i turtle -o turtle        $TEMP
 elif [[ `which rapper` ]]; then
