@@ -64,6 +64,7 @@ while [ $# -gt 0 ]; do
    echo "/////------------------------------ `basename $0` ------------------------------\\\\\\\\\\"
 
    url="$1"
+   shift
    requestID=`resource-name.sh`
 
    #
@@ -86,20 +87,21 @@ while [ $# -gt 0 ]; do
    usageDateTimeSlug=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh coin:slug`
 
    #echo "PVLOAD: url                $url"
-   # $1 is still <url>
-   flag=$2
-   if [[ "$flag" == "-ng" && $# -ge 2 && "$3" != '--separate-provenance' ]]; then # Override the default named graph name (the URL of the source).
-      named_graph="$3"
+   echo "rest: $*"
+   if [[ "$1" == "-ng" && "$2" =~ http* ]]; then # Override the default named graph name (the URL of the source).
+      named_graph="$2"
       echo "PVLOAD: -ng             $named_graph"; 
       echo "PVLOAD: $*"; 
       shift 2
       echo "PVLOAD: $*"; 
-   elif [[ "$flag" == "-ng" && $# -lt 2 ]]; then
+   elif [[ "$1" == "-ng" && $# -lt 2 ]]; then
       echo "ERROR: -ng given with no value."
       exit 1
+   elif [[ "$1" == "-ng" ]]; then
+      shift 1
+      named_graph="$url"                          # Default to a named graph name of the URL source.
    else
       echo "PVLOAD: -ng?"; 
-      shift 2
       named_graph="$url"                          # Default to a named graph name of the URL source.
    fi
    echo "INFO: `basename $0`: (URL) $url"
@@ -108,12 +110,11 @@ while [ $# -gt 0 ]; do
    separate_provenance="no"
    prov_graph=''
    echo "rest: $*"
-   # $1 is still <url>
-   if [[ "$2" == '--separate-provenance' ]]; then
+   if [[ "$1" == '--separate-provenance' ]]; then
       separate_provenance="yes"
-      if [[ "$3" == '--into' ]]; then
-         if [[ $# -gt 2 ]]; then
-            prov_graph="$4"
+      if [[ "$2" == '--into' ]]; then
+         if [[ "$3" =~ http* ]]; then
+            prov_graph="$3"
             shift 
          else
             prov_graph=$named_graph
@@ -334,6 +335,4 @@ while [ $# -gt 0 ]; do
       rm -f ${TEMP}${unzipped}.load.prov.ttl.nt
       rm -f _pvload*
    fi
-
-   shift
 done
