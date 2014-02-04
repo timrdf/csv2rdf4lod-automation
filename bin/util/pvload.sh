@@ -18,19 +18,16 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-# Usage:
-#
-# Notes:
-#   (vload usage: vload [rdf|ttl|nt|nq] [data_file] [graph_uri])
 
-usage_message="usage: `basename $0` [-n] url [-ng named_graph]" 
+usage_message="usage: `basename $0` [--help] [-n] url [-ng named_graph]" 
 
 if [[ "$1" == "--help" || $# -lt 1 ]]; then
    echo $usage_message 
    echo "  -n  : dry run - do not download or load into named graph."
    echo "  url : the URL to retrieve and load into a named graph."
    echo "  -ng : the named graph to place 'url'. (if not provided, -ng == 'url')."
-   echo "  (setting env var CSV2RDF4LOD_CONVERT_DEBUG_LEVEL=finest will leave temporary files after invocation.)"
+   echo
+   echo "  (setting envvar CSV2RDF4LOD_CONVERT_DEBUG_LEVEL=finest will leave temporary files after invocation.)"
    exit 1
 fi
 
@@ -57,6 +54,7 @@ myMD5="md5_`$CSV2RDF4LOD_HOME/bin/util/md5.sh $0`"
 
 TEMP="_"`basename $0``date +%s`_$$.response
 
+escapedEndpoint=`cr-urlencode.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}` # TODO: move to this
 escapedEndpoint=`echo ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'`
 
 logID=`resource-name.sh`
