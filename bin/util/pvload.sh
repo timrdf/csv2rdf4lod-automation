@@ -19,13 +19,15 @@
 #   limitations under the License.
 #
 
-usage_message="usage: `basename $0` [--help] [-n] url [-ng named_graph]" 
+usage_message="usage: `basename $0` [--help] [-n] url [-ng named_graph] [--separate-provenance [--into <prov_graph>]]" 
 
 if [[ "$1" == "--help" || $# -lt 1 ]]; then
    echo $usage_message 
-   echo "  -n  : dry run - do not download or load into named graph."
-   echo "  url : the URL to retrieve and load into a named graph."
-   echo "  -ng : the named graph to place 'url'. (if not provided, -ng == 'url')."
+   echo "  -n                    : dry run - do not download or load into named graph."
+   echo "  url                   : the URL to retrieve and load into a named graph."
+   echo "  -ng                   : the named graph to place 'url'. (if not provided, -ng == 'url')."
+   echo "  --separate-provenance [ --into <prov_graph> ] :"
+   echo "                          store the provenance of loading 'url' in a separate named graph, not in '-ng'."
    echo
    echo "  (Setting envvar CSV2RDF4LOD_CONVERT_DEBUG_LEVEL=finest will leave temporary files after invocation.)"
    exit 1
@@ -54,13 +56,7 @@ myMD5="md5_`$CSV2RDF4LOD_HOME/bin/util/md5.sh $0`"
 
 TEMP="_"`basename $0``date +%s`_$$.response
 
-escapedEndpointNEW=`cr-urlencode.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}` # TODO: move to this
-escapedEndpoint=`echo ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'`
-
-if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "fine" ]]; then
-   echo "new: --$escapedEndpointNEW--"
-   echo "old: --$escapedEndpoint--"
-fi
+escapedEndpoint=`cr-urlencode.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}`
 
 logID=`resource-name.sh`
 while [ $# -gt 0 ]; do
@@ -91,11 +87,11 @@ while [ $# -gt 0 ]; do
 
    #echo "PVLOAD: url                $url"
    flag=$2
-   if [ "$flag" == "-ng" -a $# -ge 2 ]; then # Override the default named graph name (the URL of the source).
+   if [[ "$flag" == "-ng" && $# -ge 2 && "$3" != '--separate-provenance' ]]; then # Override the default named graph name (the URL of the source).
       named_graph="$3"
       #echo "PVLOAD: -ng             $named_graph"; 
       shift 2
-   elif [ "$flag" == "-ng" -a $# -lt 2 ]; then
+   elif [[ "$flag" == "-ng" -a $# -lt 2 ]]; then
       echo "ERROR: -ng given with no value."
       exit 1
    else
@@ -103,6 +99,20 @@ while [ $# -gt 0 ]; do
    fi
    echo "INFO: `basename $0`: (URL) $url"
    echo "                   --> (Named Graph) $named_graph"
+
+   separate_provenance="no"
+   prov_graph=''
+   if [[ "$1" == '--separate-provenance' ]]; then
+      separate_provenance="yes"
+      if [[ "$2" == '--into' ]]; then
+         if [[ $# -gt 2 ]]; then
+            prov_graph="$3"
+            shift 
+         fi
+         shift 
+      fi
+      shift
+   fi
 
    #
    # Normalize into ntriples (note, this step is not worth describing in the provenance).
@@ -120,12 +130,12 @@ while [ $# -gt 0 ]; do
    fi
 
    # Turtle to N-TRIPLES (b/c Virtuoso chokes on some Turtle and we need to spoon feed).
-   too_big="no"
+   too_big="no" # TODO: use too-big-for-rapper.sh ?
    for file in `find . -size +1900M -name ${TEMP}${unzipped}`; do 
       too_big="yes"; 
       echo "${TEMP}${unzipped} exceeds 1900MB, chunking."; 
       rm cHuNk* &> /dev/null
-      $CSV2RDF4LOD_HOME/bin/split_ttl.pl ${TEMP}${unzipped}
+      $CSV2RDF4LOD_HOME/bin/split_ttl.pl ${TEMP}${unzipped} # NOTE: This only works for csv2rdf4lod's flavor of TTL.
       for chunk in cHuNk*; do
          rapper -q $syntax -o ntriples $chunk >> ${TEMP}${unzipped}.nt
          #debug wc -l ${TEMP}${unzipped}.nt
@@ -259,20 +269,36 @@ while [ $# -gt 0 ]; do
 
       vload=$CSV2RDF4LOD_HOME/bin/util/virtuoso/vload
       #echo $vload nt ${TEMP}${unzipped}.nt $named_graph
-      if [ ${dryrun-"."} != "true" ]; then #        Actual response (in ntriples syntax).
+      if [ "$dryrun" != "true" ]; then #        Actual response (in ntriples syntax).
          $vload nt ${TEMP}${unzipped}.nt              $named_graph 2>&1 | grep -v "Loading" 
          #cat /tmp/virtuoso-tmp/vload.log
       fi
-      #echo $vload ttl ${TEMP}.prov.ttl      $named_graph
-      if [ ${dryrun-"."} != "true" ]; then # Provenance of response (SourceUsage created by pcurl.sh).
+
+      #
+      # When loading into graph named:   'http://example.org/pvload-test',
+      # we can keep the provenance separate by loading in into the graph named 
+      #  'http://opendap.tw.rpi.edu/graph/http/example.org/pvload-test'
+      #
+      if [[ "$separate_provenance" == 'yes' && -z "$prov_graph" ]]; then
+         # We were asked to put the provenance into a separate graph,
+         # but we weren't told which graph to put it into.
+         # So, figure out a graph to put it into.
+         prov_graph=$CSV2RDF4LOD_BASE_URI/graph-prov/${g#http:/}
+         echo "Separate graph for prov: $named_graph -> $prov_graph"
+      else
+         # We were told which prov_graph to use, or it shouldn't be separated out.
+         prov_graph=${prov_graph:-$named_graph}
+      fi
+      #echo $vload ttl ${TEMP}.prov.ttl      $prov_graph
+      if [ "$dryrun" != "true" ]; then # Provenance of response (SourceUsage created by pcurl.sh).
          rapper -q -g -o ntriples ${TEMP}.prov.ttl > ${TEMP}.prov.ttl.nt
-         $vload nt ${TEMP}.prov.ttl.nt                 $named_graph 2>&1 | grep -v "Loading"
+         $vload nt ${TEMP}.prov.ttl.nt                 $prov_graph 2>&1 | grep -v "Loading"
          #cat /tmp/virtuoso-tmp/vload.log
       fi
-      #echo $vload ttl ${TEMP}.load.prov.ttl  $named_graph
-      if [ ${dryrun-"."} != "true" ]; then # Provenance of loading file into the store. TODO: cat ${TEMP}${unzipped}.load.prov.ttl into a pmlp:hasRawString?
+      #echo $vload ttl ${TEMP}.load.prov.ttl  $prov_graph
+      if [ "$dryrun" != "true" ]; then # Provenance of loading file into the store. TODO: cat ${TEMP}${unzipped}.load.prov.ttl into a pmlp:hasRawString?
          rapper -q -g -o ntriples ${TEMP}${unzipped}.load.prov.ttl > ${TEMP}${unzipped}.load.prov.ttl.nt
-         $vload nt ${TEMP}${unzipped}.load.prov.ttl.nt $named_graph 2>&1 | grep -v "Loading"             
+         $vload nt ${TEMP}${unzipped}.load.prov.ttl.nt $prov_graph 2>&1 | grep -v "Loading"             
          #cat /tmp/virtuoso-tmp/vload.log
       fi
       echo "\\\\\\\\\\------------------------------ `basename $0` ------------------------------/////"
