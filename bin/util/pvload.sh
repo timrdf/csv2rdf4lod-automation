@@ -125,7 +125,7 @@ while [ $# -gt 0 ]; do
       fi
       shift
    fi
-   echo "                   --> (PROV Graph) $prov_graph"
+   echo "                   --> (PROV Graph)  $prov_graph"
 
    #
    # Normalize into ntriples (note, this step is not worth describing in the provenance).
