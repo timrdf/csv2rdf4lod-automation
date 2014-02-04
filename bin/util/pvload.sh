@@ -91,7 +91,7 @@ while [ $# -gt 0 ]; do
       named_graph="$3"
       #echo "PVLOAD: -ng             $named_graph"; 
       shift 2
-   elif [[ "$flag" == "-ng" -a $# -lt 2 ]]; then
+   elif [[ "$flag" == "-ng" && $# -lt 2 ]]; then
       echo "ERROR: -ng given with no value."
       exit 1
    else
