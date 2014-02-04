@@ -492,6 +492,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                                     sudo dpkg-buildpackage -rfakeroot
 
                      elif [[ "$method_vt" == 'upstream-source' ]]; then
+
                         echo $TODO sudo apt-get install autoconf automake libtool flex bison gperf gawk m4 make odbcinst libxml2-dev libssl-dev libreadline-dev
                                    sudo apt-get install autoconf automake libtool flex bison gperf gawk m4 make odbcinst libxml2-dev libssl-dev libreadline-dev
 
@@ -503,6 +504,11 @@ if [[ "$virtuoso_installed" == "no" ]]; then
 
                         echo $TODO sudo make install
                              $TODO sudo make install
+
+                        # TODO: sudo cp ~/opt/prizms/repos/csv2rdf4lod-automation/bin/util/virtuoso/init.d /etc/init.d/virtuoso-opensource
+                        # TODO: set DAEMON=/usr/local/bin/virtuoso-t
+                        # TODO: set DBBASE=/usr/local/var/lib/virtuoso/db
+
                         #
                         # In the above command, we specify a prefix of /usr/local to Virtuoso's ./configure script. 
                         # This specifies a base directory under which Virtuoso will create/use the following structure:
