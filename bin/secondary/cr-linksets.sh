@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-linksets.sh> .
-#
-#
-# See:
-# https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/secondary/cr-linksets.sh>;
+#3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Finding-Linksets-among-Linked-Data-Bubbles>;
+#3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset>;
+#3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Secondary-Derivative-Datasets#cr-linksets>;
+#3> .
 #
 
 HOME=$(cd ${0%/*/*} && echo ${PWD%/*})
