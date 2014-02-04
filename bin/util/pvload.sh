@@ -27,7 +27,7 @@ if [[ "$1" == "--help" || $# -lt 1 ]]; then
    echo "  url : the URL to retrieve and load into a named graph."
    echo "  -ng : the named graph to place 'url'. (if not provided, -ng == 'url')."
    echo
-   echo "  (setting envvar CSV2RDF4LOD_CONVERT_DEBUG_LEVEL=finest will leave temporary files after invocation.)"
+   echo "  (Setting envvar CSV2RDF4LOD_CONVERT_DEBUG_LEVEL=finest will leave temporary files after invocation.)"
    exit 1
 fi
 
@@ -54,8 +54,13 @@ myMD5="md5_`$CSV2RDF4LOD_HOME/bin/util/md5.sh $0`"
 
 TEMP="_"`basename $0``date +%s`_$$.response
 
-escapedEndpoint=`cr-urlencode.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}` # TODO: move to this
+escapedEndpointNEW=`cr-urlencode.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}` # TODO: move to this
 escapedEndpoint=`echo ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'`
+
+if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == "fine" ]]; then
+   echo "new: $escapedEndpointNEW"
+   echo "old: $escapedEndpoint"
+fi
 
 logID=`resource-name.sh`
 while [ $# -gt 0 ]; do
