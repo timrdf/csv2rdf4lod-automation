@@ -87,13 +87,13 @@ while [ $# -gt 0 ]; do
    usageDateTimeSlug=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh coin:slug`
 
    #echo "PVLOAD: url                $url"
-   echo "rest: $*"
+   #echo "rest: $*"
    if [[ "$1" == "-ng" && "$2" =~ http* ]]; then # Override the default named graph name (the URL of the source).
       named_graph="$2"
-      echo "PVLOAD: -ng             $named_graph"; 
-      echo "PVLOAD: $*"; 
+      #echo "PVLOAD: -ng             $named_graph"; 
+      #echo "PVLOAD: $*"; 
       shift 2
-      echo "PVLOAD: $*"; 
+      #echo "PVLOAD: $*"; 
    elif [[ "$1" == "-ng" && $# -lt 2 ]]; then
       echo "ERROR: -ng given with no value."
       exit 1
@@ -101,7 +101,7 @@ while [ $# -gt 0 ]; do
       shift 1
       named_graph="$url"                          # Default to a named graph name of the URL source.
    else
-      echo "PVLOAD: -ng?"; 
+      #echo "PVLOAD: -ng?"; 
       named_graph="$url"                          # Default to a named graph name of the URL source.
    fi
    echo "INFO: `basename $0`: (URL) $url"
@@ -109,7 +109,7 @@ while [ $# -gt 0 ]; do
 
    separate_provenance="no"
    prov_graph=$named_graph
-   echo "rest: $*"
+   #echo "rest: $*"
    if [[ "$1" == '--separate-provenance' ]]; then
       separate_provenance="yes"
       if [[ "$2" == '--into' ]]; then
