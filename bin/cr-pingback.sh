@@ -104,18 +104,37 @@ if [[ -z "$within_last_week" || "$force" == "true" ]]; then
    rm -rf   $cockpit/source/*
    mkdir -p $cockpit/automatic
 
+   cr-default-prefixes.sh --turtle                                                        > $cockpit/automatic/ckan-dataset.ttl
+   echo "${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"                   >> $cockpit/automatic/ckan-dataset.ttl
+   echo "   a datafaqs:CKANDataset;"                                                     >> $cockpit/automatic/ckan-dataset.ttl
+   echo "   dcterms:identifier \"$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID\";" >> $cockpit/automatic/ckan-dataset.ttl
+   echo "."                                                                              >> $cockpit/automatic/ckan-dataset.ttl
+
    curl -sH "Accept: application/rdf+xml" -L ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void > $cockpit/source/void.rdf
+   rdf2ttl.sh $cockpit/source/void.rdf $cockpit/automatic/ckan-dataset.ttl > $cockpit/automatic/void.ttl
    if [[ -e $opt/DataFAQs/services/sadi/ckan/add-metadata.py ]]; then
-      echo "http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID <-(add-metadata.py)- $cockpit/source/void.rdf"
+      echo "http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID <-(add-metadata.py)- $cockpit/automatic/void.ttl"
       echo "add-metadata.py's input:"
-      echo "  source/void.rdf valid:  `valid-rdf.sh -v $cockpit/source/void.rdf`"
-      echo "  source/void.rdf format: `guess-syntax.sh $cockpit/source/void.rdf`"
-      echo "  source/void.rdf size:   `void-triples.sh $cockpit/source/void.rdf`"
-      python $opt/DataFAQs/services/sadi/ckan/add-metadata.py $cockpit/source/void.rdf > $cockpit/source/response.rdf
+      echo "  automatic/void.ttl valid:  `valid-rdf.sh -v $cockpit/automatic/void.ttl`"
+      echo "  automatic/void.ttl format: `guess-syntax.sh $cockpit/automatic/void.ttl`"
+      echo "  automatic/void.ttl size:   `void-triples.sh $cockpit/automatic/void.ttl`"
+      mime=`guess-syntax.sh --inspect $cockpit/source/void.rdf mime`
+      python $opt/DataFAQs/services/sadi/ckan/add-metadata.py $cockpit/automatic/void.ttl $mime > $cockpit/source/response.rdf
       echo "add-metadata.py's output:"
       echo "  source/response.rdf valid: `valid-rdf.sh -v $cockpit/source/response.rdf`"
       echo "  source/response.rdf size:  `void-triples.sh $cockpit/source/response.rdf`"
       cat $cockpit/source/response.rdf
+      # @prefix datafaqs: <http://purl.org/twc/vocab/datafaqs#> .
+      # @prefix dcterms:  <http://purl.org/dc/terms/> .
+      # @prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+      # 
+      # <http://locv.tw.rpi.edu/void> a datafaqs:ModifiedCKANDataset;
+      #     dcterms:modified "2014-02-05T18:03:33.148938";
+      #     rdfs:seeAlso <http://datahub.io/dataset/locv> .
+      # TODO: decide if we shold publish anything about what we did.
+      #pushd $cockpit
+      #   aggregate-source-rdf.sh automatic/ckan-dataset.ttl source/response.rdf 
+      #popd
    else
       echo "ERROR: `basename $0` could not find $opt/DataFAQs/services/sadi/ckan/add-metadata.py"
    fi
