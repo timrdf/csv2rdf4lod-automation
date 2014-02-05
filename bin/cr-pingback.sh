@@ -82,22 +82,11 @@ if [ "$1" == "-n" ]; then
    shift 
 fi
 
-clearGraph="false"
-if [ "$1" == "--clear-graph" ]; then
-   clearGraph="true"
-   shift
-fi
-
 force="false"
 if [ "$1" == "--force" ]; then
    force="true"
    shift
 fi
-
-#if [ "$1" != "cr:auto" ]; then
-#   graphName="$1"
-#   shift 
-#fi
 
 if [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source` == "yes" ]]; then
    pushd .. &> /dev/null
@@ -137,31 +126,5 @@ else
    echo "INFO: `basename $0` skipping push to datahub.io b/c has been done in the last week."
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-#pushd $cockpit &> /dev/null
-#   echo
-#   echo aggregate-source-rdf.sh --link-as-latest source/* 
-#   if [ "$dryRun" != "true" ]; then
-#      aggregate-source-rdf.sh --link-as-latest source/* 
-#      # WARNING: ^^ publishes even with -n b/c it checks for CSV2RDF4LOD_PUBLISH_VIRTUOSO
-#   fi
-#popd &> /dev/null
-#
-#if [ "$clearGraph" == "true" ]; then
-#   echo
-#   echo "Deleting $graphName" >&2
-#   if [ "$dryRun" != "true" ]; then
-#      publish/bin/virtuoso-delete-$sourceID-$datasetID-$versionID.sh
-#   fi
-#fi
-#
-#if [ "$dryRun" != "true" ]; then
-#   pushd $cockpit &> /dev/null
-#      publish/bin/virtuoso-load-$sourceID-$datasetID-$versionID.sh
-#   popd &> /dev/null
-#fi
-
-# if [ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]; then
-# fi
 
 dryrun.sh $dryrun ending
