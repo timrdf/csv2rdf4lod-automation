@@ -105,7 +105,7 @@ if [[ -z "$within_last_week" || "$force" == "true" ]]; then
    mkdir -p $cockpit/automatic
 
    cr-default-prefixes.sh --turtle                                                        > $cockpit/automatic/ckan-dataset.ttl
-   echo "${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"                   >> $cockpit/automatic/ckan-dataset.ttl
+   echo "<${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void>"                 >> $cockpit/automatic/ckan-dataset.ttl
    echo "   a datafaqs:CKANDataset;"                                                     >> $cockpit/automatic/ckan-dataset.ttl
    echo "   dcterms:identifier \"$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID\";" >> $cockpit/automatic/ckan-dataset.ttl
    echo "."                                                                              >> $cockpit/automatic/ckan-dataset.ttl
