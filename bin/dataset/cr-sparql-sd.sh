@@ -79,7 +79,7 @@ pushd `cr-conversion-root.sh` &> /dev/null
 
       pushd $cockpit &> /dev/null
          echo
-         curl -H "Accept: application/rdf+xml" -L "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" source/sparql-sd.rdf
+         curl -H "Accept: application/rdf+xml" -L "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" > source/sparql-sd.rdf
          cat source/sparql-sd.rdf | perl -pi -e "s|http://localhost:8890/sparql|$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT|" > automatic/sparql-sd.rdf
          # We don't use aggregate-source-rdf.sh b/c it would use the SDV URI organization, and we need the result in
          # the named graph http://localhost:8890/sparql
