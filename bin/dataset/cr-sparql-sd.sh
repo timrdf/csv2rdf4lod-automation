@@ -92,7 +92,7 @@ pushd `cr-conversion-root.sh` &> /dev/null
                varwww=`cr-ln-to-www-root.sh -n automatic/sparql-sd.rdf`
                aggregate-source-rdf.sh automatic/sparql-sd.rdf
                url=`cr-ln-to-www-root.sh --url-of-filepath $varwww`
-               if [[ `valid-rdf.sh $url` == 'yes' ]]; then
+               if [[ `valid-rdf.sh $url` == 'yes' && `which vload` ]]; then
                   pvdelete.sh                       'http://localhost:8890/sparql'    # localhost is intentional here; it's where Virtuoso pulls its SPARQL SD from.
                   vload rdf automatic/sparql-sd.rdf 'http://localhost:8890/sparql' -v # localhost is intentional here; it's where Virtuoso pulls its SPARQL SD from.
                   # TODO: do we bother with pvload, or just do it?
