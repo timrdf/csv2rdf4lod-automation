@@ -118,7 +118,7 @@ if [[ -z "$within_last_week" || "$force" == "true" ]]; then
       echo "  automatic/void.ttl valid:  `valid-rdf.sh -v $cockpit/automatic/void.ttl`"
       echo "  automatic/void.ttl format: `guess-syntax.sh $cockpit/automatic/void.ttl`"
       echo "  automatic/void.ttl size:   `void-triples.sh $cockpit/automatic/void.ttl`"
-      mime=`guess-syntax.sh --inspect $cockpit/source/void.rdf mime`
+      mime=`guess-syntax.sh --inspect $cockpit/automatic/void.ttl mime`
       python $opt/DataFAQs/services/sadi/ckan/add-metadata.py $cockpit/automatic/void.ttl $mime > $cockpit/source/response.rdf
       echo "add-metadata.py's output:"
       echo "  source/response.rdf valid: `valid-rdf.sh -v $cockpit/source/response.rdf`"
