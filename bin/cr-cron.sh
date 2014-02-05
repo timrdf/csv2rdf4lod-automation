@@ -229,7 +229,7 @@ pushd $conversion_root &> /dev/null
          -n "$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID" && \
          `which cr-pingback.sh` ]]; then
       echo "pwd: `pwd`"                                                                       >> $log
-      cr-pingback.sh
+      cr-pingback.sh                                                                          >> $log
    else
       echo "   ERROR: Failed to invoke:"                                                      >> $log
       echo "      CSV2RDF4LOD_BASE_URI:                               $CSV2RDF4LOD_BASE_URI"                 >> $log
