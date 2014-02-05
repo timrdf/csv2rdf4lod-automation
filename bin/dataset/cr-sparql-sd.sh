@@ -79,21 +79,25 @@ pushd `cr-conversion-root.sh` &> /dev/null
 
       pushd $cockpit &> /dev/null
          echo
-         curl -H "Accept: application/rdf+xml" -L "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" | \
-            perl -pi -e "s|http://localhost:8890/sparql|$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT|" > source/sparql-sd.rdf
+         curl -H "Accept: application/rdf+xml" -L "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" source/sparql-sd.rdf
+         cat source/sparql-sd.rdf | perl -pi -e "s|http://localhost:8890/sparql|$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT|" > automatic/sparql-sd.rdf
          # We don't use aggregate-source-rdf.sh b/c it would use the SDV URI organization, and we need the result in
          # the named graph http://localhost:8890/sparql
          # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore#modifying-the-sparql-service-description
 
-         cat source/sparql-sd.rdf
+         cat automatic/sparql-sd.rdf
          if [ "$dryrun" != "true" ]; then
-            if [[ `valid-rdf.sh source/sparql-sd.rdf` == 'yes' ]]; then
-               cr-ln-to-www-root.sh    source/sparql-sd.rdf # TODO: aggregate-source-rdf.sh should do this, no?
-               varwww=`cr-ln-to-www-root.sh -n source/sparql-sd.rdf`
-               aggregate-source-rdf.sh source/sparql-sd.rdf
+            if [[ `valid-rdf.sh automatic/sparql-sd.rdf` == 'yes' ]]; then
+               cr-ln-to-www-root.sh    automatic/sparql-sd.rdf # TODO: aggregate-source-rdf.sh should do this, no?
+               varwww=`cr-ln-to-www-root.sh -n automatic/sparql-sd.rdf`
+               aggregate-source-rdf.sh automatic/sparql-sd.rdf
                url=`cr-ln-to-www-root.sh --url-of-filepath $varwww`
-               #pvdelete.sh        http://localhost:8890/sparql # localhost is intentional here; it's where Virtuoso pulls its SPARQL SD from.
-               #pvload.sh $url -ng http://localhost:8890/sparql # localhost is intentional here; it's where Virtuoso pulls its SPARQL SD from.
+               if [[ `valid-rdf.sh $url` == 'yes' ]]; then
+                  pvdelete.sh                       'http://localhost:8890/sparql'    # localhost is intentional here; it's where Virtuoso pulls its SPARQL SD from.
+                  vload rdf automatic/sparql-sd.rdf 'http://localhost:8890/sparql' -v # localhost is intentional here; it's where Virtuoso pulls its SPARQL SD from.
+                  # TODO: do we bother with pvload, or just do it?
+                  #pvload.sh $url -ng http://localhost:8890/sparql # localhost is intentional here; it's where Virtuoso pulls its SPARQL SD from.
+               fi
             else
                echo "`basename $this` WARNING: SPARQL Service Description from "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT" was not valid."
             fi
