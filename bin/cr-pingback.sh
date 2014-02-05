@@ -93,22 +93,18 @@ if [[ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:source` == "yes" ]]; then
 fi
 
 cockpit="$sourceID/$datasetID/version/$versionID"
-
-if [[ -n "$cockpit" && -e "$cockpit" ]]; then
-   if [ ! -d $cockpit/source ]; then
-      mkdir -p $cockpit/source
-      mkdir -p $cockpit/automatic
-   fi
-   rm -rf $cockpit/source/*
-fi
+mkdir -p $sourceID/$datasetID
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 echo "$cockpit/source/void.rdf <- ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void"
 
-if [[ -e $sourceID/$datasetID ]]; then
-   within_last_week=`find $sourceID/$datasetID -mindepth 4 -name void.rdf -mtime -6 | tail -1`
-fi
-if [[ ! -e $sourceID/$datasetID || -z "$within_last_week" || "$force" == "true" ]]; then
+within_last_week=`find $sourceID/$datasetID -mindepth 4 -name void.rdf -mtime -6 | tail -1`
+# TODO: avoid redoing today.
+if [[ -z "$within_last_week" || "$force" == "true" ]]; then
+   mkdir -p $cockpit/source
+   rm -rf   $cockpit/source/*
+   mkdir -p $cockpit/automatic
+
    curl -sH "Accept: application/rdf+xml" -L ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/void > $cockpit/source/void.rdf
    if [[ -e $opt/DataFAQs/services/sadi/ckan/add-metadata.py ]]; then
       echo "http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID <- $cockpit/source/void.rdf"
