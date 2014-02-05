@@ -76,7 +76,7 @@ if [[ -z "$virtuoso_install_method" ]]; then
 fi
 
 if [[ "$1" == '--help' ]]; then
-   echo "usage: `basename $0` {--help, method, ini, log, isql, init_d}"
+   echo "usage: `basename $0` {--help, method, virtuoso_t, ini, log, isql, init_d}"
    echo 
    echo "method: `$0 method`"
    echo "virtuoso_t: `$0 virtuoso_t `"
