@@ -114,11 +114,11 @@ if [[ -z "$within_last_week" || "$force" == "true" ]]; then
    rdf2ttl.sh $cockpit/source/void.rdf $cockpit/automatic/ckan-dataset.ttl > $cockpit/automatic/void.ttl
    if [[ -e $opt/DataFAQs/services/sadi/ckan/add-metadata.py ]]; then
       echo "http://datahub.io/dataset/$CSV2RDF4LOD_PUBLISH_DATAHUB_METADATA_OUR_BUBBLE_ID <-(add-metadata.py)- $cockpit/automatic/void.ttl"
+      mime=`guess-syntax.sh --inspect $cockpit/automatic/void.ttl mime`
       echo "add-metadata.py's input:"
       echo "  automatic/void.ttl valid:  `valid-rdf.sh -v $cockpit/automatic/void.ttl`"
-      echo "  automatic/void.ttl format: `guess-syntax.sh $cockpit/automatic/void.ttl`"
+      echo "  automatic/void.ttl format: $mime"
       echo "  automatic/void.ttl size:   `void-triples.sh $cockpit/automatic/void.ttl`"
-      mime=`guess-syntax.sh --inspect $cockpit/automatic/void.ttl mime`
       python $opt/DataFAQs/services/sadi/ckan/add-metadata.py $cockpit/automatic/void.ttl $mime > $cockpit/source/response.rdf
       echo "add-metadata.py's output:"
       echo "  source/response.rdf valid: `valid-rdf.sh -v $cockpit/source/response.rdf`"
