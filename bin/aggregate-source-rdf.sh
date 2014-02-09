@@ -127,11 +127,12 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
             relatively_safe=`cr-relatively-safe.sh $file`
             REL_WARNING=''
-            if [[ "$relatively_safe" == 'no' ]]; then
-               REL_WARNING=', WARNING: not relatively safe'
-               fileBase=`cr-ln-to-www-root.sh -n --url-of-filepath $file`
-               echo "   $file -> $fileBase"
-            fi
+            #if [[ "$relatively_safe" == 'no' ]]; then
+            #   REL_WARNING=', WARNING: not relatively safe'
+            #   fileBase=`cr-ln-to-www-root.sh -n --url-of-filepath $file`
+            #   fileBase=`dirname $fileBase`
+            #   echo "   $file -> $fileBase"
+            #fi
             echo "  (including $file, format: $serialization$REL_WARNING)" 
             # TODO: check for accompanying .prov.ttl for the prov:wasQuotedFrom the file.
             if [[ "$serialization" == "text/turtle" && "$relatively_safe" == 'yes' ]]; then
