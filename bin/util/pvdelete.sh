@@ -20,5 +20,11 @@
 #   (vdelete usage: vload graph_uri)
 
 # todo (now obe?): use CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH
-#@deprecated: sudo /opt/virtuoso/scripts/vdelete $* 
+if [[ "$1" =~ http* && "$2" == '--separate-provenance' && $# -eq 2 ]]; then
+   graph="$1"
+   prov_graph=$CSV2RDF4LOD_BASE_URI/graph-prov/${named_graph#http://} # Note: coordinate with pvload.sh
+   $CSV2RDF4LOD_HOME/bin/util/virtuoso/vdelete $graph
+   $CSV2RDF4LOD_HOME/bin/util/virtuoso/vdelete $prov_graph
+fi
+
 $CSV2RDF4LOD_HOME/bin/util/virtuoso/vdelete $*
