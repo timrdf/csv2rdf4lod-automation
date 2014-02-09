@@ -126,7 +126,11 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
             serialization=`guess-syntax.sh --inspect $file mime`
 
             relatively_safe=`cr-relatively-safe.sh $file`
-            echo "  (including $file, format is $serialization, relatively safe: $relatively_safe)" 
+            REL_WARNING=''
+            if [[ "$relatively_safe" == 'no' ]]; then
+               REL_WARNING=', WARNING: not relatively safe'
+            fi
+            echo "  (including $file, format: $serialization$REL_WARNING)" 
             # TODO: check for accompanying .prov.ttl for the prov:wasQuotedFrom the file.
             if [[ "$serialization" == "text/turtle" && "$relatively_safe" == 'yes' ]]; then
                # Make some attempts to preserve the less-ugliness of the file.
