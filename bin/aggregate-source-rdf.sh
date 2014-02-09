@@ -125,9 +125,10 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
          if [[ -e "$file" || "$file" =~ http* ]]; then
             serialization=`guess-syntax.sh --inspect $file mime`
 
-            echo "  (including $file, format is $serialization)" 
+            relatively_safe=`cr-relatively-safe.sh $file`
+            echo "  (including $file, format is $serialization, relatively safe: $relatively_safe)" 
             # TODO: check for accompanying .prov.ttl for the prov:wasQuotedFrom the file.
-            if [[ "$serialization" == "text/turtle" && `cr-relatively-safe.sh $file` == 'yes' ]]; then
+            if [[ "$serialization" == "text/turtle" && "$relatively_safe" == 'yes' ]]; then
                # Make some attempts to preserve the less-ugliness of the file.
                # And, expand the relative paths correctly.
                if [[ `too-big-for-rapper.sh $file` == 'yes' && `which serdi` ]]; then
