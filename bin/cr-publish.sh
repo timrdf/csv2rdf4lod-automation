@@ -69,6 +69,8 @@ elif [[ `cr-pwd-type.sh` == 'cr:conversion-cockpit' ]]; then
    bottom='3'
 fi
 
+echo find . -maxdepth $bottom -name "publish.sh"
+find . -maxdepth $bottom -name "publish.sh"
 for trigger in `find . -maxdepth $bottom -name "publish.sh"`; do 
 
    if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == 'fine' ]]; then
