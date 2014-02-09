@@ -22,7 +22,7 @@
 # todo (now obe?): use CSV2RDF4LOD_PUBLISH_VIRTUOSO_SCRIPT_PATH
 if [[ "$1" =~ http* && "$2" == '--separate-provenance' && $# -eq 2 ]]; then
    graph="$1"
-   prov_graph=$CSV2RDF4LOD_BASE_URI/graph-prov/${named_graph#http://} # Note: coordinate with pvload.sh
+   prov_graph=$CSV2RDF4LOD_BASE_URI/graph-prov/${graph#http://} # Note: coordinate with pvload.sh
    $CSV2RDF4LOD_HOME/bin/util/virtuoso/vdelete $graph
    $CSV2RDF4LOD_HOME/bin/util/virtuoso/vdelete $prov_graph
 fi
