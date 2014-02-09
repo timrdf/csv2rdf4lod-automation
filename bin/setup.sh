@@ -872,6 +872,17 @@ export CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT="http://logd.tw.rpi.edu/sparql"
 export CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT="" 
 
 #
+# Customize: Load the provenance of SPARQL endpoint named graph 
+#            loads into a separate named graph, instead of the one being loaded.
+#            See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-pvload.sh
+# Variable type: Machine ? Project ? User ? Activity ?
+#
+# (done in )
+#
+export CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT_SEPARATE_PROVENANCE_NG="false" 
+export CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT_SEPARATE_PROVENANCE_NG="true" 
+
+#
 # Customize: Directory where SPARQL query files exist 
 #            and should be cached with cache-queries.sh.
 # Variable type: Machine ? Project ? User ? Activity ?
