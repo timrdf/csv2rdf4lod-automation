@@ -55,6 +55,12 @@ if [ "$1" == "--idempotent" ]; then
    shift 
 fi
 
+if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
+   echo "Creating publication trigger." >&2
+   # NOTE: If this portion doesn't overwrite publish/bin/publish.sh, 
+   #       then the outdated version will be run below.
+fi
+
 # Additional functionality for custom publication triggers:
 #   https://github.com/timrdf/csv2rdf4lod-automation/wiki/Triggers#4-publication-triggers
 
@@ -69,8 +75,6 @@ elif [[ `cr-pwd-type.sh` == 'cr:conversion-cockpit' ]]; then
    bottom='3'
 fi
 
-echo find . -maxdepth $bottom -name "publish.sh"
-find . -maxdepth $bottom -name "publish.sh"
 for trigger in `find . -maxdepth $bottom -name "publish.sh"`; do 
 
    if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == 'fine' ]]; then
