@@ -373,7 +373,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "elif [[ \"\$1\" == \"--as-metadataset\" ]]; then"                                                                     >> $vloadSH
    echo "   graph=\"\${CSV2RDF4LOD_PUBLISH_METADATASET_GRAPH_NAME:-'http://purl.org/twc/vocab/conversion/MetaDataset'}\""      >> $vloadSH
    echo "   metaGraph=\"\$graph\""                                                                                             >> $vloadSH
-   echo "elif [[ \"\$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT_SEPARATE_NG_PROVENANCE\" == 'yes' ]]; then"                           >> $vloadSH
+   echo "elif [[ \"\$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT_SEPARATE_NG_PROVENANCE\" == 'true' ]]; then"                          >> $vloadSH
    echo "   metaGraph=\`pvload.sh --prov-graph-name \$graph\`"                                                                 >> $vloadSH
    echo "elif [ \$# -gt 0 ]; then"                                                                                             >> $vloadSH
    echo "   echo param not recognized: \$1"                                                                                    >> $vloadSH
