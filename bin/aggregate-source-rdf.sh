@@ -393,11 +393,11 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "   url=\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/$sourceID-$datasetID-$versionID\${1}"     >> $vloadSH
    echo "   [[ \"\$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT_SEPARATE_NG_PROVENANCE\" == 'true' ]] && sep='--separate-provenance' || sep=''" >> $vloadSH
    echo "   if [ -e \$dump ]; then"                                                                                            >> $vloadSH
-   echo "      echo pvload.sh \$url -ng \$graph"                                                                               >> $vloadSH
+   echo "      echo pvload.sh \$url -ng \$graph \$sep"                                                                         >> $vloadSH
    echo "      \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph \$sep"                                                >> $vloadSH
    echo "      exit 1"                                                                                                         >> $vloadSH
    echo "   elif [ -e \$dump.gz ]; then"                                                                                       >> $vloadSH
-   echo "      echo pvload.sh \$url.gz -ng \$graph"                                                                            >> $vloadSH
+   echo "      echo pvload.sh \$url.gz -ng \$graph \$sep"                                                                      >> $vloadSH
    echo "      \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.gz -ng \$graph \$sep"                                             >> $vloadSH
    echo "      exit 1"                                                                                                         >> $vloadSH
    echo "   fi"                                                                                                                >> $vloadSH
