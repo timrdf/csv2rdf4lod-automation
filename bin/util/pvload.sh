@@ -30,6 +30,7 @@ if [[ "$1" == "--help" || $# -lt 1 ]]; then
    echo "                          store the provenance of loading 'url' in a separate named graph, not in '-ng'."
    echo
    echo "  (Setting envvar CSV2RDF4LOD_CONVERT_DEBUG_LEVEL=finest will leave temporary files after invocation.)"
+   echo "  (See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-pvload.sh)"
    exit 1
 fi
 
