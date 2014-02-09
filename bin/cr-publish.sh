@@ -75,7 +75,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
       fi
    done
    if [[ -n "$valid_rdf_files" ]]; then
-      echo $valid_rdf_files
+      aggregate-source-rdf.sh $valid_rdf_files
    fi
 fi
 
