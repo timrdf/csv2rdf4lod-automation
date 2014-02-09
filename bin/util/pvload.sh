@@ -60,6 +60,13 @@ TEMP="_"`basename $0``date +%s`_$$.response
 
 escapedEndpoint=`cr-urlencode.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}`
 
+if [[ "$1" == '--prov-graph-name' && "$2" =~ http* ]]; then
+   # Un-exposed option for other scripts to use.
+   graph_name="$2"
+   echo $CSV2RDF4LOD_BASE_URI/graph-prov/${graph_name#http://}
+   exit
+fi
+
 logID=`resource-name.sh`
 while [ $# -gt 0 ]; do
    echo
