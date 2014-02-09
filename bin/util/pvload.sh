@@ -26,9 +26,9 @@ if [[ "$1" == "--help" || $# -lt 1 ]]; then
    echo "  -n                    : dry run - do not download or load into named graph."
    echo "  <url>                 : the URL to retrieve and load into a named graph."
    echo "  -ng <named-graph>     : the named graph to place 'url'. (if not provided, -ng == 'url')."
-   echo "  --separate-provenance [ --into <prov_graph> ] :"
+   echo "  --separate-provenance [ --into <prov-graph> ] :"
    echo "                          store the provenance of loading 'url' in a separate named graph, not in '-ng'."
-   echo "                          if <prov_graph> is the value 'one', choose a global graph name."
+   echo "                          if <prov-graph> is the value 'one', choose a global graph name."
    echo
    echo "  (Setting envvar CSV2RDF4LOD_CONVERT_DEBUG_LEVEL=finest will leave temporary files after invocation.)"
    echo "  (See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Script:-pvload.sh)"
