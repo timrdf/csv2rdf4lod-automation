@@ -928,6 +928,8 @@ echo "   metaGraph=\"\$base/vocab/Dataset\""                                    
 echo "elif [[ \"\$1\" == \"--as-metadataset\" ]]; then"                                                                     >> $vloadSH
 echo "   graph=\"\${CSV2RDF4LOD_PUBLISH_METADATASET_GRAPH_NAME:-'http://purl.org/twc/vocab/conversion/MetaDataset'}\""      >> $vloadSH
 echo "   metaGraph=\"\$graph\""                                                                                             >> $vloadSH
+echo "elif [[ \"\$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT_SEPARATE_NG_PROVENANCE\" == 'true' ]]; then"                          >> $vloadSH
+echo "   metaGraph=\`pvload.sh --prov-graph-name \$graph\`"                                                                 >> $vloadSH
 echo "elif [ \$# -gt 0 ]; then"                                                                                             >> $vloadSH
 echo "   echo param not recognized: \$1"                                                                                    >> $vloadSH
 echo "   echo usage: \`basename \$0\` with no parameters loads versioned dataset"                                           >> $vloadSH
@@ -947,55 +949,42 @@ echo "fi"                                                                       
 echo ""                                                                                                                     >> $vloadSH
 echo ""                                                                                                                     >> $vloadSH
 echo ""                                                                                                                     >> $vloadSH
+echo "[[ \"\$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT_SEPARATE_NG_PROVENANCE\" == 'true' ]] && sep='--separate-provenance' || sep=''" >> $vloadSH
 echo "dump='$allNT'"                                                                                                        >> $vloadSH
-#echo "TEMP=\"_\"\`basename \$dump\`_tmp"                                                                                   >> $vloadSH
 echo "url='$http_allNT'"                                                                                                    >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                                               >> $vloadSH
-echo "   echo pvload.sh \$url -ng \$graph"                                                                                  >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                                         >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload nt \$dump \$graph"                                                              >> $vloadSH
+echo "   echo pvload.sh \$url -ng \$graph \$sep"                                                                            >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph \$sep"                                                   >> $vloadSH
 echo "   exit 1"                                                                                                            >> $vloadSH
 echo "elif [ -e \$dump.$zip ]; then"                                                                                        >> $vloadSH
-echo "   echo pvload.sh \$url.$zip -ng \$graph"                                                                             >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                                                    >> $vloadSH
-#echo "   #gunzip -c \$dump.$zip > \$TEMP"                                                                                  >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload nt \$TEMP \$graph"                                                              >> $vloadSH
-#echo "   rm \$TEMP"                                                                                                        >> $vloadSH
+echo "   echo pvload.sh \$url.$zip -ng \$graph \$sep"                                                                       >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph \$sep"                                              >> $vloadSH
 echo "   exit 1"                                                                                                            >> $vloadSH
 echo "fi"                                                                                                                   >> $vloadSH
 echo ""                                                                                                                     >> $vloadSH
 echo "dump='$allTTL'"                                                                                                       >> $vloadSH
 echo "url='$http_allTTL'"                                                                                                   >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                                               >> $vloadSH
-echo "   echo pvload.sh \$url -ng \$graph"                                                                                  >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                                         >> $vloadSH
-#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                                        >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload ttl \$dump \$graph"                                                             >> $vloadSH
+echo "   echo pvload.sh \$url -ng \$graph \$sep"                                                                            >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph \$sep"                                                   >> $vloadSH
 echo "   exit 1"                                                                                                            >> $vloadSH
 echo "elif [ -e \$dump.$zip ]; then"                                                                                        >> $vloadSH
-echo "   echo pvload.sh \$url.$zip -ng \$graph"                                                                             >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                                                    >> $vloadSH
-#echo "   #gunzip -c \$dump.$zip > \$TEMP"                                                                                  >> $vloadSH
-#echo "   #echo sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                                        >> $vloadSH
-#echo "   #sudo /opt/virtuoso/scripts/vload ttl \$TEMP \$graph"                                                             >> $vloadSH
-#echo "   #rm -f \$TEMP"                                                                                                    >> $vloadSH
+echo "   echo pvload.sh \$url.$zip -ng \$graph \$sep"                                                                       >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph \$sep"                                              >> $vloadSH
 echo "   exit 1"                                                                                                            >> $vloadSH
 echo "fi"                                                                                                                   >> $vloadSH
 echo ""                                                                                                                     >> $vloadSH
 echo "dump='$allRDFXML'"                                                                                                    >> $vloadSH
 echo "url='$http_allRDFXML'"                                                                                                >> $vloadSH
 echo "if [ -e \$dump ]; then"                                                                                               >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph"                                                         >> $vloadSH
-#echo "   sudo /opt/virtuoso/scripts/vload rdf \$dump \$graph"                                                              >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph \$sep"                                                   >> $vloadSH
 echo "   exit 1"                                                                                                            >> $vloadSH
 echo "elif [ -e \$dump.$zip ]; then"                                                                                        >> $vloadSH
-echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph"                                                    >> $vloadSH
-#echo "   gunzip -c \$dump.$zip > \$TEMP"                                                                                   >> $vloadSH
-#echo "   sudo /opt/virtuoso/scripts/vload rdf \$TEMP \$graph"                                                              >> $vloadSH
-#echo "   rm \$TEMP"                                                                                                        >> $vloadSH
+echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url.$zip -ng \$graph \$sep"                                              >> $vloadSH
 echo "   exit 1"                                                                                                            >> $vloadSH
 echo "fi"                                                                                                                   >> $vloadSH
 echo "#3> <> prov:wasAttributedTo <$baseURI/id/csv2rdf4lod/$myMD5> ."                                                       >> $vloadSH
+echo "#                           convert-aggregate.sh"                                                                     >> $vloadSH
 echo "#3> <> prov:generatedAtTime \"`dateInXSDDateTime.sh`\"^^xsd:dateTime ."                                               >> $vloadSH
 echo "#3> <$baseURI/id/csv2rdf4lod/$myMD5> foaf:name \"`basename $0`\" ."                                                   >> $vloadSH
 chmod +x $vloadSH

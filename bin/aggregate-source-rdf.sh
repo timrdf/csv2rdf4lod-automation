@@ -384,7 +384,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo ""                                                                                                                     >> $vloadSH
    echo "# Load the metadata, either in the same named graph as the data or into a more global one."                           >> $vloadSH
    echo "metaURL=\"\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sdv}.void.ttl\""              >> $vloadSH
-   echo "echo pvload.sh \$metaURL -ng \$metaGraph \$sep"                                                                       >> $vloadSH
+   echo "echo pvload.sh \$metaURL -ng \$metaGraph"                                                                             >> $vloadSH
    echo "\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                                    >> $vloadSH
    echo "if [[ \"\$1\" == \"--meta\" ]]; then"                                                                                 >> $vloadSH
    echo "   exit 1"                                                                                                            >> $vloadSH
