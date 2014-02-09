@@ -56,13 +56,27 @@ if [ "$1" == "--idempotent" ]; then
 fi
 
 if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
+   # A third need (the first two are handled below) is to publish non-RDF 
+   # files such as zip and png. This came to head with locv.tw.
+
    echo "Creating publication trigger." >&2
+   valid_rdf_files=''
    # NOTE: If this portion doesn't overwrite publish/bin/publish.sh, 
    #       then the outdated version will be run below.
    while [ $# -gt 0 ]; do
-      echo "$1"
-      shift
+      file="$1" && shift
+      echo "$file"
+      if [[ -e "$file" && `valid-rdf.sh $file` == 'yes' ]]; then
+         valid_rdf_files="$valid_rdf_files $file"
+      elif [[ -e "$file" ]]; then
+         cr-ln-to-www-root.sh $file
+      else
+         "WARNING: `basename $0` file does not exist, not publishing it: $file"
+      fi
    done
+   if [[ -n "$valid_rdf_files" ]]; then
+      echo $valid_rdf_files
+   fi
 fi
 
 # Additional functionality for custom publication triggers:
