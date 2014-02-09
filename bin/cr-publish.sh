@@ -67,7 +67,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
       file="$1" && shift
       echo "$file"
       if [[ -e "$file" && `valid-rdf.sh $file` == 'yes' ]]; then
-         valid_rdf_files="$valid_rdf_files $file"
+         valid_rdf_files="$valid_rdf_files $file" # NOTE: file argument limit
       elif [[ -e "$file" ]]; then
          cr-ln-to-www-root.sh $file
       else

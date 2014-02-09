@@ -52,6 +52,14 @@ if [ "$1" == "--tell" ]; then
       elif [[ "$mime" == "application/rdf+xml" || "$mime" == 'rdf' ]]; then
          echo http://www.w3.org/ns/formats/RDF_XML
       fi
+   elif [[ "$tool" == 'find' ]]; then
+      if [[ "$mime" == "text/turtle" || "$mime" == 'ttl' ]]; then
+         echo ttl
+      elif [[ "$mime" == "text/plain" || "$mime" == 'nt' ]]; then
+         echo n3
+      elif [[ "$mime" == "application/rdf+xml" || "$mime" == 'rdf' ]]; then
+         echo rdf
+      fi
    fi
    # TODO: rapper, jena, extension
    exit
