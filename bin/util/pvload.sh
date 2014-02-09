@@ -19,15 +19,15 @@
 #   limitations under the License.
 #
 
-usage_message="usage: `basename $0` [--help] [-n] <url> [-ng <named-graph>] [--separate-provenance [--into (<prov-graph> | 'one')]]" 
+usage_message="usage: `basename $0` [--help] [-n] <url> [-ng <graph-name>] [--separate-provenance [--into (<prov-graph> | 'one')]]" 
 
 if [[ "$1" == "--help" || $# -lt 1 ]]; then
    echo $usage_message 
    echo "  -n                    : dry run - do not download or load into named graph."
    echo "  <url>                 : the URL to retrieve and load into a named graph."
-   echo "  -ng <named-graph>     : the named graph to place 'url'. (if not provided, -ng == 'url')."
+   echo "  -ng <graph-name>      : the name of the graph to place <url>. (if not provided, -ng == <url>)."
    echo "  --separate-provenance [ --into <prov-graph> ] :"
-   echo "                          store the provenance of loading 'url' in a separate named graph, not in '-ng'."
+   echo "                          store the provenance of loading <url> in a separate named graph, not in '-ng'."
    echo "                          if <prov-graph> is the value 'one', choose a global graph name."
    echo
    echo "  (Setting envvar CSV2RDF4LOD_CONVERT_DEBUG_LEVEL=finest will leave temporary files after invocation.)"
