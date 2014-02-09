@@ -59,6 +59,10 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
    echo "Creating publication trigger." >&2
    # NOTE: If this portion doesn't overwrite publish/bin/publish.sh, 
    #       then the outdated version will be run below.
+   while [ $# -gt 0 ]; do
+      echo "$1"
+      shift
+   done
 fi
 
 # Additional functionality for custom publication triggers:
