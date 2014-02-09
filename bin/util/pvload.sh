@@ -74,6 +74,7 @@ while [ $# -gt 0 ]; do
    #
    if [ "$dryrun" != "true" ]; then
       $CSV2RDF4LOD_HOME/bin/util/pcurl.sh $url -n $TEMP     # Side affect: creates $TEMP.prov.ttl (will be loaded below).
+      echo
       unzipped=""
       gunzip -t $TEMP &> /dev/null
       if [ $? -eq 0 ]; then

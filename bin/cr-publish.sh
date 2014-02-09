@@ -65,10 +65,10 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
    #       then the outdated version will be run below.
    while [ $# -gt 0 ]; do
       file="$1" && shift
-      echo "$file"
       if [[ -e "$file" && `valid-rdf.sh $file` == 'yes' ]]; then
          valid_rdf_files="$valid_rdf_files $file" # NOTE: file argument limit
       elif [[ -e "$file" ]]; then
+         echo "$file"
          cr-ln-to-www-root.sh $file
       else
          "WARNING: `basename $0` file does not exist, not publishing it: $file"

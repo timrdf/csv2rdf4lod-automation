@@ -380,18 +380,18 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "   exit 1"                                                                                                            >> $vloadSH
    echo "fi"                                                                                                                   >> $vloadSH
    echo ""                                                                                                                     >> $vloadSH
+   echo "[[ \"\$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT_SEPARATE_NG_PROVENANCE\" == 'true' ]] && sep='--separate-provenance' || sep=''" >> $vloadSH
    echo "# Load the metadata, either in the same named graph as the data or into a more global one."                           >> $vloadSH
    echo "metaURL=\"\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sdv}.void.ttl\""              >> $vloadSH
    echo "echo pvload.sh \$metaURL -ng \$metaGraph"                                                                             >> $vloadSH
-   echo "\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph"                                                    >> $vloadSH
+   echo "\${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$metaURL -ng \$metaGraph \$sep"                                              >> $vloadSH
    echo "if [[ \"\$1\" == \"--meta\" ]]; then"                                                                                 >> $vloadSH
    echo "   exit 1"                                                                                                            >> $vloadSH
    echo "fi"                                                                                                                   >> $vloadSH
    echo ""                                                                                                                     >> $vloadSH
    echo "function try {"                                                                                                       >> $vloadSH
    echo "   dump=\"publish/$sdv\${1}\""                                                                                        >> $vloadSH
-   echo "   url=\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/$sourceID-$datasetID-$versionID\${1}"     >> $vloadSH
-   echo "   [[ \"\$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT_SEPARATE_NG_PROVENANCE\" == 'true' ]] && sep='--separate-provenance' || sep=''" >> $vloadSH
+   echo "   url=\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/$sourceID-$datasetID-$versionID\${1}" >> $vloadSH
    echo "   if [ -e \$dump ]; then"                                                                                            >> $vloadSH
    echo "      echo pvload.sh \$url -ng \$graph \$sep"                                                                         >> $vloadSH
    echo "      \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$url -ng \$graph \$sep"                                                >> $vloadSH
