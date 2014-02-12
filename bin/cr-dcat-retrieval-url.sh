@@ -143,7 +143,7 @@ elif [[ `is-pwd-a.sh              cr:source                                     
    else
       dataset="$1"
       shift
-      mkdir -p $datasetID
+      mkdir -p $dataset
       # Handle the original (3-year old) directory structure 
       # that does not include 'dataset' as a directory.
       pushd $dataset > /dev/null
