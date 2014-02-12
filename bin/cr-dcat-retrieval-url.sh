@@ -141,6 +141,7 @@ elif [[ `is-pwd-a.sh              cr:source                                     
          $0 $* # Recursive call
       popd > /dev/null
    else
+      echo $*
       # Handle the original (3-year old) directory structure 
       # that does not include 'dataset' as a directory.
       for dataset in `cr-list-datasets.sh`; do
