@@ -141,14 +141,14 @@ elif [[ `is-pwd-a.sh              cr:source                                     
          $0 $* # Recursive call
       popd > /dev/null
    else
-      echo $*
+      dataset="$1"
+      shift
+      mkdir -p $datasetID
       # Handle the original (3-year old) directory structure 
       # that does not include 'dataset' as a directory.
-      for dataset in `cr-list-datasets.sh`; do
-         pushd $dataset > /dev/null
-            $0 $* # Recursive call
-         popd > /dev/null
-      done
+      pushd $dataset > /dev/null
+         $0 $* # Recursive call
+      popd > /dev/null
    fi
 elif [[ `is-pwd-a.sh cr:data-root                                                                       ` == "yes" ]]; then
 
