@@ -28,11 +28,18 @@
 #
 # @param datafile       - the local filename of the csv.
 #
+if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == 'finest' ]]; then
+   echo "VERY BEGINNING: $CLASSPATH"
+fi
 
 see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 export PATH=$PATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-paths.sh`
 export CLASSPATH=$CLASSPATH`$CSV2RDF4LOD_HOME/bin/util/cr-situate-classpaths.sh`
+
+if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == 'finest' ]]; then
+   echo "AFTER SITUATE: $CLASSPATH"
+fi
 
 if [ `cr-pwd-type.sh` != 'cr:conversion-cockpit' ]; then # aka ${0#./} != `basename $0`
    pushd `dirname $0`
@@ -56,6 +63,10 @@ if [ -f ../csv2rdf4lod-source-me.sh ]; then
    # Include dataset-specific https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables
    echo "source ../csv2rdf4lod-source-me.sh" | tee -a $CSV2RDF4LOD_LOG
    source ../csv2rdf4lod-source-me.sh
+fi
+
+if [[ "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" == 'finest' ]]; then
+   echo "AFTER source ../*../: $CLASSPATH"
 fi
 
 if [[ "$CSV2RDF4LOD_CONVERT_ALWAYS_UPDATE_CONVERTER" == "true" ]]; then

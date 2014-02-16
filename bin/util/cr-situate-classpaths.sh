@@ -40,7 +40,7 @@ for jar in                                                             \
            lib/javacsv2.0/javacsv.jar                                  \
            lib/joda-time-2.0/joda-time-2.0.jar                         \
            lib/openrdf-sesame-2.7.10-onejar.jar                        \
-           lib/commons-io-2.4.jar                                      \
+           lib/openrdf-sesame/commons-io-2.4.jar                       \
            lib/saxonb9-1-0-8j.jar                                      \
            lib/datadigest-1.0-SNAPSHOT.jar                             \
            lib/slf4j/slf4j-api-1.7.2.jar                               \
