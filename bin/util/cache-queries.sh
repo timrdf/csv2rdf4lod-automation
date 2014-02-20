@@ -156,6 +156,9 @@ for sparql in $queryFiles; do
       while [ -n "$offset" ]; do
          query=`cr-urlencode.sh --from-file "$TEMP.rq"`
          qi='' # '' -> '_2' -> '_3' ...
+
+         [[ "$limit_is_in_query" == 'no' ]] && queryLIMIT='' || queryLIMIT=" limit $limit"
+
          queryOFFSET=''
          if [[ -n "$offset" ]]; then   
             if [[ "$offset" -gt 0 ]]; then
@@ -165,7 +168,7 @@ for sparql in $queryFiles; do
          fi
          escapedOutput=`cr-urlencode.sh $output`
 
-         request="$endpoint?query=$query$queryOFFSET&$outputVarName=$escapedOutput"
+         request="$endpoint?query=$query$queryLIMIT$queryOFFSET&$outputVarName=$escapedOutput"
          echo $request
 
          resultsFile=$results/`basename $sparql`$qi.`echo $output | tr '/+-' '_'`
