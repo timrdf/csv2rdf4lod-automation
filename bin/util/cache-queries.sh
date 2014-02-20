@@ -262,7 +262,8 @@ for sparql in $queryFiles; do
          echo "."                                                                                >> $resultsFile.prov.ttl
 
          # If query results are "valid", and we were asked to exhaust the query with limit/offset...
-         if [[ `valid-rdf.sh $resultsFile` == 'yes' ]]; then
+         if [[ `valid-rdf.sh $resultsFile` == 'yes' || \
+               $format =~ *csv && `wc -l $resultsFile | awk '{print $1}'` -gt 1 ]]; then
             if [[ -n "$offset" && -n "$limit" ]]; then   
                if [[ "$offset" -eq 0 ]]; then
                   echo
