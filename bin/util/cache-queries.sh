@@ -21,7 +21,7 @@
 outputTypes="sparql xml"
 
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] [-q a.sparql b.sparql ...]* [--limit-offset] [-od path/to/output/dir]"
+   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] [-q a.sparql b.sparql ...]* [--limit-offset] [--strip-count] [-od path/to/output/dir]"
    echo
    echo "    Executes SPARQL queries against an endpoint requesting the given output formats."
    echo
@@ -30,7 +30,9 @@ if [ $# -lt 1 ]; then
    echo "            -o  : the URL parameter value(s) to request."
    echo "    default -o  : $outputTypes"
    echo "    default -q  : *.sparql *.rq"
-   echo " --limit-offset : iterate with LIMIT / OFFSET until no more useful results."
+   echo " --limit-offset : iterate with LIMIT / OFFSET until no more useful results. If no LIMIT in a.sparql, defaults to 10000."
+   echo "  --strip-count : modify the SPARQL query to remove count() operator."
+   echo "                  e.g. 'select count(distinct ?s) where' --> 'select distinct ?s where'"
    echo "            -od : output directory"
    echo "    default -od : results/"
    exit 1
@@ -97,6 +99,12 @@ if [[ "$1" == '--limit-offset' ]]; then
    shift
 fi
 
+strip_count='no'
+if [[ "$1" == '--strip-count' ]]; then
+   strip_count='yes'
+   shift
+fi
+
 results="results"
 if [ "$1" == "-od" -a $# -gt 1 ]; then
    shift
@@ -108,6 +116,13 @@ fi
 
 for sparql in $queryFiles; do
    echo $sparql
+   TEMP="_"`basename $0``date +%s`_$$.rq
+   if [[ "$strip_count" == 'yes' ]]; then
+      cat $sparql | sed 's/^\(.*\)count(\([^)]*\))/\1\2/' > $TEMP.rq
+      echo "`basename $0` stripping count():"
+      diff $sparql $TEMP.rq
+   fi
+
    for output in $outputTypes; do
 
       limit=''
@@ -115,7 +130,7 @@ for sparql in $queryFiles; do
       if [[ -n "$limit_offset" ]]; then # limit_offset is either: '' (no), 'yes', or a caller-provided number e.g. '100000'
          limit=`cat $sparql | grep -i '^limit' | awk '{print $2}' | head -1`
          if [[ "$limit" =~ [0-9]+ ]]; then
-            #echo "Found limit in $sparql: $limit" >&2
+            #echo "Found limit in $TEMP.rq: $limit" >&2
             limit_is_in_query='yes'
          else
             #echo "No LIMIT in $sparql; assuming default of 10000" >&2
@@ -138,7 +153,7 @@ for sparql in $queryFiles; do
 
       while [ -n "$offset" ]; do
          #queryOLD=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
-         query=`cr-urlencode.sh --from-file "$sparql"`
+         query=`cr-urlencode.sh --from-file "$TEMP.rq"`
          qi='' # '' -> '_2' -> '_3' ...
          queryOFFSET=''
          if [[ -n "$offset" ]]; then   
@@ -262,3 +277,5 @@ for sparql in $queryFiles; do
    done
    echo ""
 done 
+
+rm -f $TEMP.rq
