@@ -270,6 +270,7 @@ for sparql in $queryFiles; do
                fi
                let "offset=$offset+$limit"
                let "iteration=$iteration+1"
+               sec=$(($RANDOM%15)) && sleep $sec
             else
                offset=''
             fi
