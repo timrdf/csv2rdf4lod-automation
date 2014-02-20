@@ -276,10 +276,10 @@ for sparql in $queryFiles; do
             fi
          else
             offset=''
-            echo "  (not continuing)"
-            echo "     format  : $output"
-            echo "  valid RDF  : `valid-rdf.sh $resultsFile`"
-            echo "  line count : `wc -l $resultsFile | awk '{print $1}'`"
+            #echo "  (not continuing)"
+            #echo "     format  : $output"
+            #echo "  valid RDF  : `valid-rdf.sh $resultsFile`"
+            #echo "  line count : `wc -l $resultsFile | awk '{print $1}'`"
             # TODO: clean up last query result since it wasn't valid.
          fi 
       done
