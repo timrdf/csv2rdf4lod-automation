@@ -99,6 +99,15 @@ if [[ "$1" == '--limit-offset' ]]; then
    shift
 fi
 
+nap='0'
+if [[ "$1" == '--nap' ]]; then
+   if [[ "$2" =~ [0-9]+ ]]; then
+      nap=$2
+      shift
+   fi
+   shift
+fi
+
 strip_count='no'
 if [[ "$1" == '--strip-count' ]]; then
    strip_count='yes'
@@ -175,9 +184,14 @@ for sparql in $queryFiles; do
          if [[ "$offset" -eq 0 ]]; then
             printf "  $output -> $resultsFile"
          else
-            sec=$(($RANDOM%10))
-            echo   "  `echo $output | sed 's/./ /g'`    $iteration $limit/$offset zzz $sec"
-            sleep $sec
+            if [[ "$nap" -gt 0 ]]; then
+               sec=$(($RANDOM%$nap))
+               zzz="zzz $sec"
+            fi
+            echo   "  `echo $output | sed 's/./ /g'`    $iteration $limit/$offset $zzz"
+            if [[ "$nap" -gt 0 ]]; then
+               sleep $sec
+            fi
          fi
          curl -L "$request" > $resultsFile 2> /dev/null
 
