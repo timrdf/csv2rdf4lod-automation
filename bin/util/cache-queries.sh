@@ -21,20 +21,20 @@
 outputTypes="sparql xml"
 
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] [-q a.sparql b.sparql ...]* [--limit-offset] [--strip-count] [-od path/to/output/dir]"
+   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] [-q a.sparql b.sparql ...]* [--limit-offset [count]] [--strip-count] [-od path/to/output/dir]"
    echo
    echo "    Executes SPARQL queries against an endpoint requesting the given output formats."
    echo
-   echo "            -p  : the URL parameter name used to request a different output/format from <endpoint>."
-   echo "    default -p  : 'output'"
-   echo "            -o  : the URL parameter value(s) to request."
-   echo "    default -o  : $outputTypes"
-   echo "    default -q  : *.sparql *.rq"
-   echo " --limit-offset : iterate with LIMIT / OFFSET until no more useful results. If no LIMIT in a.sparql, defaults to 10000."
-   echo "  --strip-count : modify the SPARQL query to remove count() operator."
-   echo "                  e.g. 'select count(distinct ?s) where' --> 'select distinct ?s where'"
-   echo "            -od : output directory"
-   echo "    default -od : results/"
+   echo "            -p          : the URL parameter name used to request a different output/format from <endpoint>."
+   echo "    default -p          : 'output'"
+   echo "            -o          : the URL parameter value(s) to request."
+   echo "    default -o          : $outputTypes"
+   echo "    default -q          : *.sparql *.rq"
+   echo " --limit-offset [count] : iterate with LIMIT / OFFSET until no more useful results. If no LIMIT in a.sparql, defaults to 10000."
+   echo "  --strip-count         : modify the SPARQL query to remove count() operator."
+   echo "                          e.g. 'select count(distinct ?s) where' --> 'select distinct ?s where'"
+   echo "            -od         : output directory"
+   echo "    default -od         : results/"
    exit 1
 fi
 
