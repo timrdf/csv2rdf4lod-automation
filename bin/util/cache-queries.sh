@@ -130,7 +130,7 @@ for sparql in $queryFiles; do
    if [[ "$strip_count" == 'yes' ]]; then
       cat $sparql | sed 's/^\(.*\)count(\([^)]*\))/\1\2/' > $TEMP.rq
       echo "  (stripping count()):"
-      diff $sparql $TEMP.rq | awk '{print "      "$0}'
+      diff $sparql $TEMP.rq | awk '{print "         "$0}'
    fi
 
    for output in $outputTypes; do
