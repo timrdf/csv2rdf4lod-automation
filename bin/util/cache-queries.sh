@@ -177,6 +177,7 @@ for sparql in $queryFiles; do
          else
             sec=$(($RANDOM%10))
             echo   "  `echo $output | sed 's/./ /g'`    $iteration $limit/$offset zzz $sec"
+            sleep $sec
          fi
          curl -L "$request" > $resultsFile 2> /dev/null
 
