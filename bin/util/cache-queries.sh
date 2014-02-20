@@ -119,7 +119,7 @@ for sparql in $queryFiles; do
    TEMP="_"`basename $0``date +%s`_$$.rq
    if [[ "$strip_count" == 'yes' ]]; then
       cat $sparql | sed 's/^\(.*\)count(\([^)]*\))/\1\2/' > $TEMP.rq
-      echo "   (stripping count()):"
+      echo "  (stripping count()):"
       diff $sparql $TEMP.rq | awk '{print "      "$0}'
    fi
 
@@ -151,8 +151,9 @@ for sparql in $queryFiles; do
          echo "  (will exhaust with limit/offset: $limit/$offset)"
       fi
 
+      # $offset starts at '0' and becomes either '' or a number e.g. '10000'
+      # So, will run first time and maybe more.
       while [ -n "$offset" ]; do
-         #queryOLD=`        cat  $sparql | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { print uri_escape($_); }'`
          query=`cr-urlencode.sh --from-file "$TEMP.rq"`
          qi='' # '' -> '_2' -> '_3' ...
          queryOFFSET=''
@@ -162,11 +163,10 @@ for sparql in $queryFiles; do
                queryOFFSET=`cr-urlencode.sh " offset $offset "`
             fi
          fi
-         #escapedOutputOLD=`echo $output | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'` # | sed 's/%0A$//'`
          escapedOutput=`cr-urlencode.sh $output`
 
          request="$endpoint?query=$query$queryOFFSET&$outputVarName=$escapedOutput"
-         #echo $request
+         echo $request
 
          resultsFile=$results/`basename $sparql`$qi.`echo $output | tr '/+-' '_'`
          if [[ "$offset" -eq 0 ]]; then
