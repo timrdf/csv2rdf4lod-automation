@@ -119,8 +119,8 @@ for sparql in $queryFiles; do
    TEMP="_"`basename $0``date +%s`_$$.rq
    if [[ "$strip_count" == 'yes' ]]; then
       cat $sparql | sed 's/^\(.*\)count(\([^)]*\))/\1\2/' > $TEMP.rq
-      echo "   `basename $0` stripping count():"
-      diff $sparql $TEMP.rq | awk '{print "   "$0}'
+      echo "   (stripping count()):"
+      diff $sparql $TEMP.rq | awk '{print "      "$0}'
    fi
 
    for output in $outputTypes; do
