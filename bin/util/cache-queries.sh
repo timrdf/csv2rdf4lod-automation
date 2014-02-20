@@ -31,7 +31,7 @@ if [ $# -lt 1 ]; then
    echo "    default -o          : $outputTypes"
    echo "    default -q          : *.sparql *.rq"
    echo " --limit-offset [count] : iterate with LIMIT / OFFSET until no more useful results. If no LIMIT in a.sparql, defaults to 10000."
-   echo "          --nap [count] : sleep [count] between --limit-offset queries."
+   echo "          --nap [count] : sleep on avg [count] seconds between --limit-offset queries; '0' will not nap."
    echo "  --strip-count         : modify the SPARQL query to remove count() operator."
    echo "                          e.g. 'select count(distinct ?s) where' --> 'select distinct ?s where'"
    echo "            -od         : output directory"
@@ -100,7 +100,7 @@ if [[ "$1" == '--limit-offset' ]]; then
    shift
 fi
 
-nap='0'
+nap='5'
 if [[ "$1" == '--nap' ]]; then
    if [[ "$2" =~ [0-9]+ ]]; then
       nap=$2
