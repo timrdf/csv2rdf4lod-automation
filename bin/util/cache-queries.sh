@@ -21,7 +21,7 @@
 outputTypes="sparql xml"
 
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] [-q a.sparql b.sparql ...]* [--limit-offset [count]] [--strip-count] [-od path/to/output/dir]"
+   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] [-q a.sparql b.sparql ...]* [--limit-offset [count]] [--nap [count]] [--strip-count] [-od path/to/output/dir]"
    echo
    echo "    Executes SPARQL queries against an endpoint requesting the given output formats."
    echo
@@ -31,6 +31,7 @@ if [ $# -lt 1 ]; then
    echo "    default -o          : $outputTypes"
    echo "    default -q          : *.sparql *.rq"
    echo " --limit-offset [count] : iterate with LIMIT / OFFSET until no more useful results. If no LIMIT in a.sparql, defaults to 10000."
+   echo "          --nap [count] : sleep [count] between --limit-offset queries."
    echo "  --strip-count         : modify the SPARQL query to remove count() operator."
    echo "                          e.g. 'select count(distinct ?s) where' --> 'select distinct ?s where'"
    echo "            -od         : output directory"
