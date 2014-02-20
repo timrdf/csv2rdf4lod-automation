@@ -157,7 +157,7 @@ for sparql in $queryFiles; do
          query=`cr-urlencode.sh --from-file "$TEMP.rq"`
          qi='' # '' -> '_2' -> '_3' ...
 
-         [[ "$limit_is_in_query" == 'no' ]] && queryLIMIT='' || queryLIMIT=" limit $limit"
+         [[ "$limit_is_in_query" == 'yes' ]] && queryLIMIT='' || queryLIMIT=" limit $limit"
 
          queryOFFSET=''
          if [[ -n "$offset" ]]; then   
