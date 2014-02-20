@@ -169,7 +169,7 @@ for sparql in $queryFiles; do
          escapedOutput=`cr-urlencode.sh $output`
 
          request="$endpoint?query=$query$queryLIMIT$queryOFFSET&$outputVarName=$escapedOutput"
-         echo $request
+         #echo $request
 
          resultsFile=$results/`basename $sparql`$qi.`echo $output | tr '/+-' '_'`
          if [[ "$offset" -eq 0 ]]; then
@@ -270,7 +270,7 @@ for sparql in $queryFiles; do
                fi
                let "offset=$offset+$limit"
                let "iteration=$iteration+1"
-               sec=$(($RANDOM%15)) && sleep $sec
+               sec=$(($RANDOM%15)) && echo   "  `echo $output | sed 's/./ /g'`    zzz $sec" && sleep $sec
             else
                offset=''
             fi
