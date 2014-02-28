@@ -106,7 +106,7 @@ while [ $# -gt 0 ]; do
    done
 
    log "Content-Disposition:..."
-   dispositionFileName=`curl -LI "$url" | grep 'Content-Disposition:' | tail -1 | sed 's/^.*filename=//'`
+   dispositionFileName=`curl -LI "$url" | grep 'Content-Disposition:' | tail -1 | sed 's/^.*filename=//;s/\s*$//'`
    log "Content-Disposition: --$dispositionFileName--"
 
    #echo "PCURL: url                $url"
