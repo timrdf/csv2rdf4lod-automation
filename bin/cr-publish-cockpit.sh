@@ -20,6 +20,7 @@ if [[ "$1" == "--help" || "$1" == "-h" ]]; then
    echo "usage: `basename $0` [-w]"
    echo "  Create publish/bin/publish.sh and invoke for every conversion cockpit within the current directory tree."
    echo "  -w : Avoid dryrun; do it. If not provided, will only dry run."
+   exit
 fi
 
 see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
