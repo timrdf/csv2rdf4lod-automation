@@ -6,6 +6,7 @@
 @prefix sioc:    <http://rdfs.org/sioc/ns#> .
 @prefix swrc:    <http://swrc.ontoware.org/ontology#> .
 @prefix rel:     <http://purl.org/vocab/relationship/> .
+@prefix prov:    <http://www.w3.org/ns/prov#>.
 
 <http://purl.org/twc/id/person/TimLebo>
    a foaf:Person;
@@ -25,6 +26,7 @@
               <http://data.semanticweb.org/person/timothy-lebo>,
               <http://twitlogic.fortytwo.net/person/twitter/140428623>,
               <http://semantictweet.com/timrdf#me>;
+   prov:alternateOf <http://orcid.org/0000-0002-8042-7359>;
 
    con:preferredURI <http://purl.org/twc/id/person/TimLebo>;
 
