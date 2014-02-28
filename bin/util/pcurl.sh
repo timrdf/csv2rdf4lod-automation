@@ -130,15 +130,18 @@ while [ $# -gt 0 ]; do
    fi
 
    log "getting last mod xsddatetime"
-   urlINFO=`curl -I --globoff $url 2> /dev/null | grep -v 'Set-Cookie'`
-   urlModDateTime=`urldate.sh -field Last-Modified: -format dateTime $url`
+   urlINFO=`curl -I --globoff "$url" 2> /dev/null | grep -v 'Set-Cookie'`
+   urlModDateTime=`urldate.sh -field Last-Modified: -format dateTime "$url"`
    log "PCURL: URL modification date:  $urlModDateTime"
 
    log "getting redirect name"
-   redirectedURL=`filename-v3.pl $url`
+   redirectedURL=`filename-v3.pl "$url"`
    redirectedURLINFO=`curl -I --globoff $redirectedURL 2> /dev/null`
    redirectedModDate=`urldate.sh -field Last-Modified: -format dateTime $redirectedURL`
    log "PCURL: http redirect basename `basename $redirectedURL`"
+
+   dispositionFileName=`curl -LI "$url" | grep 'Content-Disposition:' | tail -1 | sed 's/^.*filename=//'`
+   log "PCURL: Content-Disposition: $dispositionFileName"
 
    log "getting last mod"
    documentVersion=`urldate.sh -field Last-Modified: $url`
