@@ -105,6 +105,10 @@ while [ $# -gt 0 ]; do
       shift 2 
    done
 
+   log "Content-Disposition:..."
+   dispositionFileName=`curl -LI "$url" | grep 'Content-Disposition:' | tail -1 | sed 's/^.*filename=//'`
+   log "Content-Disposition: $dispositionFileName"
+
    #echo "PCURL: url                $url"
    localName=""
    urlBaseName=`basename $url`
@@ -114,6 +118,8 @@ while [ $# -gt 0 ]; do
       localName="$3"
       #echo "PCURL: -n localname       $localName"
       shift 2
+   elif [[ -n "$dispositionFileName" ]]; then
+      localName="$dispositionFileName"
    else
       localName=$urlBaseName
       #echo "PCURL: basename localname $localName"
@@ -129,30 +135,30 @@ while [ $# -gt 0 ]; do
       #echo "PCURL: basename localname $localName"
    fi
 
-   log "getting last mod xsddatetime"
+   log "HTTP HEAD..."
    urlINFO=`curl -I --globoff "$url" 2> /dev/null | grep -v 'Set-Cookie'`
+   log "Last-Modified:..."
    urlModDateTime=`urldate.sh -field Last-Modified: -format dateTime "$url"`
-   log "PCURL: URL modification date:  $urlModDateTime"
+   log "Last-Modified: $urlModDateTime"
 
-   log "getting redirect name"
+   log "Redirect?..."
    redirectedURL=`filename-v3.pl "$url"`
+   log "HTTP HEAD (redirect) $redirectedURL"
    redirectedURLINFO=`curl -I --globoff $redirectedURL 2> /dev/null`
+   log "Last-Modified:... (redirect)"
    redirectedModDate=`urldate.sh -field Last-Modified: -format dateTime $redirectedURL`
-   log "PCURL: http redirect basename `basename $redirectedURL`"
+   log "Last-Modified: $redirectedModDate"
 
-   dispositionFileName=`curl -LI "$url" | grep 'Content-Disposition:' | tail -1 | sed 's/^.*filename=//'`
-   log "PCURL: Content-Disposition: $dispositionFileName"
-
-   log "getting last mod"
+   log "Last-Modified:... ($url)"
    documentVersion=`urldate.sh -field Last-Modified: $url`
    log "PCURL: URL mod date: $documentVersion"
    if [ ${#documentVersion} -le 3 ]; then
       documentVersion="undated"
-      #echo "version: $documentVersion"
    fi
 
    file=`basename $redirectedURL`$extension
-   if [ ${#localName} -gt 0 ]; then
+   if [[ -n "$localName" ]]; then
+      # Either b/c of -n flag, or by Content-Disposition response header.
       file=$localName$extension
       log "PCURL: local name overriding redirected name"
    fi
