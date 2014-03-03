@@ -126,11 +126,13 @@ fi
 
 for sparql in $queryFiles; do
    echo $sparql
-   TEMP="_"`basename $0``date +%s`_$$
+   TEMPrq="_"`basename $0``date +%s`_$$.rq
    if [[ "$strip_count" == 'yes' ]]; then
       echo "  (stripping count()):"
-      cat $sparql | sed 's/^\(.*\)count(\([^)]*\))/\1\2/' > $TEMP.rq
-      diff $sparql $TEMP.rq | awk '{print "         "$0}'
+      cat $sparql | sed 's/^\(.*\)count(\([^)]*\))/\1\2/' > $TEMPrq
+      diff $sparql $TEMPrq | awk '{print "         "$0}'
+   else
+      TEMPrq="$sparql"
    fi
 
    for output in $outputTypes; do
@@ -140,7 +142,7 @@ for sparql in $queryFiles; do
       if [[ -n "$limit_offset" ]]; then # limit_offset is either: '' (no), 'yes', or a caller-provided number e.g. '100000'
          limit=`cat $sparql | grep -i '^limit' | awk '{print $2}' | head -1`
          if [[ "$limit" =~ [0-9]+ ]]; then
-            #echo "Found limit in $TEMP.rq: $limit" >&2
+            #echo "Found limit in $TEMPrq: $limit" >&2
             limit_is_in_query='yes'
          else
             #echo "No LIMIT in $sparql; assuming default of 10000" >&2
@@ -164,7 +166,7 @@ for sparql in $queryFiles; do
       # $offset starts at '0' and becomes either '' or a number e.g. '10000'
       # So, will run first time and maybe more.
       while [ -n "$offset" ]; do
-         query=`cr-urlencode.sh --from-file "$TEMP.rq"`
+         query=`cr-urlencode.sh --from-file "$TEMPrq"`
          qi='' # '' -> '_2' -> '_3' ...
 
          [[ "$limit_is_in_query" == 'yes' ]] && queryLIMIT='' || queryLIMIT=`cr-urlencode.sh " limit $limit"`
@@ -303,4 +305,4 @@ for sparql in $queryFiles; do
    echo ""
 done 
 
-rm -f $TEMP.rq
+rm -f $TEMPrq
