@@ -165,7 +165,7 @@ while [ $# -gt 0 ]; do
    #file=${localName}-$documentVersion${extension}
    log "INFO `basename $0`: local file name will be $file"
 
-   if [ ! -e $file -a ${#documentVersion} -gt 0 ]; then 
+   if [ ! -e "$file" -a ${#documentVersion} -gt 0 ]; then 
       requestID=`resource-name.sh`
       usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'`
 
@@ -359,7 +359,7 @@ while [ $# -gt 0 ]; do
       echo "."                                                                                                    >> $file.prov.ttl
       echo                                                                                                        >> $file.prov.ttl
       echo "conv:Curl rdfs:subClassOf pmlp:InferenceEngine ."                                                     >> $file.prov.ttl
-   elif [ ! -e $file ]; then
+   elif [ ! -e "$file" ]; then
       echo "could not obtain dataset version."
    else 
       echo "$file already exists."
