@@ -181,7 +181,9 @@ for sparql in $queryFiles; do
          escapedOutput=`cr-urlencode.sh $output`
 
          request="$endpoint?query=$query$queryLIMIT$queryOFFSET&$outputVarName=$escapedOutput"
-         #echo $request
+         if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
+            echo $request
+         fi
 
          resultsFile=$results/`basename $sparql`$qi.`echo $output | tr '/+-' '_'`
          if [[ "$offset" -eq 0 ]]; then
