@@ -142,10 +142,14 @@ for sparql in $queryFiles; do
       if [[ -n "$limit_offset" ]]; then # limit_offset is either: '' (no), 'yes', or a caller-provided number e.g. '100000'
          limit=`cat $sparql | grep -i '^limit' | awk '{print $2}' | head -1`
          if [[ "$limit" =~ [0-9]+ ]]; then
-            #echo "Found limit in $TEMPrq: $limit" >&2
+            if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
+               echo "Found LIMIT in $TEMPrq: $limit" >&2
+            fi
             limit_is_in_query='yes'
          else
-            #echo "No LIMIT in $sparql; assuming default of 10000" >&2
+            if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
+               echo "No LIMIT in $sparql; assuming default of 10000" >&2
+            fi
             limit_is_in_query='no'
             limit='10000'
          fi
