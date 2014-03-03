@@ -154,7 +154,9 @@ for sparql in $queryFiles; do
             limit='10000'
          fi
          if [[ "$limit_offset" =~ [0-9]+ ]]; then
-            #echo "Overriding LIMIT to $limit_offset" >&2
+            if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
+               echo "Overriding LIMIT to $limit_offset" >&2
+            fi
             limit="$limit_offset"
          fi
          if [[ "$limit" =~ [0-9]+ ]]; then
@@ -173,7 +175,13 @@ for sparql in $queryFiles; do
          query=`cr-urlencode.sh --from-file "$TEMPrq"`
          qi='' # '' -> '_2' -> '_3' ...
 
+         if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
+            echo "limit_is_in_query : |$limit_is_in_query|" >&2
+         fi
          [[ "$limit_is_in_query" == 'yes' ]] && queryLIMIT='' || queryLIMIT=`cr-urlencode.sh " limit $limit"`
+         if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
+            echo "queryLIMIT : |$queryLIMIT|" >&2
+         fi
 
          queryOFFSET=''
          if [[ -n "$offset" ]]; then   
