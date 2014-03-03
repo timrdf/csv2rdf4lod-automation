@@ -132,7 +132,7 @@ for sparql in $queryFiles; do
       cat $sparql | sed 's/^\(.*\)count(\([^)]*\))/\1\2/' > $TEMPrq
       diff $sparql $TEMPrq | awk '{print "         "$0}'
    else
-      TEMPrq="$sparql"
+      cat $sparql                                         > $TEMPrq
    fi
 
    for output in $outputTypes; do
