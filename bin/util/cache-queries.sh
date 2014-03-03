@@ -31,7 +31,7 @@ if [ $# -lt 1 ]; then
    echo "    default -o          : $outputTypes"
    echo "    default -q          : *.sparql *.rq"
    echo " --limit-offset [count] : iterate with LIMIT / OFFSET until no more useful results. If no LIMIT in a.sparql, defaults to 10000."
-   echo "          --nap [count] : sleep on avg [count] seconds between --limit-offset queries; '0' will not nap."
+   echo "          --nap [count] : sleep on avg [count] seconds between --limit-offset queries; '0' will not nap, default is '5'."
    echo "  --strip-count         : modify the SPARQL query to remove count() operator."
    echo "                          e.g. 'select count(distinct ?s) where' --> 'select distinct ?s where'"
    echo "            -od         : output directory"
@@ -126,7 +126,7 @@ fi
 
 for sparql in $queryFiles; do
    echo $sparql
-   TEMP="_"`basename $0``date +%s`_$$.rq
+   TEMP="_"`basename $0``date +%s`_$$
    if [[ "$strip_count" == 'yes' ]]; then
       cat $sparql | sed 's/^\(.*\)count(\([^)]*\))/\1\2/' > $TEMP.rq
       echo "  (stripping count()):"
