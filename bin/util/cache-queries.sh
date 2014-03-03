@@ -178,7 +178,7 @@ for sparql in $queryFiles; do
          if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
             echo "limit_is_in_query : |$limit_is_in_query|" >&2
          fi
-         [[ "$limit_is_in_query" == 'yes' || -n "$limit" ]] && queryLIMIT='' || queryLIMIT=`cr-urlencode.sh " limit $limit"`
+         [[ "$limit_is_in_query" == 'yes' || -z "$limit" ]] && queryLIMIT='' || queryLIMIT=`cr-urlencode.sh " limit $limit"`
          if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
             echo "queryLIMIT : |$queryLIMIT|" >&2
          fi
