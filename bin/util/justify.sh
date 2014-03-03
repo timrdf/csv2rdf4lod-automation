@@ -213,7 +213,8 @@ else
       echo "<inferenceStep$requestID>"                                                        >> $consequent.$prov.ttl
       echo "   a pmlj:InferenceStep;"                                                         >> $consequent.$prov.ttl
       echo "   pmlj:hasIndex 0;"                                                              >> $consequent.$prov.ttl
-      echo "   pmlj:hasAntecedentList ( $antecedentNodeSet );"                                >> $consequent.$prov.ttl
+      echo "   rdfs:seeAlso $antecedentNodeSet;"                                              >> $consequent.$prov.ttl
+      echo "#   pmlj:hasAntecedentList ( $antecedentNodeSet );"                               >> $consequent.$prov.ttl
       #echo     pmlj:hasSourceUsage     $sourceUsage;"                                        >> $consequent.$prov.ttl
       echo "   pmlj:hasInferenceEngine <$method$requestID>;"                                  >> $consequent.$prov.ttl
       echo "   pmlj:hasInferenceRule   $method_name;"                                         >> $consequent.$prov.ttl
