@@ -65,6 +65,9 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
    #       then the outdated version will be run below.
    while [ $# -gt 0 ]; do
       file="$1" && shift
+      if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
+         echo PUBLISHING $# more after $file
+      fi
       if [[ -e "$file" && `valid-rdf.sh $file` == 'yes' ]]; then
          valid_rdf_files="$valid_rdf_files $file" # NOTE: file argument limit
       elif [[ -e "$file" ]]; then
