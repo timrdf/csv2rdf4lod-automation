@@ -185,10 +185,10 @@ while [ $# -gt 0 ]; do
             rm -rf $INVOCATION_WD/.droid6 $INVOCATION_WD/.droid6tmp $INVOCATION_WD/.droid6work
          fi
       popd              &> /dev/null
-      shift
    else
       echo "WARNING: $target does not exist; not processing" >&2
    fi
+   shift
 done
 
 exit 1
