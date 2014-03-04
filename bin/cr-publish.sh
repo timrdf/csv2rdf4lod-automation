@@ -58,6 +58,10 @@ fi
 if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
    # A third need (the first two are handled below) is to publish non-RDF 
    # files such as zip and png. This came to head with locv.tw.
+   # It's also used by provweb's side of IPAW pingback paper.
+   # The publish trigger can be called below when in a conversion cockpit,
+   # WITHOUT parameters, and then that trigger can call this script WITH 
+   # parameters and it'll fall into this bit and then quit.
 
    echo "Creating publication trigger." >&2
    valid_rdf_files=''
