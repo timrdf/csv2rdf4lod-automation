@@ -80,6 +80,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
    if [[ -n "$valid_rdf_files" ]]; then
       aggregate-source-rdf.sh $valid_rdf_files
    fi
+   exit # If we don't bail here, it becomes an infinite loop.
 fi
 
 # Additional functionality for custom publication triggers:
