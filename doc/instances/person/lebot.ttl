@@ -15,7 +15,8 @@
              <http://academic.research.microsoft.com/Author/49398650/timothy-lebo>,
              <http://www.dblp.org/db/indices/a-tree/l/Lebo:Timothy.html>,
              <http://www.informatik.uni-trier.de/~ley/db/indices/a-tree/l/Lebo:Timothy.html>,
-             <http://dl.acm.org/author_page.cfm?id=81467669968&coll=DL&dl=ACM&trk=0&cfid=276876962&cftoken=39993813>;
+             <http://dl.acm.org/author_page.cfm?id=81467669968&coll=DL&dl=ACM&trk=0&cfid=276876962&cftoken=39993813>,
+             <http://osrc.dfm.io/timrdf>;
 
    owl:sameAs <http://tw.rpi.edu/instances/TimLebo>,
               <http://inference-web.org/registry/PER/TimLebo.owl#TimLebo>,
