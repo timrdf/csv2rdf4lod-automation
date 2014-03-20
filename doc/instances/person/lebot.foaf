@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF
+   xmlns:cert="http://www.w3.org/ns/auth/cert#"
    xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
    xmlns:dcterms="http://purl.org/dc/terms/"
    xmlns:foaf="http://xmlns.com/foaf/0.1/"
    xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:prov="http://www.w3.org/ns/prov#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
    xmlns:rel="http://purl.org/vocab/relationship/"
    xmlns:sioc="http://rdfs.org/sioc/ns#"
-   xmlns:swrc="http://swrc.ontoware.org/ontology#">
+   xmlns:swrc="http://swrc.ontoware.org/ontology#"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
   <rdf:Description rdf:about="finger://river.styx.org/ww">
     <foaf:homepage rdf:resource="http://river.styx.org/ww/"/>
     <foaf:isPrimaryTopicOf rdf:resource="http://river.styx.org/ww/foaf.n3"/>
@@ -32,6 +35,15 @@
     <owl:sameAs rdf:resource="http://tw.rpi.edu/instances/TimLebo"/>
     <owl:sameAs rdf:resource="http://twitlogic.fortytwo.net/person/twitter/140428623"/>
     <owl:sameAs rdf:resource="http://www.cs.rpi.edu/~weavej3/foaf.rdfr/Tim_Lebo"/>
+    <cert:key>
+      <rdf:Description>
+        <cert:exponent rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">65537</cert:exponent>
+        <cert:modulus rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">EBEA560263729FEEA1DBF5014A17EF0877DF1B590E4994583C6DFA023FF38877CF869953C65A97C142B991F9EFCEBBAB4006F9121854459620B913CCFF33DA190BFFC73C6B5562C923F4F8D78BB50ABA76149A8E897CAF5B8607A138B096ACB66BE814DFDF48AD759A223A21665BC42899C0570D8B9F01ADAF45C55069C99DDCCB3E9D7B4F3988716FF3BB8472FD9877580D158FB5C98BBDB1B071EF91B4E6A7661418C4DCA946B0FB158CA595257CB419FD7E40A73E89BEDBFFD83F0E4D1ECE3ACCB9BDC62BB2997DB2DD03F760C82B67BC1CA4776C53AA807C61DCAD1EC0ED4DE8FC103A472985B8E91D5CF199756E2ACC73A83EB938B5C003A87E3E59D699</cert:modulus>
+        <prov:wasDerivedFrom rdf:resource="https://my-profile.eu/profile"/>
+      </rdf:Description>
+    </cert:key>
+    <prov:alternateOf rdf:resource="http://orcid.org/0000-0002-8042-7359"/>
+    <prov:alternateOf rdf:resource="https://my-profile.eu/people/timrdf/card#me"/>
     <foaf:currentProject rdf:resource="http://purl.org/twc/id/software/csv2rdf4lod"/>
     <foaf:depiction rdf:resource="http://www.cogsci.rpi.edu/pl/issues-cognitive-science-video-archive?vid=163&amp;egid=&amp;pageid=509&amp;siteid=26"/>
     <foaf:holdsAccount rdf:resource="http://twitlogic.fortytwo.net/user/twitter/140428623"/>
@@ -65,6 +77,7 @@
     </foaf:member>
     <foaf:page rdf:resource="http://academic.research.microsoft.com/Author/49398650/timothy-lebo"/>
     <foaf:page rdf:resource="http://dl.acm.org/author_page.cfm?id=81467669968&amp;coll=DL&amp;dl=ACM&amp;trk=0&amp;cfid=276876962&amp;cftoken=39993813"/>
+    <foaf:page rdf:resource="http://osrc.dfm.io/timrdf"/>
     <foaf:page rdf:resource="http://tw.rpi.edu/web/person/TimLebo"/>
     <foaf:page rdf:resource="http://www.dblp.org/db/indices/a-tree/l/Lebo:Timothy.html"/>
     <foaf:page rdf:resource="http://www.informatik.uni-trier.de/~ley/db/indices/a-tree/l/Lebo:Timothy.html"/>

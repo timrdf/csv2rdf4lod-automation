@@ -7,6 +7,8 @@
 @prefix swrc:    <http://swrc.ontoware.org/ontology#> .
 @prefix rel:     <http://purl.org/vocab/relationship/> .
 @prefix prov:    <http://www.w3.org/ns/prov#>.
+@prefix cert:  <http://www.w3.org/ns/auth/cert#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <http://purl.org/twc/id/person/TimLebo>
    a foaf:Person;
@@ -27,7 +29,15 @@
               <http://data.semanticweb.org/person/timothy-lebo>,
               <http://twitlogic.fortytwo.net/person/twitter/140428623>,
               <http://semantictweet.com/timrdf#me>;
-   prov:alternateOf <http://orcid.org/0000-0002-8042-7359>;
+
+   prov:alternateOf <http://orcid.org/0000-0002-8042-7359>,
+                    <https://my-profile.eu/people/timrdf/card#me>;
+   cert:key [ 
+     prov:wasDerivedFrom <https://my-profile.eu/profile>;
+     cert:exponent 65537;
+     cert:modulus "EBEA560263729FEEA1DBF5014A17EF0877DF1B590E4994583C6DFA023FF38877CF869953C65A97C142B991F9EFCEBBAB4006F9121854459620B913CCFF33DA190BFFC73C6B5562C923F4F8D78BB50ABA76149A8E897CAF5B8607A138B096ACB66BE814DFDF48AD759A223A21665BC42899C0570D8B9F01ADAF45C55069C99DDCCB3E9D7B4F3988716FF3BB8472FD9877580D158FB5C98BBDB1B071EF91B4E6A7661418C4DCA946B0FB158CA595257CB419FD7E40A73E89BEDBFFD83F0E4D1ECE3ACCB9BDC62BB2997DB2DD03F760C82B67BC1CA4776C53AA807C61DCAD1EC0ED4DE8FC103A472985B8E91D5CF199756E2ACC73A83EB938B5C003A87E3E59D699"^^xsd:hexBinary;
+   ];
+
 
    con:preferredURI <http://purl.org/twc/id/person/TimLebo>;
 
