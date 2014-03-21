@@ -32,6 +32,8 @@ function retrieve_from_metadata {
    if [[ -e "$dcat" ]]; then
       url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
       # TODO: download them all, e.g. grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'
+      # rdf2nt.sh access.ttl | grep '<http://www.w3.org/ns/dcat#downloadURL>' | awk '{print $3}' | grep http | sed 's/<//;s/>//' | grep -v " "
+      # e.g. lodcloud/data/source/harth-org/btc-2012/version/latest
       google_key=''
       if [[ "$url" =~ https://docs.google.com/spreadsheet* ]]; then
          #google_key=`echo $url | sed 's/^.*key=//;s/#.*$//'`
