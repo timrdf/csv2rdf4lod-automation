@@ -62,18 +62,22 @@ function write_access_metadata {
       echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                       >> access.ttl
       echo "@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> ."              >> access.ttl
       echo "@prefix :           <$CSV2RDF4LOD_BASE_URI/id/> ."                        >> access.ttl
+      echo "@base               <$CSV2RDF4LOD_BASE_URI/id/> ."                        >> access.ttl
    fi
    if [[ ! `grep $UUID access.ttl` ]]; then
+      crDataset=`cr-dataset-uri.sh --uri`
+      crDatasetMD5=`md5.sh -qs $crDataset`
       echo                                                                               >> access.ttl
       #echo "<$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/dataset/`cr-dataset-id.sh`>" >> access.ttl
       echo "<`cr-dataset-uri.sh --uri`>"                                                 >> access.ttl
       echo "   a void:Dataset, dcat:Dataset;"                                            >> access.ttl
       echo "   conversion:source_identifier  \"`cr-source-id.sh`\";"                     >> access.ttl
       echo "   conversion:dataset_identifier \"`cr-dataset-id.sh`\";"                    >> access.ttl
-      echo "   prov:wasDerivedFrom :download_$UUID;"                                     >> access.ttl
+      echo "   conversion:identifier         \"$crDatasetMD5\";"                         >> access.ttl
+      echo "   prov:wasDerivedFrom <distribution/$UUID>;"                                >> access.ttl
       echo "."                                                                           >> access.ttl
       echo                                                                               >> access.ttl
-      echo ":download_$UUID"                                                             >> access.ttl
+      echo "<distribution/$UUID>"                                                        >> access.ttl
       echo "   a dcat:Distribution;"                                                     >> access.ttl
       if [[ "$DIST_URL" =~ https://docs.google.com/spreadsheet* ]]; then
          echo "   a nfo:Spreadsheet;"                                                    >> access.ttl
@@ -83,7 +87,7 @@ function write_access_metadata {
       echo                                                                               >> access.ttl
       echo "<dataset/$UUID>"                                                             >> access.ttl
       echo "   a dcat:Dataset;"                                                          >> access.ttl
-      echo "   dcat:distribution :download_$UUID;"                                       >> access.ttl
+      echo "   dcat:distribution <distribution/$UUID>;"                                  >> access.ttl
       echo "."                                                                           >> access.ttl
    fi
    echo `cr-pwd.sh`/access.ttl >&2
