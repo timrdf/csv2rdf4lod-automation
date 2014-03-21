@@ -68,12 +68,13 @@ function write_access_metadata {
       crDataset=`cr-dataset-uri.sh --uri`
       crDatasetMD5=`md5.sh -qs $crDataset`
       echo                                                                               >> access.ttl
-      #echo "<$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/dataset/`cr-dataset-id.sh`>" >> access.ttl
       echo "<`cr-dataset-uri.sh --uri`>"                                                 >> access.ttl
-      echo "   a void:Dataset, dcat:Dataset;"                                            >> access.ttl
-      echo "   conversion:source_identifier  \"`cr-source-id.sh`\";"                     >> access.ttl
-      echo "   conversion:dataset_identifier \"`cr-dataset-id.sh`\";"                    >> access.ttl
-      echo "   conversion:identifier         \"$crDatasetMD5\";"                         >> access.ttl
+      if [[ ! `grep $crDatasetMD5 access.ttl` ]]; then
+         echo "   a void:Dataset, dcat:Dataset;"                                         >> access.ttl
+         echo "   conversion:source_identifier  \"`cr-source-id.sh`\";"                  >> access.ttl
+         echo "   conversion:dataset_identifier \"`cr-dataset-id.sh`\";"                 >> access.ttl
+         echo "   conversion:identifier         \"$crDatasetMD5\";"                      >> access.ttl
+      fi
       echo "   prov:wasDerivedFrom <distribution/$UUID>;"                                >> access.ttl
       echo "."                                                                           >> access.ttl
       echo                                                                               >> access.ttl
