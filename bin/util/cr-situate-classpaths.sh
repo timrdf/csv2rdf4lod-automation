@@ -45,6 +45,7 @@ for jar in                                                             \
            lib/datadigest-1.0-SNAPSHOT.jar                             \
            lib/slf4j/slf4j-api-1.7.2.jar                               \
            lib/slf4j/slf4j-nop-1.7.2.jar                               \
+           lib/ldspider-1.1e.jar                                       \
            bin/lib/commons-validator-1.3.1/commons-validator-1.3.1.jar \
            bin/dup/csv2rdf4lod.jar ; do
    if [[ $CLASSPATH != *`basename $jar`* ]]; then
