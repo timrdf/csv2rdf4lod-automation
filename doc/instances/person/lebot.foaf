@@ -36,6 +36,7 @@
     <rel:hasMet rdf:resource="http://richard.cyganiak.de/foaf.rdf#cygri"/>
     <rel:knowsByReputation rdf:resource="finger://river.styx.org/ww"/>
     <rel:knowsByReputation rdf:resource="http://data.semanticweb.org/person/keith-alexander"/>
+    <rel:knowsByReputation rdf:resource="http://harth.org/andreas/foaf#ah"/>
     <rel:knowsByReputation rdf:resource="http://www.w3.org/People/Berners-Lee/card#i"/>
     <swrc:supervisor rdf:resource="http://data.semanticweb.org/person/deborah-mcguinness"/>
     <swrc:supervisor rdf:resource="http://tw.rpi.edu/instances/Deborah_L_McGuinness"/>

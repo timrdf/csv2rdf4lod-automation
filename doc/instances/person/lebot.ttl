@@ -65,6 +65,7 @@
 
    rel:knowsByReputation <http://www.w3.org/People/Berners-Lee/card#i>,
                          <http://data.semanticweb.org/person/keith-alexander>,
+                         <http://harth.org/andreas/foaf#ah>,
                          <finger://river.styx.org/ww>;
 
    swrc:supervisor <http://data.semanticweb.org/person/deborah-mcguinness>,
