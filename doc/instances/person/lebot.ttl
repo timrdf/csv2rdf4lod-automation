@@ -77,9 +77,23 @@
    foaf:pastProject [ foaf:page <https://ritdml.rit.edu/bitstream/handle/1850/993/TLeboThesis07-2005.pdf>,
                                 <https://ritdml.rit.edu/handle/1850/993>,
                                 <http://www.actapress.com/Abstract.aspx?paperId=27881> ];
-   foaf:holdsAccount <http://twitlogic.fortytwo.net/user/twitter/140428623>;
+   foaf:holdsAccount <http://twitlogic.fortytwo.net/user/twitter/140428623>,
+                     <http://datahub.io/user/timrdf>,
+                     <http://github.com/timrdf>;
    foaf:interest [ foaf:homepage <http://sadiframework.org/content/about-sadi/> ];
    foaf:depiction <http://www.cogsci.rpi.edu/pl/issues-cognitive-science-video-archive?vid=163&egid=&pageid=509&siteid=26>;
+.
+
+<http://datahub.io/user/timrdf>
+   a foaf:OnlineAccount;
+   foaf:accountName "timrdf";
+   foaf:accountServiceHomepage <http://datahub.io>;
+.
+
+<http://github.com/timrdf>
+   a foaf:OnlineAccount;
+   foaf:accountName "timrdf";
+   foaf:accountServiceHomepage <http://github.com>;
 .
 
 <http://twitlogic.fortytwo.net/user/twitter/140428623> a sioc:UserAccount;
