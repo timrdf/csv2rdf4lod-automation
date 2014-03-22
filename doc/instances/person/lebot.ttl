@@ -55,6 +55,7 @@
               <http://data.semanticweb.org/person/satya-s-sahoo>,
               <http://purl.org/twc/id/person/NicholasDelRio>,
               <http://www.w3.org/People/Eric/ericP-foaf#ericP>,
+              <http://kasei.us/about/foaf.xrdf#greg>,
               <http://data.lirmm.fr/ontologies/vdpp#fran%C3%A7ois>;
 
    rel:collaboratesWith <http://purl.org/twc/id/person/NicholasDelRio>;
