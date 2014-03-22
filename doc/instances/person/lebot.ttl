@@ -82,7 +82,14 @@
                      <http://github.com/timrdf>;
    foaf:interest [ foaf:homepage <http://sadiframework.org/content/about-sadi/> ];
    foaf:depiction <http://www.cogsci.rpi.edu/pl/issues-cognitive-science-video-archive?vid=163&egid=&pageid=509&siteid=26>;
+
+   foaf:made <http://opendap.tw.rpi.edu/void>,
+             <http://provenanceweb.org/void>,
+             <http://ieeevis.tw.rpi.edu/void>;
 .
+
+<http://ichoose.tw.rpi.edu/void>    prov:wasAttributedTo <http://purl.org/twc/id/person/TimLebo> .
+<http://healthdata.tw.rpi.edu/void> prov:wasAttributedTo <http://purl.org/twc/id/person/TimLebo> .
 
 <http://datahub.io/user/timrdf>
    a foaf:OnlineAccount;
