@@ -10,11 +10,18 @@
 
 if [[ $# -eq 0 || "$1" == "--help" ]]; then
    echo
-   echo "usage: `basename $0` [--as-ttl [type-uri]] <some.rdf>*"
+   echo "usage: `basename $0` [-u] [--as-ttl [type-uri]] <some.rdf>*"
    echo "  Print the URI subjects and objects of the given RDF file."
+   echo "                    -u - unique."
    echo "  --as-ttl [class-uri] - output the list as a valid Trutle file, where the nodes are typed to rdfs:Resource."
    echo "           [class-uri] - use this class instead of rdfs:Resource (must be full URI, no <>)"
    exit
+fi
+
+unique=''
+if [[ "$1" == "-u" ]]; then
+   unique="yes"
+   shift
 fi
 
 as_ttl=''
@@ -43,14 +50,20 @@ while [ $# -gt 0 ]; do
       echo
       $0 $* | awk -v class=$class '$1 ~ /^</ {print $1,"a",class,"."}'
    else
-      if [[ $total -eq 1 && `gzipped.sh $file` == "yes" && `guess-syntax.sh $file mime` == "text/plain" ]]; then
+      format=`guess-syntax.sh --inspect $file formats:`
+      if [[ $total -eq 1 && `gzipped.sh $file` == "yes" && ( "$format" == 'http://www.w3.org/ns/formats/N-Quads' || \
+                                                             "$format" == 'http://www.w3.org/ns/formats/N-Triples' ) ]]; then
          # Avoids dumping to an intermediate file.
          # e.g. 2.0 GB unzipped ntriples file can be done in 1.5 minutes (as opposed to 4.5 minutes).
-         gunzip -c             $file | awk '{if($2 == "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>"){ print $3 }else{ print $2 }}' | sed 's/^<//;s/>$//'
+         if [[ -n "$unique" ]]; then
+            gunzip -c             $file | awk '{if($2 == "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>"){print $3}; print $2}' | sed 's/^<//;s/>$//' | sort -u
+         else
+            gunzip -c             $file | awk '{if($2 == "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>"){print $3}; print $2}' | sed 's/^<//;s/>$//'
+         fi
       else
          #echo ".${total}. .`gzipped.sh $file`. .`guess-syntax.sh $file mime`." >&2
          # Handles any syntax, compressed or not.
-         rdf2nt.sh --version 2 $file | awk '{if($2 == "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>"){ print $3 }else{ print $2 }}' | sed 's/^<//;s/>$//'
+         rdf2nt.sh --version 2 $file | awk '{if($2 == "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>"){print $3}; print $2}' | sed 's/^<//;s/>$//'
       fi
    fi
 
