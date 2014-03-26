@@ -107,6 +107,9 @@ if [ $inspect == "true" ]; then
    elif [[ `head -$SAMPLE $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
       # @prefix
       guess="-i turtle"                   #      <     >     <     >     <     >      .
+   elif [[   `head -$SAMPLE $url | awk '$0 ~ /^[^<]*<[^>]+>[^>]*<[^>]+>[^>]*<[^>]+>[^>]*<[^>]+>[^<]*\.[^<]*$/ && $0 !~ "rdf:about=" && $0 !~ "rdf:nodeID=" {c++} END {printf("%s",c)}'` -gt 1 ]]; then
+      # <> <> <>
+      guess="-i nquads"
    elif [[   `head -$SAMPLE $url | awk '$0 ~ /^[^<]*<[^>]+>[^>]*<[^>]+>[^>]*<[^>]+>[^<]*\.[^<]*$/ && $0 !~ "rdf:about=" && $0 !~ "rdf:nodeID=" {c++} END {printf("%s",c)}'` -gt 1 ]]; then
       # <> <> <>
       guess="-i ntriples"
@@ -179,6 +182,24 @@ elif [ "$tool" == "mime" ]; then
       guess="text/turtle"
    elif [[ $guess == "-i rdfxml" || "$guess" == "application/rdf+xml" ]]; then
       guess="application/rdf+xml"
+   elif [[ $guess == "-g" || "$guess" == "undetermined" ]]; then
+      echo ""
+      exit 1
+   else
+      echo ""
+      exit 1
+   fi
+   #guess=$guess # TODO: transition to mime-based logic.
+
+elif [ "$tool" == "formats:" ]; then
+   if [[ $guess == "-i ntriples" || "$guess" == "text/plain" ]]; then
+      guess="http://www.w3.org/ns/formats/N-Triples"
+   elif [[ $guess == "-i nquads" || "$guess" == "text/plain" ]]; then
+      guess="http://www.w3.org/ns/formats/N-Quads"
+   elif [[ $guess == "-i turtle" || "$guess" == "text/turtle" ]]; then
+      guess="http://www.w3.org/ns/formats/Turtle"
+   elif [[ $guess == "-i rdfxml" || "$guess" == "application/rdf+xml" ]]; then
+      guess="http://www.w3.org/ns/formats/RDF_XML"
    elif [[ $guess == "-g" || "$guess" == "undetermined" ]]; then
       echo ""
       exit 1
