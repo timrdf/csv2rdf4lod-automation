@@ -53,7 +53,7 @@ while [ $# -gt 0 ]; do
    fi
 
    # Strip out the turtle from comments.
-   grep "^#3>" $LOCAL | sed 's/^#3>//;s/^ //' > $TEMP
+   grep "^ *#3>" $LOCAL | sed 's/^ *#3>//;s/^ //' > $TEMP
 
    # Are prefixes defined?
    grep "@prefix"                              $TEMP &>/dev/null
