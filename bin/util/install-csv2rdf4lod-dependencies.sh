@@ -73,7 +73,12 @@ fi
 #fi
 # Press on with installing as sudo after we've tried to install without it.
 
-function offer_install_with_apt {
+#
+# Install 'package' ($2) if 'command' ($1) is not on the PATH.
+# Uses either apt-get or yum.
+# This should only be used if package:command is 1:1 and the package name is the same for apt-get and yum.
+#
+function offer_install_with_yum_or_apt_ifnowhich {
    # See also https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/install-csv2rdf4lod-dependencies.sh
    # See also https://github.com/timrdf/DataFAQs/blob/master/bin/install-datafaqs-dependencies.sh
    # See also Prizms bin/install.sh
@@ -87,15 +92,22 @@ function offer_install_with_apt {
                fi
                if [[ `which apt-get 2> /dev/null` ]]; then
                   echo $TODO $sudo apt-get install $package
-                  if [[ "$dryrun" != "true" ]]; then
-                     read -p "Q: Could not find $command on path. Try to install with command shown above? (y/n): " -u 1 install_it
-                     if [[ "$install_it" == [yY] ]]; then
+               elif [[ `which yum 2> /dev/null` ]]; then
+                  echo $TODO $sudo yum install $pacakge
+               else
+                  echo "WARNING: how to install $package without apg-get or yum?"
+               fi
+               if [[ "$dryrun" != "true" && ( `which apt-get 2> /dev/null` || `which yum 2> /dev/null` ) ]]; then
+                  read -p "Q: Could not find $command on path. Try to install with command shown above? (y/n): " -u 1 install_it
+                  if [[ "$install_it" == [yY] ]]; then
+                     if [[ `which apt-get 2> /dev/null` ]]; then
                         echo $sudo apt-get install $package
                              $sudo apt-get install $package
+                     elif [[ `which yum 2> /dev/null` ]]; then
+                        echo $sudo yum install $pacakge
+                             $sudo yum install $pacakge
                      fi
                   fi
-               else
-                  echo "[WARNING] Sorry, we need apt-get to install $command / $package for you." >&2
                fi
             else
                echo "[okay] $command already available at `which $command 2> /dev/null`"
@@ -104,7 +116,7 @@ function offer_install_with_apt {
       which $command >& /dev/null
       return $?
    else
-      echo "[WARNING] Skipping apt-get $1 $2 b/c no sudo." >&2
+      echo "[WARNING] Skipping $1 $2 b/c no sudo." >&2
    fi
 }
 
@@ -113,17 +125,17 @@ if [[ "$dryrun" != "true" && -n "$sudo" ]]; then
         $sudo apt-get update &> /dev/null
 fi
 
-offer_install_with_apt 'git'     'git-core'      # These are dryrun safe and are only done if $sudo.
-#offer_install_with_apt 'java'   'openjdk-6-jre' # openjdk-6-jdk ?
-offer_install_with_apt 'javac'   'openjdk-6-jdk' # openjdk-6-jdk ?
-offer_install_with_apt 'awk'     'gawk'          #
-offer_install_with_apt 'curl'    'curl'          #
+offer_install_with_yum_or_apt_ifnowhich 'git'     'git-core'      # These are dryrun safe and are only done if $sudo.
+#offer_install_with_yum_or_apt_ifnowhich 'java'   'openjdk-6-jre' # openjdk-6-jdk ?
+offer_install_with_yum_or_apt_ifnowhich 'javac'   'openjdk-6-jdk' # openjdk-6-jdk ?
+offer_install_with_yum_or_apt_ifnowhich 'awk'     'gawk'          #
+offer_install_with_yum_or_apt_ifnowhich 'curl'    'curl'          #
 #ffer_install_with_apt 'rapper'  'raptor-utils'  # # Only does v1.4, not 2
                                                  # sudo apt-get --purge remove raptor-utils
-offer_install_with_apt 'unzip'   'unzip'         #
-offer_install_with_apt 'screen'  'screen'        #
-offer_install_with_apt 'tidy'    'tidy'          #
-offer_install_with_apt 'a2enmod' 'apache2'       #
+offer_install_with_yum_or_apt_ifnowhich 'unzip'   'unzip'         #
+offer_install_with_yum_or_apt_ifnowhich 'screen'  'screen'        #
+offer_install_with_yum_or_apt_ifnowhich 'tidy'    'tidy'          #
+offer_install_with_yum_or_apt_ifnowhich 'a2enmod' 'apache2'       #
 
 if [[ ! `which rapper 2> /dev/null` ]]; then
    if [ "$dryrun" != "true" ]; then
@@ -610,7 +622,7 @@ if [[ -z "$sudo" ]]; then
       echo "[NOTE] installer would not be able to set PYTHONPATH= in `pwd`/my-csv2rdf4lod-source-me.sh"
    fi
 fi
-offer_install_with_apt 'easy_install' 'python-setuptools' # dryrun aware
+offer_install_with_yum_or_apt_ifnowhich 'easy_install' 'python-setuptools' # dryrun aware
 V=`python --version 2>&1 | sed 's/Python \(.\..\).*$/\1/'`
 eggs="rdflib pyparsing surf surf.sesame2 surf.sparql_protocol surf.rdflib python-dateutil ckanclient"
 for egg in $eggs; do
