@@ -217,7 +217,7 @@ if [[ ! `which tdbloader 2> /dev/null` ]]; then # || ! "`which tdbloader`" =~ /h
       read -p "Q: Could not find tdbloader on path. Try to install jena at $base? (y/n): " -u 1 install_it
    fi
    if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
-      jenaroot=`find $base -type d -name "apache-jena*"`
+      jenaroot=`find $base -type d -name "apache-jena*" 2> /dev/null`
       if [[ -z "$jenaroot" || ! -e $jenaroot ]]; then
          # https://repository.apache.org/content/repositories/releases/org/apache/jena/jena-core/
          tarball='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.3.tar.gz' # 404s
@@ -423,7 +423,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                              sudo tar xzf $tarball             # |
                   #$sudo rm $tarball                           #\|/
                   #virtuoso_root=$base/${tarball%.tar.gz} # $base
-                  virtuoso_root=`find . -maxdepth 1 -cnewer $tarball.url.pid.$$ -name "virtuoso*" -type d`
+                  virtuoso_root=`find . -maxdepth 1 -cnewer $tarball.url.pid.$$ -name "virtuoso*" -type d 2> /dev/null`
                   # ^ e.g. 'virtuoso-opensource-6.1.6/'
                   echo $virtuoso_root | sudo tee $tarball.url.pid.$$
                fi
@@ -618,7 +618,7 @@ for egg in $eggs; do
    # See also https://github.com/timrdf/DataFAQs/blob/master/bin/install-datafaqs-dependencies.sh
    eggReg=`echo $egg | sed 's/-/./g;s/_/./g'`
    #there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d | grep -i $eggReg`
-   there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d -name "$eggReg*"`
+   there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d -name "$eggReg*" 2> /dev/null`
    there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 | grep -i "dist-packages.$eggReg" &> /dev/null`
    status=$?
    #if [[ -z "$there" || ! -e "$there" || ! "$there" =~ *.egg ]]; then # TODO: this path is $base/python/lib/site-packages if -z $sudo
