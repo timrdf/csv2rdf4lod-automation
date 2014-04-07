@@ -93,7 +93,7 @@ function offer_install_with_yum_or_apt_ifnowhich {
                if [[ `which apt-get 2> /dev/null` ]]; then
                   echo $TODO $sudo apt-get install $package
                elif [[ `which yum 2> /dev/null` ]]; then
-                  echo $TODO $sudo yum install $pacakge
+                  echo $TODO $sudo yum install $package
                else
                   echo "WARNING: how to install $package without apg-get or yum?"
                fi
@@ -127,7 +127,13 @@ fi
 
 offer_install_with_yum_or_apt_ifnowhich 'git'     'git-core'      # These are dryrun safe and are only done if $sudo.
 #offer_install_with_yum_or_apt_ifnowhich 'java'   'openjdk-6-jre' # openjdk-6-jdk ?
-offer_install_with_yum_or_apt_ifnowhich 'javac'   'openjdk-6-jdk' # openjdk-6-jdk ?
+
+if [[ `which apt-get 2> /dev/null` ]]; then
+   offer_install_with_yum_or_apt_ifnowhich 'javac'   'openjdk-6-jdk' # openjdk-6-jdk ?
+else
+   offer_install_with_yum_or_apt_ifnowhich 'javac'   'java-1.6.0-openjdk'
+fi
+
 offer_install_with_yum_or_apt_ifnowhich 'awk'     'gawk'          #
 offer_install_with_yum_or_apt_ifnowhich 'curl'    'curl'          #
 #ffer_install_with_apt 'rapper'  'raptor-utils'  # # Only does v1.4, not 2
@@ -135,7 +141,12 @@ offer_install_with_yum_or_apt_ifnowhich 'curl'    'curl'          #
 offer_install_with_yum_or_apt_ifnowhich 'unzip'   'unzip'         #
 offer_install_with_yum_or_apt_ifnowhich 'screen'  'screen'        #
 offer_install_with_yum_or_apt_ifnowhich 'tidy'    'tidy'          #
-offer_install_with_yum_or_apt_ifnowhich 'a2enmod' 'apache2'       #
+
+if [[ `which apt-get 2> /dev/null` ]]; then
+   offer_install_with_yum_or_apt_ifnowhich 'a2enmod' 'apache2'       #
+else
+   offer_install_with_yum_or_apt_ifnowhich 'httpd' 'httpd'       #
+fi
 
 if [[ ! `which rapper 2> /dev/null` ]]; then
    if [ "$dryrun" != "true" ]; then
