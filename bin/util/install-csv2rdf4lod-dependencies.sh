@@ -99,12 +99,12 @@ function offer_install_with_apt {
             fi
          fi
       else
-         echo "[WARNING] Sorry, we need apt-get to install $command / $package for you."
+         echo "[WARNING] Sorry, we need apt-get to install $command / $package for you." >&2
       fi
       which $command >& /dev/null
       return $?
    else
-      echo "[WARNING] Skipping apt-get $1 $2 b/c no sudo."
+      echo "[WARNING] Skipping apt-get $1 $2 b/c no sudo." >&2
    fi
 }
 
@@ -160,7 +160,7 @@ if [[ ! `which rapper 2> /dev/null` ]]; then
             fi
             #$sudo rm -f `basename $gz`
          else
-            echo "[WARNING] could not install rapper because `whoami` does not have sudo permissions."
+            echo "[WARNING] could not install rapper because `whoami` does not have sudo permissions." >&2
          fi
       popd &> /dev/null
    fi
@@ -195,7 +195,7 @@ if [[ ! `which serdi 2> /dev/null` ]]; then
                fi
                $sudo rm -f `basename $bz2`
             else
-               echo "[WARNING] could not install serdi because `whoami` does not have sudo permissions."
+               echo "[WARNING] could not install serdi because `whoami` does not have sudo permissions." >&2
             fi
          fi
       popd &> /dev/null
@@ -619,7 +619,7 @@ for egg in $eggs; do
    eggReg=`echo $egg | sed 's/-/./g;s/_/./g'`
    #there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d | grep -i $eggReg`
    there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 -type d -name "$eggReg*" 2> /dev/null`
-   there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 | grep -i "dist-packages.$eggReg" &> /dev/null`
+   there=`find /usr/local/lib/python$V/dist-packages -mindepth 1 -maxdepth 1 2> /dev/null | grep -i "dist-packages.$eggReg" &> /dev/null`
    status=$?
    #if [[ -z "$there" || ! -e "$there" || ! "$there" =~ *.egg ]]; then # TODO: this path is $base/python/lib/site-packages if -z $sudo
    if [[ ! $status ]]; then # TODO: this path is $base/python/lib/site-packages if -z $sudo
