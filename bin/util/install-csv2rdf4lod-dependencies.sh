@@ -172,6 +172,8 @@ if [[ ! `which rapper 2> /dev/null` ]]; then
                echo tar xvfz $gz
                     tar xvfz $gz
                rm $gz
+            fi
+            if [[ -d ${gz%.tar.gz} ]]; then
                pushd ${gz%.tar.gz} &> /dev/null
                   if [[ -n "$sudo" ]]; then
                      config_prefix=""
@@ -217,8 +219,10 @@ if [[ ! `which serdi 2> /dev/null` ]]; then
                bz2=`basename $bz2`
                if [[ ! -e ${bz2%.tar.bz2} ]]; then
                   echo $sudo tar -xjf $bz2
-                  $sudo tar -xjf $bz2
-                  $sudo rm $bz2
+                       $sudo tar -xjf $bz2
+                       $sudo rm $bz2
+               fi
+               if [[ -d ${bz2%.tar.bz2} ]]; then
                   pushd ${bz2%.tar.bz2} &> /dev/null
                      $sudo ./waf configure     # These need sudo (
                      $sudo ./waf               # These need sudo
