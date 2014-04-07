@@ -104,8 +104,8 @@ function offer_install_with_yum_or_apt_ifnowhich {
                         echo $sudo apt-get install $package
                              $sudo apt-get install $package
                      elif [[ `which yum 2> /dev/null` ]]; then
-                        echo $sudo yum install $pacakge
-                             $sudo yum install $pacakge
+                        echo $sudo yum install $package
+                             $sudo yum install $package
                      fi
                   fi
                fi
