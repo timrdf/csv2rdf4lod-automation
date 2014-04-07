@@ -80,9 +80,9 @@ function offer_install_with_apt {
    if [[ -n "$sudo" ]]; then
       command="$1"
       package="$2"
-      if [ `which apt-get` ]; then
+      if [[ `which apt-get 2> /dev/null` ]]; then
          if [[ -n "$command" && -n "$package" ]]; then
-            if [ ! `which $command` ]; then
+            if [ ! `which $command 2> /dev/null` ]; then
                if [ "$dryrun" != "true" ]; then
                   echo
                fi
@@ -95,7 +95,7 @@ function offer_install_with_apt {
                   fi
                fi
             else
-               echo "[okay] $command already available at `which $command`"
+               echo "[okay] $command already available at `which $command 2> /dev/null`"
             fi
          fi
       else
@@ -125,7 +125,7 @@ offer_install_with_apt 'screen'  'screen'        #
 offer_install_with_apt 'tidy'    'tidy'          #
 offer_install_with_apt 'a2enmod' 'apache2'       #
 
-if [[ ! `which rapper` ]]; then
+if [[ ! `which rapper 2> /dev/null` ]]; then
    if [ "$dryrun" != "true" ]; then
       echo
       read -p "Q: Try to install rapper at $base/raptor? [y/N] " -u 1 install_it
@@ -165,10 +165,10 @@ if [[ ! `which rapper` ]]; then
       popd &> /dev/null
    fi
 else
-   echo "[okay] serdi available at `which serdi`"
+   echo "[okay] serdi available at `which serdi 2> /dev/null`"
 fi
 
-if [[ ! `which serdi` ]]; then
+if [[ ! `which serdi 2> /dev/null` ]]; then
    if [ "$dryrun" != "true" ]; then
       echo
       read -p "Q: Try to install serdi at $base? [y/N] " -u 1 install_it
@@ -204,13 +204,13 @@ if [[ ! `which serdi` ]]; then
       #fi
    fi
 else
-   echo "[okay] serdi available at `which serdi`"
+   echo "[okay] serdi available at `which serdi 2> /dev/null`"
 fi
 
 
 
 
-if [[ ! `which tdbloader` ]]; then # || ! "`which tdbloader`" =~ /home/`whoami`/opt/*
+if [[ ! `which tdbloader 2> /dev/null` ]]; then # || ! "`which tdbloader`" =~ /home/`whoami`/opt/*
    if [ "$dryrun" != "true" ]; then
       echo
       echo $div
@@ -271,7 +271,7 @@ if [[ ! `which tdbloader` ]]; then # || ! "`which tdbloader`" =~ /home/`whoami`/
       fi
    fi
 else
-   echo "[okay] tdbloader available at `which tdbloader`"
+   echo "[okay] tdbloader available at `which tdbloader 2> /dev/null`"
 fi
 
 
@@ -552,7 +552,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
          if [[ "$dryrun" != "true" ]]; then
             sudo apt-get update
          fi
-         if [[ ! `which aptitude` ]]; then
+         if [[ ! `which aptitude 2> /dev/null` ]]; then
             echo $TODO sudo apt-get install aptitude
             if [[ "$dryrun" != "true" ]]; then
                sudo apt-get install aptitude
