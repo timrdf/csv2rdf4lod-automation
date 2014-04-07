@@ -202,6 +202,9 @@ if [[ ! `which serdi 2> /dev/null` ]]; then
       read -p "Q: Try to install serdi at $base? [y/N] " -u 1 install_it
    fi
    if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
+      if [[ ! `which gcc 2> /dev/null` ]]; then
+         echo "serdi needs to be compiled with gcc..."
+      fi
       offer_install_with_yum_or_apt_ifnowhich 'gcc' 'gcc'
       #if [ `which gcc` ]; then
       pushd $base &> /dev/null
