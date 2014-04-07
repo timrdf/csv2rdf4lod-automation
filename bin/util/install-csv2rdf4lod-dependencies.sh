@@ -132,6 +132,7 @@ if [[ `which apt-get 2> /dev/null` ]]; then
    offer_install_with_yum_or_apt_ifnowhich 'javac'   'openjdk-6-jdk' # openjdk-6-jdk ?
 else
    offer_install_with_yum_or_apt_ifnowhich 'javac'   'java-1.6.0-openjdk'
+   offer_install_with_yum_or_apt_ifnowhich 'javac'   'java-1.6.0-openjdk-devel'
 fi
 
 offer_install_with_yum_or_apt_ifnowhich 'awk'     'gawk'          #
@@ -414,6 +415,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                                                 #      10.04   12.04
 
       echo "$TODO Virtuoso not installed; OS type $distributor $codename" >&2
+      # OS type RedHatEnterpriseServer Santiago
       if [[ ( "$distributor" == "Ubuntu" && "$codename" == 'lucid' ) || "$distributor" == "Debian" ]]; then # lucid
          # Using aptitude on Ubuntu lucid only installs Virtuoso 6.0, so we need to install it ourselves.
          url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
