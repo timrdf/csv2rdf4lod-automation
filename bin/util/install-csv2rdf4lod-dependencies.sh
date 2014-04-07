@@ -159,6 +159,12 @@ if [[ ! `which rapper 2> /dev/null` ]]; then
          echo "rapper needs to be compiled with gcc..."
       fi
       offer_install_with_yum_or_apt_ifnowhich 'gcc' 'gcc'
+      if [[ `which yum 2> /dev/null` ]]; then
+         libxml2_installed=`yum list | grep ^libxml2-devel`
+         if [[ -n "$libxml2_installed" ]]; then
+            offer_install_with_yum_or_apt_ifnowhich 'libxml2__' 'libxml2-devel'
+         fi
+      fi
       pushd $base &> /dev/null
          # http://download.librdf.org/source/
          gz='http://download.librdf.org/source/raptor2-2.0.12.tar.gz'
