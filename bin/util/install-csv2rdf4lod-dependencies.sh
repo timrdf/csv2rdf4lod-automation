@@ -189,7 +189,7 @@ if [[ ! `which rapper 2> /dev/null` ]]; then
       popd &> /dev/null
    fi
 else
-   echo "[okay] serdi available at `which serdi 2> /dev/null`"
+   echo "[okay] rapper available at `which rapper 2> /dev/null`"
 fi
 
 if [[ ! `which serdi 2> /dev/null` ]]; then
@@ -198,6 +198,7 @@ if [[ ! `which serdi 2> /dev/null` ]]; then
       read -p "Q: Try to install serdi at $base? [y/N] " -u 1 install_it
    fi
    if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
+      offer_install_with_yum_or_apt_ifnowhich 'gcc' 'gcc'
       #if [ `which gcc` ]; then
       pushd $base &> /dev/null
          # http://drobilla.net/software/serd/
