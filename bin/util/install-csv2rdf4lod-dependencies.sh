@@ -155,6 +155,9 @@ if [[ ! `which rapper 2> /dev/null` ]]; then
       read -p "Q: Try to install rapper at $base/raptor? [y/N] " -u 1 install_it
    fi
    if [[ "$install_it" == [yY] || "$dryrun" == "true" ]]; then
+      if [[ ! `which gcc 2> /dev/null` ]]; then
+         echo "rapper needs to be compiled with gcc..."
+      fi
       offer_install_with_yum_or_apt_ifnowhich 'gcc' 'gcc'
       pushd $base &> /dev/null
          # http://download.librdf.org/source/
