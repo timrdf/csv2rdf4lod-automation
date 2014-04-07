@@ -605,7 +605,7 @@ if [[ -z "$sudo" ]]; then
    # PYTHONPATH needs to be set to look into install_lib from ^^
    export PYTHONPATH=$base/python/lib/site-packages:$PYTHONPATH
    if [ "$dryrun" != "true" ]; then
-      echo "WARNING: set PYTHONPATH=$base/python/lib/site-packages:\$PYTHONPATH in your my-csv2rdf4lod-source-me.sh or .bashrc"
+      echo "WARNING: set PYTHONPATH=$base/python/lib/site-packages:\$PYTHONPATH in your my-csv2rdf4lod-source-me.sh or .bashrc" >&2
    else
       echo "[NOTE] installer would not be able to set PYTHONPATH= in `pwd`/my-csv2rdf4lod-source-me.sh"
    fi
