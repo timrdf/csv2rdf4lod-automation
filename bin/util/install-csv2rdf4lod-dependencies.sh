@@ -432,7 +432,10 @@ if [[ "$virtuoso_installed" == "no" ]]; then
 
       echo "$TODO Virtuoso not installed; OS type $distributor $codename" >&2
       # OS type RedHatEnterpriseServer Santiago
-      if [[ ( "$distributor" == "Ubuntu" && "$codename" == 'lucid' ) || "$distributor" == "Debian" ]]; then # lucid
+      if [[ ( "$distributor" == "Ubuntu" && "$codename" == 'lucid' ) || \
+              "$distributor" == "Debian"                             || \
+              "$distributor" == "RedHatEnterpriseServer" ]]; then
+
          # Using aptitude on Ubuntu lucid only installs Virtuoso 6.0, so we need to install it ourselves.
          url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
          pushd /opt &> /dev/null # $base
@@ -484,16 +487,29 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                   method_vt='upstream-source' 
                   #
 
+                  if [[ "$distributor" == "RedHatEnterpriseServer" ]]; then
+                     # http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VOSCentosNotes#Installing Virtuoso
+                     method_vt='upstream-source' 
+                  fi
+
+
                   pushd $virtuoso_root &> /dev/null # apt-get remove virtuoso-opensource
 
-                     echo
-                     echo
-                     echo "$TODO sudo apt-get update"
-                                 sudo apt-get update
-                     echo
-                     echo
-                     echo "$TODO sudo apt-get install aptitude"
-                                 sudo apt-get install aptitude
+                     if [[ `which apt-get 2> /dev/null` ]]; then
+                        echo
+                        echo
+                        echo "$TODO sudo apt-get update"
+                                    sudo apt-get update
+                        echo
+                        echo
+                        echo "$TODO sudo apt-get install aptitude"
+                                    sudo apt-get install aptitude
+                     elif [[ `which yum 2> /dev/null` ]]; then
+                        echo
+                        echo 
+                        echo "$TODO yum update"
+                                    yum update
+                     fi
 
                      if [[ "$method_vt" == 'ubuntu-packages' ]]; then
                         echo
@@ -536,32 +552,52 @@ if [[ "$virtuoso_installed" == "no" ]]; then
 
                      elif [[ "$method_vt" == 'upstream-source' ]]; then
 
-                        echo $TODO sudo apt-get install autoconf automake libtool flex bison gperf gawk m4 make odbcinst libxml2-dev libssl-dev libreadline-dev
-                                   sudo apt-get install autoconf automake libtool flex bison gperf gawk m4 make odbcinst libxml2-dev libssl-dev libreadline-dev
+                        if [[ `which apt-get 2> /dev/null` ]]; then
+                           echo $TODO sudo apt-get install autoconf automake libtool flex bison gperf gawk m4 make odbcinst libxml2-dev libssl-dev libreadline-dev
+                                      sudo apt-get install autoconf automake libtool flex bison gperf gawk m4 make odbcinst libxml2-dev libssl-dev libreadline-dev
 
-                        echo $TODO sudo ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
-                                   sudo ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
-                        
-                        echo $TODO sudo nice make
-                             $TODO sudo nice make
+                           echo $TODO sudo ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
+                                      sudo ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
+                           
+                           echo $TODO sudo nice make
+                                $TODO sudo nice make
 
-                        echo $TODO sudo make install
-                             $TODO sudo make install
+                           echo $TODO sudo make install
+                                $TODO sudo make install
 
-                        # TODO: sudo cp ~/opt/prizms/repos/csv2rdf4lod-automation/bin/util/virtuoso/init.d /etc/init.d/virtuoso-opensource
-                        # TODO: set DAEMON=/usr/local/bin/virtuoso-t
-                        # TODO: set DBBASE=/usr/local/var/lib/virtuoso/db
+                           # TODO: sudo cp ~/opt/prizms/repos/csv2rdf4lod-automation/bin/util/virtuoso/init.d /etc/init.d/virtuoso-opensource
+                           # TODO: set DAEMON=/usr/local/bin/virtuoso-t
+                           # TODO: set DBBASE=/usr/local/var/lib/virtuoso/db
 
-                        #
-                        # In the above command, we specify a prefix of /usr/local to Virtuoso's ./configure script. 
-                        # This specifies a base directory under which Virtuoso will create/use the following structure:
-                        # 
-                        # /usr/local/lib/ -- various libraries for Sesame, JDBC, Jena, Hibernate, and hosting
-                        # /usr/local/bin/ -- where the main executables (virtuoso-t, isql) live
-                        # /usr/local/share/virtuoso/vad/ -- used to store VAD archives prior to installation in an instance
-                        # /usr/local/share/virtuoso/doc/ -- local offline documentation
-                        # /usr/local/var/lib/virtuoso/db/ -- the default location for a Virtuoso instance
-                        # /usr/local/var/lib/virtuoso/vsp/ -- various VSP scripts which comprise the default homepage until the Conductor is installed
+                           #
+                           # In the above command, we specify a prefix of /usr/local to Virtuoso's ./configure script. 
+                           # This specifies a base directory under which Virtuoso will create/use the following structure:
+                           # 
+                           # /usr/local/lib/ -- various libraries for Sesame, JDBC, Jena, Hibernate, and hosting
+                           # /usr/local/bin/ -- where the main executables (virtuoso-t, isql) live
+                           # /usr/local/share/virtuoso/vad/ -- used to store VAD archives prior to installation in an instance
+                           # /usr/local/share/virtuoso/doc/ -- local offline documentation
+                           # /usr/local/var/lib/virtuoso/db/ -- the default location for a Virtuoso instance
+                           # /usr/local/var/lib/virtuoso/vsp/ -- various VSP scripts which comprise the default homepage until the Conductor is installed
+                        elif [[ `which yum 2> /dev/null` ]]; then
+                           echo $TODO sudo yum install gcc gmake autoconf automake libtool flex
+                                      sudo yum install gcc gmake autoconf automake libtool flex
+
+                           echo $TODO sudo yum install bison gperf gawk m4 make openssl-devel readline-devel wget
+                                      sudo yum install bison gperf gawk m4 make openssl-devel readline-devel wget
+
+                           echo $TODO sudo ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
+                                      sudo ./configure --prefix=/usr/local/ --with-readline --program-transform-name="s/isql/isql-v/"
+                           
+                           echo $TODO sudo nice make
+                                $TODO sudo nice make
+
+                           echo $TODO sudo nice make check
+                                $TODO sudo nice make check
+
+                           echo $TODO sudo make install
+                                $TODO sudo make install
+                        fi
                      fi
                   popd &> /dev/null
 
