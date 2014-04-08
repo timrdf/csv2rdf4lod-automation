@@ -63,15 +63,15 @@ while [ $# -gt 0 ]; do
    file="$1"
    shift
    if [ -e "$file" ]; then
-      if [[ `valid-rdf.sh $file` != "yes" ]]; then
+      if [[ "`valid-rdf.sh $file`" != "yes" ]]; then
          if [[ "$mark_invalid" == "true" ]]; then
-            if [ "$verbose" == "true" ]; then
-               echo "$file".invalid
-            fi
-            mv "$file" "$file".invalid
+            if [ "$verbose" == "true" ]; then 
+               echo "$file".invalid           # 
+            fi                                # File exists, is not valid RDF, and we're to mark invalid.
+            mv "$file" "$file".invalid        #
          else
             if [ "$verbose" == "true" ]; then
-               echo "$file"
+               echo "$file"                   # File exists, is not valid RDF, but we're not marking invalid.
             fi
          fi
       else
@@ -79,20 +79,20 @@ while [ $# -gt 0 ]; do
          if [[ "$extension" == "ttl" || "$extension" == "rdf" || "$extension" == "nt" ]]; then
             existing_extension=${file##*.}
             if [[ "$existing_extension" != $extension && -n "$existing_extension" ]]; then
-               mv "$file" "$file.$extension"
                if [ "$verbose" == "true" ]; then
-                  echo $file.$extension
-               fi
+                  echo "$file.$extension"     # 
+               fi                             # File exists, is valid RDF, it had an extension, and it wasn't correct.
+               mv "$file" "$file.$extension"  #
             else
                if [ "$verbose" == "true" ]; then
-                  echo $file
+                  echo "$file"                # File exists, is valid RDF, and it didn't have an extension or it was correct.
                fi
             fi
          else
             if [ "$verbose" == "true" ]; then
-               echo $file
+               echo "$file"                   # File exists, is valid RDF, but we don't know what extension to give.
             fi
          fi
-      fi
-   fi
+      fi # File valid RDF or not.
+   fi # File exists
 done
