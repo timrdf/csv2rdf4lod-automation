@@ -507,8 +507,8 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                      elif [[ `which yum 2> /dev/null` ]]; then
                         echo
                         echo 
-                        echo "$TODO yum update"
-                                    yum update
+                        echo "$TODO sudo yum update"
+                                    sudo yum update
                      fi
 
                      if [[ "$method_vt" == 'ubuntu-packages' ]]; then
