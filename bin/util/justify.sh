@@ -65,7 +65,6 @@ else
    if [[ "$method" =~ http* ]]; then
       method_name="<${method}>"
    fi
-   method_name="conv:${method}_Method"                                                                      # e.g., 'serialization_change_Method'
    engine_type="conv:`echo $method | awk '{print toupper(substr($0,0,1)) substr($0,2,length($0))}'`_Engine" # e.g.  'Serialization_change_Engine
 
    #echo "my MD5     : $myMD5"
