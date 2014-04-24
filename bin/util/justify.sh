@@ -64,8 +64,10 @@ else
    method_name="conv:${method}_Method"                                                                      # e.g., 'serialization_change_Method'
    if [[ "$method" =~ http* ]]; then
       method_name="<${method}>"
+      engine_type="" # They gave us a URI, so it's up to them.
+   else
+      engine_type="conv:`echo $method | awk '{print toupper(substr($0,0,1)) substr($0,2,length($0))}'`_Engine" # e.g.  'Serialization_change_Engine
    fi
-   engine_type="conv:`echo $method | awk '{print toupper(substr($0,0,1)) substr($0,2,length($0))}'`_Engine" # e.g.  'Serialization_change_Engine
 
    #echo "my MD5     : $myMD5"
    #echo "antecedent : $antecedent"
@@ -246,11 +248,17 @@ else
       echo "."                                                                                >> $consequent.$prov.ttl
       echo ""                                                                                 >> $consequent.$prov.ttl
       echo "<$engine_name>"                                                                   >> $consequent.$prov.ttl
+      if [[ -n "$engine_type" ]]; then
       echo "   a pmlp:InferenceEngine, $engine_type, prov:Entity;"                            >> $consequent.$prov.ttl
+      else
+      echo "   a pmlp:InferenceEngine, prov:Entity;"                                          >> $consequent.$prov.ttl
+      fi
       echo "   dcterms:identifier \"$engine_name\";"                                          >> $consequent.$prov.ttl
       echo "."                                                                                >> $consequent.$prov.ttl
       echo                                                                                    >> $consequent.$prov.ttl
+      if [[ -n "$engine_type" ]]; then
       echo "$engine_type rdfs:subClassOf pmlp:InferenceEngine ."                              >> $consequent.$prov.ttl
+      fi
       echo --------------------------------------------------------------------------------
       shift
    fi
