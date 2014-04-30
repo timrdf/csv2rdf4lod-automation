@@ -32,6 +32,7 @@ if [[ -e "$content" ]]; then
             echo "<!--"         > $XSL
             echo "#3> <> prov:wasGeneratedBy [ prov:qualifiedAssociation [ prov:hadPlan <file://$me> ] ] ."  >> $XSL
             echo "-->"         >> $XSL
+            echo "trying to get $transform to `pwd`/$XSL" >&2
             curl -s $transform >> $XSL
          fi
       fi
