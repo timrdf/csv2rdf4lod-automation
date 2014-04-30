@@ -9,9 +9,9 @@
 #   find . -name "[^.]*" | xargs      nt-nodes.sh > nodes.txt
 
 if [[ $# -eq 0 || "$1" == "--help" ]]; then
-   echo
-   echo "usage: `basename $0` <uri>+"
-   echo " <uri> : e.g. sio:has-member  http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+   echo                                                                                 >&2
+   echo "usage: `basename $0` <uri>+"                                                   >&2
+   echo " <uri> : e.g. sio:has-member  http://www.w3.org/1999/02/22-rdf-syntax-ns#type" >&2
    exit
 fi
 
