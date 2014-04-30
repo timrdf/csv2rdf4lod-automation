@@ -148,6 +148,11 @@ if [ "$add_cp" != "NOCLASSPATH" ]; then
 fi
 
 memory_option="-Xmx1024m"
+memory2_4='-Xms2048m -Xmx4096m'
+memory4_8='-Xms4096m -Xmx8192m'
+memory20_24='-Xms4096m -Xmx8192m'
+memory_option=$memory4_8
+
 class="net.sf.saxon.Transform"
 while [ $# -gt 0 ]; do
    artifact="$1"
