@@ -123,6 +123,12 @@ while [ $# -gt 0 ]; do
             echo "`basename $0` using -I basename from conversion cockpit conventions." >&2
          fi
          I="`cr-ln-to-www-root.sh -n --url-of-filepath $file`"
+      elif [[ -z "$I" && `which cr-pwd-type.sh` && `cr-pwd-type.sh` == 'cr:conversion-cockpit' && 
+              -n "$CSV2RDF4LOD_BASE_URI" && ! "$CSV2RDF4LOD_BASE_URI" =~ *localhost* ]]; then
+         I="$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/file/`cr-dataset-id.sh`/version/`cr-version-id.sh`/$file" 
+         if [ "$verbose" == "yes" ]; then
+            echo "no cr-ln; I => : $I"
+         fi
       else
          # Always need a -I since we can be sending it via stdin
          I="file:///localhost/`resource-name.sh`/$file"
