@@ -32,7 +32,7 @@ function retrieve_from_metadata {
    if [[ -e "$dcat" ]]; then
       url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
       urls=''
-      for download in `grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'`; do
+      for download in `grep dcat:downloadURL $dcat | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'`; do
          urls="$urls \"$download\""
       done
       # TODO: download them all, e.g. grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'
