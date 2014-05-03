@@ -135,7 +135,13 @@ if [[ ! -d $version || ! -d $version/source || `find $version -empty -type d -na
       # - - - - - - - - - - - - - - - - - - - - Replace below for custom retrieval  - - - \
       if [[ "$url" =~ http* ]]; then                                                    # |
          pcurl.sh $url                                                                  # |
-         echo SOME MORE $*
+         while [ $# -gt 0 ]; do                                                         # |
+            anotherURL="$1"                                                             # |
+            if [[ "$anotherURL" =~ http* ]]; then                                       # |
+               pcurl.sh "$anotherURL"                                                   # |
+            fi                                                                          # |
+            shift                                                                       # |
+         done                                                                           # |
       fi                                                                                # | 
       if [ `ls *.gz *.zip 2> /dev/null | wc -l` -gt 0 ]; then                           # |
          # Uncompress anything that is compressed.                                      # |
