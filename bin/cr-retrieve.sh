@@ -33,8 +33,10 @@ function retrieve_from_metadata {
       url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
       urls=''
       for download in `grep dcat:downloadURL $dcat | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'`; do
-         urls="$urls \"$download\""
+         urls="$urls '$download'"
       done
+      urls=${urls# \'}
+      urls=${urls% \'}
       # TODO: download them all, e.g. grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'
       # rdf2nt.sh access.ttl | grep '<http://www.w3.org/ns/dcat#downloadURL>' | awk '{print $3}' | grep http | sed 's/<//;s/>//' | grep -v " "
       # e.g. lodcloud/data/source/harth-org/btc-2012/version/latest
