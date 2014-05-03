@@ -31,14 +31,15 @@ function retrieve_from_metadata {
    versionID="$2"
    if [[ -e "$dcat" ]]; then
       url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
+      # ^^ phasing out; moving to multiple URLs ^^
+      # Newer: download them all, e.g. grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'
       urls=''
       for download in `grep dcat:downloadURL $dcat | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'`; do
+         # alternative: rdf2nt.sh access.ttl | grep '<http://www.w3.org/ns/dcat#downloadURL>' | awk '{print $3}' | grep http | sed 's/<//;s/>//' | grep -v " "
          urls="$urls '$download'"
       done
       urls=${urls# \'}
       urls=${urls%\'}
-      # TODO: download them all, e.g. grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'
-      # rdf2nt.sh access.ttl | grep '<http://www.w3.org/ns/dcat#downloadURL>' | awk '{print $3}' | grep http | sed 's/<//;s/>//' | grep -v " "
       # e.g. lodcloud/data/source/harth-org/btc-2012/version/latest
       google_key=''
       if [[ "$url" =~ https://docs.google.com/spreadsheet* ]]; then
