@@ -31,6 +31,10 @@ function retrieve_from_metadata {
    versionID="$2"
    if [[ -e "$dcat" ]]; then
       url=`grep "dcat:downloadURL" $dcat | head -1 | awk '{print $2}' | sed 's/<//; s/>.*$//'` # TODO: query it as RDF...
+      urls=''
+      for download in `grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'`; do
+         urls="$urls \"$download\""
+      done
       # TODO: download them all, e.g. grep dcat:downloadURL access.ttl | awk '{print $2}' | sed 's/^.*<//;s/>.*$//'
       # rdf2nt.sh access.ttl | grep '<http://www.w3.org/ns/dcat#downloadURL>' | awk '{print $3}' | grep http | sed 's/<//;s/>//' | grep -v " "
       # e.g. lodcloud/data/source/harth-org/btc-2012/version/latest
@@ -58,7 +62,7 @@ function retrieve_from_metadata {
          if [ "$dryrun" != "yes" ]; then
             #echo template from $0 pwd: `pwd`
             cat $0.template > retrieve.sh # NOTE: chmod +w /opt/csv2rdf4lod-automation/bin/cr-retrieve.sh.template
-            perl -pi -e "s|DOWNLOAD_URL|$url|" retrieve.sh
+            perl -pi -e "s|DOWNLOAD_URL|$urls|" retrieve.sh
             if [[ ${#versionID} -gt 0 ]]; then
                perl -pi -e "s|cr:auto|$versionID|" retrieve.sh
             fi
@@ -66,7 +70,7 @@ function retrieve_from_metadata {
             ./retrieve.sh
          else
             echo "`cr-dataset-uri.sh --uri`:"
-            echo "   Will retrieve b/c not yet retrieved $url"
+            echo "   Will retrieve b/c not yet retrieved $urls"
          fi
       fi
    else

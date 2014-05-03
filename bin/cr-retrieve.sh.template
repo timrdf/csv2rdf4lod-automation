@@ -15,8 +15,8 @@
 #3>      <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset>;
 #3> .
 
-$CSV2RDF4LOD_HOME/bin/cr-create-versioned-dataset-dir.sh cr:auto                                               \
-                                                        'DOWNLOAD_URL' #\
+$CSV2RDF4LOD_HOME/bin/cr-create-versioned-dataset-dir.sh cr:auto 'DOWNLOAD_URL'
+#\
 #                                                       --comment-character '#'                                 \
 #                                                       --header-line        0                                  \
 #                                                       --delimiter         '\t'
