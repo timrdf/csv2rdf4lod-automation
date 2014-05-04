@@ -207,6 +207,7 @@ if [[ `is-pwd-a.sh                                                            cr
                echo ":linkset_$datasetTIMEdataset sio:has-member <$uri> ." >> automatic/$bubble.ttl
             done
          done
+         # If you want to peek yourself: find automatic -name linkset.txt -size +0k | xargs wc -l
  
          url="${baseURI}/source/$sourceID/file/cr-full-dump/version/latest/conversion/$base.nt.gz"
          echo "source/$base.nt.gz <- $url"
