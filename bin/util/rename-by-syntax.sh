@@ -48,7 +48,7 @@ fi
 
 rename_style="append"
 if [[ "$1" == "--replace-extension" ]]; then
-   echo "--replace-extension not implemented" # need to worry about no extension being there.
+   echo "--replace-extension not implemented" >&2 # need to worry about no extension being there.
    exit 1
    shift
 fi
@@ -59,11 +59,13 @@ if [[ "$1" == "--mark-invalid" ]]; then
    shift
 fi
 
-while [ $# -gt 0 ]; do
+while [ $# -gt 0 ]; do # TODO: incorporate gzipping similar to lodcloud/data/source/lodcloud/dataDumps/version/2014-04-07
    file="$1"
    shift
    if [ -e "$file" ]; then
+      #echo "$file valid? ..." >&2
       if [[ "`valid-rdf.sh $file`" != "yes" ]]; then
+         # Not valid :-(
          if [[ "$mark_invalid" == "true" ]]; then
             if [ "$verbose" == "true" ]; then 
                echo "$file".invalid           # 
@@ -75,24 +77,31 @@ while [ $# -gt 0 ]; do
             fi
          fi
       else
+         # Valid! \./
+         #echo "Determining appropriate extension for $file ..." >&2
          extension=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect $file extension`
+         #echo " ... ($extension)" >&2
          if [[ "$extension" == "ttl" || "$extension" == "rdf" || "$extension" == "nt" ]]; then
             existing_extension=${file##*.}
-            if [[ "$existing_extension" != $extension && -n "$existing_extension" ]]; then
-               if [ "$verbose" == "true" ]; then
-                  echo "$file.$extension"     # 
-               fi                             # File exists, is valid RDF, it had an extension, and it wasn't correct.
-               mv "$file" "$file.$extension"  #
-            else
-               if [ "$verbose" == "true" ]; then
-                  echo "$file"                # File exists, is valid RDF, and it didn't have an extension or it was correct.
+            if [[ -n "$existing_extension" ]]; then
+               if [[ "$existing_extension" != $extension ]]; then
+                  if [ "$verbose" == "true" ]; then
+                     echo "$file.$extension"     # 
+                  fi                             # File exists, is valid RDF, it had an extension, and it wasn't correct.
+                  mv "$file" "$file.$extension"  #
+               else
+                  if [ "$verbose" == "true" ]; then
+                     echo "$file"                # File exists, is valid RDF, it had an extension that was correct.
+                  fi
                fi
+            else
+               echo "$file"                      # File exists, is valid RDF, and it didn't have an extension.
             fi
          else
             if [ "$verbose" == "true" ]; then
-               echo "$file"                   # File exists, is valid RDF, but we don't know what extension to give.
+               echo "$file"                      # File exists, is valid RDF, but we don't know what extension to give.
             fi
          fi
-      fi # File valid RDF or not.
+      fi # Is file valid RDF or not.
    fi # File exists
 done

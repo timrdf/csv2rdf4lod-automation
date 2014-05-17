@@ -27,12 +27,12 @@
 #   fi
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
-   echo
-   echo "usage: `basename $0` [--tell <tool> <mimetype>] [--inspect] url-of.rdf [{mime,rapper,jena,extension}]"
-   echo "  --tell <tool> <mimetype> : return the token that the given <tool> uses for the given <mimetype>."
-   echo "  --inspect                : look at the local file and guess (if not specified, guesses based on the file name)."
-   echo
-   exit 1
+   echo   >&2
+   echo "usage: `basename $0` [--tell <tool> <mimetype>] [--inspect] url-of.rdf [{mime,rapper,jena,extension}]" >&2
+   echo "  --tell <tool> <mimetype> : return the token that the given <tool> uses for the given <mimetype>." >&2
+   echo "  --inspect                : look at the local file and guess (if not specified, guesses based on the file name)." >&2
+   echo   >&2
+   exit 1 >&2
 fi
 
 if [ "$1" == "--tell" ]; then
@@ -95,6 +95,7 @@ fi
 filename_guess="$guess"
 if [ $inspect == "true" ]; then
    SAMPLE=1000
+   #echo "`basename $0` inspecting $url for syntax" >&2
    if [[ ! -f $url ]]; then
       guess="$guess"
    elif [[ `gzipped.sh $url` == "yes" ]]; then
@@ -102,6 +103,23 @@ if [ $inspect == "true" ]; then
       gunzip -c $url | head -$SAMPLE > $TEMP
       guess=`$0 --inspect $TEMP` # Recursive call on uncompressed sample from the gzip.
       rm $TEMP
+   elif [[ `grep '<rdf:RDF ' $url` ]]; then
+      # Handle the case where there are no newlines in the file (even if it's GB of RDF/XML...).
+      guess="-i rdfxml"
+   elif [[ `wc -l $url | awk '{print $1}'` -eq 0 ]]; then
+      #echo "`basename $0` file had no lines, cannot analyze $url for syntax." >&2
+      #
+      # If the file is huge (e.g. 1.1 GB) but has no newlines, awk reports:
+      #
+      #   awk(37171,0x7fff7834f310) malloc: *** mach_vm_map(size=18446744072872574976) failed (error code=3)
+      #   *** error: can't allocate region
+      #   *** set a breakpoint in malloc_error_break to debug
+      #   awk: out of memory in awkprintf
+      #   input record number 1, file 
+      #   source line number 1
+      #
+      # (Thanks, http://eurostat.linked-statistics.org ...)
+      guess="$filename_guess"
    elif [[ `head -10 $url | awk '$0 ~ /.*<html>.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
       guess="-g"
    elif [[ `head -$SAMPLE $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
@@ -124,12 +142,13 @@ if [ $inspect == "true" ]; then
       #           a <http://>,
       guess="-i turtle"
    else
-      #echo "still no idea after --inspect"
-      #echo "ntriples: `head -$SAMPLE $url | awk '$0 ~ /[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*/{c++}END{printf("%s",c)}'`"
-      #echo "turtle:   `head -$SAMPLE $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'`"
-      #echo "rdfxml:   `head -$SAMPLE $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'`"
+      #echo "still no idea after --inspect" >&2
+      #echo "ntriples: `head -$SAMPLE $url | awk '$0 ~ /[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*[^<]*<[^>]+>[^>]*/{c++}END{printf("%s",c)}'`" >&2
+      #echo "turtle:   `head -$SAMPLE $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'`" >&2
+      #echo "rdfxml:   `head -$SAMPLE $url | awk '$0 ~ "rdf:about=" {c++} END {printf("%s",c)}'`" >&2
       guess="$filename_guess"
    fi
+   #echo "`basename $0` done with $url ($guess)" >&2
 fi
 
 #

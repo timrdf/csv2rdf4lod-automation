@@ -18,7 +18,7 @@
 #    bin/util/rdf2nt.sh - was done before, can switch to this.
 
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` <file>*"
+   echo "usage: `basename $0` <file>*" >&2
    exit 1
 fi
 
