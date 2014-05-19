@@ -94,6 +94,7 @@ else
 fi
 filename_guess="$guess"
 if [ $inspect == "true" ]; then
+   KB_300=307200
    SAMPLE=1000
    #echo "`basename $0` inspecting $url for syntax" >&2
    if [[ ! -f $url ]]; then
@@ -103,11 +104,9 @@ if [ $inspect == "true" ]; then
       gunzip -c $url | head -$SAMPLE > $TEMP
       guess=`$0 --inspect $TEMP` # Recursive call on uncompressed sample from the gzip.
       rm $TEMP
-   elif [[ `grep '<rdf:RDF ' $url` ]]; then
+   elif [[ `head -c $KB_300 $url | wc -l | awk '{print $1}'` -eq 0 ]]; then
       # Handle the case where there are no newlines in the file (even if it's GB of RDF/XML...).
-      guess="-i rdfxml"
-   elif [[ `wc -l $url | awk '{print $1}'` -eq 0 ]]; then
-      #echo "`basename $0` file had no lines, cannot analyze $url for syntax." >&2
+      #echo "`basename $0` file had no lines :^(" >&2
       #
       # If the file is huge (e.g. 1.1 GB) but has no newlines, awk reports:
       #
@@ -119,7 +118,13 @@ if [ $inspect == "true" ]; then
       #   source line number 1
       #
       # (Thanks, http://eurostat.linked-statistics.org ...)
-      guess="$filename_guess"
+      if [[ `head -c $KB_300 $url | grep -m 1 '<rdf:RDF '` ]]; then
+         #echo "`basename $0` file had rdf:RDF" >&2
+         guess="-i rdfxml"
+      else
+         #echo "`basename $0` file did not have rdf:RDF" >&2
+         guess="$filename_guess"
+      fi
    elif [[ `head -10 $url | awk '$0 ~ /.*<html>.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then
       guess="-g"
    elif [[ `head -$SAMPLE $url | awk '$0 ~ /^@prefix.*/ {c++} END {printf("%s",c)}'` -gt 0 ]]; then

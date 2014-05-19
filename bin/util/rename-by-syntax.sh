@@ -21,13 +21,14 @@ CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh o
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo
-   echo "usage: `basename $0` [--list-extensionless] [-v] [--replace-extension] [--mark-invalid] <file>+"
+   echo "usage: `basename $0` [--list-extensionless] [-v] [--replace-extension] [--mark-invalid [--good-guess-is-valid-enough]] <file>+"
    echo
-   echo "   --list-extensionless : return a list of files without file extensions."
-   echo "                     -v : return the new name of the file."
-   echo "    --replace-extension : [not implemented]"
-   echo "         --mark-invalid : Rename any file that is not valid RDF by appending '.invalid'"
-   echo "                 <file> : The file to identify RDF syntax and rename with appropriate extension."
+   echo "         --list-extensionless : return a list of files without file extensions."
+   echo "                           -v : return the new name of the file."
+   echo "          --replace-extension : [not implemented]"
+   echo "               --mark-invalid : Rename any file that is not valid RDF by appending '.invalid'"
+   echo " --good-guess-is-valid-enough : If we can guess the format, we'll consider it valid.'"
+   echo "                       <file> : The file to identify RDF syntax and rename with appropriate extension."
    exit 1
 fi
 
@@ -57,14 +58,24 @@ mark_invalid="false"
 if [[ "$1" == "--mark-invalid" ]]; then
    mark_invalid="true"
    shift
+
+   good_guess_is_valid_enough="no"
+   if [[ "$1" == "--good-guess-is-valid-enough" ]]; then
+      good_guess_is_valid_enough="yes"
+      shift
+   fi
 fi
 
 while [ $# -gt 0 ]; do # TODO: incorporate gzipping similar to lodcloud/data/source/lodcloud/dataDumps/version/2014-04-07
    file="$1"
    shift
    if [ -e "$file" ]; then
-      #echo "$file valid? ..." >&2
-      if [[ "`valid-rdf.sh $file`" != "yes" ]]; then
+      #echo "Determining appropriate extension for $file ..." >&2
+      extension=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect $file extension`
+      #echo " ... ($extension) $good_guess_is_valid_enough" >&2
+      if [[ ! ( "$good_guess_is_valid_enough" == 'yes' \
+               && ( "$extension" == "ttl" || "$extension" == "rdf" || "$extension" == "nt" ) \
+              ) && "`valid-rdf.sh $file`" != "yes" ]]; then
          # Not valid :-(
          if [[ "$mark_invalid" == "true" ]]; then
             if [ "$verbose" == "true" ]; then 
@@ -78,9 +89,6 @@ while [ $# -gt 0 ]; do # TODO: incorporate gzipping similar to lodcloud/data/sou
          fi
       else
          # Valid! \./
-         #echo "Determining appropriate extension for $file ..." >&2
-         extension=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect $file extension`
-         #echo " ... ($extension)" >&2
          if [[ "$extension" == "ttl" || "$extension" == "rdf" || "$extension" == "nt" ]]; then
             existing_extension=${file##*.}
             if [[ -n "$existing_extension" ]]; then
