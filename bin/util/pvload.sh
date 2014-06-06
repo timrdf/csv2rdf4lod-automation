@@ -47,6 +47,13 @@ if [ $1 == "-n" ]; then
    dryrun="true"; shift 
 fi
 
+function no_scheme {
+   local uri="$1"
+   local uri_NO_SCHEME=${graph_name#http://}
+         uri_NO_SCHEME=${graph_name_NO_SCHEME#https://}
+   return $uri_NO_SCHEME
+}
+
 PROV_BASE="http://www.provenanceweb.net/id/"
 PROV_BASE="$CSV2RDF4LOD_BASE_URI/id/"
 
@@ -63,7 +70,7 @@ escapedEndpoint=`cr-urlencode.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}
 if [[ "$1" == '--prov-graph-name' && "$2" =~ http* ]]; then
    # Un-exposed option for other scripts to use.
    graph_name="$2"
-   echo $CSV2RDF4LOD_BASE_URI/graph-prov/${graph_name#http://}
+   echo $CSV2RDF4LOD_BASE_URI/graph-prov/`no_scheme $graph_name`
    exit
 fi
 
@@ -133,7 +140,7 @@ while [ $# -gt 0 ]; do
          shift 
       else
          # Note: coordinate with pvdelete.sh
-         prov_graph=$CSV2RDF4LOD_BASE_URI/graph-prov/${named_graph#http://}
+         prov_graph=$CSV2RDF4LOD_BASE_URI/graph-prov/`no_scheme $named_graph`
       fi
       shift
    fi
