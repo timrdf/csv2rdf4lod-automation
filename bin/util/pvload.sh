@@ -294,7 +294,7 @@ while [ $# -gt 0 ]; do
       echo "."                                                                                                 >> ${TEMP}${unzipped}.load.prov.ttl
       echo "<${PROV_BASE}activity${requestID}>"                                                                >> ${TEMP}${unzipped}.load.prov.ttl
       echo "   a cogs:${cogs_load_type}Loading, cogs:Loading, prov:Activity;"                                  >> ${TEMP}${unzipped}.load.prov.ttl
-      echo "   prov:used ${latest_NG_nodeset:-"<$named_graph_global>"}, <$url>;"                               >> ${TEMP}${unzipped}.load.prov.ttl
+      echo "   prov:used ${latest_NG_nodeset:-"<$named_graph_global>"}, <$url>,"                               >> ${TEMP}${unzipped}.load.prov.ttl
       echo "             <$TEMP>;"                                                                             >> ${TEMP}${unzipped}.load.prov.ttl
       echo "   prov:wasAssociatedWith          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"           >> ${TEMP}${unzipped}.load.prov.ttl
       echo "   prov:qualifiedAssociation ["                                                                    >> ${TEMP}${unzipped}.load.prov.ttl
