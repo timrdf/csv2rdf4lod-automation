@@ -49,8 +49,8 @@ fi
 
 function no_scheme {
    local uri="$1"
-   local uri_NO_SCHEME=${graph_name#http://}
-         uri_NO_SCHEME=${graph_name_NO_SCHEME#https://}
+   local uri_NO_SCHEME=${uri#http://}
+         uri_NO_SCHEME=${uri_NO_SCHEME#https://}
    return $uri_NO_SCHEME
 }
 
