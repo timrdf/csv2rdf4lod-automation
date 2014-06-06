@@ -86,6 +86,8 @@ while [ $# -gt 0 ]; do
    #
    # Grab the file.
    #
+   usageDateTime=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`
+   usageDateTimeSlug=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh coin:slug`
    if [ "$dryrun" != "true" ]; then
       $CSV2RDF4LOD_HOME/bin/util/pcurl.sh $url -n $TEMP     # Side affect: creates $TEMP.prov.ttl (will be loaded below).
       echo
@@ -100,8 +102,6 @@ while [ $# -gt 0 ]; do
       echo `basename $CSV2RDF4LOD_HOME/bin/util/pcurl.sh` $url -n $TEMP
       echo "<http://www.w3.org/2002/07/owl#sameAs> <http://www.w3.org/2002/07/owl#sameAs> <http://www.w3.org/2002/07/owl#sameAs> ." > $TEMP
    fi
-   usageDateTime=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`
-   usageDateTimeSlug=`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh coin:slug`
 
    #echo "PVLOAD: url                $url"
    #echo "rest: $*"
@@ -147,8 +147,9 @@ while [ $# -gt 0 ]; do
    echo "                   --> (PROV Graph)  $prov_graph"
 
    #
-   # Normalize into ntriples (note, this step is not worth describing in the provenance).
+   # Normalize into ntriples 
    # (because Virtuoso chokes on some well-formatted Turtle, and they don't respond to bugs).
+   # (note, this step is not worth describing in the provenance).
    #
    #echo guessing `$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper`
    syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh $url rapper`
@@ -182,7 +183,8 @@ while [ $# -gt 0 ]; do
       rm $TEMP
    fi
 
-   if [ `wc -l ${TEMP}${unzipped}.nt | awk '{print $1}'` -gt 0 ]; then
+   NT_triple_count=`wc -l ${TEMP}${unzipped}.nt | awk '{print $1}'`
+   if [ "$NT_triple_count" -gt 0 ]; then
       # Relative paths.
       sourceUsage="sourceUsage$requestID"
       escapedNG=`echo $named_graph | perl -e 'use URI::Escape; @userinput = <STDIN>; foreach (@userinput) { chomp($_); print uri_escape($_); }'`
@@ -197,6 +199,9 @@ while [ $# -gt 0 ]; do
       if [ ${#latest_NG_nodeset} -gt 0 ]; then
          echo "INFO: `basename $0` found provenance of previous named graph load: $latest_NG_nodeset"
          latest_NG_nodeset="<$latest_NG_nodeset>"
+         cogs_load_type='Incremental'
+      else
+         cogs_load_type='Initial'
       fi
 
       echo
@@ -214,6 +219,8 @@ while [ $# -gt 0 ]; do
       echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                                        >> ${TEMP}${unzipped}.load.prov.ttl
       echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                                                >> ${TEMP}${unzipped}.load.prov.ttl
       echo "@prefix dcat:       <http://www.w3.org/ns/dcat#> ."                                                >> ${TEMP}${unzipped}.load.prov.ttl
+      echo "@prefix void:       <http://rdfs.org/ns/void#>."                                                   >> ${TEMP}${unzipped}.load.prov.ttl
+      echo "@prefix cogs:       <http://vocab.deri.ie/cogs#> ."                                                >> ${TEMP}${unzipped}.load.prov.ttl
       echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."                                     >> ${TEMP}${unzipped}.load.prov.ttl
       echo                                                                                                     >> ${TEMP}${unzipped}.load.prov.ttl
       $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                                               >> ${TEMP}${unzipped}.load.prov.ttl
@@ -282,15 +289,20 @@ while [ $# -gt 0 ]; do
       echo "  sd:namedGraph <$named_graph_global>;"                                                            >> ${TEMP}${unzipped}.load.prov.ttl
       echo "."                                                                                                 >> ${TEMP}${unzipped}.load.prov.ttl
       echo                                                                                                     >> ${TEMP}${unzipped}.load.prov.ttl
+      echo "<$TEMP>"                                                                                           >> ${TEMP}${unzipped}.load.prov.ttl
+      echo "   void:triples $NT_triple_count;"                                                                 >> ${TEMP}${unzipped}.load.prov.ttl
+      echo "."                                                                                                 >> ${TEMP}${unzipped}.load.prov.ttl
       echo "<${PROV_BASE}activity${requestID}>"                                                                >> ${TEMP}${unzipped}.load.prov.ttl
-      echo "   a prov:Activity;"                                                                               >> ${TEMP}${unzipped}.load.prov.ttl
+      echo "   a cogs:${cogs_load_type}Loading, cogs:Loading, prov:Activity;"                                  >> ${TEMP}${unzipped}.load.prov.ttl
       echo "   prov:used ${latest_NG_nodeset:-"<$named_graph_global>"}, <$url>;"                               >> ${TEMP}${unzipped}.load.prov.ttl
+      echo "             <$TEMP>;"                                                                             >> ${TEMP}${unzipped}.load.prov.ttl
       echo "   prov:wasAssociatedWith          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"           >> ${TEMP}${unzipped}.load.prov.ttl
       echo "   prov:qualifiedAssociation ["                                                                    >> ${TEMP}${unzipped}.load.prov.ttl
       echo "      a prov:Association;"                                                                         >> ${TEMP}${unzipped}.load.prov.ttl
       echo "      prov:agent `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"                             >> ${TEMP}${unzipped}.load.prov.ttl
       echo "      prov:hadPlan <http://inference-web.org/registry/MPR/RDFModelUnion.owl#RDFModelUnion>;"       >> ${TEMP}${unzipped}.load.prov.ttl
       echo "   ];"                                                                                             >> ${TEMP}${unzipped}.load.prov.ttl
+      echo "   prov:generated <${named_graph_global}#${usageDateTimeSlug}>;"                                   >> ${TEMP}${unzipped}.load.prov.ttl
       echo "   prov:startedAtTime \"`$CSV2RDF4LOD_HOME/bin/util/dateInXSDDateTime.sh`\"^^xsd:dateTime;"        >> ${TEMP}${unzipped}.load.prov.ttl
       echo "."                                                                                                 >> ${TEMP}${unzipped}.load.prov.ttl
 
