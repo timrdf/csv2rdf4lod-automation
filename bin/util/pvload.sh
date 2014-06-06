@@ -51,7 +51,7 @@ function no_scheme {
    local uri="$1"
    local uri_NO_SCHEME=${uri#http://}
          uri_NO_SCHEME=${uri_NO_SCHEME#https://}
-   return $uri_NO_SCHEME
+   echo $uri_NO_SCHEME
 }
 
 PROV_BASE="http://www.provenanceweb.net/id/"
