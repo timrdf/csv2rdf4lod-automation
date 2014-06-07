@@ -367,6 +367,12 @@ if [[ "$cannot_locate" =~ *Can*t*locate* && -n "$sudo" ]]; then
          $sudo perl -MCPAN -e install IO::Socket::SSL
          # used in:
          #   bin/util/pcurl.sh
+         #
+         # If not, get:
+         # 501 Protocol scheme 'https' is not supported (Crypt::SSLeay or IO::Socket::SSL not installed)
+         # Could try (thx to https://bugs.launchpad.net/ec2-consistent-snapshot/+bug/657603):
+         #   sudo apt-get install libnet-ssleay-perl
+         #   sudo apt-get install libcrypt-ssleay-perl
       fi
       echo $TODO perl -MCPAN install Text::CSV
       if [ "$dryrun" != "true" ]; then
