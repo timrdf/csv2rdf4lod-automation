@@ -59,6 +59,7 @@ function write_access_metadata {
       echo "@prefix dcat:       <http://www.w3.org/ns/dcat#> ."                       >> access.ttl
       echo "@prefix void:       <http://rdfs.org/ns/void#> ."                         >> access.ttl
       echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."  >> access.ttl
+      echo "@prefix doap:       <http://usefulinc.com/ns/doap#> ."                    >> access.ttl
       echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                       >> access.ttl
       echo "@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> ."              >> access.ttl
       echo "@prefix :           <$CSV2RDF4LOD_BASE_URI/id/> ."                        >> access.ttl
@@ -82,6 +83,8 @@ function write_access_metadata {
       echo "   a dcat:Distribution;"                                                     >> access.ttl
       if [[ "$DIST_URL" =~ https://docs.google.com/spreadsheet* ]]; then
          echo "   a nfo:Spreadsheet;"                                                    >> access.ttl
+      elif [[ "$DIST_URL" =~ .*.git ]]; then
+         echo "   a doap:GitRepository;"                                                 >> access.ttl
       fi
       echo "   dcat:downloadURL <$DIST_URL>;"                                            >> access.ttl
       echo "."                                                                           >> access.ttl
