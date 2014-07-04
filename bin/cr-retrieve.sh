@@ -61,6 +61,18 @@ function retrieve_from_metadata {
             echo "`cr-dataset-uri.sh --uri`:"
             echo "   Will retrieve google spreadsheet $google_key b/c not yet retrieved $url"
          fi
+      elif [[ "$url" =~ .*.git ]]; then
+         if [ "$dryrun" != "yes" ]; then
+	    echo "#!/bin/bash"                      > retrieve.sh
+	    echo "mkdir -p source && pushd source" >> retrieve.sh
+	    echo "git clone $url"                  >> retrieve.sh
+	    echo "popd"                            >> retrieve.sh
+            chmod +x retrieve.sh
+            ./retrieve.sh
+         else
+            echo "`cr-dataset-uri.sh --uri`:"
+            echo "   Will retrieve google spreadsheet $google_key b/c not yet retrieved $url"
+         fi
       else
          if [ "$dryrun" != "yes" ]; then
             #echo template from $0 pwd: `pwd`
