@@ -13,7 +13,7 @@ fi
 file=""
 while [ $# -gt 0 ]; do
    syntax=`guess-syntax.sh --inspect $1 rapper`
-   echo "`basename $0` checking full file for validity: $1" >&2
+   #echo "`basename $0` checking full file for validity: $1" >&2 # NOTE this messes up DataFAQs' pretty printing.
    error=`rapper -q $syntax -c $1 2>&1 | grep Error` # TODO: does not handle gz
    if [ "$printFile" == "yes" ]; then
       file=" $1"
