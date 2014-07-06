@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/bin/util/cr-idempotent.sh> .
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/bin/util/cr-idempotent.sh>;
+#3>    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset#idempotency>;
+#3> .
 
 [ -n "`readlink $0`" ] && this=`readlink $0` || this=$0
 HOME=$(cd ${this%/*/*/*} && pwd)
