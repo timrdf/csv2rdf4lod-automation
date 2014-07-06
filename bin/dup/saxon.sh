@@ -1,5 +1,8 @@
 #!/bin/bash
 #
+#3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/dup/saxon.sh>;
+#3> .
+#
 # usage:
 #
 #   $path_to/in2out.sh file1.in > file1.out
