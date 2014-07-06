@@ -108,7 +108,7 @@ if   [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    if [[ -e access.ttl && ! -e source ]]; then
       access=access.ttl #`basename $PWD`/access.ttl
       versionID=`basename $PWD`
-      echo "INFO: `basename $0`: retrieving un-retrieved version-specific access metadata for `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh` `cr-version-id.sh`: $access. 92"
+      echo "INFO: `basename $0`: retrieving un-retrieved version-specific access metadata for `cr-pwd-type.sh` `cr-source-id.sh` `cr-dataset-id.sh` `cr-version-id.sh`: $access.2"
       log_start
       retrieve_from_metadata $access $versionID
       log_end
