@@ -78,17 +78,17 @@ while [ $# -gt 0 ]; do
    fi
 
    if [ $multiple_files = "true" -o $output_dir_set = "true" ]; then
-      if [ ! -e $outfile -o $overwrite = "yes" ]; then
+      if [ ! -e "$outfile" -o $overwrite == "yes" ]; then
          echo $base $outfile
         #echo java $memory_option $cp $class -dtd:off $cxsl $artifact $xsl $vars _to_ $outfile
          #     java $memory_option $cp $class -dtd:off $cxsl $artifact $xsl $vars    > $outfile
-         tidy_it $artifact > $outfile
+         tidy_it "$artifact" > "$outfile"
       else
          echo "$base    WARNING: $outfile already exists. Did not overwrite."
       fi
    else
       # Only one file was given
-      if [ $overwrite = "yes" ]; then
+      if [ $overwrite == "yes" ]; then
          #java $memory_option $cp $class -dtd:off $cxsl $artifact $xsl $vars > $outfile
          tidy_it $artifact > $outfile
       else
