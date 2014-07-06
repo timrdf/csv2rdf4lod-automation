@@ -2,6 +2,15 @@
 #
 #3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-create-versioned-dataset-dir.sh>;
 #3>    prov:wasDerivedFrom   <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-create-versioned-dataset-dir.sh>;
+#3>    # ONLY uncomment this is your script really is... a conversion:Idempotent;
+#3>    rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset#idempotency>;
+#3> .
+#3> <> a conversion:RetrievalTrigger, doap:Project; # Could also be conversion:Idempotent;
+#3>    dcterms:description 
+#3>      "Script to retrieve and convert a new version of the dataset.";
+#3>    rdfs:seeAlso 
+#3>      <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset>,
+#3>      <https://github.com/timrdf/csv2rdf4lod-automation/wiki/tic-turtle-in-comments>;
 #3> .
 #
 #   Copyright 2012 Timothy Lebo
@@ -134,49 +143,52 @@ if [[ ! -d $version || ! -d $version/source || `find $version -empty -type d -na
    pushd $version/source &> /dev/null
       touch .__CSV2RDF4LOD_retrieval # Make a timestamp so we know what files were created during retrieval.
       # - - - - - - - - - - - - - - - - - - - - Replace below for custom retrieval  - - - \
-      if [[ "$url" =~ http* ]]; then                                                    # |
-         pcurl.sh $url                                                                  # |
-         while [ $# -gt 0 ]; do                                                         # |
-            anotherURL="$1"                                                             # |
-            if [[ "$anotherURL" =~ http* ]]; then                                       # |
-               pcurl.sh "$anotherURL"                                                   # |
-            fi                                                                          # |
-            shift                                                                       # |
-         done                                                                           # |
-      fi                                                                                # | 
-      if [ `ls *.gz *.zip 2> /dev/null | wc -l` -gt 0 ]; then                           # |
-         # Uncompress anything that is compressed.                                      # |
-         touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
-         sleep 1                                                                        # |
-         for zip in `ls *.gz *.zip 2> /dev/null`; do                                    # |
-            punzip.sh $zip              # We are capturing provenance of decompression. # |
-         done                                                                           # |
-      fi                                                                                # |
-      if [ `ls *.htm 2> /dev/null | wc -l` -gt 0 ]; then                                # |
-         # Tidy any HTML                                                                # |
-         touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
-         sleep 1                                                                        # |
-         tidy.sh *.htm                                                                  # |
-      fi                                                                                # |
-      if [ `ls *.html 2> /dev/null | wc -l` -gt 0 ]; then                               # |
-         # Tidy any HTML                                                                # |
-         touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                    # |
-         sleep 1                                                                        # |
-         tidy.sh *.html                                                                 # |
-      fi                                                                                # |
-      if [ "$CSV2RDF4LOD_RETRIEVE_DROID_SOURCES" != "false" ]; then                     # |
-         sleep 1                                                                        # |
-         cr-droid.sh . > cr-droid.ttl                                                   # |
-      fi                                                                                # |
+      if [[ "$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT" =~ http* ]]; then                     # |
+         for rq in `find ../../../src/ -name "*.rq"`; do                                 # |
+            cache-queries.sh "$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT" -o rdf -q $rq -od .  # |
+         done                                                                            # |
+      fi                                                                                 # |
+      if [[ "$url" =~ http* ]]; then                                                     # |
+         pcurl.sh $url                                                                   # |
+         while [ $# -gt 0 ]; do                                                          # |
+            anotherURL="$1"                                                              # |
+            if [[ "$anotherURL" =~ http* ]]; then                                        # |
+               pcurl.sh "$anotherURL"                                                    # |
+            fi                                                                           # |
+            shift                                                                        # |
+         done                                                                            # |
+      fi                                                                                 # | 
+      if [ `ls *.gz *.zip 2> /dev/null | wc -l` -gt 0 ]; then                            # |
+         # Uncompress anything that is compressed.                                       # |
+         touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                     # |
+         sleep 1                                                                         # |
+         for zip in `ls *.gz *.zip 2> /dev/null`; do                                     # |
+            punzip.sh $zip              # We are capturing provenance of decompression.  # |
+         done                                                                            # |
+      fi                                                                                 # |
+      if [ `ls *.htm 2> /dev/null | wc -l` -gt 0 ]; then                                 # |
+         # Tidy any HTML                                                                 # |
+         touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                     # |
+         sleep 1                                                                         # |
+         tidy.sh *.htm                                                                   # |
+      fi                                                                                 # |
+      if [ `ls *.html 2> /dev/null | wc -l` -gt 0 ]; then                                # |
+         # Tidy any HTML                                                                 # |
+         touch .__CSV2RDF4LOD_retrieval # Ignore the compressed file                     # |
+         sleep 1                                                                         # |
+         tidy.sh *.html                                                                  # |
+      fi                                                                                 # |
+      if [[ "$CSV2RDF4LOD_RETRIEVE_DROID_SOURCES" != "false" ]]; then                    # |
+         sleep 1                                                                         # |
+         cr-droid.sh . > cr-droid.ttl                                                    # |
+      fi                                                                                 # |
       # - - - - - - - - - - - - - - - - - - - - Replace above for custom retrieval - - - -/
    popd &> /dev/null
 
    # Go into the conversion cockpit of the new version.
    pushd $version &> /dev/null
 
-      if [ ! -e manual ]; then
-         mkdir manual
-      fi
+      mkdir -p manual automatic
 
       retrieved_files=`find source -newer source/.__CSV2RDF4LOD_retrieval -type f | grep -v "pml.ttl$" | grep -v "cr-droid.ttl$"`
 
