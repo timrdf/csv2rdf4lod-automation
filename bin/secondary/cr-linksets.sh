@@ -4,6 +4,7 @@
 #3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Finding-Linksets-among-Linked-Data-Bubbles>;
 #3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset>;
 #3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Secondary-Derivative-Datasets#cr-linksets>;
+#3>    rdfs:seeAlso          <https://github.com/timrdf/csv2rdf4lod-automation/wiki/cr-pingback>;
 #3> .
 #
 
