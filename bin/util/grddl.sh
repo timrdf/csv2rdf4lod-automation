@@ -33,7 +33,7 @@ if [[ -e "$content" ]]; then
             echo "#3> <> prov:wasGeneratedBy [ prov:qualifiedAssociation [ prov:hadPlan <file://$me> ] ] ."  >> $XSL
             echo "-->"         >> $XSL
             echo "trying to get $transform to `pwd`/$XSL" >&2
-            curl -s $transform >> $XSL
+            curl -L -s $transform >> $XSL
          fi
       fi
       $HOME/bin/dup/saxon.sh $XSL a a $content
