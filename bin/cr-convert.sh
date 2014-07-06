@@ -90,4 +90,18 @@ for trigger in `find . -name "convert*.sh"`; do
    popd &> /dev/null
 done
 
+# conversion triggers sitting in cr:directory-of-versions 
+# apply to and should be run wihtin the conversion cockpit.
+# Note, this reaches 'back' while the loop above reaches 'forward'.
+if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
+   for trigger in `find .. -maxdepth 1 -name "convert*.sh"`; do
+      echo "`basename $0` found version-independent conversion trigger for `cr-sdv.sh`: $trigger"
+      if [[ -x $trigger ]]; then
+         $trigger
+      else
+         echo "WARNING: did not run $trigger b/c it was not executable."
+      fi
+   done
+fi
+
 #dryrun.sh $dryRun ending
