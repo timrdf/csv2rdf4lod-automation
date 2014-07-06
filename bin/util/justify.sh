@@ -61,7 +61,15 @@ if [[ "$3" == "-h" || "$3" == "--history" ]]; then
    echo "ERROR: Requested -h --history, but did not specify <engine-name>."
 else
    method="$3"
-   if [[ "$method" =~ http* ]]; then
+   if [[ "$method" == 'cr:excel' ]]; then
+      method="microsoft_excel"
+      method_name='<http://dbpedia.org/resource/Microsoft_Excel>'
+      engine_type='<http://dbpedia.org/resource/Microsoft_Excel>'
+   elif [[ "$method" == 'cr:http' ]]; then
+      method="http"
+      method_name='<http://dbpedia.org/resource/Hypertext_Transfer_Protocol>'
+      engine_type='<http://dbpedia.org/resource/Hypertext_Transfer_Protocol>'
+   elif [[ "$method" =~ http* ]]; then
       method_name="<${method}>"
       engine_type="" # They gave us a URI, so it's up to them.
    else
