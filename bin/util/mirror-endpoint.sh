@@ -37,7 +37,11 @@ while [ $# -gt 0 ]; do
    #
    # Query it in via cache-queries (this models the endpoint and query explicitly).
    #
-   echo "construct { ?s ?p ?o } where { graph <$named_graph> {?s ?p ?o} }" > $TEMP_query
+   if [[ "$named_graph" == 'cr:none' ]]; then
+      echo "construct { ?s ?p ?o } where {                       ?s ?p ?o  }" > $TEMP_query
+   else
+      echo "construct { ?s ?p ?o } where { graph <$named_graph> {?s ?p ?o} }" > $TEMP_query
+   fi
 
    #                                                       \/        \/ hacks applies only to Virtuoso
    ${CSV2RDF4LOD_HOME}/bin/util/cache-queries.sh $endpoint -p format -o xml -q $TEMP_query -od $TEMP_results
