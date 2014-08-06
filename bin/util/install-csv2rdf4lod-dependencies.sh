@@ -470,7 +470,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                fi                                                 # |
                echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
                if [ "$dryrun" != "true" ]; then                   # |
-                  sudo curl -E -L -o $tarball --progress-bar $url # | http://stackoverflow.com/questions/8633461/how-to-keep-environment-variables-when-using-sudo
+                  sudo -E curl -L -o $tarball --progress-bar $url # | http://stackoverflow.com/questions/8633461/how-to-keep-environment-variables-when-using-sudo
                   echo $TODO sudo tar xzf $tarball                # |
                              sudo tar xzf $tarball                # |
                   #$sudo rm $tarball                              #\|/
