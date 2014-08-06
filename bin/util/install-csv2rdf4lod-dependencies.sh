@@ -467,13 +467,13 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                   rm -f *url.pid.*
                   echo $url | sudo tee $tarball.url
                   sudo touch $tarball.url.pid.$$ # So we know the directory that was created from the tarball
-               fi                                              # |
+               fi                                                 # |
                echo $TODO curl -L -o $tarball --progress-bar $url from `pwd`
-               if [ "$dryrun" != "true" ]; then                # |
-                  sudo curl -L -o $tarball --progress-bar $url # |
-                  echo $TODO sudo tar xzf $tarball             # |
-                             sudo tar xzf $tarball             # |
-                  #$sudo rm $tarball                           #\|/
+               if [ "$dryrun" != "true" ]; then                   # |
+                  sudo curl -E -L -o $tarball --progress-bar $url # | http://stackoverflow.com/questions/8633461/how-to-keep-environment-variables-when-using-sudo
+                  echo $TODO sudo tar xzf $tarball                # |
+                             sudo tar xzf $tarball                # |
+                  #$sudo rm $tarball                              #\|/
                   #virtuoso_root=$base/${tarball%.tar.gz} # $base
                   virtuoso_root=`find . -maxdepth 1 -cnewer $tarball.url.pid.$$ -name "virtuoso*" -type d 2> /dev/null`
                   # ^ e.g. 'virtuoso-opensource-6.1.6/'
