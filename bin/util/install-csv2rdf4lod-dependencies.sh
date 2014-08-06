@@ -438,8 +438,8 @@ if [[ "$virtuoso_installed" == "no" ]]; then
 
       echo "$TODO Virtuoso not installed; OS type $distributor $codename" >&2
       # OS type RedHatEnterpriseServer Santiago
-      if [[ ( "$distributor" == "Ubuntu" && "$codename" == 'lucid' ) || \
-              "$distributor" == "Debian"                             || \
+      if [[ ( "$distributor" == "Ubuntu" && ( "$codename" == 'lucid' || "$codename" == 'trusty' ) ) || \
+              "$distributor" == "Debian"                                                            || \
               "$distributor" == "RedHatEnterpriseServer" ]]; then
 
          # Using aptitude on Ubuntu lucid only installs Virtuoso 6.0, so we need to install it ourselves.
