@@ -55,7 +55,7 @@ function no_scheme {
 }
 
 PROV_BASE="http://www.provenanceweb.net/id/"
-PROV_BASE="$CSV2RDF4LOD_BASE_URI/id/"
+PROV_BASE="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/"
 
 # MD5 this script
 curlMD5="md5_`$CSV2RDF4LOD_HOME/bin/util/md5.sh \`which curl\``"
@@ -70,7 +70,7 @@ escapedEndpoint=`cr-urlencode.sh ${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT}
 if [[ "$1" == '--prov-graph-name' && "$2" =~ http* ]]; then
    # Un-exposed option for other scripts to use.
    graph_name="$2"
-   echo $CSV2RDF4LOD_BASE_URI/graph-prov/`no_scheme $graph_name`
+   echo ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/graph-prov/`no_scheme $graph_name`
    exit
 fi
 
@@ -134,13 +134,13 @@ while [ $# -gt 0 ]; do
             prov_graph="$3"
             shift 
          elif [[ "$3" == 'one' ]]; then
-            prov_graph="$CSV2RDF4LOD_BASE_URI/graph-prov"
+            prov_graph="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/graph-prov"
             shift 
          fi
          shift 
       else
          # Note: coordinate with pvdelete.sh
-         prov_graph=$CSV2RDF4LOD_BASE_URI/graph-prov/`no_scheme $named_graph`
+         prov_graph=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/graph-prov/`no_scheme $named_graph`
       fi
       shift
    fi
@@ -328,7 +328,7 @@ while [ $# -gt 0 ]; do
          # We were asked to put the provenance into a separate graph,
          # but we weren't told which graph to put it into.
          # So, figure out a graph to put it into.
-         prov_graph=$CSV2RDF4LOD_BASE_URI/graph-prov/${g#http:/}
+         prov_graph=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/graph-prov/${g#http:/}
          echo "Separate graph for prov: $named_graph -> $prov_graph"
       else
          # We were told which prov_graph to use, or it shouldn't be separated out.
