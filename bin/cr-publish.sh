@@ -68,15 +68,16 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
    # NOTE: If this portion doesn't overwrite publish/bin/publish.sh, 
    #       then the outdated version will be run below.
    while [ $# -gt 0 ]; do
-      file="$1" && shift
+      file="$1" && shift # For each file that we were asked to publish...
       if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
          echo PUBLISHING $# more after $file
       fi
-      if [[ -e "$file" && `valid-rdf.sh $file` == 'yes' ]]; then
-         valid_rdf_files="$valid_rdf_files $file" # NOTE: file argument limit
-      elif [[ -e "$file" ]]; then
+      if [[ -e "$file" ]]; then
          echo "$file"
-         cr-ln-to-www-root.sh $file
+         if [[ `valid-rdf.sh $file` == 'yes' ]]; then
+            valid_rdf_files="$valid_rdf_files $file" # NOTE: file argument limit
+         fi
+         cr-ln-to-www-root.sh $file # We now publish all files, even if they're RDF that we're aggregating.
       else
          "WARNING: `basename $0` file does not exist, not publishing it: $file"
       fi
