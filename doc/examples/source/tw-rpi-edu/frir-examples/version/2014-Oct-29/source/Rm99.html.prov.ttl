@@ -1,0 +1,109 @@
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix frir: <http://purl.org/twc/ontology/frir.owl#> .
+@prefix header: <http://www.w3.org/2011/http-headers#> .
+@prefix http: <http://www.w3.org/2011/http#> .
+@prefix irw: <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix method: <http://www.w3.org/2011/http-methods#> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix ns1: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99> a frbr:Work ;
+    irw:redirectsTo <http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99.html> .
+
+<tag:tw.rpi.edu,2011:filed:VjGkmQs1aGkKZ0Q0WoRUTs5T8-ThSKf55BC_e2aliXo=/sha-256-rx18X4SlJpqAOVVxNDqpfxR7_tprDR7-MEZs6KHkZkk=/Rm99.html> a frbr:Item ;
+    dc:date "2014-10-28T21:21:44.320880"^^xsd:dateTime ;
+    dc:modified "2014-10-28T17:21:44"^^xsd:dateTime ;
+    frbr:exemplarOf <tag:tw.rpi.edu,2011:manifestation:sha-256-2KQJFtRJNYcC0YfNfUrzm2vlTQDbY1qbxXR_AMX4ZsQ=> ;
+    frbr:reproductionOf <tag:tw.rpi.edu,2011:item:sha-256--PBCPjoPAmXArFEKz_pDlJzdEn8Y9Y0aZTj8VQr6bHI=> ;
+    nfo:fileUrl <Rm99.html>,
+        <file:////Users/me/Desktop/Rm99.html> ;
+    nfo:hasHash <di:sha-256;2KQJFtRJNYcC0YfNfUrzm2vlTQDbY1qbxXR_AMX4ZsQ=> ;
+    ns1:wasGeneratedBy <http://code.google.com/p/surfrdf/9a15a87e-0e79-49e6-95bd-0885ebf0096b> .
+
+<di:sha-256;-PBCPjoPAmXArFEKz_pDlJzdEn8Y9Y0aZTj8VQr6bHI=> a nfo:FileHash ;
+    nfo:hashAlgorithm "sha-256" ;
+    nfo:hashValue "-PBCPjoPAmXArFEKz_pDlJzdEn8Y9Y0aZTj8VQr6bHI=" .
+
+<http://code.google.com/p/surfrdf/17a3236e-8a38-46a6-9aa3-884533a4ad1f> a http:ResponseHeader ;
+    http:fieldName "content-type" ;
+    http:fieldValue "text/html" ;
+    http:hdrName header:content-type .
+
+<http://code.google.com/p/surfrdf/25b1c55a-b8d0-40c5-8412-b37ed473dd7f> a http:ResponseHeader ;
+    http:fieldName "vary" ;
+    http:fieldValue "Accept-Encoding" ;
+    http:hdrName header:vary .
+
+<http://code.google.com/p/surfrdf/3664ef2d-7eaa-42a6-8838-9196b3bbeaf0> a http:ResponseHeader ;
+    http:fieldName "server" ;
+    http:fieldValue "Apache/2.2.14 (Ubuntu)" ;
+    http:hdrName header:server .
+
+<http://code.google.com/p/surfrdf/37d55281-39fd-4d93-b04d-5cd342655a5e> a http:ResponseHeader ;
+    http:fieldName "date" ;
+    http:fieldValue "Tue, 28 Oct 2014 21:21:43 GMT" ;
+    http:hdrName header:date .
+
+<http://code.google.com/p/surfrdf/9a15a87e-0e79-49e6-95bd-0885ebf0096b> a http:Request ;
+    dc:date "2014-10-28T21:21:44.320880"^^xsd:dateTime ;
+    http:methd method:GET ;
+    http:requestURI "http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99.html" ;
+    http:resp <tag:tw.rpi.edu,2011:item:sha-256--PBCPjoPAmXArFEKz_pDlJzdEn8Y9Y0aZTj8VQr6bHI=> ;
+    ns1:hadPlan method:GET ;
+    ns1:used <tag:tw.rpi.edu,2011:item:sha-256--PBCPjoPAmXArFEKz_pDlJzdEn8Y9Y0aZTj8VQr6bHI=> ;
+    ns1:wasAttributedTo <http://purl.org/twc/id/machine/lebot/MacBookPro6_2#lebot> .
+
+<http://code.google.com/p/surfrdf/b3ba8d85-ec31-47aa-a63d-a7a1f3097989> a http:ResponseHeader ;
+    http:fieldName "via" ;
+    http:fieldValue "1.1 ieeevis.tw.rpi.edu" ;
+    http:hdrName header:via .
+
+<http://code.google.com/p/surfrdf/bbef902b-d0a0-4505-8464-0452e15333aa> a http:ResponseHeader ;
+    http:fieldName "x-pad" ;
+    http:fieldValue "avoid browser bug" ;
+    http:hdrName header:x-pad .
+
+<http://code.google.com/p/surfrdf/cf2e77b1-b0f2-4323-b89d-3ee06b9ab3f1> a http:ResponseHeader ;
+    http:fieldName "transfer-encoding" ;
+    http:fieldValue "chunked" ;
+    http:hdrName header:transfer-encoding .
+
+<http://code.google.com/p/surfrdf/fd7c9d43-db14-42b5-a82d-4562b672a1c9> a http:ResponseHeader ;
+    http:fieldName "x-powered-by" ;
+    http:fieldValue "PHP/5.3.2-1ubuntu4.27" ;
+    http:hdrName header:x-powered-by .
+
+<tag:tw.rpi.edu,2011:expression:sha-256-2KQJFtRJNYcC0YfNfUrzm2vlTQDbY1qbxXR_AMX4ZsQ=> a frbr:Expression ;
+    frir:hasContentDigest <di:sha-256;2KQJFtRJNYcC0YfNfUrzm2vlTQDbY1qbxXR_AMX4ZsQ=> ;
+    frbr:realizationOf <http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99.html> .
+
+<http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99.html> a frbr:Work .
+
+method:GET a http:Method ;
+    rdfs:label "HTTP 1.1 GET" .
+
+<tag:tw.rpi.edu,2011:manifestation:sha-256-2KQJFtRJNYcC0YfNfUrzm2vlTQDbY1qbxXR_AMX4ZsQ=> a frbr:Manifestation ;
+    frbr:embodimentOf <tag:tw.rpi.edu,2011:expression:sha-256-2KQJFtRJNYcC0YfNfUrzm2vlTQDbY1qbxXR_AMX4ZsQ=> ;
+    nfo:hasHash <di:sha-256;2KQJFtRJNYcC0YfNfUrzm2vlTQDbY1qbxXR_AMX4ZsQ=> .
+
+<di:sha-256;2KQJFtRJNYcC0YfNfUrzm2vlTQDbY1qbxXR_AMX4ZsQ=> a nfo:FileHash ;
+    nfo:hashAlgorithm "sha-256" ;
+    nfo:hashValue "2KQJFtRJNYcC0YfNfUrzm2vlTQDbY1qbxXR_AMX4ZsQ=" .
+
+<tag:tw.rpi.edu,2011:item:sha-256--PBCPjoPAmXArFEKz_pDlJzdEn8Y9Y0aZTj8VQr6bHI=> a http:Response ;
+    dc:date "2014-10-28T21:21:43+00:00"^^xsd:dateTime ;
+    frbr:exemplarOf <tag:tw.rpi.edu,2011:manifestation:sha-256-2KQJFtRJNYcC0YfNfUrzm2vlTQDbY1qbxXR_AMX4ZsQ=> ;
+    nfo:hasHash <di:sha-256;-PBCPjoPAmXArFEKz_pDlJzdEn8Y9Y0aZTj8VQr6bHI=> ;
+    http:headers <http://code.google.com/p/surfrdf/17a3236e-8a38-46a6-9aa3-884533a4ad1f>,
+        <http://code.google.com/p/surfrdf/25b1c55a-b8d0-40c5-8412-b37ed473dd7f>,
+        <http://code.google.com/p/surfrdf/3664ef2d-7eaa-42a6-8838-9196b3bbeaf0>,
+        <http://code.google.com/p/surfrdf/37d55281-39fd-4d93-b04d-5cd342655a5e>,
+        <http://code.google.com/p/surfrdf/b3ba8d85-ec31-47aa-a63d-a7a1f3097989>,
+        <http://code.google.com/p/surfrdf/bbef902b-d0a0-4505-8464-0452e15333aa>,
+        <http://code.google.com/p/surfrdf/cf2e77b1-b0f2-4323-b89d-3ee06b9ab3f1>,
+        <http://code.google.com/p/surfrdf/fd7c9d43-db14-42b5-a82d-4562b672a1c9> ;
+    http:httpVersion "1.1" .
+

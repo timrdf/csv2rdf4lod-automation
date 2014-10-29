@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>LODSPeaKr Basic Menu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="http://ieeevis.tw.rpi.edu/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link rel="alternate" type="application/rdf+xml" title="RDF/XML Version" href="http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99.html.rdf" />
+    <link rel="alternate" type="text/turtle" title="Turtle Version" href="http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99.html.ttl" />
+    <link rel="alternate" type="text/plain" title="N-Triples Version" href="http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99.html.nt" />
+    <link rel="alternate" type="application/json" title="RDFJSON Version" href="http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99.html.json" />
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+      .wait{
+        background-image:url('http://ieeevis.tw.rpi.edu/img/wait.gif');
+        background-repeat:no-repeat;
+        padding-right:20px;
+        background-position: right;
+      }
+    </style>
+    <link href="http://ieeevis.tw.rpi.edu/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="http://ieeevis.tw.rpi.edu/js/jquery.js"></script>
+    <script type="text/javascript" src="http://ieeevis.tw.rpi.edu/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://ieeevis.tw.rpi.edu/js/bootstrap-typeahead.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('.typeahead').typeahead({
+            source: function (typeahead, query) {
+              $('.typeahead').addClass('wait');[]
+              return $.get('http://ieeevis.tw.rpi.edu/search/'+encodeURIComponent(query), { }, function (data) {
+                  $('.typeahead').removeClass('wait');[]
+                  return typeahead.process(data);
+              }, 'json');
+            },
+            onselect: function (obj) {
+              $('.typeahead').attr('disabled', true);
+              window.location = obj.uri;
+            }
+        });
+    });
+    </script>
+  </head>
+  <body>
+ <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="http://ieeevis.tw.rpi.edu/">IEEE VIS Source Data</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="http://ieeevis.tw.rpi.edu/">Home</a></li>
+              <li><a href="http://ieeevis.tw.rpi.edu/classes">Classes</a></li>
+              <li><a href="http://ieeevis.tw.rpi.edu/namedGraphs">Named Graphs</a></li>
+              <li><a href="http://ieeevis.tw.rpi.edu/search">Search</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+    <h1>Default view</h1>
+
+    <table class="table table-striped" about="http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99">
+    <thead>
+      <tr><th>Subject</th><th>Predicate</th><th>Object</th></tr>
+    </thead>
+    
+     <tr>
+<td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_user:Rm99</a></td>
+     <td><a href='http://www.w3.org/1999/02/22-rdf-syntax-ns#type'>rdf:type</a></td>
+     
+        <td>
+        
+        <a rel='http://www.w3.org/1999/02/22-rdf-syntax-ns#type' href='http://purl.org/twc/vocab/vsr#Graphic'>vsr:Graphic</a>
+        
+        </td>
+
+        </tr>
+    
+     <tr>
+<td></td>
+     <td><a href='http://www.w3.org/1999/02/22-rdf-syntax-ns#type'>rdf:type</a></td>
+     
+        <td>
+        
+        <a rel='http://www.w3.org/1999/02/22-rdf-syntax-ns#type' href='http://rdfs.org/sioc/ns#UserAccount'>sioc:UserAccount</a>
+        
+        </td>
+
+        </tr>
+    
+     <tr>
+<td></td>
+     <td><a href='http://www.w3.org/1999/02/22-rdf-syntax-ns#type'>rdf:type</a></td>
+     
+        <td>
+        
+        <a rel='http://www.w3.org/1999/02/22-rdf-syntax-ns#type' href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/vocab/User'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_vocab:User</a>
+        
+        </td>
+
+        </tr>
+    
+     <tr>
+<td></td>
+     <td><a href='http://www.w3.org/1999/02/22-rdf-syntax-ns#type'>rdf:type</a></td>
+     
+        <td>
+        
+        <a rel='http://www.w3.org/1999/02/22-rdf-syntax-ns#type' href='http://xmlns.com/foaf/0.1/UserAccount'>foaf:UserAccount</a>
+        
+        </td>
+
+        </tr>
+    
+     <tr>
+<td></td>
+     <td><a href='http://purl.org/dc/terms/identifier'>dcterms:identifier</a></td>
+     
+        <td>
+        
+        <span property='http://purl.org/dc/terms/identifier'>Rm99</span>
+        
+        </td>
+
+        </tr>
+    
+     <tr>
+<td></td>
+     <td><a href='http://purl.org/dc/terms/isPartOf'>dcterms:isPartOf</a></td>
+     
+        <td>
+        
+        <a rel='http://purl.org/dc/terms/isPartOf' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_visualization_2014_06_26_T_12_52:31</a>
+        
+        </td>
+
+        </tr>
+    
+     <tr>
+<td></td>
+     <td><a href='http://semanticscience.org/resource/has-attribute'>sio:has-attribute</a></td>
+     
+        <td>
+        
+        <a rel='http://semanticscience.org/resource/has-attribute' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31/graphic/attribute/4246'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_visualization_2014_06_26_T_12_52_31_graphic_attribute:4246</a>
+        
+        </td>
+
+        </tr>
+    
+     <tr>
+<td></td>
+     <td><a href='http://purl.org/twc/vocab/vsr#depicts'>vsr:depicts</a></td>
+     
+        <td>
+        
+        <a rel='http://purl.org/twc/vocab/vsr#depicts' href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_user:Rm99</a>
+        
+        </td>
+
+        </tr>
+    
+     <tr>
+<td></td>
+     <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/vocab/qualifiedAgainst'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_vocab:qualifiedAgainst</a></td>
+     
+        <td>
+        
+        <a rel='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/vocab/qualifiedAgainst' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/Rm99/against/216_19_219_x/1'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_Rm99_against_216_19_219_x:1</a>
+        
+        </td>
+
+        </tr>
+    
+     <tr>
+<td></td>
+     <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/vocab/qualifiedAgainst'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_vocab:qualifiedAgainst</a></td>
+     
+        <td>
+        
+        <a rel='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/vocab/qualifiedAgainst' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/Rm99/against/Amado/2'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_Rm99_against_Amado:2</a>
+        
+        </td>
+
+        </tr>
+    
+     <tr>
+<td></td>
+     <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/vocab/qualifiedAgainst'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_vocab:qualifiedAgainst</a></td>
+     
+        <td>
+        
+        <a rel='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/vocab/qualifiedAgainst' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/Rm99/against/Agustin/1'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_Rm99_against_Agustin:1</a>
+        
+        </td>
+
+        </tr>
+    
+     <tr>
+<td></td>
+     <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/vocab/qualifiedAgainst'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_vocab:qualifiedAgainst</a></td>
+     
+        <td>
+        
+        <a rel='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/vocab/qualifiedAgainst' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/Rm99/against/VictoriaV/1'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_Rm99_against_VictoriaV:1</a>
+        
+        </td>
+
+        </tr>
+    
+     <tr>
+<td></td>
+     <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/vocab/qualifiedSupports'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_vocab:qualifiedSupports</a></td>
+     
+        <td>
+        
+        <a rel='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/vocab/qualifiedSupports' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/Rm99/supports/cult/1'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_Rm99_supports_cult:1</a>
+        
+        </td>
+
+        </tr>
+    
+
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31/graphic/1010'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_visualization_2014_06_26_T_12_52_31_graphic:1010</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31/graphic/1010' href='http://www.w3.org/2000/01/rdf-schema#label'>rdfs:label</a></td>
+<td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_user:Rm99</a></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/851'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:851</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/851' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/880'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:880</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/880' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/897'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:897</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/897' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/901'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:901</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/901' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/937'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:937</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/937' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/939'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:939</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/939' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/940'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:940</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/940' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/945'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:945</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/945' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/951'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:951</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/951' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/960'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:960</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/960' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/978'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:978</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/978' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/982'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:982</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/982' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/983'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:983</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/983' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/546'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:546</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/546' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/553'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:553</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/553' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/740'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:740</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/740' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/742'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:742</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/742' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/744'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:744</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/744' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/746'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:746</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/746' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/779'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:779</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/779' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/835'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:835</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/835' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/843'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:843</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/843' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/907'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:907</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/907' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/950'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:950</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/950' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/952'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:952</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/952' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/957'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:957</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/957' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/980'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:980</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/980' href='http://www.w3.org/ns/prov#wasAssociatedWith'>prov:wasAssociatedWith</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/RyogaNica/against/Rm99/1'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_RyogaNica_against_Rm99:1</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/RyogaNica/against/Rm99/1' href='http://www.w3.org/ns/prov#entity'>prov:entity</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/VictoriaV/against/Rm99/7'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_VictoriaV_against_Rm99:7</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/VictoriaV/against/Rm99/7' href='http://www.w3.org/ns/prov#entity'>prov:entity</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/11/supports/Rm99/1'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_11_supports_Rm99:1</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/11/supports/Rm99/1' href='http://www.w3.org/ns/prov#entity'>prov:entity</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/VictoriaV/supports/Rm99/2'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_VictoriaV_supports_Rm99:2</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/VictoriaV/supports/Rm99/2' href='http://www.w3.org/ns/prov#entity'>prov:entity</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/Ciro/against/Rm99/1'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_Ciro_against_Rm99:1</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/Ciro/against/Rm99/1' href='http://www.w3.org/ns/prov#entity'>prov:entity</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/Ciro/supports/Rm99/1'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_Ciro_supports_Rm99:1</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/Ciro/supports/Rm99/1' href='http://www.w3.org/ns/prov#entity'>prov:entity</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/Jfreyre/supports/Rm99/1'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_Jfreyre_supports_Rm99:1</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/Jfreyre/supports/Rm99/1' href='http://www.w3.org/ns/prov#entity'>prov:entity</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31/graphic/edge/1926'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_visualization_2014_06_26_T_12_52_31_graphic_edge:1926</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31/graphic/edge/1926' href='http://purl.org/twc/vocab/vsr#from_domain'>vsr:from_domain</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31/graphic/edge/2216'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_visualization_2014_06_26_T_12_52_31_graphic_edge:2216</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31/graphic/edge/2216' href='http://purl.org/twc/vocab/vsr#from_domain'>vsr:from_domain</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31/graphic/edge/2485'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_visualization_2014_06_26_T_12_52_31_graphic_edge:2485</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31/graphic/edge/2485' href='http://purl.org/twc/vocab/vsr#from_domain'>vsr:from_domain</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31/graphic/edge/2028'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_visualization_2014_06_26_T_12_52_31_graphic_edge:2028</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31/graphic/edge/2028' href='http://purl.org/twc/vocab/vsr#from_domain'>vsr:from_domain</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_user:Rm99</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/user/Rm99' href='http://purl.org/twc/vocab/vsr#depicts'>vsr:depicts</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31/graphic/1010'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social-tally_version_2014-Jun-22_visualization_2014_06_26_T_12_52_31_graphic:1010</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social-tally/version/2014-Jun-22/visualization/2014/06/26/T/12/52/31/graphic/1010' href='http://purl.org/twc/vocab/vsr#depicts'>vsr:depicts</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/551'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:551</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/551' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/supports'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:supports</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/878'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:878</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/878' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/supports'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:supports</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/895'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:895</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/895' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/supports'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:supports</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/949'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:949</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/949' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/supports'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:supports</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/977'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:977</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/977' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/supports'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:supports</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/552'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:552</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/552' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/against'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:against</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/739'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:739</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/739' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/against'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:against</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/959'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:959</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/959' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/against'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:against</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/979'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:979</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/979' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/against'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:against</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/981'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:981</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/981' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/against'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:against</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/842'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:842</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/842' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/against'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:against</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/949'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:949</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/949' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/against'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:against</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/956'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:956</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/956' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/against'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:against</a></td>
+<td></td>
+        </tr>
+    
+      <tr>
+        <td><a href='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/977'>local_source_hcil-cs-umd-edu_dataset_IEEE-VAST-Challenge-2008-mc2_version_2008-Mar-15_commit:977</a></td>
+
+        <td><a rev='http://ieeevis.tw.rpi.edu/source/hcil-cs-umd-edu/dataset/IEEE-VAST-Challenge-2008-mc2/version/2008-Mar-15/commit/977' href='http://ieeevis.tw.rpi.edu/source/ieeevis-tw-rpi-edu/dataset/IEEE-VAST-Challenge-2008-mc2-reverts-social/vocab/against'>local_source_ieeevis-tw-rpi-edu_dataset_IEEE-VAST-Challenge-2008-mc2-reverts-social_vocab:against</a></td>
+<td></td>
+        </tr>
+    
+    <thead>
+      <tr><th>Subject</th><th>Predicate</th><th>Object</th></tr>
+    </thead>
+
+    </table>
+    </div>    
+    
+  </body>
+</html>
