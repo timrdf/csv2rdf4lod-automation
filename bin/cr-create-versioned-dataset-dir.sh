@@ -147,6 +147,8 @@ if [[ ! -d $version || ! -d $version/source || `find $version -empty -type d -na
          for rq in `find ../../../src/ -name "*.rq"`; do                                 # |
             cache-queries.sh "$CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT" -o rdf -q $rq -od .  # |
          done                                                                            # |
+      else                                                                               # | 
+         echo "WARNING: CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT not defined" >&2             # |
       fi                                                                                 # |
       if [[ "$url" =~ http* ]]; then                                                     # |
          pcurl.sh $url                                                                   # |
@@ -199,13 +201,17 @@ if [[ ! -d $version || ! -d $version/source || `find $version -empty -type d -na
          fi
       done
 
-      if [[ -e ../prepare.sh || -e ../2manual.sh ]]; then
+      if [[ -e ../prepare.sh || -e ../2manual.sh || -e ../../prepare.sh ]]; then
          # Leave it up to the global preparation trigger to populate manual/ from any of the source/
          # The preparation trigger should also create the cr-create-convert.sh.
          # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset#preparation-trigger
          # 2manual.sh is the legacy name for the preparation trigger.
          if [[ -e ../prepare.sh ]]; then
             trigger=../prepare.sh
+         elif [[ -e ../2manual.sh ]]; then
+            trigger=../2manual.sh
+         elif [[ -e ../../prepare.sh ]]; then # More local overrides more global (we think?)
+            trigger=../../prepare.sh
          else
             trigger=../2manual.sh
          fi
