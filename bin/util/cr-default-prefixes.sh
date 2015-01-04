@@ -50,6 +50,7 @@ else
    echo "prefix dbpedia:    <http://dbpedia.org/resource/>"
    echo "prefix prov:       <http://www.w3.org/ns/prov#>"
    echo "prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#>"
+   echo "prefix nfod:       <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#>"
    echo "prefix sio:        <http://semanticscience.org/resource/>"
    echo "prefix org:        <http://www.w3.org/ns/org#>"
    echo "prefix vsr:        <http://purl.org/twc/vocab/vsr#>"

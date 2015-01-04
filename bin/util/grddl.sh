@@ -24,16 +24,20 @@ if [[ -e "$content" ]]; then
 
    transforms=${me%.*}.xsl
    for transform in `$HOME/bin/dup/saxon.sh $transforms a a $content`; do
+      echo "`basename $0`: found link to transform $transform in $content" >&2 
       XSL="$transform"
       if [[ $transform =~ http.* ]]; then
          transform_url_hash=`$HOME/bin/util/md5.sh -qs $transform`
          XSL=".`basename $0`-$transform_url_hash.xsl"
          if [[ ! -e $XSL ]]; then
+            echo "`basename $0`: caching transform $transform to $XSL" >&2 
             echo "<!--"         > $XSL
             echo "#3> <> prov:wasGeneratedBy [ prov:qualifiedAssociation [ prov:hadPlan <file://$me> ] ] ."  >> $XSL
             echo "-->"         >> $XSL
             echo "trying to get $transform to `pwd`/$XSL" >&2
             curl -L -s $transform >> $XSL
+         else
+            echo "`basename $0`: transform $transform already cached at $XSL" >&2 
          fi
       fi
       $HOME/bin/dup/saxon.sh $XSL a a $content

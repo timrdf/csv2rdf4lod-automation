@@ -69,6 +69,10 @@ else
       method="http"
       method_name='<http://dbpedia.org/resource/Hypertext_Transfer_Protocol>'
       engine_type='<http://dbpedia.org/resource/Hypertext_Transfer_Protocol>'
+   elif [[ "$method" == 'cr:unzip' ]]; then
+      method="unzip"
+      method_name='<http://dbpedia.org/resource/Data_compression#uncompress>'
+      engine_type='<http://dbpedia.org/resource/Data_compression#uncompress>'
    elif [[ "$method" =~ http* ]]; then
       method_name="<${method}>"
       engine_type="" # They gave us a URI, so it's up to them.

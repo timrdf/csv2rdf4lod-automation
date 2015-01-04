@@ -149,6 +149,9 @@ else
    offer_install_with_yum_or_apt_ifnowhich 'httpd' 'httpd'       #
 fi
 
+# Must have rapper 2, not 1.4 as apt installs by default.
+# sudo apt-get --purge remove raptor-utils
+# sudo apt-get --purge autoremove
 if [[ ! `which rapper 2> /dev/null` ]]; then
    if [ "$dryrun" != "true" ]; then
       echo
@@ -480,6 +483,7 @@ if [[ "$virtuoso_installed" == "no" ]]; then
                   echo $virtuoso_root | sudo tee $tarball.url.pid.$$
                fi
             else # Tarball exists.
+               # TODO: if the tarbal exists from manual download, the pid file might not be here.
                virtuoso_root=`cat $tarball.url.pid.* | tail -1`
                echo "$tarball exists; virtuso root should be: $virtuoso_root"
             fi

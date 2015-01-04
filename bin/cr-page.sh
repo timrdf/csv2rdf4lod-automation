@@ -35,7 +35,7 @@ see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
 CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
-ACCEPTABLE_PWDs="cr:data-root cr:dataset cr:directory-of-versions cr:conversion-cockpit"
+ACCEPTABLE_PWDs="cr:source cr:data-root cr:dataset cr:directory-of-versions cr:conversion-cockpit"
 if [ `$CSV2RDF4LOD_HOME/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; then
    $CSV2RDF4LOD_HOME/bin/util/pwd-not-a.sh $ACCEPTABLE_PWDs
    exit 1
@@ -51,21 +51,40 @@ function write_page_metadata {
    DIST_URL="$1"
    UUID=`$CSV2RDF4LOD_HOME/bin/util/resource-name.sh | sed 's/^_//' | awk '{print tolower($0)}'`
 
+   just_created_it='no'
    if [[ ! -e page.ttl ]]; then
-      echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."             > page.ttl
-      echo "@prefix conversion: <http://purl.org/twc/vocab/conversion/> ."            >> page.ttl
-      echo "@prefix dcat:       <http://www.w3.org/ns/dcat#> ."                       >> page.ttl
-      echo "@prefix void:       <http://rdfs.org/ns/void#> ."                         >> page.ttl
-      echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                       >> page.ttl
-      echo "@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> ."              >> page.ttl
+      cr-default-prefixes.sh --turtle                                                  > page.ttl
       echo "@prefix :           <$CSV2RDF4LOD_BASE_URI/id/> ."                        >> page.ttl
+      just_created_it='yes'
    fi
    echo                                                                               >> page.ttl
    echo "<$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`/dataset/`cr-dataset-id.sh`>" >> page.ttl
-   if [[ ! -e page.ttl ]]; then
+   if [[ "$just_created_it" == 'yes' ]]; then
       echo "   a void:Dataset, dcat:Dataset;"                                         >> page.ttl
+      # TODO: type it to AbstractDataset, VersionedDataset, etc.
       echo "   conversion:source_identifier  \"`cr-source-id.sh`\";"                  >> page.ttl
       echo "   conversion:dataset_identifier \"`cr-dataset-id.sh`\";"                 >> page.ttl
+   fi
+   echo "   foaf:page <$DIST_URL>;"                                                   >> page.ttl
+   echo "."                                                                           >> page.ttl
+   echo `cr-pwd.sh`/page.ttl >&2
+}
+
+function write_source_agent_metadata {
+   DIST_URL="$1"
+   UUID=`$CSV2RDF4LOD_HOME/bin/util/resource-name.sh | sed 's/^_//' | awk '{print tolower($0)}'`
+
+   just_created_it='no'
+   if [[ ! -e page.ttl ]]; then
+      cr-default-prefixes.sh --turtle                                                  > page.ttl
+      echo "@prefix :           <$CSV2RDF4LOD_BASE_URI/id/> ."                        >> page.ttl
+      just_created_it='yes'
+   fi
+   echo                                                                               >> page.ttl
+   echo "<$CSV2RDF4LOD_BASE_URI/source/`cr-source-id.sh`>"                            >> page.ttl
+   if [[ "$just_created_it" == 'yes' ]]; then
+      echo "   a foaf:Agent, prov:Agent;"                                             >> page.ttl
+      echo "   dcterms:identifier  \"`cr-source-id.sh`\";"                            >> page.ttl
    fi
    echo "   foaf:page <$DIST_URL>;"                                                   >> page.ttl
    echo "."                                                                           >> page.ttl
@@ -108,22 +127,23 @@ elif [[ `is-pwd-a.sh                        cr:directory-of-datasets            
       popd > /dev/null
    done
 elif [[ `is-pwd-a.sh              cr:source                                                             ` == "yes" ]]; then
-   if [ -d dataset ]; then
-      # This would conform to the directory structure if 
-      # we had included 'dataset' in the convention.
-      # This is here in case we ever fully support it.
-      pushd dataset > /dev/null
-         $0 $* # Recursive call
-      popd > /dev/null
-   else
-      # Handle the original (3-year old) directory structure 
-      # that does not include 'dataset' as a directory.
-      for dataset in `cr-list-datasets.sh`; do
-         pushd $dataset > /dev/null
-            $0 $* # Recursive call
-         popd > /dev/null
-      done
-   fi
+   write_source_agent_metadata $1
+   #if [ -d dataset ]; then
+   #   # This would conform to the directory structure if 
+   #   # we had included 'dataset' in the convention.
+   #   # This is here in case we ever fully support it.
+   #   pushd dataset > /dev/null
+   #      $0 $* # Recursive call
+   #   popd > /dev/null
+   #else
+   #   # Handle the original (3-year old) directory structure 
+   #   # that does not include 'dataset' as a directory.
+   #   for dataset in `cr-list-datasets.sh`; do
+   #      pushd $dataset > /dev/null
+   #         $0 $* # Recursive call
+   #      popd > /dev/null
+   #   done
+   #fi
 elif [[ `is-pwd-a.sh cr:data-root                                                                       ` == "yes" ]]; then
 
    datasetID="$1"
