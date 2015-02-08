@@ -89,6 +89,8 @@
              <http://ieeevis.tw.rpi.edu/void>;
 .
 
+<http://lov.okfn.org/dataset/lov/agents/Tim%20Lebo> prov:specializationOf <http://purl.org/twc/id/person/TimLebo> .
+
 <http://ichoose.tw.rpi.edu/void>    prov:wasAttributedTo <http://purl.org/twc/id/person/TimLebo> .
 <http://healthdata.tw.rpi.edu/void> prov:wasAttributedTo <http://purl.org/twc/id/person/TimLebo> .
 
