@@ -1,6 +1,7 @@
 <!--
 #3> <> prov:specializationOf <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/bin/util/grddl.xsl>;
-#3>    rdfs:seeAlso <http://www.w3.org/TR/grddl-primer/#spreadsheets-section>;
+#3>    rdfs:seeAlso <http://www.w3.org/TR/grddl-primer/#spreadsheets-section>,
+#3>                 <https://github.com/timrdf/vsr/wiki/GRDDL>;
 #3> .
 -->
 
