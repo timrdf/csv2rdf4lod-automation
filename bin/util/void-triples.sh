@@ -15,7 +15,8 @@ if [ $# -gt 0 ]; then
    while [ $# -gt 0 ]; do
       file="$1"
       if [ -e $file ]; then
-         c=`rapper -g -c $file 2>&1 | grep "Parsing returned [^ ]* triples" | awk '{printf($4)}'`
+         format=`guess-syntax.sh --inspect "$file" rapper`
+         c=`rapper $format -c $file 2>&1 | grep "Parsing returned [^ ]* triples" | awk '{printf($4)}'`
          if [ ${#c} -gt 0 ]; then
             let "count=count+c"
          fi
