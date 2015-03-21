@@ -129,7 +129,8 @@ offer_install_with_yum_or_apt_ifnowhich 'git'     'git-core'      # These are dr
 #offer_install_with_yum_or_apt_ifnowhich 'java'   'openjdk-6-jre' # openjdk-6-jdk ?
 
 if [[ `which apt-get 2> /dev/null` ]]; then
-   offer_install_with_yum_or_apt_ifnowhich 'javac'   'openjdk-6-jdk' # openjdk-6-jdk ?
+  #offer_install_with_yum_or_apt_ifnowhich 'javac'   'openjdk-6-jdk' # openjdk-6-jdk ?
+   offer_install_with_yum_or_apt_ifnowhich 'javac'   'openjdk-7-jdk'
 else
    offer_install_with_yum_or_apt_ifnowhich 'javac'   'java-1.6.0-openjdk' # java-1.7.0-openjdk ?
    offer_install_with_yum_or_apt_ifnowhich 'javac'   'java-1.6.0-openjdk-devel'
