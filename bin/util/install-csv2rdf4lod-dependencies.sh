@@ -171,7 +171,7 @@ if [[ ! `which rapper 2> /dev/null` ]]; then
       fi
       pushd $base &> /dev/null
          # http://download.librdf.org/source/
-         gz='http://download.librdf.org/source/raptor2-2.0.12.tar.gz'
+         gz='http://download.librdf.org/source/raptor2-2.0.15.tar.gz'
          echo $TODO curl -O $gz from `pwd`
          if [[ "$dryrun" != "true" ]]; then
             if [[ ! -e `basename $gz` ]]; then
@@ -221,7 +221,7 @@ if [[ ! `which serdi 2> /dev/null` ]]; then
       #if [ `which gcc` ]; then
       pushd $base &> /dev/null
          # http://drobilla.net/software/serd/
-         bz2='http://download.drobilla.net/serd-0.18.2.tar.bz2'
+         bz2='http://download.drobilla.net/serd-0.20.0.tar.bz2'
          echo $TODO curl -O $bz2 from `pwd`
          if [[ "$dryrun" != "true" ]]; then
             if [[ -n "$sudo" ]]; then
@@ -269,6 +269,7 @@ if [[ ! `which tdbloader 2> /dev/null` ]]; then # || ! "`which tdbloader`" =~ /h
          tarball='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.3.tar.gz' # 404s
          zip='http://www.apache.org/dist/jena/binaries/apache-jena-2.7.4.zip' # 404s
          zip='http://archive.apache.org/dist/jena/binaries/apache-jena-2.10.0.zip'
+         zip='http://www.interior-dsgn.com/apache/jena/binaries/apache-jena-2.13.0.zip' # March 2015
          pushd $base &> /dev/null
             echo $TODO curl -O --progress-bar $zip from `pwd`
             if [ "$dryrun" != "true" ]; then
