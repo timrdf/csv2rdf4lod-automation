@@ -163,12 +163,17 @@ if [[ ! `which rapper 2> /dev/null` ]]; then
          echo "rapper needs to be compiled with gcc..."
       fi
       offer_install_with_yum_or_apt_ifnowhich 'gcc' 'gcc'
-      if [[ `which yum 2> /dev/null` ]]; then
+
+      # libxml2
+      if [[ `which apt-get 2> /dev/null` ]]; then
+         offer_install_with_yum_or_apt_ifnowhich 'libxml2__' 'libxml2'
+      elif [[ `which yum 2> /dev/null` ]]; then
          libxml2_installed=`yum list | grep ^libxml2-devel`
          if [[ -n "$libxml2_installed" ]]; then
             offer_install_with_yum_or_apt_ifnowhich 'libxml2__' 'libxml2-devel'
          fi
       fi
+
       pushd $base &> /dev/null
          # http://download.librdf.org/source/
          gz='http://download.librdf.org/source/raptor2-2.0.15.tar.gz'
@@ -192,6 +197,14 @@ if [[ ! `which rapper 2> /dev/null` ]]; then
                   fi 
                   echo $sudo ./configure $config_prefix >&2
                        $sudo ./configure $config_prefix
+
+                  # checking date parsing source... raptor parsedate
+                  # configure: error: libxml2 is not available - please get it from http://xmlsoft.org/
+                  # sudo make
+                  # make: *** No targets specified and no makefile found.  Stop.
+                  # sudo make install
+                  # make: *** No rule to make target `install'.  Stop.
+
                   echo $sudo make >&2
                        $sudo make 
                   echo $sudo make install >&2
