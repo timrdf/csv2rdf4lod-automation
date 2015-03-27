@@ -86,7 +86,7 @@ function offer_install_with_yum_or_apt_ifnowhich {
       command="$1"
       package="$2"
          if [[ -n "$command" && -n "$package" ]]; then
-            if [ ! `which $command 2> /dev/null` ]; then
+            if [ ! `$sudo which $command 2> /dev/null` ]; then
                if [ "$dryrun" != "true" ]; then
                   echo
                fi
