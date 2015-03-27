@@ -738,6 +738,7 @@ for egg in $eggs; do
       else
          eggV=''
       fi
+      echo "http_proxy=$http_proxy HTTP_PROXY=$HTTP_PROXY"
       echo $TODO $sudo easy_install --install-dir /usr/local/lib/python$V/dist-packages -U $egg$eggV
       if [[ "$dryrun" != "true" ]]; then
          echo
