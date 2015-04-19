@@ -712,6 +712,7 @@ chmod +x $lnwwwrootSH
 
 if [[ ( -e "$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT" || -e "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT" ) && \
            "$CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES" == "true" ]]; then
+   echo "    = = = = = = = = = = = = = = = = = = = = = = $lnwwwrootSH = = = = = = = = = = = = = = = = = = = = = = = = "
    echo "${CSV2RDF4LOD_PUBLISH_VARWWW_ROOT:-$CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT} - linking dump files into web root:" | tee -a $CSV2RDF4LOD_LOG
    # Execute the script we just generated.
    $lnwwwrootSH #2> /dev/null
@@ -806,6 +807,7 @@ chmod +x                                                                        
 
 if [ ${CSV2RDF4LOD_PUBLISH_TDB:-"."} == "true" ]; then
    echo $TDB_DIR/ | tee -a $CSV2RDF4LOD_LOG
+   echo "    = = = = = = = = = = = = = = = = = = = = = = $loadtdbSH = = = = = = = = = = = = = = = = = = = = = = = = "
    $loadtdbSH
 else
    echo "$TDB_DIR/     - skipping; set CSV2RDF4LOD_PUBLISH_TDB=true in source-me.sh to load conversions into $TDB_DIR/." | tee -a $CSV2RDF4LOD_LOG
@@ -995,17 +997,22 @@ echo "#3> <$baseURI/id/csv2rdf4lod/$myMD5> foaf:name \"`basename $0`\" ."       
 chmod +x $vloadSH
 cat $vloadSH | sed 's/pvload.sh .*-ng/pvdelete.sh/g' | sed 's/vload [^ ]* [^^ ]* /vdelete /' | grep -v "tar xzf" | grep -v "unzip" | grep -v "rm " > $vdeleteSH # TODO:notar
 chmod +x $vdeleteSH
+
 loaded="no"
 if [ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" ]; then
    if [ "$CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS" == "true" ]; then
+      echo "    = = = = = = = = = = = = = = = = = = = = = = $vdeleteSH = = = = = = = = = = = = = = = = = = = = = = = = "
       $vdeleteSH
+      echo "    = = = = = = = = = = = = = = = = = = = = = = $vloadSH = = = = = = = = = = = = = = = = = = = = = = = = "
       $vloadSH
       loaded="yes"
    else
       echo "$CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT - skipping load of full conversion; set CSV2RDF4LOD_PUBLISH_FULL_CONVERSIONS=true to automatically load full conversions into the triple store."
    fi
    if [ "$CSV2RDF4LOD_PUBLISH_SUBSET_SAMPLES" == "true" ]; then
+      echo "    = = = = = = = = = = = = = = = = = = = = = = $vdeleteSH = = = = = = = = = = = = = = = = = = = = = = = = "
       $vdeleteSH --sample
+      echo "    = = = = = = = = = = = = = = = = = = = = = = $vloadSH = = = = = = = = = = = = = = = = = = = = = = = = "
       $vloadSH   --sample
       loaded="yes"
    else
@@ -1017,6 +1024,7 @@ fi
 
 if [[ "$loaded" == "yes" ]]; then
    if [ "$CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_SINDICE" == "true" ]; then
+      echo "    = = = = = = = = = = = = = = = = = = = = = = ping-sindice.sh = = = = = = = = = = = = = = = = = = = = = = = = "
       url=`cr-dataset-uri.sh --uri`
       echo "http://api.sindice.com/v2/ping <-- $url"
       ping-sindice.sh -w $url
@@ -1161,6 +1169,7 @@ if [ ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION:-"."} == "true" ]; then # Produci
       echo "  clearing $MATERIALIZATION_DIR" | tee -a $CSV2RDF4LOD_LOG
       rm -rf $MATERIALIZATION_DIR/* &> /dev/null
    fi
+   echo "    = = = = = = = = = = = = = = = = = = = = = = $lodmatSH = = = = = = = = = = = = = = = = = = = = = = = = "
    $lodmatSH
 else
    echo "$MATERIALIZATION_DIR/ - skipping; set CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION=true in source-me.sh to load conversions into $MATERIALIZATION_DIR/," | tee -a $CSV2RDF4LOD_LOG
