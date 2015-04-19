@@ -14,22 +14,49 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+mode="describe"
+if [[ "$1" == "--foci" ]]; then
+   mode="foci" 
+   shift
+fi
+
 while [ $# -gt 0 ]; do
    file="$1"
    fileMD5=`$CSV2RDF4LOD_HOME/bin/util/md5.sh $file`
    date_id=`date +%s`
 
-   echo "<$file>"                                                                    
-   echo "   a nfo:FileDataObject;"                                                    
-   echo "   nfo:fileName \"$file\";"                                
-   echo "   nfo:hasHash <md5_${fileMD5}_time_${date_id}>;"                                
-   echo "."                                                                      
-   echo "<md5_${fileMD5}_time_${date_id}>"                                             
-   echo "   a nfo:FileHash; "                                                 
-   echo "   dcterms:date      \"`dateInXSDDateTime.sh`\"^^xsd:dateTime;"
-   echo "   nfo:hashAlgorithm \"md5\";"                                      
-   echo "   nfo:hashValue     \"$fileMD5\";"                          
-   echo "."                                                                
+   pathMD5=`$CSV2RDF4LOD_HOME/bin/util/md5.sh -qs $PWD/$file`
+   md5URI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/md5/$fileMD5
+   specialization=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/md5/$fileMD5/path/$pathMD5
+   if [[ "$mode" == "https://github.com/timrdf/csv2rdf4lod-automation/commit/45e7a33144b02c03ba8ed4cf664315794bde4da4#diff-80071c340dfce1c99d897887ff8b1889" ]]; then
+      # This modeling is deprecated.
+      echo "<$file>"                                                                    
+      echo "   a nfo:FileDataObject;"                                                    
+      echo "   nfo:fileName \"$file\";"                                
+      echo "   nfo:hasHash <md5_${fileMD5}_time_${date_id}>;"                                
+      echo "."                                                                      
+      echo "<md5_${fileMD5}_time_${date_id}>"                                             
+      echo "   a nfo:FileHash; "                                                 
+      echo "   dcterms:date      \"`dateInXSDDateTime.sh`\"^^xsd:dateTime;"
+      echo "   nfo:hashAlgorithm \"md5\";"                                      
+      echo "   nfo:hashValue     \"$fileMD5\";"                          
+      echo "."                                                                
+   elif [[ "$mode" == "describe" ]]; then
+      # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Modeling-file-provenance
+      echo "<$specialization>"                                                                    
+      echo "   a nfo:FileDataObject;"                                                    
+      echo "   nfo:fileName \"`basename $file`\";"                                
+      echo "   dcterms:date \"`dateInXSDDateTime.sh`\"^^xsd:dateTime;"
+      echo "   nfo:hasHash <$md5URI>; #<md5_${fileMD5}_time_${date_id}>;"                                
+      echo "."                                                                      
+      echo "<$md5URI>"                                             
+      echo "   a nfo:FileHash; "                                                 
+      echo "   nfo:hashAlgorithm \"md5\";"                                      
+      echo "   nfo:hashValue     \"$fileMD5\";"                          
+      echo "."                                                                
+   elif [[ "$mode" == "foci" ]]; then
+      echo "<$specialization>" 
+   fi
 
    shift
 done

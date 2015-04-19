@@ -155,7 +155,7 @@ else
       fi
 
       # Relative paths.
-      consequentURI="<`basename $consequent`>"
+      consequentURI="<`basename $consequent`>" # Value is replaced below.
       sourceUsage="<sourceUsage/$requestID>"
       nodeSet="<nodeSet/$requestID>"
       antecedentNodeSet="<nodeSet${requestID}_antecedent>"
@@ -174,16 +174,26 @@ else
       echo "@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> ."          >> $consequent.$prov.ttl
       echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."      >> $consequent.$prov.ttl
       echo "@prefix conv:       <http://purl.org/twc/vocab/conversion/> ."                    >> $consequent.$prov.ttl
-      echo "@prefix irw: <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> ."          >> $consequent.$prov.ttl
+      echo "@prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> ."   >> $consequent.$prov.ttl
+      echo "@prefix prv:        <http://purl.org/net/provenance/ns#>."                        >> $consequent.$prov.ttl
       echo "@prefix pml:        <http://provenanceweb.org/ns/pml#> ."                         >> $consequent.$prov.ttl
       echo                                                                                    >> $consequent.$prov.ttl
 
       $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                              >> $consequent.$prov.ttl
+      echo                                                                                    >> $consequent.$prov.ttl
+
+      # > > > > > > > > > > > > > > > > >
+      pushd `dirname $consequent` &> /dev/null # in manual/
+      consequentURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "\`basename $consequent\`"`
+      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "`basename $consequent`"                     >> `basename $consequent.$prov.ttl`
+      popd &> /dev/null
+      # > > > > > > > > > > > > > > > > >
 
       echo                                                                                    >> $consequent.$prov.ttl
       echo $consequentURI                                                                     >> $consequent.$prov.ttl
-      echo "   a pmlp:Information, prov:Entity;"                                              >> $consequent.$prov.ttl
-      echo "   pmlp:hasModificationDateTime \"$consequentModDateTime\"^^xsd:dateTime;"        >> $consequent.$prov.ttl
+      echo "   a prov:Entity;"                                                                >> $consequent.$prov.ttl
+      echo "   prv:serializedBy <`basename $consequent`>;"                                    >> $consequent.$prov.ttl
+      #echo "   pmlp:hasModificationDateTime \"$consequentModDateTime\"^^xsd:dateTime;"        >> $consequent.$prov.ttl
       echo "   pml:wasGeneratedWithPlan <$engine_name>;"                                      >> $consequent.$prov.ttl
       #echo "   pmlp:hasReferenceSourceUsage $sourceUsage;"                                   >> $consequent.$prov.ttl
       echo "."                                                                                >> $consequent.$prov.ttl
@@ -192,43 +202,43 @@ else
       echo "  prov:specializationOf $method_name;"                                            >> $consequent.$prov.ttl
       echo "."                                                                                >> $consequent.$prov.ttl
       echo "$method_name a prov:Plan ."                                                       >> $consequent.$prov.ttl
+      echo ""                                                                                 >> $consequent.$prov.ttl
+
 
       # > > > > > > > > > > > > > > > > >
-      pushd `dirname $consequent` &> /dev/null # in manual/
-      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "`basename $consequent`"                     >> `basename $consequent.$prov.ttl`
-      popd &> /dev/null
-      # > > > > > > > > > > > > > > > > >
-
-      echo                                                                                     >> $consequent.$prov.ttl
-      #echo "$sourceUsage"                                                                     >> $consequent.$prov.ttl
-      #echo "   a pmlp:SourceUsage;"                                                           >> $consequent.$prov.ttl
-      #echo "   pmlp:hasSource        <$antecedent>;"                                          >> $consequent.$prov.ttl
-      #echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                       >> $consequent.$prov.ttl
-      #echo "."                                                                                >> $consequent.$prov.ttl
-      #echo                                                                                    >> $consequent.$prov.ttl
-      if [[ -e "$antecedent" ]]; then
-         echo "<../$antecedent>"                                                               >> $consequent.$prov.ttl
-         echo "   a pmlp:Information, prov:Entity;"                                            >> $consequent.$prov.ttl
-         if [[ -n "$antecedentModDateTime" ]]; then
-         echo "   pmlp:hasModificationDateTime \"$antecedentModDateTime\"^^xsd:dateTime;"      >> $consequent.$prov.ttl
-         fi
-         echo "."                                                                              >> $consequent.$prov.ttl
-         echo "$consequentURI prov:wasDerivedFrom <../$antecedent> ."                          >> $consequent.$prov.ttl
-      elif [[ "$antecedent" =~ http* ]]; then
-         echo "$consequentURI prov:wasDerivedFrom <$antecedent> ."                             >> $consequent.$prov.ttl
-         echo "<$antecedent>"                                                                  >> $consequent.$prov.ttl
-         echo "   a sioc:Item, irw:WebResource, prov:Entity;"                                  >> $consequent.$prov.ttl
-         echo "."                                                                              >> $consequent.$prov.ttl
-         echo "$consequentURI prov:wasDerivedFrom <$antecedent> ."                             >> $consequent.$prov.ttl
-      fi
-
-      # > > > > > > > > > > > > > > > > >
+      antecedentFileURI=""
       if [[ -e "$antecedent" ]]; then
       pushd `dirname $consequent` &> /dev/null # in manual/
+      antecedentFileURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "../$antecedent"`
       $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "../$antecedent"                             >> `basename $consequent.$prov.ttl`
       popd &> /dev/null
       fi
       # > > > > > > > > > > > > > > > > >
+
+      echo                                                                                    >> $consequent.$prov.ttl
+      #echo "$sourceUsage"                                                                    >> $consequent.$prov.ttl
+      #echo "   a pmlp:SourceUsage;"                                                          >> $consequent.$prov.ttl
+      #echo "   pmlp:hasSource        <$antecedent>;"                                         >> $consequent.$prov.ttl
+      #echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                      >> $consequent.$prov.ttl
+      #echo "."                                                                               >> $consequent.$prov.ttl
+      #echo                                                                                   >> $consequent.$prov.ttl
+      if [[ -e "$antecedent" ]]; then
+         echo "$antecedentFileURI"                                                            >> $consequent.$prov.ttl
+         echo "   a prov:Entity;"                                                             >> $consequent.$prov.ttl
+         echo "   prv:serializedBy <../$antecedent>;"                                         >> $consequent.$prov.ttl
+         if [[ -n "$antecedentModDateTime" ]]; then
+         echo "   pmlp:hasModificationDateTime \"$antecedentModDateTime\"^^xsd:dateTime;"     >> $consequent.$prov.ttl
+         fi
+         echo "."                                                                             >> $consequent.$prov.ttl
+         echo "$consequentURI prov:wasDerivedFrom $antecedentFileURI ."                       >> $consequent.$prov.ttl
+      elif [[ "$antecedent" =~ http* ]]; then
+         echo "$consequentURI prov:wasDerivedFrom <$antecedent> ."                            >> $consequent.$prov.ttl
+         echo "<$antecedent>"                                                                 >> $consequent.$prov.ttl
+         echo "   a sioc:Item, irw:WebResource, prov:Entity;"                                 >> $consequent.$prov.ttl
+         echo "."                                                                             >> $consequent.$prov.ttl
+         echo "$consequentURI prov:wasDerivedFrom <$antecedent> ."                            >> $consequent.$prov.ttl
+      fi
+
 
       echo                                                                                    >> $consequent.$prov.ttl
       echo $nodeSet                                                                           >> $consequent.$prov.ttl
@@ -262,7 +272,7 @@ else
       echo $antecedentNodeSet                                                                 >> $consequent.$prov.ttl
       echo "   a pmlj:NodeSet;"                                                               >> $consequent.$prov.ttl
       if [[ -e "$antecedent" ]]; then
-      echo "   pmlj:hasConclusion <../$antecedent>;"                                          >> $consequent.$prov.ttl
+      echo "   pmlj:hasConclusion $antecedentFileURI;"                                        >> $consequent.$prov.ttl
       else
       echo "   pmlj:hasConclusion <$antecedent>;"                                             >> $consequent.$prov.ttl
       fi
