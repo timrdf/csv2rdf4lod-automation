@@ -902,7 +902,7 @@ echo "   exit 1"                                                                
 echo "fi"                                                                                                                   >> $vloadSH
 echo "if [[ -e '$lnwwwrootSH' && \"\$action\" =~ pvload* ]]; then"                                                          >> $vloadSH
 echo "   # Make sure that the file we will load from the web is published"                                                  >> $vloadSH
-echo "   $lnwwwrootSH"                                                                                                      >> $vloadSH
+echo "   $lnwwwrootSH &> /dev/null "                                                                                        >> $vloadSH
 echo "fi"                                                                                                                   >> $vloadSH
 echo ""                                                                                                                     >> $vloadSH
 echo "base=\"\${CSV2RDF4LOD_BASE_URI_OVERRIDE:-\$CSV2RDF4LOD_BASE_URI}\""                                                   >> $vloadSH
