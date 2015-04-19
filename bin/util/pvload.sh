@@ -95,7 +95,7 @@ while [ $# -gt 0 ]; do
       gunzip -t $TEMP &> /dev/null
       if [ $? -eq 0 ]; then
          unzipped=".unzipped"
-         echo "INFO: `basename $0`: HTTP response was compressed; uncompressing."
+         echo "[INFO] `basename $0`: HTTP response was compressed; uncompressing."
          gunzip -c $TEMP > ${TEMP}${unzipped}
       fi
    else
@@ -121,7 +121,7 @@ while [ $# -gt 0 ]; do
       #echo "PVLOAD: -ng?"; 
       named_graph="$url"                          # Default to a named graph name of the URL source.
    fi
-   echo "INFO: `basename $0`: (URL) $url"
+   echo "[INFO] `basename $0`: (URL) $url"
    echo "                   --> (Named Graph) $named_graph"
 
    separate_provenance="no"
@@ -157,9 +157,9 @@ while [ $# -gt 0 ]; do
    if [[ $liked_guess == 1 ]]; then
       #echo "DIDN'T LIKED SYNTAX GUESS $syntax: $liked_guess"
       syntax=`$CSV2RDF4LOD_HOME/bin/util/guess-syntax.sh --inspect ${TEMP}${unzipped} rapper`
-      echo "INFO: Guess by inspection: $syntax"
+      echo "[INFO] Guess by inspection: $syntax"
    else
-      echo "INFO: Guessing syntax without inspection: $syntax ($url)"
+      echo "[INFO] Guessing syntax without inspection: $syntax ($url)"
    fi
 
    # Turtle to N-TRIPLES (b/c Virtuoso chokes on some Turtle and we need to spoon feed).
@@ -198,7 +198,7 @@ while [ $# -gt 0 ]; do
       latest_NG_nodeset=`$java_saxon endpoint=${CSV2RDF4LOD_PUBLISH_VIRTUOSO_SPARQL_ENDPOINT} named-graph=${named_graph}` 
       # pvload-latest-ng-load.xsl can call vsr:endpoint for a generic call, but it needs to not be dumb about its caching.
       if [ ${#latest_NG_nodeset} -gt 0 ]; then
-         echo "INFO: `basename $0` found provenance of previous named graph load: $latest_NG_nodeset"
+         echo "[INFO] `basename $0` found provenance of previous named graph load: $latest_NG_nodeset"
          latest_NG_nodeset="<$latest_NG_nodeset>"
          cogs_load_type='Incremental'
       else
