@@ -78,6 +78,8 @@ vdelete_log=$virtuoso_allowed_dir/delete_`${CSV2RDF4LOD_HOME}/bin/util/dateInXSD
 # Call SPARQL CLEAR to delete named graphs
 start=`${CSV2RDF4LOD_HOME}/bin/util/dateInXSDDateTime.sh`
 sparql_delete="SPARQL CLEAR GRAPH <$graph_uri>;"
+#echo ${isql_cmd} ${isql_pass}
+#echo $sparql_delete
 ${isql_cmd} ${isql_pass} << EOF &> $vdelete_log
    log_enable(3,1);
    $sparql_delete

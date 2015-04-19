@@ -501,6 +501,7 @@ if [ $runRaw == "yes" ]; then
 
    # Sample ------------------------------
    if [ ${CSV2RDF4LOD_CONVERT_SAMPLE_NUMBER_OF_ROWS:-"2"} -gt 0 ]; then
+      #echo $csv2rdf $data $prov $sampleN -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.sample.ttl  -id $converterJarMD5 >&2
       $csv2rdf $data $prov $sampleN -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.sample.ttl  -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
       echo "Finished converting $sampleN sample rows."                                                                                                          2>&1 | tee -a $CSV2RDF4LOD_LOG
@@ -514,6 +515,7 @@ if [ $runRaw == "yes" ]; then
    if [ "$CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY" == 'true' ]; then
       echo "OMITTING FULL CONVERSION b/c CSV2RDF4LOD_CONVERT_SAMPLE_SUBSET_ONLY=='true'"                                                                        2>&1 | tee -a $CSV2RDF4LOD_LOG
    else
+      #echo $csv2rdf $data $prov -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl -wm $destDir/$datafile.raw.void.ttl -id $converterJarMD5 >&2
       $csv2rdf $data $prov -ep $destDir/$datafile.raw.params.ttl $overrideBaseURI $dumpExtensions -w $destDir/$datafile.raw.ttl -wm $destDir/$datafile.raw.void.ttl -id $converterJarMD5 2>&1 | tee -a $CSV2RDF4LOD_LOG
       if [ "$?" -eq 3 ]; then exit 3; fi # Invalid RDF syntax in conversion parameters.
       if [[ ${CSV2RDF4LOD_CONVERT_PROVENANCE_FRBR:-"."} == "true" && `which fstack.py` ]]; then

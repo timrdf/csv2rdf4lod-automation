@@ -224,22 +224,24 @@ done
 echo $allPML | tee -a $CSV2RDF4LOD_LOG
 rm $allPML 2> /dev/null
 for dir in source manual automatic; do
-   for pml in `find $dir -name "*.pml.ttl"`; do
-      # source/STATE_SINGLE_PW.CSV ->
-      # http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Aug-30/source/STATE_SINGLE_PW.CSV
-      # rapper -g -o turtle source/STATE_SINGLE_PW.CSV.pml.ttl  http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Aug-30/source/
-      sourceFile=`echo $pml | sed 's/.pml.ttl$//'`
-      base4rapper="$baseURI/source/${sourceID}/file/${datasetID}/version/${versionID}/$dir/"
-      echo "  (including $pml)" | tee -a $CSV2RDF4LOD_LOG
-      if [ `which rapper` ]; then
-         rapper -g -o turtle $pml $base4rapper >> $allPML 2> /dev/null
-      else
-         echo "@base <$base4rapper> ." >> $allPML
-         echo "" >> $allPML
-         cat $pml >> $allPML
-      fi
-      echo "<$graph> <http://purl.org/dc/terms/source> <`basename $sourceFile`> ." >> $allPML
-      echo                                                                         >> $allPML
+   for prov in pml prov; do
+      for provFile in `find $dir -name "*.$prov.ttl"`; do
+         # source/STATE_SINGLE_PW.CSV ->
+         # http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Aug-30/source/STATE_SINGLE_PW.CSV
+         # rapper -g -o turtle source/STATE_SINGLE_PW.CSV.pml.ttl  http://logd.tw.rpi.edu/source/data-gov/file/1008/version/2010-Aug-30/source/
+         sourceFile=`echo $provFile | sed "s/.$prov.ttl$//"`
+         base4rapper="$baseURI/source/${sourceID}/file/${datasetID}/version/${versionID}/$dir/"
+         echo "  (including $provFile)" | tee -a $CSV2RDF4LOD_LOG
+         if [ `which rapper` ]; then
+            rapper -g -o turtle $provFile $base4rapper >> $allPML 2> /dev/null
+         else
+            echo "@base <$base4rapper> ." >> $allPML
+            echo ""                       >> $allPML
+            cat $provFile                 >> $allPML
+         fi
+         echo "<$graph> <http://purl.org/dc/terms/source> <`basename $sourceFile`> ." >> $allPML
+         echo                                                                         >> $allPML
+      done
    done
 done
 TEMP_pml="_"`basename $0``date +%s`_$$.tmp
