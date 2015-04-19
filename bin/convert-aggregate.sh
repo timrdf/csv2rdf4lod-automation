@@ -1016,7 +1016,7 @@ if [ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" ]; then
       $vdeleteSH
       echo "    \\\\\\ = = = = = = = = = = = = = = = = = = = = (end) $vdeleteSH = = = = = = = = = = = = = = = = = = = = = = =///"
       echo
-      echo "    = = = = = = = = = = = = = = = = = = = = = = $vloadSH = = = = = = = = = = = = = = = = = = = = = = = = "
+      echo "    /// = = = = = = = = = = = = = = = = = = = = $vloadSH = = = = = = = = = = = = = = = = = = = = = = =\\\\\\"
       echo
       $vloadSH
       echo "    \\\\\\ = = = = = = = = = = = = = = = = = = = = (end) $vloadSH = = = = = = = = = = = = = = = = = = = = = = =///"
@@ -1032,7 +1032,7 @@ if [ "$CSV2RDF4LOD_PUBLISH_VIRTUOSO" == "true" ]; then
       $vdeleteSH --sample
       echo "    \\\\\\ = = = = = = = = = = = = = = = = = = = = (end) $vdeleteSH = = = = = = = = = = = = = = = = = = = = = = =///"
       echo
-      echo "    = = = = = = = = = = = = = = = = = = = = = = $vloadSH = = = = = = = = = = = = = = = = = = = = = = = = "
+      echo "    /// = = = = = = = = = = = = = = = = = = = = $vloadSH = = = = = = = = = = = = = = = = = = = = = = =\\\\\\"
       echo
       $vloadSH   --sample
       echo "    \\\\\\ = = = = = = = = = = = = = = = = = = = = (end) $vloadSH = = = = = = = = = = = = = = = = = = = = = = =///"
