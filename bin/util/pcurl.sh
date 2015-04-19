@@ -101,7 +101,7 @@ while [ $# -gt 0 ]; do
    while [ "$2" == "-F" -a $# -ge 3 ]; do
       HTTP_TYPE="POST"
       formFields="$formFields -F $3"
-      echo "INFO: POST fields:$formFields"
+      echo "[INFO] POST fields:$formFields"
       shift 2 
    done
 
@@ -163,7 +163,7 @@ while [ $# -gt 0 ]; do
       log "PCURL: local name overriding redirected name"
    fi
    #file=${localName}-$documentVersion${extension}
-   log "INFO `basename $0`: local file name will be $file"
+   log "[INFO] `basename $0`: local file name will be $file"
 
    if [ ! -e "$file" -a ${#documentVersion} -gt 0 ]; then 
       requestID=`resource-name.sh`

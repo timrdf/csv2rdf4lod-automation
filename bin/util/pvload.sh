@@ -348,7 +348,7 @@ while [ $# -gt 0 ]; do
       fi
       echo "\\\\\\\\\\------------------------------ `basename $0` ------------------------------/////"
    else
-      echo "WARNING: `basename $0` skipping b/c no triples returned."
+      echo "[WARNING] `basename $0` skipping b/c no triples returned."
    fi
 
    #
