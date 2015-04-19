@@ -230,13 +230,17 @@ else
          echo "   pmlp:hasModificationDateTime \"$antecedentModDateTime\"^^xsd:dateTime;"     >> $consequent.$prov.ttl
          fi
          echo "."                                                                             >> $consequent.$prov.ttl
-         echo "$consequentURI prov:wasDerivedFrom $antecedentFileURI ."                       >> $consequent.$prov.ttl
+         echo "$consequentURI"                                                                >> $consequent.$prov.ttl
+         echo "   prov:wasDerivedFrom"                                                        >> $consequent.$prov.ttl
+         echo "      $antecedentFileURI ."                                                    >> $consequent.$prov.ttl
       elif [[ "$antecedent" =~ http* ]]; then
          echo "$consequentURI prov:wasDerivedFrom <$antecedent> ."                            >> $consequent.$prov.ttl
          echo "<$antecedent>"                                                                 >> $consequent.$prov.ttl
          echo "   a sioc:Item, irw:WebResource, prov:Entity;"                                 >> $consequent.$prov.ttl
          echo "."                                                                             >> $consequent.$prov.ttl
-         echo "$consequentURI prov:wasDerivedFrom <$antecedent> ."                            >> $consequent.$prov.ttl
+         echo "$consequentURI"                                                                >> $consequent.$prov.ttl
+         echo "   prov:wasDerivedFrom"                                                        >> $consequent.$prov.ttl
+         echo "      <$antecedent> ."                                                         >> $consequent.$prov.ttl
       fi
 
 
