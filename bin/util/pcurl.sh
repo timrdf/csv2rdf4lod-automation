@@ -207,6 +207,7 @@ while [ $# -gt 0 ]; do
       echo "@prefix httphead:   <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> ."                     >> $file.prov.ttl
       echo "@prefix httpget:    <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> ."                      >> $file.prov.ttl
       echo "@prefix httppost:   <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> ."                     >> $file.prov.ttl
+      echo "@prefix prv:        <http://purl.org/net/provenance/ns#>."                                            >> $file.prov.ttl
       echo "@prefix prov:       <http://www.w3.org/ns/prov#> ."                                                   >> $file.prov.ttl
       echo                                                                                                        >> $file.prov.ttl
       $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                                                  >> $file.prov.ttl
@@ -231,8 +232,10 @@ while [ $# -gt 0 ]; do
       echo "."                                                                                                    >> $file.prov.ttl
       echo                                                                                                        >> $file.prov.ttl
       if [ "$downloadFile" == "true" ]; then
-         echo "<$file>"                                                                                           >> $file.prov.ttl
+         fileSpecializationURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "$file"`
+         echo "$fileSpecializationURI"                                                                            >> $file.prov.ttl
          echo "   a nfo:FileDataObject, prov:Entity, pmlp:Information;"                                           >> $file.prov.ttl
+         echo "   prv:serializedBy        <$file>;"                                                               >> $file.prov.ttl
          echo "   prov:wasQuotedFrom      <$redirectedURL>;"                                                      >> $file.prov.ttl
          echo "   prov:qualifiedQuotation <${quotation}>;"                                                        >> $file.prov.ttl
          echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_content>;"                                         >> $file.prov.ttl
@@ -241,7 +244,7 @@ while [ $# -gt 0 ]; do
          echo                                                                                                     >> $file.prov.ttl
          echo "<${nodeSet}_content>"                                                                              >> $file.prov.ttl
          echo "   a pmlj:NodeSet;"                                                                                >> $file.prov.ttl
-         echo "   pmlj:hasConclusion <$file>;"                                                                    >> $file.prov.ttl
+         echo "   pmlj:hasConclusion $fileSpecializationURI;"                                                     >> $file.prov.ttl
          echo "   pmlj:isConsequentOf <${inferenceStep}_content>;"                                                >> $file.prov.ttl
          echo "."                                                                                                 >> $file.prov.ttl
          echo "<${inferenceStep}_content>"                                                                        >> $file.prov.ttl
