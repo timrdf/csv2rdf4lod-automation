@@ -153,16 +153,19 @@ fi
 
 or_see_github="or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"
 
+layerSlugs=""
+conversionIDs=""
+
 #
 # Raw ttl
 #
-conversionIDs="raw"
-layerSlugs="raw"
 convertedRaw="no"; for raw in `find automatic -name "*.raw.ttl"`; do convertedRaw="yes"; done
 if [ $convertedRaw == "yes" ]; then
    echo $allRaw | tee -a $CSV2RDF4LOD_LOG
    cat automatic/*.raw.ttl > $allRaw
    filesToCompress="$allRaw"
+   conversionIDs="$conversionIDs raw"
+   layerSlugs="$layerSlugs raw"
 else
    echo "$allRaw - omitted" | tee -a $CSV2RDF4LOD_LOG
 fi
