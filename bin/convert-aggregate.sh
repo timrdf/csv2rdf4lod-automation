@@ -894,7 +894,7 @@ echo 'CSV2RDF4LOD_BASE_URI=${CSV2RDF4LOD_BASE_URI:?"not set; source csv2rdf4lod/
 #echo "  dump=$allNT.\$serialization"                                                                                       >> $vloadSH
 #echo "done"                                                                                                                >> $vloadSH
 echo ""                                                                                                                     >> $vloadSH
-echo "action='pvload.sh'"                                                                                                   >> $vloadSH
+echo "action='pvload.sh -ng'"                                                                                               >> $vloadSH
 echo "if [ \`is-pwd-a.sh cr:dev\` == 'yes' ]; then"                                                                         >> $vloadSH
 echo "   echo \"Refusing to publish; see 'cr:dev and refusing to publish' at\""                                             >> $vloadSH
 echo "   echo \"  https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-environment-variables-%28considerations-for-a-distributed-workflow%29\"" >> $vloadSH
