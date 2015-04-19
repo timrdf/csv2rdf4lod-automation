@@ -45,6 +45,7 @@ while [ $# -gt 0 ]; do
       # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Modeling-file-provenance
       echo "<$specialization>"                                                                    
       echo "   a nfo:FileDataObject;"                                                    
+      echo "   dcterms:identifier \"$PWD/$file\";"                                
       echo "   nfo:fileName \"`basename $file`\";"                                
       echo "   dcterms:date \"`dateInXSDDateTime.sh`\"^^xsd:dateTime;"
       echo "   nfo:hasHash <$md5URI>; #<md5_${fileMD5}_time_${date_id}>;"                                
