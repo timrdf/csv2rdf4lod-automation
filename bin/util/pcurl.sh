@@ -107,7 +107,7 @@ while [ $# -gt 0 ]; do
 
    echo "Finding content-dispostion of $url" >&2
    log "Content-Disposition:..."
-   dispositionFileName=`curl -LI "$url" | grep 'Content-Disposition:' | tail -1 | sed 's/^.*filename=//; s/\s*$//; s/^"//; s/"$//'`
+   dispositionFileName=`curl -sLI "$url" | grep 'Content-Disposition:' | tail -1 | sed 's/^.*filename=//; s/\s*$//; s/^"//; s/"$//'`
    log "Content-Disposition: --$dispositionFileName--"
 
    #echo "PCURL: url                $url"
