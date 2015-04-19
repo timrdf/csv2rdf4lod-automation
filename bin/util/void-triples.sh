@@ -16,7 +16,7 @@ if [ $# -gt 0 ]; then
       file="$1"
       if [ -e $file ]; then
          format=`guess-syntax.sh --inspect "$file" rapper`
-         c=`rapper $format -c $file 2>&1 | grep "Parsing returned [^ ]* triples" | awk '{printf($4)}'`
+         c=`rapper $format -c $file 2>&1 | grep "Parsing returned [^ ]* triple" | awk '{printf($4)}'`
          if [ ${#c} -gt 0 ]; then
             let "count=count+c"
          fi
