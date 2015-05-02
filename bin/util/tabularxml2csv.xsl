@@ -63,9 +63,21 @@ column elements are present even if no value
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 
 <xsl:template match="/">
-   <!--                     table/row[cell-with-no-children] -->
-   <xsl:apply-templates select="*/*[*[not(*)]][1]" mode="header"/>
-   <xsl:apply-templates select="*/*[*[not(*)]]"    mode="row"/>
+   <!--xsl:message select="concat(count(*/*),' nodes')"/-->
+   <xsl:choose>
+      <xsl:when test="*/*/* and not (*/*/*/*)">
+         <!--                     table/row[cell-with-no-children] -->
+         <xsl:apply-templates select="*/*[*[not(*)]][1]" mode="header"/>
+         <xsl:apply-templates select="*/*[*[not(*)]]"    mode="row"/>
+      </xsl:when>
+      <xsl:when test="*/* and not(*/*/*)">
+         <!--                     row[cell-with-no-children] -->
+         <xsl:apply-templates select="*[*[not(*)]][1]" mode="header"/>
+         <xsl:apply-templates select="*[*[not(*)]]"    mode="row"/>
+      </xsl:when>
+      <xsl:otherwise>
+      </xsl:otherwise>
+   </xsl:choose>
 </xsl:template>
 
 <xsl:template match="*" mode="header">
