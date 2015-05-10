@@ -213,7 +213,7 @@ while [ $# -gt 0 ]; do
       $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                                                  >> $file.prov.ttl
       echo                                                                                                        >> $file.prov.ttl
       echo "<$url>"                                                                                               >> $file.prov.ttl
-      echo "   a pmlp:Source, prov:Entity;"                                                                       >> $file.prov.ttl
+      echo "   a prov:Entity;"                                                                                    >> $file.prov.ttl
          if [ "$redirectedURL" != "$url" ]; then
             if [ ${#urlModDateTime} -gt 3 ]; then
                echo "   pmlp:hasModificationDateTime \"$urlModDateTime\"^^xsd:dateTime;"                          >> $file.prov.ttl
@@ -224,21 +224,20 @@ while [ $# -gt 0 ]; do
       echo "."                                                                                                    >> $file.prov.ttl
       echo                                                                                                        >> $file.prov.ttl
       echo "<$redirectedURL>"                                                                                     >> $file.prov.ttl
-      echo "   a pmlp:Source, prov:Entity;"                                                                       >> $file.prov.ttl
+      echo "   a prov:Entity;"                                                                                    >> $file.prov.ttl
          if [ ${#redirectedModDate} -gt 3 ]; then
-            echo "   pmlp:hasModificationDateTime \"$redirectedModDate\"^^xsd:dateTime;"                          >> $file.prov.ttl
-            echo "   dcterms:modified             \"$redirectedModDate\"^^xsd:dateTime;"                          >> $file.prov.ttl
+            echo "   dcterms:modified \"$redirectedModDate\"^^xsd:dateTime;"                                      >> $file.prov.ttl
          fi
       echo "."                                                                                                    >> $file.prov.ttl
       echo                                                                                                        >> $file.prov.ttl
       if [ "$downloadFile" == "true" ]; then
          fileSpecializationURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "$file"`
          echo "$fileSpecializationURI"                                                                            >> $file.prov.ttl
-         echo "   a nfo:FileDataObject, prov:Entity, pmlp:Information;"                                           >> $file.prov.ttl
+         echo "   a nfo:FileDataObject, prov:Entity;"                                                             >> $file.prov.ttl
          echo "   prv:serializedBy        <$file>;"                                                               >> $file.prov.ttl
          echo "   prov:wasQuotedFrom      <$redirectedURL>;"                                                      >> $file.prov.ttl
          echo "   prov:qualifiedQuotation <${quotation}>;"                                                        >> $file.prov.ttl
-         echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_content>;"                                         >> $file.prov.ttl
+         #echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_content>;"                                        >> $file.prov.ttl
          echo "."                                                                                                 >> $file.prov.ttl
          $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$file"                                                       >> $file.prov.ttl
          echo                                                                                                     >> $file.prov.ttl
@@ -272,11 +271,11 @@ while [ $# -gt 0 ]; do
          echo "   prov:atTime \"$usageDateTime\"^^xsd:dateTime;"                                                  >> $file.prov.ttl
          echo "."                                                                                                 >> $file.prov.ttl
          echo                                                                                                     >> $file.prov.ttl
-         echo "<${sourceUsage}_content>"                                                                          >> $file.prov.ttl
-         echo "   a pmlp:SourceUsage;"                                                                            >> $file.prov.ttl
-         echo "   pmlp:hasSource        <$redirectedURL>;"                                                        >> $file.prov.ttl
-         echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                                        >> $file.prov.ttl
-         echo "."                                                                                                 >> $file.prov.ttl
+         #echo "<${sourceUsage}_content>"                                                                         >> $file.prov.ttl
+         #echo "   a pmlp:SourceUsage;"                                                                           >> $file.prov.ttl
+         #echo "   pmlp:hasSource        <$redirectedURL>;"                                                       >> $file.prov.ttl
+         #echo "   pmlp:hasUsageDateTime \"$usageDateTime\"^^xsd:dateTime;"                                       >> $file.prov.ttl
+         #echo "."                                                                                                >> $file.prov.ttl
          echo                                                                                                     >> $file.prov.ttl
          echo "<${wasControlled}_content>"                                                                        >> $file.prov.ttl
          echo "   a oprov:WasControlledBy;"                                                                       >> $file.prov.ttl
@@ -287,8 +286,8 @@ while [ $# -gt 0 ]; do
       fi
       echo " "                                                                                                    >> $file.prov.ttl
       echo "<info${requestID}_url_header>"                                                                        >> $file.prov.ttl
-      echo "   a pmlp:Information, conv:HTTPHeader;"                                                              >> $file.prov.ttl
-      echo "   pmlp:hasRawString \"\"\"$urlINFO\"\"\";"                                                           >> $file.prov.ttl
+      echo "   a prov:Entity, conv:HTTPHeader;"                                                                   >> $file.prov.ttl
+      echo "   prov:value \"\"\"$urlINFO\"\"\";"                                                                  >> $file.prov.ttl
       echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_url_header>;"                                         >> $file.prov.ttl
       echo "."                                                                                                    >> $file.prov.ttl
       echo " "                                                                                                    >> $file.prov.ttl
@@ -322,8 +321,8 @@ while [ $# -gt 0 ]; do
       echo                                                                                                        >> $file.prov.ttl
          if [ "$redirectedURL" != "$url" ]; then
             echo "<info${requestID}_redirected_url_header>"                                                       >> $file.prov.ttl
-            echo "   a pmlp:Information, conv:HTTPHeader;"                                                        >> $file.prov.ttl
-            echo "   pmlp:hasRawString \"\"\"$redirectedURLINFO\"\"\";"                                           >> $file.prov.ttl
+            echo "   a prov:Entity, conv:HTTPHeader;"                                                             >> $file.prov.ttl
+            echo "   prov:value \"\"\"$redirectedURLINFO\"\"\";"                                                  >> $file.prov.ttl
             echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_redirected_url_header>;"                        >> $file.prov.ttl
             echo "."                                                                                              >> $file.prov.ttl
             echo                                                                                                  >> $file.prov.ttl
@@ -334,8 +333,8 @@ while [ $# -gt 0 ]; do
             echo "."                                                                                              >> $file.prov.ttl
             echo "<${inferenceStep}_redirected_url_header>"                                                       >> $file.prov.ttl
             echo "   a pmlj:InferenceStep;"                                                                       >> $file.prov.ttl
-            echo "   pmlj:hasIndex 0;"                                                                            >> $file.prov.ttl
-            echo "   pmlj:hasAntecedentList ();"                                                                  >> $file.prov.ttl
+            #echo "   pmlj:hasIndex 0;"                                                                            >> $file.prov.ttl
+            #echo "   pmlj:hasAntecedentList ();"                                                                  >> $file.prov.ttl
             echo "   pmlj:hasSourceUsage     <${sourceUsage}_redirected_url_header>;"                             >> $file.prov.ttl
             echo "   pmlj:hasInferenceEngine conv:curl_$curlMD5;"                                                 >> $file.prov.ttl
             echo "   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;"                                             >> $file.prov.ttl
