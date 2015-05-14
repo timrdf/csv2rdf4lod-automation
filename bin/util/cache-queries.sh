@@ -217,7 +217,7 @@ for sparql in $queryFiles; do
          #
          requestID=`resource-name.sh`
          requestDate=`dateInXSDDateTime.sh`
-         sparqlQuery="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/sparql-query/`md5.sh $sparql`"
+         sparqlQuery="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/md5/`md5.sh $sparql`"
          $CSV2RDF4LOD_HOME/bin/util/cr-default-prefixes.sh --turtle                               > $resultsFile.prov.ttl
          echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                       >> $resultsFile.prov.ttl
          echo "@prefix prvtypes:   <http://purl.org/net/provenance/types#> ."                    >> $resultsFile.prov.ttl
