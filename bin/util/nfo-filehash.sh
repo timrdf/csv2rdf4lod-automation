@@ -35,6 +35,7 @@ while [ $# -gt 0 ]; do
    pathMD5=`$CSV2RDF4LOD_HOME/bin/util/md5.sh -qs $fileAbsolute`
    md5URI=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/md5/$fileMD5
    specialization=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/md5/$fileMD5/path/$pathMD5/`basename $file`
+   specializationPath=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/path/$pathMD5/`basename $file`
    if [[ "$mode" == "https://github.com/timrdf/csv2rdf4lod-automation/commit/45e7a33144b02c03ba8ed4cf664315794bde4da4#diff-80071c340dfce1c99d897887ff8b1889" ]]; then
       # This modeling is deprecated.
       echo "<$file>"                                                                    
@@ -55,6 +56,7 @@ while [ $# -gt 0 ]; do
       echo "   nfo:fileName \"`basename $file`\";"                                
       echo "   dcterms:date \"`dateInXSDDateTime.sh`\"^^xsd:dateTime;"
       echo "   nfo:hasHash <$md5URI>; #<md5_${fileMD5}_time_${date_id}>;"                                
+      echo "   prov:atLocation <$specializationPath>;"
       echo "."                                                                      
       echo "<$md5URI>"                                             
       echo "   a nfo:FileHash; "                                                 
