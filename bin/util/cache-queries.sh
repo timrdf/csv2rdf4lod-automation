@@ -228,11 +228,13 @@ for sparql in $queryFiles; do
          $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                              >> $resultsFile.prov.ttl
          echo                                                                                    >> $resultsFile.prov.ttl
          pushd $results &> /dev/null
+         resultsFocus=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "\`basename $resultsFile\`"`
          $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "`basename $resultsFile`"                    >> `basename $resultsFile.prov.ttl`
          popd &> /dev/null
          echo                                                                                    >> $resultsFile.prov.ttl
          echo                                                                                    >> $resultsFile.prov.ttl
-         echo "<`basename $resultsFile`>"                                                        >> $resultsFile.prov.ttl
+         #echo "<`basename $resultsFile`>"                                                        >> $resultsFile.prov.ttl
+         echo "$resultsFocus"                                                                    >> $resultsFile.prov.ttl
          echo "   a prov:Entity;"                                                                >> $resultsFile.prov.ttl
          echo "   prov:wasQuotedFrom <$request>;"                                                >> $resultsFile.prov.ttl
          echo "."                                                                                >> $resultsFile.prov.ttl
