@@ -120,7 +120,7 @@ else
    fi
 
    append='no'
-   if [[ "$3" == "-a" || "$3" == "--append" ]]; then
+   if [[ "$4" == "-a" || "$4" == "--append" ]]; then
       append='yes'
       shift
    fi
