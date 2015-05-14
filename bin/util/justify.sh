@@ -21,10 +21,10 @@
 #   justify.sh http://ieeevis.tw.rpi.edu/lam-2012-evaluations-2-categories source/lodspeakr-basic-menu.svg svg-crowbar
 #   ==> source/lodspeakr-basic-menu.svg was derived from http://ieeevis.tw.rpi.edu/lam-2012-evaluations-2-categories
 
-if [ $# -lt 3 -o $# -gt 4 ]; then
+if [ $# -lt 3 -o $# -gt 5 ]; then
    echo "usage:   `basename $0` path/to/source/a.xls path/to/destination/a.xls.csv <engine-name>" 
    echo "or" 
-   echo "usage: . `basename $0` path/to/source/a.xls path/to/destination/a.xls.csv <engine-name> [-h | --history]" 
+   echo "usage: . `basename $0` path/to/source/a.xls path/to/destination/a.xls.csv <engine-name> [-h | --history] [-a | --append]" 
    echo ""
    echo "   source      file: a file used to create 'destination file'."
    echo "   destination file: a file derived from 'source file'."
@@ -39,6 +39,7 @@ if [ $# -lt 3 -o $# -gt 4 ]; then
    echo "              from 'source-file' and include it in the provenance."
    echo "              NOTE: a period (.) must precede the `basename $0` command to access history."
    echo "              This option only works in interactive shells."
+   echo "    --append: append to .prov.ttl instead of replacing it. "
 else
 
 see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
@@ -114,7 +115,14 @@ else
             echo "    . `basename $0` $*"
             capture="no"
          fi
+         shift
       fi
+   fi
+
+   append='no'
+   if [[ "$3" == "-a" || "$3" == "--append" ]]; then
+      append='yes'
+      shift
    fi
 
    if [[ ! -e "$antecedent" && ! "$antecedent" =~ http* ]]; then
@@ -162,7 +170,11 @@ else
       userNodeSet="<nodeSet${requestID}_user>"
 
       prov="prov"
-      echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                     > $consequent.$prov.ttl
+      if [[ "$append" != 'yes' ]]; then
+         echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                  > $consequent.$prov.ttl
+      else
+         echo "@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> ."                 >> $consequent.$prov.ttl
+      fi
       echo "@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> ."                        >> $consequent.$prov.ttl
       echo "@prefix foaf:       <http://xmlns.com/foaf/0.1/> ."                               >> $consequent.$prov.ttl
       echo "@prefix dcterms:    <http://purl.org/dc/terms/> ."                                >> $consequent.$prov.ttl
