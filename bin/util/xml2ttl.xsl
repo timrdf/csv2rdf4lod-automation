@@ -7,7 +7,7 @@
 <xsl:transform version="2.0" 
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-   xmlns:this="https://github.com/timrdf/pvcs/blob/master/src/xsl/xsl2ttl.xsl"
+   xmlns:this="https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/xml2ttl.xsl"
    exclude-result-prefixes="xs">
 
 <xsl:output method="text"/>
@@ -20,7 +20,7 @@
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix foaf:    <http://xmlns.com/foaf/0.1/> .
 @prefix lmx:     <http://www.w3.org/XML/1998/namespace/> .
-@prefix xml2ttl: <https://github.com/timrdf/pvcs/blob/master/src/xsl/xml2ttl.xsl#> .
+@prefix xml2ttl: <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/xml2ttl.xsl#> .
 ]]></xsl:text>
 </xsl:variable>
 
