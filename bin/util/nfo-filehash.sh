@@ -14,6 +14,11 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+if [[ $# -eq 0 ]]; then
+   echo "usage: `basename $0` [--foci]"
+   exit
+fi
+
 mode="describe"
 if [[ "$1" == "--foci" ]]; then
    mode="foci" 
