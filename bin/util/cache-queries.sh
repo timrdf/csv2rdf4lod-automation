@@ -217,8 +217,11 @@ for sparql in $queryFiles; do
          #
          requestID=`resource-name.sh`
          requestDate=`dateInXSDDateTime.sh`
+         sparqlQuery="`cr-dataset-uri.sh --uri`/id/sparql-query/`md5.sh $sparql`"
          $CSV2RDF4LOD_HOME/bin/util/cr-default-prefixes.sh --turtle                               > $resultsFile.prov.ttl
          echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                       >> $resultsFile.prov.ttl
+         echo "@prefix prvtypes:   <http://purl.org/net/provenance/types#> ."                    >> $resultsFile.prov.ttl
+         echo "@prefix pml:        <http://provenanceweb.org/ns/pml#> ."                         >> $resultsFile.prov.ttl
          echo "@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> ."         >> $resultsFile.prov.ttl
          echo "@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> ."      >> $resultsFile.prov.ttl
          echo "@prefix pmlb:       <http://inference-web.org/2.b/pml-provenance.owl#> ."         >> $resultsFile.prov.ttl
@@ -236,9 +239,14 @@ for sparql in $queryFiles; do
          #echo "<`basename $resultsFile`>"                                                        >> $resultsFile.prov.ttl
          echo "$resultsFocus"                                                                    >> $resultsFile.prov.ttl
          echo "   a prov:Entity;"                                                                >> $resultsFile.prov.ttl
-         echo "   prov:wasQuotedFrom <$request>;"                                                >> $resultsFile.prov.ttl
+         echo "   prov:wasQuotedFrom <$sparqlQuery>;"                                            >> $resultsFile.prov.ttl
          echo "."                                                                                >> $resultsFile.prov.ttl
          echo                                                                                    >> $resultsFile.prov.ttl
+         echo "<$sparqlQuery>"                                                                   >> $resultsFile.prov.ttl
+         echo "   a prvtypes:SPARQLQuery;"                                                       >> $resultsFile.prov.ttl
+         echo "   prv:serializedBy <$request>;"                                                  >> $resultsFile.prov.ttl
+         echo "   prov:value     \"\"\"`cat $sparql`\"\"\";"                                     >> $resultsFile.prov.ttl
+         echo "."                                                                                >> $resultsFile.prov.ttl
          echo "<$sparql.$output>"                                                                >> $resultsFile.prov.ttl
          echo "   a pmlp:Information;"                                                           >> $resultsFile.prov.ttl
          echo "   pmlp:hasModificationDateTime \"$requestDate\"^^xsd:dateTime;"                  >> $resultsFile.prov.ttl
