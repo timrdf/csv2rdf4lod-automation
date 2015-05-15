@@ -214,14 +214,16 @@ for sparql in $queryFiles; do
          usageDateTime=`dateInXSDDateTime.sh`
          usageDateTimePath=`dateInXSDDateTime.sh --uri-path $usageDateTime`
 
+         query_queryLIMIT_queryOFFSET=`cr-urlencode.sh --decode "$query$queryLIMIT$queryOFFSET"`
+
          #
          # Record the provenance of the query request
          #
          requestID=`resource-name.sh`
          requestDate=`dateInXSDDateTime.sh`
          sparqlQuery=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/md5/`md5.sh $sparql`
-         sparqlQuery_i=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/md5/`md5.sh -qs "$query$queryLIMIT$queryOFFSET"`
-             quotation=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/quotation/`md5.sh -qs "$query$queryLIMIT$queryOFFSET"`/$usageDateTimePath
+         sparqlQuery_i=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/md5/`md5.sh -qs "$query_queryLIMIT_queryOFFSET"`
+             quotation=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/quotation/`md5.sh -qs "$query_queryLIMIT_queryOFFSET"`/$usageDateTimePath
          $CSV2RDF4LOD_HOME/bin/util/cr-default-prefixes.sh --turtle                                         > $resultsFile.prov.ttl
          echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                                 >> $resultsFile.prov.ttl
          echo "@prefix prvtypes:   <http://purl.org/net/provenance/types#> ."                              >> $resultsFile.prov.ttl
@@ -251,7 +253,7 @@ for sparql in $queryFiles; do
          echo                                                                                              >> $resultsFile.prov.ttl
          echo "<$sparqlQuery_i>"                                                                           >> $resultsFile.prov.ttl
          echo "   a prvtypes:SPARQLQuery;"                                                                 >> $resultsFile.prov.ttl
-         echo "   prov:value     \"\"\"$query$queryLIMIT$queryOFFSET\"\"\";" >> $resultsFile.prov.ttl
+         echo "   prov:valu$     \"\"\"$query_queryLIMIT_queryOFFSET\"\"\";" >> $resultsFile.prov.ttl
          echo "   prov:specializationOf <$sparqlQuery>;"                                                   >> $resultsFile.prov.ttl
          echo "   pml:wasDerivedFrom    <$sparqlQuery>;"                                                   >> $resultsFile.prov.ttl
          if [[ ${#iteration} -gt 0 ]]; then

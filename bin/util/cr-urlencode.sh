@@ -39,16 +39,44 @@ rawurlencode() { # http://stackoverflow.com/questions/296536/urlencode-from-a-ba
   #REPLY="${encoded}"   #+or echo the result (EASIER)... or both... :p
 }
 
+# http://stackoverflow.com/questions/296536/urlencode-from-a-bash-script
+# Returns a string in which the sequences with percent (%) signs followed by
+# two hex digits have been replaced with literal characters.
+rawurldecode() { # http://stackoverflow.com/questions/296536/urlencode-from-a-bash-script
+
+  # This is perhaps a risky gambit, but since all escape characters must be
+  # encoded, we can replace %NN with \xNN and pass the lot to printf -b, which
+  # will decode hex for us
+
+  printf -v REPLY '%b' "${1//%/\\x}" # You can either set a return variable (FASTER)
+  echo "${REPLY}"  #+or echo the result (EASIER)... or both... :p
+}
+
 # "easier":
 #request=$service$(rawurlencode "$target")'&responseType=rdf'
 # "faster":
 #rawurlencode "$target"
 #echo $request
+
+decode='no'
+if [[ "$1" == "--decode" ]]; then
+   decode='yes'
+   shift
+fi
+
 if [[ $# -gt 0 ]]; then
-   if [[ "$from_file" == 'yes' ]]; then
-      rawurlencode "`cat "$1"`"
-   else
-      rawurlencode "$1"
+   if [[ "$decode" == 'yes' ]]; then
+      if [[ "$from_file" == 'yes' ]]; then
+         rawurldecode "`cat "$1"`"
+      else
+         rawurldecode "$1"
+      fi
+   else 
+      if [[ "$from_file" == 'yes' ]]; then
+         rawurlencode "`cat "$1"`"
+      else
+         rawurlencode "$1"
+      fi
    fi
 fi
 
