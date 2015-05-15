@@ -51,6 +51,9 @@ while [ $# -gt 0 ]; do
       echo "."                                                                
    elif [[ "$mode" == "describe" ]]; then
       # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Modeling-file-provenance
+      if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' ]]; then
+         echo "<`cr-dataset-uri.sh --uri`> prov:wasDerivedFrom <$specialization> ."                                                                    
+      fi
       echo "<$specialization>"                                                                    
       echo "   a nfo:FileDataObject;"                                                    
       echo "   nfo:fileName \"`basename $file`\";"                                
@@ -63,6 +66,7 @@ while [ $# -gt 0 ]; do
       echo "   nfo:hashAlgorithm \"md5\";"                                      
       echo "   nfo:hashValue     \"$fileMD5\";"                          
       echo "."                                                                
+      echo "<$specializationPath> prv:serializedBy <$file> ."
    elif [[ "$mode" == "foci" ]]; then
       echo "<$specialization>" 
    fi
