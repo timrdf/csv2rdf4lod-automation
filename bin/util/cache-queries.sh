@@ -261,7 +261,7 @@ for sparql in $queryFiles; do
          echo "<$sparqlQuery>"                                                                             >> $resultsFile.prov.ttl
          echo "   a prvtypes:SPARQLQuery;"                                                                 >> $resultsFile.prov.ttl
          echo "   prov:value     \"\"\"`cat $sparql`\"\"\";"                                               >> $resultsFile.prov.ttl
-         echo "   prv:serializedBy <$sparql>;"                                                             >> $resultsFile.prov.ttl
+         echo "   prv:serializedBy <../$sparql>;"                                                          >> $resultsFile.prov.ttl
          echo "."                                                                                          >> $resultsFile.prov.ttl
                                      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh        "$sparql"           >> $resultsFile.prov.ttl
                 sparqlNFO=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "$sparql"`
