@@ -224,6 +224,7 @@ for sparql in $queryFiles; do
          sparqlQuery=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/md5/`md5.sh $sparql`
          sparqlQuery_i=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/md5/`md5.sh -qs "$query_queryLIMIT_queryOFFSET"`
              quotation=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/quotation/`md5.sh -qs "$query_queryLIMIT_queryOFFSET"`/$usageDateTimePath
+         sd_service=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/service/`md5.sh -qs "$endpoint"`
          $CSV2RDF4LOD_HOME/bin/util/cr-default-prefixes.sh --turtle                                         > $resultsFile.prov.ttl
          echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                                 >> $resultsFile.prov.ttl
          echo "@prefix prvtypes:   <http://purl.org/net/provenance/types#> ."                              >> $resultsFile.prov.ttl
@@ -244,7 +245,7 @@ for sparql in $queryFiles; do
                 resultsFileAbstract=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "$resultsFile"`
          echo "$resultsFileAbstract"                                                                       >> $resultsFile.prov.ttl
          echo "   a prov:Entity;"                                                                          >> $resultsFile.prov.ttl
-         echo "   pml:wasDerivedFrom       <$endpoint>;"                                                   >> $resultsFile.prov.ttl
+         echo "   pml:wasDerivedFrom       <$sd_service>;"                                                 >> $resultsFile.prov.ttl
          echo "   pml:wasGeneratedWithPlan <$sparqlQuery_i>;"                                              >> $resultsFile.prov.ttl
          echo "   prov:wasQuotedFrom       <$request>;"                                                    >> $resultsFile.prov.ttl
          echo "   prov:qualifiedQuotation  <$quotation>;"                                                  >> $resultsFile.prov.ttl
@@ -290,7 +291,7 @@ for sparql in $queryFiles; do
          #echo "   pmlj:hasAnswer    <nodeset$requestID>;"                                                  >> $resultsFile.prov.ttl
          #echo "."                                                                                          >> $resultsFile.prov.ttl
          echo                                                                                              >> $resultsFile.prov.ttl
-         echo "<$endpoint>"                                                                                >> $resultsFile.prov.ttl
+         echo "<$sd_service>"                                                                              >> $resultsFile.prov.ttl
          echo "   a sd:Service, pmlp:WebService;"                                                          >> $resultsFile.prov.ttl
          echo "   sd:endpoint <$endpoint>;"                                                                >> $resultsFile.prov.ttl
          echo "."                                                                                          >> $resultsFile.prov.ttl
