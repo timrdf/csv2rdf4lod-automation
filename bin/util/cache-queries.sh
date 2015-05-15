@@ -246,7 +246,7 @@ for sparql in $queryFiles; do
          echo "   pml:wasGeneratedWithPlan <$sparqlQuery_i>;"                                              >> $resultsFile.prov.ttl
          echo "   prov:wasQuotedFrom       <$request>;"                                                    >> $resultsFile.prov.ttl
          echo "   prov:qualifiedQuotation  <$quotation>;"                                                  >> $resultsFile.prov.ttl
-         echo "   prv:serializedBy <$resultsFile>;"                                                        >> $resultsFile.prov.ttl
+         echo "   prv:serializedBy <`basename $resultsFile`>;"                                             >> $resultsFile.prov.ttl
          echo "."                                                                                          >> $resultsFile.prov.ttl
          echo                                                                                              >> $resultsFile.prov.ttl
          echo "<$sparqlQuery_i>"                                                                           >> $resultsFile.prov.ttl
