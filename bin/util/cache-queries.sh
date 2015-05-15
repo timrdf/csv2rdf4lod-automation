@@ -256,7 +256,9 @@ for sparql in $queryFiles; do
          echo "   prov:value     \"\"\"$query$queryLIMIT$queryOFFSET\"\"\";" >> $resultsFile.prov.ttl
          echo "   prov:specializationOf <$sparqlQuery>;"                                                   >> $resultsFile.prov.ttl
          echo "   pml:wasDerivedFrom    <$sparqlQuery>;"                                                   >> $resultsFile.prov.ttl
-         echo "   pml:atIndex $iteration;"                                                                 >> $resultsFile.prov.ttl
+         if [[ ${#iteration} -gt 0 ]]; then
+            echo "   pml:atIndex $iteration;"                                                              >> $resultsFile.prov.ttl
+         fi
          echo "."                                                                                          >> $resultsFile.prov.ttl
          echo "<$sparqlQuery>"                                                                             >> $resultsFile.prov.ttl
          echo "   a prvtypes:SPARQLQuery;"                                                                 >> $resultsFile.prov.ttl
