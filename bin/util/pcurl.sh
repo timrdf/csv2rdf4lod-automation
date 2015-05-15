@@ -168,7 +168,7 @@ while [ $# -gt 0 ]; do
 
    if [ ! -e "$file" -a ${#documentVersion} -gt 0 ]; then 
       requestID=`resource-name.sh`
-      usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'`
+      usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'` # TODO: why not use dateInXSDDateTime.sh  ?
 
       log "$url (mod $urlModDateTime)"
       log "$redirectedURL (mod $redirectedModDate) to $file (@ $usageDateTime)"

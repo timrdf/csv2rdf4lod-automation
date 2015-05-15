@@ -37,23 +37,22 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
+base_uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
 sourceID=`cr-source-id.sh`
 datasetID=`cr-dataset-id.sh`
 versionID=`cr-version-id.sh`
 
 if [[ "$1" == "uri" || "$1" == "--uri" ]]; then
    if [[ "`cr-pwd-type.sh`" == "cr:dataset" || "`cr-pwd-type.sh`" == "cr:directory-of-versions" ]]; then
-      echo $CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID
+      echo $base_uri/source/$sourceID/dataset/$datasetID
    else
-      echo $CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID
+      echo $base_uri/source/$sourceID/dataset/$datasetID/version/$versionID
    fi
    exit 0
 elif [[ "$1" == "abstract" || "$1" == "--abstract" || "$1" == "abstract-uri" || "$1" == "--abstract-uri" ]]; then
    echo ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/`cr-source-id.sh`/dataset/`cr-dataset-id.sh`
    exit 0
 fi
-
-base_uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}
 
 prefix=""
 q1=""  # Quote

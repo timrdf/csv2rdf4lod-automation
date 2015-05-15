@@ -23,6 +23,12 @@ elif [ $1 == "coin:slug" ]; then
    date +%Y-%m-%dT%H_%M_%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/' | sed 's/:/-/g; s/\+/-/g'
 elif [ $1 == "--turtle" ]; then
    date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/' | awk '{print"\""$0"\"^^xsd:dateTime"}'
+elif [ $1 == "--uri-path" ]; then
+   if [[ "$2" != "" ]]; then
+      echo "$2" | sed 's/[-:]/\//;s/[-:]/\//;s/T/\/T\//;s/[-:]/\//;s/[-:]/\//;s/[-]/\/-/;s/[:]/\//'
+   else
+      date +%Y/%m/%d/T/%H/%M/%S/%z
+   fi
 else
    date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'
 fi
