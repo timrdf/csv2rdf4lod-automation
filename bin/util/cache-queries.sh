@@ -239,8 +239,6 @@ for sparql in $queryFiles; do
          #$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "`basename $resultsFile`"                   >> `basename $resultsFile.prov.ttl`
          #popd &> /dev/null # nfo-filehash.sh can handle relative paths correctly now (?)
                                      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh        "$resultsFile"      >> $resultsFile.prov.ttl
-         echo                                                                                              >> $resultsFile.prov.ttl
-         echo                                                                                              >> $resultsFile.prov.ttl
                 resultsFileAbstract=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "$resultsFile"`
          echo "$resultsFileAbstract"                                                                       >> $resultsFile.prov.ttl
          echo "   a prov:Entity;"                                                                          >> $resultsFile.prov.ttl
