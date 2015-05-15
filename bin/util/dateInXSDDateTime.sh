@@ -25,7 +25,7 @@ elif [ $1 == "--turtle" ]; then
    date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/' | awk '{print"\""$0"\"^^xsd:dateTime"}'
 elif [ $1 == "--uri-path" ]; then
    if [[ "$2" != "" ]]; then
-      echo "$2" | sed 's/[-:]/\//;s/[-:]/\//;s/T/\/T\//;s/[-:]/\//;s/[-:]/\//;s/[+-]/\/-/;s/[:]/\//'
+      echo "$2" | sed 's/[-:]/\//;s/[-:]/\//;s/T/\/T\//;s/[-:]/\//;s/[-:]/\//;s/([+-])/\/\1/;s/[:]/\//'
    else
       date +%Y/%m/%d/T/%H/%M/%S/%z
    fi
