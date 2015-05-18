@@ -21,7 +21,10 @@
 outputTypes="sparql xml"
 
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] [-q a.sparql b.sparql ...]* [--limit-offset [count]] [--nap [count]] [--strip-count] [-od path/to/output/dir]"
+   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] \
+                                         [-q a.sparql b.sparql ...]*                              \
+                                         [--limit-offset [count]] \ [--nap [count]]               \
+                                         [--strip-count] [-od path/to/output/dir]"
    echo
    echo "    Executes SPARQL queries against an endpoint requesting the given output formats."
    echo
