@@ -25,7 +25,16 @@ elif [ $1 == "--turtle" ]; then
    date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/' | awk '{print"\""$0"\"^^xsd:dateTime"}'
 elif [ $1 == "--uri-path" ]; then
    if [[ "$2" != "" ]]; then
-      echo "$2" | sed 's/[-:]/\//;s/[-:]/\//;s/T/\/T\//;s/[-:]/\//;s/[-:]/\//;s/\([+-]\)/\/\1/;s/[:]/\//'
+      #echo "$2" | sed 's/[-:]/\//;s/[-:]/\//;s/T/\/T\//;s/[-:]/\//;s/[-:]/\//;s/\([+-]\)/\/\1/;s/[:]/\//'
+      # hi=`dateInXSDDateTime.sh` && echo $hi && dateInXSDDateTime.sh --uri-path $hi
+      #   2015-05-18T10:24:45-04:00
+      #   2015/05/18/T/10/24/45/-04/00
+      
+      # Remove the timezone
+      echo "$2" | sed 's/[-:]/\//;s/[-:]/\//;s/T/\/T\//;s/[-:]/\//;s/[-:]/\//;s/[+-].*$//'
+      # hi=`dateInXSDDateTime.sh` && echo $hi && dateInXSDDateTime.sh --uri-path $hi
+      # 2015-05-18T10:26:22-04:00
+      # 2015/05/18/T/10/26/22
    else
       date +%Y/%m/%d/T/%H/%M/%S/%z
    fi
