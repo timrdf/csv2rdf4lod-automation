@@ -296,6 +296,7 @@ for sparql in $queryFiles; do
          echo                                                                                              >> $resultsFile.prov.ttl
          echo "<$sd_service>"                                                                              >> $resultsFile.prov.ttl
          echo "   a sd:Service, pmlp:WebService;"                                                          >> $resultsFile.prov.ttl
+         echo "   rdfs:seeAlso <http://uri4uri.net/uri/`cr-urlencode.sh "$endpoint"`>;"                    >> $resultsFile.prov.ttl
          echo "   sd:endpoint <$endpoint>;"                                                                >> $resultsFile.prov.ttl
          echo "."                                                                                          >> $resultsFile.prov.ttl
          #echo                                                                                              >> $resultsFile.prov.ttl
