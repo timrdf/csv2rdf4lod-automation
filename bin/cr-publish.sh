@@ -64,6 +64,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
    # parameters and it'll fall into this bit and then quit.
 
    echo "Creating publication trigger." >&2
+   mkdir -p publish
    nfo_filehashes="publish/`cr-sdv.sh`.nfo.ttl"
    cr-default-prefixes.sh --turtle > $nfo_filehashes 
    valid_rdf_files=''
