@@ -14,7 +14,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-if [[ $# -eq 0 ]]; then
+if [[ $# -eq 0 || "$1" == '--help' ]]; then
    echo "usage: `basename $0` [--foci]"
    exit
 fi

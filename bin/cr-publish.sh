@@ -64,6 +64,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
    # parameters and it'll fall into this bit and then quit.
 
    echo "Creating publication trigger." >&2
+   cr-default-prefixes.sh       > publish/nfo-filehashes.ttl
    valid_rdf_files=''
    # NOTE: If this portion doesn't overwrite publish/bin/publish.sh, 
    #       then the outdated version will be run below.
@@ -78,6 +79,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
             valid_rdf_files="$valid_rdf_files $file" # NOTE: file argument limit
          fi
          cr-ln-to-www-root.sh $file # We now publish all files, even if they're RDF that we're aggregating.
+         nfo-filehash.sh $file >> publish/nfo-filehashes.ttl
       else
          "WARNING: `basename $0` file does not exist, not publishing it: $file"
       fi

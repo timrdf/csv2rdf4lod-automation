@@ -26,7 +26,6 @@
 #    CSV2RDF4LOD_PUBLISH_ANNOUNCE_TO_PTSW
 #    CSV2RDF4LOD_PUBLISH_ANNOUNCE_ONLY_ENHANCED
 
-
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
    echo "usage: `basename $0` [--compress] [--turtle] [--ntriples] [--rdfxml] [--link-as-latest] source/some.{rdf,ttl,nt}"
    echo "  will create publish/*.ttl and publish/bin"
@@ -83,8 +82,8 @@ fi
 TEMP="_"`basename $0``date +%s`_$$.tmp
 
 
-# TODO: why doesnt' this link the original files to /var/www? cr-sparql-sd had to do it by itself...
-
+# Q: why doesnt' this link the original files to /var/www? cr-sparql-sd had to do it by itself...
+# A: cr-publish.sh wraps both cr-ln-to-www-root.sh and this script; use that.
 
 if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
@@ -139,7 +138,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
                # Make some attempts to preserve the less-ugliness of the file.
                # And, expand the relative paths correctly.
                if [[ `too-big-for-rapper.sh $file` == 'yes' && `which serdi` ]]; then
-                  serdi -i turtle -o turtle $file               >> publish/$sdv.ttl
+                  serdi  -i turtle -o turtle $file              >> publish/$sdv.ttl
                elif [[ `which rapper` ]]; then
                   rapper -i turtle -o turtle $file 2> /dev/null >> publish/$sdv.ttl
                else
