@@ -168,7 +168,11 @@ while [ $# -gt 0 ]; do
 
    if [ ! -e "$file" -a ${#documentVersion} -gt 0 ]; then 
       requestID=`resource-name.sh`
-      usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'` # TODO: why not use dateInXSDDateTime.sh  ?
+      #usageDateTime=`date +%Y-%m-%dT%H:%M:%S%z | sed 's/^\(.*\)\(..\)$/\1:\2/'` # TODO: why not use dateInXSDDateTime.sh  ?
+
+      # https://github.com/timrdf/csv2rdf4lod-automation/wiki/PROV-URI-Templates#provquotation
+      usageDateTime=`dateInXSDDateTime.sh`
+      usageDateTimePath=`dateInXSDDateTime.sh --uri-path $usageDateTime`
 
       log "$url (mod $urlModDateTime)"
       log "$redirectedURL (mod $redirectedModDate) to $file (@ $usageDateTime)"
@@ -185,7 +189,9 @@ while [ $# -gt 0 ]; do
       Eurl=`echo $url | awk '{gsub(/\//,"\\\\/");print}'`  # Escaped URL
 
       # Relative paths.
-      quotation="quotation_$requestID"
+      #quotation="quotation_$requestID"
+      # https://github.com/timrdf/csv2rdf4lod-automation/wiki/PROV-URI-Templates#provquotation
+      quotation=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/url/`md5.sh -qs "$url"`/quoted/$usageDateTimePath
       sourceUsage="sourceUsage$requestID"
       nodeSet="nodeSet$requestID"
       inferenceStep="inferenceStep$requestID"

@@ -346,7 +346,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       echo "   layerSlug=\"$layerSlug\""                                                                                       >> $vloadSH
       echo "   sampleGraph=\"\$graph/conversion/\$layerSlug/subset/sample\""                                                   >> $vloadSH
       echo "   sampleURL=\"\$base/source/${sourceID}/file/${datasetID}/version/${versionID}/conversion/${sdv}.${layerID}.sample.ttl\"" >> $vloadSH
-      echo "   echo pvload.sh \$sampleURL -ng \$sampleGraph"                                                                   >> $vloadSH
+      echo "   echo pvload.sh \$sampleURL -ng \$sampleGraph"                                                                           >> $vloadSH
       echo "   \${CSV2RDF4LOD_HOME}/bin/util/pvload.sh \$sampleURL -ng \$sampleGraph"                                          >> $vloadSH
       echo ""                                                                                                                  >> $vloadSH
    done
