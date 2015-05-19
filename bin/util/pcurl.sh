@@ -240,7 +240,7 @@ while [ $# -gt 0 ]; do
          fileSpecializationURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "$file"`
          echo "$fileSpecializationURI"                                                                            >> $file.prov.ttl
          echo "   a nfo:FileDataObject, prov:Entity;"                                                             >> $file.prov.ttl
-         echo "   prv:serializedBy        <$file>;"                                                               >> $file.prov.ttl
+         #echo "   prv:serializedBy        <$file>;"                                                               >> $file.prov.ttl
          echo "   prov:wasQuotedFrom      <$redirectedURL>;"                                                      >> $file.prov.ttl
          echo "   prov:qualifiedQuotation <${quotation}>;"                                                        >> $file.prov.ttl
          #echo "   pmlp:hasReferenceSourceUsage <${sourceUsage}_content>;"                                        >> $file.prov.ttl

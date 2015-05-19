@@ -226,7 +226,7 @@ for sparql in $queryFiles; do
          requestDate=`dateInXSDDateTime.sh`
          sparqlQuery=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/md5/`md5.sh $sparql`
          sparqlQuery_i=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/md5/`md5.sh -qs "$query_queryLIMIT_queryOFFSET"`
-             quotation=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/quotation/`md5.sh -qs "$query_queryLIMIT_queryOFFSET"`/$usageDateTimePath
+             quotation=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/url/`md5.sh -qs "$query_queryLIMIT_queryOFFSET"`/quoted/$usageDateTimePath
          sd_service=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/service/`md5.sh -qs "$endpoint"`
          $CSV2RDF4LOD_HOME/bin/util/cr-default-prefixes.sh --turtle                                         > $resultsFile.prov.ttl
          echo "@prefix hartigprov: <http://purl.org/net/provenance/ns#> ."                                 >> $resultsFile.prov.ttl
