@@ -89,14 +89,14 @@ function lnwww {
       echo " $wwwfile"
       if [[ "$dryrun" != "yes" ]]; then
          if [ -e "$wwwfile" ]; then
-            echo $sudo rm -f "$wwwfile" >&2
-            $sudo rm -f "$wwwfile"
+            echo "   $sudo rm -f  $wwwfile" >&2
+                     $sudo rm -f "$wwwfile"
          else
-            echo $sudo mkdir -p `dirname "$wwwfile"` >&2
-            $sudo mkdir -p `dirname "$wwwfile"`
+            echo "   $sudo mkdir -p `dirname "$wwwfile"`" >&2
+                     $sudo mkdir -p `dirname "$wwwfile"`
          fi
-         echo $sudo ln $symbolic "${pwd}$1" "$wwwfile" >&2
-         $sudo ln $symbolic "${pwd}$1" "$wwwfile"
+         echo "   "$sudo ln $symbolic "${pwd}$1" "$wwwfile" >&2
+                   $sudo ln $symbolic "${pwd}$1" "$wwwfile"
       fi
    else
       echo "  -- $1 omitted --" >&2
