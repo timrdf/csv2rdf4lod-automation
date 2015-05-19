@@ -65,7 +65,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
 
    echo "Creating publication trigger." >&2
    nfo_filehashes="publish/`cr-sdv.sh`.nfo.ttl"
-   cr-default-prefixes.sh       > $nfo_filehashes 
+   cr-default-prefixes.sh --turtle > $nfo_filehashes 
    valid_rdf_files=''
    # NOTE: If this portion doesn't overwrite publish/bin/publish.sh, 
    #       then the outdated version will be run below.
