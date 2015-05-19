@@ -248,7 +248,7 @@ for sparql in $queryFiles; do
                 resultsFileAbstract=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "$resultsFile"`
          echo "$resultsFileAbstract"                                                                       >> $resultsFile.prov.ttl
          echo "   a prov:Entity;"                                                                          >> $resultsFile.prov.ttl
-         echo "   pml:wasDerivedFrom       <$sd_service>;"                                                 >> $resultsFile.prov.ttl
+         echo "   prov:wasDerivedFrom      <$sd_service>;"                                                 >> $resultsFile.prov.ttl
          echo "   pml:wasGeneratedWithPlan <$sparqlQuery_i>;"                                              >> $resultsFile.prov.ttl
          echo "   prov:wasQuotedFrom       <$request>;"                                                    >> $resultsFile.prov.ttl
          echo "   prov:qualifiedQuotation  <$quotation>;"                                                  >> $resultsFile.prov.ttl
@@ -259,7 +259,7 @@ for sparql in $queryFiles; do
          echo "   a prvtypes:SPARQLQuery;"                                                                 >> $resultsFile.prov.ttl
          echo "   prov:value \"\"\"$query_queryLIMIT_queryOFFSET\"\"\";"                                   >> $resultsFile.prov.ttl
          echo "   prov:specializationOf <$sparqlQuery>;"                                                   >> $resultsFile.prov.ttl
-         echo "   pml:wasDerivedFrom    <$sparqlQuery>;"                                                   >> $resultsFile.prov.ttl
+         echo "   prov:wasDerivedFrom   <$sparqlQuery>;"                                                   >> $resultsFile.prov.ttl
          if [[ ${#iteration} -gt 0 ]]; then
             echo "   pml:atIndex $iteration;"                                                              >> $resultsFile.prov.ttl
          fi
