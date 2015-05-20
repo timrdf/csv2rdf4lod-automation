@@ -122,6 +122,7 @@ results="results"
 if [ "$1" == "-od" -a $# -gt 1 ]; then
    shift
    results="$1"
+   echo "results to $results" >&2 
 fi
 if [ ! -d $results ]; then
    mkdir -p $results
@@ -336,7 +337,7 @@ for sparql in $queryFiles; do
          #echo "."                                                                                          >> $resultsFile.prov.ttl
 
          # If query results are "valid", and we were asked to exhaust the query with limit/offset...
-         if [[ `valid-rdf.sh $resultsFile` == 'yes' || \
+         if [[ `valid-rdf.sh $resultsFile` == 'yes' && `void-triples.sh $resultsFile` -gt 0 || \
                $output == 'csv' && `wc -l $resultsFile | awk '{print $1}'` -gt 1 ]]; then
             if [[ -n "$offset" && -n "$limit" ]]; then   
                if [[ "$offset" -eq 0 ]]; then
@@ -344,16 +345,22 @@ for sparql in $queryFiles; do
                fi
                let "offset=$offset+$limit"
                let "iteration=$iteration+1"
+               echo "            (continuing b/c"                                            >&2
+               echo "                    format  : $output"                                  >&2
+               echo "                 line count : `wc -l $resultsFile | awk '{print $1}'`"  >&2
+               echo "                 valid RDF  : `valid-rdf.sh $resultsFile`"              >&2
+               echo "                 triples    : `void-triples.sh $resultsFile`)"          >&2
             else
                offset=''
             fi
          else
             offset=''
-            #echo "  (not continuing)"
-            #echo "     format  : $output"
-            #echo "  valid RDF  : `valid-rdf.sh $resultsFile`"
-            #echo "  line count : `wc -l $resultsFile | awk '{print $1}'`"
-            # TODO: clean up last query result since it wasn't valid.
+            echo "            (not continuing b/c"                                        >&2
+               echo "                    format  : $output"                                  >&2
+               echo "                 line count : `wc -l $resultsFile | awk '{print $1}'`"  >&2
+               echo "                 valid RDF  : `valid-rdf.sh $resultsFile`"              >&2
+               echo "                 triples    : `void-triples.sh $resultsFile`)"          >&2
+            # TODO: clean up last query result since it wasn't valid. >&2
          fi 
       done
    done
