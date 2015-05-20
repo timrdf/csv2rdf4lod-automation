@@ -59,8 +59,10 @@
       <xsl:variable name="object"    select="if (starts-with(.,'http://') or 
                                                  starts-with(.,'https://')) 
                                              then concat($LT,.,$GT) 
-                                             else concat($DQ,.,$DQ)"/>
-      <xsl:value-of select="if (string-length(.)) 
+                                             else concat($DQ,$DQ,$DQ,
+                                                           replace(.,$DQ,concat('\\',$DQ)),
+                                                         $DQ,$DQ,$DQ)"/>
+      <xsl:value-of select="if (string-length(.) and not(@type='text/css')) 
                             then concat('   ',$predicate,' ',$object,';',$NL) 
                             else ''"/>
    </xsl:for-each>
