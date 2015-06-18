@@ -19,7 +19,7 @@ div="-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 if [[ "$1" == "--help" ]]; then
    echo
-   echo "usage: `basename $0` [-n] [--avoid-sudo]"
+   echo "usage: `basename $0` [-n] [--data-home <dir>] [--avoid-sudo]"
    echo
    echo "  Install the third-party utilities that csv2rdf4lod-automation uses."
    echo "  Will install everything relative to the path:"
@@ -27,6 +27,8 @@ if [[ "$1" == "--help" ]]; then
    echo "  See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Installing-csv2rdf4lod-automation---complete"
    echo
    echo "   -n          | Perform only a dry run. This can be used to get a sense of what will be done before we actually do it."
+   echo
+   echo "   --data-home : Directory to install 'data' applications (i.e. Virtuoso), in case default locations are 'too small'."
    echo
    echo "  --avoid-sudo : Avoid using sudo if at all possible. It's best to avoid root."
    echo
@@ -41,6 +43,15 @@ if [ "$1" == "-n" ]; then
    dryrun="true"
    $sibling/dryrun.sh $dryrun beginning
    TODO="[TODO]"
+   shift
+fi
+
+data_home=''
+if [ "$1" == '--data-home' ]; then
+   if [[ "$2" != --* ]]; then
+      data_home="$2"
+      shift
+   fi
    shift
 fi
 
@@ -464,7 +475,7 @@ virtuoso_installed=`$home/csv2rdf4lod-automation/bin/util/virtuoso/virtuoso-inst
 if [[ "$virtuoso_installed" == "no" && "$dryrun" != "true" ]]; then
    echo
    echo $div
-   read -p "Q: Try to install virtuoso at /opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
+   read -p "Q: Try to install virtuoso at $data_home/opt? (note: sudo *required*) (y/N) " -u 1 install_it # $base to be relative
 fi
 if [[ "$virtuoso_installed" == "no" ]]; then
    if [[ "$install_it" == [yY] || "$dryrun" == "true" && -n "$sudo" ]]; then
@@ -479,9 +490,11 @@ if [[ "$virtuoso_installed" == "no" ]]; then
               "$distributor" == "Debian"                                                            || \
               "$distributor" == "RedHatEnterpriseServer" ]]; then
 
+         sudo mkdir -p $data_home/opt
+
          # Using aptitude on Ubuntu lucid only installs Virtuoso 6.0, so we need to install it ourselves.
          url='http://sourceforge.net/projects/virtuoso/files/latest/download' # http://sourceforge.net/projects/virtuoso/
-         pushd /opt &> /dev/null # $base
+         pushd $data_home/opt &> /dev/null # $base
 
             # Find out the local name of the tarball that we will download (the version is in the local name).
             redirect=`curl -sLI $url | grep "^Location:" | tail -1 | sed 's/[^z]*$/\n/g' | awk '{printf("%s\n",$2)}'`
