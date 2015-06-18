@@ -18,12 +18,14 @@ function offer_install_with_yum_or_apt_ifnowhich {
          if [[ "$command" == '.' ]]; then
             if [[ `which apt-get    &> /dev/null` && \
                   `dpkg -s $package &> /dev/null` ]]; then # 0 is true, 1 is false
+               echo "dpkg -s says $package is already installed" >&2
                already_there='yes'
             elif [[ `which yum 2> /dev/null` ]]; then
                already_there='TODO'
             fi
          else
             if [[ `$sudo which $command 2> /dev/null` ]]; then
+               echo "$sudo which says $package is already installed" >&2
                already_there='yes'
             fi
          fi
