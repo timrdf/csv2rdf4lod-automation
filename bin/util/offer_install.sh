@@ -24,9 +24,11 @@ function offer_install_with_yum_or_apt_ifnowhich {
             echo "^^^^^ dpkg -s ^^^^"
             dpkg_installed_size=`dpkg -s $package 2> /dev/null | grep 'Installed-Size:'`
             echo "dpkg_installed_size $dpkg_installed_size"
-            if [[  `which apt-get    &> /dev/null` && \
-                 ( `dpkg -s $package &> /dev/null` || -n "$dpkg_installed_size" ) ]]; then # 0 is true, 1 is false
+            if [[ `which apt-get &> /dev/null` && `dpkg -s $package &> /dev/null` ]]; then # 0 is true, 1 is false
                echo "dpkg -s says $package is already installed"
+               already_there='yes'
+            elif [[ -n "$dpkg_installed_size" ]]; then
+               echo "grepping dpkg -s says $package is already installed"
                already_there='yes'
             elif [[ `which yum 2> /dev/null` ]]; then
                already_there='TODO'
