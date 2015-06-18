@@ -22,13 +22,13 @@ function offer_install_with_yum_or_apt_ifnowhich {
             #which apt-get
             #echo $?
             #echo "^^^^^ dpkg -s ^^^^"
-            if [[ `which apt-get &> /dev/null` && `dpkg -s $package &> /dev/null` ]]; then # 0 is true, 1 is false
+            if [[ `$sudo which apt-get &> /dev/null` && `$sudo dpkg -s $package &> /dev/null` ]]; then # 0 is true, 1 is false
                #echo "dpkg -s says $package is already installed"
                already_there='yes'
-            elif [[ "`dpkg -s $package 2> /dev/null | grep 'Installed-Size:'`" =~ .*Installed.* ]]; then
+            elif [[ "`$sudo dpkg -s $package 2> /dev/null | grep 'Installed-Size:'`" =~ .*Installed.* ]]; then
                #echo "grepping dpkg -s says $package is already installed"
                already_there='yes'
-            elif [[ `which yum 2> /dev/null` ]]; then
+            elif [[ `$sudo which yum 2> /dev/null` ]]; then
                already_there='TODO'
             fi
          else
@@ -65,7 +65,7 @@ function offer_install_with_yum_or_apt_ifnowhich {
             fi
          else
             if [[ "$command" == '.' ]]; then
-               if [[ `which dpkg &> /dev/null` ]]; then
+               if [[ `$sudo which dpkg &> /dev/null` ]]; then
                   echo "[okay] $package already available:"
                   echo dpkg -s $package
                else
