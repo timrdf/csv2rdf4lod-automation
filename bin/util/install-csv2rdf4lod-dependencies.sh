@@ -86,7 +86,23 @@ function offer_install_with_yum_or_apt_ifnowhich {
       command="$1"
       package="$2"
          if [[ -n "$command" && -n "$package" ]]; then
-            if [ ! `$sudo which $command 2> /dev/null` ]; then
+
+            already_there='no'
+            if [[ "$command" == '.' ]]; then
+               if [[ `which apt-get    &> /dev/null` && \
+                     `dpkg -s $package &> /dev/null` ]]; then # 0 is true, 1 is false
+                  already_there='yes'
+               elif [[ `which yum 2> /dev/null` ]]; then
+                  already_there='TODO'
+               fi
+            else
+               if [[ `$sudo which $command 2> /dev/null` ]]; then
+                  already_there='yes'
+               fi
+            fi
+
+            #if [[ ! `$sudo which $command 2> /dev/null` ]]; then
+            if [[ "$already_there" != 'yes' ]]; then
                if [ "$dryrun" != "true" ]; then
                   echo
                fi
@@ -168,7 +184,9 @@ if [[ ! `which rapper 2> /dev/null` ]]; then
 
       # libxml2
       if [[ `which apt-get 2> /dev/null` ]]; then
-         offer_install_with_yum_or_apt_ifnowhich 'libxml2__' 'libxml2'
+         #offer_install_with_yum_or_apt_ifnowhich 'libxml2__' 'libxml2'
+         offer_install_with_yum_or_apt_ifnowhich '.' 'libxml2'
+         offer_install_with_yum_or_apt_ifnowhich '.' 'libxml2-dev'
       elif [[ `which yum 2> /dev/null` ]]; then
          libxml2_installed=`yum list | grep ^libxml2-devel`
          if [[ -n "$libxml2_installed" ]]; then
