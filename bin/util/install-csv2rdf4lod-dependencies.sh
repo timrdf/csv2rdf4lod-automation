@@ -184,7 +184,6 @@ if [[ ! `which rapper 2> /dev/null` ]]; then
 
       # libxml2
       if [[ `which apt-get 2> /dev/null` ]]; then
-         #offer_install_with_yum_or_apt_ifnowhich 'libxml2__' 'libxml2'
          offer_install_with_yum_or_apt_ifnowhich '.' 'libxml2'
          offer_install_with_yum_or_apt_ifnowhich '.' 'libxml2-dev'
       elif [[ `which yum 2> /dev/null` ]]; then
