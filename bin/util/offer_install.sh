@@ -65,7 +65,7 @@ function offer_install_with_yum_or_apt_ifnowhich {
             fi
          else
             if [[ "$command" == '.' ]]; then
-               if [[ `$sudo which dpkg &> /dev/null` ]]; then
+               if [[ -e "`$sudo which dpkg 2> /dev/null`" ]]; then
                   echo "[okay] $package already available:"
                   echo dpkg -s $package
                else
