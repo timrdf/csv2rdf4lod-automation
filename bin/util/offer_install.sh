@@ -16,19 +16,17 @@ function offer_install_with_yum_or_apt_ifnowhich {
 
          already_there='no'
          if [[ "$command" == '.' ]]; then
-            echo "apt-get `which apt-get &> /dev/null` dpkg -s `dpkg -s $package &> /dev/null`" >&2
-            dpkg -s $package
-            echo $?
-            which apt-get
-            echo $?
-            echo "^^^^^ dpkg -s ^^^^"
-            dpkg_installed_size=`dpkg -s $package 2> /dev/null | grep 'Installed-Size:'`
-            echo "dpkg_installed_size $dpkg_installed_size"
+            #echo "apt-get `which apt-get &> /dev/null` dpkg -s `dpkg -s $package &> /dev/null`" >&2
+            #dpkg -s $package
+            #echo $?
+            #which apt-get
+            #echo $?
+            #echo "^^^^^ dpkg -s ^^^^"
             if [[ `which apt-get &> /dev/null` && `dpkg -s $package &> /dev/null` ]]; then # 0 is true, 1 is false
-               echo "dpkg -s says $package is already installed"
+               #echo "dpkg -s says $package is already installed"
                already_there='yes'
             elif [[ "`dpkg -s $package 2> /dev/null | grep 'Installed-Size:'`" =~ .*Installed.* ]]; then
-               echo "grepping dpkg -s says $package is already installed"
+               #echo "grepping dpkg -s says $package is already installed"
                already_there='yes'
             elif [[ `which yum 2> /dev/null` ]]; then
                already_there='TODO'
@@ -66,7 +64,16 @@ function offer_install_with_yum_or_apt_ifnowhich {
                fi
             fi
          else
-            echo "[okay] $command already available at `which $command 2> /dev/null`"
+            if [[ "$command" == '.' ]]; then
+               if [[ `which dpkg &> /dev/null` ]]; then
+                  echo "[okay] $package already available:"
+                  echo dpkg -s $package
+               else
+                  echo "[okay] $command already available at `which $command 2> /dev/null`"
+               fi
+            else
+               echo "[okay] $command already available at `which $command 2> /dev/null`"
+            fi
          fi
       fi
       which $command >& /dev/null
