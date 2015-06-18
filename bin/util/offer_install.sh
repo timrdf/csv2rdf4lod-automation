@@ -17,6 +17,8 @@ function offer_install_with_yum_or_apt_ifnowhich {
          already_there='no'
          if [[ "$command" == '.' ]]; then
             echo "apt-get `which apt-get &> /dev/null` dpkg -s `dpkg -s $package &> /dev/null`" >&2
+            dpkg -s $package
+            echo "^^^^^ dpkg -s ^^^^"
             if [[ `which apt-get    &> /dev/null` && \
                   `dpkg -s $package &> /dev/null` ]]; then # 0 is true, 1 is false
                echo "dpkg -s says $package is already installed" >&2
