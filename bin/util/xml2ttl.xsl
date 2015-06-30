@@ -8,11 +8,13 @@
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
    xmlns:this="https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/xml2ttl.xsl"
+   xmlns:uuid="java:java.util.UUID"
    exclude-result-prefixes="xs">
 
 <xsl:output method="text"/>
 
-<xsl:variable name="ignore-namespaces" select="true()"/>
+<xsl:param name="ignore-namespaces" select="true()"/>
+<xsl:param name="pretty-naming"     select="false()"/>
 
 <xsl:variable name="prefixes">
 <xsl:text><![CDATA[@prefix prov:    <http://www.w3.org/ns/prov#> .
@@ -46,7 +48,16 @@
    <xsl:variable name="element-name" select="if ($ignore-namespaces) then local-name() else name()"/>
 
    <xsl:variable name="element-id">
-      <xsl:number count="*[local-name(.)=$element-name] | @*[local-name(.)=$element-name]" level="any"/>
+      <xsl:choose>
+         <xsl:when test="$pretty-naming">
+            <!-- it takes minutes+ on a 60MB XML file with: -->
+            <xsl:number count="*[local-name(.)=$element-name] | @*[local-name(.)=$element-name]" level="any"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <!-- it takes ~15 seconds on a 60MB XML file with: -->
+            <xsl:copy-of select="uuid:randomUUID()"/>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:variable>
 
    <xsl:value-of select="concat('&lt;',$element-name,'/',$element-id,'&gt;',$NL,
@@ -71,7 +82,16 @@
    <xsl:for-each select="*[*|@*]">
       <xsl:variable name="child-name" select="if ($ignore-namespaces) then local-name() else name()"/>
       <xsl:variable name="child-id">
-         <xsl:number count="*[local-name(.)=$child-name] | @*[local-name(.)=$child-name]" level="any"/>
+         <xsl:choose>
+            <xsl:when test="$pretty-naming">
+               <!-- it takes minutes+ on a 60MB XML file with: -->
+               <xsl:number count="*[local-name(.)=$child-name] | @*[local-name(.)=$child-name]" level="any"/>
+            </xsl:when>
+            <xsl:otherwise>
+               <!-- it takes ~15 seconds on a 60MB XML file with: -->
+               <xsl:copy-of select="uuid:randomUUID()"/>
+            </xsl:otherwise>
+         </xsl:choose>
       </xsl:variable>
       <xsl:value-of select="concat('   lmx:child &lt;',$child-name,'/',$child-id,'&gt;;',$NL)"/>
    </xsl:for-each>
