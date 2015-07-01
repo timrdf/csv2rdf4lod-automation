@@ -197,7 +197,8 @@ else
       # > > > > > > > > > > > > > > > > >
       pushd `dirname $consequent` &> /dev/null # in manual/
       consequentURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "\`basename $consequent\`"`
-      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "`basename $consequent`"                     >> `basename $consequent.$prov.ttl`
+      #$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "`basename $consequent`"                    >> `basename $consequent.$prov.ttl`
+      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$consequent"                                >> $consequent.$prov.ttl
       popd &> /dev/null
       # > > > > > > > > > > > > > > > > >
 
@@ -220,9 +221,11 @@ else
       # > > > > > > > > > > > > > > > > >
       antecedentFileURI=""
       if [[ -e "$antecedent" ]]; then
+      antecedentFileURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "$antecedent"`
       pushd `dirname $consequent` &> /dev/null # in manual/
-      antecedentFileURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "../$antecedent"`
-      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "../$antecedent"                             >> `basename $consequent.$prov.ttl`
+      #antecedentFileURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "../$antecedent"`
+      #$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "../$antecedent"                            >> `basename $consequent.$prov.ttl`
+      $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$antecedent"                                >> $consequent.$prov.ttl
       popd &> /dev/null
       fi
       # > > > > > > > > > > > > > > > > >
