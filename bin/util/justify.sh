@@ -195,11 +195,12 @@ else
       echo                                                                                    >> $consequent.$prov.ttl
 
       # > > > > > > > > > > > > > > > > >
-      pushd `dirname $consequent` &> /dev/null # in manual/
-      consequentURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "\`basename $consequent\`"`
+      consequentURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "$consequent"`
+      #pushd `dirname $consequent` &> /dev/null # in manual/
+      #consequentURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "\`basename $consequent\`"`
       #$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "`basename $consequent`"                    >> `basename $consequent.$prov.ttl`
       $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$consequent"                                >> $consequent.$prov.ttl
-      popd &> /dev/null
+      #popd &> /dev/null
       # > > > > > > > > > > > > > > > > >
 
       echo                                                                                    >> $consequent.$prov.ttl
