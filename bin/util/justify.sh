@@ -223,11 +223,11 @@ else
       antecedentFileURI=""
       if [[ -e "$antecedent" ]]; then
       antecedentFileURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "$antecedent"`
-      pushd `dirname $consequent` &> /dev/null # in manual/
+      #pushd `dirname $consequent` &> /dev/null # in manual/
       #antecedentFileURI=`$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh --foci "../$antecedent"`
       #$CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "../$antecedent"                            >> `basename $consequent.$prov.ttl`
       $CSV2RDF4LOD_HOME/bin/util/nfo-filehash.sh "$antecedent"                                >> $consequent.$prov.ttl
-      popd &> /dev/null
+      #popd &> /dev/null
       fi
       # > > > > > > > > > > > > > > > > >
 
