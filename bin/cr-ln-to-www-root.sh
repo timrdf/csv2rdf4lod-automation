@@ -117,7 +117,10 @@ while [ $# -gt 0 ]; do
 
    # publish/sitemap.xml
    if [ -e "$file" ]; then
+      # automatic/www.cv-foundation.org/openaccess/content_cvpr_2014/papers/Redi_6_Seconds_of_2014_CVPR_paper.txt.prov.ttl
+
       directory=`dirname $file`
+      directory=${file%%/*}
       if [[ "$directory" == 'source'    || "$directory" == "manual" || \
             "$directory" == 'automatic' || "$directory" == "publish" ]]; then
          lnwww $file $directory
