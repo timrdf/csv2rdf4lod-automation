@@ -28,6 +28,9 @@ fi
 if [ "$1" == "--attribute-value" ]; then
    echo cr-base-uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} cr-source-id=`cr-source-id.sh` cr-dataset-id=`cr-dataset-id.sh` cr-version-id=`cr-version-id.sh`
    exit
+elif [ "$1" == "--attribute-value--" ]; then
+   echo --cr-base-uri=${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI} --cr-source-id=`cr-source-id.sh` --cr-dataset-id=`cr-dataset-id.sh` --cr-version-id=`cr-version-id.sh`
+   exit
 fi
 
 delim="-"
