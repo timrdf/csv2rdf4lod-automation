@@ -27,16 +27,18 @@ function download() {
    echo $link
 }
 
+normalform='nt'
+normalform='ttl'
 function normalize() {
    file="$1"
-   norm="$file.norm.ttl"
-   rdf2ttl.sh $file > $norm
+   norm="$file.norm.$normalform"
+   rdf2$normalform.sh $file > $norm
    echo $norm
 }
 
 function sortnorm() {
    file="$1"
-   sorted="$file.sorted.ttl"
+   sorted="$file.sorted.$normalform"
    cat "$file" | sort > $sorted
    echo $sorted
 }
