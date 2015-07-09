@@ -34,7 +34,10 @@ if [ $# -lt 1 ]; then
    echo "    default -o          : $outputTypes"
    echo "    default -q          : *.sparql *.rq"
    echo " --limit-offset [count] : iterate with LIMIT / OFFSET until no more useful results. If no LIMIT in a.sparql, defaults to 10000."
-   echo "          --nap [count] : sleep on avg [count] seconds between --limit-offset queries; '0' will not nap, default is '5'."
+   echo "                        : Note that Virtuoso's default LIMIT restriction is 10,000 -- so going above that is a bad idea."
+   echo "          --nap [count] : sleep **on average** [count] seconds between --limit-offset queries; '0' will not nap, default is '5'."
+   echo "                        : in all cases, if the previous request time takes longer than the specified nap time,"
+   echo "                        : `basename $0` will use the previous request time as the upper bound sleep cap."
    echo "  --strip-count         : modify the SPARQL query to remove count() operator."
    echo "                          e.g. 'select count(distinct ?s) where' --> 'select distinct ?s where'"
    echo "            -od         : output directory"
@@ -122,7 +125,7 @@ results="results"
 if [ "$1" == "-od" -a $# -gt 1 ]; then
    shift
    results="$1"
-   echo "results to $results" >&2 
+   #echo "results to $results" >&2 
 fi
 if [ ! -d $results ]; then
    mkdir -p $results
@@ -205,16 +208,67 @@ for sparql in $queryFiles; do
          if [[ "$offset" -eq 0 ]]; then
             printf "  $output -> $resultsFile"
          else
-            if [[ "$nap" -gt 0 ]]; then
-               sec=$(($RANDOM%$nap))
-               zzz="zzz $sec"
+            adaptiveNapL=" sec."
+            if [[ -n "$requestDuration" && $requestDuration -gt 1 ]]; then
+               if [[ -n "$nap" && $nap -gt 0 ]]; then
+                  if [[ $requestDuration -gt $nap ]]; then
+                     adaptiveNap=$requestDuration
+                     adaptiveNapL="'|$requestDuration > $nap sec."
+                     #
+                     # When each request "happens to be" at least 10 seconds,
+                     #     2 5,000/5,000   zzz 1'|11  > 5 sec.
+                     #     3 5,000/10,000  zzz 3'|10  > 5 sec.
+                     #     4 5,000/15,000  zzz 10'|11 > 5 sec.
+                     #     5 5,000/20,000  zzz 2'|12  > 5 sec.
+                     #     6 5,000/25,000  zzz 1'|11  > 5 sec.
+                     #     7 5,000/30,000  zzz 2'|11  > 5 sec.
+                     #     8 5,000/35,000  zzz 0'|11  > 5 sec.
+                     #     9 5,000/40,000  zzz 2'|11  > 5 sec.
+                     #     10 5,000/45,000 zzz 3'|11  > 5 sec.
+                     #     11 5,000/50,000 zzz 8'|11  > 5 sec.
+                     #     12 5,000/55,000 zzz 0'|11  > 5 sec.
+                     #     13 5,000/60,000 zzz 3'|11  > 5 sec.
+                     #     14 5,000/65,000 zzz 2'|10  > 5 sec.
+                     #     15 5,000/70,000 zzz 0'|11  > 5 sec.
+                     #     16 5,000/75,000 zzz 7'|11  > 5 sec.
+                     #     17 5,000/80,000 zzz 0'|11  > 5 sec.
+                     #     18 5,000/85,000 zzz 2'|11  > 5 sec.
+                     #     19 5,000/90,000 zzz 2'|11  > 5 sec.
+                  else
+                     adaptiveNap=$nap
+                  fi
+               else
+                  # There was no $nap set, so step in and nap it.
+                  adaptiveNap=$requestDuration
+                  adaptiveNapL="'|$requestDuration > $nap sec."
+               fi
+            else
+               adaptiveNap=$nap
             fi
-            echo   "  `echo $output | sed 's/./ /g'`    $iteration $limit/$offset $zzz"
-            if [[ "$nap" -gt 0 ]]; then
+            if [[ "$adaptiveNap" -gt 0 ]]; then
+               sec=$(($RANDOM%$adaptiveNap))
+               if [[ "$sec" -gt 0 ]]; then
+                  zzz="zzz $sec"
+               else
+                  zzz=''
+                  adaptiveNapL="|$requestDuration sec."
+               fi
+            else
+               adaptiveNapL="|$requestDuration sec."
+            fi
+            # http://stackoverflow.com/questions/9374868/number-formatting-in-bash-with-thousand-separator
+            iterationL=`printf "%'.0f\n" $iteration`
+            limitL=`    printf "%'.0f\n" $limit`
+            offsetL=`   printf "%'.0f\n" $offset`
+            echo   "  `echo $output | sed 's/./ /g'`    $iterationL $limitL/$offsetL $zzz$adaptiveNapL"
+            if [[ "$sec" -gt 0 ]]; then
                sleep $sec
             fi
          fi
+         startedAtTime=`date +"%s"`
          curl -L "$request" > $resultsFile 2> /dev/null
+         endedAtTime=`date +"%s"`
+         let "requestDuration=endedAtTime-startedAtTime"
          usageDateTime=`dateInXSDDateTime.sh`
          usageDateTimePath=`dateInXSDDateTime.sh --uri-path $usageDateTime`
 
@@ -345,21 +399,21 @@ for sparql in $queryFiles; do
                fi
                let "offset=$offset+$limit"
                let "iteration=$iteration+1"
-               echo "            (continuing b/c"                                            >&2
-               echo "                    format  : $output"                                  >&2
-               echo "                 line count : `wc -l $resultsFile | awk '{print $1}'`"  >&2
-               echo "                 valid RDF  : `valid-rdf.sh $resultsFile`"              >&2
-               echo "                 triples    : `void-triples.sh $resultsFile`)"          >&2
+               #echo "            (continuing b/c"                                            >&2
+               #echo "                    format  : $output"                                  >&2
+               #echo "                 line count : `wc -l $resultsFile | awk '{print $1}'`"  >&2
+               #echo "                 valid RDF  : `valid-rdf.sh $resultsFile`"              >&2
+               #echo "                 triples    : `void-triples.sh $resultsFile`)"          >&2
             else
                offset=''
             fi
          else
             offset=''
             echo "            (not continuing b/c"                                        >&2
-               echo "                    format  : $output"                                  >&2
-               echo "                 line count : `wc -l $resultsFile | awk '{print $1}'`"  >&2
-               echo "                 valid RDF  : `valid-rdf.sh $resultsFile`"              >&2
-               echo "                 triples    : `void-triples.sh $resultsFile`)"          >&2
+               #echo "                    format  : $output"                                  >&2
+               #echo "                 line count : `wc -l $resultsFile | awk '{print $1}'`"  >&2
+               #echo "                 valid RDF  : `valid-rdf.sh $resultsFile`"              >&2
+               #echo "                 triples    : `void-triples.sh $resultsFile`)"          >&2
             # TODO: clean up last query result since it wasn't valid. >&2
          fi 
       done
