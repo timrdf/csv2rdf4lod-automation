@@ -32,12 +32,14 @@ CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh o
 limit_offset='1000'
 if [[ "$1" == '--limit-offset' ]]; then
    limit_offset="$2"
+   arg_limit_offset="$1 $2"
    shift 2
 fi
 
 destination='vload'
 if [[ "$1" == '--to' ]]; then
    destination="$2" # 'files'
+   arg_to="$1 $2"
    shift 2
 fi
 
@@ -60,11 +62,29 @@ while [ $# -gt 0 ]; do
    #
    # Query it in via cache-queries (this models the endpoint and query explicitly).
    #
-   if [[ "$sd_name" == 'cr:none' ]]; then
+   if [[ "$sd_name" == 'cr:all' ]]; then
+
+      query="select distinct ?g where { graph ?g { [] a [] } }" # Note, might miss some --
+                                                                # could use ?p but might be slower...
+      endpoint_path=`noprotocolnohash $endpoint`
+      rq=$endpoint_path/__sd_name__.rq
+      nt=$endpoint_path/__sd_name__.nt
+      mkdir -p `dirname $rq`
+      echo $query > $rq
+      #                                                       \/        \/ hacks applies only to Virtuoso
+      ${CSV2RDF4LOD_HOME}/bin/util/cache-queries.sh $endpoint -p format -o xml -q $rq -od `dirname $rq`
+     
+      for sd_name in `saxon.sh ${CSV2RDF4LOD_HOME}/bin/util/get-binding.xsl a a -v name=g -in $rq.xml`; do
+         $0 $arg_limit_offset $arg_to $endpoint "$sd_name"
+      done 
+
+      exit 
+   elif [[ "$sd_name" == 'cr:none' ]]; then
       query="construct { ?s ?p ?o } where {                   ?s ?p ?o  }"
    else
       query="construct { ?s ?p ?o } where { graph <$sd_name> {?s ?p ?o} }"
    fi
+
 
    if [[ "$destination" == 'vload' ]]; then
 
@@ -102,16 +122,23 @@ while [ $# -gt 0 ]; do
       rq=$endpoint_path/__sd_name__/$sd_name_path/spo.rq
       nt=$endpoint_path/__sd_name__/$sd_name_path/spo.nt
       mkdir -p `dirname $rq`
-      echo $query > $rq
 
-      #echo
-      #echo                                          $endpoint -p format -o xml -q $rq --limit-offset $limit_offset -od `dirname $rq`
-      ${CSV2RDF4LOD_HOME}/bin/util/cache-queries.sh $endpoint -p format -o xml -q $rq --limit-offset $limit_offset -od `dirname $rq`
+      if [[ ! -e $nt ]]; then
+         echo $query > $rq
 
-      ${CSV2RDF4LOD_HOME}/bin/util/rdf2nt.sh $rq*.xml > $nt
-      if [[ `void-triples.sh $nt` -gt 0 ]]; then
-         rm $rq*.xml
-         # TODO: what about the prov.ttl files?
+         ${CSV2RDF4LOD_HOME}/bin/util/cache-queries.sh $endpoint -p format -o xml -q $rq --limit-offset $limit_offset --nap 0 -od `dirname $rq`
+
+         ${CSV2RDF4LOD_HOME}/bin/util/rdf2nt.sh $rq*.xml > $nt
+         if [[ `void-triples.sh $nt` -gt 0 ]]; then
+            for portion in $rq*.xml; do
+               if [[ `valid-rdf.sh $portion` ]]; then
+                  rm $portion
+               fi
+            done
+            # TODO: handle the prov.ttl files.
+         fi
+      else
+         echo "skipping b/c already exists: $nt"
       fi
    else
       echo "ERROR: did not recognize destination type"
