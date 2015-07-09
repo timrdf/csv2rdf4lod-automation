@@ -39,7 +39,7 @@ function offer_install_with_yum_or_apt_ifnowhich {
          fi
 
          #if [[ ! `$sudo which $command 2> /dev/null` ]]; then
-         echo "already there: $already_there"
+         #echo "already there: $already_there"
          if [[ "$already_there" != 'yes' ]]; then
             if [ "$dryrun" != "true" ]; then
                echo
@@ -67,7 +67,7 @@ function offer_install_with_yum_or_apt_ifnowhich {
             if [[ "$command" == '.' ]]; then
                if [[ -e "`$sudo which dpkg 2> /dev/null`" ]]; then
                   echo "[okay] $package already available:"
-                  dpkg -s $package | awk '{print "[okay]    "$1}'
+                  dpkg -s $package | awk '{print "[okay]    "$0}'
                else
                   echo "[okay] no dpkg (sudo=$sudo): `$sudo which dpkg`"
                fi
