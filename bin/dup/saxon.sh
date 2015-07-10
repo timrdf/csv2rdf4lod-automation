@@ -45,7 +45,7 @@ input_extension="any"
 output_extension="any"
 replace_extension="false"
 
-usage_message="usage: `basename $0` [-cp classpath] the.xsl input_extension output_extension [-w] [-od path/to/output/to] [-v a=1 b=2 ... -in] some.$input_extension [another.$input_extension ...]" 
+usage_message="usage: `basename $0` [-cp classpath] [--memory {4,8,16,...}] [-D -Da=1 -Db=2 ... -using] the.xsl input_extension output_extension [-w] [-od path/to/output/to] [-v a=1 b=2 ... -in] some.$input_extension [another.$input_extension ...]" 
 
 if [[ $# -lt 3 ]]; then
    echo $usage_message 
@@ -55,6 +55,55 @@ add_cp="NOCLASSPATH"
 if [[ $1 == "-cp" ]]; then
    add_cp="$2"
    shift 2
+fi
+
+memory_option="-Xmx1024m"
+  memory2_4='-Xms2048m -Xmx4096m'
+  memory4_8='-Xms4096m -Xmx8192m'
+ memory8_16='-Xms8192m -Xmx16384m'
+if [[ $1 == "--memory" ]]; then
+   if [[ "$2" == '4' ]]; then
+      memory_option=$memory2_4
+      shift
+   elif [[ "$2" == '8' ]]; then
+      memory_option=$memory4_8
+      shift
+   elif [[ "$2" == '16' ]]; then
+      memory_option=$memory8_16
+      shift
+   elif [[ "$2" == '32' ]]; then
+      memory_option=$memory8_16
+      shift
+   elif [[ "$2" == '64' ]]; then
+      memory_option=$memory8_16
+      shift
+   elif [[ "$2" == '128' ]]; then
+      memory_option=$memory8_16
+      shift
+   elif [[ "$2" == '256' ]]; then
+      memory_option=$memory8_16
+      shift
+   elif [[ "$2" == '512' ]]; then
+      memory_option=$memory8_16
+      shift
+   else
+      memory_option=$memory2_4
+   fi
+   shift
+else
+   memory_option=$memory2_4
+fi
+
+entex_option='-DentityExpansionLimit=1000000' # http://dblp.dagstuhl.de/faq/How+to+parse+dblp+xml.html
+
+javaargs=""
+if [[ "$1" = "-D" ]]; then
+   shift
+   while [ "$1" != "--using" ]; do
+      javaargs="$vars $1"
+      shift
+   done 
+   shift # peel "-in"
 fi
 
 if [[ $# -lt 3 ]]; then
@@ -150,12 +199,6 @@ if [ "$add_cp" != "NOCLASSPATH" ]; then
    cp="$add_cp":$CLASSPATH
 fi
 
-memory_option="-Xmx1024m"
-memory2_4='-Xms2048m -Xmx4096m'
-memory4_8='-Xms4096m -Xmx8192m'
-memory20_24='-Xms4096m -Xmx8192m'
-memory_option=$memory4_8
-
 class="net.sf.saxon.Transform"
 while [ $# -gt 0 ]; do
    artifact="$1"
@@ -180,16 +223,16 @@ while [ $# -gt 0 ]; do
       if [ ! -e $outfile -o $overwrite = "yes" ]; then
          echo $base $outfile
         #echo java $memory_option $cp $class -dtd:off $cxsl $artifact $xsl $vars _to_ $outfile
-              java $memory_option $cp $class -dtd:off $cxsl $artifact $xsl $vars    > $outfile
+              java $memory_option $javaargs $cp $class -dtd:off $cxsl $artifact $xsl $vars    > $outfile
       else 
          echo "$base    WARNING: $outfile already exists. Did not overwrite."
       fi
    else
       # Only one file was given
       if [ $overwrite = "yes" ]; then
-         java $memory_option $cp $class -dtd:off $cxsl $artifact $xsl $vars > $outfile
+         java $memory_option $javaargs $cp $class -dtd:off $cxsl $artifact $xsl $vars > $outfile
       else
-         java $memory_option $cp $class -dtd:off $cxsl $artifact $xsl $vars
+         java $memory_option $javaargs $cp $class -dtd:off $cxsl $artifact $xsl $vars
      fi
    fi
 done
