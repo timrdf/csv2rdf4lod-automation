@@ -21,10 +21,10 @@
 outputTypes="sparql xml"
 
 if [ $# -lt 1 ]; then
-   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+] \
-                                         [-q a.sparql b.sparql ...]*                              \
-                                         [--limit-offset [count]] \ [--nap [count]]               \
-                                         [--strip-count] [-od path/to/output/dir]"
+   echo "usage: `basename $0` <endpoint> [-p {output,format}] [-o {sparql,gvds,xml,exhibit,csv}+]"
+   echo "                                   [-q a.sparql b.sparql ...]*"
+   echo "                                   [--limit-offset [count]] [--nap [count]]"
+   echo "                                   [--strip-count] [-od path/to/output/dir]"
    echo
    echo "    Executes SPARQL queries against an endpoint requesting the given output formats."
    echo
@@ -178,6 +178,7 @@ for sparql in $queryFiles; do
 
       # $offset starts at '0' and becomes either '' or a number e.g. '10000'
       # So, will run first time and maybe more.
+      lastResultsFile=''
       while [ -n "$offset" ]; do
          query=`cr-urlencode.sh --from-file "$TEMPrq"`
          qi='' # '' -> '_2' -> '_3' ...
@@ -185,7 +186,7 @@ for sparql in $queryFiles; do
          if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
             echo "limit_is_in_query : |$limit_is_in_query|" >&2
          fi
-         [[ "$limit_is_in_query" == 'yes' || -z "$limit" ]] && queryLIMIT='' || queryLIMIT=`cr-urlencode.sh " limit $limit"`
+         [[ "$limit_is_in_query" == 'yes' || -z "$limit" ]] && queryLIMIT='' || queryLIMIT='%0A'`cr-urlencode.sh " limit $limit"`
          if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
             echo "queryLIMIT : |$queryLIMIT|" >&2
          fi
@@ -194,7 +195,7 @@ for sparql in $queryFiles; do
          if [[ -n "$offset" ]]; then   
             if [[ "$offset" -gt 0 ]]; then
                qi=".$iteration"
-               queryOFFSET=`cr-urlencode.sh " offset $offset "`
+               queryOFFSET='%0A'`cr-urlencode.sh " offset $offset "`
             fi
          fi
          escapedOutput=`cr-urlencode.sh $output`
@@ -390,32 +391,49 @@ for sparql in $queryFiles; do
          #echo "   pmlb:value     \"\"\"`cat $sparql`\"\"\";"                                               >> $resultsFile.prov.ttl
          #echo "."                                                                                          >> $resultsFile.prov.ttl
 
+         psychotic='no'
+         if [[ -n "$lastResultsFile" && -e "$lastResultsFile" ]]; then
+            diffs=`diff --brief "$lastResultsFile" "$resultsFile"`
+            if [ ${#diffs} -gt 0 ]; then
+               psychotic='no'
+            else
+               psychotic='yes'
+               #echo "WARNING: $lastResultsFile is no different than $resultsFile; we're psychotic"
+            fi
+         fi
+
          # If query results are "valid", and we were asked to exhaust the query with limit/offset...
-         if [[ `valid-rdf.sh $resultsFile` == 'yes' && `void-triples.sh $resultsFile` -gt 0 || \
-               $output == 'csv' && `wc -l $resultsFile | awk '{print $1}'` -gt 1 ]]; then
+         if [[ ( `valid-rdf.sh $resultsFile` == 'yes' && `void-triples.sh $resultsFile` -gt 0 \
+                  ||                                                                          \
+                 $output == 'csv' && `wc -l $resultsFile | awk '{print $1}'` -gt 1) &&        \
+               $psychotic != 'yes' ]]; then
+
             if [[ -n "$offset" && -n "$limit" ]]; then   
                if [[ "$offset" -eq 0 ]]; then
                   echo
                fi
                let "offset=$offset+$limit"
                let "iteration=$iteration+1"
-               #echo "            (continuing b/c"                                            >&2
-               #echo "                    format  : $output"                                  >&2
-               #echo "                 line count : `wc -l $resultsFile | awk '{print $1}'`"  >&2
-               #echo "                 valid RDF  : `valid-rdf.sh $resultsFile`"              >&2
-               #echo "                 triples    : `void-triples.sh $resultsFile`)"          >&2
+               echo "            (continuing b/c"                                            >&2
+               echo "                 psychotic  : $psychotic"                               >&2
+               echo "                    format  : $output"                                  >&2
+               echo "                 line count : `wc -l $resultsFile | awk '{print $1}'`"  >&2
+               echo "                 valid RDF  : `valid-rdf.sh $resultsFile`"              >&2
+               echo "                 triples    : `void-triples.sh $resultsFile`)"          >&2
             else
                offset=''
             fi
          else
             offset=''
             echo "            (not continuing b/c"                                        >&2
-               #echo "                    format  : $output"                                  >&2
-               #echo "                 line count : `wc -l $resultsFile | awk '{print $1}'`"  >&2
-               #echo "                 valid RDF  : `valid-rdf.sh $resultsFile`"              >&2
-               #echo "                 triples    : `void-triples.sh $resultsFile`)"          >&2
+            echo "                 psychotic  : $psychotic"                               >&2
+            echo "                    format  : $output"                                  >&2
+            echo "                 line count : `wc -l $resultsFile | awk '{print $1}'`"  >&2
+            echo "                 valid RDF  : `valid-rdf.sh $resultsFile`"              >&2
+            echo "                 triples    : `void-triples.sh $resultsFile`)"          >&2
             # TODO: clean up last query result since it wasn't valid. >&2
          fi 
+         lastResultsFile="$resultsFile"
       done
    done
    echo ""
