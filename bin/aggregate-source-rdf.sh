@@ -27,7 +27,7 @@
 #    CSV2RDF4LOD_PUBLISH_ANNOUNCE_ONLY_ENHANCED
 
 if [[ $# -lt 1 || "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [--compress] [--turtle] [--ntriples] [--rdfxml] [--link-as-latest] source/some.{rdf,ttl,nt}"
+   echo "usage: `basename $0` [--[no-]compress] [--[no-]turtle] [--[no-]ntriples] [--[no-]rdfxml] [--link-as-latest] source/some.{rdf,ttl,nt}"
    echo "  will create publish/*.ttl and publish/bin"
    echo "  --compress : gzip    publish/*"
    echo "  --turtle   : include publish/*.ttl"
@@ -44,38 +44,47 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
-compress="no"
-gz=''
+compress="${CSV2RDF4LOD_PUBLISH_COMPRESS:-'false'}"
 if [[ "$1" == "--compress" ]]; then
-   compress="yes"
-   gz=".gz"
+   compress="true"
    shift
-elif [[ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" ]]; then
-   compress="yes"
-   gz=".gz"
+elif [[ "$1" == "--no-compress" ]]; then
+   compress="false"
+   shift
 fi
 
-turtle="no"
+[[ "$compress" == 'true' ]] && gz='.gz' || gz=''
+
+turtle="${CSV2RDF4LOD_PUBLISH_TTL:-'false'}"
 if [ "$1" == "--turtle" ]; then
-   turtle="yes"
+   turtle="true"
+   shift
+elif [ "$1" == "--no-turtle" ]; then
+   turtle="false"
    shift
 fi
 
-ntriples="no"
+ntriples="${CSV2RDF4LOD_PUBLISH_NT:-'false'}"
 if [ "$1" == "--ntriples" ]; then
-   ntriples="yes"
+   ntriples="true"
+   shift
+elif [ "$1" == "--no-ntriples" ]; then
+   ntriples="false"
    shift
 fi
 
-rdfxml="no"
+rdfxml="${CSV2RDF4LOD_PUBLISH_RDFXML:-'false'}"
 if [ "$1" == "--rdfxml" ]; then
-   rdfxml="yes"
+   rdfxml="true"
+   shift
+elif [ "$1" == "--no-rdfxml" ]; then
+   rdfxml="false"
    shift
 fi
 
-link_latest="no"
+link_latest="false"
 if [ "$1" == "--link-as-latest" ]; then
-   link_latest="yes"
+   link_latest="true"
    shift
 fi
 
@@ -105,7 +114,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    #
    #    CSV2RDF4LOD_PUBLISH_COMPRESS                             
 
-   if [[ "$CSV2RDF4LOD_PUBLISH_NT" == "true" || "$ntriples" == "true" ]]; then
+   if [[ "$ntriples" == "true" ]]; then
       if [[ "$CSV2RDF4LOD_PUBLISH_COMPRESS" == "true" || "$compress" == "true" ]]; then
          echo "publish/$sdv.nt.gz"
          rdf2nt.sh $* | gzip           > publish/$sdv.nt.gz
@@ -117,7 +126,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
       echo "publish/$sdv.nt[.gz] - skipping; set CSV2RDF4LOD_PUBLISH_NT=true to publish as N-TRIPLES." 
    fi
 
-   if [[ "$CSV2RDF4LOD_PUBLISH_TTL" == "true" || "$turtle" == "true" ]]; then
+   if [[ "$turtle" == "true" ]]; then
       echo "publish/$sdv.ttl$gz"
       rm -f publish/$sdv.ttl
       for file in $*; do
@@ -126,7 +135,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
 
             relatively_safe=`cr-relatively-safe.sh $file`
             REL_WARNING=''
-            #if [[ "$relatively_safe" == 'no' ]]; then
+            #if [[ "$relatively_safe" == 'false' ]]; then
             #   REL_WARNING=', WARNING: not relatively safe'
             #   fileBase=`cr-ln-to-www-root.sh -n --url-of-filepath $file`
             #   fileBase=`dirname $fileBase`
@@ -171,7 +180,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
    echo "publish/$sdv.void.ttl"
    rr-create-void.sh publish/$sdv.*                   > publish/$sdv.void.ttl
 
-   if [[ "$link_latest" == "yes" && "$versionID" != "latest" ]]; then
+   if [[ "$link_latest" == "true" && "$versionID" != "latest" ]]; then
       # from:
       # source/tw-rpi-edu/cr-publish-void-to-endpoint/version/2012-Sep-26
       #

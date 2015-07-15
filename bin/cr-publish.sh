@@ -19,7 +19,7 @@
 #   limitations under the License.
 
 if [[ "$1" == "--help" ]]; then
-   echo "usage: `basename $0` [-n] [--idempotent]"
+   echo "usage: `basename $0` [-n] [--[no-]compress] [--[no-]turtle] [--[no-]ntriples] [--[no-]rdfxml] [--idempotent]"
    echo ""
    echo "  Run each conversion cockpit's publish/bin/publish.sh"
    echo "    Processing is controlled by CSV2RDF4LOD_ environment variables in the usual way."
@@ -47,6 +47,12 @@ if [ "$1" == "-n" ]; then
    dryrun.sh $dryrun beginning
    shift 
 fi
+
+serialization_flags=''
+while [[ "$1" == '--compress'    || "$1" == '--turtle'    || "$1" == '--ntriples'    || "$1" == '--rdfxml' || \
+         "$1" == '--no-compress' || "$1" == '--no-turtle' || "$1" == '--no-ntriples' || "$1" == '--no-rdfxml' ]]; do
+   serialization_flags="$serialization_flags $1" && shift
+done
 
 idempotent="whatever"
 if [ "$1" == "--idempotent" ]; then
@@ -87,7 +93,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
       fi
    done
    if [[ -n "$valid_rdf_files" ]]; then
-      aggregate-source-rdf.sh $valid_rdf_files $nfo_filehashes
+      aggregate-source-rdf.sh $serialization_flags $valid_rdf_files $nfo_filehashes
    fi
    exit # If we don't bail here, it becomes an infinite loop.
 fi
