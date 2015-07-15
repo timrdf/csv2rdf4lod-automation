@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+#3> <> a conversion:PreparationTrigger; # Could also be conversion:Idempotent;
+#3>    foaf:name "prepare.sh";
+#3>    rdfs:seeAlso
+#3>     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset>,
+#3>     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Triggers>,
+#3>     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-trigger>,
+#3>     <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Conversion-cockpit>;
+#3> .
+#
+# This script is responsible for processing files in source/ and storing their modified forms
+# as files in the manual/ directory. These modified files should be ready for conversion.
+# 
+# This script is also responsible for constructing the conversion trigger
+#   (e.g., with cr-create-conversion-trigger.sh -w manual/*.csv)
+#
+# When this script resides in a cr:directory-of-versions directory,
+# (e.g. source/datahub-io/corpwatch/version)
+# it is invoked by retrieve.sh (or cr-retrieve.sh).
+#   (see https://github.com/timrdf/csv2rdf4lod-automation/wiki/Directory-Conventions)
+#
+# When this script is invoked, the conversion cockpit is the current working directory.
+#
+
+if [[ "$1" == 'clean' ]]; then
+   if [[ "$2" == 'egHTML' ]]; then
+      find -L automatic -name "*.egHTML" -print0 | \
+         xargs -0 -n 1 -P ${CSV2RDF4LOD_CONCURRENCY:-1} -I prepared rm prepared
+   else
+      $0 clean 'egHTML'
+   fi
+fi
+
+if [[ -e "$1" ]]; then
+   while [[ $# -gt 0 ]]; do
+      mundane="$1" && shift
+      pretty="$mundane.pretty"
+      if [[ ! -e $pretty || $mundane -nt $pretty ]]; then
+         mkdir -p `dirname $pretty`
+         # do some transform here.
+      fi
+   done
+   exit
+else
+   # https://github.com/timrdf/csv2rdf4lod-automation/wiki/Triggers#parallelize-with-recursive-calls-via-xargs
+   find -L source -name "*.egJSON" -print0 | \
+      xargs -0 -n 1 -P ${CSV2RDF4LOD_CONCURRENCY:-1} -I mundane $0 mundane
+fi
