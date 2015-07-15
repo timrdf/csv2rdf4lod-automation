@@ -50,7 +50,7 @@ if [[ "$1" == "uri" || "$1" == "--uri" ]]; then
    fi
    exit 0
 elif [[ "$1" == "abstract" || "$1" == "--abstract" || "$1" == "abstract-uri" || "$1" == "--abstract-uri" ]]; then
-   echo ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/source/`cr-source-id.sh`/dataset/`cr-dataset-id.sh`
+   echo $base_uri/source/`cr-source-id.sh`/dataset/`cr-dataset-id.sh`
    exit 0
 fi
 
@@ -82,12 +82,12 @@ fi
 
 if [[ "$1" == 'void' || "$1" == "--void" ]]; then
    # See https://github.com/jimmccusker/twc-healthdata/wiki/Using-VoID-for-Accessibility
-   echo "<$CSV2RDF4LOD_BASE_URI/void> a void:Dataset;"
-   echo "   void:rootResource <$CSV2RDF4LOD_BASE_URI/void>;"
-   echo "   void:subset       <$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID>;"
+   echo "<$base_uri/void> a void:Dataset;"
+   echo "   void:rootResource <$base_uri/void>;"
+   echo "   void:subset       <$base_uri/source/$sourceID/dataset/$datasetID>;"
    echo "."
 fi
-echo "$a1$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID$a2"
+echo "$a1$base_uri/source/$sourceID/dataset/$datasetID$a2"
 echo "    $isabstract"
 echo "    ${prefix}base_uri              ${q1}$base_uri${q2}"
 echo "    ${prefix}source_identifier     ${q1}$sourceID${q2}"                                        
@@ -97,10 +97,10 @@ echo
 if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh cr:conversion-cockpit` == "yes" ]; then
    if [[ "$1" == 'void' || "$1" == "--void" ]]; then
       # See https://github.com/jimmccusker/twc-healthdata/wiki/Using-VoID-for-Accessibility
-      echo "<$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID> a conversion:AbstractDataset;"
-      echo "   void:subset <$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID> ."
+      echo "<$base_uri/source/$sourceID/dataset/$datasetID> a conversion:AbstractDataset;"
+      echo "   void:subset <$base_uri/source/$sourceID/dataset/$datasetID/version/$versionID> ."
    fi
-   echo "$a1$CSV2RDF4LOD_BASE_URI/source/$sourceID/dataset/$datasetID/version/$versionID$a2"
+   echo "$a1$base_uri/source/$sourceID/dataset/$datasetID/version/$versionID$a2"
    echo "    $isversioned"
    echo "    ${prefix}base_uri              ${q1}$base_uri${q2}"
    echo "    ${prefix}source_identifier     ${q1}$sourceID${q2}"                                        
