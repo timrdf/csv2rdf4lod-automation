@@ -14,12 +14,13 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-if [ ${1:-"."} == "--help" ]; then
+if [[ "$1" == "--help" ]]; then
    echo "usage: `basename $0` [-w]"
-   exit 1
+   exit
 fi
 
-CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set"}
+see='https://github.com/timrdf/csv2rdf4lod-automation/wiki/CSV2RDF4LOD-not-set'
+CSV2RDF4LOD_HOME=${CSV2RDF4LOD_HOME:?"not set; source csv2rdf4lod/source-me.sh or see $see"}
 
 # cr:data-root cr:source cr:directory-of-datasets cr:dataset cr:directory-of-versions cr:conversion-cockpit
 ACCEPTABLE_PWDs="cr:dataset cr:directory-of-versions"
@@ -28,17 +29,33 @@ if [ `${CSV2RDF4LOD_HOME}/bin/util/is-pwd-a.sh $ACCEPTABLE_PWDs` != "yes" ]; the
    exit 1
 fi
 
+granularity="+%Y-%b-%d" # "9"
+if [[ "$1" == '--granularity' ]]; then
+   if [[ ${#2} -eq 9 ]]; then
+      granularity="$granularity-%H" # "11"
+      shift
+   elif [[ ${#2} -eq 12 ]]; then
+      granularity="$granularity-%H-%M" # "13"
+      shift
+   fi
+   shift
+fi
+
 if [[ `is-pwd-a.sh                                                            cr:directory-of-versions` == "yes" ]]; then
 
    #dir=`dateInXSDDateTime.sh | sed -e 's/T.*$//' -e 's/-/ /g' | awk '{abbr["01"]="Jan";abbr["02"]="Feb";abbr["03"]="Mar";abbr["04"]="Apr";abbr["05"]="May";abbr["06"]="Jun";abbr["07"]="Jul";abbr["08"]="Aug";abbr["09"]="Sep";abbr["10"]="Oct";abbr["11"]="Nov";abbr["12"]="Dec"; printf("%s-%s-%s",$1,abbr[$2],$3)}'`
 
-   dir=`date +%Y-%b-%d` # More detailed: date +%Y-%m-%d-%H-%M_%N (does not work on Mac; works on redhat)
-                        #                date +%Y-%m-%d-%H-%M_%s (works on Mac)
-   if [ ! -e $dir -a ${1:-"."} == '-w' ]; then
+   #dir=`date +%Y-%b-%d` # More detailed: date +%Y-%m-%d-%H-%M_%N (does not work on Mac; works on redhat)
+                         #                date +%Y-%m-%d-%H-%M_%s (works on Mac)
+   dir=`date "$granularity"`
+
+   if [[ ! -e $dir && "$1" == '-w' ]]; then
       mkdir $dir
       echo $dir
       mkdir $dir/source
       echo $dir/source
+   elif [[ -e $dir && "$1" == '-w' ]]; then
+      $0 --granularity $granularity -w
    else
       echo $dir
       echo "use -w to make dir"
