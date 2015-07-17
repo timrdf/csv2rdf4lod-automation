@@ -36,6 +36,7 @@ if [[ -e "$1" ]]; then
    while [[ $# -gt 0 ]]; do
       mundane="$1" && shift
       pretty="$mundane.pretty"
+      # automatic="automatic/${source#source/}"
       if [[ ! -e $pretty || $mundane -nt $pretty ]]; then
          mkdir -p `dirname $pretty`
          # do some transform here.
