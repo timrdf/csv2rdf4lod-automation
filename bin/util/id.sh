@@ -45,6 +45,10 @@ else
    saxon9=${saxon9:?"saxon jar needs to be specified."}
 fi
 
+if [[ ! -e "$xutil/id.xsl" ]]; then
+   xutil=$(cd ${0%/*} && echo ${PWD})/
+fi
+
 if [ $# -lt 1 ]; then
   echo $usage_message 
 	exit 1
