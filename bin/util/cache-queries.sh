@@ -200,7 +200,8 @@ for sparql in $queryFiles; do
          fi
          escapedOutput=`cr-urlencode.sh $output`
 
-         request="$endpoint?query=$query$queryLIMIT$queryOFFSET&$outputVarName=$escapedOutput"
+         timeout='&timeout=300000'
+         request="$endpoint?query=$query$queryLIMIT$queryOFFSET$timeout&$outputVarName=$escapedOutput"
          if [[ -n "$CSV2RDF4LOD_CONVERT_DEBUG_LEVEL" ]]; then
             echo $request
          fi
