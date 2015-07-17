@@ -39,7 +39,11 @@ replace_extension="false"
 
 usage_message="usage: $0 [-w] [-od path/to/output/to] some.$input_extension [another.$input_extension ...]" 
 
-saxon9=${saxon9:?"saxon jar needs to be specified."}
+if [[ -e "$CSV2RDF4LOD_HOME/lib/saxonb9-1-0-8j.jar" ]]; then
+   saxon9="$CSV2RDF4LOD_HOME/lib/saxonb9-1-0-8j.jar"
+else
+   saxon9=${saxon9:?"saxon jar needs to be specified."}
+fi
 
 if [ $# -lt 1 ]; then
   echo $usage_message 
