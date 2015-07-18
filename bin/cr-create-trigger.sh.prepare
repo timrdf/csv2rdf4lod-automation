@@ -30,6 +30,7 @@ if [[ "$1" == 'clean' ]]; then
    else
       $0 clean 'egHTML'
    fi
+   exit
 fi
 
 if [[ -e "$1" ]]; then
@@ -38,6 +39,7 @@ if [[ -e "$1" ]]; then
       pretty="$mundane.pretty"
       # automatic="automatic/${source#source/}"
       if [[ ! -e $pretty || $mundane -nt $pretty ]]; then
+         echo "$mundane => $pretty"
          mkdir -p `dirname $pretty`
          # do some transform here.
       fi
