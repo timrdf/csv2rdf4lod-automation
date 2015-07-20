@@ -9,6 +9,6 @@
 # In cases where many files need to be aggregated (and would exceed num argument limitations)
 # aggregate='automatic/all.nt'
 #echo "find automatic -name "*.json.ttl" | xargs -n 1 -I ttl serdi -i turtle -o ntriples ttl > $aggregate"
-#      find automatic -name "*.json.ttl" | xargs -n 1 -I ttl serdi -i turtle -o ntriples ttl > $aggregate"
+#      find automatic -name "*.json.ttl" | xargs -n 1 -I ttl serdi -i turtle -o ntriples ttl > $aggregate
 
 #cr-publish.sh $aggregate # --no-compress --no-turtle --ntriples
