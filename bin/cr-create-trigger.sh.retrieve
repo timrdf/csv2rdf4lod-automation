@@ -11,3 +11,8 @@
 #3>      <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Automated-creation-of-a-new-Versioned-Dataset>,
 #3>      <https://github.com/timrdf/csv2rdf4lod-automation/wiki/tic-turtle-in-comments>;
 #3> .
+
+mkdir -p source && pushd source
+   web_directory='blah'
+   #wget --mirror -e robots=off --no-parent $web_directory
+popd
