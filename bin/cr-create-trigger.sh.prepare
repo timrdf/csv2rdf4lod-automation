@@ -36,11 +36,10 @@ fi
 if [[ -e "$1" ]]; then
    while [[ $# -gt 0 ]]; do
       mundane="$1" && shift
-      pretty="$mundane.pretty"
-      # automatic="automatic/${source#source/}"
-      if [[ ! -e $pretty || $mundane -nt $pretty ]]; then
-         echo "$mundane => $pretty"
-         mkdir -p `dirname $pretty`
+      automatic="automatic/${mundane#source/}"
+      if [[ ! -e $automatic || $mundane -nt $automatic ]]; then
+         echo "$mundane => $automatic"
+         mkdir -p `dirname $automatic`
          # do some transform here.
       fi
    done
