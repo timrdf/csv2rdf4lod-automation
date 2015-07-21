@@ -69,7 +69,12 @@ while [ $# -gt 0 ]; do
       echo "   nfo:hashAlgorithm \"md5\";"                                      
       echo "   nfo:hashValue     \"$fileMD5\";"                          
       echo "."                                                                
-      echo "<$specializationPath> prv:serializedBy <`basename $file`> ." # assumes that the PROV will sit beside the file.
+      if [[ "`cr-pwd-type.sh`" == 'cr:conversion-cockpit' ]]; then
+         eg=`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n source\``
+         echo "<$specializationPath> prv:serializedBy <`dirname $eg`/$file> ."
+      else
+         echo "<$specializationPath> prv:serializedBy <`basename $file`> ."
+      fi
    elif [[ "$mode" == "foci" ]]; then
       echo "<$specialization>" 
    fi
