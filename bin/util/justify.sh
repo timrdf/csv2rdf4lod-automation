@@ -191,6 +191,11 @@ else
       echo "@prefix pml:        <http://provenanceweb.org/ns/pml#> ."                         >> $consequent.$prov.ttl
       echo                                                                                    >> $consequent.$prov.ttl
 
+      if [[ "`cr-pwd-type.sh`" == 'cr:conversion-cockpit' ]]; then
+         eg=`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n source\``
+         echo "@base: <`dirname $eg`>"                                                        >> $consequent.$prov.ttl
+      fi
+
       $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                              >> $consequent.$prov.ttl
       echo                                                                                    >> $consequent.$prov.ttl
 
