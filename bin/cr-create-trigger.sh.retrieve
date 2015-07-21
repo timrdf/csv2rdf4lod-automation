@@ -18,3 +18,5 @@ mkdir -p source && pushd source
 popd
 
 #cache-queries.sh ${CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT:-'http://localhost/sparql'} -o csv -q ../../src/some.rq --limit-offset 5000 -od source
+
+# here="source/${url#http*://}"
