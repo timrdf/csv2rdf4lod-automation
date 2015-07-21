@@ -69,7 +69,7 @@ while [ $# -gt 0 ]; do
       echo "   nfo:hashAlgorithm \"md5\";"                                      
       echo "   nfo:hashValue     \"$fileMD5\";"                          
       echo "."                                                                
-      echo "<$specializationPath> prv:serializedBy <$file> ."
+      echo "<$specializationPath> prv:serializedBy <`basename $file`> ." # assumes that the PROV will sit beside the file.
    elif [[ "$mode" == "foci" ]]; then
       echo "<$specialization>" 
    fi
