@@ -261,55 +261,55 @@ else
 
 
       echo                                                                                    >> $consequent.$prov.ttl
-      echo $nodeSet                                                                           >> $consequent.$prov.ttl
-      echo "   a pmlj:NodeSet;"                                                               >> $consequent.$prov.ttl
-      echo "   pmlj:hasConclusion $consequentURI;"                                            >> $consequent.$prov.ttl
-      echo "   pmlj:isConsequentOf <inferenceStep/$requestID>;"                               >> $consequent.$prov.ttl
-      echo "."                                                                                >> $consequent.$prov.ttl
-      echo "<inferenceStep/$requestID>"                                                       >> $consequent.$prov.ttl
-      echo "   a pmlj:InferenceStep;"                                                         >> $consequent.$prov.ttl
-      echo "   pmlj:hasIndex 0;"                                                              >> $consequent.$prov.ttl
-      echo "   rdfs:seeAlso $antecedentNodeSet;"                                              >> $consequent.$prov.ttl
-      echo "#   pmlj:hasAntecedentList ( $antecedentNodeSet );"                               >> $consequent.$prov.ttl
+      #echo $nodeSet                                                                           >> $consequent.$prov.ttl
+      #echo "   a pmlj:NodeSet;"                                                               >> $consequent.$prov.ttl
+      #echo "   pmlj:hasConclusion $consequentURI;"                                            >> $consequent.$prov.ttl
+      #echo "   pmlj:isConsequentOf <inferenceStep/$requestID>;"                               >> $consequent.$prov.ttl
+      #echo "."                                                                                >> $consequent.$prov.ttl
+      #echo "<inferenceStep/$requestID>"                                                       >> $consequent.$prov.ttl
+      #echo "   a pmlj:InferenceStep;"                                                         >> $consequent.$prov.ttl
+      #echo "   pmlj:hasIndex 0;"                                                              >> $consequent.$prov.ttl
+      #echo "   rdfs:seeAlso $antecedentNodeSet;"                                              >> $consequent.$prov.ttl
+      #echo "#   pmlj:hasAntecedentList ( $antecedentNodeSet );"                               >> $consequent.$prov.ttl
       #echo     pmlj:hasSourceUsage     $sourceUsage;"                                        >> $consequent.$prov.ttl
-      echo "   pmlj:hasInferenceEngine <$engine_name>;"                                       >> $consequent.$prov.ttl # $method#$requestID
-      echo "   pmlj:hasInferenceRule   $method_name;"                                         >> $consequent.$prov.ttl
-      echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $consequent.$prov.ttl
-      echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $consequent.$prov.ttl
+      #echo "   pmlj:hasInferenceEngine <$engine_name>;"                                       >> $consequent.$prov.ttl # $method#$requestID
+      #echo "   pmlj:hasInferenceRule   $method_name;"                                         >> $consequent.$prov.ttl
+      #echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $consequent.$prov.ttl
+      echo "#   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $consequent.$prov.ttl
 
-      if [ ${#commandUsed} -gt 0 ]; then
-      echo "   dcterms:description \"\"\"$commandUsed\"\"\";"                                 >> $consequent.$prov.ttl
-      fi
+      #if [ ${#commandUsed} -gt 0 ]; then
+      #echo "   dcterms:description \"\"\"$commandUsed\"\"\";"                                 >> $consequent.$prov.ttl
+      #fi
 
-      echo "."                                                                                >> $consequent.$prov.ttl
-      echo                                                                                    >> $consequent.$prov.ttl
-      echo "<wasControlled/$requestID>"                                                       >> $consequent.$prov.ttl
-      echo "   a oprov:WasControlledBy;"                                                      >> $consequent.$prov.ttl
-      echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"             >> $consequent.$prov.ttl
-      echo "   oprov:effect <inferenceStep/$requestID>;"                                      >> $consequent.$prov.ttl
-      echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                               >> $consequent.$prov.ttl
-      echo "."                                                                                >> $consequent.$prov.ttl
-      echo $antecedentNodeSet                                                                 >> $consequent.$prov.ttl
-      echo "   a pmlj:NodeSet;"                                                               >> $consequent.$prov.ttl
-      if [[ -e "$antecedent" ]]; then
-      echo "   pmlj:hasConclusion $antecedentFileURI;"                                        >> $consequent.$prov.ttl
-      else
-      echo "   pmlj:hasConclusion <$antecedent>;"                                             >> $consequent.$prov.ttl
-      fi
-      echo "."                                                                                >> $consequent.$prov.ttl
-      echo ""                                                                                 >> $consequent.$prov.ttl
-      echo "<$engine_name>"                                                                   >> $consequent.$prov.ttl
-      if [[ -n "$engine_type" ]]; then
-      echo "   a pmlp:InferenceEngine, $engine_type, prov:Entity;"                            >> $consequent.$prov.ttl
-      else
-      echo "   a pmlp:InferenceEngine, prov:Entity;"                                          >> $consequent.$prov.ttl
-      fi
-      echo "   dcterms:identifier \"$engine_name\";"                                          >> $consequent.$prov.ttl
-      echo "."                                                                                >> $consequent.$prov.ttl
-      echo                                                                                    >> $consequent.$prov.ttl
-      if [[ -n "$engine_type" ]]; then
-      echo "$engine_type rdfs:subClassOf pmlp:InferenceEngine ."                              >> $consequent.$prov.ttl
-      fi
+      #echo "."                                                                                >> $consequent.$prov.ttl
+      #echo                                                                                    >> $consequent.$prov.ttl
+      #echo "<wasControlled/$requestID>"                                                       >> $consequent.$prov.ttl
+      #echo "   a oprov:WasControlledBy;"                                                      >> $consequent.$prov.ttl
+      #echo "   oprov:cause  `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;"             >> $consequent.$prov.ttl
+      #echo "   oprov:effect <inferenceStep/$requestID>;"                                      >> $consequent.$prov.ttl
+      #echo "   oprov:endTime \"$usageDateTime\"^^xsd:dateTime;"                               >> $consequent.$prov.ttl
+      #echo "."                                                                                >> $consequent.$prov.ttl
+      #echo $antecedentNodeSet                                                                 >> $consequent.$prov.ttl
+      #echo "   a pmlj:NodeSet;"                                                               >> $consequent.$prov.ttl
+      #if [[ -e "$antecedent" ]]; then
+      #echo "   pmlj:hasConclusion $antecedentFileURI;"                                        >> $consequent.$prov.ttl
+      #else
+      #echo "   pmlj:hasConclusion <$antecedent>;"                                             >> $consequent.$prov.ttl
+      #fi
+      #echo "."                                                                                >> $consequent.$prov.ttl
+      #echo ""                                                                                 >> $consequent.$prov.ttl
+      #echo "<$engine_name>"                                                                   >> $consequent.$prov.ttl
+      #if [[ -n "$engine_type" ]]; then
+      #echo "   a pmlp:InferenceEngine, $engine_type, prov:Entity;"                            >> $consequent.$prov.ttl
+      #else
+      #echo "   a pmlp:InferenceEngine, prov:Entity;"                                          >> $consequent.$prov.ttl
+      #fi
+      #echo "   dcterms:identifier \"$engine_name\";"                                          >> $consequent.$prov.ttl
+      #echo "."                                                                                >> $consequent.$prov.ttl
+      #echo                                                                                    >> $consequent.$prov.ttl
+      #if [[ -n "$engine_type" ]]; then
+      #echo "$engine_type rdfs:subClassOf pmlp:InferenceEngine ."                              >> $consequent.$prov.ttl
+      #fi
       echo --------------------------------------------------------------------------------
       shift
    fi

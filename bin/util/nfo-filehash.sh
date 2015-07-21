@@ -58,7 +58,7 @@ while [ $# -gt 0 ]; do
       echo "   a nfo:FileDataObject;"                                                    
       echo "   nfo:fileName \"`basename $file`\";"                                
       echo "   dcterms:date \"`dateInXSDDateTime.sh`\"^^xsd:dateTime;"
-      echo "   nfo:hasHash     <$md5URI>; #<md5_${fileMD5}_time_${date_id}>;"                                
+      echo "   nfo:hasHash     <$md5URI>;" #<md5_${fileMD5}_time_${date_id}>;"                                
       echo "   prov:atLocation <$specializationPath>;"
       echo "."                                                                      
       echo "<$md5URI>"                                             
