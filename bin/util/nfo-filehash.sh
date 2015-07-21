@@ -52,7 +52,9 @@ while [ $# -gt 0 ]; do
    elif [[ "$mode" == "describe" ]]; then
       # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Modeling-file-provenance
       if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' ]]; then
-         echo "<`cr-dataset-uri.sh --uri`> prov:wasDerivedFrom <$specialization> ."                                                                    
+         echo "<`cr-dataset-uri.sh --uri`>"
+         echo "   prov:wasDerivedFrom <$specialization> ."
+         echo
       fi
       echo "<$specialization>"                                                                    
       echo "   a nfo:FileDataObject;"                                                    
