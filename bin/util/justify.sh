@@ -250,7 +250,8 @@ else
          echo "   prov:wasDerivedFrom"                                                        >> $consequent.$prov.ttl
          echo "      $antecedentFileURI ."                                                    >> $consequent.$prov.ttl
       elif [[ "$antecedent" =~ http* ]]; then
-         echo "$consequentURI prov:wasDerivedFrom <$antecedent> ."                            >> $consequent.$prov.ttl
+         echo "$consequentURI"                                                                >> $consequent.$prov.ttl
+         echo "   prov:wasDerivedFrom <$antecedent> ."                                        >> $consequent.$prov.ttl
          echo "<$antecedent>"                                                                 >> $consequent.$prov.ttl
          echo "   a sioc:Item, irw:WebResource, prov:Entity;"                                 >> $consequent.$prov.ttl
          echo "."                                                                             >> $consequent.$prov.ttl
