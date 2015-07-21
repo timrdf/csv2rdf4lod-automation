@@ -211,7 +211,7 @@ else
       echo                                                                                    >> $consequent.$prov.ttl
       echo $consequentURI                                                                     >> $consequent.$prov.ttl
       echo "   a prov:Entity;"                                                                >> $consequent.$prov.ttl
-      echo "   prv:serializedBy <`basename $consequent`>;"                                    >> $consequent.$prov.ttl
+      # not true if file changes: echo "   prv:serializedBy <`basename $consequent`>;"                                    >> $consequent.$prov.ttl
       #echo "   pmlp:hasModificationDateTime \"$consequentModDateTime\"^^xsd:dateTime;"        >> $consequent.$prov.ttl
       echo "   pml:wasGeneratedWithPlan <$engine_name>;"                                      >> $consequent.$prov.ttl
       #echo "   pmlp:hasReferenceSourceUsage $sourceUsage;"                                   >> $consequent.$prov.ttl
