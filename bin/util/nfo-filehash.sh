@@ -53,7 +53,8 @@ while [ $# -gt 0 ]; do
       # See https://github.com/timrdf/csv2rdf4lod-automation/wiki/Modeling-file-provenance
       if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' ]]; then
          echo "<`cr-dataset-uri.sh --uri`>"
-         echo "   prov:wasDerivedFrom <$specialization> ."
+         echo "   prov:wasDerivedFrom"
+         echo "      <$specialization> ."
          echo
       fi
       echo "<$specialization>"                                                                    
