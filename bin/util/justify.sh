@@ -193,7 +193,7 @@ else
 
       if [[ "`cr-pwd-type.sh`" == 'cr:conversion-cockpit' ]]; then
          eg=`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n source\``
-         echo "@base: <`dirname $eg`> ."                                                      >> $consequent.$prov.ttl
+         echo "@base <`dirname $eg`> ."                                                       >> $consequent.$prov.ttl
       fi
 
       $CSV2RDF4LOD_HOME/bin/util/user-account.sh                                              >> $consequent.$prov.ttl
