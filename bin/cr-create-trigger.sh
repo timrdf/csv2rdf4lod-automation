@@ -12,7 +12,7 @@ done
 
 usage="usage: `basename $0` {$options}"
 
-if [[ `cr-pwd-type.sh` == 'cr:conversion-cockpit' ]]; then
+if [[ `is-pwd-a.sh 'cr:directory-of-versions' 'cr:conversion-cockpit'` == 'yes' ]]; then
    if [[ -e "$me.$1" ]]; then
       if [[ ! -e "$1.sh" ]]; then
          cat "$me.$1" > "$1.sh"
