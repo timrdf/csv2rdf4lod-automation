@@ -7,9 +7,28 @@ if [[ "$1" == '--clean' ]]; then
    exit
 fi
 
-if [[ "$1" == '--help' || "$1" == '-h' || $# -ne 2 ]]; then
-   echo "usage: $0"
+if [[ "$1" == '--help' || "$1" == '-h' || $# -lt 2 ]]; then
+   echo "usage: $0 [--syntax {turtle,nt}] <an-rdf-file> <a-slightly-different-rdf-file>"
    exit
+fi
+
+normalform='nt'
+normalform='ttl'
+if [[ "$1" == '--syntax' ]]; then
+   if [[ ! -e "$2" ]]; then
+      normalform="$2"   
+      shift
+   fi
+   shift
+fi
+
+yW='200'
+if [[ "$1" == '-W' ]]; then
+   if [[ ! -e "$2" ]]; then
+      yW="$2"   
+      shift
+   fi
+   shift
 fi
 
  left="$1"
@@ -27,8 +46,6 @@ function download() {
    echo $link
 }
 
-normalform='nt'
-normalform='ttl'
 function normalize() {
    file="$1"
    norm="$file.norm.$normalform"
@@ -66,7 +83,7 @@ function pad() {
    echo "`head -c $count < /dev/zero | tr '\0' "$char"`"
 }
 
-yW=200 && yw=$(( $yW / 2 )) # diff -y -W
+yw=$(( $yW / 2 )) # diff -y -W
 #lpadw=$(( ( ( $yw - ${#left} ) / 2 ) - 2 )) # to center in its column
 lpadw=$(( ( $yw - ${#left} ) - 9 ))
 #rpadw=$(( ( ( $yw - ${#left} ) / 2 ) - 2 ))
