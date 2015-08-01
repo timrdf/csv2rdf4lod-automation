@@ -1,0 +1,193 @@
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix wgs:      <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix foaf:     <http://xmlns.com/foaf/0.1/> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
+@prefix doap:     <http://usefulinc.com/ns/doap#> .
+@prefix swc:      <http://data.semanticweb.org/ns/swc/ontology#> .
+@prefix void:     <http://rdfs.org/ns/void#> .
+@prefix prov:     <http://www.w3.org/ns/prov#> .
+@prefix bbc:      <http://www.bbc.co.uk/ontologies/provenance/> .
+@prefix fabio:    <http://purl.org/spar/fabio/> .
+@prefix vivo:     <http://vivoweb.org/files/vivo-isf-public-1.6.owl#> .
+
+<http://lod.hackerceo.org>
+   a void:Dataset;
+   void:subset <http://lod.hackerceo.org/ANGEL/VIVO2DOI>;
+   bbc:owner   <http://lod.hackerceo.org/id/person/NickBenik>;
+.
+
+<http://lod.hackerceo.org/ANGEL/VIVO2DOI>
+   a void:Dataset, void:Linkset;
+   prov:wasAttributedTo
+      <http://lod.hackerceo.org/id/person/NickBenik>,
+      <http://lod.hackerceo.org/id/person/TimothyLebo>,
+      <http://lod.hackerceo.org/id/person/GriffinWeber>;
+   dcterms:license <http://opendatacommons.org/licenses/by/1.0/>;
+   void:vocabulary 
+      <http://purl.org/net/provenance/ns#>,
+      <http://purl.org/ontology/bibo/>,
+      <http://rdfs.org/ns/void#>,
+      <http://semanticscience.org/resource/>,
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>,
+      <http://www.w3.org/ns/prov#>,
+      <http://xmlns.com/foaf/0.1/>;
+   prov:wasDerivedFrom <http://www.w3.org/TR/2013/REC-prov-o-20130430>;
+.
+
+<http://lod.hackerceo.org/id/person/NickBenik>
+   a foaf:Person, prov:Person;
+   foaf:name "Nick Benik";
+   foaf:page <https://plus.google.com/+NickBenik>;
+   foaf:depiction <http://post.health.ufl.edu/files/2011/07/VIVO_MBF_IMG_6735-550x366.jpg>;
+.
+
+<http://lod.hackerceo.org/id/person/TimothyLebo>
+   a foaf:Person, prov:Person;
+   foaf:name "Timothy Lebo";
+   foaf:depiction <http://post.health.ufl.edu/files/2011/07/VIVO_MBF_IMG_6735-550x366.jpg>;
+   prov:wasGeneratedBy <https://github.com/timrdf/csv2rdf4lod-automation/wiki/Example:-vivohack11>;
+   prov:wasDerivedFrom   <http://www.w3.org/2011/prov/provenance/prov-o#TimothyLebo>;
+   prov:alternateOf      <http://data.semanticweb.org/person/timothy-lebo>;
+   prov:specializationOf <http://tw.rpi.edu/instances/TimLebo>;
+.
+
+<http://lod.hackerceo.org/id/person/GriffinWeber>
+   a foaf:Person, prov:Person;
+   foaf:name "Griffin Weber";
+.
+
+<http://lod.hackerceo.org/id/vivo/2015/poster/cross-linking-doi>
+   a swc:Poster, fabio:ConferencePoster, vivo:ConferencePoster, <http://onto.dm2e.eu/schemas/dm2e/Poster>;
+   dcterms:title "Cross-Linking DOI Author URIs Using Research Networking Systems";
+   dcterms:abstract "A proof-of-concept application was created to automatically cross-link publications that were written by the same person through harvesting linked open data from institution-based research networking systems. This is important because it (1) helps people identify related articles when exploring the biomedical literature, (2) gives scientists appropriate credit for the work they have done, and (3) makes it easier to find experts in a subject area.";
+   foaf:primaryTopic   <http://lod.hackerceo.org/ANGEL/VIVO2DOI>;
+   prov:wasDerivedFrom <http://lod.hackerceo.org/ANGEL/VIVO2DOI>;
+   dcterms:isPartOf <https://www.eiseverywhere.com/ehome/vivo2015/program/#poster-session>;
+.
+
+<https://www.eiseverywhere.com/ehome/vivo2015/program/#poster-session>
+   a swc:SessionEvent, prov:Activity;
+   dcterms:description "Thursday evening from 5-7:00PM held in the Charles View Ballroom.";
+   prov:startedAtTime "2015-08-13T17:00:00-04:00"^^xsd:dateTime;
+   prov:endedAtTime   "2015-08-13T19:00:00-04:00"^^xsd:dateTime;
+   prov:atLocation <http://cambridge.hyatt.com/en/hotel/meetings-and-events/meetings/meeting-rooms.html#charles-view-ballroom>;
+   dcterms:isPartOf <https://www.eiseverywhere.com/ehome/vivo2015>;
+.
+
+<http://cambridge.hyatt.com/en/hotel/meetings-and-events/meetings/meeting-rooms.html#charles-view-ballroom>
+   a wgs:SpatialThing, prov:Location;
+   foaf:page <http://cambridge.hyatt.com/en/hotel/meetings-and-events/meetings/meeting-rooms.html>;
+.
+
+<https://www.eiseverywhere.com/ehome/vivo2015>
+   a prov:Activity;
+   dcterms:title "VIVO 2015 Conference";
+   dcterms:subject <http://www.vivoweb.org/about>;
+   foaf:based_near <http://dbpedia.org/resource/Boston>;   
+.
+
+<https://www.eiseverywhere.com/file_uploads/7f5dd1c5a328d3247be53c073fbeb9d7_UpdatedProgramforWebsite.pdf>
+   a foaf:Document;
+   dcterms:title "VIVO Conference Program";
+   dcterms:format    <http://provenanceweb.org/format/mime/application/pdf>;
+   foaf:primaryTopic <https://www.eiseverywhere.com/ehome/vivo2015>;
+   dcterms:subject   <http://lod.hackerceo.org/id/vivo/2015/poster/cross-linking-doi>;
+.
+
+<https://github.com/timrdf/csv2rdf4lod-automation/wiki/Example:-vivohack11>
+   a prov:Activity;
+   foaf:primaryTopicOf <http://post.health.ufl.edu/2011/07/19/hackers-start-your-computers/>;
+   prov:wasDerivedFrom <http://www.vivoweb.org/about>;
+   prov:startedAtTime "2011-05-04T09:00:00-04:00"^^xsd:dateTime;
+   prov:endedAtTime   "2011-05-07T17:00:00-04:00"^^xsd:dateTime;
+   prov:atLocation <http://dbpedia.org/resource/University_of_Florida>;
+   prov:wasAssociatedWith <http://tw.rpi.edu/instances/JimHendler>;
+. 
+
+<http://post.health.ufl.edu/2011/07/19/hackers-start-your-computers/>
+   a foaf:Document, prov:Entity;
+   dcterms:title "Hackers, start your computers UF holds first-ever VIVO Hackathon";
+   dcterms:hasPart <http://post.health.ufl.edu/files/2011/07/VIVO_MBF_IMG_6735-550x366.jpg>;
+. 
+
+<http://dbpedia.org/resource/University_of_Florida>
+   rdfs:label "University of Florida";
+   geonames:parentFeature <http://dbpedia.org/resource/Florida>;
+.
+
+<http://www.vivoweb.org/about>
+   a foaf:Project, doap:Project;
+   rdfs:comment "VIVO enables the discovery of researchers across institutions.";
+   doap:download-page <http://www.vivoweb.org/download>;
+   doap:mailing-list  <https://lists.sourceforge.net/lists/listinfo/vivo-dev-all>,
+                      <https://lists.sourceforge.net/lists/listinfo/vivo-ontology>,
+                      <https://lists.sourceforge.net/lists/listinfo/vivo-imp-issues>;
+   doap:repository <https://github.com/vivo-project>;
+.
+
+<https://github.com/vivo-project>
+   a doap:GitRepository;
+   doap:browse   <https://github.com/vivo-project>;
+   doap:location <https://github.com/vivo-project>; 
+.
+
+<https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/instances/dataset/hackerceo/University-of-Florida.html>
+   a foaf:Document, prov:Entity;
+   dcterms:title "Hackers, start your computers UF holds first-ever VIVO Hackathon";
+   prov:wasDerivedFrom <http://post.health.ufl.edu/2011/07/19/hackers-start-your-computers/>;
+   prov:alternateOf    <http://post.health.ufl.edu/2011/07/19/hackers-start-your-computers/>;
+.
+
+<https://github.com/timrdf/csv2rdf4lod-automation/blob/master/doc/instances/dataset/hackerceo/VIVO_MBF_IMG_6735.jpg>
+   a foaf:Image, prov:Entity;
+   prov:wasDerivedFrom <http://post.health.ufl.edu/files/2011/07/VIVO_MBF_IMG_6735-550x366.jpg>;
+   prov:alternateOf    <http://post.health.ufl.edu/files/2011/07/VIVO_MBF_IMG_6735-550x366.jpg>;
+.
+
+<> 
+   rdfs:comment "The root VoID Document";
+   prov:wasAttributedTo <http://lod.hackerceo.org/id/person/TimothyLebo>;
+   prov:wasDerivedFrom 
+      <http://prefix.cc>,
+      <http://prefix.cc/bbcprov>,
+      <http://prefix.cc/dcterms>,
+      <http://prefix.cc/geonames>,
+      <http://prefix.cc/doap>,
+      <http://prefix.cc/foaf>,
+      <http://prefix.cc/void>,
+      <http://prefix.cc/xsd>,
+      <http://prefix.cc/wgs>,
+      <http://lov.okfn.org/dataset/lov/terms?q=owner>,
+      <http://lov.okfn.org/dataset/lov/terms?q=poster>,
+      <http://lov.okfn.org/dataset/lov/terms?q=Tweet>,
+      <http://lov.okfn.org/dataset/lov/terms?q=Poster+Session>;
+   prov:wasDerivedFrom <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/root-void.ttl>;
+.
+
+<https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/root-void.ttl>;
+   a foaf:Document;
+   dcterms:created "2015-08-01"^^xsd:date;
+   dcterms:format <http://www.w3.org/ns/formats/Turtle>;
+.
+
+<https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/root-void.pdf>;
+   a foaf:Document;
+   dcterms:format <http://provenanceweb.org/format/mime/application/pdf>;
+   dcterms:created "2015-08-01"^^xsd:date;
+   prov:wasDerivedFrom <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/root-void.ttl>;
+   prov:alternateOf    <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/root-void.ttl>;
+.
+
+<https://twitter.com/timrdf/status/627495845701812224>
+   a fabio:Tweet;
+   prov:wasAttributedTo <http://lod.hackerceo.org/id/person/TimothyLebo>;
+   prov:wasDerivedFrom <>;
+.
+
+<http://tw.rpi.edu/instances/TimLebo>
+   a foaf:Person, prov:Person;
+   foaf:name "Timothy Lebo";
+   prov:specializationOf <http://purl.org/twc/id/person/TimLebo>;
+.
