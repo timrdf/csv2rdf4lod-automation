@@ -20,6 +20,7 @@
 
 <http://lod.hackerceo.org/ANGEL/VIVO2DOI>
    a void:Dataset, void:Linkset;
+   prov:alternateOf <http://datahub.io/dataset/vivo2doi>;
    prov:wasAttributedTo
       <http://lod.hackerceo.org/id/person/NickBenik>,
       <http://lod.hackerceo.org/id/person/TimothyLebo>,
