@@ -25,6 +25,7 @@
       <http://lod.hackerceo.org/id/person/TimothyLebo>,
       <http://lod.hackerceo.org/id/person/GriffinWeber>;
    dcterms:license <http://opendatacommons.org/licenses/by/1.0/>;
+   void:uriSpace "http://lod.hackerceo.org/ANGEL/VIVO2DOI/";
    void:vocabulary 
       <http://purl.org/net/provenance/ns#>,
       <http://purl.org/ontology/bibo/>,
@@ -146,8 +147,9 @@
    prov:alternateOf    <http://post.health.ufl.edu/files/2011/07/VIVO_MBF_IMG_6735-550x366.jpg>;
 .
 
-<> 
-   rdfs:comment "The root VoID Document";
+<http://lod.hackerceo.org/ANGEL/VIVO2DOI/void.ttl> 
+   a void:DatasetDescription;
+   foaf:primaryTopic <http://lod.hackerceo.org/ANGEL/VIVO2DOI>;
    prov:wasAttributedTo <http://lod.hackerceo.org/id/person/TimothyLebo>;
    prov:wasDerivedFrom 
       <http://prefix.cc>,
