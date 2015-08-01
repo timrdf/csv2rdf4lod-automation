@@ -1,0 +1,91 @@
+body, html {
+	background:#FFF;
+	font:12pt Arial, Helvetica, sans-serif;
+	color:#000;
+	}
+
+a:link, a:visited {
+ 	background: transparent;
+	font-weight: bold;
+	text-decoration: underline;
+	color:#000;
+	}	
+	
+h1, h2, h3, h4 {
+	font-family: Georgia, "Times New Roman", Times, serif
+	}
+
+h1 {
+	font-size:2em;
+	}
+
+h2 {
+	font-size:1.8em;
+	}
+
+h3 {
+	font-size:1.5em;
+	}
+
+h4 {
+	font-size:1.2em;
+	}
+				
+img {
+	display:block;
+	border:0;
+	}
+
+#nav, #searchform, #branding, #commentform, #footer, #sidebar {
+	display:none
+	}
+
+hr { 
+	background:#000; 
+	color:#000;
+	width:100%; 
+	height:1px; 
+	margin:2em 0; 
+ 	border:none; 
+	}
+
+blockquote { 
+ 	margin:1.5em 0; 
+ 	padding:1em; 
+ 	border:1px solid #ccc; 
+ 	font-style:italic; 
+ 	font-size:0.9em; 
+	}
+
+#share {
+ display: none;
+}
+
+#header {
+display: none;
+}
+
+#tags {
+display: none;
+}
+
+#post-related {
+display: none;
+}
+
+.alignright {
+float: right;
+margin-left: 10px;
+}
+
+.alignleft {
+float: left;
+margin-right: 10px;
+} 
+
+.wp-caption {
+font-size: .8em;
+margin: 5px;
+padding: 5px;
+border: 1px solid #eeeeee;
+}

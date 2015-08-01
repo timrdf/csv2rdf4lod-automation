@@ -1,0 +1,521 @@
+/*  
+Theme Name: Florida Physician Wordpress Theme
+Theme URL: http://www.med.ufl.edu
+Description: Custom Florida Physician Wordpress Template
+Version: 1.0
+Author: Carlos Morales
+Author URL: http://www.med.ufl.edu
+
+*/
+
+* { 
+	margin: 0; 
+} 
+
+
+html, body { 
+	height: 100%; 
+} 
+
+body {
+	/*background-image: url("images/content-background.jpg");
+	background-position: center 100px;
+	background-repeat: no-repeat;
+	background-color: #bdbdbd;*/
+	/*background-color: #f5f1e7;*/
+	background-color: white;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+body, p, li, h1, h2, h3, h4, h5, h6  { 
+	font-size: 1em;
+	font-family : verdana, geneva, Arial, Helvetica, sans-serif; 
+}
+
+
+
+a img {
+	border: none;
+}
+
+
+
+/* =============== HEADER ======================== */
+#header {
+	text-align: left;
+	height: 91px;
+	background-color: #FBF8E5;
+}
+
+#header-top {
+display: none;	
+	width: 920px;
+	height: 30px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-top: 10px;
+}
+
+#header-top #com-logo {
+	float: left;
+}
+
+#header-top #uf-logo {
+	width: 740px;
+	text-align: right;
+	margin-left: 174px;
+}
+
+#header-bottom {
+	width: 920px;
+	height: 50px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-top: 1px;
+}
+
+#header-bottom #branding {
+	float:left;
+}
+
+#header-bottom #header-menu {
+	margin-left: 307px;
+	width: 600px;
+	text-align: right;
+}
+
+#header-bottom #header-menu ul {
+	margin: 15px 0px 0px 0px;
+}
+
+#header-bottom #header-menu ul li {
+	display: inline;
+	text-transform: uppercase;
+	font-size: .8em;
+}
+
+#header-bottom #header-menu ul li a {
+	padding: 5px 20px 5px 15px;
+	color: black;
+	border-right: 1px solid #4b7798;
+	text-decoration: none;
+}
+
+#header-bottom #header-menu ul li:last-child a  {
+	padding-right: 0px;
+	border-right: none;
+}
+
+
+/* ===================== CONTENT AREA ========================== */
+
+
+#content {
+	width: 920px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 20px;
+}
+
+#content a {
+	color: #674600;
+	text-decoration: none;
+}
+
+#content a:hover {
+	color: #004d75;
+	text-decoration: underline;
+}
+
+#content #content-clear {
+	width: 920px;
+	height: 10px;
+	clear: both;
+}
+
+
+#content #content-left {
+	float: left;
+width: 560px;
+}
+
+
+
+#content #content-right {
+	width: 320px;
+	padding-left: 20px;
+	margin-left: 570px;
+	text-align: left;
+}
+
+#content .post-menu {
+	border-left: 1px solid #a0a0a0;
+}
+
+#content #content-right h2 {
+	font-size: 2em;
+	color: #004d75;
+	font-weight: normal;
+	margin-bottom: 20px;
+}
+
+#content #content-right h3 {
+	font-size: .9em;
+	margin-bottom: 5px;
+}
+
+#content #content-right h4 {
+	margin-bottom: 5px;
+	margin-top: 15px;
+}
+
+#content #content-right #alsointhisissue {
+	font-size: 1.2em;
+	font-weight: normal;
+	color: #004d75;
+	margin-bottom: 10px;
+	margin-top: 20px;
+}
+
+#content #content-right .feature-thumbnail {
+margin-top: 3px;
+margin-bottom: 3px;
+border: 3px solid #91a0ab;
+margin-left: 3px;
+clear: right;
+}
+#content #content-right #feature-container { 
+	border-bottom: 1px solid #a0a0a0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 320px;
+}
+
+#content #content-right #feature-excerpt {
+	font-size: .7em;
+	padding-top: 5px;
+	/*padding-bottom: 15px;
+	margin-bottom: 10px;*/
+
+	/*min-height: 60px;*/
+}
+
+.clear {
+height: 1px;
+line-height: 1px;
+clear: right;
+}
+
+#content #content-right ul {
+	font-size: .7em;
+	padding-left: 40px;
+}
+
+#content #content-right ul a {
+
+}
+
+#content #content-right ul  li {
+margin-bottom: 5px;
+margin-top: 5px;
+}
+
+
+
+
+#content #content-left #post {
+	text-align: left;
+	width: 560px;
+	padding-top: 10px;
+}
+
+
+
+#content #content-left #post p, #content #content-left p {
+font-size: .9em;
+margin-bottom: 20px;
+padding-right: 10px;
+}
+
+#content #content-left h1 {
+	color: #674600;
+	margin-bottom: 0px;
+	font-size: 1.55em;
+	font-weight: lighter;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+#content #content-left #post h1 {
+background-image: url("images/h1-background.png");
+background-repeat: no-repeat;
+padding-top: 25px;
+	color: #674600;
+	margin-bottom: 0px;
+	font-size: 1.55em;
+	font-weight: lighter;
+	text-align: center;
+	text-transform: uppercase;
+	height: 80px;
+	line-height: 1em;
+}
+
+#content #content-left #post h2 {
+	color: #004d75;
+	margin-bottom: 10px;
+	padding-top: 20px;
+	font-size: 1.3em;
+	font-weight: normal;
+	border-bottom: 1px solid #e0d5bd;
+	text-align: center;
+}
+
+#content #content-left #post h5 {
+font-size: .8em;
+padding: 10px 20px 10px 20px;
+background-color: #c4d0d0;
+font-weight: normal;
+}
+
+#content #content-left #post h6 {
+color: #474747;
+font-size: .7em;
+margin-top: -10px;
+padding-top: 0px;
+margin-bottom: 20px;
+text-align: center;
+}
+
+#content #content-left #post .alignleft {
+float: left;
+margin-right: 10px;
+margin-bottom: 10px;
+}
+
+#content #content-left #post .alignright{
+float: right;
+margin-left: 10px;
+margin-bottom: 10px;
+margin-right: 0px;
+padding-right: 0px;
+}
+
+#content #content-left #post .wp-caption {
+text-align: center;
+margin-bottom: 10px;
+}
+
+#content #content-left #post .wp-caption-text {
+margin: 5px;
+/*background-color: #dddddd;*/
+background-color: #dce0db;
+font-size: .7em;
+padding: 10px;
+font-style: italic;
+-moz-border-radius: 2px; 
+-khtml-border-radius: 2px; 
+-webkit-border-radius: 2px; 
+border-radius: 2px; 
+}
+
+#content #content-left #post .gallery-caption {
+text-align: center;
+margin-top: 5px;
+background-color: #dddddd;
+font-size: .7em;
+padding: 5px;
+font-style: italic;
+-moz-border-radius: 2px; 
+-khtml-border-radius: 2px; 
+-webkit-border-radius: 2px; 
+border-radius: 2px; 
+}
+
+#content #content-left #post blockquote {
+border-top: 1px solid #c2b491;
+border-bottom: 1px solid #c2b491;
+padding-top: 15px;
+padding-bottom: 0px;
+margin-top: 30px;
+margin-bottom: 30px;
+padding-left: 50px;
+padding-right: 50px;
+font-size: 1.4em;
+font-style: italic;
+color: black;
+background-image: url('images/blockquote-background.jpg');
+background-repeat: repeat-y;
+}
+
+#content #content-left #post blockquote p {
+font-family: "Times New Roman", Times, serif;
+}
+
+#content #content-left #post ul, #content .page ul, #content #content-left #post ol {
+font-size: .8em;
+margin-top: 15px;
+margin-bottom: 15px;
+padding-right: 10px;
+	*margin-left: 40px;
+}
+
+
+#content #content-left #post ul li, #content .page ul li {
+padding-bottom: 5px;
+padding-top: 5px;
+}
+
+
+
+#post #social-share {
+text-align: center;
+border-top: 1px dotted #c2b491;
+font-size: .8em;
+padding-top: 10px;
+margin-top: 20px;
+margin-bottom: 10px;
+}
+
+#post #social-share ul  {
+display: inline;
+margin: 0px;
+padding: 0px;
+}
+
+#post #social-share ul li {
+display: inline;
+list-style: none;
+padding: 5px;
+}
+/* ===================== FRONT ISSUE BOTTOM =================== */
+
+#content #front-issue-bottom {
+clear: both;
+width: 920px;
+text-align: left;
+}
+
+#content #front-issue-bottom h4 {
+	color: #004d75;
+margin-top: 10px;
+margin-bottom: 5px;
+font-size: 1em;
+margin-left: 5px;
+}
+
+#content #front-issue-bottom ul {
+font-size: .8em;
+margin: 0px;
+padding: 5px;
+/*background-image: url("images/front-issue-bottom-background.png");
+background-repeat: no-repeat;*/
+min-height: 150px;
+}
+
+#content #front-issue-bottom ul li {
+list-style: none;
+border-bottom: 1px solid #b3b3b3;
+padding-bottom: 5px;
+margin-bottom: 5px;
+margin-left: 0px
+padding-left: 0px;
+}
+
+#content #front-issue-bottom ul li:last-child {
+border-bottom: none;
+}
+
+#content #front-issue-bottom #front-issue-bottom-left {
+float: left;
+width: 290px;
+padding-top: 1px;
+
+
+
+}
+
+#content #front-issue-bottom #front-issue-bottom-center {
+margin-left: 20px;
+float: left;
+width: 290px;
+padding-top: 1px;
+}
+
+#content #front-issue-bottom #front-issue-bottom-right {
+margin-left: 620px;
+width: 290px;
+padding-top: 1px;
+}
+
+
+/* ===================== STATIC PAGE LAYOUT ==================== */
+
+#content .post {
+	text-align: left;
+}
+
+#content .post p {
+margin-top: 10px;
+margin-bottom: 15px;
+font-size: .9em;
+}
+
+#content  .post h1 {
+	text-align: left;
+	font-size: 1.5em;
+	color: #004d75;
+	font-weight: normal;
+}
+
+#content  .post h2 {
+	margin-top: 20px;
+	border-top: 1px solid #e0d5bd;
+	padding-top: 10px;
+	margin-bottom: 10px;
+	font-size: 1.7em;
+	font-weight: normal;
+}
+
+#content  .post h3 {
+	margin-top: 20px;
+	border-top: 1px solid #e0d5bd;
+	padding-top: 10px;
+	margin-bottom: 10px;
+	font-size: 1.2em;
+	font-weight: normal;
+}
+
+/* ===================== FOOTER AREA ========================== */
+
+#footer {
+	border-top: 1px solid #8c8c8c;
+	text-align: left;
+	font-size: .7em;
+	padding-top: 20px;
+	padding-bottom: 30px;
+	width: 920px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#footer a {
+	color: #674600;
+	text-decoration: none;
+}
+
+#footer a:hover {
+	color: #004d75;
+	text-decoration: underline;
+}
+
+
+
+.alignright {
+float: right;
+}
+
+.alignleft {
+float: left;
+}
