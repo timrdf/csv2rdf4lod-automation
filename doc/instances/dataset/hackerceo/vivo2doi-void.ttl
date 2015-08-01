@@ -165,21 +165,21 @@
       <http://lov.okfn.org/dataset/lov/terms?q=poster>,
       <http://lov.okfn.org/dataset/lov/terms?q=Tweet>,
       <http://lov.okfn.org/dataset/lov/terms?q=Poster+Session>;
-   prov:wasDerivedFrom <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/root-void.ttl>;
+   prov:wasDerivedFrom <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/vivo2doi-void.ttl>;
 .
 
-<https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/root-void.ttl>
+<https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/vivo2doi-void.ttl>
    a foaf:Document;
    dcterms:created "2015-08-01"^^xsd:date;
    dcterms:format <http://www.w3.org/ns/formats/Turtle>;
 .
 
-<https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/root-void.pdf>
+<https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/vivo2doi-void.pdf>
    a foaf:Document;
    dcterms:format <http://provenanceweb.org/format/mime/application/pdf>;
    dcterms:created "2015-08-01"^^xsd:date;
-   prov:wasDerivedFrom <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/root-void.ttl>;
-   prov:alternateOf    <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/root-void.ttl>;
+   prov:wasDerivedFrom <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/vivo2doi-void.ttl>;
+   prov:alternateOf    <https://github.com/timrdf/csv2rdf4lod-automation/tree/master/doc/instances/dataset/hackerceo/vivo2doi-void.ttl>;
 .
 
 <https://twitter.com/timrdf/status/627495845701812224>
