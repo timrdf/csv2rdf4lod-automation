@@ -82,10 +82,11 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == 'yes' && -e "$1" ]]; then
          echo PUBLISHING $# more after $file
       fi
       if [[ -e "$file" ]]; then
-         echo "$file"
-         if [[ `valid-rdf.sh $file` == 'yes' ]]; then
+         valid=`valid-rdf.sh $file`
+         if [[ "$valid" == 'yes' ]]; then
             valid_rdf_files="$valid_rdf_files $file" # NOTE: file argument limit
          fi
+         echo "$file (valid RDF: $valid)"
          cr-ln-to-www-root.sh $file # We now publish all files, even if they're RDF that we're aggregating.
          nfo-filehash.sh $file >> $nfo_filehashes
       else
