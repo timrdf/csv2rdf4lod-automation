@@ -281,7 +281,8 @@ else
       #echo "   pmlj:hasInferenceEngine <$engine_name>;"                                       >> $consequent.$prov.ttl # $method#$requestID
       #echo "   pmlj:hasInferenceRule   $method_name;"                                         >> $consequent.$prov.ttl
       #echo "   oboro:has_agent          `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $consequent.$prov.ttl
-      echo "#   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $consequent.$prov.ttl
+
+      # TODO: BRING THIS BACK (user/person modeling)echo "   hartigprov:involvedActor `$CSV2RDF4LOD_HOME/bin/util/user-account.sh --cite`;" >> $consequent.$prov.ttl
 
       #if [ ${#commandUsed} -gt 0 ]; then
       #echo "   dcterms:description \"\"\"$commandUsed\"\"\";"                                 >> $consequent.$prov.ttl
