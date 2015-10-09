@@ -17,6 +17,8 @@ if [[ ! -e $dir ]]; then
    git clone https://github.com/openlink/virtuoso-opensource.git $dir
 fi
 
+echo "Adding to PATH: `pwd`/dependencies/prefix/bin"
+export PATH="$PATH:`pwd`/dependencies/prefix/bin"
 configPrefix="`pwd`/virtuoso-${desired_branch//\//-}"
 
 pushd $dir &> /dev/null
