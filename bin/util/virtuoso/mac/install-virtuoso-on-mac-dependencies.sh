@@ -32,6 +32,10 @@ fi
 echo
 echo
 echo "Missing: $missing"
+
+echo "Do you have sudo? (sudo -v)"
+i_can_sudo=`sudo -v &> /dev/null`
+i_can_sudo=$?
  
 mkdir -p dependencies && pushd dependencies &> /dev/null
    buildPrefix=`pwd`/prefix
@@ -80,11 +84,17 @@ mkdir -p dependencies && pushd dependencies &> /dev/null
                tar xzf $local
                pushd $dir &> /dev/null
                   export PATH=$PATH:$buildPrefix/bin
-                  #echo && read -p "Q: ./configure --prefix=$buildPrefix $dir? [y/n] " -u 1 do_it
-                  echo && read -p "Q: ./configure $dir? [y/n] " -u 1 do_it
+                  if [[ ! $i_can_sudo -eq 0 ]]; then
+                     echo && read -p "Q: ./configure --prefix=$buildPrefix $dir? [y/n] " -u 1 do_it
+                  else
+                     echo && read -p "Q: ./configure $dir? [y/n] " -u 1 do_it
+                  fi
                   if [[ "$do_it" == [yY] ]]; then
-                     #./configure --prefix=$buildPrefix
-                     ./configure
+                     if [[ ! $i_can_sudo -eq 0 ]]; then
+                        ./configure --prefix=$buildPrefix
+                     else
+                        ./configure
+                     fi
                      echo && read -p "Q: make $dir? [y/n] " -u 1 do_it
                      if [[ "$do_it" == [yY] ]]; then
                         sudo make
