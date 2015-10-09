@@ -86,8 +86,10 @@ mkdir -p dependencies && pushd dependencies &> /dev/null
                   export PATH=$PATH:$buildPrefix/bin
                   if [[ ! $i_can_sudo -eq 0 ]]; then
                      echo && read -p "Q: ./configure --prefix=$buildPrefix $dir? [y/n] " -u 1 do_it
+                     sudo="sudo"
                   else
                      echo && read -p "Q: ./configure $dir? [y/n] " -u 1 do_it
+                     sudo=""
                   fi
                   if [[ "$do_it" == [yY] ]]; then
                      if [[ ! $i_can_sudo -eq 0 ]]; then
@@ -97,11 +99,11 @@ mkdir -p dependencies && pushd dependencies &> /dev/null
                      fi
                      echo && read -p "Q: make $dir? [y/n] " -u 1 do_it
                      if [[ "$do_it" == [yY] ]]; then
-                        sudo make
+                        $sudo make
                         #make check
                         echo && read -p "Q: make install $dir? [y/n] " -u 1 do_it
                         if [[ "$do_it" == [yY] ]]; then
-                           sudo make install
+                           $sudo make install
                         fi
                      fi
                   fi
