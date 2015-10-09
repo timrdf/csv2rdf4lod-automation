@@ -138,41 +138,46 @@ popd &> /dev/null # Left virtuoso-from-github/
 
 configPrefixLocal=`basename $configPrefix`
 
-echo
-echo "Virtuoso can be started by running:"
-echo "   cd `pwd`"
-echo "   $configPrefixLocal/bin/virtuoso-t -f -c $configPrefixLocal/var/lib/virtuoso/db/virtuoso.ini &"
+if [[ -e $configPrefixLocal/bin/virtuoso-t ]]; then
 
-echo && read -p "Q: Start Virtuoso now? [y/n] " -u 1 do_it
-if [[ "$do_it" == [yY] ]]; then
-   $configPrefixLocal/bin/virtuoso-t -f -c $configPrefixLocal/var/lib/virtuoso/db/virtuoso.ini &
-fi
+   echo
+   echo "Virtuoso can be started by running:"
+   echo "   cd `pwd`"
+   echo "   $configPrefixLocal/bin/virtuoso-t -f -c $configPrefixLocal/var/lib/virtuoso/db/virtuoso.ini &"
 
-sleep 10 
+   echo && read -p "Q: Start Virtuoso now? [y/n] " -u 1 do_it
+   if [[ "$do_it" == [yY] ]]; then
+      $configPrefixLocal/bin/virtuoso-t -f -c $configPrefixLocal/var/lib/virtuoso/db/virtuoso.ini &
+   fi
 
-echo
-echo "Virtuoso's Conductor is at http://localhost:8890/conductor/"
+   sleep 10 
 
-echo
-echo "Virtuoso's SPARQL endpoint is at http://localhost:8890/sparql"
+   echo
+   echo "Virtuoso's Conductor is at http://localhost:8890/conductor/"
 
-echo
-echo "You can change Virtuoso's password through the command line using the following:"
-echo "   cd `pwd`"
-echo "   $configPrefixLocal/bin/isql-v 1111 dba dba"
-echo "   set password dba SOMEOTHERPASSWORD;"
-echo "   exit;"
+   echo
+   echo "Virtuoso's SPARQL endpoint is at http://localhost:8890/sparql"
 
-echo
-echo "We will offer to shut down Virtuoso for you in 25 seconds..."
+   echo
+   echo "You can change Virtuoso's password through the command line using the following:"
+   echo "   cd `pwd`"
+   echo "   $configPrefixLocal/bin/isql-v 1111 dba dba"
+   echo "   set password dba SOMEOTHERPASSWORD;"
+   echo "   exit;"
 
-sleep 25
+   echo
+   echo "We will offer to shut down Virtuoso for you in 25 seconds..."
 
-echo
-echo "Virtuoso can be shut down by running:"
-echo "   cd `pwd`"
-echo "   virtuoso-stable-7/bin/isql-v 1111 dba dba -K"
-echo && read -p "Q: Shut down Virtuoso now? [y/n] " -u 1 do_it
-if [[ "$do_it" == [yY] ]]; then
-   virtuoso-stable-7/bin/isql-v 1111 dba dba -K
+   sleep 25
+
+   echo
+   echo "Virtuoso can be shut down by running:"
+   echo "   cd `pwd`"
+   echo "   virtuoso-stable-7/bin/isql-v 1111 dba dba -K"
+   echo && read -p "Q: Shut down Virtuoso now? [y/n] " -u 1 do_it
+   if [[ "$do_it" == [yY] ]]; then
+      virtuoso-stable-7/bin/isql-v 1111 dba dba -K
+   fi
+else 
+   echo "$configPrefixLocal/bin/virtuoso-t does not exist; do something and try again."
 fi
