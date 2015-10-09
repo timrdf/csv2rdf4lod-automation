@@ -86,10 +86,10 @@ mkdir -p dependencies && pushd dependencies &> /dev/null
                   export PATH=$PATH:$buildPrefix/bin
                   if [[ ! $i_can_sudo -eq 0 ]]; then
                      echo && read -p "Q: ./configure --prefix=$buildPrefix $dir? [y/n] " -u 1 do_it
-                     sudo="sudo"
+                     sudo=""
                   else
                      echo && read -p "Q: ./configure $dir? [y/n] " -u 1 do_it
-                     sudo=""
+                     sudo="sudo"
                   fi
                   if [[ "$do_it" == [yY] ]]; then
                      if [[ ! $i_can_sudo -eq 0 ]]; then
