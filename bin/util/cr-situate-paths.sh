@@ -55,6 +55,10 @@ if [ ! `which vload &> /dev/null` ]; then
    missing=$missing:$HOME/bin/util/virtuoso
 fi
 
+if [ ! `which install-virtuoso-on-mac.sh &> /dev/null` ]; then
+   missing=$missing:$HOME/bin/util/virtuoso/mac
+fi
+
 if [ ! `which cr-linksets.sh &> /dev/null` ]; then
    missing=$missing:$HOME/bin/secondary
 fi
