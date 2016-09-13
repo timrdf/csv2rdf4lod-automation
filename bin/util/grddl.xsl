@@ -7,7 +7,7 @@
 
 <xsl:transform version="2.0" 
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:grddl="http://www.w3.org/2003/g/data-view#"> <!-- hash or no hash? examples contflict... -->
+   xmlns:grddl="http://www.w3.org/2003/g/data-view#"> <!-- hash or no hash? examples conflict... -->
 <xsl:output method="text"/>
 
 <xsl:template match="/">
@@ -31,6 +31,11 @@
       <xsl:when test="//*/@transformation[starts-with(.,'http')]">
          <xsl:for-each-group select="//*/@transformation[starts-with(.,'http')]" group-by=".">
             <xsl:value-of select="concat(.,'&#xa;')"/>
+         </xsl:for-each-group>
+      </xsl:when>
+      <xsl:when test="//*/@*[starts-with(.,'http') and ends-with(.,'#a-w3-org-2003-g-data-view-transform')]">
+         <xsl:for-each-group select="//*/@*[starts-with(.,'http') and ends-with(.,'#a-w3-org-2003-g-data-view-transform')]" group-by=".">
+            <xsl:value-of select="concat(substring-before(.,'#a-w3-org-2003-g-data-view-transform'),'&#xa;')"/>
          </xsl:for-each-group>
       </xsl:when>
       <xsl:otherwise>
