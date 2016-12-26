@@ -90,6 +90,7 @@
 .
 
 <http://lov.okfn.org/dataset/lov/agents/Tim%20Lebo> prov:specializationOf <http://purl.org/twc/id/person/TimLebo> .
+<http://orcid.org/0000-0002-8042-7359> prov:specializationOf <http://purl.org/twc/id/person/TimLebo> .
 
 <http://ichoose.tw.rpi.edu/void>    prov:wasAttributedTo <http://purl.org/twc/id/person/TimLebo> .
 <http://healthdata.tw.rpi.edu/void> prov:wasAttributedTo <http://purl.org/twc/id/person/TimLebo> .

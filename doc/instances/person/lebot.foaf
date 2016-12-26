@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rdf:RDF
-   xmlns:cert="http://www.w3.org/ns/auth/cert#"
+<rdf:RDF xmlns:cert="http://www.w3.org/ns/auth/cert#"
    xmlns:con="http://www.w3.org/2000/10/swap/pim/contact#"
    xmlns:dcterms="http://purl.org/dc/terms/"
    xmlns:foaf="http://xmlns.com/foaf/0.1/"
@@ -29,6 +28,12 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://ichoose.tw.rpi.edu/void">
     <prov:wasAttributedTo rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://lov.okfn.org/dataset/lov/agents/Tim%20Lebo">
+    <prov:specializationOf rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://orcid.org/0000-0002-8042-7359">
+    <prov:specializationOf rdf:resource="http://purl.org/twc/id/person/TimLebo"/>
   </rdf:Description>
   <foaf:Person rdf:about="http://purl.org/twc/id/person/TimLebo">
     <rel:collaboratesWith rdf:resource="http://purl.org/twc/id/person/NicholasDelRio"/>
