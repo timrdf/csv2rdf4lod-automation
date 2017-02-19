@@ -14,7 +14,7 @@
 
 mkdir -p source && pushd source
    web_directory='blah'
-   #wget --mirror -e robots=off --no-parent $web_directory
+   #wget --mirror -e robots=off --no-parent --limit-rate=423k $web_directory
 popd
 
 #cache-queries.sh ${CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT:-'http://localhost/sparql'} -o csv -q ../../src/some.rq --limit-offset 5000 -od source

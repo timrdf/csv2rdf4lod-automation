@@ -71,7 +71,8 @@ while [ $# -gt 0 ]; do
       echo "."                                                                
       if [[ "`cr-pwd-type.sh`" == 'cr:conversion-cockpit' ]]; then
          eg=`cr-ln-to-www-root.sh --url-of-filepath \`cr-ln-to-www-root.sh -n source\``
-         echo "<$specializationPath> prv:serializedBy <`dirname $eg`/$file> ."
+         echo "<$specializationPath>"
+         echo "   prv:serializedBy <`dirname $eg`/$file> ."
       else
          echo "<$specializationPath> prv:serializedBy <`basename $file`> ."
       fi

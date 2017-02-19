@@ -148,17 +148,21 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
                # And, expand the relative paths correctly.
                if [[ `too-big-for-rapper.sh $file` == 'yes' && `which serdi` ]]; then
                   serdi  -i turtle -o turtle $file              >> publish/$sdv.ttl
+                  echo                                          >> publish/$sdv.ttl
                elif [[ `which rapper` ]]; then
                   rapper -i turtle -o turtle $file 2> /dev/null >> publish/$sdv.ttl
+                  echo                                          >> publish/$sdv.ttl
                else
                   cat $file                                     >> publish/$sdv.ttl
+                  echo                                          >> publish/$sdv.ttl
                fi
             elif [[ -z "$serialization" ]]; then
                echo "WARNING: omitting $file b/c could not recognize serialization type."
             else
                # The other formats aren't really human readable, so no worries if it's ugly ttl.
                # N-Triples is Turtle...
-               rdf2nt.sh $file         >> publish/$sdv.ttl
+               rdf2nt.sh $file                                  >> publish/$sdv.ttl
+               echo                                             >> publish/$sdv.ttl
             fi
          fi
       done

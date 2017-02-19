@@ -17,8 +17,18 @@ if [[ ! -e $dir ]]; then
    git clone https://github.com/openlink/virtuoso-opensource.git $dir
 fi
 
-echo "Adding to PATH: `pwd`/dependencies/prefix/bin"
-export PATH="$PATH:`pwd`/dependencies/prefix/bin"
+if [[ ! -e dependencies/prefix/bin ]]; then
+   read -p "Q: Attempt to install Virtuoso's dependencies ()? [y/n] " -u 1 install_them
+   if [[ "$install_them" == [yY] ]]; then
+      ./install-virtuoso-on-mac-dependencies.sh
+   else
+      echo "Okay, but good luck! https://github.com/timrdf/csv2rdf4lod-automation/wiki/Publishing-conversion-results-with-a-Virtuoso-triplestore#installing-virtuoso-on-mac"
+   fi
+fi
+
+echo "Adding to PATH: `pwd`/dependencies/prefix/bin" # These are installed by install-virtuoso-on-mac-dependencies.sh
+PATH="$PATH:`pwd`/dependencies/prefix/bin"
+
 configPrefix="`pwd`/virtuoso-${desired_branch//\//-}"
 
 pushd $dir &> /dev/null

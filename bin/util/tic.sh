@@ -23,6 +23,7 @@
 #3>   a doap:Project;
 #3>   dcterms:description "Script to extract Turtle from comments.";
 #3>   rdfs:seeAlso <https://github.com/timrdf/csv2rdf4lod-automation/wiki/tic-turtle-in-comments>;
+#3>   rdfs:seeAlso <https://github.com/timrdf/vsr/blob/master/src/xsl/grddl/tic.xsl>;
 #3> .
 
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then

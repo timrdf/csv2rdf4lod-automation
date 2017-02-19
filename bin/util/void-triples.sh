@@ -8,6 +8,11 @@
 # TODO: handles large files, uses serdi when needed:
 # rdf2nt.sh publish/lofd-tw-rpi-edu.nt.gz | rapper -i ntriples -c -I http://blah - 2>&1 | awk '$0~/Parsing returned/{print $4}'
 # gunzip -c publish/c2tc-rl-af-mil-demo-2013-Jul-23.ttl.gz
+#
+# for ttl in `find automatic/ -name "*.ttl"`; do c=`void-triples.sh $ttl`; if [[ "$c" -gt 0 ]]; then echo "$c $ttl"; fi done
+# 40 a.ttl
+# 27 b.ttl
+
 
 count=0
 if [ $# -gt 0 ]; then

@@ -23,6 +23,8 @@
 
 if [[ $# -lt 2 ]]; then
    echo "usage: `basename $0` [--limit-offset <count>] [--to {vload, files}] <endpoint> <sd_name> [sd_name] ..."
+   echo
+   echo "   sd_name : the GRAPH {} name to grab; if 'cr:all' will query for all ?g and grab all."
    exit 1
 fi
 
@@ -55,6 +57,15 @@ function noprotocolnohash {
    echo $url
 }
 
+function noprotocolkeephash {
+   url="$1"
+   url=${url#'http://'}
+   url=${url#'https://'}
+   #url=${url%#*} # take off fragment identifier
+   url=${url/\#/__hash__}
+   echo $url
+}
+
 while [ $# -gt 0 ]; do
    sd_name=$1
    echo "Grabbing sd:name $sd_name from $endpoint"
@@ -62,10 +73,11 @@ while [ $# -gt 0 ]; do
    #
    # Query it in via cache-queries (this models the endpoint and query explicitly).
    #
-   if [[ "$sd_name" == 'cr:all' ]]; then
+   if [[ "$sd_name" == 'cr:everything' || "$sd_name" == 'cr:all' ]]; then
 
-      query="select distinct ?g where { graph ?g { [] a [] } }" # Note, might miss some --
-                                                                # could use ?p but might be slower...
+      [[ "$sd_name" == 'cr:all' ]] && p='?p' || p='a'
+      query="select distinct ?g where { graph ?g { [] $p [] } }" # Note, might miss some --
+                                                                 # could use ?p but might be slower...
       endpoint_path=`noprotocolnohash $endpoint`
       rq=$endpoint_path/__sd_name__.rq
       nt=$endpoint_path/__sd_name__.nt
@@ -118,7 +130,7 @@ while [ $# -gt 0 ]; do
    elif [[ "$destination" == 'files' ]]; then
 
       endpoint_path=`noprotocolnohash $endpoint`
-      sd_name_path=`noprotocolnohash $sd_name`
+      sd_name_path=`noprotocolkeephash $sd_name`
       rq=$endpoint_path/__sd_name__/$sd_name_path/spo.rq
       nt=$endpoint_path/__sd_name__/$sd_name_path/spo.nt
       mkdir -p `dirname $rq`

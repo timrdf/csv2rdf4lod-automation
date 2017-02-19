@@ -7,6 +7,7 @@
 <xsl:transform version="2.0" 
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:xutil="https://github.com/timrdf/vsr/blob/master/src/xsl/util/uri.xsl"
    xmlns:this="https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/util/xml2ttl.xsl"
    xmlns:uuid="java:java.util.UUID"
    exclude-result-prefixes="xs">
@@ -60,23 +61,43 @@
       </xsl:choose>
    </xsl:variable>
 
+   <!-- 
+      The input:
+         <sparql xmlns="http://www.w3.org/2005/sparql-results#">
+      should return:
+         <someNode> a <http://www.w3.org/2005/sparql-results#sparql> .
+   -->
+   <xsl:variable name="type" select="if (namespace-uri-from-QName(node-name(.))) then xutil:uri(.) else $element-name"/>
    <xsl:value-of select="concat('&lt;',$element-name,'/',$element-id,'&gt;',$NL,
-                                '   a &lt;',$element-name,'&gt;;',$NL,
-                                '   prov:atLocation ',$LT,concat($path-prefix,$element-name),$GT,';',$NL,
+                                '   a &lt;',$type,'&gt;;',$NL,
+                                '   prov:atLocation ',$LT,concat($path-prefix,if ($path-prefix) then '/' else '',$element-name),$GT,';',$NL,
                                 '   xml2ttl:depth ',$depth,';',$NL)"/>
    <!-- Handle "attributes" -->
-   <xsl:for-each select="*[not(*)] | @*">
-      <xsl:variable name="predicate" select="concat($LT,local-name(.),$GT)"/>
-      <xsl:variable name="object"    select="if (starts-with(.,'http://') or 
-                                                 starts-with(.,'https://')) 
+   <xsl:for-each select="*[not(*|@*)] | @*">
+      <!--
+         <literal datatype="http://www.w3.org/2001/XMLSchema#decimal">2.22</literal>
+      -->
+      <xsl:variable name="predicate" select="if (namespace-uri-from-QName(node-name(.))) then xutil:uri(.) else local-name(.)"/>
+      <xsl:variable name="object"    select="if ((starts-with(.,'http://') or 
+                                                 starts-with(.,'https://')) and not(contains(.,' '))) 
                                              then concat($LT,.,$GT) 
                                              else concat($DQ,$DQ,$DQ,
                                                            replace(.,$DQ,concat('\\',$DQ)),
                                                          $DQ,$DQ,$DQ)"/>
       <xsl:value-of select="if (string-length(.) and not(@type='text/css')) 
-                            then concat('   ',$predicate,' ',$object,';',$NL) 
-                            else ''"/>
+                            then concat('   ',$LT,$predicate,$GT,' ',$object,';',$NL) 
+                            else ''"/> <!-- this used to be local-name(.) -->
    </xsl:for-each>
+
+   <xsl:if test="count(text()) eq 1">
+      <xsl:for-each select="text()">
+         <xsl:if test="string-length(.) gt 1">
+            <xsl:value-of select="concat('   lmx:text ',concat($DQ,$DQ,$DQ,
+                                                                  replace(.,$DQ,concat('\\',$DQ)),
+                                                               $DQ,$DQ,$DQ),';',$NL)"/>
+         </xsl:if>
+      </xsl:for-each>
+   </xsl:if>
 
    <!-- Handle "relations" -->
    <xsl:for-each select="*[*|@*]">
@@ -98,7 +119,7 @@
 
    <xsl:value-of select="concat('.',$NL)"/>
 
-   <xsl:apply-templates select="*[*]">
+   <xsl:apply-templates select="*[*|@*]">
       <xsl:with-param name="path-prefix" select="concat($path-prefix,
                                                         if (string-length($path-prefix)) then '/' else '',
                                                         $element-name)"/>
@@ -110,5 +131,10 @@
 <xsl:variable name="DQ" select="'&#x22;'"/>
 <xsl:variable name="LT" select="'&lt;'"/>
 <xsl:variable name="GT" select="'&gt;'"/>
+
+<xsl:function name="xutil:uri">
+   <xsl:param name="node" as="node()"/>
+   <xsl:value-of select="concat(namespace-uri-from-QName(node-name($node)),local-name($node))"/>
+</xsl:function>
 
 </xsl:transform>

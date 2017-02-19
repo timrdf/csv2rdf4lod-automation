@@ -199,6 +199,11 @@ for sparql in $queryFiles; do
             fi
          fi
          escapedOutput=`cr-urlencode.sh $output`
+         if [[ "$output" == "xml" ]]; then
+            accept='application/xml'
+         else
+            accept='application/xml'
+         fi
 
          timeout='&timeout=300000'
          request="$endpoint?query=$query$queryLIMIT$queryOFFSET$timeout&$outputVarName=$escapedOutput"
@@ -268,7 +273,7 @@ for sparql in $queryFiles; do
             fi
          fi
          startedAtTime=`date +"%s"`
-         curl -L "$request" > $resultsFile 2> /dev/null
+         curl -H "Accept: $accept" -L "$request" > $resultsFile 2> /dev/null
          endedAtTime=`date +"%s"`
          let "requestDuration=endedAtTime-startedAtTime"
          usageDateTime=`dateInXSDDateTime.sh`

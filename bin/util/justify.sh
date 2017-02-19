@@ -125,7 +125,7 @@ else
       shift
    fi
 
-   if [[ ! -e "$antecedent" && ! "$antecedent" =~ http* ]]; then
+   if [[ ! -e "$antecedent" && ! ( "$antecedent" =~ http* || "$antecedent" =~ ftp* ) ]]; then
       echo "$antecedent does not exist and is not an HTTP URI; no justifications asserted."
       capture="no"
    fi

@@ -7,8 +7,9 @@ if [[ "$1" == '--clean' ]]; then
    exit
 fi
 
+yW='200'
 if [[ "$1" == '--help' || "$1" == '-h' || $# -lt 2 ]]; then
-   echo "usage: $0 [--syntax {turtle,nt}] <an-rdf-file> <a-slightly-different-rdf-file>"
+   echo "usage: `basename $0` [--syntax {turtle,nt}] [-W <width=$yW>] <an-rdf-file> <a-slightly-different-rdf-file>"
    exit
 fi
 
@@ -22,7 +23,6 @@ if [[ "$1" == '--syntax' ]]; then
    shift
 fi
 
-yW='200'
 if [[ "$1" == '-W' ]]; then
    if [[ ! -e "$2" ]]; then
       yW="$2"   
