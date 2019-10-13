@@ -54,6 +54,8 @@ else
    echo "prefix nfo:        <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#>"
    echo "prefix sio:        <http://semanticscience.org/resource/>"
    echo "prefix org:        <http://www.w3.org/ns/org#>"
+   echo "prefix gn:         <http://www.geonames.org/ontology#>"
+   echo "prefix cc:         <http://creativecommons.org/ns#>"
    echo "prefix vsr:        <http://purl.org/twc/vocab/vsr#>"
    echo "prefix cogs:       <http://vocab.deri.ie/cogs#>"
    echo "prefix pml:        <http://provenanceweb.org/ns/pml#>"
