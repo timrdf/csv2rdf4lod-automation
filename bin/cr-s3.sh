@@ -107,6 +107,15 @@ function lnwww {
    fi
 }
 
+timepath="`dateInXSDDateTime.sh --uri-path | sed 's/....-....$//'`" # e.g. 2019/10/13/T/19/44
+#                                                                                          ^^
+# NOTE: assumes single-threaded; will put multiple records in same file for uploads that occur within the same clock minute.
+upload_provenance="automatic/log/s3/$timepath/s3-log.ttl" 
+mkdir -p `dirname "$upload_provenance"`
+if [ ! -e "$upload_provenance" ]; then
+   cr-default-prefixes.sh --turtle >> "$upload_provenance"
+fi
+
 errorTally=0
 while [ $# -gt 0 ]; do
    file="$1"
@@ -126,14 +135,65 @@ while [ $# -gt 0 ]; do
    aws s3 ls "$s3"
    if [[ $? -ne 0 ]]; then # https://unix.stackexchange.com/a/370925
       # File is not in S3.
-      # aws s3 cp temp.file s3://our-first-bucket-first-otc/temp.file —profile admin
+      echo "$manifestation -> $s3" 
+
+      startTime=`dateInXSDDateTime.sh --turtle`
       echo aws --profile $profile s3 cp "$file" "$s3"
            aws --profile $profile s3 cp "$file" "$s3"
-      # TODO: md5 the file before sending it, record the pairing, align into FSMDR's manifestation.
-      # write it into a timestamped by start TTL file.
+      endTime=`dateInXSDDateTime.sh --turtle`
+
+      #
+      # Log provenance
+      #
+      host_md5=`md5.sh -qs $CSV2RDF4LOD_PUBLISH_AWS_S3_BUCKET`
+      host="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/host/${host_md5}"
+
+      md5=`${CSV2RDF4LOD_HOME}/bin/util/md5.sh "$file"`
+      manifestation="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/md5/$md5"
+
+      s3_path=${url/${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}}
+      s3_path_md5=`md5.sh -qs "${s3_path}"`
+      fileItem="$manifestation/host/${host_md5}/path/${s3_path_md5}"
+
+      pathOnHost="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/host/${host_md5}/path/${s3_path_md5}"
+
+      dirPath=`dirname ${s3_path}`
+      dirPathOnHost="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/host/${host_md5}/path/`md5.sh -qs $dirPath`"
+
+      activity="${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/id/copy/$timepath/from/$md5/`md5.sh -qs $s3`"
+
+      echo "<$fileItem>"                                               >> "$upload_provenance"
+      echo "   a frbr:Item, nfo:FileDataObject; # ${s3_path}"          >> "$upload_provenance"
+      echo "   frbr:exemplarOf <$manifestation>;"                      >> "$upload_provenance"
+      echo "   prov:atLocation <$pathOnHost> ."                        >> "$upload_provenance"
+      echo                                                             >> "$upload_provenance"
+      echo "<$pathOnHost>"                                             >> "$upload_provenance"
+      echo "   a nfo:FileDataObject;"                                  >> "$upload_provenance"
+      echo "   nfo:fileUrl <$s3>;"                                     >> "$upload_provenance"
+      echo "   prov:atLocation <$dirPathOnHost> ."                     >> "$upload_provenance"
+      echo                                                             >> "$upload_provenance"
+      echo "<$manifestation>"                                          >> "$upload_provenance"
+      echo "   a frbr:Manifestation, nfo:FileHash;"                    >> "$upload_provenance"
+      echo "   nfo:hashAlgorithm <http://dbpedia.org/resource/MD5>;"   >> "$upload_provenance"
+      echo "   nfo:hashValue     \"$md5\" ."                           >> "$upload_provenance"
+      echo                                                             >> "$upload_provenance"
+      echo "<$dirPathOnHost>"                                          >> "$upload_provenance"
+      echo "   a nfo:Folder;"                                          >> "$upload_provenance"
+      echo "   dcterms:identifier \"$dirPath\";"                       >> "$upload_provenance"
+      echo "   prov:atLocation <$host> ."                              >> "$upload_provenance"
+      echo                                                             >> "$upload_provenance"
+      echo "<$CSV2RDF4LOD_PUBLISH_AWS_S3_BUCKET>"                      >> "$upload_provenance"
+      echo "   gn:parentFeature <$host> ."                             >> "$upload_provenance"
+      echo                                                             >> "$upload_provenance"
+      echo "<$activity>"                                               >> "$upload_provenance"
+      echo "   prov:startedAtTime $startTime;"                         >> "$upload_provenance"
+      echo "   prov:used          <$fileItem>;"                        >> "$upload_provenance"
+      echo "   prov:endedAtTime   $endTime;"                           >> "$upload_provenance"
+      echo "   prov:generated     <$pathOnHost>;"                      >> "$upload_provenance"
+      echo "."                                                         >> "$upload_provenance"
    else
-     echo "File does exists"
-     aws s3 ls "$s3"
+      echo "File does exists"
+      aws s3 ls "$s3"
       # aws s3 ls s3://our-first-bucket-first-otc/source/abc.virginia.gov/product-label-approval/version/2019-05-10/source/1996/1013.jpg
       # 2019-10-12 15:11:29     151727 1013.jpg
    fi
