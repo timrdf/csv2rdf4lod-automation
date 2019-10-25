@@ -145,6 +145,9 @@ if [ "$1" != "CLEAR" ]; then
    echo "CSV2RDF4LOD_PUBLISH_METADATASET_GRAPH_NAME               ${CSV2RDF4LOD_PUBLISH_METADATASET_GRAPH_NAME:="(will default to: http://purl.org/twc/vocab/conversion/MetaDataset)"}"
 
    echo
+   echo "CSV2RDF4LOD_PUBLISH_AWS_S3_BUCKET                        ${CSV2RDF4LOD_PUBLISH_AWS_S3_BUCKET:-"(will default to: none)"}"
+
+   echo
    echo "CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT         ${CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT:-"(will default to: VVV/publish/lod-mat/)"}"
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES                    ${CSV2RDF4LOD_PUBLISH_VARWWW_DUMP_FILES:-"(will default to: false)"}"
    echo "CSV2RDF4LOD_PUBLISH_VARWWW_ROOT                          ${CSV2RDF4LOD_PUBLISH_VARWWW_ROOT:-"(will default to: false)"}"

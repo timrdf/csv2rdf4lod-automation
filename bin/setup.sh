@@ -583,6 +583,14 @@ export CSV2RDF4LOD_CONCURRENCY="8"
 export CSV2RDF4LOD_CONCURRENCY="2"
 
 #
+# Customize: Upload files into an AWS S3 bucket.
+#
+# (done in bin/cr-s3.sh)
+#
+export CSV2RDF4LOD_PUBLISH_AWS_S3_BUCKET="s3://my-bucket-name"
+export CSV2RDF4LOD_PUBLISH_AWS_S3_BUCKET=""
+
+#
 # Customize: ln publish/*.ttl into a corresponding directory in
 #            /var/www directory ($CSV2RDF4LOD_PUBLISH_LOD_MATERIALIZATION_WWW_ROOT)
 #            to publish on web. The void:Datasets point to these void:dataDumps.
