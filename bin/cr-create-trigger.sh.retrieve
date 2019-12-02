@@ -12,9 +12,21 @@
 #3>      <https://github.com/timrdf/csv2rdf4lod-automation/wiki/tic-turtle-in-comments>;
 #3> .
 
+
 mkdir -p source && pushd source
    web_directory='blah'
    #wget --mirror -e robots=off --no-parent --limit-rate=423k $web_directory
+
+   #today=`date +%Y/%m/%d`
+   #for index in https://example.org/my-list-of-stuff; do
+   #   local=`basename $index`
+   #   if [ ! -e "$today/$local.html" ]; then # Makes a new copy each day.
+   #      mkdir -p "$today"
+   #      pushd "$today"
+   #         pcurl.sh "$index" -n "$local" -e html
+   #      popd
+   #   fi
+   #done
 popd
 
 #cache-queries.sh ${CSV2RDF4LOD_PUBLISH_SPARQL_ENDPOINT:-'http://localhost/sparql'} -o csv -q ../../src/some.rq --limit-offset 5000 -od source

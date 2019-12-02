@@ -110,7 +110,14 @@ function lnwww {
 timepath="`dateInXSDDateTime.sh --uri-path | sed 's/....-....$//'`" # e.g. 2019/10/13/T/19/44
 #                                                                                          ^^
 # NOTE: assumes single-threaded; will put multiple records in same file for uploads that occur within the same clock minute.
-upload_provenance="automatic/log/s3/$timepath/s3-log.ttl" 
+
+# /\ options
+# \/ chosen:
+logpath="$timepath"
+local_salt=''
+local_salt="_`uuidgen`"
+
+upload_provenance="publish/log/s3/$logpath/s3-log${local_salt}.ttl"
 mkdir -p `dirname "$upload_provenance"`
 if [ ! -e "$upload_provenance" ]; then
    cr-default-prefixes.sh --turtle >> "$upload_provenance"
@@ -125,12 +132,13 @@ while [ $# -gt 0 ]; do
    url=`${CSV2RDF4LOD_HOME}/bin/cr-ln-to-www-root.sh -n --url-of-filepath "$file" 2>/dev/null`
    # ^^ handles logic to map local file path to public URL within our domain name.
    echo "$file -> $url"
-   # ^^ e.g.            https://onthecurb.io/source/abc.virginia.gov/file/product-label-approval/version/2019-05-10/source/1996/1013.jpg
+   # ^^ e.g.            https://us.com/source/abc.123.com/file/labels/version/2015-04-13/source/1996/1013.jpg
 
+   #                                                                 s3://my-bucket
    s3=${url/${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/$CSV2RDF4LOD_PUBLISH_AWS_S3_BUCKET}
    # ^^ transforms the public-facing URL from within our domain to within our S3 bucket.
    echo "`echo "$file" | sed 's/./ /g'` -> $s3"
-   # ^^ e.g. s3://our-first-bucket-first-otc/source/abc.virginia.gov/file/product-label-approval/version/2019-05-10/source/1996/1013.jpg
+   # ^^ e.g. s3://my-bucket/source/abc.124.org/file/labels/version/2015-04-13/source/1996/1013.jpg
 
    aws s3 ls "$s3"
    if [[ $? -ne 0 ]]; then # https://unix.stackexchange.com/a/370925
