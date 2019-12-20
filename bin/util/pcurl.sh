@@ -161,9 +161,9 @@ while [ $# -gt 0 ]; do
    if [[ -n "$localName" ]]; then
       # Either b/c of -n flag, or by Content-Disposition response header.
       file=$localName$extension
+      file="$(echo -e "${file}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')" # https://stackoverflow.com/a/3232433
       log "PCURL: local name overriding redirected name"
    fi
-   file="$(echo -e "${file}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')" # https://stackoverflow.com/a/3232433
    #file=${localName}-$documentVersion${extension}
    log "[INFO] `basename $0`: local file name will be $file"
 
