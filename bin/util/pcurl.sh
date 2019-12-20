@@ -163,6 +163,7 @@ while [ $# -gt 0 ]; do
       file=$localName$extension
       log "PCURL: local name overriding redirected name"
    fi
+   file="$(echo -e "${file}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')" # https://stackoverflow.com/a/3232433
    #file=${localName}-$documentVersion${extension}
    log "[INFO] `basename $0`: local file name will be $file"
 
