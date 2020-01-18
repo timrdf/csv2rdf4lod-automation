@@ -1,7 +1,9 @@
 #!/bin/bash
 #
-#3> <> prov:wasGeneratedBy [ prov:qualifiedAssociation [ prov:hadPlan <https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/cr-ln-to-www-root.sh> ] ] .
-#3> <https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/aggregate-source-rdf.sh> a prov:Plan; foaf:homepage <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-ln-to-www-root.sh> .
+#3> <> prov:wasGeneratedBy [ prov:qualifiedAssociation [
+#3>      prov:hadPlan <https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/cr-ln-to-www-root.sh> ] ] .
+#3> <https://raw.github.com/timrdf/csv2rdf4lod-automation/master/bin/aggregate-source-rdf.sh> a prov:Plan;
+#3>    foaf:homepage <https://github.com/timrdf/csv2rdf4lod-automation/blob/master/bin/cr-ln-to-www-root.sh> .
 #
 #
 # Usage:
@@ -68,56 +70,41 @@ if [[ "$1" == "-s" || "$CSV2RDF4LOD_PUBLISH_VARWWW_LINK_TYPE" == "soft" ]]; then
   shift
 fi
 
-sudo="sudo"
-if [[ `whoami` == root ]]; then
-   sudo=""
-elif [[ "`stat --format=%U "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source"`" == `whoami` ]]; then
-   sudo=""
-fi
+#sudo="sudo"
+#if [[ `whoami` == root ]]; then
+#   sudo=""
+#elif [[ "`stat --format=%U "$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source"`" == `whoami` ]]; then
+#   sudo=""
+#fi
 
 profile="admin" # TODO: take as an argument.
 
-function lnwww {
-   publish=""
-   if [ "$2" == 'publish' ]; then
-      publish="conversion"
-   fi
-   sourceID=`cr-source-id.sh`
-   datasetID=`cr-dataset-id.sh`
-   versionID=`cr-version-id.sh`
+use_latest_log='false'
+if [[ "$1" == "--log-to-latest" ]]; then
+  use_latest_log='true'
+  shift
+  latest_log=`ls -t publish/log/s3/s3-log*.ttl | head -n1`
+  #echo "latest: $latest_log"
+fi
 
-   wwwfile="$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT/source/$sourceID/file/$datasetID/version/$versionID/$publish${1#publish}"
-   if [ -e "$1" -o "$2" == 'publish' ]; then
+if [ ! -f "$latest_log" ]; then
+   empty=''
+   uuid=`uuidgen`                                                               # e.g. 209E4CDF-5551-4437-95E6-73B16B1DE16E
+   timepath=` dateInXSDDateTime.sh --uri-path | sed 's/....-....$//'`           # e.g.   2019/10/13/T/19/44
+   time_path=`dateInXSDDateTime.sh --uri-path | sed 's/....-....$//; s/\//-/g'` # e.g. '_2020-01-18-T-14-55'
+   #                                                                                          ^^
+   # NOTE: assumes single-threaded; will put multiple records in same file for uploads that occur within the same clock minute.
 
-      echo " $wwwfile"
-      if [[ "$dryrun" != "yes" ]]; then
-         if [ -e "$wwwfile" ]; then
-            echo "   $sudo rm -f  $wwwfile" >&2
-                     $sudo rm -f "$wwwfile"
-         else
-            echo "   $sudo mkdir -p `dirname "$wwwfile"`" >&2
-                     $sudo mkdir -p `dirname "$wwwfile"`
-         fi
-         echo "   "$sudo ln $symbolic "${pwd}$1" "$wwwfile" >&2
-                   $sudo ln $symbolic "${pwd}$1" "$wwwfile"
-      fi
-   else
-      echo "  -- $1 omitted --" >&2
-      let "errorTally=errorTally+1"
-   fi
-}
+   # /\ options
+   # \/ chosen:
+   logpath="$empty"
+   local_salt="_$uuid"
+   upload_provenance="publish/log/s3/$logpath/s3-log${local_salt}.ttl"
+else
+   upload_provenance="$latest_log"
+fi
+#echo "will log to $upload_provenance"
 
-timepath="`dateInXSDDateTime.sh --uri-path | sed 's/....-....$//'`" # e.g. 2019/10/13/T/19/44
-#                                                                                          ^^
-# NOTE: assumes single-threaded; will put multiple records in same file for uploads that occur within the same clock minute.
-
-# /\ options
-# \/ chosen:
-logpath="$timepath"
-local_salt=''
-local_salt="_`uuidgen`"
-
-upload_provenance="publish/log/s3/$logpath/s3-log${local_salt}.ttl"
 mkdir -p `dirname "$upload_provenance"`
 if [ ! -e "$upload_provenance" ]; then
    cr-default-prefixes.sh --turtle >> "$upload_provenance"
@@ -132,18 +119,18 @@ while [ $# -gt 0 ]; do
    url=`${CSV2RDF4LOD_HOME}/bin/cr-ln-to-www-root.sh -n --url-of-filepath "$file" 2>/dev/null`
    # ^^ handles logic to map local file path to public URL within our domain name.
    echo "$file -> $url"
-   # ^^ e.g.            https://us.com/source/abc.123.com/file/labels/version/2015-04-13/source/1996/1013.jpg
+   # ^^ e.g.            https://us.com/source/abc.123.org/file/labels/version/2015-04-13/source/1996/1013.jpg
 
    #                                                                 s3://my-bucket
    s3=${url/${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}/$CSV2RDF4LOD_PUBLISH_AWS_S3_BUCKET}
    # ^^ transforms the public-facing URL from within our domain to within our S3 bucket.
    echo "`echo "$file" | sed 's/./ /g'` -> $s3"
-   # ^^ e.g. s3://my-bucket/source/abc.124.org/file/labels/version/2015-04-13/source/1996/1013.jpg
+   # ^^ e.g. s3://my-bucket/source/abc.123.org/file/labels/version/2015-04-13/source/1996/1013.jpg
 
    aws s3 ls "$s3"
    if [[ $? -ne 0 ]]; then # https://unix.stackexchange.com/a/370925
       # File is not in S3.
-      echo "$manifestation -> $s3" 
+      echo "$manifestation -> $s3"
 
       startTime=`dateInXSDDateTime.sh --turtle`
       echo aws --profile $profile s3 cp "$file" "$s3"
@@ -201,32 +188,8 @@ while [ $# -gt 0 ]; do
       echo "."                                                         >> "$upload_provenance"
    else
       echo "File does exists"
-      aws s3 ls "$s3"
-      # aws s3 ls s3://our-first-bucket-first-otc/source/abc.virginia.gov/product-label-approval/version/2019-05-10/source/1996/1013.jpg
+      #aws s3 ls "$s3"
+      # aws s3 ls s3://my-bucket/source/abc.123.org/labels/version/2015-04-13/source/1996/1013.jpg
       # 2019-10-12 15:11:29     151727 1013.jpg
    fi
-
-#   # /var/www/source/datahub.io/file/vis-seven-scenarios-codings/version/2013-Mar-08/manual/ScenarioPaperopencodingcleancopy.txt.xml.ttl.graffle
-#   if [ "$uri_of_path" == "yes" ]; then
-#      echo ${CSV2RDF4LOD_BASE_URI_OVERRIDE:-$CSV2RDF4LOD_BASE_URI}${file#$CSV2RDF4LOD_PUBLISH_VARWWW_ROOT}
-#      continue
-#   fi
-#
-#   # publish/sitemap.xml
-#   if [ -e "$file" ]; then
-#      # automatic/www.cv-foundation.org/openaccess/content_cvpr_2014/papers/Redi_6_Seconds_of_2014_CVPR_paper.txt.prov.ttl
-#
-#      directory=`dirname $file`
-#      directory=${file%%/*}
-#      if [[ "$directory" == 'source'    || "$directory" == "manual" || \
-#            "$directory" == 'automatic' || "$directory" == "publish" ]]; then
-#         lnwww $file $directory
-#      else  
-#         echo "`basename $0` ignoring b/c not in {source,manual,automatic,publish} convention: $file" >&2
-#         let "errorTally=errorTally+1"
-#      fi
-#   else
-#      "WARNING: $file does not exist"
-#      let "errorTally=errorTally+1"
-#   fi
 done
