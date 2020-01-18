@@ -1,0 +1,20 @@
+venv='automatic/venv'
+activate=$venv/bin/activate
+if [ ! -e "$activate" ]; then
+   mkdir -p `dirname $venv`
+   if [ !`which pip` ]; then
+      echo sudo pip install virtualenv
+           sudo pip install virtualenv
+   fi
+   virtualenv $venv
+   source $activate
+   pip install requests
+   pip install argparse
+   pip install bs4
+else
+   source $activate # <-- virtualenv
+fi
+
+# python ../2019-05-15/retrieve.py
+
+deactivate  # <-- virtualenv
