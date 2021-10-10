@@ -70,6 +70,7 @@ if [[ `is-pwd-a.sh cr:conversion-cockpit` == "yes" ]]; then
          popd 2>&1 > /dev/null
 
          if [[ -n "$ref" ]]; then
+            mkdir -p source
             ln -sf "$cockpit" "source/$ref"
          else
             echo "nopeno"
