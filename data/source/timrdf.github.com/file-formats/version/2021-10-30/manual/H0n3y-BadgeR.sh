@@ -23,11 +23,11 @@ splash () {
    local subject="$1"
    # ^ File path of a resource represention describing subject of interest.
    alias=${subject%.properties} && alias=`basename "$alias"` # => 'nas'
-   >&2 echo "\"$alias\" (according to some of the $(wc -l "$subject" | awk '{print $1}') characters within $subject)"
+   >&2 echo "\"$alias\" (according to some of the $(wc -l "$subject" | awk '{print $1}') bytes within $subject)"
    tab=$(echo "$alias" | sed 's/./ /g')
-   for predicate in $(gnaw "$device" | grep -v '^#'); do
+   for predicate in $(gnaw "$subject" | grep -v '^#'); do
       # Only those that are actually declared --^^
-      object=$(bite "$device" "$predicate")
+      object=$(bite "$subject" "$predicate")
       export $predicate="$object" # TODO: could we just have sourced the thing? :-)
       >&2 echo "$tab $predicate: $object"
    done
@@ -40,11 +40,11 @@ bite () {
    # ^ File path of a resource represention describing subject of interest.
    local predicate="$2"
    # ^ Relative path within $subject to a particular [object] value to obtain.
-   grep "^$predicate=" $device | sed 's/^.*=//;s/\s*$//'
+   grep "^$predicate=" $subject | sed 's/^.*=//;s/\s*$//'
 }
 
 # https://github.com/timrdf/csv2rdf4lod-automation/wiki/H0n3y-BadgeR
 err='BadgeR did not find a value for this property; check the property file and try again.'
 
-tuft='#!/bin/bash
-#3> <> dcterms:format <https://github.com/timrdf/csv2rdf4lod-automation/wiki/H0n3y-BadgeR> .'
+# echo -e this to instantiate boilerplate:
+tuft='#!/bin/bash\n#3> <> dcterms:format <https://github.com/timrdf/csv2rdf4lod-automation/wiki/H0n3y-BadgeR> .'
