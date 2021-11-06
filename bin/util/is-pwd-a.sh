@@ -42,20 +42,21 @@ is_a="no"
 while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
    if   [[ $1 == "cr:directory-of-sources" || $1 == "cr:data-root"          ]]; then
        source=`basename \`pwd\``
-      if [[ "$source" == "source" ]]; then
+      if [[ ( "$source" == "source" || "$source" == "agency" || "$source" == "sdv" ) ]]; then
          is_a="yes"
       fi
    elif [[ $1 == "cr:source"                                                ]]; then
        source=`basename \`cd ../          2>/dev/null && pwd\``
             s=`basename \`pwd\``
-      if [[ "$source" == "source" ]]; then
+      if [[ ( "$source" == "source" || "$source" == "agency" || "$source" == "sdv" ) ]]; then
          is_a="yes"
       fi
    elif [[ $1 == "cr:directory-of-datasets"                                 ]]; then
        source=`basename \`cd ../../       2>/dev/null && pwd\``
             s=`basename \`cd ../          2>/dev/null && pwd\``
        dataset=`basename \`pwd\``                               # TODO: need to add that step in...
-      if [[ "$source" == "source" && "$dataset" == "dataset" ]]; then
+      if [[ ( "$source" == "source" || "$source" == "agency" || "$source" == "sdv" ) && \
+              "$dataset" == "dataset" ]]; then
          is_a="yes"
       fi
    elif [[ $1 == "cr:dataset"                                               ]]; then
@@ -64,7 +65,7 @@ while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
          # TODO: dataset/
             d=`basename \`pwd\``
                                                                 # TODO: need to add that step in...
-      if [[ "$source" == "source" ]]; then
+      if [[ ( "$source" == "source" || "$source" == "agency" || "$source" == "sdv" ) ]]; then
          is_a="yes"
       fi
    elif [[ $1 == "cr:directory-of-versions"                                 ]]; then
@@ -74,7 +75,8 @@ while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
             d=`basename \`cd ../          2>/dev/null && pwd\`` # TODO: need to add that step in...
       version=`basename \`pwd\``
             v=""
-      if [[ "$source" == "source" && "$version" == "version" ]]; then # TODO: need to add that step in...
+      if [[ ( "$source" == "source" || "$source" == "agency" || "$source" == "sdv" ) && \
+              "$version" == "version" ]]; then # TODO: need to add that step in...
          is_a="yes"
       fi
    elif [[ $1 == "cr:version"              || $1 == "cr:conversion-cockpit" ]]; then
@@ -85,7 +87,8 @@ while [[ $# -ge 1 && "$1" != "--id-of" ]]; do
       version=`basename \`cd ../          2>/dev/null && pwd\``
             v=`basename \`pwd\``
 
-      if [[ "$source" == "source" && "$version" == "version" ]]; then
+      if [[ ( "$source" == "source" || "$source" == "agency" || "$source" == "sdv" ) && \
+               "$version" == "version" ]]; then
          is_a="yes"
       fi
    elif [[ "$1" == "cr:bone" || "$1" == "." ]]; then
