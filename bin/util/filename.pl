@@ -7,6 +7,7 @@ use LWP::UserAgent;
 
 my $url	= shift;
 my $ua	= LWP::UserAgent->new( max_redirect => 0 );
+$ua->env_proxy; # use the proxy specified by $http_proxy
 
 while (1) {
 	my $resp = $ua->head($url);
